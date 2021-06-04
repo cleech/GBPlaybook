@@ -1,0 +1,61 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/CrimsonText-Bold.ttf",
+      "sha1": "67110adc1ebe8bae06931ac66f09452fe6c0356f"
+    },
+    {
+      "path": "src/assets/fonts/CrimsonText-BoldItalic.ttf",
+      "sha1": "90171cd74e0571b64ee151709d33269ef5d557aa"
+    },
+    {
+      "path": "src/assets/fonts/CrimsonText-Italic.ttf",
+      "sha1": "2f9db667c3bfed77e89a19d59e5c1223cdb587df"
+    },
+    {
+      "path": "src/assets/fonts/CrimsonText-Regular.ttf",
+      "sha1": "e707007e0c168dfeeb4fdac211e6675cd257cc2f"
+    },
+    {
+      "path": "src/assets/fonts/CrimsonText-SemiBold.ttf",
+      "sha1": "2d0ab7c638e20797fe75e4b2cfcffec892ca30fc"
+    },
+    {
+      "path": "src/assets/fonts/CrimsonText-SemiBoldItalic.ttf",
+      "sha1": "f2f9e3beeb0f4e915254044ad96730d4ca95a1e3"
+    },
+    {
+      "path": "src/assets/fonts/GBPlaybook.json",
+      "sha1": "835902477779bada787e5d0e8a1a794e83a9c809"
+    },
+    {
+      "path": "src/assets/fonts/GBPlaybook.ttf",
+      "sha1": "9a532214eb8a2f56bf4b1def6c4313560710fc31"
+    },
+    {
+      "path": "src/assets/fonts/GuildBallIcon.ttf",
+      "sha1": "b67e16f6413f9a1af5a0f4b450ea2c344255b5ac"
+    },
+    {
+      "path": "src/assets/fonts/IM_FELL_Great_Primer_DC.otf",
+      "sha1": "751aa781480c85a2381a0c45d258031a882997e2"
+    },
+    {
+      "path": "src/assets/fonts/SourceSansPro-Regular.ttf",
+      "sha1": "fa4e303960cd8bf37a2171c4bc6186684f2d4178"
+    },
+    {
+      "path": "src/assets/fonts/selection.json",
+      "sha1": "e9483b8f49e4d78fef67d13d61473f8140188cdf"
+    },
+    {
+      "path": "src/data/GBData43.json",
+      "sha1": "32aae8d971510f105dfe6b56325835b509ff4154"
+    },
+    {
+      "path": "src/data/manifest.json",
+      "sha1": "c01399fbb6bb225450d7bdc871365053c2f43008"
+    }
+  ]
+}

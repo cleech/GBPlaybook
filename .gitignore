@@ -57,3 +57,6 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+# secrets file for local builds, never commit
+.env.secrets
