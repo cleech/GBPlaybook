@@ -20,6 +20,7 @@ const GBPlayer = types
     arm: types.integer,
     inf: types.integer,
     infmax: types.integer,
+    reach: types.boolean,
 
     // used in draft screen, here for completeness
     benched: types.maybe(types.string),
@@ -43,7 +44,7 @@ const GBPlayer = types
     // ugly hack for Pneuma adding to team influence pool
     _inf: types.maybe(types.integer),
   })
-  .actions((self) => ({
+  .actions(self => ({
     // initialize runtime state
     afterCreate() {
       self.health = self.hp;
@@ -66,7 +67,7 @@ const Settings = types
     colorScheme: types.maybe(types.enumeration(['dark', 'light'])),
     dataSet: types.maybe(types.string),
   })
-  .actions((self) => ({
+  .actions(self => ({
     setColorScheme(scheme) {
       self.colorScheme = scheme;
     },
@@ -81,7 +82,7 @@ const RootStore = types
     team2: types.optional(GBTeam, {}),
     settings: types.optional(Settings, {}),
   })
-  .actions((self) => ({
+  .actions(self => ({
     setTeam1(name) {
       self.team1.name = name;
     },
@@ -98,7 +99,7 @@ const RootStore = types
       applySnapshot(self, {});
     },
   }))
-  .views((self) => ({
+  .views(self => ({
     get draftReady() {
       return self.team1.roster.length && self.team2.roster.length;
     },
