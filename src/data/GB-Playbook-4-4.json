@@ -1685,12 +1685,12 @@
       "base": 30,
       "reach": false,
       "character_plays": [
-        "Shield Glare",
-        "Shield Throw"
+        "Fumble",
+        "Shield Glare"
       ],
       "character_traits": [
-        "Burning Passion",
         "Bright Shields",
+        "Burning Passion",
         "Swift Strikes"
       ],
       "types": "Sultarish, Human, Female,\nWinger,\nApprentice, Squaddie",
@@ -2758,12 +2758,12 @@
       "seasoned": false,
       "hp": 14,
       "recovery": 7,
-      "jog": 5,
+      "jog": 6,
       "sprint": 8,
       "tac": 5,
       "kickdice": 3,
       "kickdist": 6,
-      "def": 4,
+      "def": 3,
       "arm": 1,
       "inf": 2,
       "infmax": 4,
@@ -2773,14 +2773,15 @@
         "Sleight of Hand"
       ],
       "character_traits": [
-        "Raise the Stakes",
-        "Stack the Deck"
+        "Stack the Deck",
+        "Tough Hide"
       ],
+      "heroic": "Raise the Stakes\nThis model may make a 4\" dodge.",
       "types": "Valentian, Human, Male,\nCentral Midfielder,\nSquaddie",
       "playbook": [
         [
-          null,
           "T;M",
+          null,
           "><",
           null,
           null,
@@ -3535,7 +3536,7 @@
       "def": 3,
       "arm": 1,
       "inf": 2,
-      "infmax": 4,
+      "infmax": 3,
       "base": 40,
       "reach": true,
       "character_plays": [
@@ -3543,7 +3544,7 @@
       ],
       "character_traits": [
         "Celebrate THIS!",
-        "Outfield Defence"
+        "Goal Defence"
       ],
       "types": "Castellyian, Human, Male,\nGoalkeeper,\nSquaddie",
       "playbook": [
@@ -6228,7 +6229,6 @@
       ],
       "character_traits": [
         "Back to the Shadows",
-        "Close Control",
         "Swift Strikes",
         "Venomous Strike"
       ],
@@ -8806,7 +8806,6 @@
         "Marked Target"
       ],
       "character_traits": [
-        "Back to the Shadows",
         "Damaged Target",
         "Hunter's Prey"
       ],
@@ -8814,8 +8813,8 @@
       "playbook": [
         [
           "1,CP",
-          "T",
           null,
+          "T",
           null,
           null,
           null,
@@ -8824,9 +8823,9 @@
         [
           "1,<;M",
           "2,<;M",
-          "3,<;M",
+          "2,<<;M",
           "3,CP",
-          "4,<<;M",
+          "3,<<;M",
           null,
           null
         ]
@@ -9376,8 +9375,9 @@
         "Taking Flight"
       ],
       "character_traits": [
+        "Close Control",
         "Feathered Friends",
-        "Updraft"
+        "Flying"
       ],
       "types": "Figeon, Human, Male,\nStriker,\nSquaddie",
       "playbook": [
@@ -9391,10 +9391,10 @@
           null
         ],
         [
-          "T;M",
+          "T,<;M",
           "><;M",
-          "2;M",
-          "<<;M",
+          "2",
+          "T,<<;M",
           null,
           null,
           null
@@ -10207,18 +10207,18 @@
       "reach": false,
       "character_plays": [
         "I'm Open!",
-        "Route One",
-        "With Aplomb"
+        "Route One"
       ],
       "character_traits": [
         "Scores for Fun",
-        "Unpredictable Movement"
+        "Unpredictable Movement",
+        "With Aplomb"
       ],
       "legendary": "Worthy Sacrifice [6\" Aura]\nPlace this model in base contact with another friendly model within 6\". The other friendly model may then make a 6\" dodge.",
       "types": "Valentian, Human, Female,\nStriker,\nCaptain, Seasoned",
       "playbook": [
         [
-          null,
+          "1,<",
           "<<",
           "CP",
           null,
@@ -10227,10 +10227,10 @@
           null
         ],
         [
-          "1,<",
+          "T",
           "T,<;M",
           "2,<;M",
-          "CP2,<;M",
+          "T,T;M",
           "2,<<;M",
           null,
           null
@@ -10724,19 +10724,19 @@
       "base": 30,
       "reach": true,
       "character_plays": [
-        "Erupting Sores",
-        "Rataclysm"
+        "Rataclysm",
+        "Erupting Sores"
       ],
       "character_traits": [
         "Carrier",
-        "Salve [6\" Aura]",
-        "Virulent Strain [6\" Aura]"
+        "Virulent Strain [6\" Aura]",
+        "Salve [6\" Aura]"
       ],
       "types": "Figeon, Human, Female,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
+          "1",
           null,
-          "CP",
           "T",
           ">>",
           null,
@@ -10744,8 +10744,8 @@
           null
         ],
         [
-          "1",
           ">;M",
+          "CP",
           "2;M",
           "CP;M",
           "3",
@@ -11039,7 +11039,7 @@
       "reach": false,
       "character_plays": [
         "Away to Me",
-        "Howl"
+        "Fumble"
       ],
       "character_traits": [
         "Herding",
@@ -11092,7 +11092,7 @@
       "reach": false,
       "character_plays": [
         "Come Bye",
-        "Howl"
+        "Fumble"
       ],
       "character_traits": [
         "Herding",
@@ -11594,12 +11594,12 @@
       "OPT": false
     },
     {
-      "name": "Shield Throw",
-      "text": "Target enemy model suffers 2 DMG. If the target model is in possession of the ball, it loses possession of the ball. Then perform a circular scatter with the template centred on the target model.",
-      "CST": "2,CP",
+      "name": "Fumble",
+      "text": "Target enemy model in possession of the ball loses possession of the ball. Then perform a circular scatter with the template centered on the target model.",
+      "CST": "1,CP",
       "RNG": 6,
       "SUS": false,
-      "OPT": true
+      "OPT": false
     },
     {
       "name": "Decoy",
@@ -12123,7 +12123,7 @@
     },
     {
       "name": "Taking Flight",
-      "text": "This model may make a jog and gains Flying.\n(Flying: When this model moves, it ignores terrain and other models' bases. It can't end its movement overlapping another base, an obstruction, or a barrier).",
+      "text": "This model may immediately make a jog. It gains +2/+2 MOV for the duration of the advance.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12395,9 +12395,9 @@
     },
     {
       "name": "Bait",
-      "text": "6\" pulse. This model may place two friendly trap markers within this pulse. Then choose two enemy models within this pulse. The chosen models suffer a 1\" push.",
+      "text": "Position an AOE within range. This model may place two friendly trap markers within the AOE. Enemy models hit suffer a 1\" push.",
       "CST": "2,CP",
-      "RNG": "S",
+      "RNG": 3,
       "SUS": false,
       "OPT": true
     },
@@ -12928,14 +12928,6 @@
       "RNG": "S",
       "SUS": false,
       "OPT": true
-    },
-    {
-      "name": "Howl",
-      "text": "If target enemy model is in possession of the ball, it loses possession of the ball. Then perform a circular scatter with the template centred on that model.",
-      "CST": "1,CP",
-      "RNG": 6,
-      "SUS": false,
-      "OPT": false
     },
     {
       "name": "Warming Oven",
@@ -13525,12 +13517,12 @@
     {
       "name": "Celebrate THIS!",
       "active": false,
-      "text": "While this model is within 6\" of a friendly goalpost, when an enemy model scores a goal this model’s controlling player may choose to have the enemy model suffer 4 DMG."
+      "text": "If this model is within 4\" of a friendly goalpost, when an enemy model scores a goal, this model gains Fear and Furious for the rest of the game.\n(Fear: The first time each turn an enemy model spends influence on an attack, charge, or character play that targets this model, the enemy model must spend 1 additional influence.\nFurious: When this model makes a charge during its activation, it may do so without spending influence.)"
     },
     {
-      "name": "Outfield Defence",
+      "name": "Goal Defence",
       "active": false,
-      "text": "Enemy models suffer +1 TN to Shots while this model is within 6\" of a friendly goalpost."
+      "text": "Enemy models suffer +1 TN to Shots while this model is within 4\" of a friendly goalpost."
     },
     {
       "name": "Guild Rule: Intimidation",
@@ -14265,7 +14257,7 @@
     {
       "name": "Virulent Strain",
       "active": false,
-      "text": "While within this aura, enemy models suffering the disease condition suffer -1 TAC."
+      "text": "While within this aura, enemy models suffering the disease condition suffer -1 TAC and -1 DEF."
     },
     {
       "name": "Cloak of Rats",
@@ -14310,7 +14302,7 @@
     {
       "name": "Herding",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 4\" and remove it from the pitch. If it does, choose an enemy model within 4\". The chosen enemy model suffers a 3\" push."
+      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove it from the pitch. If it does, choose an enemy model within 3\". The chosen enemy model suffers a 3\" push."
     },
     {
       "name": "Littermates",
@@ -14398,7 +14390,9 @@
       "text": "This model may be allocated influence while not on the pitch."
     },
     {
-      "active": false
+      "name": "With Aplomb",
+      "active": false,
+      "text": "When this model scores a goal with a snap shot, the friendly team gains +1 VP."
     }
   ]
 }

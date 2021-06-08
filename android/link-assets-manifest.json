@@ -27,11 +27,11 @@
     },
     {
       "path": "src/assets/fonts/GBPlaybook.json",
-      "sha1": "835902477779bada787e5d0e8a1a794e83a9c809"
+      "sha1": "3cff15c272ee954bf881b11093def58fe74634f5"
     },
     {
       "path": "src/assets/fonts/GBPlaybook.ttf",
-      "sha1": "9a532214eb8a2f56bf4b1def6c4313560710fc31"
+      "sha1": "9fe3fb4b8954779ea6536aceeea76bf1365c520d"
     },
     {
       "path": "src/assets/fonts/GuildBallIcon.ttf",
@@ -50,12 +50,16 @@
       "sha1": "e9483b8f49e4d78fef67d13d61473f8140188cdf"
     },
     {
-      "path": "src/data/GBData43.json",
-      "sha1": "32aae8d971510f105dfe6b56325835b509ff4154"
+      "path": "src/data/GB-Playbook-4-3.json",
+      "sha1": "2d70fbb7631ffaf58c7b3252f4b980868c74b7cc"
+    },
+    {
+      "path": "src/data/GB-Playbook-4-4.json",
+      "sha1": "1d45297652d6937ae02ce1bd1029f49f5994a55a"
     },
     {
       "path": "src/data/manifest.json",
-      "sha1": "c01399fbb6bb225450d7bdc871365053c2f43008"
+      "sha1": "8211c39f18c7bee4b582383035857f554b0bb0ae"
     }
   ]
 }

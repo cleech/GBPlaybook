@@ -36,7 +36,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>IM_FELL_Great_Primer_DC.otf</string>
@@ -46,7 +46,6 @@
 		<string>CrimsonText-Regular.ttf</string>
 		<string>CrimsonText-SemiBold.ttf</string>
 		<string>CrimsonText-SemiBoldItalic.ttf</string>
-		<string>GBPlaybook.ttf</string>
 		<string>GuildBallIcon.ttf</string>
 		<string>SourceSansPro-Regular.ttf</string>
 		<string>AntDesign.ttf</string>
@@ -65,6 +64,7 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>GBPlaybook.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

@@ -1,13 +1,21 @@
 {
-  "timestamp": "2021-05-31T21:33:37Z",
+  "timestamp": "2021-06-08T18:14:59Z",
   "datafiles": [
     {
       "version": "4.3",
       "description": "Steamforged Guild Ball season 4.3",
-      "filename": "GBData43.json",
+      "filename": "GB-Playbook-4-3.json",
       "hashAlgo": "sha256",
-      "hash": "f75cfd25ab9e7254798bf1c5665f288ce3403682b5db6678c7daca71bc428782",
-      "timestamp": "2021-05-30T21:31:17Z"
+      "hash": "c0aa7595b6fa465ae73112c3e0298cac80783cf567092cb24582f8221abd155d",
+      "timestamp": "2021-06-08T16:53:56Z"
+    },
+    {
+      "version": "4.4",
+      "description": "Guild Ball Community Project season 4.4",
+      "filename": "GB-Playbook-4-4.json",
+      "hashAlgo": "sha256",
+      "hash": "3e92f10be744ff2524caddd36f3536d10020ae3cc6fa9649507d2c921dc1b269",
+      "timestamp": "2021-06-08T18:10:33Z"
     }
   ]
 }
