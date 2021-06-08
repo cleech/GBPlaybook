@@ -27,6 +27,8 @@ import {StatusBar} from 'react-native';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import {useData} from '../components/DataContext';
+
 const TeamScreenStore = types
   .model({
     selector: types.enumeration(['P1', 'P2', 'GO']),
@@ -44,6 +46,7 @@ const screenStore = TeamScreenStore.create({
 const TeamSelectScreen = withTheme((props) => {
   const store = useStore();
   const theme = useTheme();
+  const {version} = useData();
 
   // const orientation = useDeviceOrientation();
   const dimensions = useDimensions();
@@ -180,6 +183,9 @@ const TeamSelectScreen = withTheme((props) => {
             )}
           </Observer>
         </View>
+        <Text style={{position: 'absolute', bottom: 0, right: 0}}>
+          [{version}]
+        </Text>
       </SafeAreaView>
     </ImageBackground>
   );

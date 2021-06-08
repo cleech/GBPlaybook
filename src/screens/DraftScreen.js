@@ -29,7 +29,7 @@ const DraftScreen = (props) => {
   const store = useStore();
   const theme = useTheme();
 
-  const {data, loading} = useData();
+  const {data, version, loading} = useData();
   if (loading) {
     return null;
   }
@@ -139,6 +139,9 @@ const DraftScreen = (props) => {
             // style={{alignSelf: 'flex-start'}}
           />
         </View>
+        <Text style={{position: 'absolute', bottom: 0, right: 0}}>
+          [{version}]
+        </Text>
       </SafeAreaView>
     </ImageBackground>
   );

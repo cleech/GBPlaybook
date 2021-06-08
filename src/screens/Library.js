@@ -38,6 +38,7 @@ const TeamLibraryPhone = withTheme(props => {
   }
   const Guilds = gdata.data.Guilds;
   const Models = gdata.data.Models;
+  const version = gdata.version;
 
   const {height, width} = useDimensions().window;
   const landscape = width > height;
@@ -134,6 +135,9 @@ const TeamLibraryPhone = withTheme(props => {
             )}
           />
         )}
+        <Text style={{position: 'absolute', bottom: 0, right: 0}}>
+          [{version}]
+        </Text>
       </View>
       <View
         style={{
@@ -310,7 +314,7 @@ const LibraryScreen = withTheme(props => {
   const {height, width} = useDimensions().window;
   const landscape = width > height;
 
-  const {data, loading} = useData();
+  const {data, version, loading} = useData();
   if (loading) {
     return null;
   }
@@ -418,6 +422,9 @@ const LibraryScreen = withTheme(props => {
           // />
         ))}
       </View>
+      <Text style={{position: 'absolute', bottom: 0, right: 0}}>
+        [{version}]
+      </Text>
     </SafeAreaView>
   );
 });

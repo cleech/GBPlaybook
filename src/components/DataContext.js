@@ -9,6 +9,7 @@ export const DataProvider = observer(({children}) => {
   const [loading, setLoading] = useState(true);
   const [manifest, setManifest] = useState(null);
   const [data, setData] = useState(null);
+  const [version, setVersion] = useState('');
 
   const settings = useStore().settings;
   const filename = settings.dataSet;
@@ -27,6 +28,7 @@ export const DataProvider = observer(({children}) => {
       filename = manifest.datafiles[0].filename;
       settings.setDataSet(filename);
     }
+    setVersion(manifest.datafiles.find((d) => d.filename === filename).version);
     setData(await readFile(filename));
     setLoading(false);
   };
@@ -37,7 +39,7 @@ export const DataProvider = observer(({children}) => {
   }, [filename]);
 
   return (
-    <DataContext.Provider value={{loading, data, manifest}}>
+    <DataContext.Provider value={{loading, data, version, manifest}}>
       {children}
     </DataContext.Provider>
   );
