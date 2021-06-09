@@ -106,7 +106,10 @@ const DraftScreen = props => {
             }}>
             <Team1DraftList
               guild={Guilds.find(g => g.name === guild1)}
-              ready={team => store.setRoster1(team)}
+              ready={team => {
+                store.setTeam1(guild1);
+                store.setRoster1(team);
+              }}
               unready={() => store.setRoster1([])}
             />
           </View>
@@ -118,9 +121,9 @@ const DraftScreen = props => {
                 animated={false}
                 onPress={() => props.navigation.navigate('Game')}
                 disabled={!store.draftReady}
-                icon='play'
+                icon="play"
                 // icon={({size, color}) => (
-                  // <GBIcons name="GBT" size={size} color={color} />
+                // <GBIcons name="GBT" size={size} color={color} />
                 // )}
                 style={{
                   alignSelf: 'center',
@@ -139,7 +142,10 @@ const DraftScreen = props => {
             }}>
             <Team2DraftList
               guild={Guilds.find(g => g.name === guild2)}
-              ready={team => store.setRoster2(team)}
+              ready={team => {
+                store.setTeam2(guild2);
+                store.setRoster2(team);
+              }}
               unready={() => store.setRoster2([])}
             />
           </View>
