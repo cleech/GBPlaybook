@@ -53,7 +53,7 @@ const DarkTheme = _.merge(
 );
 
 const RootStore = createRootStore();
-// persist('GBPlaybook', RootStore, {storage: AsyncStorage, jsonify: true});
+persist('GBPlaybook', RootStore, {storage: AsyncStorage, jsonify: true});
 
 const RootDrawer = createDrawerNavigator();
 const GameStack = createStackNavigator();

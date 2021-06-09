@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {Text, withTheme} from 'react-native-paper';
 import AwesomeIcons from 'react-native-vector-icons/FontAwesome';
@@ -172,12 +172,8 @@ export const DraftList = withTheme((props) => {
 
     if (captain && mascot && squaddieCount === 4) {
       setReady(true);
-      let team = _.cloneDeep(props.guild);
-      team.roster = _.cloneDeep(roster.filter((m) => m.selected));
-      props.ready && props.ready(team.roster);
     } else if (ready) {
       setReady(false);
-      props.unready && props.unready();
     }
 
     setRoster(roster);
@@ -188,6 +184,16 @@ export const DraftList = withTheme((props) => {
   let [mascot, setMascot] = useState(props.guild.minor ? true : false);
   let [squaddieCount, setSquadCount] = useState(0);
   let [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (ready) {
+      let team = _.cloneDeep(props.guild);
+      team.roster = _.cloneDeep(roster.filter(m => m.selected));
+      props.ready && props.ready(team.roster);
+    } else {
+      props.unready && props.unready();
+    }
+  }, [ready]);
 
   let [roster, setRoster] = useState(() => {
     // need to make a deep copy of the roster data
@@ -296,12 +302,8 @@ export const BlacksmithDraftList = withTheme((props) => {
 
     if (masterCount === 3 && apprenticeCount === 3) {
       setReady(true);
-      let team = _.cloneDeep(props.guild);
-      team.roster = _.cloneDeep(roster.filter((m) => m.selected));
-      props.ready && props.ready(team.roster);
     } else if (ready) {
       setReady(false);
-      props.unready && props.unready();
     }
 
     setRoster(roster);
@@ -310,6 +312,16 @@ export const BlacksmithDraftList = withTheme((props) => {
   let [masterCount, setMasterCount] = useState(0);
   let [apprenticeCount, setApprenticeCount] = useState(0);
   let [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (ready) {
+      let team = _.cloneDeep(props.guild);
+      team.roster = _.cloneDeep(roster.filter(m => m.selected));
+      props.ready && props.ready(team.roster);
+    } else {
+      props.unready && props.unready();
+    }
+  }, [ready]);
 
   let [roster, setRoster] = useState(() => {
     // need to make a deep copy of the roster data

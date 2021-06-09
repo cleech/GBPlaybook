@@ -35,8 +35,7 @@ const DraftScreen = props => {
   }
   const Guilds = data.Guilds;
 
-  let guild1 = store.team1.name;
-  let guild2 = store.team2.name;
+  const { guild1, guild2 } = props.route.params;
 
   // const orientation = useDeviceOrientation();
   const {height, width} = useDimensions().window;

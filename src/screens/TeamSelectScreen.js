@@ -17,7 +17,6 @@ import GuildGrid, {itemSize} from '../components/GuildGrid';
 
 import {types} from 'mobx-state-tree';
 import {observer, Observer} from 'mobx-react-lite';
-import {useStore} from '../stores/RootStore';
 // import NavRail from '../components/NavRail';
 import {Appbar} from 'react-native-paper';
 import {CommonActions} from '@react-navigation/native';
@@ -32,19 +31,29 @@ import {useData} from '../components/DataContext';
 const TeamScreenStore = types
   .model({
     selector: types.enumeration(['P1', 'P2', 'GO']),
+    team1: types.string,
+    team2: types.string,
   })
   .actions(self => ({
     setSelector(s) {
       self.selector = s;
     },
+    setTeam1(s) {
+      self.team1 = s;
+    },
+    setTeam2(s) {
+      self.team2 = s;
+    },
   }));
 
 const screenStore = TeamScreenStore.create({
   selector: 'P1',
+  team1: '',
+  team2: '',
 });
 
 const TeamSelectScreen = withTheme(props => {
-  const store = useStore();
+  // const store = useStore();
   const theme = useTheme();
   const {version} = useData();
 
@@ -56,15 +65,15 @@ const TeamSelectScreen = withTheme(props => {
 
   function pickTeam(name) {
     if (screenStore.selector === 'P1') {
-      store.setTeam1(name);
-      if (!store.team2.name) {
+      screenStore.setTeam1(name);
+      if (!screenStore.team2) {
         screenStore.setSelector('P2');
       } else {
         screenStore.setSelector('GO');
       }
     } else if (screenStore.selector === 'P2') {
-      store.setTeam2(name);
-      if (!store.team1.name) {
+      screenStore.setTeam2(name);
+      if (!screenStore.team1) {
         screenStore.setSelector('P1');
       } else {
         screenStore.setSelector('GO');
@@ -132,7 +141,7 @@ const TeamSelectScreen = withTheme(props => {
                   flexDirection: 'row',
                   alignItems: 'center',
                 }}>
-                <SelectorIcon id="P1" team={store.team1} />
+                <SelectorIcon id="P1" team={screenStore.team1} />
 
                 <View
                   style={{
@@ -156,10 +165,10 @@ const TeamSelectScreen = withTheme(props => {
                     // )}
                     onPress={() => {
                       if (screenStore.selector === 'GO') {
-                        props.navigation.navigate('Draft');
+                        props.navigation.navigate('Draft', {guild1: screenStore.team1, guild2: screenStore.team2});
                       } else if (
-                        store.team1.name != '' &&
-                        store.team2.name != ''
+                        screenStore.team1.name != '' &&
+                        screenStore.team2.name != ''
                       ) {
                         screenStore.setSelector('GO');
                       }
@@ -167,7 +176,7 @@ const TeamSelectScreen = withTheme(props => {
                   />
                 </View>
 
-                <SelectorIcon id="P2" team={store.team2} />
+                <SelectorIcon id="P2" team={screenStore.team2} />
               </View>
             )}
           </Observer>
@@ -202,7 +211,7 @@ const SelectorIcon = withTheme(
             overflow: 'hidden',
           }}>
           <Text style={{fontSize: itemsize / 2}}>{props.id}</Text>
-          {!props.team.name ? (
+          {!props.team ? (
             <></>
           ) : (
             <View
@@ -214,7 +223,7 @@ const SelectorIcon = withTheme(
                 zIndex: -1,
               }}>
               <GBIcon
-                name={props.team.name}
+                name={props.team}
                 size={itemsize}
                 style={{
                   color: props.theme.dark ? '#000a' : '#fff6',
@@ -222,7 +231,7 @@ const SelectorIcon = withTheme(
               />
             </View>
           )}
-          <Text>{props.team.name}</Text>
+          <Text>{props.team}</Text>
         </View>
       </TouchableOpacity>
     );
