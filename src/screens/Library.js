@@ -372,59 +372,66 @@ const LibraryScreen = withTheme(props => {
       </View>
       {/* {landscape && (
         <NavRail>
-          <Appbar.Action />
+        <Appbar.Action />
           <Text />
           <Appbar.Action
             icon="play-circle-outline"
             onPress={() => {
               props.navigation.navigate('Game Play');
             }}
-          />
+            />
           <Text style={{textAlign: 'center'}}>Game Manager</Text>
           <Appbar.Action
             icon="cards-outline"
             onPress={() => {
               props.navigation.navigate('Library');
             }}
-          />
+            />
           <Text style={{textAlign: 'center'}}>Card Library</Text>
           <Appbar.Action
             icon="cogs"
             onPress={() => {
               props.navigation.navigate('Settings');
             }}
-          />
+            />
           <Text style={{textAlign: 'center'}}>Settings</Text>
-        </NavRail>
+          </NavRail>
       )} */}
       <View
         style={{
-          flex: -1,
-          flexWrap: 'wrap',
+          flexDirection: 'row',
+          width: '100%',
           height: '100%',
-          backgroundColor: props.theme.colors.surface,
         }}>
-        {Guilds.map(g => (
-          <Chip
-            key={g.name}
-            onPress={() => {
-              props.navigation.navigate(g.name);
-            }}>
-            {g.name}
-          </Chip>
-          // <Drawer.Item
-          //   style={{width: 110}}
-          //   label={g.name}
-          //   key={g.name}
-          //   onPress={() => {
-          //     props.navigation.navigate(g.name);
-          //   }}
-          // />
-        ))}
+        <View
+          style={{
+            flex: -1,
+            flexWrap: 'wrap',
+            height: '100%',
+            backgroundColor: props.theme.colors.surface,
+          }}>
+          {Guilds.map(g => (
+            <Chip
+              key={g.name}
+              onPress={() => {
+                props.navigation.navigate(g.name);
+              }}>
+              {g.name}
+            </Chip>
+            // <Drawer.Item
+            //   style={{width: 110}}
+            //   label={g.name}
+            //   key={g.name}
+            //   onPress={() => {
+            //     props.navigation.navigate(g.name);
+            //   }}
+            // />
+          ))}
+        </View>
+        <Text style={{position: 'absolute', bottom: 0, right: 0}}>
+          [{version}]
+        </Text>
       </View>
-      <Text style={{position: 'absolute', bottom: 0, right: 0}}>
-        [{version}]
-      </Text>
     </SafeAreaView>
   );
 });

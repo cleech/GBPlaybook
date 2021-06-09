@@ -25,7 +25,7 @@ import {CommonActions} from '@react-navigation/native';
 
 import {useData} from '../components/DataContext';
 
-const DraftScreen = (props) => {
+const DraftScreen = props => {
   const store = useStore();
   const theme = useTheme();
 
@@ -92,56 +92,60 @@ const DraftScreen = (props) => {
             <Text style={{textAlign: 'center'}}>Settings</Text>
           </NavRail>
         )} */}
-
         <View
           style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'flex-end',
             flexDirection: landscape ? 'row' : 'column',
+            height: '100%',
+            width: '100%',
           }}>
-          <Team1DraftList
-            guild={Guilds.find((g) => g.name === guild1)}
-            ready={(team) => store.setRoster1(team)}
-            unready={() => store.setRoster1([])}
-            // style={{alignSelf: 'flex-end'}}
-          />
-        </View>
-
-        <Observer>
-          {() => (
-            <FAB
-              animated={false}
-              onPress={() => props.navigation.navigate('Game')}
-              disabled={!store.draftReady}
-              icon={({size, color}) => (
-                <GBIcons name="GBT" size={size} color={color} />
-              )}
-              style={{
-                alignSelf: 'center',
-                // backgroundColor: store.draftReady ? 'yellow' : '#ddd',
-              }}
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              flexDirection: landscape ? 'row' : 'column',
+            }}>
+            <Team1DraftList
+              guild={Guilds.find(g => g.name === guild1)}
+              ready={team => store.setRoster1(team)}
+              unready={() => store.setRoster1([])}
             />
-          )}
-        </Observer>
+          </View>
 
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            flexDirection: landscape ? 'row' : 'column',
-          }}>
-          <Team2DraftList
-            guild={Guilds.find((g) => g.name === guild2)}
-            ready={(team) => store.setRoster2(team)}
-            unready={() => store.setRoster2([])}
-            // style={{alignSelf: 'flex-start'}}
-          />
+          <Observer>
+            {() => (
+              <FAB
+                animated={false}
+                onPress={() => props.navigation.navigate('Game')}
+                disabled={!store.draftReady}
+                icon={({size, color}) => (
+                  <GBIcons name="GBT" size={size} color={color} />
+                )}
+                style={{
+                  alignSelf: 'center',
+                  // backgroundColor: store.draftReady ? 'yellow' : '#ddd',
+                }}
+              />
+            )}
+          </Observer>
+
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              flexDirection: landscape ? 'row' : 'column',
+            }}>
+            <Team2DraftList
+              guild={Guilds.find(g => g.name === guild2)}
+              ready={team => store.setRoster2(team)}
+              unready={() => store.setRoster2([])}
+            />
+          </View>
+          <Text style={{position: 'absolute', bottom: 0, right: 0}}>
+            [{version}]
+          </Text>
         </View>
-        <Text style={{position: 'absolute', bottom: 0, right: 0}}>
-          [{version}]
-        </Text>
       </SafeAreaView>
     </ImageBackground>
   );

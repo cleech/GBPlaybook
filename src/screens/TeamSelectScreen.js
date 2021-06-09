@@ -182,10 +182,10 @@ const TeamSelectScreen = withTheme((props) => {
               </View>
             )}
           </Observer>
+          <Text style={{position: 'absolute', bottom: 0, right: 0}}>
+            [{version}]
+          </Text>
         </View>
-        <Text style={{position: 'absolute', bottom: 0, right: 0}}>
-          [{version}]
-        </Text>
       </SafeAreaView>
     </ImageBackground>
   );
