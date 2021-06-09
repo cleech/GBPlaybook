@@ -115,12 +115,14 @@ const DraftScreen = props => {
           <Observer>
             {() => (
               <FAB
+                theme={{colors: {accent: '#dda520'}}}
                 animated={false}
                 onPress={() => props.navigation.navigate('Game')}
                 disabled={!store.draftReady}
-                icon={({size, color}) => (
-                  <GBIcons name="GBT" size={size} color={color} />
-                )}
+                icon='play'
+                // icon={({size, color}) => (
+                  // <GBIcons name="GBT" size={size} color={color} />
+                // )}
                 style={{
                   alignSelf: 'center',
                   // backgroundColor: store.draftReady ? 'yellow' : '#ddd',

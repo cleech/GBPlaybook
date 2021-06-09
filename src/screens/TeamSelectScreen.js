@@ -3,7 +3,7 @@ import {StyleSheet, View, ImageBackground} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import {Text, withTheme} from 'react-native-paper';
+import {Text, withTheme, FAB} from 'react-native-paper';
 
 import {
   useDimensions,
@@ -33,7 +33,7 @@ const TeamScreenStore = types
   .model({
     selector: types.enumeration(['P1', 'P2', 'GO']),
   })
-  .actions((self) => ({
+  .actions(self => ({
     setSelector(s) {
       self.selector = s;
     },
@@ -43,7 +43,7 @@ const screenStore = TeamScreenStore.create({
   selector: 'P1',
 });
 
-const TeamSelectScreen = withTheme((props) => {
+const TeamSelectScreen = withTheme(props => {
   const store = useStore();
   const theme = useTheme();
   const {version} = useData();
@@ -144,11 +144,16 @@ const TeamSelectScreen = withTheme((props) => {
                       // fontFamily: 'IMFellGreatPrimerSC-Regular',
                       fontSize: 24,
                     }}>
-                    {' '}
-                    vs{' '}
+                    vs
                   </Text>
-                  <TouchableOpacity
-                    // move on to the drafting screen
+                  <FAB
+                    theme={{colors: { accent: '#daa520'}}}
+                    animated={false}
+                    disabled={screenStore.selector !== 'GO'}
+                    icon='play'
+                    // icon={({size, color}) => (
+                      // <GBIcon name="GBT" size={size} color={color} />
+                    // )}
                     onPress={() => {
                       if (screenStore.selector === 'GO') {
                         props.navigation.navigate('Draft');
@@ -158,24 +163,8 @@ const TeamSelectScreen = withTheme((props) => {
                       ) {
                         screenStore.setSelector('GO');
                       }
-                    }}>
-                    <View
-                      style={{
-                        alignItems: 'center',
-                        aspectRatio: 1,
-                        borderRadius: 24,
-                        borderWidth: 4,
-                        padding: 8,
-                        borderColor:
-                          screenStore.selector === 'GO' ? 'yellow' : '#fff0',
-                      }}>
-                      <GBIcon
-                        size={(itemsize - 24) * 0.5}
-                        name="GBT"
-                        color={props.theme.colors.text}
-                      />
-                    </View>
-                  </TouchableOpacity>
+                    }}
+                  />
                 </View>
 
                 <SelectorIcon id="P2" team={store.team2} />
@@ -194,7 +183,7 @@ const TeamSelectScreen = withTheme((props) => {
 export default TeamSelectScreen;
 
 const SelectorIcon = withTheme(
-  observer((props) => {
+  observer(props => {
     const dimensions = useDimensions();
     const itemsize = itemSize(dimensions);
     return (
