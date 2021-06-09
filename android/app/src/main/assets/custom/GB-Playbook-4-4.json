@@ -12126,7 +12126,7 @@
       "text": "This model may immediately make a jog. It gains +2/+2 MOV for the duration of the advance.",
       "CST": 1,
       "RNG": "S",
-      "SUS": true,
+      "SUS": false,
       "OPT": true
     },
     {

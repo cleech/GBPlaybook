@@ -55,11 +55,11 @@
     },
     {
       "path": "src/data/GB-Playbook-4-4.json",
-      "sha1": "1d45297652d6937ae02ce1bd1029f49f5994a55a"
+      "sha1": "0ff2f9bb068d88ca3f3d0d85468262c4cd3d97d1"
     },
     {
       "path": "src/data/manifest.json",
-      "sha1": "8211c39f18c7bee4b582383035857f554b0bb0ae"
+      "sha1": "becc234bb770f4ae64544bd6212f7869ebc5ce00"
     }
   ]
 }

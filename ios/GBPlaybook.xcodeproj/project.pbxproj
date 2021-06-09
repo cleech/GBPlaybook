@@ -25,10 +25,10 @@
 		B6738482C26F44E3A3D37BCD /* selection.json in Resources */ = {isa = PBXBuildFile; fileRef = B3A3E2C40D094CD9841812FC /* selection.json */; };
 		CFE5A48A59134F4982C7A97F /* IM_FELL_Great_Primer_DC.otf in Resources */ = {isa = PBXBuildFile; fileRef = 380DB3B59F2143AEADBCF37A /* IM_FELL_Great_Primer_DC.otf */; };
 		B4D6AAE4F7DF4738A25FA1C2 /* GB-Playbook-4-3.json in Resources */ = {isa = PBXBuildFile; fileRef = 2DC9220924D14CA59D476A49 /* GB-Playbook-4-3.json */; };
-		ABBECB7783184F21BC5C6D48 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = EA0117B949354E23BFEE9D84 /* manifest.json */; };
 		D5184CCDCD5042A4BB5360DF /* GBPlaybook.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1ACEA498B0F4EF697127C82 /* GBPlaybook.ttf */; };
 		60E581E2CAB847AFB2D128B0 /* GBPlaybook.json in Resources */ = {isa = PBXBuildFile; fileRef = 0C29F6C9C7E34EBFAE1C4477 /* GBPlaybook.json */; };
-		B4906CE702054A97AACE2174 /* GB-Playbook-4-4.json in Resources */ = {isa = PBXBuildFile; fileRef = FB32024B364341C1A2839B6D /* GB-Playbook-4-4.json */; };
+		C9EFB913C19B477BA650049D /* GB-Playbook-4-4.json in Resources */ = {isa = PBXBuildFile; fileRef = 075690DCFBEF45D4810BB66B /* GB-Playbook-4-4.json */; };
+		A871AAA2ACF34040BF6389CE /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = C9A211A83EA048E8913A7D72 /* manifest.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,10 +86,10 @@
 		F36DC2163DC944F89959B6B2 /* CrimsonText-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CrimsonText-Regular.ttf"; path = "../src/assets/fonts/CrimsonText-Regular.ttf"; sourceTree = "<group>"; };
 		F79346CA0BC67C52EA6D8493 /* Pods-GBPlaybook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GBPlaybook.release.xcconfig"; path = "Target Support Files/Pods-GBPlaybook/Pods-GBPlaybook.release.xcconfig"; sourceTree = "<group>"; };
 		2DC9220924D14CA59D476A49 /* GB-Playbook-4-3.json */ = {isa = PBXFileReference; name = "GB-Playbook-4-3.json"; path = "../src/data/GB-Playbook-4-3.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		EA0117B949354E23BFEE9D84 /* manifest.json */ = {isa = PBXFileReference; name = "manifest.json"; path = "../src/data/manifest.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		C1ACEA498B0F4EF697127C82 /* GBPlaybook.ttf */ = {isa = PBXFileReference; name = "GBPlaybook.ttf"; path = "../src/assets/fonts/GBPlaybook.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		0C29F6C9C7E34EBFAE1C4477 /* GBPlaybook.json */ = {isa = PBXFileReference; name = "GBPlaybook.json"; path = "../src/assets/fonts/GBPlaybook.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		FB32024B364341C1A2839B6D /* GB-Playbook-4-4.json */ = {isa = PBXFileReference; name = "GB-Playbook-4-4.json"; path = "../src/data/GB-Playbook-4-4.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		075690DCFBEF45D4810BB66B /* GB-Playbook-4-4.json */ = {isa = PBXFileReference; name = "GB-Playbook-4-4.json"; path = "../src/data/GB-Playbook-4-4.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C9A211A83EA048E8913A7D72 /* manifest.json */ = {isa = PBXFileReference; name = "manifest.json"; path = "../src/data/manifest.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,10 +225,10 @@
 				DA642172C25842F0B78F70D1 /* SimpleLineIcons.ttf */,
 				8554019B3D4A4710A6A93F62 /* Zocial.ttf */,
 				2DC9220924D14CA59D476A49 /* GB-Playbook-4-3.json */,
-				EA0117B949354E23BFEE9D84 /* manifest.json */,
 				C1ACEA498B0F4EF697127C82 /* GBPlaybook.ttf */,
 				0C29F6C9C7E34EBFAE1C4477 /* GBPlaybook.json */,
-				FB32024B364341C1A2839B6D /* GB-Playbook-4-4.json */,
+				075690DCFBEF45D4810BB66B /* GB-Playbook-4-4.json */,
+				C9A211A83EA048E8913A7D72 /* manifest.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -340,10 +340,10 @@
 				B0E37873286A4B69BD03D2A5 /* SourceSansPro-Regular.ttf in Resources */,
 				B6738482C26F44E3A3D37BCD /* selection.json in Resources */,
 				B4D6AAE4F7DF4738A25FA1C2 /* GB-Playbook-4-3.json in Resources */,
-				ABBECB7783184F21BC5C6D48 /* manifest.json in Resources */,
 				D5184CCDCD5042A4BB5360DF /* GBPlaybook.ttf in Resources */,
 				60E581E2CAB847AFB2D128B0 /* GBPlaybook.json in Resources */,
-				B4906CE702054A97AACE2174 /* GB-Playbook-4-4.json in Resources */,
+				C9EFB913C19B477BA650049D /* GB-Playbook-4-4.json in Resources */,
+				A871AAA2ACF34040BF6389CE /* manifest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

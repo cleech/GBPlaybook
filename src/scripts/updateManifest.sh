@@ -7,7 +7,7 @@ for dataFile in $@; do
 	sha=`sha256sum $dataFile | cut -d\  -f1`
 	jq "(.timestamp |= (now|todate)) \
 	    | (.datafiles[] | select(.filename==\"${dataFile}\")) \
-	    |= (.timestamp |= (${mtime}|todate) | .hash |= \"${sha}\")" \
+	    |= (.timestamp |= (${mtime}|todate) | .sha256|= \"${sha}\")" \
 		manifest.json > ${TMP}
 	mv ${TMP} manifest.json
 done
