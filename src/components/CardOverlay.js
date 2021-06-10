@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Platform} from 'react-native';
+import {View, StyleSheet, Platform} from 'react-native';
 import {Observer} from 'mobx-react-lite';
 import GBIcon, {PB, PBIcons, GBIconGradient} from '../components/GBIcons';
 // import {Guilds, CPlays, CTraits} from '../components/GuildData';
@@ -8,6 +8,9 @@ import {useData} from '../components/DataContext';
 import reactStringReplace from 'react-string-replace';
 import {GBIconFade} from '../components/GBIcons';
 import LinearGradient from 'react-native-linear-gradient';
+
+import {Text as RNText} from 'react-native';
+const Text = props => <RNText {...props} allowFontScaling={false} />;
 
 /* just a GBIcon, unless it's a funky crosssfade for Compound and Lucky */
 function GuildIcon(props) {
