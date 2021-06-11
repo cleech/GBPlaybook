@@ -102,7 +102,9 @@ const GuildGrid = withTheme((props) => {
               }}
             />
             <Text
-            // style={{fontFamily: 'IM_FELL_Great_Primer_DC'}}
+              // allowFontScaling={false}
+              numberOfLines={1}
+              adjustsFontSizeToFit={true}
             >
               {item.name}
             </Text>

@@ -210,7 +210,9 @@ const SelectorIcon = withTheme(
             margin: 0,
             overflow: 'hidden',
           }}>
-          <Text style={{fontSize: itemsize / 2}}>{props.id}</Text>
+          <Text style={{fontSize: itemsize / 2}} allowFontScaling={false}>
+            {props.id}
+          </Text>
           {!props.team ? (
             <></>
           ) : (
@@ -231,7 +233,11 @@ const SelectorIcon = withTheme(
               />
             </View>
           )}
-          <Text>{props.team}</Text>
+          <Text
+            // allowFontScaling={false}
+            numberOfLines={1}
+            adjustsFontSizeToFit={true}
+          >{props.team}</Text>
         </View>
       </TouchableOpacity>
     );
