@@ -2825,7 +2825,7 @@
         "Butchery"
       ],
       "character_traits": [
-        "The Owner"
+        "The Owner [6\" Aura]"
       ],
       "legendary": "Get 'Em Lads! [6\" Aura]\nWhile within this aura, friendly guild models gain +1 DMG to character plays that cause damage and to playbook damage results.\nWhile within this aura, enemy models suffer -1 ARM.",
       "types": "Skaldic, Human, Male,\nAttacking Midfielder,\nCaptain",
@@ -12659,7 +12659,7 @@
     },
     {
       "name": "Meditation",
-      "text": "This model may any reroll any number of dice during its next kick.",
+      "text": "This model may reroll any number of dice during its next kick.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
