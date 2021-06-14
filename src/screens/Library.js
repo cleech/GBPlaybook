@@ -22,6 +22,8 @@ import {CommonActions} from '@react-navigation/native';
 
 import {useData} from '../components/DataContext';
 
+import CardCarousel from '../components/CardCarousel';
+
 function TeamLibrary(props) {
   return <TeamLibraryPhone {...props} />;
   if (DeviceInfo.isTablet()) {
@@ -43,9 +45,6 @@ const TeamLibraryPhone = withTheme(props => {
   const {height, width} = useDimensions().window;
   const landscape = width > height;
 
-  const [vheight, setHeight] = useState(0);
-  const [vwidth, setWidth] = useState(0);
-
   const guild = Guilds.find(m => m.name === props.route.name);
   const data = [
     {model: {id: guild.name}, overlay: false},
@@ -57,88 +56,19 @@ const TeamLibraryPhone = withTheme(props => {
 
   var carousel = useRef(null);
 
-  const cardWidth = Math.min(
-    // try and leave some margin
-    vwidth * 0.8,
-    // height constrained
-    Math.min(700, vheight) * (landscape ? 10 / 7 : 5 / 7),
-    // width constrained
-    Math.min(landscape ? 1000 : 500, vwidth),
-  );
-  const cardHeight = (cardWidth * 7) / (landscape ? 10 : 5);
-
   return (
     <SafeAreaView
       edges={['bottom', 'left', 'right']}
       style={{
         flex: 1,
+        width: '100%',
+        height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: landscape ? 'row-reverse' : 'column',
       }}>
-      <View
-        style={{
-          flex: 1,
-          width: '100%',
-          height: '100%',
-        }}
-        onLayout={event => {
-          setHeight(event.nativeEvent.layout.height);
-          setWidth(event.nativeEvent.layout.width);
-        }}>
-        {/* <View
-          style={{
-            position: 'absolute',
-            zIndex: -1,
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-          }}>
-          <GBIconGradient name={guild.name} size={380} />
-        </View> */}
-
-        {!!vwidth && (
-          <Carousel
-            ref={c => {
-              carousel = c;
-            }}
-            contentContainerCustomStyle={{
-              alignItems: 'center',
-            }}
-            data={data}
-            // vertical={true}
-            itemHeight={vheight}
-            sliderHeight={vheight}
-            itemWidth={cardWidth}
-            sliderWidth={vwidth}
-            initialScrollIndex={0}
-            lockScrollWhileSnapping={true}
-            useScrollView={true}
-            // initialNumToRender={3}
-            // windowSize={3}
-            // maxToRenderPerBatch={2}
-            removeClippedSubviews={false}
-            renderItem={({index, item}) => (
-              <View
-                key={index}
-                style={{
-                  flex: -1,
-                  width: '100%',
-                  maxWidth: landscape ? 1000 : 500,
-                  maxHeight: 700,
-                  aspectRatio: landscape ? 10 / 7 : 5 / 7,
-                  marginVertical: (vheight - cardHeight) / 2,
-                }}>
-                {landscape ? (
-                  <DoubleCardView {...item} />
-                ) : (
-                  <BoopCardView {...item} />
-                )}
-              </View>
-            )}
-          />
-        )}
+      <View style={{flex: 1, width: '100%', height: '100%'}}>
+        <CardCarousel ref={c => (carousel = c)} data={data} />
         <Text style={{position: 'absolute', bottom: 0, right: 0}}>
           [{version}]
         </Text>
@@ -150,9 +80,6 @@ const TeamLibraryPhone = withTheme(props => {
           flexDirection: landscape ? 'column' : 'row',
           // flexWrap: landscape ? 'nowrap' : 'wrap',
           flexWrap: 'wrap',
-          // padding: 5,
-          // borderColor: 'blue',
-          // borderWidth: 1,
         }}>
         {data.map(
           (m, idx) =>
@@ -167,35 +94,6 @@ const TeamLibraryPhone = withTheme(props => {
             ),
         )}
       </View>
-      {/* {landscape && (
-        <NavRail>
-          <Appbar.BackAction
-            onPress={() => props.navigation.dispatch(CommonActions.goBack())}
-          />
-          <Text />
-          <Appbar.Action
-            icon="play-circle-outline"
-            onPress={() => {
-              props.navigation.navigate('Game Play');
-            }}
-          />
-          <Text style={{textAlign: 'center'}}>Game Manager</Text>
-          <Appbar.Action
-            icon="cards-outline"
-            onPress={() => {
-              props.navigation.navigate('Library');
-            }}
-          />
-          <Text style={{textAlign: 'center'}}>Card Library</Text>
-          <Appbar.Action
-            icon="cogs"
-            onPress={() => {
-              props.navigation.navigate('Settings');
-            }}
-          />
-          <Text style={{textAlign: 'center'}}>Settings</Text>
-        </NavRail>
-      )} */}
     </SafeAreaView>
   );
 });
