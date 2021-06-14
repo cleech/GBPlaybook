@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     includeFontPadding: false,
   },
   leftDiv: {
+    flex: 1,
     borderColor: 'black',
     borderLeftWidth: 1, //StyleSheet.hairlineWidth,
   },
@@ -340,20 +341,24 @@ function _CardFrontOverlay(props) {
               {model.name}
             </Text>
           </View>
-          <Text
+          <View
             style={{
               position: 'absolute',
               bottom: 1,
               left: 0,
               width: 230,
-              color: 'black',
-              fontFamily: 'CrimsonText-Regular',
-              fontSize: 21,
               borderColor: 'black',
               borderTopWidth: 1,
             }}>
-            Melee Zone {model.reach ? '2"' : '1"'}
-          </Text>
+            <Text
+              style={{
+                color: 'black',
+                fontFamily: 'CrimsonText-Regular',
+                fontSize: 21,
+              }}>
+              Melee Zone {model.reach ? '2"' : '1"'}
+            </Text>
+          </View>
         </View>
       </View>
 
@@ -373,11 +378,21 @@ function _CardFrontOverlay(props) {
             borderBottomWidth: 1,
           }}>
           <Text style={styles.statBox}>MOV</Text>
-          <Text style={[styles.statBox, styles.leftDiv]}>TAC</Text>
-          <Text style={[styles.statBox, styles.leftDiv]}>KICK</Text>
-          <Text style={[styles.statBox, styles.leftDiv]}>DEF</Text>
-          <Text style={[styles.statBox, styles.leftDiv]}>ARM</Text>
-          <Text style={[styles.statBox, styles.leftDiv]}>INF</Text>
+          <View style={styles.leftDiv}>
+            <Text style={styles.statBox}>TAC</Text>
+          </View>
+          <View style={styles.leftDiv}>
+            <Text style={styles.statBox}>KICK</Text>
+          </View>
+          <View style={styles.leftDiv}>
+            <Text style={styles.statBox}>DEF</Text>
+          </View>
+          <View style={styles.leftDiv}>
+            <Text style={styles.statBox}>ARM</Text>
+          </View>
+          <View style={styles.leftDiv}>
+            <Text style={styles.statBox}>INF</Text>
+          </View>
         </View>
         <View
           style={{
@@ -386,15 +401,25 @@ function _CardFrontOverlay(props) {
           <Text style={styles.statBox}>
             {model.jog}"/{model.sprint}"
           </Text>
-          <Text style={[styles.statBox, styles.leftDiv]}>{model.tac}</Text>
-          <Text style={[styles.statBox, styles.leftDiv]}>
-            {model.kickdice}/{model.kickdist}"
-          </Text>
-          <Text style={[styles.statBox, styles.leftDiv]}>{model.def}+</Text>
-          <Text style={[styles.statBox, styles.leftDiv]}>{model.arm}</Text>
-          <Text style={[styles.statBox, styles.leftDiv]}>
-            {model.inf}/{model.infmax}
-          </Text>
+          <View style={styles.leftDiv}>
+            <Text style={styles.statBox}>{model.tac}</Text>
+          </View>
+          <View style={styles.leftDiv}>
+            <Text style={styles.statBox}>
+              {model.kickdice}/{model.kickdist}"
+            </Text>
+          </View>
+          <View style={styles.leftDiv}>
+            <Text style={styles.statBox}>{model.def}+</Text>
+          </View>
+          <View style={styles.leftDiv}>
+            <Text style={styles.statBox}>{model.arm}</Text>
+          </View>
+          <View style={styles.leftDiv}>
+            <Text style={styles.statBox}>
+              {model.inf}/{model.infmax}
+            </Text>
+          </View>
         </View>
       </View>
 
@@ -411,7 +436,7 @@ function _CardFrontOverlay(props) {
           // opacity: 0.4,
         }}>
         <View style={{flexDirection: 'row'}}>
-          {[...Array(7).keys()].map((key) => {
+          {[...Array(7).keys()].map(key => {
             const pbm = model.playbook[0][key];
             const [pb, mom] = pbm ? pbm.split(';') : [null, null];
             return pb ? (
@@ -434,7 +459,7 @@ function _CardFrontOverlay(props) {
           })}
         </View>
         <View style={{flexDirection: 'row'}}>
-          {[...Array(7).keys()].map((key) => {
+          {[...Array(7).keys()].map(key => {
             const pbm = model.playbook[1][key];
             const [pb, mom] = pbm ? pbm.split(';') : [null, null];
             return pb ? (
@@ -491,15 +516,23 @@ function _CardFrontOverlay(props) {
             Character Plays
           </Text>
           <View style={{flex: 1, flexDirection: 'row'}}>
-            <Text style={[styles.statBox, styles.leftDiv]}>CST</Text>
-            <Text style={[styles.statBox, styles.leftDiv]}>RNG</Text>
-            <Text style={[styles.statBox, styles.leftDiv]}>SUS</Text>
-            <Text style={[styles.statBox, styles.leftDiv]}>OPT</Text>
+            <View style={styles.leftDiv}>
+              <Text style={styles.statBox}>CST</Text>
+            </View>
+            <View style={styles.leftDiv}>
+              <Text style={styles.statBox}>RNG</Text>
+            </View>
+            <View style={styles.leftDiv}>
+              <Text style={styles.statBox}>SUS</Text>
+            </View>
+            <View style={styles.leftDiv}>
+              <Text style={styles.statBox}>OPT</Text>
+            </View>
           </View>
         </View>
 
-        {model.character_plays.map((key) => {
-          const cp = CPlays.find((cp) => cp.name === key);
+        {model.character_plays.map(key => {
+          const cp = CPlays.find(cp => cp.name === key);
           return (
             <View key={key} style={{marginBottom: 0}}>
               {/* Header Row */}
@@ -588,7 +621,7 @@ function _CardFrontOverlay(props) {
         <Observer>
           {() => (
             <>
-              {[...Array(model.hp).keys()].map((key) => (
+              {[...Array(model.hp).keys()].map(key => (
                 <View
                   key={key}
                   style={{
