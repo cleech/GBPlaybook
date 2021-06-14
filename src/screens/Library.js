@@ -107,6 +107,9 @@ const TeamLibraryPhone = withTheme(props => {
               alignItems: 'center',
             }}
             data={data}
+            // vertical={true}
+            itemHeight={vheight}
+            sliderHeight={vheight}
             itemWidth={cardWidth}
             sliderWidth={vwidth}
             initialScrollIndex={0}
@@ -125,6 +128,7 @@ const TeamLibraryPhone = withTheme(props => {
                   maxWidth: landscape ? 1000 : 500,
                   maxHeight: 700,
                   aspectRatio: landscape ? 10 / 7 : 5 / 7,
+                  marginVertical: (vheight - cardHeight) / 2,
                 }}>
                 {landscape ? (
                   <DoubleCardView {...item} />
