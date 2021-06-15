@@ -46,7 +46,7 @@ const GuildGrid = withTheme((props) => {
         flexWrap: 'wrap',
         justifyContent: 'space-around',
       }}>
-      {Guilds.map((item) => (
+      {Guilds.map(item => (
         <View
           style={{
             marginVertical: 5,
@@ -105,6 +105,10 @@ const GuildGrid = withTheme((props) => {
               // allowFontScaling={false}
               numberOfLines={1}
               adjustsFontSizeToFit={true}
+              style={{
+                textShadowColor: props.theme.dark ? 'black' : 'white',
+                textShadowRadius: 5,
+              }}
             >
               {item.name}
             </Text>

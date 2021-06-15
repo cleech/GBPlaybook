@@ -10,7 +10,7 @@ import {useData} from '../components/DataContext';
 import CardCarousel from '../components/CardCarousel';
 
 import GuildGrid, {itemSize} from '../components/GuildGrid';
-import ImageBackground from 'react-native/Libraries/Image/ImageBackground';
+import {ImageBackground} from 'react-native';
 
 const TeamLibrary = withTheme(props => {
   const gdata = useData();
@@ -95,7 +95,8 @@ const LibraryScreen = withTheme(props => {
 
   return (
     <ImageBackground
-      source={require('../assets/library.jpg')}
+      // source={require('../assets/library.jpg')}
+      source={props.theme.image}
       style={{width: '100%', height: '100%', alignItems: 'center'}}
       imageStyle={{resizeMode: 'cover'}}>
       <SafeAreaView

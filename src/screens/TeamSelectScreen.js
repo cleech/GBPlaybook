@@ -27,6 +27,7 @@ import MIcon from 'react-native-vector-icons/MaterialIcons';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {useData} from '../components/DataContext';
+import Color from 'color';
 
 const TeamScreenStore = types
   .model({
@@ -156,16 +157,19 @@ const TeamSelectScreen = withTheme(props => {
                     vs
                   </Text>
                   <FAB
-                    theme={{colors: { accent: '#daa520'}}}
+                    theme={{colors: {accent: '#daa520'}}}
                     animated={false}
                     disabled={screenStore.selector !== 'GO'}
-                    icon='play'
+                    icon="play"
                     // icon={({size, color}) => (
-                      // <GBIcon name="GBT" size={size} color={color} />
+                    // <GBIcon name="GBT" size={size} color={color} />
                     // )}
                     onPress={() => {
                       if (screenStore.selector === 'GO') {
-                        props.navigation.navigate('Draft', {guild1: screenStore.team1, guild2: screenStore.team2});
+                        props.navigation.navigate('Draft', {
+                          guild1: screenStore.team1,
+                          guild2: screenStore.team2,
+                        });
                       } else if (
                         screenStore.team1.name != '' &&
                         screenStore.team2.name != ''
@@ -195,11 +199,26 @@ const SelectorIcon = withTheme(
   observer(props => {
     const dimensions = useDimensions();
     const itemsize = itemSize(dimensions);
+    const {loading, data} = useData();
+    if (loading) {
+      return <></>;
+    }
+    const guild = data.Guilds.find(g => g.name === props.team);
     return (
       <TouchableOpacity onPress={() => screenStore.setSelector(props.id)}>
         <View
           style={{
-            backgroundColor: '#fff4',
+            // backgroundColor: '#fff4',
+            backgroundColor: guild
+              ? Color(
+                  guild.shadow ??
+                    (props.theme.dark
+                      ? guild.darkColor ?? guild.color
+                      : guild.color),
+                )
+                  .alpha(0.7)
+                  .string()
+              : '#fff4',
             borderRadius: 24,
             borderWidth: 4,
             borderColor: screenStore.selector === props.id ? 'yellow' : '#fff5',
@@ -210,34 +229,43 @@ const SelectorIcon = withTheme(
             margin: 0,
             overflow: 'hidden',
           }}>
-          <Text style={{fontSize: itemsize / 2}} allowFontScaling={false}>
-            {props.id}
-          </Text>
           {!props.team ? (
-            <></>
+            <Text style={{fontSize: itemsize / 2}} allowFontScaling={false}>
+              {props.id}
+            </Text>
           ) : (
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: itemsize * 2,
-                position: 'absolute',
-                zIndex: -1,
-              }}>
-              <GBIcon
-                name={props.team}
-                size={itemsize}
+            <>
+              <View
                 style={{
-                  color: props.theme.dark ? '#000a' : '#fff6',
-                }}
-              />
-            </View>
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: itemsize * 2,
+                  position: 'absolute',
+                  zIndex: -1,
+                }}>
+                <GBIcon
+                  name={guild.name}
+                  size={itemsize}
+                  style={{
+                    color: props.theme.dark ? '#000a' : '#fff6',
+                  }}
+                />
+              </View>
+              <Text
+                // allowFontScaling={false}
+                numberOfLines={1}
+                adjustsFontSizeToFit={true}
+                style={{
+                  color: 'white',
+                  // color: Color(guild.color).isDark() ? 'white' : 'black',
+                  // textShadowColor: Color(guild.color).isDark() ? 'black' : 'white',
+                  textShadowColor: 'black',
+                  textShadowRadius: 5,
+                }}>
+                {props.team}
+              </Text>
+            </>
           )}
-          <Text
-            // allowFontScaling={false}
-            numberOfLines={1}
-            adjustsFontSizeToFit={true}
-          >{props.team}</Text>
         </View>
       </TouchableOpacity>
     );
