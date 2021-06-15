@@ -223,6 +223,7 @@ const RosterList = props => {
             onClose={hideModal}
             visible={showCard}
             firstItem={firstItem}
+            cardWidth={0.95}
           />
         </Portal>
         <SectionList

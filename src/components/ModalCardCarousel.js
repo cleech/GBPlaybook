@@ -24,8 +24,12 @@ const ModalCardCarousel = React.forwardRef((props, ref) => {
       }}>
       <TouchableWithoutFeedback onPress={props.onClose}>
         <View style={{width: '100%', height: '100%'}}>
-          <CardCarousel vertical={true} data={props.data} ref={ref} 
-          firstItem={props.firstItem} />
+          <CardCarousel ref={ref}
+            data={props.data}
+            vertical={true}
+            cardWidth={props.cardWidth}
+            firstItem={props.firstItem}
+          />
         </View>
       </TouchableWithoutFeedback>
     </Modal>

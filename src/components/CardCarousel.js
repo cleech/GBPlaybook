@@ -13,7 +13,7 @@ const CardCarousel = React.forwardRef((props, ref) => {
 
   const cardWidth = Math.min(
     // try and leave some margin
-    vwidth * 0.8,
+    vwidth * (props.cardWidth ?? 0.8),
     // height constrained
     Math.min(700, vheight) * (landscape ? 10 / 7 : 5 / 7),
     // width constrained
