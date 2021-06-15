@@ -9,7 +9,7 @@ import color from 'color';
 
 function checkSingleton(roster, model, value, condition) {
   if (condition(model)) {
-    roster.forEach((m) => {
+    roster.forEach(m => {
       if (condition(m) && m !== model) {
         m.disabled += value ? 1 : -1;
       }
@@ -21,17 +21,17 @@ function checkSingleton(roster, model, value, condition) {
 // returns true/false when captain is set/unset
 // returned undefined on other switch events
 function checkCaptains(roster, model, value) {
-  return checkSingleton(...arguments, (m) => m.captain);
+  return checkSingleton(...arguments, m => m.captain);
 }
 
 // returns true/false when mascot is set/unset
 // returned undefined on other switch events
 function checkMascots(roster, model, value) {
-  return checkSingleton(...arguments, (m) => m.mascot);
+  return checkSingleton(...arguments, m => m.mascot);
 }
 
 function checkVeterans(roster, model, value) {
-  roster.forEach((m) => {
+  roster.forEach(m => {
     if (m !== model && m.name === model.name) {
       m.disabled += value ? 1 : -1;
     }
@@ -45,7 +45,7 @@ function checkVeterans(roster, model, value) {
 
 function checkBenched(roster, model, value) {
   if (model.dehcneb) {
-    let b = roster.find((b) => b.benched && b.name === model.dehcneb);
+    let b = roster.find(b => b.benched && b.name === model.dehcneb);
     b.selected = value;
   }
 }
@@ -56,13 +56,13 @@ function checkCount(roster, model, oldCount, value, condition, limit) {
   if (condition(model)) {
     newCount += value ? 1 : -1;
     if (newCount === limit) {
-      roster.forEach((m) => {
+      roster.forEach(m => {
         if (!m.selected && condition(m)) {
           m.disabled += 1;
         }
       });
     } else if (newCount === limit - 1 && oldCount === limit) {
-      roster.forEach((m) => {
+      roster.forEach(m => {
         if (!(m === model || m.selected) && condition(m)) {
           m.disabled += -1;
         }
@@ -74,20 +74,20 @@ function checkCount(roster, model, oldCount, value, condition, limit) {
 
 // 4 squaddies
 function checkSquaddieCount(roster, model, count, value) {
-  return checkCount(...arguments, (m) => !(m.captain || m.mascot), 4);
+  return checkCount(...arguments, m => !(m.captain || m.mascot), 4);
 }
 
 // 3 masters
 function checkMasterCount(roster, model, count, value) {
-  return checkCount(...arguments, (m) => m.captain, 3);
+  return checkCount(...arguments, m => m.captain, 3);
 }
 
 // 3 apprentices
 function checkApprenticeCount(roster, model, count, value) {
-  return checkCount(...arguments, (m) => !m.captain, 3);
+  return checkCount(...arguments, m => !m.captain, 3);
 }
 
-const DraftListItem = withTheme((props) => {
+const DraftListItem = withTheme(props => {
   const model = props.model;
   const colors = props.theme.colors;
   return (
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
 
 import {useData} from '../components/DataContext';
 
-export const DraftList = withTheme((props) => {
+export const DraftList = withTheme(props => {
   const {data, loading} = useData();
   if (loading) {
     return null;
@@ -199,15 +199,15 @@ export const DraftList = withTheme((props) => {
     // need to make a deep copy of the roster data
     let tmpRoster = _.cloneDeep(
       // Models.filter((m) => props.guild.roster.includes(m.id)),
-      props.guild.roster.map((name) => Models.find((m) => m.id === name)),
+      props.guild.roster.map(name => Models.find(m => m.id === name)),
     );
     // and add UI state
-    tmpRoster.forEach((m) => {
+    tmpRoster.forEach(m => {
       Object.assign(m, {selected: false, disabled: m.benched ? 1 : 0});
     });
     // pre-select captain and mascot for minor guilds
     if (props.guild.minor) {
-      tmpRoster.forEach((m) => {
+      tmpRoster.forEach(m => {
         if (m.captain || m.mascot) {
           m.selected = true;
           m.disabled = 1;
@@ -217,10 +217,9 @@ export const DraftList = withTheme((props) => {
     return tmpRoster;
   });
 
-  let captains = roster.filter((m) => m.captain);
-  let mascots = roster.filter((m) => m.mascot && !m.captain);
-  let squaddies = roster.filter((m) => !m.captain && !m.mascot);
-
+  let captains = roster.filter(m => m.captain);
+  let mascots = roster.filter(m => m.mascot && !m.captain);
+  let squaddies = roster.filter(m => !m.captain && !m.mascot);
   return (
     <View
       style={[
@@ -234,9 +233,26 @@ export const DraftList = withTheme((props) => {
         },
         props.style,
       ]}>
+      {ready && (
+        <View
+          style={{
+            position: 'absolute',
+            top: -10,
+            right: -10,
+            width: 24,
+            height: 24,
+            borderRadius: 12,
+            backgroundColor: props.theme.colors.notification,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Text style={{color: 'white'}}>{'✓'}</Text>
+          </View>
+      )}
       <View style={{flex: -1}}>
         <Text>Captains :</Text>
-        {captains.map((m) => (
+        {captains.map(m => (
           <DraftListItem
             key={keyName(m)}
             model={m}
@@ -244,7 +260,7 @@ export const DraftList = withTheme((props) => {
           />
         ))}
         <Text>Mascots :</Text>
-        {mascots.map((m) => (
+        {mascots.map(m => (
           <DraftListItem
             key={keyName(m)}
             model={m}
@@ -254,7 +270,7 @@ export const DraftList = withTheme((props) => {
       </View>
       <View style={{flex: -1}}>
         <Text>Squaddies :</Text>
-        {squaddies.slice(0, squaddies.length / 2).map((m) => (
+        {squaddies.slice(0, squaddies.length / 2).map(m => (
           <DraftListItem
             key={keyName(m)}
             model={m}
@@ -264,7 +280,7 @@ export const DraftList = withTheme((props) => {
       </View>
       <View style={{flex: -1}}>
         <Text />
-        {squaddies.slice(squaddies.length / 2).map((m) => (
+        {squaddies.slice(squaddies.length / 2).map(m => (
           <DraftListItem
             key={keyName(m)}
             model={m}
@@ -276,7 +292,7 @@ export const DraftList = withTheme((props) => {
   );
 });
 
-export const BlacksmithDraftList = withTheme((props) => {
+export const BlacksmithDraftList = withTheme(props => {
   const {data, loading} = useData();
   if (loading) {
     return null;
@@ -327,17 +343,17 @@ export const BlacksmithDraftList = withTheme((props) => {
     // need to make a deep copy of the roster data
     let tmpRoster = _.cloneDeep(
       // Models.filter((m) => props.guild.roster.includes(m.id)),
-      props.guild.roster.map((name) => Models.find((m) => m.id === name)),
+      props.guild.roster.map(name => Models.find(m => m.id === name)),
     );
     // and add UI state
-    tmpRoster.forEach((m) => {
+    tmpRoster.forEach(m => {
       Object.assign(m, {selected: false, disabled: m.benched ? 1 : 0});
     });
     return tmpRoster;
   });
 
-  let masters = roster.filter((m) => m.captain);
-  let apprentices = roster.filter((m) => !m.captain);
+  let masters = roster.filter(m => m.captain);
+  let apprentices = roster.filter(m => !m.captain);
 
   return (
     <View
@@ -351,7 +367,7 @@ export const BlacksmithDraftList = withTheme((props) => {
       ]}>
       <View style={{flex: -1}}>
         <Text>Masters :</Text>
-        {masters.map((m) => (
+        {masters.map(m => (
           <DraftListItem
             model={m}
             key={keyName(m)}
@@ -361,7 +377,7 @@ export const BlacksmithDraftList = withTheme((props) => {
       </View>
       <View style={{flex: -1}}>
         <Text>Apprentices :</Text>
-        {apprentices.slice(0, apprentices.length / 2).map((m) => (
+        {apprentices.slice(0, apprentices.length / 2).map(m => (
           <DraftListItem
             model={m}
             key={keyName(m)}
@@ -371,7 +387,7 @@ export const BlacksmithDraftList = withTheme((props) => {
       </View>
       <View style={{flex: -1}}>
         <Text />
-        {apprentices.slice(apprentices.length / 2).map((m) => (
+        {apprentices.slice(apprentices.length / 2).map(m => (
           <DraftListItem
             model={m}
             key={keyName(m)}
