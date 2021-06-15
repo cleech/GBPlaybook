@@ -22,13 +22,13 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		91493589D51D4307A1815B05 /* CrimsonText-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C93B3F881585459BA9FB064C /* CrimsonText-SemiBold.ttf */; };
 		962A749AC9EF454D8A92C0F1 /* CrimsonText-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF6AA9423BF947F5BC7A0165 /* CrimsonText-Italic.ttf */; };
+		99B22FA3F0424F108ADF44EB /* GB-Playbook-4-3.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E8FDFCB71A946128E87B9A4 /* GB-Playbook-4-3.json */; };
+		ADF0CF99D91245DC84E0B26F /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = DAC9CB07325A48FD89AB56B9 /* manifest.json */; };
 		B0E37873286A4B69BD03D2A5 /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2946216537AC4C43991FA720 /* SourceSansPro-Regular.ttf */; };
+		B6082689F46E4D3499FA3447 /* GB-Playbook-4-4.json in Resources */ = {isa = PBXBuildFile; fileRef = 46354009F8654549B3EDB03C /* GB-Playbook-4-4.json */; };
 		B6738482C26F44E3A3D37BCD /* selection.json in Resources */ = {isa = PBXBuildFile; fileRef = B3A3E2C40D094CD9841812FC /* selection.json */; };
 		CFE5A48A59134F4982C7A97F /* IM_FELL_Great_Primer_DC.otf in Resources */ = {isa = PBXBuildFile; fileRef = 380DB3B59F2143AEADBCF37A /* IM_FELL_Great_Primer_DC.otf */; };
 		D5184CCDCD5042A4BB5360DF /* GBPlaybook.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1ACEA498B0F4EF697127C82 /* GBPlaybook.ttf */; };
-		99B22FA3F0424F108ADF44EB /* GB-Playbook-4-3.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E8FDFCB71A946128E87B9A4 /* GB-Playbook-4-3.json */; };
-		B6082689F46E4D3499FA3447 /* GB-Playbook-4-4.json in Resources */ = {isa = PBXBuildFile; fileRef = 46354009F8654549B3EDB03C /* GB-Playbook-4-4.json */; };
-		ADF0CF99D91245DC84E0B26F /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = DAC9CB07325A48FD89AB56B9 /* manifest.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +47,7 @@
 		00E356F21AD99517003FC87E /* GBPlaybookTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GBPlaybookTests.m; sourceTree = "<group>"; };
 		010D6FE9821A4078BEAB611D /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		06AAE6FC3E17431BB9FA3A42 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
-		0C29F6C9C7E34EBFAE1C4477 /* GBPlaybook.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = GBPlaybook.json; path = ../src/assets/fonts/GBPlaybook.json; sourceTree = "<group>"; };
+		0C29F6C9C7E34EBFAE1C4477 /* GBPlaybook.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = GBPlaybook.json; path = ../src/assets/fonts/GBPlaybook.json; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* GBPlaybook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GBPlaybook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GBPlaybook/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = GBPlaybook/AppDelegate.m; sourceTree = "<group>"; };
@@ -63,6 +63,8 @@
 		3072CEC75522436E93621323 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		320B0DCAAE6F5E8C6FC52E0F /* libPods-GBPlaybook-GBPlaybookTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GBPlaybook-GBPlaybookTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		380DB3B59F2143AEADBCF37A /* IM_FELL_Great_Primer_DC.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = IM_FELL_Great_Primer_DC.otf; path = ../src/assets/fonts/IM_FELL_Great_Primer_DC.otf; sourceTree = "<group>"; };
+		3E8FDFCB71A946128E87B9A4 /* GB-Playbook-4-3.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "GB-Playbook-4-3.json"; path = "../src/data/GB-Playbook-4-3.json"; sourceTree = "<group>"; };
+		46354009F8654549B3EDB03C /* GB-Playbook-4-4.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "GB-Playbook-4-4.json"; path = "../src/data/GB-Playbook-4-4.json"; sourceTree = "<group>"; };
 		4D122ADD71AB4420B0B1843C /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		5C16E5DB83B143EFA7F00BE4 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		6355258F5C5E4EE3BFCB4E98 /* GuildBallIcon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = GuildBallIcon.ttf; path = ../src/assets/fonts/GuildBallIcon.ttf; sourceTree = "<group>"; };
@@ -76,20 +78,18 @@
 		B3A3E2C40D094CD9841812FC /* selection.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = selection.json; path = ../src/assets/fonts/selection.json; sourceTree = "<group>"; };
 		BA200DEA02B74252AA801B31 /* CrimsonText-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CrimsonText-Bold.ttf"; path = "../src/assets/fonts/CrimsonText-Bold.ttf"; sourceTree = "<group>"; };
 		C0C924FDEFCFF6D4AF6E2B8C /* Pods-GBPlaybook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GBPlaybook.debug.xcconfig"; path = "Target Support Files/Pods-GBPlaybook/Pods-GBPlaybook.debug.xcconfig"; sourceTree = "<group>"; };
-		C1ACEA498B0F4EF697127C82 /* GBPlaybook.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = GBPlaybook.ttf; path = ../src/assets/fonts/GBPlaybook.ttf; sourceTree = "<group>"; };
+		C1ACEA498B0F4EF697127C82 /* GBPlaybook.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = GBPlaybook.ttf; path = ../src/assets/fonts/GBPlaybook.ttf; sourceTree = "<group>"; };
 		C93B3F881585459BA9FB064C /* CrimsonText-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CrimsonText-SemiBold.ttf"; path = "../src/assets/fonts/CrimsonText-SemiBold.ttf"; sourceTree = "<group>"; };
 		C9F6B844F6AEFADD14B4746D /* Pods-GBPlaybook-GBPlaybookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GBPlaybook-GBPlaybookTests.debug.xcconfig"; path = "Target Support Files/Pods-GBPlaybook-GBPlaybookTests/Pods-GBPlaybook-GBPlaybookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CE5A9A33ADA4421CA6167A43 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		DA642172C25842F0B78F70D1 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		DAC9CB07325A48FD89AB56B9 /* manifest.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = manifest.json; path = ../src/data/manifest.json; sourceTree = "<group>"; };
 		DD2BD2835D6D42CEA1F74160 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		DF6AA9423BF947F5BC7A0165 /* CrimsonText-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CrimsonText-Italic.ttf"; path = "../src/assets/fonts/CrimsonText-Italic.ttf"; sourceTree = "<group>"; };
 		EA9F6201310340DA9CC091C9 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F36DC2163DC944F89959B6B2 /* CrimsonText-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CrimsonText-Regular.ttf"; path = "../src/assets/fonts/CrimsonText-Regular.ttf"; sourceTree = "<group>"; };
 		F79346CA0BC67C52EA6D8493 /* Pods-GBPlaybook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GBPlaybook.release.xcconfig"; path = "Target Support Files/Pods-GBPlaybook/Pods-GBPlaybook.release.xcconfig"; sourceTree = "<group>"; };
-		3E8FDFCB71A946128E87B9A4 /* GB-Playbook-4-3.json */ = {isa = PBXFileReference; name = "GB-Playbook-4-3.json"; path = "../src/data/GB-Playbook-4-3.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		46354009F8654549B3EDB03C /* GB-Playbook-4-4.json */ = {isa = PBXFileReference; name = "GB-Playbook-4-4.json"; path = "../src/data/GB-Playbook-4-4.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		DAC9CB07325A48FD89AB56B9 /* manifest.json */ = {isa = PBXFileReference; name = "manifest.json"; path = "../src/data/manifest.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -583,7 +583,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = 8ZW29GR3P7;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = GBPlaybook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -597,6 +600,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gbplaybook;
 				PRODUCT_NAME = GBPlaybook;
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.gbplaybook";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -610,7 +614,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 5;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = 8ZW29GR3P7;
 				INFOPLIST_FILE = GBPlaybook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -623,6 +630,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gbplaybook;
 				PRODUCT_NAME = GBPlaybook;
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.gbplaybook";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
