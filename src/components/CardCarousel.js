@@ -1,14 +1,12 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {useDimensions} from '@react-native-community/hooks';
 import Carousel from 'react-native-snap-carousel';
 
 import BoopCardView from '../components/BoopCard';
 import DoubleCardView from '../components/DoubleCard';
 
-const CardCarousel = React.forwardRef((props, ref) => {
-  const {height, width} = useDimensions().window;
-  const landscape = width > height;
+const CardCarousel = React.forwardRef((props, ref) => {  
+  landscape = props.landscape || false;;
 
   const [vheight, setHeight] = useState(0);
   const [vwidth, setWidth] = useState(0);
@@ -36,6 +34,7 @@ const CardCarousel = React.forwardRef((props, ref) => {
       }}>
       {!!vheight && !!vwidth && (
         <Carousel
+          firstItem={props.firstItem}
           ref={ref}
           contentContainerCustomStyle={{
             alignItems: 'center',

@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
 import {View, SectionList, TouchableOpacity} from 'react-native';
-import {List, Portal, Text, Button, withTheme} from 'react-native-paper';
+import {List, Portal, Text, withTheme} from 'react-native-paper';
 import {observer} from 'mobx-react-lite';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {useStore} from '../stores/RootStore';
 import GBIcons from '../components/GBIcons';
 import {displayName} from '../components/GuildData';
-import ModalCardView from './ModalCard';
+// import ModalCardView from '../components/ModalCard';
+import ModalCardCarousel from '../components/ModalCardCarousel';
 
 import Color from 'color';
 
-const RockerButton = withTheme((props) => (
+const RockerButton = withTheme(props => (
   <View
     style={[
       {
@@ -78,7 +78,7 @@ const RockerButton = withTheme((props) => (
 ));
 
 const HealthBox = withTheme(
-  observer((props) => (
+  observer(props => (
     <View
       style={{
         alignItems: 'center',
@@ -126,7 +126,7 @@ const HealthBox = withTheme(
   )),
 );
 
-const StatLine = (props) => (
+const StatLine = props => (
   // <View
   // style={{
   // flex: -1,
@@ -147,7 +147,7 @@ const StatLine = (props) => (
   // </View>
 );
 
-const ModelView = (props) => (
+const ModelView = props => (
   <List.Item
     style={{
       flex: 1,
@@ -165,7 +165,7 @@ const ModelView = (props) => (
   />
 );
 
-const SectionHeader = withTheme((props) => (
+const SectionHeader = withTheme(props => (
   <List.Item
     style={{flex: 1, backgroundColor: props.theme.colors.surface}}
     title={props.title}
@@ -186,55 +186,81 @@ const SectionHeader = withTheme((props) => (
   />
 ));
 
-const RosterList = (props) => {
-  const store = useStore();
-
+const RosterList = props => {  
   const [showCard, setCard] = useState(false);
   const showModal = () => setCard(true);
   const hideModal = () => setCard(false);
 
-  const [active, setActive] = useState(props.teams[0].roster[0]);
-  const [overlay, setOverlay] = useState(false);
+  // const [active, setActive] = useState(props.teams[0].roster[0]);
+  // const [overlay, setOverlay] = useState(false);
+
+  const data = props.teams.flatMap(t => [
+    {model: {id: t.name}, overlay: false, close: hideModal},
+    ...t.roster.map(m => ({
+      model: m,
+      overlay: true,
+      controls: true,
+      close: hideModal,
+    })),
+  ]);
+
+  const [firstItem, setFirstItem] = useState(0);
+  var nextOffset = 0;
 
   return (
     <View style={{flex: 1}}>
       <Portal.Host>
         <Portal>
-          <ModalCardView
+          {/* <ModalCardView
             model={active}
             visible={showCard}
             overlay={overlay}
             controls={overlay}
             onClose={hideModal}
+          /> */}
+          <ModalCardCarousel
+            data={data}
+            onClose={hideModal}
+            visible={showCard}
+            firstItem={firstItem}
           />
         </Portal>
         <SectionList
           stickySectionHeadersEnabled={true}
-          sections={props.teams.slice().map((t) => ({
-            title: t.name,
-            data: t.roster.slice(),
-          }))}
-          renderSectionHeader={({section: {title, data}}) => (
+          sections={props.teams.map(t => {
+            const offset = nextOffset;
+            nextOffset += t.roster.length + 1;
+            return {
+              title: t.name,
+              data: t.roster.slice(),
+              offset: offset,
+            };
+          })}
+          renderSectionHeader={({section: {title, data, offset}}) => (
             <SectionHeader
               title={title}
               data={data}
               onPress={() => {
-                setActive({id: title});
-                setOverlay(false);
+                // setActive({id: title});
+                // setOverlay(false);
+                setFirstItem(offset);
                 showModal();
               }}
             />
           )}
-          renderItem={({item, index, section}) => (
-            <ModelView
-              model={item}
-              onPress={() => {
-                setActive(item);
-                setOverlay(true);
-                showModal();
-              }}
-            />
-          )}
+          renderItem={({item, index, section}) => {
+            return (
+              <ModelView
+                model={item}
+                onPress={() => {
+                  // setActive(item);
+                  // setOverlay(true);
+                  setFirstItem(index + 1 + section.offset);
+                  showModal();
+                }}
+              />
+            );
+          }}
           keyExtractor={(_item, index) => index.toString()}
         />
       </Portal.Host>
