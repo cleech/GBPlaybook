@@ -47,11 +47,11 @@ const CardCarousel = React.forwardRef((props, ref) => {
           itemWidth={cardWidth}
           sliderWidth={vwidth}
           initialScrollIndex={0}
-          lockScrollWhileSnapping={true}
-          useScrollView={true}
-          // initialNumToRender={3}
-          // windowSize={3}
-          // maxToRenderPerBatch={2}
+          // lockScrollWhileSnapping={true}
+          // useScrollView={true}
+          initialNumToRender={3}
+          windowSize={3}
+          maxToRenderPerBatch={2}
           removeClippedSubviews={false}
           renderItem={({index, item}) => (
             <View
