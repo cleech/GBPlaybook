@@ -60,7 +60,13 @@ const GBPlayer = types
 const GBTeam = types.model({
   name: types.maybe(types.string),
   roster: types.array(GBPlayer),
-});
+  momentum: types.optional(types.integer, 0),
+  score: types.optional(types.integer, 0),
+})
+.actions(self => ({
+  setScore(score) { self.score = score; },
+  setMomentum(momentum) { self.momentum = momentum; },
+}));
 
 const Settings = types
   .model({
@@ -107,8 +113,8 @@ const RootStore = types
 
 export function createRootStore() {
   return RootStore.create({
-    team1: {name: ''},
-    team2: {name: ''},
+    team1: {name: '', score: 0, momentum: 0},
+    team2: {name: '', score: 0, momentum: 0},
     settings: {colorScheme: 'light'},
   });
 }

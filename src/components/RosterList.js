@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {View, SectionList, TouchableOpacity} from 'react-native';
+import {View, SectionList, TouchableOpacity, StyleSheet} from 'react-native';
 import {List, Portal, Text, withTheme} from 'react-native-paper';
-import {observer} from 'mobx-react-lite';
+import {observer, Observer} from 'mobx-react-lite';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import GBIcons from '../components/GBIcons';
@@ -15,8 +15,9 @@ const RockerButton = withTheme(props => (
   <View
     style={[
       {
-        flex: 1,
+        flex: -1,
         flexDirection: 'row',
+        borderWidth: StyleSheet.hairlineWidth,
         backgroundColor: props.theme.colors.surface,
         borderRadius: 6,
         alignItems: 'center',
@@ -35,14 +36,8 @@ const RockerButton = withTheme(props => (
         alignItems: 'center',
         justifyContent: 'center',
       }}
-      onPress={() => {
-        if (props.model.health > 0) {
-          props.model.setHealth(props.model.health - 1);
-        }
-      }}
-      onLongPress={() => {
-        props.model.setHealth(0);
-      }}>
+      onPress={props.minusPress}
+      onLongPress={props.minusLongPress}>
       <Icons name="minus" color={props.theme.colors.onSurface} />
     </TouchableOpacity>
     <View
@@ -62,16 +57,8 @@ const RockerButton = withTheme(props => (
         alignItems: 'center',
         justifyContent: 'center',
       }}
-      onPress={() => {
-        if (props.model.health < props.model.hp) {
-          props.model.setHealth(props.model.health + 1);
-        }
-      }}
-      onLongPress={() => {
-        if (props.model.health < props.model.recovery) {
-          props.model.setHealth(props.model.recovery);
-        }
-      }}>
+      onPress={props.plusPress}
+      onLongPress={props.plusLongPress}>
       <Icons name="plus" color={props.theme.colors.onSurface} />
     </TouchableOpacity>
   </View>
@@ -91,37 +78,26 @@ const HealthBox = withTheme(
             String(props.model.hp).padStart(2, '0')}
         </Text>
       </View>
-      {/* <View flexDirection="row">
-        <Button
-          mode="contained"
-          color={props.theme.colors.surface}
-          onPress={() => {
-            if (props.model.health > 0) {
-              props.model.setHealth(props.model.health - 1);
-            }
-          }}
-          onLongPress={() => {
-            props.model.setHealth(0);
-          }}>
-          <Icons name="minus" />
-        </Button>
-        <Button
-          mode="contained"
-          color={props.theme.colors.surface}
-          onPress={() => {
-            if (props.model.health < props.model.hp) {
-              props.model.setHealth(props.model.health + 1);
-            }
-          }}
-          onLongPress={() => {
-            if (props.model.health < props.model.recovery) {
-              props.model.setHealth(props.model.recovery);
-            }
-          }}>
-          <Icons name="plus" />
-        </Button>
-      </View> */}
-      <RockerButton model={props.model} />
+      <RockerButton
+        minusPress={() => {
+          if (props.model.health > 0) {
+            props.model.setHealth(props.model.health - 1);
+          }
+        }}
+        minusLongPress={() => {
+          props.model.setHealth(0);
+        }}
+        plusPress={() => {
+          if (props.model.health < props.model.hp) {
+            props.model.setHealth(props.model.health + 1);
+          }
+        }}
+        plusLongPress={() => {
+          if (props.model.health < props.model.recovery) {
+            props.model.setHealth(props.model.recovery);
+          }
+        }}
+      />
     </View>
   )),
 );
@@ -182,11 +158,41 @@ const SectionHeader = withTheme(props => (
         style={{alignSelf: 'center', color: props.theme.colors.text}}
       />
     )}
+    right={() => (
+      <View style={{flexDirection: 'row'}}>
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+          <Observer>{() => <Text>VPs: {props.team.score}</Text>}</Observer>
+          <RockerButton
+            minusPress={() => {
+              if (props.team.score > 0) {
+                props.team.setScore(props.team.score - 1);
+              }
+            }}
+            plusPress={() => {
+              props.team.setScore(props.team.score + 1);
+            }}
+          />
+        </View>
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+          <Observer>{() => <Text>MOM: {props.team.momentum}</Text>}</Observer>
+          <RockerButton
+            minusPress={() => {
+              if (props.team.momentum > 0) {
+                props.team.setMomentum(props.team.momentum - 1);
+              }
+            }}
+            plusPress={() => {
+              props.team.setMomentum(props.team.momentum + 1);
+            }}
+          />
+        </View>
+      </View>
+    )}
     onPress={props.onPress}
   />
 ));
 
-const RosterList = props => {  
+const RosterList = props => {
   const [showCard, setCard] = useState(false);
   const showModal = () => setCard(true);
   const hideModal = () => setCard(false);
@@ -233,13 +239,15 @@ const RosterList = props => {
             nextOffset += t.roster.length + 1;
             return {
               title: t.name,
+              team: t,
               data: t.roster.slice(),
               offset: offset,
             };
           })}
-          renderSectionHeader={({section: {title, data, offset}}) => (
+          renderSectionHeader={({section: {title, team, data, offset}}) => (
             <SectionHeader
               title={title}
+              team={team}
               data={data}
               onPress={() => {
                 // setActive({id: title});
