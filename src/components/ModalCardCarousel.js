@@ -10,9 +10,9 @@ const ModalCardCarousel = React.forwardRef((props, ref) => {
   const margin = StatusBar.currentHeight;  
   return (
     <Modal
-      // dismissable={true}
+      dismissable={true}
       visible={props.visible}      
-      // onDismiss={props.onClose}
+      onDismiss={props.onClose}
       style={{
         marginTop: 0,
         marginBottom: 0,
