@@ -160,8 +160,8 @@ const SectionHeader = withTheme(props => (
     )}
     right={() => (
       <View style={{flexDirection: 'row'}}>
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
-          <Observer>{() => <Text>VPs: {props.team.score}</Text>}</Observer>
+        <View style={{justifyContent: 'center', alignItems: 'center', marginRight: 5}}>
+          <Observer>{() => <Text>VP: {props.team.score}</Text>}</Observer>
           <RockerButton
             minusPress={() => {
               if (props.team.score > 0) {
@@ -173,7 +173,7 @@ const SectionHeader = withTheme(props => (
             }}
           />
         </View>
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{justifyContent: 'center', alignItems: 'center', marginLeft: 5}}>
           <Observer>{() => <Text>MOM: {props.team.momentum}</Text>}</Observer>
           <RockerButton
             minusPress={() => {

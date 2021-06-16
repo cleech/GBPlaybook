@@ -109,6 +109,8 @@ const DraftScreen = props => {
               ready={team => {
                 store.setTeam1(guild1);
                 store.setRoster1(team);
+                store.team1.setScore(0);
+                store.team1.setMomentum(0);
               }}
               unready={() => store.setRoster1([])}
             />
@@ -145,6 +147,8 @@ const DraftScreen = props => {
               ready={team => {
                 store.setTeam2(guild2);
                 store.setRoster2(team);
+                store.team2.setScore(0);
+                store.team2.setMomentum(0);
               }}
               unready={() => store.setRoster2([])}
             />
