@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {withTheme, Title, RadioButton, Divider} from 'react-native-paper';
+import {withTheme, Title, Text, RadioButton, Divider} from 'react-native-paper';
 import DeviceInfo from 'react-native-device-info';
 
 import {Picker} from '@react-native-picker/picker';
@@ -10,7 +10,8 @@ import {Observer} from 'mobx-react-lite';
 import {useData} from '../components/DataContext';
 
 const SettingsView = withTheme(props => {
-  const settings = useStore().settings;
+  const store = useStore();
+  const settings = store.settings;
   const {manifest} = useData();
 
   return (
@@ -23,8 +24,12 @@ const SettingsView = withTheme(props => {
 
           <View>
             <Title>Season and Errata Version:</Title>
+            {store.draftReady ? (
+              <Text>Dataset cannot be changed while a game is active.</Text>
+            ) : <></>}
             <Picker
               mode="dropdown"
+              enabled={!store.draftReady}
               selectedValue={settings.dataSet}
               onValueChange={(itemValue, itemIndex) => {
                 settings.setDataSet(itemValue);
@@ -83,7 +88,6 @@ const SettingsView = withTheme(props => {
               />
             </Picker>
           </View>
-
         </View>
       )}
     </Observer>
