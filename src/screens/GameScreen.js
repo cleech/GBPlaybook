@@ -58,12 +58,12 @@ export default function GameScreen(props) {
         visible={showSnack}
         onDismiss={() => setShowSnack(false)}
         action={{
-          label: 'Exit',
+          label: 'Exit Game',
           onPress: () => {
             props.navigation.dispatch(navEvent.data.action);
           },
         }}>
-        Leaving This Screen Will Exit The Game
+        Leaving this screen will reset the game state
       </Snackbar>
     </View>
   );

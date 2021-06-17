@@ -3,7 +3,7 @@ import {StyleSheet, View, ImageBackground} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import {Text, withTheme, FAB} from 'react-native-paper';
+import {Text, withTheme, FAB, Snackbar} from 'react-native-paper';
 
 import {
   useDimensions,
@@ -28,6 +28,8 @@ import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {useData} from '../components/DataContext';
 import Color from 'color';
+
+import { useStore } from '../stores/RootStore';
 
 const TeamScreenStore = types
   .model({
@@ -54,7 +56,7 @@ const screenStore = TeamScreenStore.create({
 });
 
 const TeamSelectScreen = withTheme(props => {
-  // const store = useStore();
+  const store = useStore();
   const theme = useTheme();
   const {version} = useData();
 
@@ -81,6 +83,10 @@ const TeamSelectScreen = withTheme(props => {
       }
     }
   }
+
+  const [showResume, setResume] = useState(
+    store.draftReady
+  );
 
   return (
     <ImageBackground
@@ -188,6 +194,17 @@ const TeamSelectScreen = withTheme(props => {
             [{version}]
           </Text>
         </View>
+        <Snackbar
+          visible={showResume}
+          onDismiss={() => setResume(false)}
+          action={{
+            label: 'Resume',
+            onPress: () => {
+              props.navigation.navigate('Game');
+            },
+          }}>
+          Game In Progress
+        </Snackbar>
       </SafeAreaView>
     </ImageBackground>
   );

@@ -40,14 +40,16 @@ const GBPlayer = types
   })
   .props({
     // runtime state not loaded from json card data
-    health: types.optional(types.integer, 0),
+    health: types.maybe(types.integer),
     // ugly hack for Pneuma adding to team influence pool
     _inf: types.maybe(types.integer),
   })
   .actions(self => ({
     // initialize runtime state
     afterCreate() {
-      self.health = self.hp;
+      if (self.health === undefined) {
+        self.health = self.hp;
+      }
       if (self.name === 'Pneuma') {
         self._inf = 0;
       }
