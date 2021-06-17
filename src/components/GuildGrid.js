@@ -52,8 +52,11 @@ const GuildGrid = withTheme((props) => {
             marginVertical: 5,
             width: itemsize,
             height: itemsize,
-            backgroundColor: '#fff4',
-            borderRadius: 24,
+            // backgroundColor: '#fff4',
+            backgroundColor: Color(props.theme.colors.surface)
+              .alpha(props.theme.dark ? 0.6 : 0.25)
+              .string(),
+            borderRadius: 18,
             alignItems: 'center',
           }}
           key={item.name}>
@@ -108,8 +111,7 @@ const GuildGrid = withTheme((props) => {
               style={{
                 textShadowColor: props.theme.dark ? 'black' : 'white',
                 textShadowRadius: 5,
-              }}
-            >
+              }}>
               {item.name}
             </Text>
           </View>

@@ -69,6 +69,8 @@ const TeamLibrary = withTheme(props => {
             m.model.name && (
               <Chip
                 key={m.model.id}
+		mode='outlined'
+	        style={{margin: 1}}
                 onPress={() => {
                   carousel.snapToItem(idx, true, false);
                 }}>
