@@ -334,7 +334,7 @@ const App = observer(() => {
                 AsyncStorage.setItem(PERSISTANCE_KEY, JSON.stringify(state))
               }>
               <RootDrawer.Navigator
-                initialRouteName="Game Play"
+                initialRouteName={RootStore.settings.initialScreen}
                 drawerType='slide'
                 drawerPosition='right'                
               >

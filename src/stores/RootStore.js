@@ -74,6 +74,7 @@ const Settings = types
   .model({
     colorScheme: types.maybe(types.enumeration(['dark', 'light'])),
     dataSet: types.maybe(types.string),
+    initialScreen: types.optional(types.string, 'Game Play'),
   })
   .actions(self => ({
     setColorScheme(scheme) {
@@ -82,6 +83,9 @@ const Settings = types
     setDataSet(filename) {
       self.dataSet = filename;
     },
+    setInitialScreen(route) {
+      self.initialScreen = route;
+    }
   }));
 
 const RootStore = types
