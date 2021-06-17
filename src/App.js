@@ -120,7 +120,6 @@ const MainStack = withTheme((props) => {
       initialRouteName="TeamSelect"
       screenOptions={({navigation, route}) => {
         return {
-          // headerShown: false,
           headerShown: !landscape,          
           headerBackTitleVisible: false,
           headerRight: () => (
@@ -324,11 +323,10 @@ const App = observer(() => {
 
   return (
     <StoreContext.Provider value={RootStore}>
-      <SafeAreaProvider>
+      <DataProvider>
         <PaperProvider theme={Theme}>
+          <SafeAreaProvider>
           {/* <StatusBar translucent={true} backgroundColor="transparent" /> */}
-
-          <DataProvider>
             <NavigationContainer
               theme={Theme}
               initialState={initialState}
@@ -345,9 +343,9 @@ const App = observer(() => {
                 <RootDrawer.Screen name="Settings" component={SettingsStack} />
               </RootDrawer.Navigator>
             </NavigationContainer>
-          </DataProvider>
+          </SafeAreaProvider>
         </PaperProvider>
-      </SafeAreaProvider>
+      </DataProvider>
     </StoreContext.Provider>
   );
 });
