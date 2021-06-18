@@ -245,10 +245,9 @@ export const DraftList = withTheme(props => {
             backgroundColor: props.theme.colors.notification,
             alignItems: 'center',
             justifyContent: 'center',
-          }}
-        >
+          }}>
           <Text style={{color: 'white'}}>{'✓'}</Text>
-          </View>
+        </View>
       )}
       <View style={{flex: -1}}>
         <Text>Captains :</Text>
@@ -365,6 +364,22 @@ export const BlacksmithDraftList = withTheme(props => {
         },
         props.style,
       ]}>
+      {ready && (
+        <View
+          style={{
+            position: 'absolute',
+            top: -10,
+            right: -10,
+            width: 24,
+            height: 24,
+            borderRadius: 12,
+            backgroundColor: props.theme.colors.notification,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text style={{color: 'white'}}>{'✓'}</Text>
+        </View>
+      )}
       <View style={{flex: -1}}>
         <Text>Masters :</Text>
         {masters.map(m => (
