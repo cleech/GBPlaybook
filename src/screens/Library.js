@@ -109,20 +109,21 @@ const LibraryScreen = withTheme(props => {
         }
         style={{
           flex: 1,
-          flexDirection: 'row',
+          // flexDirection: 'row',
+          // borderColor: 'red', borderWidth: 1,
         }}>
         <View
           style={{
             flexDirection: 'row',
             width: '100%',
             height: '100%',
+            // borderColor: 'blue', borderWidth: 1,
           }}>
           <GuildGrid
             pickTeam={guild => {
               props.navigation.navigate(guild);
             }}
           />
-
           <Text style={{position: 'absolute', bottom: 0, right: 0}}>
             [{version}]
           </Text>

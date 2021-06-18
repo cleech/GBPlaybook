@@ -29,7 +29,7 @@ import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useData} from '../components/DataContext';
 import Color from 'color';
 
-import { useStore } from '../stores/RootStore';
+import {useStore} from '../stores/RootStore';
 
 const TeamScreenStore = types
   .model({
@@ -60,9 +60,9 @@ const TeamSelectScreen = withTheme(props => {
   const theme = useTheme();
   const {version} = useData();
 
-  // const orientation = useDeviceOrientation();
+  const [itemSize, setItemSize] = useState(0);
+
   const dimensions = useDimensions();
-  const itemsize = itemSize(dimensions);
   const {height, width} = dimensions.window;
   const landscape = width > height;
 
@@ -84,9 +84,7 @@ const TeamSelectScreen = withTheme(props => {
     }
   }
 
-  const [showResume, setResume] = useState(
-    store.draftReady
-  );
+  const [showResume, setResume] = useState(store.draftReady);
 
   return (
     <ImageBackground
@@ -111,49 +109,38 @@ const TeamSelectScreen = withTheme(props => {
           flex: 1,
           flexDirection: 'row',
         }}>
-        {/* {landscape && (
-          <NavRail>
-            <Appbar.Action />
-            <Text />
-            <Appbar.Action
-              icon="play-circle-outline"
-              onPress={() => {
-                props.navigation.navigate('Game Play');
-              }}
-            />
-            <Text style={{textAlign: 'center'}}>Game Manager</Text>
-            <Appbar.Action
-              icon="cards-outline"
-              onPress={() => {
-                props.navigation.navigate('Library');
-              }}
-            />
-            <Text style={{textAlign: 'center'}}>Card Library</Text>
-            <Appbar.Action
-              icon="cogs"
-              onPress={() => {
-                props.navigation.navigate('Settings');
-              }}
-            />
-            <Text style={{textAlign: 'center'}}>Settings</Text>
-          </NavRail>
-        )} */}
-        <View style={{flex: 1, alignItems: 'center'}}>
-          <GuildGrid pickTeam={pickTeam} />
-          <View flex={1} />
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            flexDirection: 'column',
+            width: '100%',
+            // borderColor: 'blue', borderWidth: 1,
+          }}>
+          <GuildGrid
+            pickTeam={pickTeam}
+            sizeCallback={size => setItemSize(size)}
+          />
+
           <Observer>
             {() => (
               <View
                 style={{
+                  flex: -1,
                   flexDirection: 'row',
                   alignItems: 'center',
                 }}>
-                <SelectorIcon id="P1" team={screenStore.team1} />
+                <SelectorIcon
+                  id="P1"
+                  team={screenStore.team1}
+                  itemSize={itemSize}
+                />
 
                 <View
                   style={{
                     alignItems: 'center',
-                    padding: 10,
+                    paddingVertical: 5,
+                    paddingHorizontal: 10,
                   }}>
                   <Text
                     style={{
@@ -186,14 +173,20 @@ const TeamSelectScreen = withTheme(props => {
                   />
                 </View>
 
-                <SelectorIcon id="P2" team={screenStore.team2} />
+                <SelectorIcon
+                  id="P2"
+                  team={screenStore.team2}
+                  itemSize={itemSize}
+                />
               </View>
             )}
           </Observer>
+
           <Text style={{position: 'absolute', bottom: 0, right: 0}}>
             [{version}]
           </Text>
         </View>
+
         <Snackbar
           visible={showResume}
           onDismiss={() => setResume(false)}
@@ -214,10 +207,9 @@ export default TeamSelectScreen;
 
 const SelectorIcon = withTheme(
   observer(props => {
-    const dimensions = useDimensions();
-    const itemsize = itemSize(dimensions);
+    const itemsize = props.itemSize;
     const {loading, data} = useData();
-    if (loading) {
+    if (loading || !itemsize) {
       return <></>;
     }
     const guild = data.Guilds.find(g => g.name === props.team);
@@ -236,7 +228,7 @@ const SelectorIcon = withTheme(
                   .alpha(0.7)
                   .string()
               : '#fff4',
-            borderRadius: 24,
+            borderRadius: itemsize * 0.15,
             borderWidth: 4,
             borderColor: screenStore.selector === props.id ? 'yellow' : '#fff5',
             alignItems: 'center',
@@ -245,6 +237,7 @@ const SelectorIcon = withTheme(
             width: itemsize,
             margin: 0,
             overflow: 'hidden',
+            margin: 5,
           }}>
           {!props.team ? (
             <Text style={{fontSize: itemsize / 2}} allowFontScaling={false}>
