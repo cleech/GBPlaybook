@@ -152,23 +152,13 @@ const TeamSelectScreen = withTheme(props => {
                   <FAB
                     theme={{colors: {accent: '#daa520'}}}
                     animated={false}
-                    disabled={screenStore.selector !== 'GO'}
+                    disabled={!screenStore.team1 || !screenStore.team2}
                     icon="play"
-                    // icon={({size, color}) => (
-                    // <GBIcon name="GBT" size={size} color={color} />
-                    // )}
                     onPress={() => {
-                      if (screenStore.selector === 'GO') {
-                        props.navigation.navigate('Draft', {
-                          guild1: screenStore.team1,
-                          guild2: screenStore.team2,
-                        });
-                      } else if (
-                        screenStore.team1.name != '' &&
-                        screenStore.team2.name != ''
-                      ) {
-                        screenStore.setSelector('GO');
-                      }
+                      props.navigation.navigate('Draft', {
+                        guild1: screenStore.team1,
+                        guild2: screenStore.team2,
+                      });
                     }}
                   />
                 </View>
