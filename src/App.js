@@ -24,7 +24,7 @@ import {
   DarkTheme as PlayBookDarkTheme,
 } from './components/Theme';
 
-import {useColorScheme} from 'react-native';
+import {StatusBar, useColorScheme} from 'react-native';
 
 const DefaultTheme = _.merge(
   {},
@@ -88,10 +88,14 @@ const App = observer(() => {
 
   return (
     <StoreContext.Provider value={RootStore}>
+      <StatusBar
+        translucent={true}
+        backgroundColor="transparent"
+        barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
+      />
       <DataProvider>
         <PaperProvider theme={Theme}>
           <SafeAreaProvider>
-            {/* <StatusBar translucent={true} backgroundColor="transparent" /> */}
             <NavigationContainer
               theme={Theme}
               // initialState={initialState}
