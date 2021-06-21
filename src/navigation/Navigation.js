@@ -1,8 +1,14 @@
 import React from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {View, Image, Linking} from 'react-native';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import {DrawerActions} from '@react-navigation/native';
-import {Appbar, withTheme} from 'react-native-paper';
+import {Divider, Appbar, List, withTheme} from 'react-native-paper';
 import {useDimensions} from '@react-native-community/hooks';
 import _ from 'lodash';
 
@@ -19,19 +25,66 @@ const GameStack = createStackNavigator();
 const LibraryStackNav = createStackNavigator();
 const SettingsStackNav = createStackNavigator();
 
-const RootNavigation = withTheme(props => {
+const DrawerContent = props => (
+  <DrawerContentScrollView {...props}>
+    <List.Item
+      title="GB Playbook"
+      left={() => (
+        <Image
+          source={require('../assets/img/logo.png')}
+          style={{borderRadius: 5.4}}
+        />
+      )}
+    />
+    <Divider style={{marginHorizontal: 10}} />
+    <DrawerItemList {...props} />
+    <Divider style={{margin: 10}}/>
+    <List.Subheader>External Resources:</List.Subheader>
+    <View style={{marginLeft: 20}}>
+      <DrawerItem
+        label="Core Rules"
+        onPress={() =>
+          Linking.openURL(
+            'https://www.longshanks.org/tools/documents/rules/rules_s4.pdf',
+          )
+        }
+      />
+      <DrawerItem
+        label="Organized Play Rules"
+        onPress={() =>
+          Linking.openURL('https://www.longshanks.org/tools/documents/opd/')
+        }
+      />
+    </View>
+    <Divider style={{margin:10}} />
+    <List.Subheader>Community Links:</List.Subheader>
+    <View style={{marginLeft: 20}}>
+      <DrawerItem
+        label="GBCP Discord"
+        onPress={() => Linking.openURL('https://discord.gg/eMZeVQkn3P')}
+      />
+      <DrawerItem
+        label="Longshanks"
+        onPress={() => Linking.openURL('https://www.longshanks.org/')}
+      />
+    </View>
+  </DrawerContentScrollView>
+);
+
+const RootNavigation = props => {
   const settings = useStore().settings;
   return (
     <RootDrawer.Navigator
       initialRouteName={settings.initialScreen}
       drawerType="slide"
-      drawerPosition="right">
+      drawerPosition="right"
+      drawerContent={DrawerContent}>
       <RootDrawer.Screen name="Game Play" component={MainStack} />
       <RootDrawer.Screen name="Library" component={LibraryStack} />
       <RootDrawer.Screen name="Settings" component={SettingsStack} />
     </RootDrawer.Navigator>
   );
-});
+};
 export default RootNavigation;
 
 const MainStack = withTheme(props => {
