@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Image, Linking} from 'react-native';
 import {
   createDrawerNavigator,
@@ -7,7 +7,7 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
-import {DrawerActions} from '@react-navigation/native';
+import {CommonActions, DrawerActions} from '@react-navigation/native';
 import {Divider, Appbar, List, withTheme} from 'react-native-paper';
 import {useDimensions} from '@react-native-community/hooks';
 import _ from 'lodash';
@@ -38,7 +38,7 @@ const DrawerContent = props => (
     />
     <Divider style={{marginHorizontal: 10}} />
     <DrawerItemList {...props} />
-    <Divider style={{margin: 10}}/>
+    <Divider style={{margin: 10}} />
     <List.Subheader>External Resources:</List.Subheader>
     <View style={{marginLeft: 20}}>
       <DrawerItem
@@ -56,7 +56,7 @@ const DrawerContent = props => (
         }
       />
     </View>
-    <Divider style={{margin:10}} />
+    <Divider style={{margin: 10}} />
     <List.Subheader>Community Links:</List.Subheader>
     <View style={{marginLeft: 20}}>
       <DrawerItem
@@ -90,6 +90,18 @@ export default RootNavigation;
 const MainStack = withTheme(props => {
   const {height, width} = useDimensions().window;
   const landscape = width > height;
+  const {version} = useData();
+
+  // reset the stack on context change
+  useEffect(() => {
+    props.navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{name: 'TeamSelect'}],
+      }),
+    );
+  }, [version]);
+
   return (
     <GameStack.Navigator
       initialRouteName="TeamSelect"
@@ -122,15 +134,28 @@ const LibraryStack = withTheme(props => {
   const {height, width} = useDimensions().window;
   const landscape = width > height;
 
-  const {data, loading} = useData();
+  const {data, version, loading} = useData();
+
+  // I thought this might be needed, but it doesn't work here
+  // maybe becuase the routes are calculated?
+  // useEffect(() => {
+  //   props.navigation.dispatch(
+  //     CommonActions.reset({
+  //       index: 0,
+  //       routes: [{name: 'MainLibrary'}],
+  //     }),
+  //   );
+  // }, [version]);
+
   if (loading) {
     return null;
   }
+
   const Guilds = data.Guilds;
 
   return (
     <LibraryStackNav.Navigator
-      initialRouteName="Library"
+      initialRouteName="MainLibrary"
       screenOptions={({navigation}) => {
         return {
           headerShown: !landscape,
@@ -145,7 +170,7 @@ const LibraryStack = withTheme(props => {
         };
       }}>
       <LibraryStackNav.Screen
-        name="Library"
+        name="MainLibrary"
         component={LibraryScreen}
         options={{headerLeft: () => <></>}}
       />

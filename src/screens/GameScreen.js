@@ -1,16 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {View, StatusBar} from 'react-native';
+import {View} from 'react-native';
+import {useDimensions} from '@react-native-community/hooks';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import RosterList from '../components/RosterList';
-
-import {useStore} from '../stores/RootStore';
-
 import {Snackbar} from 'react-native-paper';
 
-import {
-  useDeviceOrientation,
-  useDimensions,
-} from '@react-native-community/hooks';
+import {useStore} from '../stores/RootStore';
+import RosterList from '../components/RosterList';
 
 function PortraitView(props) {
   const store = useStore();
@@ -36,7 +31,7 @@ function LandscapeView(props) {
 }
 
 export default function GameScreen(props) {
-  // const orientation = useDeviceOrientation();
+  const store = useStore();
   const {height, width} = useDimensions().window;
   const landscape = width > height;
 
@@ -61,6 +56,8 @@ export default function GameScreen(props) {
           label: 'Exit Game',
           onPress: () => {
             props.navigation.dispatch(navEvent.data.action);
+            store.team1.reset({});
+            store.team1.reset({});
           },
         }}>
         Leaving this screen will reset the game state

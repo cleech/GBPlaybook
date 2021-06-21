@@ -1,33 +1,23 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
+import {useTheme} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-
-import {FAB} from 'react-native-paper';
-
-import {
-  useDeviceOrientation,
-  useDimensions,
-} from '@react-native-community/hooks';
-
-// import Guilds from '../components/GuildData';
-import GBIcons from '../components/GBIcons';
-
-import {DraftList, BlacksmithDraftList} from '../components/DraftList';
+import {Text, FAB} from 'react-native-paper';
+import {useDimensions} from '@react-native-community/hooks';
 
 import {useStore} from '../stores/RootStore';
-import {Observer} from 'mobx-react-lite';
-
-import {useTheme} from '@react-navigation/native';
-
-// import NavRail from '../components/NavRail';
-import {Text, Appbar} from 'react-native-paper';
-import {CommonActions} from '@react-navigation/native';
-
 import {useData} from '../components/DataContext';
+import {DraftList, BlacksmithDraftList} from '../components/DraftList';
 
 const DraftScreen = props => {
   const store = useStore();
   const theme = useTheme();
+
+  const {height, width} = useDimensions().window;
+  const landscape = width > height;
+
+  const [team1, setTeam1] = useState(undefined);
+  const [team2, setTeam2] = useState(undefined);
 
   const {data, version, loading} = useData();
   if (loading) {
@@ -35,11 +25,7 @@ const DraftScreen = props => {
   }
   const Guilds = data.Guilds;
 
-  const { guild1, guild2 } = props.route.params;
-
-  // const orientation = useDeviceOrientation();
-  const {height, width} = useDimensions().window;
-  const landscape = width > height;
+  const {guild1, guild2} = props.route.params;
 
   let Team1DraftList =
     guild1 === 'Blacksmiths' ? BlacksmithDraftList : DraftList;
@@ -62,35 +48,6 @@ const DraftScreen = props => {
           height: '100%',
           flexDirection: landscape ? 'row' : 'column',
         }}>
-        {/* {landscape && (
-          <NavRail>
-            <Appbar.BackAction
-              onPress={() => props.navigation.dispatch(CommonActions.goBack())}
-            />
-            <Text />
-            <Appbar.Action
-              icon="play-circle-outline"
-              onPress={() => {
-                props.navigation.navigate('Game Play');
-              }}
-            />
-            <Text style={{textAlign: 'center'}}>Game Manager</Text>
-            <Appbar.Action
-              icon="cards-outline"
-              onPress={() => {
-                props.navigation.navigate('Library');
-              }}
-            />
-            <Text style={{textAlign: 'center'}}>Card Library</Text>
-            <Appbar.Action
-              icon="cogs"
-              onPress={() => {
-                props.navigation.navigate('Settings');
-              }}
-            />
-            <Text style={{textAlign: 'center'}}>Settings</Text>
-          </NavRail>
-        )} */}
         <View
           style={{
             flexDirection: landscape ? 'row' : 'column',
@@ -107,33 +64,32 @@ const DraftScreen = props => {
             <Team1DraftList
               guild={Guilds.find(g => g.name === guild1)}
               ready={team => {
-                store.setTeam1(guild1);
-                store.setRoster1(team);
-                store.team1.setScore(0);
-                store.team1.setMomentum(0);
+                setTeam1(team);
               }}
-              unready={() => store.setRoster1([])}
+              unready={() => {
+                setTeam1(undefined);
+              }}
             />
           </View>
 
-          <Observer>
-            {() => (
-              <FAB
-                theme={{colors: {accent: '#dda520'}}}
-                animated={false}
-                onPress={() => props.navigation.navigate('Game')}
-                disabled={!store.draftReady}
-                icon="play"
-                // icon={({size, color}) => (
-                // <GBIcons name="GBT" size={size} color={color} />
-                // )}
-                style={{
-                  alignSelf: 'center',
-                  // backgroundColor: store.draftReady ? 'yellow' : '#ddd',
-                }}
-              />
-            )}
-          </Observer>
+          <FAB
+            theme={{colors: {accent: '#dda520'}}}
+            animated={false}
+            onPress={() => {
+              store.team1.reset({name: guild1, roster: team1});
+              store.team2.reset({name: guild2, roster: team2});
+              props.navigation.navigate('Game');
+            }}
+            disabled={!(team1 && team2)}
+            icon="play"
+            // icon={({size, color}) => (
+            // <GBIcons name="GBT" size={size} color={color} />
+            // )}
+            style={{
+              alignSelf: 'center',
+              // backgroundColor: store.draftReady ? 'yellow' : '#ddd',
+            }}
+          />
 
           <View
             style={{
@@ -145,12 +101,11 @@ const DraftScreen = props => {
             <Team2DraftList
               guild={Guilds.find(g => g.name === guild2)}
               ready={team => {
-                store.setTeam2(guild2);
-                store.setRoster2(team);
-                store.team2.setScore(0);
-                store.team2.setMomentum(0);
+                setTeam2(team);
               }}
-              unready={() => store.setRoster2([])}
+              unready={() => {
+                setTeam2(undefined);
+              }}
             />
           </View>
           <Text style={{position: 'absolute', bottom: 0, right: 0}}>

@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {ScrollView, View} from 'react-native';
+import {View} from 'react-native';
 import {withTheme, Chip, Text} from 'react-native-paper';
 import {useDimensions} from '@react-native-community/hooks';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -9,10 +9,15 @@ import {displayName} from '../components/GuildData';
 import {useData} from '../components/DataContext';
 import CardCarousel from '../components/CardCarousel';
 
-import GuildGrid, {itemSize} from '../components/GuildGrid';
+import GuildGrid from '../components/GuildGrid';
 import {ImageBackground} from 'react-native';
 
 const TeamLibrary = withTheme(props => {
+  const {height, width} = useDimensions().window;
+  const landscape = width > height;
+
+  var carousel = useRef(null);
+
   const gdata = useData();
   if (gdata.loading) {
     return null;
@@ -20,9 +25,6 @@ const TeamLibrary = withTheme(props => {
   const Guilds = gdata.data.Guilds;
   const Models = gdata.data.Models;
   const version = gdata.version;
-
-  const {height, width} = useDimensions().window;
-  const landscape = width > height;
 
   const guild = Guilds.find(m => m.name === props.route.name);
   const data = [
@@ -32,8 +34,6 @@ const TeamLibrary = withTheme(props => {
       overlay: true,
     })),
   ];
-
-  var carousel = useRef(null);
 
   return (
     <SafeAreaView
@@ -69,8 +69,8 @@ const TeamLibrary = withTheme(props => {
             m.model.name && (
               <Chip
                 key={m.model.id}
-		mode='outlined'
-	        style={{margin: 1}}
+                mode="outlined"
+                style={{margin: 1}}
                 onPress={() => {
                   carousel.snapToItem(idx, true, false);
                 }}>

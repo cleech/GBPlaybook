@@ -24,7 +24,6 @@ const GBPlayer = types
 
     // used in draft screen, here for completeness
     benched: types.maybe(types.string),
-    // _benched: types.maybe(types.string),
     dehcneb: types.maybe(types.string),
 
     playbook: types.array(types.array(types.maybeNull(types.string))),
@@ -59,16 +58,24 @@ const GBPlayer = types
     },
   }));
 
-const GBTeam = types.model({
-  name: types.maybe(types.string),
-  roster: types.array(GBPlayer),
-  momentum: types.optional(types.integer, 0),
-  score: types.optional(types.integer, 0),
-})
-.actions(self => ({
-  setScore(score) { self.score = score; },
-  setMomentum(momentum) { self.momentum = momentum; },
-}));
+const GBTeam = types
+  .model({
+    name: types.maybe(types.string),
+    roster: types.array(GBPlayer),
+    momentum: types.optional(types.integer, 0),
+    score: types.optional(types.integer, 0),
+  })
+  .actions(self => ({
+    setScore(score) {
+      self.score = score;
+    },
+    setMomentum(momentum) {
+      self.momentum = momentum;
+    },
+    reset(snap) {
+      applySnapshot(self, snap);
+    },
+  }));
 
 const Settings = types
   .model({
@@ -85,7 +92,7 @@ const Settings = types
     },
     setInitialScreen(route) {
       self.initialScreen = route;
-    }
+    },
   }));
 
 const RootStore = types
@@ -94,23 +101,6 @@ const RootStore = types
     team2: types.optional(GBTeam, {}),
     settings: types.optional(Settings, {}),
   })
-  .actions(self => ({
-    setTeam1(name) {
-      self.team1.name = name;
-    },
-    setTeam2(name) {
-      self.team2.name = name;
-    },
-    setRoster1(r) {
-      self.team1.roster = r;
-    },
-    setRoster2(r) {
-      self.team2.roster = r;
-    },
-    reset() {
-      applySnapshot(self, {});
-    },
-  }))
   .views(self => ({
     get draftReady() {
       return self.team1.roster.length && self.team2.roster.length;
