@@ -142,7 +142,7 @@ const LibraryStack = withTheme(props => {
   //   props.navigation.dispatch(
   //     CommonActions.reset({
   //       index: 0,
-  //       routes: [{name: 'MainLibrary'}],
+  //       routes: [{name: 'Library'}],
   //     }),
   //   );
   // }, [version]);
@@ -155,7 +155,7 @@ const LibraryStack = withTheme(props => {
 
   return (
     <LibraryStackNav.Navigator
-      initialRouteName="MainLibrary"
+      initialRouteName="Library"
       screenOptions={({navigation}) => {
         return {
           headerShown: !landscape,
@@ -170,7 +170,7 @@ const LibraryStack = withTheme(props => {
         };
       }}>
       <LibraryStackNav.Screen
-        name="MainLibrary"
+        name="Library"
         component={LibraryScreen}
         options={{headerLeft: () => <></>}}
       />
