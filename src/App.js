@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-
 import {NavigationContainer} from '@react-navigation/native';
-
 import {Provider as PaperProvider} from 'react-native-paper';
+
 import _ from 'lodash';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -24,7 +23,7 @@ import {
   DarkTheme as PlayBookDarkTheme,
 } from './components/Theme';
 
-import {StatusBar, useColorScheme} from 'react-native';
+import {useColorScheme} from 'react-native';
 
 const DefaultTheme = _.merge(
   {},
@@ -88,11 +87,11 @@ const App = observer(() => {
 
   return (
     <StoreContext.Provider value={RootStore}>
-      <StatusBar
+      {/* <StatusBar
         translucent={true}
         backgroundColor="transparent"
         barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
-      />
+      /> */}
       <DataProvider>
         <PaperProvider theme={Theme}>
           <SafeAreaProvider>

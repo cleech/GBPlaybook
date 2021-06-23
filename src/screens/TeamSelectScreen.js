@@ -1,14 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   StyleSheet,
   View,
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {useFocusEffect, useTheme} from '@react-navigation/native';
+import {useHeaderHeight} from '@react-navigation/stack';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDimensions} from '@react-native-community/hooks';
 import {Text, withTheme, FAB, Snackbar} from 'react-native-paper';
+import {changeBarColors} from 'react-native-immersive-bars';
 import Color from 'color';
 
 import {useStore} from '../stores/RootStore';
@@ -17,6 +19,7 @@ import GuildGrid from '../components/GuildGrid';
 import {useData} from '../components/DataContext';
 
 const TeamSelectScreen = withTheme(props => {
+  const insets = useSafeAreaInsets();
   const store = useStore();
   const theme = useTheme();
   const {version} = useData();
@@ -26,6 +29,12 @@ const TeamSelectScreen = withTheme(props => {
   const [team2, setTeam2] = useState('');
 
   const [itemSize, setItemSize] = useState(0);
+
+  useFocusEffect(
+    useCallback(() => {
+      changeBarColors(true);
+    }),
+  );
 
   const dimensions = useDimensions();
   const {height, width} = dimensions.window;
@@ -50,6 +59,7 @@ const TeamSelectScreen = withTheme(props => {
   }
 
   const [showResume, setResume] = useState(store.draftReady);
+  const headerHeight = useHeaderHeight();
 
   return (
     <ImageBackground
@@ -59,10 +69,7 @@ const TeamSelectScreen = withTheme(props => {
         height: '100%',
         alignItems: 'center',
       }}
-      imageStyle={{resizeMode: 'cover'}}
-      // imageStyle={{resizeMode: 'cover', opacity: 0.8}}
-    >
-      {/* <StatusBar translucent={true} backgroundColor="transparent" /> */}
+      imageStyle={{resizeMode: 'cover'}}>
       <SafeAreaView
         edges={
           landscape
@@ -73,6 +80,7 @@ const TeamSelectScreen = withTheme(props => {
           alignItems: 'center',
           flex: 1,
           flexDirection: 'row',
+          paddingTop: headerHeight,
         }}>
         <View
           style={{
@@ -150,7 +158,8 @@ const TeamSelectScreen = withTheme(props => {
             onPress: () => {
               props.navigation.navigate('Game');
             },
-          }}>
+          }}
+          wrapperStyle={{marginBottom: insets.bottom}}>
           Game In Progress
         </Snackbar>
       </SafeAreaView>

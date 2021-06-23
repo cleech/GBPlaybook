@@ -12,11 +12,18 @@ const itemSize = ({width, height}, count) => {
 
   const layout = (w, h) => {
     // the 10 here it 2 * margin, or minimal spacing to use
-    const iw = (width - w * 10) / w;
-    const ih = (height - h * 10) / h;
+    const iw = Math.floor((width - w * 10) / w);
+    const ih = Math.floor((height - h * 10) / h);
     const size = Math.min(iw, ih);
     const margin = (iw - size) / 2;
-    return {w: iw, h: ih, size: size, margin: margin};
+    return {
+      w: iw,
+      h: ih,
+      size: size,
+      margin: margin,
+      wx: w,
+      hx: h,
+    };
   };
 
   return _.maxBy(

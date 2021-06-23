@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {useFocusEffect, useTheme} from '@react-navigation/native';
+import {useHeaderHeight} from '@react-navigation/stack';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Text, FAB} from 'react-native-paper';
 import {useDimensions} from '@react-native-community/hooks';
@@ -9,15 +10,24 @@ import {useStore} from '../stores/RootStore';
 import {useData} from '../components/DataContext';
 import {DraftList, BlacksmithDraftList} from '../components/DraftList';
 
+import {changeBarColors} from 'react-native-immersive-bars';
+
 const DraftScreen = props => {
   const store = useStore();
   const theme = useTheme();
 
+  const headerHeight = useHeaderHeight();
   const {height, width} = useDimensions().window;
   const landscape = width > height;
 
   const [team1, setTeam1] = useState(undefined);
   const [team2, setTeam2] = useState(undefined);
+
+  useFocusEffect(
+    useCallback(() => {
+      changeBarColors(true);
+    }),
+  );
 
   const {data, version, loading} = useData();
   if (loading) {
@@ -36,7 +46,7 @@ const DraftScreen = props => {
     <ImageBackground
       source={theme.image}
       style={{width: '100%', height: '100%', alignItems: 'center'}}
-      imageStyle={{resizeMode: 'cover', opacity: 0.8}}>
+      imageStyle={{resizeMode: 'cover'}}>
       <SafeAreaView
         edges={
           landscape
@@ -47,6 +57,7 @@ const DraftScreen = props => {
           width: '100%',
           height: '100%',
           flexDirection: landscape ? 'row' : 'column',
+          paddingTop: headerHeight,
         }}>
         <View
           style={{

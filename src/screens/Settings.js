@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {View, ScrollView} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
@@ -14,8 +14,11 @@ import DeviceInfo from 'react-native-device-info';
 import DropDown from 'react-native-paper-dropdown';
 import {useStore} from '../stores/RootStore';
 import {Observer} from 'mobx-react-lite';
+import {useDimensions} from '@react-native-community/hooks';
 
 import {useData} from '../components/DataContext';
+import {useFocusEffect} from '@react-navigation/native';
+import {changeBarColors} from 'react-native-immersive-bars';
 
 const SettingsView = withTheme(props => {
   const theme = props.theme;
@@ -23,11 +26,25 @@ const SettingsView = withTheme(props => {
   const settings = store.settings;
   const {manifest} = useData();
 
+  const {height, width} = useDimensions().window;
+  const landscape = width > height;
+
   const [showScreenDropDown, setScreenDropDown] = useState(false);
   const [showDataDropDown, setDataDropDown] = useState(false);
 
+  useFocusEffect(
+    useCallback(() => {
+      changeBarColors(theme.dark);
+    }),
+  );
+
   return (
-    <SafeAreaView edges={['bottom', 'left', 'right']}>
+    <SafeAreaView
+      edges={
+        landscape
+          ? ['top', 'bottom', 'left', 'right']
+          : ['bottom', 'left', 'right']
+      }>
       <Observer>
         {() => (
           <ScrollView>

@@ -1,11 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {View} from 'react-native';
 import {useDimensions} from '@react-native-community/hooks';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Snackbar} from 'react-native-paper';
 
 import {useStore} from '../stores/RootStore';
 import RosterList from '../components/RosterList';
+import {useFocusEffect, useTheme} from '@react-navigation/native';
+import {changeBarColors} from 'react-native-immersive-bars';
 
 function PortraitView(props) {
   const store = useStore();
@@ -38,6 +40,8 @@ export default function GameScreen(props) {
   const [showSnack, setShowSnack] = useState(false);
   const [navEvent, saveNavEvent] = useState(null);
 
+  const theme = useTheme();
+
   useEffect(() =>
     props.navigation.addListener('beforeRemove', e => {
       e.preventDefault();
@@ -45,6 +49,14 @@ export default function GameScreen(props) {
       setShowSnack(true);
     }),
   );
+
+  useFocusEffect(
+    useCallback(() => {
+      changeBarColors(theme.dark);
+    }),
+  );
+
+  const insets = useSafeAreaInsets();
 
   return (
     <View style={{flex: 1, width: '100%'}}>
@@ -59,7 +71,8 @@ export default function GameScreen(props) {
             store.team1.reset({});
             store.team1.reset({});
           },
-        }}>
+        }}
+        wrapperStyle={{marginBottom: insets.bottom}}>
         Leaving this screen will reset the game state
       </Snackbar>
     </View>

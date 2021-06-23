@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useCallback} from 'react';
 import {View} from 'react-native';
 import {withTheme, Chip, Text} from 'react-native-paper';
 import {useDimensions} from '@react-native-community/hooks';
@@ -11,12 +11,23 @@ import CardCarousel from '../components/CardCarousel';
 
 import GuildGrid from '../components/GuildGrid';
 import {ImageBackground} from 'react-native';
+import {useHeaderHeight} from '@react-navigation/stack';
+
+import {changeBarColors} from 'react-native-immersive-bars';
+import {useFocusEffect} from '@react-navigation/native';
 
 const TeamLibrary = withTheme(props => {
+  const theme = props.theme;
   const {height, width} = useDimensions().window;
   const landscape = width > height;
 
   var carousel = useRef(null);
+
+  useFocusEffect(
+    useCallback(() => {
+      changeBarColors(theme.dark);
+    }),
+  );
 
   const gdata = useData();
   if (gdata.loading) {
@@ -37,7 +48,11 @@ const TeamLibrary = withTheme(props => {
 
   return (
     <SafeAreaView
-      edges={['bottom', 'left', 'right']}
+      edges={
+        landscape
+          ? ['top', 'bottom', 'left', 'right']
+          : ['bottom', 'left', 'right']
+      }
       style={{
         flex: 1,
         width: '100%',
@@ -46,7 +61,12 @@ const TeamLibrary = withTheme(props => {
         alignItems: 'center',
         flexDirection: landscape ? 'row-reverse' : 'column',
       }}>
-      <View style={{flex: 1, width: '100%', height: '100%'}}>
+      <View
+        style={{
+          flex: 1,
+          width: '100%',
+          height: '100%',
+        }}>
         <CardCarousel
           ref={c => (carousel = c)}
           data={data}
@@ -89,6 +109,14 @@ const LibraryScreen = withTheme(props => {
   const {height, width} = useDimensions().window;
   const landscape = width > height;
 
+  const headerHeight = useHeaderHeight();
+
+  useFocusEffect(
+    useCallback(() => {
+      changeBarColors(true);
+    }),
+  );
+
   const {data, version, loading} = useData();
   if (loading) {
     return null;
@@ -97,7 +125,6 @@ const LibraryScreen = withTheme(props => {
 
   return (
     <ImageBackground
-      // source={require('../assets/library.jpg')}
       source={props.theme.image}
       style={{width: '100%', height: '100%', alignItems: 'center'}}
       imageStyle={{resizeMode: 'cover'}}>
@@ -109,15 +136,13 @@ const LibraryScreen = withTheme(props => {
         }
         style={{
           flex: 1,
-          // flexDirection: 'row',
-          // borderColor: 'red', borderWidth: 1,
+          marginTop: headerHeight,
         }}>
         <View
           style={{
             flexDirection: 'row',
             width: '100%',
             height: '100%',
-            // borderColor: 'blue', borderWidth: 1,
           }}>
           <GuildGrid
             pickTeam={guild => {

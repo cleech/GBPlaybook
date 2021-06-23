@@ -88,6 +88,7 @@ const RootNavigation = props => {
 export default RootNavigation;
 
 const MainStack = withTheme(props => {
+  const theme = props.theme;
   const {height, width} = useDimensions().window;
   const landscape = width > height;
   const {version} = useData();
@@ -105,32 +106,56 @@ const MainStack = withTheme(props => {
   return (
     <GameStack.Navigator
       initialRouteName="TeamSelect"
-      screenOptions={({navigation, route}) => {
-        return {
-          headerShown: !landscape,
-          headerBackTitleVisible: false,
-          headerRight: () => (
-            <Appbar.Action
-              icon="menu"
-              color={props.theme.colors.text}
-              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-            />
-          ),
-          headerTitle: 'GB Playbook',
-        };
-      }}>
+      screenOptions={({navigation}) => ({
+        headerShown: !landscape,
+        headerBackTitleVisible: false,
+        headerRight: () => (
+          <Appbar.Action
+            icon="menu"
+            color={props.theme.colors.text}
+            onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+          />
+        ),
+        headerTitle: 'GB Playbook',
+      })}>
       <GameStack.Screen
         name="TeamSelect"
         component={TeamScreen}
-        options={{headerLeft: () => <></>}}
+        options={({navigation}) => ({
+          headerTransparent: true,
+          headerTintColor: theme.dark ? theme.colors.text : '#ffffffcc',
+          headerRight: () => (
+            <Appbar.Action
+              icon="menu"
+              color={theme.dark ? theme.colors.text : '#ffffffcc'}
+              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+            />
+          ),
+          // headerLeft: () => <></>,
+        })}
       />
-      <GameStack.Screen name="Draft" component={DraftScreen} />
+      <GameStack.Screen
+        name="Draft"
+        component={DraftScreen}
+        options={({navigation}) => ({
+          headerTransparent: true,
+          headerTintColor: theme.dark ? theme.colors.text : '#ffffffcc',
+          headerRight: () => (
+            <Appbar.Action
+              icon="menu"
+              color={theme.dark ? theme.colors.text : '#ffffffcc'}
+              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+            />
+          ),
+        })}
+      />
       <GameStack.Screen name="Game" component={GameScreen} />
     </GameStack.Navigator>
   );
 });
 
 const LibraryStack = withTheme(props => {
+  const theme = props.theme;
   const {height, width} = useDimensions().window;
   const landscape = width > height;
 
@@ -156,23 +181,32 @@ const LibraryStack = withTheme(props => {
   return (
     <LibraryStackNav.Navigator
       initialRouteName="Library"
-      screenOptions={({navigation}) => {
-        return {
-          headerShown: !landscape,
-          headerBackTitleVisible: false,
-          headerRight: () => (
-            <Appbar.Action
-              icon="menu"
-              color={props.theme.colors.text}
-              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
-            />
-          ),
-        };
-      }}>
+      screenOptions={({navigation}) => ({
+        headerShown: !landscape,
+        headerBackTitleVisible: false,
+        headerRight: () => (
+          <Appbar.Action
+            icon="menu"
+            color={props.theme.colors.text}
+            onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+          />
+        ),
+      })}>
       <LibraryStackNav.Screen
         name="Library"
         component={LibraryScreen}
-        options={{headerLeft: () => <></>}}
+        options={({navigation}) => ({
+          headerTransparent: true,
+          headerTintColor: theme.dark ? theme.colors.text : '#ffffffcc',
+          headerRight: () => (
+            <Appbar.Action
+              icon="menu"
+              color={theme.dark ? theme.colors.text : '#ffffffcc'}
+              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+            />
+          ),
+          // headerLeft: () => <></>,
+        })}
       />
       {Guilds.map(g => (
         <LibraryStackNav.Screen
@@ -207,7 +241,7 @@ const SettingsStack = withTheme(props => {
       <SettingsStackNav.Screen
         name="Settings"
         component={SettingsView}
-        options={{headerLeft: () => <></>}}
+        // options={{headerLeft: () => <></>}}
       />
     </SettingsStackNav.Navigator>
   );
