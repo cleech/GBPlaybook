@@ -7,7 +7,8 @@
 
 function displayName(model) {
   return (
-    model.name + (model.veteran ? ' (v)' : '') + (model.seasoned ? ' (s)' : '')
+    // model.name + (model.veteran ? ' (v)' : '') + (model.seasoned ? ' (s)' : '')
+    (model.veteran ? 'v' : '') + (model.seasoned ? 's' : '') + model.name
   );
 }
 
