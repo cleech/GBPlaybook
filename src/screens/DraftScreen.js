@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react';
-import {View, StyleSheet, ImageBackground} from 'react-native';
+import {View, StyleSheet, ImageBackground, ScrollView} from 'react-native';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
 import {useHeaderHeight} from '@react-navigation/stack';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -45,7 +45,10 @@ const DraftScreen = props => {
   return (
     <ImageBackground
       source={theme.image}
-      style={{width: '100%', height: '100%', alignItems: 'center'}}
+      style={{
+        width: '100%',
+        height: '100%',
+      }}
       imageStyle={{resizeMode: 'cover'}}>
       <SafeAreaView
         edges={
@@ -56,14 +59,13 @@ const DraftScreen = props => {
         style={{
           width: '100%',
           height: '100%',
-          flexDirection: landscape ? 'row' : 'column',
           paddingTop: headerHeight,
         }}>
-        <View
-          style={{
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
+            // horizontal: landscape,
             flexDirection: landscape ? 'row' : 'column',
-            height: '100%',
-            width: '100%',
           }}>
           <View
             style={{
@@ -93,12 +95,8 @@ const DraftScreen = props => {
             }}
             disabled={!(team1 && team2)}
             icon="play"
-            // icon={({size, color}) => (
-            // <GBIcons name="GBT" size={size} color={color} />
-            // )}
             style={{
               alignSelf: 'center',
-              // backgroundColor: store.draftReady ? 'yellow' : '#ddd',
             }}
           />
 
@@ -119,10 +117,11 @@ const DraftScreen = props => {
               }}
             />
           </View>
+
           <Text style={{position: 'absolute', bottom: 0, right: 0}}>
             [{version}]
           </Text>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </ImageBackground>
   );
