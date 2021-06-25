@@ -45,14 +45,14 @@ const DrawerContent = props => (
         label="Core Rules"
         onPress={() =>
           Linking.openURL(
-            'https://www.longshanks.org/tools/documents/rules/rules_s4.pdf',
+            'https://www.longshanks.org/systems/guildball/tools/documents/rules/rules_s4.pdf',
           )
         }
       />
       <DrawerItem
         label="Organized Play Rules"
         onPress={() =>
-          Linking.openURL('https://www.longshanks.org/tools/documents/opd/')
+          Linking.openURL('https://www.longshanks.org/systems/guildball/tools/documents/opd/')
         }
       />
     </View>
