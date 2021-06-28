@@ -5,7 +5,7 @@ import {Text, withTheme} from 'react-native-paper';
 
 import _ from 'lodash';
 
-const itemSize = ({width, height}, count) => {
+export const itemSize = ({width, height}, count, extra = 0) => {
   if (!width || !height) {
     return undefined;
   }
@@ -28,7 +28,7 @@ const itemSize = ({width, height}, count) => {
 
   return _.maxBy(
     // no more guessing, just check every possible layout
-    _.range(1, count + 1).map(n => layout(n, Math.ceil(count / n))),
+    _.range(1, count + 1).map(n => layout(n, Math.ceil(count / n) + extra)),
     layout => layout.size,
   );
 };
@@ -39,7 +39,7 @@ import {useData} from '../components/DataContext';
 
 const GuildGrid = withTheme(props => {
   const [itm, setITM] = useState(undefined);
-  const itemsize = itm ? itm.size : undefined;
+  const itemsize = props.size ?? (itm ? itm.size : undefined);
 
   const {data, loading} = useData();
   if (loading) {

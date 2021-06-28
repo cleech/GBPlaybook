@@ -15,7 +15,7 @@ import Color from 'color';
 
 import {useStore} from '../stores/RootStore';
 import GBIcon from '../components/GBIcons';
-import GuildGrid from '../components/GuildGrid';
+import GuildGrid, {itemSize as gItemSize} from '../components/GuildGrid';
 import {useData} from '../components/DataContext';
 
 const TeamSelectScreen = withTheme(props => {
@@ -61,6 +61,12 @@ const TeamSelectScreen = withTheme(props => {
   const [showResume, setResume] = useState(store.draftReady);
   const headerHeight = useHeaderHeight();
 
+  const {data, loading} = useData();
+  if (loading) {
+    return null;
+  }
+  const Guilds = data.Guilds;
+
   return (
     <ImageBackground
       source={theme.image}
@@ -89,10 +95,15 @@ const TeamSelectScreen = withTheme(props => {
             flexDirection: 'column',
             width: '100%',
             // borderColor: 'blue', borderWidth: 1,
+          }}
+          onLayout={event => {
+            const itm = gItemSize(event.nativeEvent.layout, Guilds.length, 1);
+            setItemSize(itm.size);
           }}>
           <GuildGrid
             pickTeam={pickTeam}
-            sizeCallback={size => setItemSize(size)}
+            // size={itemSize}
+            // sizeCallback={size => setItemSize(size)}
           />
 
           <View
