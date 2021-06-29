@@ -48,7 +48,7 @@ const SettingsView = withTheme(props => {
       <Observer>
         {() => (
           <ScrollView>
-            <Title>{`GB Playbook ${DeviceInfo.getReadableVersion()}`}</Title>
+            <Title>{`GB Playbook ${DeviceInfo.getVersion()}`}</Title>
 
             <Divider style={{marginVertical: 15}} />
             <View>

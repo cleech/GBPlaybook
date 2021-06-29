@@ -1,6 +1,6 @@
 {
   "name": "GBPlaybook",
-  "version": "1.0",
+  "version": "1.0.12",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
