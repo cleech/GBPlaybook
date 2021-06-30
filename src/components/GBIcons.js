@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {createIconSetFromIcoMoon} from 'react-native-vector-icons';
 import icoMoonConfig from '../assets/fonts/selection.json';
 import icoPBConfig from '../assets/fonts/GBPlaybook.json';
@@ -38,7 +38,7 @@ function GBIconGradient(props) {
   }
   const Guilds = data.Guilds;
 
-  const guild = Guilds.find((g) => g.name === props.name);
+  const guild = Guilds.find(g => g.name === props.name);
   return (
     <MaskedView
       style={{flex: 1}}
@@ -77,6 +77,8 @@ function GBIconGradient(props) {
   );
 }
 
+import {Animated, Easing} from 'react-native';
+
 function GBIconFade(props) {
   const {data, loading} = useData();
   if (loading) {
@@ -84,8 +86,27 @@ function GBIconFade(props) {
   }
   const Guilds = data.Guilds;
 
-  const guild1 = Guilds.find((g) => g.name === props.guild1);
-  const guild2 = Guilds.find((g) => g.name === props.guild2) ?? guild1;
+  const guild1 = Guilds.find(g => g.name === props.guild1);
+  const guild2 = Guilds.find(g => g.name === props.guild2) ?? guild1;
+
+  const value = useRef(new Animated.Value(0)).current;
+
+  const rotation = value.interpolate({
+    inputRange: [0, 360],
+    outputRange: ['0deg', '360deg'],
+  });
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.timing(value, {
+        toValue: 360,
+        duration: 10000,
+        easing: Easing.linear, // Easing is an additional import from react-native
+        useNativeDriver: true, // To make use of native driver for performance
+      }),
+    ).start();
+  }, []);
+
   return (
     <View
       style={{
@@ -109,11 +130,12 @@ function GBIconFade(props) {
             <GBIcons name={guild1.name} size={props.size} color="#fff" />
           </View>
         }>
-        <View
+        <Animated.View
           style={{
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
+            transform: [{rotate: rotation}],
           }}>
           <LinearGradient
             start={{x: 0.4, y: 0}}
@@ -124,7 +146,7 @@ function GBIconFade(props) {
               height: props.size,
             }}
           />
-        </View>
+        </Animated.View>
       </MaskedView>
       <MaskedView
         style={{
@@ -140,13 +162,12 @@ function GBIconFade(props) {
             <GBIcons name={guild2.name} size={props.size} color="#fff" />
           </View>
         }>
-        <View
+        <Animated.View
           style={{
             flex: 1,
             alignItems: 'center',
             justifyContent: 'center',
-            borderColor: 'blue',
-            borderWidth: 1,
+            transform: [{rotate: rotation}],
           }}>
           <LinearGradient
             start={{x: 0.6, y: 0}}
@@ -157,7 +178,7 @@ function GBIconFade(props) {
               height: props.size,
             }}
           />
-        </View>
+        </Animated.View>
       </MaskedView>
     </View>
   );
