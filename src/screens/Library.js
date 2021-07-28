@@ -1,8 +1,7 @@
 import React, {useRef, useCallback} from 'react';
 import {View} from 'react-native';
 import {withTheme, Chip, Text} from 'react-native-paper';
-import {useDimensions} from '@react-native-community/hooks';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaFrame} from 'react-native-safe-area-context';
 
 import {displayName} from '../components/GuildData';
 
@@ -18,7 +17,7 @@ import {useFocusEffect} from '@react-navigation/native';
 
 const TeamLibrary = withTheme(props => {
   const theme = props.theme;
-  const {height, width} = useDimensions().window;
+  const {height, width} = useSafeAreaFrame();
   const landscape = width > height;
 
   var carousel = useRef(null);
@@ -106,7 +105,7 @@ const TeamLibrary = withTheme(props => {
 export {TeamLibrary};
 
 const LibraryScreen = withTheme(props => {
-  const {height, width} = useDimensions().window;
+  const {height, width} = useSafeAreaFrame();
   const landscape = width > height;
 
   const headerHeight = useHeaderHeight();

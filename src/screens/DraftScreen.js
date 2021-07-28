@@ -2,9 +2,8 @@ import React, {useState, useCallback} from 'react';
 import {View, StyleSheet, ImageBackground, ScrollView} from 'react-native';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
 import {useHeaderHeight} from '@react-navigation/stack';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaFrame} from 'react-native-safe-area-context';
 import {Text, FAB} from 'react-native-paper';
-import {useDimensions} from '@react-native-community/hooks';
 
 import {useStore} from '../stores/RootStore';
 import {useData} from '../components/DataContext';
@@ -17,7 +16,7 @@ const DraftScreen = props => {
   const theme = useTheme();
 
   const headerHeight = useHeaderHeight();
-  const {height, width} = useDimensions().window;
+  const {height, width} = useSafeAreaFrame();
   const landscape = width > height;
 
   const [team1, setTeam1] = useState(undefined);

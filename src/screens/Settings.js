@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import {View, ScrollView} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaFrame} from 'react-native-safe-area-context';
 import {
   withTheme,
   Title,
@@ -14,7 +14,6 @@ import DeviceInfo from 'react-native-device-info';
 import DropDown from 'react-native-paper-dropdown';
 import {useStore} from '../stores/RootStore';
 import {Observer} from 'mobx-react-lite';
-import {useDimensions} from '@react-native-community/hooks';
 
 import {useData} from '../components/DataContext';
 import {useFocusEffect} from '@react-navigation/native';
@@ -26,7 +25,7 @@ const SettingsView = withTheme(props => {
   const settings = store.settings;
   const {manifest} = useData();
 
-  const {height, width} = useDimensions().window;
+  const {height, width} = useSafeAreaFrame();
   const landscape = width > height;
 
   const [showScreenDropDown, setScreenDropDown] = useState(false);

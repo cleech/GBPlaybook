@@ -9,7 +9,7 @@ import {
 import {createStackNavigator} from '@react-navigation/stack';
 import {CommonActions, DrawerActions} from '@react-navigation/native';
 import {Divider, Appbar, List, withTheme} from 'react-native-paper';
-import {useDimensions} from '@react-native-community/hooks';
+import {useSafeAreaFrame} from 'react-native-safe-area-context';
 import _ from 'lodash';
 
 import {useStore} from '../stores/RootStore';
@@ -89,7 +89,7 @@ export default RootNavigation;
 
 const MainStack = withTheme(props => {
   const theme = props.theme;
-  const {height, width} = useDimensions().window;
+  const {height, width} = useSafeAreaFrame();
   const landscape = width > height;
   const {version} = useData();
 
@@ -156,7 +156,7 @@ const MainStack = withTheme(props => {
 
 const LibraryStack = withTheme(props => {
   const theme = props.theme;
-  const {height, width} = useDimensions().window;
+  const {height, width} = useSafeAreaFrame();
   const landscape = width > height;
 
   const {data, version, loading} = useData();
@@ -220,7 +220,7 @@ const LibraryStack = withTheme(props => {
 });
 
 const SettingsStack = withTheme(props => {
-  const {height, width} = useDimensions().window;
+  const {height, width} = useSafeAreaFrame();
   const landscape = width > height;
   return (
     <SettingsStackNav.Navigator

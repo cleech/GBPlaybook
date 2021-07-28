@@ -7,8 +7,7 @@ import {
 } from 'react-native';
 import {useFocusEffect, useTheme} from '@react-navigation/native';
 import {useHeaderHeight} from '@react-navigation/stack';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useDimensions} from '@react-native-community/hooks';
+import {SafeAreaView, useSafeAreaInsets, useSafeAreaFrame} from 'react-native-safe-area-context';
 import {Text, withTheme, FAB, Snackbar} from 'react-native-paper';
 import {changeBarColors} from 'react-native-immersive-bars';
 import Color from 'color';
@@ -36,8 +35,8 @@ const TeamSelectScreen = withTheme(props => {
     }),
   );
 
-  const dimensions = useDimensions();
-  const {height, width} = dimensions.window;
+  const dimensions = useSafeAreaFrame();
+  const {height, width} = dimensions;
   const landscape = width > height;
 
   function pickTeam(name) {
