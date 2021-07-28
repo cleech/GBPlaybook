@@ -37,6 +37,16 @@ platform :android do
     # You can also use other beta testing services here
   end
 
+  desc "Build and upload apk"
+  lane :sideload do
+    sh("echo ${ANDROID_SIGNING_KEY} | base64 --decode > ../app/release.keystore")
+    gradle(task: "clean assembleRelease")
+    sh("rm ../app/release.keystore")
+  
+    # sh "your_script.sh"
+    # You can also use other beta testing services here
+  end
+
   desc "Deploy a new version to the Google Play"
   lane :deploy do
     gradle(task: "clean assembleRelease")
