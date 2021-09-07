@@ -12541,7 +12541,7 @@
       "name": "Diggy Hole",
       "text": "This model may be placed within 2\" of its current location.",
       "CST": 1,
-      "RNG": "s",
+      "RNG": "S",
       "SUS": false,
       "OPT": true
     },
