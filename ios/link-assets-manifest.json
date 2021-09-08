@@ -35,7 +35,7 @@
     },
     {
       "path": "src/assets/fonts/GuildBallIcon.ttf",
-      "sha1": "b67e16f6413f9a1af5a0f4b450ea2c344255b5ac"
+      "sha1": "f724812a2e5ea88ad1aa4d89fcba469495fa0485"
     },
     {
       "path": "src/assets/fonts/IM_FELL_Great_Primer_DC.otf",
@@ -47,19 +47,19 @@
     },
     {
       "path": "src/assets/fonts/selection.json",
-      "sha1": "e9483b8f49e4d78fef67d13d61473f8140188cdf"
+      "sha1": "352f8019f6c8795ee8065765dd5f0266b37e833c"
     },
     {
       "path": "src/data/GB-Playbook-4-3.json",
-      "sha1": "1f5136d5cc81667604945ed6d1605c99b6805437"
+      "sha1": "ebc24f6f65e58b266561a3dc479f6d9c44219676"
     },
     {
       "path": "src/data/GB-Playbook-4-4.json",
-      "sha1": "cb40bfcb5f71422ab0b02c6365473ffad2e119ca"
+      "sha1": "6eac8b65c3e91e2245cfab7b2493ea5cd04308c4"
     },
     {
       "path": "src/data/manifest.json",
-      "sha1": "2336e780efa7792ef1a32728b830b4842e94f4e8"
+      "sha1": "8325a8cb01f7d350e4b05543100f83c5696f963b"
     }
   ]
 }

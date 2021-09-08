@@ -1,6 +1,10 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {View} from 'react-native';
-import {SafeAreaView, useSafeAreaInsets, useSafeAreaFrame} from 'react-native-safe-area-context';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+  useSafeAreaFrame,
+} from 'react-native-safe-area-context';
 import {Snackbar} from 'react-native-paper';
 
 import {useStore} from '../stores/RootStore';

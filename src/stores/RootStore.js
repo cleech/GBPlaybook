@@ -36,6 +36,7 @@ const GBPlayer = types
 
     guild1: types.string,
     guild2: types.maybe(types.string),
+    gbcp: types.optional(types.boolean, false),
   })
   .props({
     // runtime state not loaded from json card data

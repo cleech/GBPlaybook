@@ -20,7 +20,9 @@
         "Mercury",
         "Venin",
         "Vitriol",
-        "Compound"
+        "Compound",
+        "Heat",
+        "Phosphor"
       ]
     },
     {
@@ -219,6 +221,21 @@
       ]
     },
     {
+      "name": "Lamplighters",
+      "minor": true,
+      "color": "#00994a",
+      "roster": [
+        "Nightlight",
+        "Soot",
+        "Beacon",
+        "Wick",
+        "Heat",
+        "Phosphor",
+        "Crucible",
+        "Mercury"
+      ]
+    },
+    {
       "name": "Masons",
       "minor": false,
       "color": "#416abb",
@@ -393,6 +410,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Where'd They Go?",
         "Lure of Gold"
@@ -446,6 +464,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Chemical Breeze",
         "Infuse",
@@ -501,6 +520,7 @@
       "dehcneb": "Pneuma",
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Nitro!",
         "Raging Fire"
@@ -554,6 +574,7 @@
       "benched": "Soma",
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [],
       "character_traits": [
         "Backdraft",
@@ -604,6 +625,7 @@
       "infmax": 2,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Smoke Bomb"
       ],
@@ -655,6 +677,7 @@
       "infmax": 3,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Hypnosis"
       ],
@@ -706,6 +729,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Blind",
         "Noxious Blast"
@@ -757,6 +781,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Sticky Bomb"
       ],
@@ -790,6 +815,7 @@
       "id": "Crucible",
       "name": "Crucible",
       "guild1": "Alchemists",
+      "guild2": "Lamplighters",
       "captain": false,
       "mascot": false,
       "veteran": false,
@@ -807,6 +833,7 @@
       "infmax": 3,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Acrobatic",
         "Great Balls of Fire"
@@ -859,6 +886,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Chemical Ordnance",
         "Kill the Ball"
@@ -911,6 +939,7 @@
       "infmax": 4,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "External Combustion"
       ],
@@ -962,6 +991,7 @@
       "infmax": 3,
       "base": 50,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Ground Pound"
       ],
@@ -997,6 +1027,7 @@
       "id": "Mercury",
       "name": "Mercury",
       "guild1": "Alchemists",
+      "guild2": "Lamplighters",
       "captain": false,
       "mascot": false,
       "veteran": false,
@@ -1014,6 +1045,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Fire Blast",
         "Fire Ball"
@@ -1064,6 +1096,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Acid Rain"
       ],
@@ -1117,6 +1150,7 @@
       "infmax": 3,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Clone"
       ],
@@ -1168,6 +1202,7 @@
       "infmax": 4,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Horrific Odour"
       ],
@@ -1219,6 +1254,7 @@
       "infmax": 3,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Singled Out",
         "While the Iron is Hot"
@@ -1271,6 +1307,7 @@
       "infmax": 3,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Kill the Ball",
         "Flame Belch"
@@ -1323,6 +1360,7 @@
       "infmax": 3,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Eye Spy",
         "Get In the Goal!"
@@ -1374,6 +1412,7 @@
       "infmax": 3,
       "base": 50,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Stagger",
         "Quick Foot"
@@ -1426,6 +1465,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Acrobatic",
         "Disarm",
@@ -1478,6 +1518,7 @@
       "infmax": 3,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "One at a Time Lads!",
         "Tooled Up"
@@ -1530,6 +1571,7 @@
       "infmax": 3,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Instruction",
         "Use This!"
@@ -1582,6 +1624,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Acrobatic",
         "Dirty Knives"
@@ -1633,6 +1676,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "I'm Open!",
         "Shoemerang"
@@ -1684,6 +1728,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Fumble",
         "Shield Glare"
@@ -1736,6 +1781,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Kill the Ball",
         "Decoy"
@@ -1788,6 +1834,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Impale"
       ],
@@ -1839,6 +1886,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Broadside",
         "Chain Shot"
@@ -1890,6 +1938,7 @@
       "infmax": 4,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Impetus"
       ],
@@ -1942,6 +1991,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Long Bomb",
         "Piledriver"
@@ -1993,6 +2043,7 @@
       "infmax": 6,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Commanding Aura",
         "Marked Target"
@@ -2045,6 +2096,7 @@
       "infmax": 6,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Tooled Up",
         "Quick Foot",
@@ -2098,6 +2150,7 @@
       "infmax": 4,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Iron Fist",
         "Tough Skin",
@@ -2151,6 +2204,7 @@
       "infmax": 2,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [],
       "character_traits": [
         "Feral",
@@ -2200,6 +2254,7 @@
       "infmax": 3,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Second Wind"
       ],
@@ -2250,6 +2305,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Acrobatic",
         "Stagger"
@@ -2302,6 +2358,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Go Get It!"
       ],
@@ -2353,6 +2410,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Dirty Knives"
       ],
@@ -2405,6 +2463,7 @@
       "infmax": 3,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Smashed Shins",
         "Tough Skin"
@@ -2457,6 +2516,7 @@
       "infmax": 4,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Howzat!?"
       ],
@@ -2508,6 +2568,7 @@
       "infmax": 2,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Concussion",
         "Smashing Face"
@@ -2561,6 +2622,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Ball's Gone!"
       ],
@@ -2612,6 +2674,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Goad",
         "Ball's Gone!"
@@ -2664,6 +2727,7 @@
       "infmax": 3,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Lob Barrel"
       ],
@@ -2715,6 +2779,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Molotov",
         "Flame Jet"
@@ -2769,6 +2834,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Sleight of Hand"
       ],
@@ -2820,6 +2886,7 @@
       "infmax": 5,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "They Ain't Tough!",
         "Butchery"
@@ -2871,6 +2938,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Blood Rain",
         "Pain Circle",
@@ -2924,6 +2992,7 @@
       "infmax": 2,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Singled Out",
         "Stagger"
@@ -2977,6 +3046,7 @@
       "infmax": 2,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Rabid Animal"
       ],
@@ -3027,6 +3097,7 @@
       "infmax": 2,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [],
       "character_traits": [
         "Sturdy",
@@ -3076,6 +3147,7 @@
       "infmax": 1,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Concussion"
       ],
@@ -3127,6 +3199,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Axe Throw",
         "Marked Target"
@@ -3179,6 +3252,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Super Shot",
         "Dirty Knives"
@@ -3230,6 +3304,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Ball's Gone!",
         "Quick Time"
@@ -3282,6 +3357,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Route One"
       ],
@@ -3333,6 +3409,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Acrobatic"
       ],
@@ -3385,6 +3462,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Scything Blow",
         "Tooled Up"
@@ -3436,6 +3514,7 @@
       "infmax": 3,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Whirling Chains"
       ],
@@ -3488,6 +3567,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Thousand Cuts",
         "Where'd They Go?"
@@ -3539,6 +3619,7 @@
       "infmax": 3,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Ground Pound"
       ],
@@ -3589,6 +3670,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Deadbolt",
         "Minefield",
@@ -3642,6 +3724,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Controller",
         "Alternator",
@@ -3695,6 +3778,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Elbow Grease",
         "Use This!"
@@ -3747,6 +3831,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Long Bomb",
         "Thief"
@@ -3798,6 +3883,7 @@
       "infmax": 3,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Burrow"
       ],
@@ -3850,6 +3936,7 @@
       "infmax": 3,
       "base": 50,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Singled Out",
         "Unexpected Arrival"
@@ -3903,6 +3990,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Disarm",
         "Sucker Punch"
@@ -3955,6 +4043,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [],
       "character_traits": [
         "Reanimate",
@@ -4004,6 +4093,7 @@
       "infmax": 4,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Destructive Impulse",
         "Remote Control"
@@ -4056,6 +4146,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Spark"
       ],
@@ -4108,6 +4199,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Blast Earth",
         "Long Bomb",
@@ -4161,6 +4253,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Arrow to the Knee",
         "Floored Bolt",
@@ -4213,6 +4306,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Acrobatic",
         "Nimble"
@@ -4264,6 +4358,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Route One"
       ],
@@ -4314,6 +4409,7 @@
       "infmax": 5,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Scything March",
         "They Ain't Tough!"
@@ -4366,6 +4462,7 @@
       "infmax": 6,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Constitution",
         "Help 'Em Out"
@@ -4418,6 +4515,7 @@
       "infmax": 6,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Hare in the Field",
         "Our Tools Are Sharp"
@@ -4471,6 +4569,7 @@
       "infmax": 2,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Cocksure"
       ],
@@ -4522,6 +4621,7 @@
       "infmax": 3,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [],
       "character_traits": [
         "Ass Kicking",
@@ -4571,6 +4671,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Swerve Shot"
       ],
@@ -4622,6 +4723,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Ball's Gone!",
         "I'm Open!"
@@ -4673,6 +4775,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Get Stuck In!"
       ],
@@ -4725,6 +4828,7 @@
       "infmax": 3,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Marked Target",
         "Sow the Seeds"
@@ -4777,6 +4881,7 @@
       "infmax": 3,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Cocksure"
       ],
@@ -4829,6 +4934,7 @@
       "infmax": 3,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "At Your Post",
         "Crop Dusting"
@@ -4881,6 +4987,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Get In the Goal!"
       ],
@@ -4932,6 +5039,7 @@
       "infmax": 3,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Broken Earth"
       ],
@@ -4983,6 +5091,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Mow Down"
       ],
@@ -5034,6 +5143,7 @@
       "infmax": 2,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Snack Break"
       ],
@@ -5085,6 +5195,7 @@
       "infmax": 6,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Quick Foot",
         "Stagger",
@@ -5137,6 +5248,7 @@
       "infmax": 6,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Drag",
         "Rough Seas"
@@ -5190,6 +5302,7 @@
       "infmax": 6,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Swirling Waters",
         "Break the Surface"
@@ -5242,6 +5355,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Where'd They Go?"
       ],
@@ -5291,6 +5405,7 @@
       "infmax": 2,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Blind"
       ],
@@ -5342,6 +5457,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Nimble",
         "Super Shot"
@@ -5393,6 +5509,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Ball's Gone!",
         "Decoy",
@@ -5444,6 +5561,7 @@
       "infmax": 3,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Decoy",
         "Fisher's Reel"
@@ -5497,6 +5615,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Goad"
       ],
@@ -5548,6 +5667,7 @@
       "infmax": 4,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Heavy Tackle"
       ],
@@ -5600,6 +5720,7 @@
       "infmax": 3,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Drag"
       ],
@@ -5651,6 +5772,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Smoke Bomb",
         "Weak Point"
@@ -5703,6 +5825,7 @@
       "infmax": 3,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Fancy Footwork",
         "Raise the Black Flag"
@@ -5755,6 +5878,7 @@
       "infmax": 3,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Lure",
         "Seduced"
@@ -5806,6 +5930,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Dread Gaze",
         "Fair Wind"
@@ -5857,6 +5982,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Arrow to the Knee",
         "Pinned",
@@ -5911,6 +6037,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Blessing of the Moon Goddess",
         "Cold Snap",
@@ -5964,6 +6091,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Bait",
         "Disarm",
@@ -6017,6 +6145,7 @@
       "infmax": 2,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Nimble"
       ],
@@ -6068,6 +6197,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Feral Instincts"
       ],
@@ -6118,6 +6248,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Boom Box",
         "Tough Skin"
@@ -6170,6 +6301,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Entangle"
       ],
@@ -6223,6 +6355,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Flurry",
         "Snap Fire"
@@ -6275,6 +6408,7 @@
       "infmax": 3,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Singled Out",
         "Skewered"
@@ -6328,6 +6462,7 @@
       "infmax": 3,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Skewered"
       ],
@@ -6379,6 +6514,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Gut & String"
       ],
@@ -6431,6 +6567,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Marked for Death",
         "More Teeth!"
@@ -6483,6 +6620,7 @@
       "infmax": 2,
       "base": 50,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "The Mauling"
       ],
@@ -6534,6 +6672,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Where'd They Go?"
       ],
@@ -6585,6 +6724,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Chain Bolas"
       ],
@@ -6637,6 +6777,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Quick Time",
         "Superior Strategy"
@@ -6690,6 +6831,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Impetus",
         "Iron Fist"
@@ -6743,6 +6885,7 @@
       "infmax": 6,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Acrobatic",
         "Dummy Pass",
@@ -6796,6 +6939,7 @@
       "infmax": 2,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Goad"
       ],
@@ -6846,6 +6990,7 @@
       "infmax": 3,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [],
       "character_traits": [
         "Battering Ram",
@@ -6894,6 +7039,7 @@
       "infmax": 4,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Concussion",
         "Fulcrum"
@@ -6946,6 +7092,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Hold the Ball!"
       ],
@@ -6997,6 +7144,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Concussion",
         "Iron Fist"
@@ -7048,6 +7196,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Squad Tactics"
       ],
@@ -7098,6 +7247,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Where'd They Go?"
       ],
@@ -7147,6 +7297,7 @@
       "infmax": 4,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Gut & String",
         "Broken Earth"
@@ -7199,6 +7350,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Acrobatic",
         "Weak Point"
@@ -7251,6 +7403,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Marked Target"
       ],
@@ -7302,6 +7455,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Singled Out",
         "Smashed Shins"
@@ -7354,6 +7508,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Tooled Up"
       ],
@@ -7405,6 +7560,7 @@
       "infmax": 7,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Confidence",
         "Misdirection",
@@ -7458,6 +7614,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Second Wind",
         "Spirit Bomb"
@@ -7510,6 +7667,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Malice",
         "Hollowed",
@@ -7564,6 +7722,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Singled Out"
       ],
@@ -7615,6 +7774,7 @@
       "infmax": 2,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Scatter"
       ],
@@ -7666,6 +7826,7 @@
       "infmax": 4,
       "base": 50,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Meditation",
         "Unexpected Arrival"
@@ -7719,6 +7880,7 @@
       "dehcneb": "Memory",
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "I'm Open!",
         "Puppet Show [Memory]",
@@ -7772,6 +7934,7 @@
       "benched": "Brainpan",
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [],
       "character_traits": [
         "Benched [Brainpan]",
@@ -7821,6 +7984,7 @@
       "infmax": 4,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Ghostly Visage",
         "Heavy Burden"
@@ -7874,6 +8038,7 @@
       "infmax": 2,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Lure",
         "Screeching Banshee"
@@ -7926,6 +8091,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Careless Whisper",
         "Red Fury"
@@ -7977,6 +8143,7 @@
       "infmax": 3,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "The Unmasking"
       ],
@@ -8027,6 +8194,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Scything Blow",
         "Tooled Up"
@@ -8079,6 +8247,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Exhaustion",
         "They Ain't Tough!"
@@ -8130,6 +8299,7 @@
       "infmax": 3,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Blind",
         "Smelling Salts"
@@ -8182,6 +8352,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Fire Blast",
         "Shutout",
@@ -8234,6 +8405,7 @@
       "infmax": 6,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Butchery",
         "Misdirection",
@@ -8286,6 +8458,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Concussion",
         "Quick Time",
@@ -8340,6 +8513,7 @@
       "infmax": 6,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Forward, Minions!",
         "Persuasion"
@@ -8393,6 +8567,7 @@
       "infmax": 2,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Constrict"
       ],
@@ -8443,6 +8618,7 @@
       "infmax": 2,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Confidence"
       ],
@@ -8494,6 +8670,7 @@
       "dehcneb": "Greede",
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [],
       "character_traits": [
         "Contract [Greede]",
@@ -8545,6 +8722,7 @@
       "benched": "Avarisse",
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Singled Out"
       ],
@@ -8597,6 +8775,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Second Wind",
         "Thousand Cuts"
@@ -8647,6 +8826,7 @@
       "infmax": 3,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "The Unmasking"
       ],
@@ -8698,6 +8878,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Chain Grab",
         "Scything Blow"
@@ -8749,6 +8930,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Blind",
         "Noxious Blast",
@@ -8801,6 +8983,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Axe Throw",
         "Marked Target"
@@ -8852,6 +9035,7 @@
       "infmax": 1,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Concussion",
         "Tooled Up"
@@ -8905,6 +9089,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Nimble",
         "Where'd They Go?"
@@ -8956,6 +9141,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Chef's Special",
         "Singled Out"
@@ -9008,6 +9194,7 @@
       "infmax": 2,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Where'd They Go?"
       ],
@@ -9060,6 +9247,7 @@
       "infmax": 3,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Acrobatic",
         "Get Set, BAKE!"
@@ -9112,6 +9300,7 @@
       "infmax": 4,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Get It While It's Hot",
         "Turn Up the Heat"
@@ -9164,6 +9353,7 @@
       "infmax": 2,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Intensify",
         "Turn Up the Heat"
@@ -9216,6 +9406,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Chef's Special",
         "Chilli Cook Out"
@@ -9268,6 +9459,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Air Mail",
         "Deadly Wings",
@@ -9321,6 +9513,7 @@
       "infmax": 3,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [],
       "character_traits": [
         "Flying",
@@ -9370,6 +9563,7 @@
       "infmax": 4,
       "base": 40,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Harrier",
         "Taking Flight"
@@ -9423,6 +9617,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Harrier",
         "Snap Fire"
@@ -9476,6 +9671,7 @@
       "infmax": 3,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Eye Spy",
         "Harrier"
@@ -9527,6 +9723,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Dirty Knives",
         "Harrier"
@@ -9578,6 +9775,7 @@
       "infmax": 6,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Lodestone",
         "Weak Point"
@@ -9630,6 +9828,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Diggy Hole"
       ],
@@ -9681,6 +9880,7 @@
       "infmax": 4,
       "base": 50,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Grinding Tracks",
         "Sinkhole"
@@ -9734,6 +9934,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Clear!",
         "Under the Lines"
@@ -9786,6 +9987,7 @@
       "infmax": 4,
       "base": 50,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Lockdown",
         "Throw"
@@ -9839,6 +10041,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Diggy Hole",
         "Controlled Explosion"
@@ -9890,6 +10093,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Eye Spy",
         "Full Speed Ahead"
@@ -9942,6 +10146,7 @@
       "infmax": 2,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Guide"
       ],
@@ -9993,6 +10198,7 @@
       "infmax": 4,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Disarm",
         "Netted"
@@ -10046,6 +10252,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Grasping Earth",
         "Sprung a Leak"
@@ -10100,6 +10307,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Acrobatic",
         "Smelling Salts"
@@ -10154,6 +10362,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Unexpected Arrival"
       ],
@@ -10205,6 +10414,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "I'm Open!",
         "Route One"
@@ -10258,6 +10468,7 @@
       "infmax": 3,
       "base": 50,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Feral Instincts",
         "Predatory Gaze"
@@ -10309,6 +10520,7 @@
       "infmax": 4,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Braced",
         "Stand Firm"
@@ -10361,6 +10573,7 @@
       "infmax": 3,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Ground Pound"
       ],
@@ -10413,6 +10626,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Healing Light",
         "Quick Foot"
@@ -10466,6 +10680,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Molotov",
         "Singled Out"
@@ -10518,6 +10733,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Acrobatic",
         "Smoke Bomb"
@@ -10569,6 +10785,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Ball's Gone!"
       ],
@@ -10620,6 +10837,7 @@
       "infmax": 6,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Pay the Piper",
         "Reverie"
@@ -10672,6 +10890,7 @@
       "infmax": 3,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Dreadful Shriek"
       ],
@@ -10723,6 +10942,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Rataclysm",
         "Erupting Sores"
@@ -10776,6 +10996,7 @@
       "infmax": 4,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Singled Out"
       ],
@@ -10828,6 +11049,7 @@
       "infmax": 3,
       "base": 50,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Snack Break"
       ],
@@ -10881,6 +11103,7 @@
       "infmax": 3,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Horrific Odour",
         "Pest Control"
@@ -10933,6 +11156,7 @@
       "infmax": 6,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "On My Mark"
       ],
@@ -10984,6 +11208,7 @@
       "infmax": 2,
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Baa Ram Ewe",
         "Droppings"
@@ -11037,6 +11262,7 @@
       "dehcneb": "Hook",
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Away to Me",
         "Fumble"
@@ -11090,6 +11316,7 @@
       "benched": "Crook",
       "base": 30,
       "reach": false,
+      "gbcp": false,
       "character_plays": [
         "Come Bye",
         "Fumble"
@@ -11143,6 +11370,7 @@
       "infmax": 3,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Warming Oven",
         "Sow the Seeds",
@@ -11195,6 +11423,7 @@
       "infmax": 3,
       "base": 40,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Impetus",
         "Guard the Flock"
@@ -11249,6 +11478,7 @@
       "infmax": 4,
       "base": 30,
       "reach": true,
+      "gbcp": false,
       "character_plays": [
         "Ball's Gone!"
       ],
@@ -11274,6 +11504,291 @@
           "CP2;M",
           "3;M",
           "T,<<",
+          null,
+          null
+        ]
+      ]
+    },
+    {
+      "id": "Nightlight",
+      "name": "Nightlight",
+      "guild1": "Lamplighters",
+      "captain": true,
+      "mascot": false,
+      "veteran": false,
+      "seasoned": false,
+      "hp": 14,
+      "recovery": 7,
+      "jog": 6,
+      "sprint": 8,
+      "tac": 6,
+      "kickdice": 4,
+      "kickdist": 8,
+      "def": 5,
+      "arm": 0,
+      "inf": 4,
+      "infmax": 6,
+      "base": 30,
+      "reach": false,
+      "gbcp": true,
+      "character_plays": [
+        "Lens Flare",
+        "Relight the Fire"
+      ],
+      "character_traits": [
+        "Back to Black",
+        "Blinded by the Light",
+        "Flare Out"
+      ],
+      "types": "",
+      "playbook": [
+        [
+          "<;M",
+          "T",
+          null,
+          null,
+          "KD",
+          null,
+          null
+        ],
+        [
+          "CP;M",
+          "1;M",
+          "<<",
+          "2",
+          "CP,<<;M",
+          null,
+          null
+        ]
+      ]
+    },
+    {
+      "id": "Soot",
+      "name": "Soot",
+      "guild1": "Lamplighters",
+      "captain": false,
+      "mascot": true,
+      "veteran": false,
+      "seasoned": false,
+      "hp": 6,
+      "recovery": 3,
+      "jog": 7,
+      "sprint": 9,
+      "tac": 3,
+      "kickdice": 2,
+      "kickdist": 4,
+      "def": 5,
+      "arm": 0,
+      "inf": 1,
+      "infmax": 2,
+      "base": 30,
+      "reach": false,
+      "gbcp": true,
+      "character_plays": [],
+      "character_traits": [],
+      "types": "",
+      "playbook": [
+        [
+          "T",
+          "1",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "CP;M",
+          "<;M",
+          "<<",
+          null,
+          null,
+          null,
+          null
+        ]
+      ]
+    },
+    {
+      "id": "Beacon",
+      "name": "Beacon",
+      "guild1": "Lamplighters",
+      "captain": false,
+      "mascot": false,
+      "veteran": false,
+      "seasoned": false,
+      "hp": 22,
+      "recovery": 11,
+      "jog": 6,
+      "sprint": 8,
+      "tac": 6,
+      "kickdice": 3,
+      "kickdist": 6,
+      "def": 3,
+      "arm": 1,
+      "inf": 2,
+      "infmax": 4,
+      "base": 40,
+      "reach": true,
+      "gbcp": true,
+      "character_plays": [],
+      "character_traits": [],
+      "types": "",
+      "playbook": [
+        [
+          "T",
+          "1;M",
+          ">>",
+          null,
+          "KD,CP",
+          "3",
+          null
+        ],
+        [
+          ">;M",
+          "KD;M",
+          "CP;M",
+          "2;M",
+          ">>,<;M",
+          "2,>>;M",
+          null
+        ]
+      ]
+    },
+    {
+      "id": "Wick",
+      "name": "Wick",
+      "guild1": "Lamplighters",
+      "captain": false,
+      "mascot": false,
+      "veteran": false,
+      "seasoned": false,
+      "hp": 11,
+      "recovery": 6,
+      "jog": 7,
+      "sprint": 9,
+      "tac": 5,
+      "kickdice": 3,
+      "kickdist": 8,
+      "def": 5,
+      "arm": 0,
+      "inf": 2,
+      "infmax": 4,
+      "base": 30,
+      "reach": true,
+      "gbcp": true,
+      "character_plays": [],
+      "character_traits": [],
+      "types": "",
+      "playbook": [
+        [
+          "1",
+          "CP",
+          null,
+          "2",
+          null,
+          null,
+          null
+        ],
+        [
+          "T;M",
+          "<<;M",
+          "><;M",
+          "T,<<;M",
+          "T,CP;M",
+          null,
+          null
+        ]
+      ]
+    },
+    {
+      "id": "Heat",
+      "name": "Heat",
+      "guild1": "Lamplighters",
+      "guild2": "Alchemists",
+      "captain": false,
+      "mascot": false,
+      "veteran": false,
+      "seasoned": false,
+      "hp": 14,
+      "recovery": 7,
+      "jog": 6,
+      "sprint": 8,
+      "tac": 5,
+      "kickdice": 3,
+      "kickdist": 8,
+      "def": 4,
+      "arm": 0,
+      "inf": 2,
+      "infmax": 3,
+      "base": 40,
+      "reach": false,
+      "gbcp": true,
+      "character_plays": [],
+      "character_traits": [],
+      "types": "",
+      "playbook": [
+        [
+          "T",
+          "1",
+          null,
+          "2",
+          null,
+          null,
+          null
+        ],
+        [
+          ">;M",
+          "><",
+          ">>;M",
+          "T,><",
+          ">>,<<;M",
+          null,
+          null
+        ]
+      ]
+    },
+    {
+      "id": "Phosphor",
+      "name": "Phosphor",
+      "guild1": "Lamplighters",
+      "guild2": "Alchemists",
+      "captain": false,
+      "mascot": false,
+      "veteran": false,
+      "seasoned": false,
+      "hp": 13,
+      "recovery": 7,
+      "jog": 5,
+      "sprint": 8,
+      "tac": 5,
+      "kickdice": 4,
+      "kickdist": 6,
+      "def": 4,
+      "arm": 1,
+      "inf": 2,
+      "infmax": 4,
+      "base": 30,
+      "reach": true,
+      "gbcp": true,
+      "character_plays": [],
+      "character_traits": [],
+      "types": "",
+      "playbook": [
+        [
+          "1",
+          "T",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          ">;M",
+          "CP;M",
+          "2",
+          ">>;M",
+          "T,>>",
           null,
           null
         ]
@@ -12541,7 +13056,7 @@
       "name": "Diggy Hole",
       "text": "This model may be placed within 2\" of its current location.",
       "CST": 1,
-      "RNG": "s",
+      "RNG": "S",
       "SUS": false,
       "OPT": true
     },
@@ -12978,24 +13493,20 @@
       "OPT": false
     },
     {
-      "SUS": false,
+      "name": "Lens Flare",
+      "text": "Apply the following effects to target enemy model:\n- While performing an attack action this model cannot use more dice than its base TAC.\n- While performing a kick this model cannot use more dice than its base KICK.",
+      "CST": "1,CP",
+      "RNG": 4,
+      "SUS": true,
       "OPT": false
     },
     {
+      "name": "Relight the Fire",
+      "text": "Models within 3\" of target friendly model suffer the burning condition",
+      "CST": "1,CP",
+      "RNG": 6,
       "SUS": false,
-      "OPT": false
-    },
-    {
-      "SUS": false,
-      "OPT": false
-    },
-    {
-      "SUS": false,
-      "OPT": false
-    },
-    {
-      "SUS": false,
-      "OPT": false
+      "OPT": true
     }
   ],
   "Character Traits": [
@@ -14393,6 +14904,21 @@
       "name": "With Aplomb",
       "active": false,
       "text": "When this model scores a goal with a snap shot, the friendly team gains +1 VP."
+    },
+    {
+      "name": "Back to Black",
+      "active": true,
+      "text": "Once per turn during this model's activation, it may remove the burning condition from a friendly model within 6\". The target model may make a 4\" dodge."
+    },
+    {
+      "name": "Blinded by the Light",
+      "active": false,
+      "text": "While this model is suffering the burning condition, enemy models suffer -1 TAC while attacking this model."
+    },
+    {
+      "name": "Flare Out",
+      "active": false,
+      "text": "While this model is on the pitch, friendly models which are suffering the burning condition gain Overheat.\n(Overheat [3\" Pulse]: When this model suffers the taken out condition during the Activation Phase, enemy models within this pulse suffer 3 DMG and the burning condition)"
     }
   ]
 }

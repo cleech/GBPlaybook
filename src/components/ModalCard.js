@@ -25,7 +25,7 @@ const ModalCardView = withTheme(
           aspectRatio: 5 / 7,
           alignSelf: 'center',
         }}>
-        <BoopCard {...props} close={() => props.onClose()} />
+        <BoopCard {...props} close={() => props.onClose()} />        
       </Modal>
     );
   }
