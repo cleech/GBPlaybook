@@ -89,7 +89,7 @@ const TeamLibrary = withTheme(props => {
               <Chip
                 key={m.model.id}
                 mode="outlined"
-                style={{margin: 1}}
+                style={{flexDirection: 'row', margin: 1}}
                 onPress={() => {
                   carousel.snapToItem(idx, true, false);
                 }}>
