@@ -11540,7 +11540,8 @@
         "Blinded by the Light",
         "Flare Out"
       ],
-      "types": "",
+      "legendary": "Eternal Flame [6\" Aura]\nOnce per turn during their activation, friendly models within this aura may suffer the burning condition.",
+      "types": "Valentian, Human, Female,\nCoach,\nCaptain",
       "playbook": [
         [
           "<;M",
@@ -11584,9 +11585,14 @@
       "base": 30,
       "reach": false,
       "gbcp": true,
-      "character_plays": [],
-      "character_traits": [],
-      "types": "",
+      "character_plays": [
+        "Eye Spy"
+      ],
+      "character_traits": [
+        "Flying",
+        "Intercept"
+      ],
+      "types": "Ethraynnian, Animal,\nMascot",
       "playbook": [
         [
           "T",
@@ -11630,9 +11636,16 @@
       "base": 40,
       "reach": true,
       "gbcp": true,
-      "character_plays": [],
-      "character_traits": [],
-      "types": "",
+      "character_plays": [
+        "Mow Down",
+        "Relight the Fire"
+      ],
+      "character_traits": [
+        "The Ladderman Cometh",
+        "Light Goes On",
+        "Light Goes Off"
+      ],
+      "types": "Skaldic, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
           "1",
@@ -11676,9 +11689,15 @@
       "base": 30,
       "reach": true,
       "gbcp": true,
-      "character_plays": [],
-      "character_traits": [],
-      "types": "",
+      "character_plays": [
+        "Burn Baby Burn"
+      ],
+      "character_traits": [
+        "Extraction",
+        "Ring of Fire [4\" Pulse]",
+        "Spotlight"
+      ],
+      "types": "Ethraynnian, Human,\nStriker,\nSquaddie",
       "playbook": [
         [
           "1",
@@ -11723,9 +11742,16 @@
       "base": 40,
       "reach": false,
       "gbcp": true,
-      "character_plays": [],
-      "character_traits": [],
-      "types": "",
+      "character_plays": [
+        "I'm Open!",
+        "Flame Jet"
+      ],
+      "character_traits": [
+        "Afterglow [6\" Aura]",
+        "Now You See Me...",
+        "Reactive Solution"
+      ],
+      "types": "Valentian, Human, Female,\nRegista,\nSquaddie",
       "playbook": [
         [
           "T",
@@ -11770,9 +11796,15 @@
       "base": 30,
       "reach": true,
       "gbcp": true,
-      "character_plays": [],
-      "character_traits": [],
-      "types": "",
+      "character_plays": [
+        "Alchemical Bomb",
+        "Fulcrum"
+      ],
+      "character_traits": [
+        "Clumsy [2\" Aura]",
+        "Flash Point [4\" Pulse]"
+      ],
+      "types": "Ethraynnian, Human, Male,\nCentral Midfielder,\nSquaddie",
       "playbook": [
         [
           "1",
@@ -13494,19 +13526,35 @@
     },
     {
       "name": "Lens Flare",
-      "text": "Apply the following effects to target enemy model:\n- While performing an attack action this model cannot use more dice than its base TAC.\n- While performing a kick this model cannot use more dice than its base KICK.",
-      "CST": "1,CP",
+      "text": "When target enemy model generates a TN dice pool, modifiers may not increase the total dice pool more than the model's:\n- Unmodified TAC, while performing an attack.\n- Unmodified base KICK, while performing a kick.",
+      "CST": "CP",
       "RNG": 4,
       "SUS": true,
       "OPT": false
     },
     {
       "name": "Relight the Fire",
-      "text": "Models within 3\" of target friendly model suffer the burning condition",
+      "text": "Models within 3\" of target friendly model suffer the burning condition.",
       "CST": "1,CP",
       "RNG": 6,
       "SUS": false,
       "OPT": true
+    },
+    {
+      "name": "Burn Baby Burn",
+      "text": "This model and target enemy model both suffer the burning condition.",
+      "CST": "CP",
+      "RNG": "P",
+      "SUS": false,
+      "OPT": true
+    },
+    {
+      "name": "Alchemical Bomb",
+      "text": "Position an AOE within range.\nModels hit suffer 1 condition DMG and the burning and poison conditions.",
+      "CST": "CP",
+      "RNG": 4,
+      "SUS": false,
+      "OPT": false
     }
   ],
   "Character Traits": [
@@ -14908,7 +14956,7 @@
     {
       "name": "Back to Black",
       "active": true,
-      "text": "Once per turn during this model's activation, it may remove the burning condition from a friendly model within 6\". The target model may make a 4\" dodge."
+      "text": "Once per turn, during this model's activation, it may remove the burning condition from a friendly model within 6\". If it does so, that model may immediately make a 4\" dodge."
     },
     {
       "name": "Blinded by the Light",
@@ -14918,7 +14966,57 @@
     {
       "name": "Flare Out",
       "active": false,
-      "text": "While this model is on the pitch, friendly models which are suffering the burning condition gain Overheat.\n(Overheat [3\" Pulse]: When this model suffers the taken out condition during the Activation Phase, enemy models within this pulse suffer 3 DMG and the burning condition)"
+      "text": "While this model is on the pitch, friendly models which are suffering the burning condition gain Overheat.\n(Overheat [3\" Pulse]: When this model suffers the taken out condition during the Activation Phase, enemy models within this pulse suffer 3 DMG and the burning condition.)"
+    },
+    {
+      "name": "Intercept",
+      "active": true,
+      "text": "Once per turn:\n- When an enemy model declares a kick, before the dice pool is generated, this model may make a jog towards that model.\nor\n- When the opposing team's controlling player places a ball marker, after current actions are resolved, this model may make a jog towards that free ball."
+    },
+    {
+      "name": "The Ladderman Cometh",
+      "active": false,
+      "text": "If this model is not suffering from the burning condition, it gains Extended Reach.\n(Extended Reach: During its activation this model's melee zone is 3\".)"
+    },
+    {
+      "name": "Light Goes On",
+      "active": false,
+      "text": "While this model is suffering from the burning condition, it gains +2 TAC and Searing Strike.\n(Searing Strike: Enemy models damaged by this model suffer -1 ARM for the remainder of the turn and the burning condition.)"
+    },
+    {
+      "name": "Light Goes Off",
+      "active": false,
+      "text": "At the end of this model's activation, it may remove the burning condition from itself and then immediately make a 4\" dodge."
+    },
+    {
+      "name": "Ring of Fire",
+      "active": false,
+      "text": "When this model scores a goal, if it does not use Run the Length, models within this pulse suffer the burning condition."
+    },
+    {
+      "name": "Spotlight",
+      "active": false,
+      "text": "If this model is suffering the burning condition, it gains +1/+2 KICK and ignores engaging and intervening penalties when making a kick."
+    },
+    {
+      "name": "Afterglow",
+      "active": true,
+      "text": "When this model is suffering the burning condition, when a friendly model within this aura spends MP, that model may recover 2 HP. Each model may recover HP from Afterglow only once per turn."
+    },
+    {
+      "name": "Now You See Me...",
+      "active": false,
+      "text": "While not suffering the burning condition, this model gains Unpredictable Movement.\n(◉ Unpredictable Movement: Once per turn when an enemy model ends an advance in this model's melee zone, this model may immediately make a 2\" Dodge.)"
+    },
+    {
+      "name": "Clumsy",
+      "active": false,
+      "text": "Enemy models entering or starting their activations within this aura suffer the burning and poison conditions."
+    },
+    {
+      "name": "Flash Point",
+      "active": false,
+      "text": "Once per turn, during this model's activation, you may remove the Burning condition from this model. If you do, enemy models within this pulse suffering the burning condition suffer -1 TAC and -1\"/-1\" MOV for the rest of the turn."
     }
   ]
 }

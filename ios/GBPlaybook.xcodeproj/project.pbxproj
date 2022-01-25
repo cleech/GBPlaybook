@@ -28,7 +28,7 @@
 		DD4A5834D474419593223320 /* GuildBallIcon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 347D1FDED025471CBB493438 /* GuildBallIcon.ttf */; };
 		03195110435F4A8BB1772222 /* selection.json in Resources */ = {isa = PBXBuildFile; fileRef = E7EAA25D68B14764AE4ABB39 /* selection.json */; };
 		2EA75F1D23054BD8A8E15215 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 7EEDB782E1F84EEE97C2E10C /* manifest.json */; };
-		7CE7BA97A49943E8B50E8CB8 /* GB-Playbook-4-4.json in Resources */ = {isa = PBXBuildFile; fileRef = 8F0A387CABF143598B5E7995 /* GB-Playbook-4-4.json */; };
+		3850D40FC19449AEBDB83440 /* GB-Playbook-4-4.json in Resources */ = {isa = PBXBuildFile; fileRef = A134E2B03C434C629E946EE0 /* GB-Playbook-4-4.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,7 +89,7 @@
 		347D1FDED025471CBB493438 /* GuildBallIcon.ttf */ = {isa = PBXFileReference; name = "GuildBallIcon.ttf"; path = "../src/assets/fonts/GuildBallIcon.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		E7EAA25D68B14764AE4ABB39 /* selection.json */ = {isa = PBXFileReference; name = "selection.json"; path = "../src/assets/fonts/selection.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		7EEDB782E1F84EEE97C2E10C /* manifest.json */ = {isa = PBXFileReference; name = "manifest.json"; path = "../src/data/manifest.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8F0A387CABF143598B5E7995 /* GB-Playbook-4-4.json */ = {isa = PBXFileReference; name = "GB-Playbook-4-4.json"; path = "../src/data/GB-Playbook-4-4.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A134E2B03C434C629E946EE0 /* GB-Playbook-4-4.json */ = {isa = PBXFileReference; name = "GB-Playbook-4-4.json"; path = "../src/data/GB-Playbook-4-4.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,7 +228,7 @@
 				347D1FDED025471CBB493438 /* GuildBallIcon.ttf */,
 				E7EAA25D68B14764AE4ABB39 /* selection.json */,
 				7EEDB782E1F84EEE97C2E10C /* manifest.json */,
-				8F0A387CABF143598B5E7995 /* GB-Playbook-4-4.json */,
+				A134E2B03C434C629E946EE0 /* GB-Playbook-4-4.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -343,7 +343,7 @@
 				DD4A5834D474419593223320 /* GuildBallIcon.ttf in Resources */,
 				03195110435F4A8BB1772222 /* selection.json in Resources */,
 				2EA75F1D23054BD8A8E15215 /* manifest.json in Resources */,
-				7CE7BA97A49943E8B50E8CB8 /* GB-Playbook-4-4.json in Resources */,
+				3850D40FC19449AEBDB83440 /* GB-Playbook-4-4.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
