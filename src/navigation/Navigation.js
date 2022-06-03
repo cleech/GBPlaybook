@@ -61,7 +61,7 @@ const DrawerContent = props => (
     <View style={{marginLeft: 20}}>
       <DrawerItem
         label="GBCP Discord"
-        onPress={() => Linking.openURL('https://discord.gg/eMZeVQkn3P')}
+        onPress={() => Linking.openURL('https://discord.gg/fvpFSfm976')}
       />
       <DrawerItem
         label="Longshanks"
