@@ -11540,7 +11540,7 @@
         "Blinded by the Light",
         "Flare Out"
       ],
-      "legendary": "Eternal Flame [6\" Aura]\nOnce per turn during their activation, friendly models within this aura may suffer the burning condition.",
+      "legendary": "Eternal Flame [6\" Pulse]\nAll models within this pulse suffer the Burning condition.\nEnemy models within this pulse suffer 3 damage.",
       "types": "Valentian, Human, Female,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -11573,7 +11573,7 @@
       "seasoned": false,
       "hp": 6,
       "recovery": 3,
-      "jog": 7,
+      "jog": 5,
       "sprint": 9,
       "tac": 3,
       "kickdice": 2,
@@ -11586,11 +11586,12 @@
       "reach": false,
       "gbcp": true,
       "character_plays": [
-        "Eye Spy"
+        "Eye Spy",
+        "Taking Flight"
       ],
       "character_traits": [
         "Flying",
-        "Intercept"
+        "Test Subject"
       ],
       "types": "Ethraynnian, Animal,\nMascot",
       "playbook": [
@@ -13526,7 +13527,7 @@
     },
     {
       "name": "Lens Flare",
-      "text": "When target enemy model generates a TN dice pool, modifiers may not increase the total dice pool more than the model's:\n- Unmodified TAC, while performing an attack.\n- Unmodified base KICK, while performing a kick.",
+      "text": "When target enemy model generates a TN dice pool, modifiers and Bonus Time may not increase the total dice pool more than the model's:\n- Unmodified TAC, while performing an attack.\n- Unmodified base KICK, while performing a kick.",
       "CST": "CP",
       "RNG": 4,
       "SUS": true,
@@ -13550,7 +13551,7 @@
     },
     {
       "name": "Alchemical Bomb",
-      "text": "Position an AOE within range.\nModels hit suffer 1 condition DMG and the burning and poison conditions.",
+      "text": "Position an AOE within range.\nModels hit suffer 2 condition DMG and the burning and poison conditions.",
       "CST": "CP",
       "RNG": 4,
       "SUS": false,
@@ -14967,11 +14968,6 @@
       "name": "Flare Out",
       "active": false,
       "text": "While this model is on the pitch, friendly models which are suffering the burning condition gain Overheat.\n(Overheat [3\" Pulse]: When this model suffers the taken out condition during the Activation Phase, enemy models within this pulse suffer 3 DMG and the burning condition.)"
-    },
-    {
-      "name": "Intercept",
-      "active": true,
-      "text": "Once per turn:\n- When an enemy model declares a kick, before the dice pool is generated, this model may make a jog towards that model.\nor\n- When the opposing team's controlling player places a ball marker, after current actions are resolved, this model may make a jog towards that free ball."
     },
     {
       "name": "The Ladderman Cometh",
