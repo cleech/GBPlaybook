@@ -1,0 +1,138 @@
+.gbicon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+/* ==========================================
+Single-colored icons can be modified like so:
+.gbicon-name {
+  font-size: 32px;
+  color: red;
+}
+========================================== */
+
+.gbicon-ballotX {
+  width: 1.0771484375em;
+}
+
+.gbicon-checkmark {
+  width: 1.052734375em;
+}
+
+.gbicon-skull {
+  width: 0.8837890625em;
+}
+
+.gbicon-bandage {
+  width: 0.5166015625em;
+}
+
+.gbicon-Alchemists {
+  color: #4e9339;
+}
+
+.gbicon-Blacksmiths {
+  width: 1.02734375em;
+  color: #82969f;
+}
+
+.gbicon-Brewers {
+  color: #cdb320;
+}
+
+.gbicon-Butchers {
+  color: #ce1f27;
+}
+
+.gbicon-Cooks {
+  color: #eb2629;
+}
+
+.gbicon-Engineers {
+  color: #76151e;
+}
+
+.gbicon-Falconers {
+  width: 1.25em;
+  color: #39653b;
+}
+
+.gbicon-Farmers {
+  color: #ea8329;
+}
+
+.gbicon-Fishermen {
+  color: #50b8c8;
+}
+
+.gbicon-Hunters {
+  color: #39653b;
+}
+
+.gbicon-Masons {
+  color: #416abb;
+}
+
+.gbicon-Miners {
+  width: 0.9990234375em;
+  color: #76151e;
+}
+
+.gbicon-Morticians {
+  color: black;
+}
+
+.gbicon-Navigators {
+  color: #50b8c8;
+}
+
+.gbicon-Order {
+  color: #ebed1a;
+}
+
+.gbicon-Order-GBCP {
+  color: #5b257f;
+}
+
+.gbicon-Ratcatchers {
+  width: 0.9990234375em;
+  color: black;
+}
+
+.gbicon-Shepherds {
+  color: #de7523;
+}
+
+.gbicon-Union {
+  color: #5b257f;
+}
+
+.gbicon-Lamplighters {
+  width: 1.001953125em;
+  color: #00994a;
+}
+
+.gbicon-GBT {
+  width: 0.9599609375em;
+}
+
+.pbicon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+/* ==========================================
+Single-colored icons can be modified like so:
+.pbicon-name {
+  font-size: 32px;
+  color: red;
+}
+========================================== */
