@@ -120,7 +120,7 @@ export function GuildGridInner({ dimensions, pickTeam, controls, size }: any) {
             maxHeight: size,
           }}
         >
-          <GBIcon icon={g.name} size={size - 5} />
+          <GBIcon icon={g.name} size={size} />
           {g.name}
         </Button>
       ))}

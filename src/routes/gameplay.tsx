@@ -1,8 +1,9 @@
-import { useCallback, useState, useRef, SetStateAction } from "react";
+import { useCallback, useState, useRef } from "react";
 import { Outlet, Link, useSearchParams, useNavigate } from "react-router-dom";
-import { Button, ButtonGroup, Fab, Popover } from "@mui/material";
+import { Button, Fab, Modal } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../components/GuildGrid";
+import GBIcon from "../components/GBIcon";
 import { useData } from "../components/DataContext";
 import {
   DraftList,
@@ -61,10 +62,11 @@ function GameControls(
           maxWidth: props.size,
           minHeight: props.size,
           maxHeight: props.size,
+          fontSize: props.size * 0.5,
         }}
         onClick={() => setSelector("P1")}
       >
-        {team1 || "P1"}
+        {team1 ? <GBIcon icon={team1} fontSize={props.size} /> : "P1"}
       </Button>
       <Fab
         disabled={!team1 || !team2}
@@ -81,10 +83,11 @@ function GameControls(
           maxWidth: props.size,
           minHeight: props.size,
           maxHeight: props.size,
+          fontSize: props.size * 0.5,
         }}
         onClick={() => setSelector("P2")}
       >
-        {team2 || "P2"}
+        {team2 ? <GBIcon icon={team2} fontSize={props.size} /> : "P2"}
       </Button>
     </div>,
     pickTeam,
@@ -158,69 +161,94 @@ export const Draft = () => {
 
 export const Game = () => {
   const store = useStore();
+  const teams = [store.team1, store.team2];
+
+  // return <GameList teams={teams} />;
+  return (
+    <div style={{ display: "flex", flexDirection: "row" }}>
+      <GameList teams={[teams[0]]} />;
+      <GameList teams={[teams[1]]} />;
+    </div>
+  );
+};
+
+export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
+  const store = useStore();
   const ref = useRef(null);
   const [open, setOpen] = useState(false);
   const [model, setModel] = useState<IGBPlayer | undefined>(undefined);
 
   return (
-    <div ref={ref} style={{ overflow: "auto" }}>
+    <div
+      ref={ref}
+      style={{
+        overflow: "auto",
+        position: "relative",
+      }}
+    >
       <RosterList
-        teams={[store.team1, store.team2]}
+        // teams={[store.team1, store.team2]}
+        teams={teams}
         onClick={(e, m) => {
           setModel(m);
           setOpen(true);
         }}
       />
-      <Popover
+      <Modal
         open={open}
+        container={ref.current}
         onClose={() => setOpen(false)}
-        anchorReference="anchorEl"
-        anchorEl={ref.current}
-        anchorOrigin={{
-          vertical: "center",
-          horizontal: "center",
+        componentsProps={{
+          root: {
+            style: {
+              position: "absolute",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            },
+          },
+          backdrop: {
+            style: {
+              position: "absolute",
+            },
+          },
         }}
-        transformOrigin={{
-          vertical: "center",
-          horizontal: "center",
-        }}
-        style={
-          {
-            // display: "flex",
-            // height: "100%",
-            // width: "100%",
-            // flexDirection: "column",
-          }
-        }
       >
         <Swiper
           direction="vertical"
           slidesPerView={1}
           centeredSlides
           autoHeight={true}
+          spaceBetween={96}
           onInit={(swiper) => {
-            swiper.el.style.width = "100%";
-            swiper.el.style.height = "6in";
+            swiper.el.style.width = "2.5in";
+            swiper.el.style.height = "3.5in";
+          }}
+          style={{
+            overflow: "visible",
           }}
         >
-          {[store.team1.roster, store.team2.roster].flat().map((m, index) => (
-            <SwiperSlide
-              key={index}
-              style={{
-                minWidth: "3in",
-                minHeight: "4in",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <div>
+          {/* {[store.team1.roster, store.team2.roster].flat().map((m, index) => ( */}
+          {teams
+            .map((t) => t.roster)
+            .flat()
+            .map((m, index) => (
+              <SwiperSlide
+                key={index}
+                // style={{
+                // minWidth: "2.5in",
+                // minHeight: "3.5in",
+                // display: "flex",
+                // alignItems: "center",
+                // justifyContent: "center",
+                // overflow: "visible",
+                // }}
+              >
                 <FlipCard model={m} controls={CardControls} />
-              </div>
-            </SwiperSlide>
-          ))}
+              </SwiperSlide>
+            ))}
         </Swiper>
-      </Popover>
+      </Modal>
     </div>
   );
 };
