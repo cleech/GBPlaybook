@@ -12,6 +12,8 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import MinusIcon from "@mui/icons-material/Remove";
+import PlusIcon from "@mui/icons-material/Add";
 import { Observer } from "mobx-react-lite";
 import { IGBPlayer, IGBTeam } from "../models/Root";
 import useLongPress from "../components/useLongPress";
@@ -44,7 +46,6 @@ function Counter({ object, label, value, setValue }: CounterProps) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "2px",
       }}
     >
       <Typography variant="body2">
@@ -59,13 +60,7 @@ function Counter({ object, label, value, setValue }: CounterProps) {
             }
           }}
         >
-          <Typography
-            component="span"
-            variant="caption"
-            sx={{ lineHeight: "1" }}
-          >
-            -
-          </Typography>
+          <MinusIcon fontSize="inherit" />
         </Button>
         <Button
           onClick={() => {
@@ -73,13 +68,7 @@ function Counter({ object, label, value, setValue }: CounterProps) {
             setValue(object, v + 1);
           }}
         >
-          <Typography
-            component="span"
-            variant="caption"
-            sx={{ lineHeight: "1" }}
-          >
-            +
-          </Typography>
+          <PlusIcon fontSize="inherit" />
         </Button>
       </ButtonGroup>
     </div>
@@ -127,28 +116,10 @@ export function HealthCounter({ model }: { model: model }) {
       </Observer>
       <ButtonGroup size="small" variant="contained">
         <Button {...longPressDown} onClick={(e) => e.stopPropagation()}>
-          <Typography
-            component="span"
-            variant="caption"
-            sx={{
-              lineHeight: "1",
-              pointerEvents: "none",
-            }}
-          >
-            -
-          </Typography>
+          <MinusIcon fontSize="inherit" />
         </Button>
         <Button {...longPressUp} onClick={(e) => e.stopPropagation()}>
-          <Typography
-            component="span"
-            variant="caption"
-            sx={{
-              lineHeight: "1",
-              pointerEvents: "none",
-            }}
-          >
-            +
-          </Typography>
+          <PlusIcon fontSize="inherit" />
         </Button>
       </ButtonGroup>
     </div>
@@ -176,13 +147,12 @@ export default function RosterList({ teams, onClick }: RosterListProps) {
               sx={{
                 display: "flex",
                 flexDirection: "row",
-                // border: "1px solid white",
               }}
             >
               <ListItemIcon sx={{ alignItems: "center" }}>
                 <GBIcon
                   icon={team.name}
-                  size={40}
+                  size={36}
                   style={{ color: theme.palette.text.secondary }}
                 />
               </ListItemIcon>
@@ -193,18 +163,22 @@ export default function RosterList({ teams, onClick }: RosterListProps) {
                   0
                 )} INF`}
               />
-              <Counter
-                object={team}
-                label={(t) => `VP: ${t.score}`}
-                value={(t) => t.score}
-                setValue={(t, v) => t.setScore(v)}
-              />
-              <Counter
-                object={team}
-                label={(t) => `MOM: ${t.momentum}`}
-                value={(t) => t.momentum}
-                setValue={(t, v) => t.setMomentum(v)}
-              />
+              <div
+                style={{ display: "flex", flexDirection: "row", gap: "4px" }}
+              >
+                <Counter
+                  object={team}
+                  label={(t) => `VP: ${t.score}`}
+                  value={(t) => t.score}
+                  setValue={(t, v) => t.setScore(v)}
+                />
+                <Counter
+                  object={team}
+                  label={(t) => `MOM: ${t.momentum}`}
+                  value={(t) => t.momentum}
+                  setValue={(t, v) => t.setMomentum(v)}
+                />
+              </div>
             </ListSubheader>
             <Divider />
             {team.roster.map((m: model, index: number) => (
