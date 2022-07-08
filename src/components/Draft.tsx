@@ -242,6 +242,7 @@ export function DraftList({
     >
       <Card
         style={{
+          backgroundColor: "#121212",
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr",
           border: "2px solid",
@@ -364,6 +365,7 @@ export function BlacksmithDraftList({
     >
       <Card
         style={{
+          backgroundColor: "#121212",
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr",
           border: "2px solid",

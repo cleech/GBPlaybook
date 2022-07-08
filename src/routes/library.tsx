@@ -4,19 +4,17 @@ import { Link, Outlet, useParams, useNavigate } from "react-router-dom";
 import { useDimensionsRef } from "rooks";
 import _ from "lodash";
 
-import { Button } from "@mui/material";
+import { Box, Card, Chip, useTheme, useMediaQuery } from "@mui/material";
 
-import { Virtual } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import "swiper/css";
-import "swiper/css/virtual";
 
 import { useData } from "../components/DataContext";
 import GBIcon from "../components/GBIcon";
-import { FlipCard } from "../components/Card";
-import { convertToObject } from "typescript";
+import { FlipCard, DoubleCard } from "../components/Card";
 
 import { GuildGrid } from "../components/GuildGrid";
+import { IGBPlayer, IGBTeam } from "../models/Root";
 
 export default function Library() {
   return (
@@ -47,6 +45,10 @@ export function GuildList() {
 }
 
 export function Roster() {
+  // const swiperRef = useRef<SwiperClass>(null);
+  // const swiperRef = useRef<any>(null);
+  const theme = useTheme();
+  const large = useMediaQuery(theme.breakpoints.up("sm"));
   const { guild } = useParams();
   const { data, loading } = useData();
   if (loading) {
@@ -55,13 +57,17 @@ export function Roster() {
   const g = data.Guilds.find((g: any) => g.name === guild);
   return (
     <Swiper
-      // modules={[Virtual]}
+      // modules={[Grid]}
+      // grid={{rows: 2}}
+      // ref={swiperRef}
       slidesPerView="auto"
-      // slidesPerView={1.4}
-      // spaceBetween={0}
-      centeredSlides
-      // virtual
-      // style={{overflow: "visible"}}
+      centeredSlides={true}
+      autoHeight={true}
+      spaceBetween={0.25 * 96}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+      }}
     >
       {g.roster.map((m: string, index: number) => {
         const model = data.Models.find((m2: any) => m2.id === m);
@@ -70,25 +76,78 @@ export function Roster() {
         // }
         return (
           <SwiperSlide
-            key={m}
+            key={model.id}
             virtualIndex={index}
             style={{
-              width: "3in",
-              height: "4in",
-              // width: "auto",
+              // height: "5in",
+              // width: "6in",
+              // width: "100%",
+              // height: "4in",
+              width: "500px",
+              // height: "700px",
               // height: "auto",
-              // padding: "0.25in",
+              // maxWidth: "500px",
+              // maxHeight: "700px",
+              paddingTop: "0.25in",
+              paddingBottom: "0.25in",
               // overflow: 'visible',
-              alignItems: "center",
-              justifyContent: "center",
-              display: "flex",
+              // alignItems: "center",
+              // justifyContent: "center",
+              // display: "flex",
             }}
           >
-            {/* <FlipCard name={m} /> */}
-            <FlipCard model={model} controls={undefined} />
+            {large ? (
+              <DoubleCard model={model} controls={undefined} />
+            ) : (
+              <FlipCard model={model} controls={undefined} />
+            )}
           </SwiperSlide>
         );
       })}
+      <SwiperButtons roster={g.roster} />
     </Swiper>
+  );
+}
+
+function SwiperButtons(props: { roster: IGBPlayer[] }) {
+  const { data, loading } = useData();
+  const swiper = useSwiper();
+  const { roster } = props;
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+      }}
+    >
+      <div style={{ flex: "1 1" }} />
+      <Box
+        slot="container-end"
+        sx={{
+          display: "flex",
+          flex: "1 1 500px",
+          // width: "100%",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "5px",
+        }}
+      >
+        {roster.map((m, index) => {
+          const model = data.Models.find((m2: any) => m2.id === m);
+          return (
+            <Chip
+              color="primary"
+              key={model.id}
+              // label={model.displayName}
+              label={model.id}
+              onClick={() => {
+                swiper.slideTo(index);
+              }}
+            />
+          );
+        })}
+      </Box>
+      <div style={{ flex: "1 1" }} />
+    </div>
   );
 }

@@ -13,7 +13,7 @@ const GBIcon = (props) => {
   };
 
   return (
-    <svg className={`gbicon gbicon-${icon}`} style={computedStyle} {...props}>
+    <svg className={`gbicon gbicon-${icon}`} {...props} style={computedStyle}>
       <use href={`${gbDefs}#gbicon-${icon}`} />
     </svg>
   );

@@ -108,6 +108,7 @@ export function GuildGridInner({ dimensions, pickTeam, controls, size }: any) {
         <Button
           key={g.name}
           variant="outlined"
+          // variant="contained"
           onClick={() => {
             pickTeam && pickTeam(g.name);
           }}

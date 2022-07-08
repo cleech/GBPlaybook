@@ -11,29 +11,26 @@ import Color from "color";
 const CardBack = (props) => {
   const model = props.model;
   const key = model.id;
-  const targetRef = useRef();
-  const [scale, setScale] = useState(props.scale ?? 1.0);
 
+  // const targetRef = useRef();
+  // const [scale, setScale] = useState(props.scale ?? 1.0);
+  // function updateSize() {
+  //   // let newScale = targetRef.current.getBoundingClientRect().width / 500;
+  //   let newScale = targetRef.current.getBoundingClientRect().height / 700;
+  //   // console.log(`scale = ${newScale}`);
+  //   setScale(newScale);
+  // }
+  // useLayoutEffect(() => {
+  //   updateSize();
+  //   window.addEventListener("resize", updateSize);
+  //   return () => window.removeEventListener("resize", updateSize);
+  // });
+  // }, [targetRef.current]);
+  
   const { data } = useData();
   const guild = data.Guilds.find(
     (g) => g.name === (props.guild ?? model.guild1)
   );
-
-  function updateSize() {
-    let newScale = targetRef.current.getBoundingClientRect().width / 500;
-    // let newScale = targetRef.current.getBoundingClientRect().height / 700;
-    // console.log(`scale = ${newScale}`);
-    setScale(newScale);
-  }
-
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
-  // }, [targetRef.current]);
-
-  // console.log(guild);
 
   // const image = GBImages[key + "_gbcp_back"] || GBImages[key + "_back"];
   const image = GBImages[key + "_back"];
@@ -41,10 +38,10 @@ const CardBack = (props) => {
   return (
     <div
       className={`card-back ${key} ${model.gbcp && "gbcp"} ${props.className}`}
-      ref={targetRef}
+      // ref={targetRef}
       style={{
         "--gbcp": model.gbcp,
-        "--scale": scale,
+        // "--scale": scale,
         "--team-color": guild.color,
         "--gbcp-color": Color(guild.shadow ?? guild.color).mix(
           Color.rgb(240, 230, 210),
@@ -97,8 +94,7 @@ const FooterIcon = ({ icon }) => (
       icon="blank"
       style={{ position: "absolute", zIndex: -1, fill: "white" }}
     />
-    {/*
-    <div
+    {/* <div
       style={{
         width: "38px",
         height: "38px",
@@ -108,8 +104,7 @@ const FooterIcon = ({ icon }) => (
         position: "absolute",
         zIndex: -1,
       }}
-    />
-    */}
+    /> */}
     <GBIcon icon={icon} />
   </div>
 );

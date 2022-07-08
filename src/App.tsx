@@ -38,9 +38,32 @@ function MyAppBar(props: any) {
   );
 }
 
+// const darkTheme = createTheme({
+//   palette: {
+//     mode: "dark",
+//   },
+//   components: {
+//     MuiCssBaseline: {
+//       styleOverrides: {
+//         body: {
+//         },
+//       },
+//     },
+//   },
+// });
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
+    primary: {
+      main: "#3d708f",
+    },
+    secondary: {
+      main: "#ffb300",
+    },
+    background: {
+      default: "#121a22",
+      paper: "#344556",
+    },
   },
 });
 

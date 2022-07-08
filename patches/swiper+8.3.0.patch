@@ -1,0 +1,20 @@
+diff --git a/node_modules/swiper/react/swiper-react.d.ts b/node_modules/swiper/react/swiper-react.d.ts
+index 170ede9..7cafecb 100644
+--- a/node_modules/swiper/react/swiper-react.d.ts
++++ b/node_modules/swiper/react/swiper-react.d.ts
+@@ -477,10 +477,14 @@ interface SwiperProps
+   > {}
+ interface SwiperSlideProps extends React.HTMLAttributes<HTMLElement> {}
+ 
++/*
+ declare const Swiper: React.FunctionComponent<SwiperProps>;
+ declare const SwiperSlide: React.VoidFunctionComponent<SwiperSlideProps>;
++*/
++declare const Swiper: React.ForwardRefExoticComponent<SwiperProps & React.RefAttributes<any>>;
++declare const SwiperSlide: React.ForwardRefExoticComponent<SwiperSlideProps & React.RefAttributes<any>>;
+ 
+ declare const useSwiper: () => SwiperClass;
+ declare const useSwiperSlide: () => SlideData;
+ 
+-export { Swiper, SwiperSlide, SwiperProps, SwiperSlideProps, useSwiper, useSwiperSlide };
++export { SwiperClass, Swiper, SwiperSlide, SwiperProps, SwiperSlideProps, useSwiper, useSwiperSlide };

@@ -13,15 +13,19 @@ import Color from "color";
 const CardFront = (props) => {
   const model = props.model;
   const key = model.id;
-  const targetRef = useRef();
-  const [scale, setScale] = useState(props.scale ?? 1.0);
 
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
-  // }, [targetRef.current]);
+  // const targetRef = useRef();
+  // const [scale, setScale] = useState(props.scale ?? 1.0);
+  // useLayoutEffect(() => {
+  //   updateSize();
+  //   window.addEventListener("resize", updateSize);
+  //   return () => window.removeEventListener("resize", updateSize);
+  // });
+  // function updateSize() {
+  //   let newScale = targetRef.current.getBoundingClientRect().width / 500;
+  //   // let newScale = targetRef.current.getBoundingClientRect().height / 700;
+  //   setScale(newScale);
+  // }
 
   const { data, loading } = useData();
   if (loading) {
@@ -34,21 +38,15 @@ const CardFront = (props) => {
   const guild1 = data.Guilds.find((g) => g.name === model.guild1);
   const guild2 = data.Guilds.find((g) => g.name === model.guild2);
 
-  function updateSize() {
-    let newScale = targetRef.current.getBoundingClientRect().width / 500;
-    // let newScale = targetRef.current.getBoundingClientRect().height / 700;
-    setScale(newScale);
-  }
-
   // const image = GBImages[key + "_gbcp_front"] || GBImages[key + "_front"];
   const image = GBImages[key + "_front"];
 
   return (
     <div
       className={`card-front ${key} ${model.gbcp && "gbcp"} ${props.className}`}
-      ref={targetRef}
+      // ref={targetRef}
       style={{
-        "--scale": scale,
+        // "--scale": scale,
         "--team-color": guild.color,
         /* not the best way to do this */
         // "--gbcp-color": Color(guild2 ? guild2.color : guild1.color).mix(
@@ -78,11 +76,6 @@ const CardFront = (props) => {
           <CharacterPlays model={model} />
         </div>
         <HealthBoxes model={model} />
-        {
-          /* add additional controls if requested */
-          /* health -/+, modal close, etc. */
-          props.controls && props.controls({model: model})
-        }
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ interface Options {
 
 export default function useLongPress<T>(
   { onLongPress, onClick }: PressHandlers<T>,
-  { delay = 300, shouldPreventDefault = true }: Options = {}
+  { delay = 500, shouldPreventDefault = true }: Options = {}
 ) {
   const [longPressTriggered, setLongPressTriggered] = useState(false);
   const timeout = useRef<NodeJS.Timeout>();

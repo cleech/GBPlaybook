@@ -1,4 +1,7 @@
+import localforage from "localforage";
 import { types, Instance, applySnapshot, SnapshotIn } from "mobx-state-tree";
+import { persist } from "mst-persist";
+import localForage from "localforage";
 import { createContext, useContext } from "react";
 import { To } from "react-router-dom";
 
@@ -57,6 +60,14 @@ const GBPlayer = types
     },
     setHealth(h: number) {
       self.health = h;
+    },
+  }))
+  .views((self) => ({
+    get displayName() {
+      return (self.veteran ? "v" : "") + (self.seasoned ? "s" : "") + self.name;
+    },
+    get statLine() {
+      return `${self.jog}"/${self.sprint}" | ${self.tac} | ${self.kickdice}/${self.kickdist}" | ${self.def}+ | ${self.arm} | ${self.inf}/${self.infmax}`;
     },
   }));
 
@@ -123,6 +134,11 @@ let initialState = RootModel.create({
 
 export const rootStore = initialState;
 export type RootInstance = Instance<typeof RootModel>;
+
+persist("GBPlaybook", rootStore, {
+  storage: localForage,
+  jsonify: false,
+}).then(() => console.log("Setting hydrated"));
 
 const RootStoreContext = createContext<null | RootInstance>(null);
 

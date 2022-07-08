@@ -1,6 +1,16 @@
+import * as React from "react";
 import { useCallback, useState, useRef } from "react";
 import { Outlet, Link, useSearchParams, useNavigate } from "react-router-dom";
-import { Button, Fab, Modal } from "@mui/material";
+import {
+  Button,
+  Divider,
+  Fab,
+  Modal,
+  useMediaQuery,
+  useTheme,
+  Card,
+  CssBaseline,
+} from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../components/GuildGrid";
 import GBIcon from "../components/GBIcon";
@@ -13,9 +23,9 @@ import {
 } from "../components/Draft";
 import { useStore, IGBPlayer, IGBTeam } from "../models/Root";
 import RosterList, { HealthCounter } from "../components/RosterList";
-import { FlipCard } from "../components/Card";
+import { FlipCard, DoubleCard } from "../components/Card";
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, SwiperClass, useSwiper } from "swiper/react";
 import "swiper/css";
 import "swiper/css/virtual";
 
@@ -69,6 +79,7 @@ function GameControls(
         {team1 ? <GBIcon icon={team1} fontSize={props.size} /> : "P1"}
       </Button>
       <Fab
+        color="secondary"
         disabled={!team1 || !team2}
         component={Link}
         to={{ pathname: "/draft", search: `?p1=${team1}&p2=${team2}` }}
@@ -146,6 +157,7 @@ export const Draft = () => {
       <DraftList1 guild={guild1} ready={ready1} unready={unready1} />
       <Fab
         disabled={!team1 || !team2}
+        color="secondary"
         onClick={() => {
           store.team1.reset({ name: g1 ?? undefined, roster: team1 });
           store.team2.reset({ name: g2 ?? undefined, roster: team2 });
@@ -161,36 +173,43 @@ export const Draft = () => {
 
 export const Game = () => {
   const store = useStore();
+  const theme = useTheme();
+  const large = useMediaQuery(theme.breakpoints.up("sm"));
   const teams = [store.team1, store.team2];
 
-  // return <GameList teams={teams} />;
-  return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
-      <GameList teams={[teams[0]]} />;
-      <GameList teams={[teams[1]]} />;
+  return large ? (
+    <div style={{
+      width: "100%", height: "100%",
+      display: "flex", flexDirection: "row"
+    }}>
+      <GameList teams={[teams[0]]} />
+      <Divider orientation="vertical" />
+      <GameList teams={[teams[1]]} />
     </div>
+  ) : (
+    <GameList teams={teams} />
   );
 };
 
 export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
-  const store = useStore();
   const ref = useRef(null);
   const [open, setOpen] = useState(false);
-  const [model, setModel] = useState<IGBPlayer | undefined>(undefined);
+  const [index, setIndex] = useState(0);
 
   return (
     <div
       ref={ref}
       style={{
+        width: "100%", height: "100%",
         overflow: "auto",
         position: "relative",
+        margin: 0,
       }}
     >
       <RosterList
-        // teams={[store.team1, store.team2]}
         teams={teams}
-        onClick={(e, m) => {
-          setModel(m);
+        onClick={(e, m, i) => {
+          setIndex(i);
           setOpen(true);
         }}
       />
@@ -215,6 +234,7 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
         }}
       >
         <Swiper
+          initialSlide={index}
           direction="vertical"
           slidesPerView={1}
           centeredSlides
@@ -228,7 +248,6 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
             overflow: "visible",
           }}
         >
-          {/* {[store.team1.roster, store.team2.roster].flat().map((m, index) => ( */}
           {teams
             .map((t) => t.roster)
             .flat()
