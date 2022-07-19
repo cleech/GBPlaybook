@@ -82,6 +82,7 @@ const Settings = types
   .model({
     colorScheme: types.maybe(types.enumeration(['dark', 'light'])),
     dataSet: types.maybe(types.string),
+    mostRecent: types.maybe(types.string),
     initialScreen: types.optional(types.string, 'Game Play'),
   })
   .actions(self => ({
@@ -90,6 +91,9 @@ const Settings = types
     },
     setDataSet(filename) {
       self.dataSet = filename;
+    },
+    setMostRecent(filename) {
+      self.mostRecent = filename;
     },
     setInitialScreen(route) {
       self.initialScreen = route;
@@ -112,7 +116,7 @@ export function createRootStore() {
   return RootStore.create({
     team1: {name: '', score: 0, momentum: 0},
     team2: {name: '', score: 0, momentum: 0},
-    settings: {colorScheme: 'light'},
+    settings: {colorScheme: 'dark'},
   });
 }
 

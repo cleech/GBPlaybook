@@ -20,21 +20,29 @@ export const DataProvider = observer(({children}) => {
     setLoading(true);
     const manifest = await readManifest();
     setManifest(manifest);
+
+    const lastRelease = manifest.datafiles[0].filename;
+    // force a settings change when a new major release happens
+    if (settings.mostRecent !== lastRelease) {
+      settings.setDataSet(undefined);
+      settings.setMostRecent(lastRelease);
+    }
+
     var filename;
     if (settings.dataSet) {
       // filename = manifest.datafiles.find((d) => d.filename === settings.dataSet).filename;
       filename = settings.dataSet;
     } else {
-      filename = manifest.datafiles[0].filename;
+      filename = lastRelease;
       settings.setDataSet(filename);
     }
-    setVersion(manifest.datafiles.find((d) => d.filename === filename).version);
+    setVersion(manifest.datafiles.find(d => d.filename === filename).version);
     setData(await readFile(filename));
     setLoading(false);
   };
 
   useEffect(() => {
-    // console.log('reloading dataSet');
+    // console.log(`reloading dataSet ${filename}`);
     getData();
   }, [filename]);
 
@@ -52,7 +60,7 @@ export const useData = () => {
 import FS from 'react-native-fs';
 import {Platform} from 'react-native';
 
-const readManifest = async () => {  
+const readManifest = async () => {
   let data = await Platform.select({
     ios: async () => await FS.readFile(`${FS.MainBundlePath}/manifest.json`),
     android: async () => await FS.readFileAssets('custom/manifest.json'),
@@ -61,7 +69,7 @@ const readManifest = async () => {
   return manifest;
 };
 
-const readFile = async (filename) => {  
+const readFile = async filename => {
   let data = await Platform.select({
     ios: async () => await FS.readFile(`${FS.MainBundlePath}/${filename}`),
     android: async () => await FS.readFileAssets(`custom/${filename}`),
