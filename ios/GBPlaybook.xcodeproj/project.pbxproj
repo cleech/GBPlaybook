@@ -23,12 +23,13 @@
 		91493589D51D4307A1815B05 /* CrimsonText-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C93B3F881585459BA9FB064C /* CrimsonText-SemiBold.ttf */; };
 		962A749AC9EF454D8A92C0F1 /* CrimsonText-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF6AA9423BF947F5BC7A0165 /* CrimsonText-Italic.ttf */; };
 		B0E37873286A4B69BD03D2A5 /* SourceSansPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2946216537AC4C43991FA720 /* SourceSansPro-Regular.ttf */; };
-		B4A744D134424CEFB24C0311 /* GB-Playbook-4-4.json in Resources */ = {isa = PBXBuildFile; fileRef = 86C57583A98F4283BDB52955 /* GB-Playbook-4-4.json */; };
-		BBA5E892395C4FE9A09EECCE /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = CCF0CAE61EF147C8B7B53059 /* manifest.json */; };
 		CFE5A48A59134F4982C7A97F /* IM_FELL_Great_Primer_DC.otf in Resources */ = {isa = PBXBuildFile; fileRef = 380DB3B59F2143AEADBCF37A /* IM_FELL_Great_Primer_DC.otf */; };
 		D5184CCDCD5042A4BB5360DF /* GBPlaybook.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C1ACEA498B0F4EF697127C82 /* GBPlaybook.ttf */; };
 		DA64A5B1C50A49AEA0B11BB5 /* GB-Playbook-4-3.json in Resources */ = {isa = PBXBuildFile; fileRef = CA7ADF35582545E49289272C /* GB-Playbook-4-3.json */; };
 		DD4A5834D474419593223320 /* GuildBallIcon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 347D1FDED025471CBB493438 /* GuildBallIcon.ttf */; };
+		CDB3B749BA704FE682416A01 /* GB-Playbook-4-4.json in Resources */ = {isa = PBXBuildFile; fileRef = D8C82CBB5BB54C18AC3EB2F2 /* GB-Playbook-4-4.json */; };
+		B59484D7B65C491CBD5B4796 /* GB-Playbook-4-5.json in Resources */ = {isa = PBXBuildFile; fileRef = 9E4BC58836A049A38C497AE5 /* GB-Playbook-4-5.json */; };
+		F1E0FF15A6FF4FE899A18B04 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 77DC1F0F4CA2419B8D9D2C85 /* manifest.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +71,6 @@
 		7FE673165C6449B8ABC80F8D /* CrimsonText-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CrimsonText-SemiBoldItalic.ttf"; path = "../src/assets/fonts/CrimsonText-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = GBPlaybook/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8554019B3D4A4710A6A93F62 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		86C57583A98F4283BDB52955 /* GB-Playbook-4-4.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "GB-Playbook-4-4.json"; path = "../src/data/GB-Playbook-4-4.json"; sourceTree = "<group>"; };
 		8AD571BD898E3F9A8C2BD8CB /* libPods-GBPlaybook.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GBPlaybook.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99C29CACBDDC4F988E31BE22 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		ABDD058821F7498E9DA244D9 /* CrimsonText-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CrimsonText-BoldItalic.ttf"; path = "../src/assets/fonts/CrimsonText-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -80,7 +80,6 @@
 		C93B3F881585459BA9FB064C /* CrimsonText-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CrimsonText-SemiBold.ttf"; path = "../src/assets/fonts/CrimsonText-SemiBold.ttf"; sourceTree = "<group>"; };
 		C9F6B844F6AEFADD14B4746D /* Pods-GBPlaybook-GBPlaybookTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GBPlaybook-GBPlaybookTests.debug.xcconfig"; path = "Target Support Files/Pods-GBPlaybook-GBPlaybookTests/Pods-GBPlaybook-GBPlaybookTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CA7ADF35582545E49289272C /* GB-Playbook-4-3.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GB-Playbook-4-3.json"; path = "../src/data/GB-Playbook-4-3.json"; sourceTree = "<group>"; };
-		CCF0CAE61EF147C8B7B53059 /* manifest.json */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = manifest.json; path = ../src/data/manifest.json; sourceTree = "<group>"; };
 		CE5A9A33ADA4421CA6167A43 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		DA642172C25842F0B78F70D1 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		DD2BD2835D6D42CEA1F74160 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
@@ -90,6 +89,9 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F36DC2163DC944F89959B6B2 /* CrimsonText-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "CrimsonText-Regular.ttf"; path = "../src/assets/fonts/CrimsonText-Regular.ttf"; sourceTree = "<group>"; };
 		F79346CA0BC67C52EA6D8493 /* Pods-GBPlaybook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GBPlaybook.release.xcconfig"; path = "Target Support Files/Pods-GBPlaybook/Pods-GBPlaybook.release.xcconfig"; sourceTree = "<group>"; };
+		D8C82CBB5BB54C18AC3EB2F2 /* GB-Playbook-4-4.json */ = {isa = PBXFileReference; name = "GB-Playbook-4-4.json"; path = "../src/data/GB-Playbook-4-4.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9E4BC58836A049A38C497AE5 /* GB-Playbook-4-5.json */ = {isa = PBXFileReference; name = "GB-Playbook-4-5.json"; path = "../src/data/GB-Playbook-4-5.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		77DC1F0F4CA2419B8D9D2C85 /* manifest.json */ = {isa = PBXFileReference; name = "manifest.json"; path = "../src/data/manifest.json"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,8 +229,9 @@
 				CA7ADF35582545E49289272C /* GB-Playbook-4-3.json */,
 				347D1FDED025471CBB493438 /* GuildBallIcon.ttf */,
 				E7EAA25D68B14764AE4ABB39 /* selection.json */,
-				86C57583A98F4283BDB52955 /* GB-Playbook-4-4.json */,
-				CCF0CAE61EF147C8B7B53059 /* manifest.json */,
+				D8C82CBB5BB54C18AC3EB2F2 /* GB-Playbook-4-4.json */,
+				9E4BC58836A049A38C497AE5 /* GB-Playbook-4-5.json */,
+				77DC1F0F4CA2419B8D9D2C85 /* manifest.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -340,8 +343,9 @@
 				DA64A5B1C50A49AEA0B11BB5 /* GB-Playbook-4-3.json in Resources */,
 				DD4A5834D474419593223320 /* GuildBallIcon.ttf in Resources */,
 				03195110435F4A8BB1772222 /* selection.json in Resources */,
-				B4A744D134424CEFB24C0311 /* GB-Playbook-4-4.json in Resources */,
-				BBA5E892395C4FE9A09EECCE /* manifest.json in Resources */,
+				CDB3B749BA704FE682416A01 /* GB-Playbook-4-4.json in Resources */,
+				B59484D7B65C491CBD5B4796 /* GB-Playbook-4-5.json in Resources */,
+				F1E0FF15A6FF4FE899A18B04 /* manifest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

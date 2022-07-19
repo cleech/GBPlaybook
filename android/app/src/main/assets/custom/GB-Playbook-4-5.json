@@ -2360,11 +2360,12 @@
       "reach": false,
       "gbcp": false,
       "character_plays": [
-        "Go Get It!"
+        "Pupper Master"
       ],
       "character_traits": [
-        "Assist [Scum, Quaff]",
-        "Get Over Here [Scum, Quaff]"
+        "Get Over Here [Scum, Quaff]",
+        "Scummy Snack [Scum, Quaff]",
+        "Who's a Good Boy [Scum, Quaff]"
       ],
       "heroic": "Animal Treat [Scum, Quaff ]\nTarget named friendly model within 4\" gains +2 TAC.",
       "types": "Indar, Human, Male,\nDefensive Midfielder\nSquaddie",
@@ -3100,6 +3101,7 @@
       "gbcp": false,
       "character_plays": [],
       "character_traits": [
+        "Barroom Brawl",
         "Sturdy",
         "Tough Hide",
         "Vindictive"
@@ -3239,7 +3241,7 @@
       "mascot": false,
       "veteran": false,
       "seasoned": false,
-      "hp": 13,
+      "hp": 14,
       "recovery": 7,
       "jog": 6,
       "sprint": 8,
@@ -3259,6 +3261,7 @@
       ],
       "character_traits": [
         "Above and Beyond",
+        "Crucial Artery",
         "Unpredictable Movement"
       ],
       "types": "Valentian, Human, Female,\nStriker,\nSquaddie",
@@ -3359,11 +3362,11 @@
       "reach": true,
       "gbcp": false,
       "character_plays": [
-        "Route One"
+        "Pig Stickin'"
       ],
       "character_traits": [
         "Anatomical Precision",
-        "Fan Favourite",
+        "Crucial Artery",
         "Sweeping Charge"
       ],
       "types": "Erskirii, Human, Female,\nCentral Midfielder,\nVeteran, Squaddie",
@@ -3371,7 +3374,7 @@
         [
           null,
           ">",
-          "CP",
+          "CP;M",
           ">>",
           null,
           null,
@@ -4083,7 +4086,7 @@
       "hp": 15,
       "recovery": 8,
       "jog": 4,
-      "sprint": 6,
+      "sprint": 7,
       "tac": 5,
       "kickdice": 4,
       "kickdist": 6,
@@ -4099,6 +4102,7 @@
         "Remote Control"
       ],
       "character_traits": [
+        "Far Strike",
         "Gravity Well",
         "Reanimate",
         "Tough Hide"
@@ -4108,7 +4112,7 @@
         [
           "1",
           null,
-          "T;M",
+          "T,>",
           null,
           null,
           null,
@@ -5347,7 +5351,7 @@
       "jog": 7,
       "sprint": 9,
       "tac": 2,
-      "kickdice": 2,
+      "kickdice": 3,
       "kickdist": 4,
       "def": 5,
       "arm": 0,
@@ -5360,13 +5364,14 @@
         "Where'd They Go?"
       ],
       "character_traits": [
-        "Loved Creature"
+        "Loved Creature",
+        "Scores for Fun"
       ],
       "types": "Valentian, Animal,\nMascot",
       "playbook": [
         [
-          "1",
           "T",
+          "1",
           null,
           null,
           null,
@@ -5450,7 +5455,7 @@
       "sprint": 8,
       "tac": 4,
       "kickdice": 4,
-      "kickdist": 8,
+      "kickdist": 10,
       "def": 5,
       "arm": 0,
       "inf": 2,
@@ -5460,17 +5465,18 @@
       "gbcp": false,
       "character_plays": [
         "Nimble",
-        "Super Shot"
+        "Thief"
       ],
       "character_traits": [
         "Get Over Here [Salt, Wander]",
-        "Light Footed"
+        "Light Footed",
+        "Natural Baller"
       ],
       "types": "Figeon, Human, Female,\nStriker,\nSquaddie",
       "playbook": [
         [
           "1",
-          "<<",
+          "CP",
           null,
           null,
           null,
@@ -6663,7 +6669,7 @@
       "recovery": 8,
       "jog": 6,
       "sprint": 8,
-      "tac": 4,
+      "tac": 5,
       "kickdice": 3,
       "kickdist": 8,
       "def": 4,
@@ -6674,20 +6680,21 @@
       "reach": false,
       "gbcp": false,
       "character_plays": [
-        "Where'd They Go?"
+        "Where'd They Go?",
+        "Feral Instincts"
       ],
       "character_traits": [
         "Ambush",
-        "Light Footed",
+        "Bait And Switch [4\" Pulse]",
         "Lone Hunter"
       ],
-      "types": "Erskirii, Human, Animal, Male,\nStriker,\nSquaddie",
+      "types": "Erskirii, Animal, Male,\nStriker,\nSquaddie",
       "playbook": [
         [
           "1",
           "CP",
           null,
-          null,
+          "2;M",
           null,
           null,
           null
@@ -6695,8 +6702,8 @@
         [
           "<;M",
           "T;M",
-          "<<",
-          "2,<<;M",
+          "2",
+          "T,<<;M",
           null,
           null,
           null
@@ -8093,20 +8100,20 @@
       "reach": false,
       "gbcp": false,
       "character_plays": [
-        "Careless Whisper",
+        "Persuasion",
         "Red Fury"
       ],
       "character_traits": [
-        "The Knowledge"
+        "The Knowledge [4\" Aura]"
       ],
-      "legendary": "Handy Listener, Such As You Are\nRemove any number of whisper tokens from enemy models on the pitch. For each whisper token removed, place a whisper token on an enemy model on the pitch.",
+      "legendary": "Handy Listener, Such As You Are [6\" Aura]\nWhen an enemy model spends MP while within this aura, the friendly team gains 1 MP.",
       "types": "Piert, Human, Male,\nCoach,\nSquaddie",
       "playbook": [
         [
+          null,
           "1",
           null,
-          ">>",
-          null,
+          "2",
           null,
           null,
           null
@@ -8114,9 +8121,9 @@
         [
           ">;M",
           "T;M",
-          "2",
-          "CP;M",
-          "3;M",
+          ">>",
+          "1,>;M",
+          "2;M",
           null,
           null
         ]
@@ -8394,8 +8401,8 @@
       "seasoned": false,
       "hp": 16,
       "recovery": 8,
-      "jog": 4,
-      "sprint": 6,
+      "jog": 5,
+      "sprint": 7,
       "tac": 6,
       "kickdice": 3,
       "kickdist": 6,
@@ -8412,6 +8419,7 @@
         "On My Mark"
       ],
       "character_traits": [
+        "Dread Captain",
         "Shadow Like"
       ],
       "legendary": "Strike from the Shadows [6\" Pulse]\nChoose one effect:\n• Friendly models within this pulse gain +1 DEF.\n• Friendly models within this pulse make a 2\" dodge.",
@@ -8423,13 +8431,13 @@
           "2,CP",
           "KD",
           null,
-          null,
+          "4;M",
           null
         ],
         [
           "<;M",
           "1,<<;M",
-          "T",
+          "2,T",
           "CP2;M",
           "3,<<;M",
           "3,KD;M",
@@ -12262,14 +12270,6 @@
       "OPT": true
     },
     {
-      "name": "Go Get It!",
-      "text": "Target friendly Mascot model may declare an attack without spending influence.",
-      "CST": 1,
-      "RNG": 4,
-      "SUS": false,
-      "OPT": false
-    },
-    {
       "name": "Smashed Shins",
       "text": "Target enemy model suffers -4/-4\" KICK.",
       "CST": "CP",
@@ -13254,14 +13254,6 @@
       "OPT": false
     },
     {
-      "name": "Careless Whisper",
-      "text": "Place a whisper token on target enemy model.\nFriendly models gain +2 TAC when attacking an enemy model with a whisper token. Whisper tokens are only removed when the target model suffers the taken out condition.",
-      "CST": "2,CP",
-      "RNG": 4,
-      "SUS": false,
-      "OPT": true
-    },
-    {
       "name": "Red Fury",
       "text": "Target friendly model may declare an attack without spending influence.",
       "CST": 1,
@@ -13554,6 +13546,22 @@
       "text": "Position an AOE within range.\nModels hit suffer 2 condition DMG and the burning and poison conditions.",
       "CST": "CP",
       "RNG": 4,
+      "SUS": false,
+      "OPT": false
+    },
+    {
+      "name": "Pupper Master",
+      "text": "Target Animal model may make a jog, make a pass or declare an attack without spending influence. The target model is a friendly model during this action.",
+      "CST": 2,
+      "RNG": 8,
+      "SUS": false,
+      "OPT": false
+    },
+    {
+      "name": "Pig Stickin'",
+      "text": "Target enemy model suffers 2 DMG and a 2\" push directly towards this model.",
+      "CST": "CP",
+      "RNG": 6,
       "SUS": false,
       "OPT": false
     }
@@ -14033,11 +14041,6 @@
       "name": "Support from the Wing",
       "active": false,
       "text": "While within 8\" of the edge of the pitch, this model may spend 1 less influence to charge."
-    },
-    {
-      "name": "Fan Favourite",
-      "active": false,
-      "text": "When this model inflicts the taken out condition on an enemy model, the friendly team gains +1 additional MP."
     },
     {
       "name": "Bleed the Cleats",
@@ -14552,7 +14555,7 @@
     {
       "name": "Lone Hunter",
       "active": false,
-      "text": "While not within 4\" of another friendly model, this model gains +2 TAC."
+      "text": "While not within 4\" of another friendly model, this model may spend 1 less influence to charge."
     },
     {
       "name": "Knockback",
@@ -14701,8 +14704,8 @@
     },
     {
       "name": "The Knowledge",
-      "active": true,
-      "text": "Once per turn during this model’s activation, choose a friendly model within 6\". The chosen friendly model gains +0/+2\" KICK for the remainder of the turn."
+      "active": false,
+      "text": "While within this aura, friendly squaddie models gain +1 DMG to character plays that cause damage and to playbook damage results."
     },
     {
       "name": "Rising Anger",
@@ -15013,6 +15016,31 @@
       "name": "Flash Point",
       "active": false,
       "text": "Once per turn, during this model's activation, you may remove the Burning condition from this model. If you do, enemy models within this pulse suffering the burning condition suffer -1 TAC and -1\"/-1\" MOV for the rest of the turn."
+    },
+    {
+      "name": "Natural Baller",
+      "active": true,
+      "text": "Once per turn, when this model gains possesion of a ball marker, this model may immediately be allocated 1 influence."
+    },
+    {
+      "name": "Dread Captain",
+      "active": true,
+      "text": "Once per turn, when this model makes an Attack you may reroll up to 2 dice."
+    },
+    {
+      "name": "Scummy Snack",
+      "active": true,
+      "text": "When a friendly named model activates within 4\" of this model, the friendly named model may be allocated 1 influence."
+    },
+    {
+      "name": "Who's a Good Boy",
+      "active": true,
+      "text": "Once per turn, when targeting a friendly named model with a character play, this model may use the character play without spending influence."
+    },
+    {
+      "name": "Bait And Switch",
+      "active": true,
+      "text": "When this model scores a goal, if it does not use Run the Length, enemy models within this pulse suffer either the snared or bleed condition."
     }
   ]
 }
