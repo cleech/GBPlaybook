@@ -3,8 +3,8 @@
   width: 1em;
   height: 1em;
   stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
+  stroke: currentcolor;
+  fill: currentcolor;
 }
 
 /* ==========================================
@@ -16,19 +16,19 @@ Single-colored icons can be modified like so:
 ========================================== */
 
 .gbicon-ballotX {
-  width: 1.0771484375em;
+  width: 1.0771em;
 }
 
 .gbicon-checkmark {
-  width: 1.052734375em;
+  width: 1.0527em;
 }
 
 .gbicon-skull {
-  width: 0.8837890625em;
+  width: 0.8838em;
 }
 
 .gbicon-bandage {
-  width: 0.5166015625em;
+  width: 0.5166em;
 }
 
 .gbicon-Alchemists {
@@ -36,7 +36,7 @@ Single-colored icons can be modified like so:
 }
 
 .gbicon-Blacksmiths {
-  width: 1.02734375em;
+  width: 1.0273em;
   color: #82969f;
 }
 
@@ -78,7 +78,7 @@ Single-colored icons can be modified like so:
 }
 
 .gbicon-Miners {
-  width: 0.9990234375em;
+  width: 0.999em;
   color: #76151e;
 }
 
@@ -99,7 +99,7 @@ Single-colored icons can be modified like so:
 }
 
 .gbicon-Ratcatchers {
-  width: 0.9990234375em;
+  width: 0.999em;
   color: black;
 }
 
@@ -112,12 +112,12 @@ Single-colored icons can be modified like so:
 }
 
 .gbicon-Lamplighters {
-  width: 1.001953125em;
+  width: 1.002em;
   color: #00994a;
 }
 
 .gbicon-GBT {
-  width: 0.9599609375em;
+  width: 0.96em;
 }
 
 .pbicon {
@@ -125,8 +125,8 @@ Single-colored icons can be modified like so:
   width: 1em;
   height: 1em;
   stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
+  stroke: currentcolor;
+  fill: currentcolor;
 }
 
 /* ==========================================

@@ -13,6 +13,7 @@
     /* firefox won't draw lines that scale down below 1px */
     --line-width: calc(1px / var(--scale));
   }
+
   @media print {
     .card-front,
     .card-back {
@@ -55,15 +56,13 @@ div.card-front.gbcp {
 .card-front .name-plate {
   position: absolute;
   top: 15px;
-  left: 0px;
+  left: 0;
   width: 310px;
   height: 67px;
   display: flex;
   flex-direction: row;
   padding-left: 20px;
   padding-top: 7px;
-  display: flex;
-  flex-direction: row;
 }
 
 .card-front.gbcp .font-top-box {
@@ -79,7 +78,7 @@ div.card-front.gbcp {
 
 .card-front.gbcp .name-plate {
   top: 2px;
-  left: 0px;
+  left: 0;
   padding: 0;
   width: 100%;
 }
@@ -93,10 +92,11 @@ div.card-front.gbcp {
   align-items: center;
   justify-content: center;
 }
+
 .card-front .name-plate .guild-icon svg {
   font-size: 65px;
   flex-shrink: 0;
-  filter: drop-shadow(0px 0px 2px var(--mom-color, none));
+  filter: drop-shadow(0 0 2px var(--mom-color, none));
 }
 
 /* sub-box placement */
@@ -119,6 +119,7 @@ div.card-front.gbcp {
   /* check vHarriet before touching this */
   line-height: 125%;
 }
+
 .card-front.gbcp .name-plate-right > .name {
   font-family: "IM Fell Great Primer", serif;
 }
@@ -127,13 +128,16 @@ div.card-front.gbcp {
 .dropcap {
   white-space: pre-wrap;
 }
+
 .dropcap span {
   display: inline-block;
 }
+
 .dropcap span::first-letter {
   float: left;
   padding-top: 0.075em;
 }
+
 @-moz-document url-prefix() {
   /* .dropcap span {
     line-height: 0.7em;
@@ -148,7 +152,7 @@ div.card-front.gbcp {
 
 .card-front .name-plate-right > .reach {
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   width: 230px;
   font-family: "Crimson Text", serif;
   font-size: 21px;
@@ -157,6 +161,7 @@ div.card-front.gbcp {
   border-image-slice: 1 0 0 0;
   text-align: left;
 }
+
 .card-front.gbcp .name-plate-right > .reach {
   width: 310px;
 }
@@ -178,13 +183,14 @@ div.card-front.gbcp {
   letter-spacing: -1px;
   text-align: center;
 }
+
 .card-front.gbcp .statbox {
   top: unset;
   bottom: 0;
   left: 0;
   margin: 0;
   padding: 0;
-  padding: 0px 5px 2px 5px;
+  padding: 0 5px 2px 5px;
   width: calc(100% - 10px);
   /* font-family: unset; */
   font-size: 24px;
@@ -194,6 +200,7 @@ div.card-front.gbcp {
 .card-front .statbox > :nth-child(-n + 6) {
   border-bottom: var(--line-width) solid black;
 }
+
 .card-front .statbox > :not(:nth-child(6n + 1)) {
   border-left: var(--line-width) solid black;
 }
@@ -210,6 +217,7 @@ div.card-front.gbcp {
   gap: 7px;
   font-size: 44px;
 }
+
 .card-front.gbcp .playbook {
   top: 158px;
   left: 13px;
@@ -230,6 +238,7 @@ div.card-front.gbcp {
   align-items: center;
   justify-content: center;
 }
+
 .card-front .playbook-result svg {
   fill: black;
 }
@@ -239,6 +248,7 @@ div.card-front.gbcp {
   border-color: var(--mom-border-color, black);
   background-color: var(--mom-color, var(--team-color));
 }
+
 .card-front .playbook-result.momentus svg {
   fill: white;
 }
@@ -288,6 +298,7 @@ div.card-front.gbcp {
   font-family: unset;
   font-size: 18px;
 }
+
 /* first row borders */
 .card-front .character-plays > :nth-child(-n + 5) {
   padding: 2px;
@@ -295,6 +306,7 @@ div.card-front.gbcp {
   border-left: var(--line-width) solid black;
   letter-spacing: -1px;
 }
+
 /* "Character Plays" header */
 .card-front .character-plays > :first-child {
   font-family: "IM Fell Great Primer SC", serif;
@@ -302,11 +314,12 @@ div.card-front.gbcp {
   font-size: 28px;
   line-height: 28px;
   text-align: left;
-  padding: 0px;
+  padding: 0;
   border-left: none;
   /* letter-spacing: -1px; */
   line-height: 1em;
 }
+
 /* individual play name styling */
 .card-front .character-plays .name {
   font-family: "Crimson Text", serif;
@@ -315,14 +328,17 @@ div.card-front.gbcp {
   letter-spacing: -1px;
   word-spacing: -1px;
 }
+
 .card-front .character-plays .name > span:first-child {
   font-weight: 800;
   font-style: italic;
 }
+
 .card-front .character-plays .name > span:nth-child(2) {
   font-weight: 600;
   letter-spacing: -1px;
 }
+
 /* chatacter play text layout and styling */
 .card-front .character-plays .text {
   grid-column-end: span 5;
@@ -345,6 +361,7 @@ div.card-front.gbcp {
   grid-template-columns: repeat(10, 1fr);
   gap: 2px 5.3px;
 }
+
 .card-front.gbcp .health {
   bottom: unset;
   /* bottom: 40px; */
@@ -373,16 +390,19 @@ div.card-front.gbcp {
   font-weight: 600;
   color: var(--mom-color, var(--team-color));
 }
+
 .card-front.gbcp .health-box {
   width: 32px;
   height: 32px;
   border-radius: 32px;
   font-size: 23px;
 }
+
 .card-front .health-box.damaged {
   color: black;
   background-color: darkred;
 }
+
 .card-front.gbcp .health-box svg {
   /* FIXME, bigger icons, move sizes JS -> CSS*/
 }
@@ -404,6 +424,7 @@ div.card-front.gbcp {
     var(--guild2-color) calc((5 - var(--col)) * 100%)
   );
 }
+
 .Lucky .playbook-result.momentus {
   background-image: linear-gradient(
     to right,
@@ -418,13 +439,16 @@ div.card-front.gbcp {
 #guild-icon2 {
   display: none;
 }
+
 :is(.Compound, .Lucky) #guild-icon {
   display: none;
 }
+
 :is(.Compound, .Lucky) #guild-icon1 {
   display: block;
   mask-image: linear-gradient(to right, black 40%, transparent 60%);
 }
+
 :is(.Compound, .Lucky) #guild-icon2 {
   position: absolute;
   display: block;
