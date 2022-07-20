@@ -1,12 +1,12 @@
 {
-  "timestamp": "2022-07-18T20:10:23Z",
+  "timestamp": "2022-07-19T18:05:01Z",
   "datafiles": [
     {
       "version": "4.5",
       "description": "Guild Ball Community Project 4.5",
       "filename": "GB-Playbook-4-5.json",
-      "sha256": "9be0f9696b29e3394f716b3f6ac979d483c46a167dbff13aca3cbfd53da5446c",
-      "timestamp": "2022-07-18T20:05:34Z"
+      "sha256": "0dc1a5bbef7b16fa8743edb41ccc9d4b0df5e7619132e83f6ef52e27e1f2ad98",
+      "timestamp": "2022-07-19T18:02:23Z"
     },
     {
       "version": "4.4",
