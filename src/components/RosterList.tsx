@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   List,
   ListSubheader,
   ListItemIcon,
@@ -24,10 +27,12 @@ type team = IGBTeam;
 
 interface RosterListProps {
   teams: team[];
+  expanded: boolean;
   onClick: (
-    event: React.MouseEvent<HTMLElement>,
-    model: model,
-    index: number
+    // event: React.MouseEvent<HTMLElement>,
+    // model: model,
+    index: number,
+    expand: boolean
   ) => void;
 }
 
@@ -53,7 +58,8 @@ function Counter({ object, label, value, setValue }: CounterProps) {
       </Typography>
       <ButtonGroup size="small" variant="contained">
         <Button
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             const v = value(object);
             if (v > 0) {
               setValue(object, v - 1);
@@ -63,7 +69,8 @@ function Counter({ object, label, value, setValue }: CounterProps) {
           <MinusIcon fontSize="inherit" />
         </Button>
         <Button
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             const v = value(object);
             setValue(object, v + 1);
           }}
@@ -126,73 +133,118 @@ export function HealthCounter({ model }: { model: model }) {
   );
 }
 
-export default function RosterList({ teams, onClick }: RosterListProps) {
+export default function RosterList({
+  teams,
+  expanded,
+  onClick,
+}: RosterListProps) {
   const theme = useTheme();
   return (
     <Box
       sx={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
+        flexGrow: 0,
+        overflow: "auto",
       }}
     >
-      <List
-        dense
-        disablePadding
-        style={{ width: "100%", maxHeight: "inherit" }}
-      >
-        {teams.map((team, index) => (
-          <React.Fragment key={index}>
-            <ListSubheader
+      {teams.map((team, index) => {
+        const indexBase = teams
+          .slice(0, index)
+          .map((t) => t.roster.length)
+          .reduce((acc, l) => acc + l, 0);
+        return (
+          <Accordion
+            key={index}
+            expanded={expanded === true}
+            square
+            sx={{
+              backgroundColor: "transparent",
+            }}
+            disableGutters={true}
+          >
+            <AccordionSummary
               sx={{
-                display: "flex",
-                flexDirection: "row",
+                position: "sticky",
+                top: 0,
+                zIndex: 1,
+                padding: 0,
+                borderBottom: `1px solid ${theme.palette.divider}`,
+                "& .MuiAccordionSummary-content": {
+                  margin: 0,
+                },
               }}
             >
-              <ListItemIcon sx={{ alignItems: "center" }}>
-                <GBIcon
-                  icon={team.name}
-                  size={36}
-                  style={{ color: theme.palette.text.secondary }}
-                />
-              </ListItemIcon>
-              <ListItemText
-                primary={team.name}
-                secondary={`${team.roster.reduce(
-                  (acc, m) => acc + (m._inf ?? m.inf),
-                  0
-                )} INF`}
-              />
-              <div
-                style={{ display: "flex", flexDirection: "row", gap: "4px" }}
+              <ListSubheader
+                onClick={() => {
+                  onClick(0, true);
+                }}
+                sx={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "row",
+                }}
               >
-                <Counter
-                  object={team}
-                  label={(t) => `VP: ${t.score}`}
-                  value={(t) => t.score}
-                  setValue={(t, v) => t.setScore(v)}
+                <ListItemIcon sx={{ alignItems: "center" }}>
+                  <GBIcon
+                    icon={team.name}
+                    size={36}
+                    style={{ color: theme.palette.text.secondary }}
+                  />
+                </ListItemIcon>
+                <ListItemText
+                  primary={team.name}
+                  secondary={`${team.roster.reduce(
+                    (acc, m) => acc + (m._inf ?? m.inf),
+                    0
+                  )} INF`}
                 />
-                <Counter
-                  object={team}
-                  label={(t) => `MOM: ${t.momentum}`}
-                  value={(t) => t.momentum}
-                  setValue={(t, v) => t.setMomentum(v)}
-                />
-              </div>
-            </ListSubheader>
-            <Divider />
-            {team.roster.map((m: model, index: number) => (
-              <ListItem
-                key={m.id}
-                secondaryAction={<HealthCounter model={m} />}
-                onClick={(e) => onClick(e, m, index)}
+                <div
+                  style={{ display: "flex", flexDirection: "row", gap: "4px" }}
+                >
+                  <Counter
+                    object={team}
+                    label={(t) => `VP: ${t.score}`}
+                    value={(t) => t.score}
+                    setValue={(t, v) => t.setScore(v)}
+                  />
+                  <Counter
+                    object={team}
+                    label={(t) => `MOM: ${t.momentum}`}
+                    value={(t) => t.momentum}
+                    setValue={(t, v) => t.setMomentum(v)}
+                  />
+                </div>
+              </ListSubheader>
+            </AccordionSummary>
+            <AccordionDetails
+              sx={{
+                padding: 0,
+              }}
+            >
+              <List
+                key={index}
+                dense
+                disablePadding
+                style={{ width: "100%", maxHeight: "inherit" }}
               >
-                <ListItemText primary={m.displayName} secondary={m.statLine} />
-              </ListItem>
-            ))}
-          </React.Fragment>
-        ))}
-      </List>
+                {team.roster.map((m: model, index: number) => (
+                  <ListItem
+                    key={m.id}
+                    secondaryAction={<HealthCounter model={m} />}
+                    onClick={(e) => {
+                      onClick(indexBase + index, false);
+                    }}
+                  >
+                    <ListItemText
+                      primary={m.displayName}
+                      secondary={m.statLine}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </AccordionDetails>
+          </Accordion>
+        );
+      })}
     </Box>
   );
 }

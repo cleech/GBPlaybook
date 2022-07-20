@@ -26,7 +26,7 @@ const CardBack = (props) => {
   //   return () => window.removeEventListener("resize", updateSize);
   // });
   // }, [targetRef.current]);
-  
+
   const { data } = useData();
   const guild = data.Guilds.find(
     (g) => g.name === (props.guild ?? model.guild1)
@@ -44,7 +44,7 @@ const CardBack = (props) => {
         // "--scale": scale,
         "--team-color": guild.color,
         "--gbcp-color": Color(guild.shadow ?? guild.color).mix(
-          Color.rgb(240, 230, 210),
+          Color.rgb(254, 246, 227),
           0.9
         ),
         "--mom-color": guild.shadow,
@@ -187,4 +187,5 @@ const Legendary = ({ model }) => {
   );
 };
 
-export { CardBack };
+const MemoCardBack = React.memo(CardBack);
+export { MemoCardBack as CardBack };

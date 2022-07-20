@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useCallback, useState, useRef } from "react";
+import { useCallback, useState, useRef, useLayoutEffect } from "react";
 import { Outlet, Link, useSearchParams, useNavigate } from "react-router-dom";
 import {
   Button,
@@ -8,8 +8,6 @@ import {
   Modal,
   useMediaQuery,
   useTheme,
-  Card,
-  CssBaseline,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../components/GuildGrid";
@@ -25,9 +23,14 @@ import { useStore, IGBPlayer, IGBTeam } from "../models/Root";
 import RosterList, { HealthCounter } from "../components/RosterList";
 import { FlipCard, DoubleCard } from "../components/Card";
 
-import { Swiper, SwiperSlide, SwiperClass, useSwiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import {
+  Virtual,
+  // Navigation
+} from "swiper";
 import "swiper/css";
 import "swiper/css/virtual";
+// import "swiper/css/navigation";
 
 function GameControls(
   props: ControlProps
@@ -154,7 +157,12 @@ export const Draft = () => {
 
   return (
     <>
-      <DraftList1 guild={guild1} ready={ready1} unready={unready1} />
+      <DraftList1
+        guild={guild1}
+        ready={ready1}
+        unready={unready1}
+        ignoreRules={false}
+      />
       <Fab
         disabled={!team1 || !team2}
         color="secondary"
@@ -166,7 +174,12 @@ export const Draft = () => {
       >
         <PlayArrowIcon />
       </Fab>
-      <DraftList2 guild={guild2} ready={ready2} unready={unready2} />
+      <DraftList2
+        guild={guild2}
+        ready={ready2}
+        unready={unready2}
+        ignoreRules={false}
+      />
     </>
   );
 };
@@ -177,46 +190,91 @@ export const Game = () => {
   const large = useMediaQuery(theme.breakpoints.up("sm"));
   const teams = [store.team1, store.team2];
 
-  return large ? (
-    <div style={{
-      width: "100%", height: "100%",
-      display: "flex", flexDirection: "row"
-    }}>
-      <GameList teams={[teams[0]]} />
-      <Divider orientation="vertical" />
-      <GameList teams={[teams[1]]} />
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "row",
+      }}
+    >
+      {large ? (
+        <>
+          <GameList teams={[teams[0]]} />
+          <Divider orientation="vertical" />
+          <GameList teams={[teams[1]]} />
+        </>
+      ) : (
+        <GameList teams={teams} />
+      )}
     </div>
-  ) : (
-    <GameList teams={teams} />
   );
 };
 
 export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
-  const ref = useRef(null);
+  const theme = useTheme();
+  const large = useMediaQuery(theme.breakpoints.up("sm"));
+  const ref = useRef<HTMLDivElement>(null);
+  const sizeRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
+  const [expanded, setExpanded] = useState(true);
+
+  const [cardWidth, setCardWidth] = useState(240);
+  const [cardHeight, setCardHeight] = useState(336);
+  const [slideHeight, setSlideHeight] = useState(336);
+  useLayoutEffect(() => {
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  });
+  function updateSize() {
+    let width = sizeRef.current?.getBoundingClientRect().width ?? 0;
+    let height = sizeRef.current?.getBoundingClientRect().height ?? 0;
+    let barHeight = large ? 56 : 112;
+    setCardWidth(Math.min(width - 12, ((height - barHeight) * 5) / 7 - 12));
+    setCardHeight(Math.min(height - barHeight - 12, (width * 7) / 5 - 12));
+    setSlideHeight(height - barHeight);
+  }
 
   return (
     <div
-      ref={ref}
+      ref={sizeRef}
       style={{
-        width: "100%", height: "100%",
-        overflow: "auto",
-        position: "relative",
-        margin: 0,
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <RosterList
         teams={teams}
-        onClick={(e, m, i) => {
+        expanded={expanded}
+        onClick={(i, expandList) => {
           setIndex(i);
-          setOpen(true);
+          setExpanded(expandList);
+          setOpen(!expandList);
+        }}
+      />
+      <div
+        ref={ref}
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          flexGrow: 1,
         }}
       />
       <Modal
+        sx={{
+          /* same as app bar, bellow the drawer */
+          zIndex: 1100,
+        }}
         open={open}
         container={ref.current}
-        onClose={() => setOpen(false)}
+        onClose={() => {
+          setOpen(false);
+          setExpanded(true);
+        }}
         componentsProps={{
           root: {
             style: {
@@ -234,15 +292,18 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
         }}
       >
         <Swiper
+          modules={[
+            Virtual,
+          ]}
+          virtual
           initialSlide={index}
           direction="vertical"
-          slidesPerView={1}
           centeredSlides
-          autoHeight={true}
-          spaceBetween={96}
+          spaceBetween={(slideHeight - Math.min(cardHeight, 500))/2}
           onInit={(swiper) => {
-            swiper.el.style.width = "2.5in";
-            swiper.el.style.height = "3.5in";
+            swiper.el.style.width = `${Math.min(cardWidth, 500)}px`;
+            swiper.el.style.height = `${Math.min(cardHeight, 700)}px`;
+            // swiper.el.style.height = `${slideHeight}px`;
           }}
           style={{
             overflow: "visible",
@@ -252,18 +313,18 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
             .map((t) => t.roster)
             .flat()
             .map((m, index) => (
-              <SwiperSlide
-                key={index}
-                // style={{
-                // minWidth: "2.5in",
-                // minHeight: "3.5in",
-                // display: "flex",
-                // alignItems: "center",
-                // justifyContent: "center",
-                // overflow: "visible",
-                // }}
-              >
-                <FlipCard model={m} controls={CardControls} />
+              <SwiperSlide key={index} virtualIndex={index}>
+                <div
+                  style={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FlipCard model={m} controls={CardControls} />
+                </div>
+                {/* <DoubleCard model={m} controls={CardControls} /> */}
               </SwiperSlide>
             ))}
         </Swiper>

@@ -135,10 +135,12 @@ let initialState = RootModel.create({
 export const rootStore = initialState;
 export type RootInstance = Instance<typeof RootModel>;
 
-persist("GBPlaybook", rootStore, {
-  storage: localForage,
-  jsonify: false,
-}).then(() => console.log("Setting hydrated"));
+export function rootStorePersist() {
+  return persist("GBPlaybook", rootStore, {
+    storage: localForage,
+    jsonify: false,
+  });
+}
 
 const RootStoreContext = createContext<null | RootInstance>(null);
 
@@ -147,7 +149,7 @@ export const Provider = RootStoreContext.Provider;
 export function useStore() {
   const store = useContext(RootStoreContext);
   if (store === null) {
-    throw new Error("Store cannot be numm, please add a context provider");
+    throw new Error("Store cannot be null, please add a context provider");
   }
   return store;
 }

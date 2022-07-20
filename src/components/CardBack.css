@@ -84,8 +84,8 @@ div.card-back.gbcp {
   /* letter-spacing: -0.05em; */
   letter-spacing: -0.01em;
   border-bottom: var(--line-width) solid black;
-  border-image: linear-gradient(to left, transparent, black 150px) 1;
-  border-image-slice: 1;
+  border-image-source: linear-gradient(to left, transparent, black 150px);
+  border-image-slice: 0 0 1 0;
   width: 100%;
   line-height: 1em;
 }
@@ -98,7 +98,8 @@ div.card-back.gbcp {
   font-size: 34px;
   letter-spacing: -0.02em;
   border-bottom: var(--line-width) solid black;
-  border-image: linear-gradient(to left, transparent, black 150px) 1;
+  border-image-source: linear-gradient(to left, transparent, black 150px);
+  border-image-slice: 0 0 1 0;
   line-height: 1em;
   /* margin-top: 5px; */
 }

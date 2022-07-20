@@ -1,19 +1,26 @@
 {
-  "timestamp": "2022-06-03T23:52:48Z",
+  "timestamp": "2022-07-19T18:05:01Z",
   "datafiles": [
+    {
+      "version": "4.5",
+      "description": "Guild Ball Community Project 4.5",
+      "filename": "GB-Playbook-4-5.json",
+      "sha256": "0dc1a5bbef7b16fa8743edb41ccc9d4b0df5e7619132e83f6ef52e27e1f2ad98",
+      "timestamp": "2022-07-19T18:02:23Z"
+    },
     {
       "version": "4.4",
       "description": "Guild Ball Community Project 4.4",
       "filename": "GB-Playbook-4-4.json",
-      "sha256": "8f0ef93a72520586903f13592275e6ebabf9000875916ce8f8f746098e2c30c7",
-      "timestamp": "2022-06-03T23:52:40Z"
+      "sha256": "98b0c85b50889ac3b92463a1d1830af68b844993431ecbd41c1625abd04eef49",
+      "timestamp": "2022-06-28T22:33:10Z"
     },
     {
       "version": "4.3",
       "description": "Steamforged Guild Ball 4.3",
       "filename": "GB-Playbook-4-3.json",
       "sha256": "14aadd32d2cf9d8727ae08cfdaf1a1eb3bcbeda1bf7bcfc5e3b093d4a16243e5",
-      "timestamp": "2021-09-08T16:15:10Z"
+      "timestamp": "2022-06-28T22:33:10Z"
     }
   ]
 }

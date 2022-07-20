@@ -1,5 +1,5 @@
 diff --git a/node_modules/swiper/react/swiper-react.d.ts b/node_modules/swiper/react/swiper-react.d.ts
-index 170ede9..7cafecb 100644
+index 08b623d..ed704d8 100644
 --- a/node_modules/swiper/react/swiper-react.d.ts
 +++ b/node_modules/swiper/react/swiper-react.d.ts
 @@ -477,10 +477,14 @@ interface SwiperProps

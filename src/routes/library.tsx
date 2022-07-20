@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useLayoutEffect } from "react";
 import { Link, Outlet, useParams, useNavigate } from "react-router-dom";
 
 import { useDimensionsRef } from "rooks";
@@ -27,7 +27,6 @@ export default function Library() {
         height: "100%",
       }}
     >
-      {/* <h2>Card Library</h2> */}
       <Outlet />
     </main>
   );
@@ -45,11 +44,28 @@ export function GuildList() {
 }
 
 export function Roster() {
-  // const swiperRef = useRef<SwiperClass>(null);
-  // const swiperRef = useRef<any>(null);
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
   const { guild } = useParams();
+
+  const ref = useRef<HTMLDivElement>(null);
+  const [cardWidth, setCardWidth] = useState(240);
+  const [cardHeight, setCardHeight] = useState(336);
+  const [slideHeight, setSlideHeight] = useState(336);
+  useLayoutEffect(() => {
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  });
+  function updateSize() {
+    let width = ref.current?.getBoundingClientRect().width ?? 0;
+    let height = ref.current?.getBoundingClientRect().height ?? 0;
+    let barHeight = large ? 56 : 112;
+    setCardWidth(Math.min(width - 12, ((height - barHeight) * 5) / 7 - 12));
+    setCardHeight(Math.min(height - barHeight - 12, (width * 7) / 5 - 12));
+    setSlideHeight(height - barHeight);
+  }
+
   const { data, loading } = useData();
   if (loading) {
     return null;
@@ -57,14 +73,13 @@ export function Roster() {
   const g = data.Guilds.find((g: any) => g.name === guild);
   return (
     <Swiper
-      // modules={[Grid]}
-      // grid={{rows: 2}}
-      // ref={swiperRef}
-      slidesPerView="auto"
+      // slidesPerView="auto"
+      slidesPerView={1.1}
       centeredSlides={true}
       autoHeight={true}
       spaceBetween={0.25 * 96}
       style={{
+        width: "100%",
         display: "flex",
         flexDirection: "column",
       }}
@@ -79,21 +94,10 @@ export function Roster() {
             key={model.id}
             virtualIndex={index}
             style={{
-              // height: "5in",
-              // width: "6in",
-              // width: "100%",
-              // height: "4in",
-              width: "500px",
-              // height: "700px",
-              // height: "auto",
-              // maxWidth: "500px",
-              // maxHeight: "700px",
               paddingTop: "0.25in",
               paddingBottom: "0.25in",
-              // overflow: 'visible',
-              // alignItems: "center",
-              // justifyContent: "center",
-              // display: "flex",
+              display: "flex",
+              justifyContent: "center",
             }}
           >
             {large ? (

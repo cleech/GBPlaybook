@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
@@ -14,15 +14,20 @@ import Typography from "@mui/material/Typography";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import { useLocation } from "react-router-dom";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Slide } from "@mui/material";
+
+// let hideAppBar = false;
+// export const setHideAppBar = (hide: boolean) => {
+//   hideAppBar = hide;
+// };
 
 function MyAppBar(props: any) {
-  let location = useLocation();
-
+  const location = useLocation();
+  // const [hideAppBar, setHideAppBar] = useState(false);
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    // <Slide appear={false} direction="down" in={!hideAppBar}>
       <AppBar position="static">
-        <Toolbar sx={{ flexDirection: "row-reverse" }}>
+        <Toolbar variant="dense" sx={{ flexDirection: "row-reverse" }}>
           <IconButton
             size="large"
             edge="start"
@@ -34,7 +39,7 @@ function MyAppBar(props: any) {
           <Typography>{location.pathname}</Typography>
         </Toolbar>
       </AppBar>
-    </Box>
+    // </Slide>
   );
 }
 

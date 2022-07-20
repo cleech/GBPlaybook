@@ -28,45 +28,49 @@ export function DoubleCard({ model, controls }) {
   // }
 
   return (
-    <div ref={targetRef}>
+    // <div ref={targetRef} style={{ backgrounColor: "green" }}>
+    <div
+      ref={targetRef}
+      style={{
+        width: "100%",
+        maxWidth: "1000px",
+        aspectRatio: 10 / 7,
+        display: "flex",
+        flexDirection: "row",
+        postion: "relative",
+      }}
+    >
+      <CardFront
+        model={model}
+        style={{
+          "--scale": scale,
+          borderTopRightRadius: 0,
+          borderBottomRightRadius: 0,
+        }}
+      />
+      <CardBack
+        model={model}
+        style={{
+          "--scale": scale,
+          borderTopLeftRadius: 0,
+          borderBottomLeftRadius: 0,
+        }}
+      />
       <div
         style={{
-          display: "flex",
-          flexDirection: "row",
-          postion: "relative",
+          position: "absolute",
+          // top: "0px",
+          left: "0px",
+          width: "500px",
+          height: "700px",
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
         }}
       >
-        <CardFront
-          model={model}
-          style={{
-            "--scale": scale,
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 0,
-          }}
-        />
-        <CardBack
-          model={model}
-          style={{
-            "--scale": scale,
-            borderTopLeftRadius: 0,
-            borderBottomLeftRadius: 0,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            // top: "0px",
-            left: "0px",
-            width: "500px",
-            height: "700px",
-            transform: `scale(${scale})`,
-            transformOrigin: "top left",
-          }}
-        >
-          {controls?.({ model })}
-        </div>
+        {controls?.({ model })}
       </div>
     </div>
+    // </div>
   );
 }
 

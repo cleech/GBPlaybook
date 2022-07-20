@@ -54,7 +54,7 @@ const CardFront = (props) => {
         //   0.9
         // ),
         "--gbcp-color": Color(guild1.shadow ?? guild1.color).mix(
-          Color.rgb(240, 230, 210),
+          Color.rgb(254, 246, 227),
           0.9
         ),
         "--guild1-color": guild1.color,
@@ -241,4 +241,5 @@ const CharacterPlays = ({ model }) => {
   );
 };
 
-export { CardFront };
+const MemoCardFront = React.memo(CardFront);
+export { MemoCardFront as CardFront };

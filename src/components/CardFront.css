@@ -153,8 +153,8 @@ div.card-front.gbcp {
   font-family: "Crimson Text", serif;
   font-size: 21px;
   border-top: var(--line-width) solid black;
-  border-image: linear-gradient(to left, transparent, black 150px) 1;
-  border-image-slice: 1;
+  border-image-source: linear-gradient(to left, transparent, black 150px);
+  border-image-slice: 1 0 0 0;
   text-align: left;
 }
 .card-front.gbcp .name-plate-right > .reach {

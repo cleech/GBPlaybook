@@ -136,7 +136,11 @@ interface DraftListItemProps {
 function DraftListItem({ model, onChange }: DraftListItemProps) {
   return (
     <FormControlLabel
-      label={model.name}
+      // label={model.id}
+      // label={model.displayName}
+      label={
+        (model.veteran ? "v" : "") + (model.seasoned ? "s" : "") + model.name
+      }
       control={
         <Checkbox
           size="small"
@@ -155,12 +159,14 @@ interface DraftListProps {
   guild: any;
   ready: (team: roster) => void;
   unready: () => void;
+  ignoreRules?: boolean;
 }
 
 export function DraftList({
   guild,
   ready: listReady,
   unready,
+  ignoreRules = false,
 }: DraftListProps) {
   const { data } = useData();
   const Models = data.Models;
@@ -180,7 +186,7 @@ export function DraftList({
     checkVeterans(roster, model, value);
     checkBenched(roster, model, value);
 
-    if (captain && mascot && squaddieCount === 4) {
+    if ((captain && mascot && squaddieCount === 4) || ignoreRules) {
       setReady(true);
     } else if (ready) {
       setReady(false);
@@ -296,6 +302,7 @@ export function BlacksmithDraftList({
   guild,
   ready: listReady,
   unready,
+  ignoreRules = false,
 }: DraftListProps) {
   const { data } = useData();
   const Models = data.Models;
@@ -317,7 +324,7 @@ export function BlacksmithDraftList({
     checkVeterans(roster, model, value);
     checkBenched(roster, model, value);
 
-    if (masterCount === 3 && apprenticeCount === 3) {
+    if ((masterCount === 3 && apprenticeCount === 3) || ignoreRules) {
       setReady(true);
     } else if (ready) {
       setReady(false);
