@@ -40,7 +40,7 @@ export const DataProvider = observer(({ children }) => {
   }, [settings]);
 
   useEffect(() => {
-    console.log(`reloading dataSet: ${filename}`);
+    // console.log(`reloading dataSet: ${filename}`);
     getData();
   }, [filename, getData]);
 

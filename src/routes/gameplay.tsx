@@ -6,6 +6,7 @@ import {
   Divider,
   Fab,
   Modal,
+  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -24,13 +25,56 @@ import RosterList, { HealthCounter } from "../components/RosterList";
 import { FlipCard, DoubleCard } from "../components/Card";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Virtual,
-  // Navigation
-} from "swiper";
+import { Virtual } from "swiper";
 import "swiper/css";
 import "swiper/css/virtual";
-// import "swiper/css/navigation";
+
+import Color from "color";
+
+function SelectedIcon({ team, size }: { team: string; size: number }) {
+  const { data, loading } = useData();
+  if (loading) {
+    return null;
+  }
+  const guild = data.Guilds.find((g: any) => g.name === team);
+  return (
+    <div
+      style={{
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        placeContent: "center",
+        placeItems: "center",
+        overflow: "hidden",
+        backgroundColor: Color(guild.shadow ?? guild.darkColor ?? guild.color)
+          .alpha(0.7)
+          .string(),
+      }}
+    >
+      <GBIcon
+        icon={team}
+        fontSize={size}
+        style={{
+          // color: "rgba(0 0 0 60%)",
+          // broken amazon web app tester
+          color: "rgba(0, 0, 0, 60%)",
+          flexShrink: 0,
+        }}
+      />
+      <Typography
+        variant="caption"
+        style={{
+          position: "absolute",
+          color: "white",
+          textShadow: "2px 2px 1px black",
+        }}
+      >
+        {team}
+      </Typography>
+    </div>
+  );
+}
 
 function GameControls(
   props: ControlProps
@@ -69,23 +113,31 @@ function GameControls(
     >
       <Button
         variant="outlined"
-        sx={{
+        style={{
           margin: "5px",
           minWidth: props.size,
           maxWidth: props.size,
           minHeight: props.size,
           maxHeight: props.size,
           fontSize: props.size * 0.5,
+          ...(selector === "P1"
+            ? {
+                borderColor: "gold",
+                borderWidth: "3px",
+              }
+            : { borderWidth: "3px" }),
         }}
         onClick={() => setSelector("P1")}
       >
-        {team1 ? <GBIcon icon={team1} fontSize={props.size} /> : "P1"}
+        {/* {team1 ? <GBIcon icon={team1} fontSize={props.size} /> : "P1"} */}
+        {team1 ? <SelectedIcon team={team1} size={props.size} /> : "P1"}
       </Button>
       <Fab
         color="secondary"
         disabled={!team1 || !team2}
         component={Link}
         to={{ pathname: "/draft", search: `?p1=${team1}&p2=${team2}` }}
+        sx={{ margin: "0 15px" }}
       >
         <PlayArrowIcon />
       </Fab>
@@ -98,10 +150,17 @@ function GameControls(
           minHeight: props.size,
           maxHeight: props.size,
           fontSize: props.size * 0.5,
+          ...(selector === "P2"
+            ? {
+                borderColor: "gold",
+                borderWidth: "3px",
+              }
+            : { borderWidth: "3px" }),
         }}
         onClick={() => setSelector("P2")}
       >
-        {team2 ? <GBIcon icon={team2} fontSize={props.size} /> : "P2"}
+        {/* {team2 ? <GBIcon icon={team2} fontSize={props.size} /> : "P2"} */}
+        {team2 ? <SelectedIcon team={team2} size={props.size} /> : "P2"}
       </Button>
     </div>,
     pickTeam,
@@ -156,7 +215,17 @@ export const Draft = () => {
     guild2.name === "Blacksmiths" ? BlacksmithDraftList : DraftList;
 
   return (
-    <>
+    <div
+      style={{
+        position: "absolute",
+        width: "100%", height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        placeContent: "center",
+        placeItems: "center",
+        overflow: "auto",
+      }}
+    >
       <DraftList1
         guild={guild1}
         ready={ready1}
@@ -171,6 +240,7 @@ export const Draft = () => {
           store.team2.reset({ name: g2 ?? undefined, roster: team2 });
           navigate("/play");
         }}
+        style={{ margin: "10px" }}
       >
         <PlayArrowIcon />
       </Fab>
@@ -180,7 +250,7 @@ export const Draft = () => {
         unready={unready2}
         ignoreRules={false}
       />
-    </>
+    </div>
   );
 };
 
@@ -292,14 +362,12 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
         }}
       >
         <Swiper
-          modules={[
-            Virtual,
-          ]}
+          modules={[Virtual]}
           virtual
           initialSlide={index}
           direction="vertical"
           centeredSlides
-          spaceBetween={(slideHeight - Math.min(cardHeight, 500))/2}
+          spaceBetween={(slideHeight - Math.min(cardHeight, 500)) / 2}
           onInit={(swiper) => {
             swiper.el.style.width = `${Math.min(cardWidth, 500)}px`;
             swiper.el.style.height = `${Math.min(cardHeight, 700)}px`;

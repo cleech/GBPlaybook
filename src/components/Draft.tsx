@@ -251,8 +251,11 @@ export function DraftList({
           backgroundColor: "#121212",
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr",
-          border: "2px solid",
-          borderColor: guild.color,
+          border: "4px solid",
+          borderColor: guild.darkColor ?? guild.color,
+          borderRadius: "10px",
+          // margin: "10px",
+          padding: "10px",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -284,7 +287,7 @@ export function DraftList({
           ))}
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <span> </span>
+          <span>&nbsp;</span>
           {squaddies.slice(squaddies.length / 2).map((m: model) => (
             <DraftListItem
               key={m.id}
@@ -375,8 +378,11 @@ export function BlacksmithDraftList({
           backgroundColor: "#121212",
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr",
-          border: "2px solid",
-          borderColor: guild.color,
+          border: "4px solid",
+          borderColor: guild.darkColor ?? guild.color,
+          borderRadius: "10px",
+          // margin: "10px",
+          padding: "10px",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -400,7 +406,7 @@ export function BlacksmithDraftList({
           ))}
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <span />
+          <span>&nbsp;</span>
           {apprentices.slice(apprentices.length / 2).map((m: model) => (
             <DraftListItem
               key={m.id}

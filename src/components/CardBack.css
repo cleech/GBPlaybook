@@ -49,6 +49,7 @@ div.card-back.gbcp {
   border: 2px solid black;
   border-radius: 5px;
   background-color: var(--gbcp-color);
+  z-index: -2;
 }
 
 .card-back .name-plate {
@@ -75,7 +76,7 @@ div.card-back.gbcp {
 
 .card-back .name-plate .guild-icon svg {
   flex-shrink: 0;
-  filter: drop-shadow(0 0 2px var(--mom-color, none));
+  /* filter: drop-shadow(0 0 2px var(--mom-color, none)); */
 }
 
 .card-back .name-plate .name {
@@ -191,6 +192,7 @@ div.card-back.gbcp {
   border: 2px solid black;
   border-radius: 5px;
   background-color: var(--gbcp-color);
+  z-index: -2;
 }
 
 .card-back .footer .tags {
@@ -212,26 +214,24 @@ div.card-back.gbcp {
   flex-direction: row-reverse;
   align-items: right;
   justify-content: right;
-  font-size: 44px;
 }
 
 .card-back .footer .icons .wrapper {
   width: 44px;
   height: 44px;
+  font-size: 44px;
   display: flex;
-  align-content: center;
-  justify-content: center;
+  place-content: center;
   overflow: visible;
+}
+
+.card-back.gbcp .footer .icons .background {
+  display: none;
 }
 
 .card-back .footer .icons svg {
   flex-shrink: 0;
 }
-
-/* need to get icon shadow fixed for Order */
-/* .card-back .footer .icons :not(div:first-child) svg:nth-child(2) { */
-/* filter: drop-shadow(0px 0px 2px var(--mom-color, none)); */
-/* } */
 
 .card-back .footer .base-size {
   font-family: "Crimson Text", serif;

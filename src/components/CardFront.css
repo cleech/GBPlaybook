@@ -4,7 +4,7 @@
   all: initial;
   /* color: black; */
   --line-width: 1px;
-  /* image-rendering: crisp-edges; */
+  image-rendering: crisp-edges;
 }
 
 @-moz-document url-prefix() {
@@ -74,6 +74,7 @@ div.card-front.gbcp {
   width: 376px;
   height: 131px;
   background-color: var(--gbcp-color);
+  z-index: -2;
 }
 
 .card-front.gbcp .name-plate {
@@ -87,16 +88,16 @@ div.card-front.gbcp {
 .card-front .name-plate .guild-icon {
   width: 65px;
   height: 65px;
-  overflow: visible;
+  font-size: 65px;
   display: flex;
+  overflow: visible;
   align-items: center;
   justify-content: center;
 }
 
 .card-front .name-plate .guild-icon svg {
-  font-size: 65px;
   flex-shrink: 0;
-  filter: drop-shadow(0 0 2px var(--mom-color, none));
+  /* filter: drop-shadow(0 0 2px var(--mom-color, none)); */
 }
 
 /* sub-box placement */
@@ -286,6 +287,7 @@ div.card-front.gbcp {
   border: 2px solid black;
   border-radius: 5px;
   background-color: var(--gbcp-color);
+  z-index: -2;
 }
 
 .card-front.gbcp .character-plays {

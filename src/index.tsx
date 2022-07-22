@@ -5,7 +5,7 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 
-import { Routes, Route, HashRouter } from "react-router-dom";
+import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
 import GamePlay, { TeamSelect, Draft, Game } from "./routes/gameplay";
 import Library, { GuildList, Roster } from "./routes/library";
 
@@ -27,7 +27,8 @@ rootStorePersist().then(() =>
         <DataProvider>
           <HashRouter>
             <Routes>
-              <Route path="/" element={<App />}>
+              <Route path="/" element={<Navigate to="/GamePlay" replace />} />
+              <Route element={<App />}>
                 <Route element={<GamePlay />}>
                   <Route path="GamePlay" element={<TeamSelect />} />
                   <Route path="draft" element={<Draft />} />

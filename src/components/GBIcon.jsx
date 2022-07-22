@@ -4,16 +4,20 @@ import playbookDefs from "../assets/playbook-symbol-defs.svg";
 import gbDefs from "../assets/gb-symbol-defs.svg";
 
 const GBIcon = (props) => {
-  const { icon, size, style } = props;
+  const { icon, size, style, className, ...otherProps } = props;
 
   const computedStyle = {
+    ...(style || {}),
     ...(size ? { width: size, height: size } : {}),
     ...(style && style.height ? { fontSize: style.height } : {}),
-    ...(props.style || {}),
   };
 
   return (
-    <svg className={`gbicon gbicon-${icon}`} {...props} style={computedStyle}>
+    <svg
+      className={`gbicon gbicon-${icon} ${className}`}
+      style={computedStyle}
+      {...otherProps}
+    >
       <use href={`${gbDefs}#gbicon-${icon}`} />
     </svg>
   );

@@ -187,7 +187,11 @@ export default function RosterList({
                   <GBIcon
                     icon={team.name}
                     size={36}
-                    style={{ color: theme.palette.text.secondary }}
+                    style={{
+                      color: theme.palette.text.secondary,
+                      // disable filter effects from icon specific CSS
+                      filter: "unset",
+                    }}
                   />
                 </ListItemIcon>
                 <ListItemText

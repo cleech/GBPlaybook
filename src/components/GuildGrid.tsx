@@ -4,7 +4,7 @@ import { Link, Outlet, useParams } from "react-router-dom";
 import { useDimensionsRef } from "rooks";
 import _ from "lodash";
 
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 import { useData } from "../components/DataContext";
 import GBIcon from "../components/GBIcon";
@@ -121,8 +121,33 @@ export function GuildGridInner({ dimensions, pickTeam, controls, size }: any) {
             maxHeight: size,
           }}
         >
-          <GBIcon icon={g.name} size={size} />
-          {g.name}
+          <div
+            style={{
+              display: "flex",
+              position: "relative",
+              placeContent: "center",
+              fontSize: size * 0.65,
+            }}
+          >
+            <GBIcon
+              icon={g.name}
+              className="dark"
+              style={{
+                flexShrink: 0,
+                zIndex: 1,
+                filter: "drop-shadow(0 0 3px black)",
+              }}
+            />
+            <GBIcon
+              icon="blank"
+              style={{
+                position: "absolute",
+                // zIndex: -1,
+                fill: "black",
+              }}
+            />
+          </div>
+          <Typography variant="caption">{g.name}</Typography>
         </Button>
       ))}
     </>

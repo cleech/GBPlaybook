@@ -94,7 +94,7 @@ const FooterIcon = ({ icon }) => (
       icon="blank"
       style={{ position: "absolute", zIndex: -1, fill: "white" }}
     />
-    {/* <div
+    {/* <div className="icon background"
       style={{
         width: "38px",
         height: "38px",

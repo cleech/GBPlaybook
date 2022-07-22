@@ -26,19 +26,19 @@ function MyAppBar(props: any) {
   // const [hideAppBar, setHideAppBar] = useState(false);
   return (
     // <Slide appear={false} direction="down" in={!hideAppBar}>
-      <AppBar position="static">
-        <Toolbar variant="dense" sx={{ flexDirection: "row-reverse" }}>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            onClick={props.onClick}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography>{location.pathname}</Typography>
-        </Toolbar>
-      </AppBar>
+    <AppBar position="static">
+      <Toolbar variant="dense" sx={{ flexDirection: "row-reverse" }}>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          onClick={props.onClick}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography>{location.pathname}</Typography>
+      </Toolbar>
+    </AppBar>
     // </Slide>
   );
 }
@@ -89,10 +89,14 @@ function App() {
           <nav>
             <ul>
               <li>
-                <Link to="GamePlay">GamePlay</Link>
+                <Link to="GamePlay" onClick={() => setDrawer(false)}>
+                  GamePlay
+                </Link>
               </li>
               <li>
-                <Link to="Library">Library</Link>
+                <Link to="Library" onClick={() => setDrawer(false)}>
+                  Library
+                </Link>
               </li>
             </ul>
           </nav>

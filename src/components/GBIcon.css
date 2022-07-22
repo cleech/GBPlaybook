@@ -5,6 +5,7 @@
   stroke-width: 0;
   stroke: currentcolor;
   fill: currentcolor;
+  /* flex-shrink: 0; */
 }
 
 /* ==========================================
@@ -83,7 +84,11 @@ Single-colored icons can be modified like so:
 }
 
 .gbicon-Morticians {
-  color: black;
+  color: #1d2022;
+}
+
+.gbicon-Morticians.dark {
+  color: #e2dfdd;
 }
 
 .gbicon-Navigators {
@@ -92,6 +97,14 @@ Single-colored icons can be modified like so:
 
 .gbicon-Order {
   color: #ebed1a;
+  filter:
+    /* keep legacy color syntax for now for amazon web app tester */
+    drop-shadow(0 0 0.04em rgba(91, 37, 127, 80%))
+    drop-shadow(0 0 0.02em rgba(91, 37, 127, 50%));
+}
+
+.gbicon-Order.dark {
+  filter: unset;
 }
 
 .gbicon-Order-GBCP {
@@ -100,7 +113,11 @@ Single-colored icons can be modified like so:
 
 .gbicon-Ratcatchers {
   width: 0.999em;
-  color: black;
+  color: #1d2022;
+}
+
+.gbicon-Ratcatchers.dark {
+  color: #e2dfdd;
 }
 
 .gbicon-Shepherds {
