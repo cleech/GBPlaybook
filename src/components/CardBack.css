@@ -20,8 +20,11 @@ div.card-back.gbcp {
 /* scalable overlay */
 .card-back .overlay {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 500px;
   height: 700px;
+  transform-origin: top left;
   transform: scale(var(--scale));
 }
 
@@ -39,6 +42,7 @@ div.card-back.gbcp {
 }
 
 .card-back.gbcp .container {
+  position: absolute;
   top: 16px;
   margin-left: 91px;
   margin-right: 9px;
@@ -76,7 +80,6 @@ div.card-back.gbcp {
 
 .card-back .name-plate .guild-icon svg {
   flex-shrink: 0;
-  /* filter: drop-shadow(0 0 2px var(--mom-color, none)); */
 }
 
 .card-back .name-plate .name {
@@ -217,6 +220,7 @@ div.card-back.gbcp {
 }
 
 .card-back .footer .icons .wrapper {
+  position: relative;
   width: 44px;
   height: 44px;
   font-size: 44px;

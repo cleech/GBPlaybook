@@ -28,7 +28,6 @@ export function DoubleCard({ model, controls }) {
   // }
 
   return (
-    // <div ref={targetRef} style={{ backgrounColor: "green" }}>
     <div
       ref={targetRef}
       style={{
@@ -56,21 +55,22 @@ export function DoubleCard({ model, controls }) {
           borderBottomLeftRadius: 0,
         }}
       />
-      <div
-        style={{
-          position: "absolute",
-          // top: "0px",
-          left: "0px",
-          width: "500px",
-          height: "700px",
-          transform: `scale(${scale})`,
-          transformOrigin: "top left",
-        }}
-      >
-        {controls?.({ model })}
-      </div>
+      {controls ? (
+        <div
+          style={{
+            position: "absolute",
+            // top: "0px",
+            left: "0px",
+            width: "500px",
+            height: "700px",
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+          }}
+        >
+          {controls?.({ model })}
+        </div>
+      ) : null}
     </div>
-    // </div>
   );
 }
 
@@ -114,17 +114,19 @@ export function FlipCard({ model, controls }) {
             "--scale": scale,
           }}
         />
-        <div
-          className="flip-card-front"
-          style={{
-            width: "500px",
-            height: "700px",
-            transform: `scale(${scale})`,
-            transformOrigin: "top left",
-          }}
-        >
-          {controls?.({ model })}
-        </div>
+        {controls ? (
+          <div
+            className="flip-card-front"
+            style={{
+              width: "500px",
+              height: "700px",
+              transform: `scale(${scale})`,
+              transformOrigin: "top left",
+            }}
+          >
+            {controls?.({ model })}
+          </div>
+        ) : null}
         <CardBack
           className="flip-card-back"
           model={model}

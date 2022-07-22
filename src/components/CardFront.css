@@ -2,6 +2,8 @@
 .card-back {
   /* prevent UI theming from changing anything */
   all: initial;
+  position: relative;
+  overflow: hidden;
   /* color: black; */
   --line-width: 1px;
   image-rendering: crisp-edges;
@@ -41,14 +43,18 @@ div.card-front {
 }
 
 div.card-front.gbcp {
+  /* no print bleed on these */
   background-size: 100%;
 }
 
 /* scalable overlay */
 .card-front > .overlay {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 500px;
   height: 700px;
+  transform-origin: top left;
   transform: scale(var(--scale));
 }
 
@@ -86,6 +92,7 @@ div.card-front.gbcp {
 
 /* icon placement and styling */
 .card-front .name-plate .guild-icon {
+  position: relative;
   width: 65px;
   height: 65px;
   font-size: 65px;
@@ -97,11 +104,11 @@ div.card-front.gbcp {
 
 .card-front .name-plate .guild-icon svg {
   flex-shrink: 0;
-  /* filter: drop-shadow(0 0 2px var(--mom-color, none)); */
 }
 
 /* sub-box placement */
 .card-front .name-plate > .name-plate-right {
+  position: relative;
   overflow: visible;
   display: flex;
   width: 100%;
@@ -291,8 +298,7 @@ div.card-front.gbcp {
 }
 
 .card-front.gbcp .character-plays {
-  position: relative;
-  top: unset;
+  position: static;
   width: calc(100% - 10px);
   margin: 0;
   padding: 1px 3px 0 7px;

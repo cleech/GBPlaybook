@@ -171,6 +171,7 @@ export default function GamePlay() {
   return (
     <main
       style={{
+        position: "relative",
         display: "flex",
         flexDirection: "column",
         // flexDirection: "row",

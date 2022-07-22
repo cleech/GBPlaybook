@@ -55,6 +55,7 @@ function textIconReplace(text) {
               /* this is matched to the x-hight of the text */
               // height: "11px",
               height: "1ex",
+              position: "relative",
               overflow: "visible",
             }}
           >
