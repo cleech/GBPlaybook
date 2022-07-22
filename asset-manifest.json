@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/GBPlaybook/static/css/main.c2b1b043.css",
-    "main.js": "/GBPlaybook/static/js/main.30ac4e29.js",
+    "main.css": "/GBPlaybook/static/css/main.dae00c1d.css",
+    "main.js": "/GBPlaybook/static/js/main.5a2e99f3.js",
     "static/js/787.0ce958d9.chunk.js": "/GBPlaybook/static/js/787.0ce958d9.chunk.js",
     "static/media/cast-00.png": "/GBPlaybook/static/media/cast-00.e812f221d27b7cb34947.png",
     "static/media/steeljaw-00.png": "/GBPlaybook/static/media/steeljaw-00.cb357cc0a966f9d8a7e3.png",
@@ -493,12 +493,12 @@
     "static/media/GB-S4-Morticians-19-08-10.jpg": "/GBPlaybook/static/media/GB-S4-Morticians-19-08-10.91d713826c44a15ef0c0.jpg",
     "static/media/Order_back.jpg": "/GBPlaybook/static/media/Order_back.0a7d445d7f43f6c53b65.jpg",
     "index.html": "/GBPlaybook/index.html",
-    "main.c2b1b043.css.map": "/GBPlaybook/static/css/main.c2b1b043.css.map",
-    "main.30ac4e29.js.map": "/GBPlaybook/static/js/main.30ac4e29.js.map",
+    "main.dae00c1d.css.map": "/GBPlaybook/static/css/main.dae00c1d.css.map",
+    "main.5a2e99f3.js.map": "/GBPlaybook/static/js/main.5a2e99f3.js.map",
     "787.0ce958d9.chunk.js.map": "/GBPlaybook/static/js/787.0ce958d9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c2b1b043.css",
-    "static/js/main.30ac4e29.js"
+    "static/css/main.dae00c1d.css",
+    "static/js/main.5a2e99f3.js"
   ]
 }
