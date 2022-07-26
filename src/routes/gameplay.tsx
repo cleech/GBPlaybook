@@ -67,7 +67,10 @@ function SelectedIcon({ team, size }: { team: string; size: number }) {
         style={{
           position: "absolute",
           color: "white",
-          textShadow: "2px 2px 1px black",
+          textShadow:
+            "1px 1px 1px black, -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black, -1px 0 1px black",
+          letterSpacing: "normal",
+          textTransform: "capitalize",
         }}
       >
         {team}
@@ -79,12 +82,17 @@ function SelectedIcon({ team, size }: { team: string; size: number }) {
 function GameControls(
   props: ControlProps
 ): [JSX.Element, (name: string) => void] {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selector, setSelector] = useState("P1");
-  const [team1, setTeam1] = useState("");
-  const [team2, setTeam2] = useState("");
+  const [team1, setTeam1] = useState(searchParams.get("p1") ?? "");
+  const [team2, setTeam2] = useState(searchParams.get("p2") ?? "");
 
   function pickTeam(name: string) {
     if (selector === "P1") {
+      let newParams = new URLSearchParams(searchParams);
+      newParams.set("p1", name);
+      newParams.sort();
+      setSearchParams(newParams, { replace: true });
       setTeam1(name);
       if (!team2) {
         setSelector("P2");
@@ -92,6 +100,10 @@ function GameControls(
         setSelector("GO");
       }
     } else if (selector === "P2") {
+      let newParams = new URLSearchParams(searchParams);
+      newParams.set("p2", name);
+      newParams.sort();
+      setSearchParams(newParams, { replace: true });
       setTeam2(name);
       if (!team1) {
         setSelector("P1");
@@ -180,6 +192,7 @@ export default function GamePlay() {
         width: "100%",
         height: "100%",
         overflow: "hidden",
+        // backgroundImage: `url(${require('../assets/wallpaper.jpg')})`,
       }}
     >
       <Outlet />
@@ -219,7 +232,8 @@ export const Draft = () => {
     <div
       style={{
         position: "absolute",
-        width: "100%", height: "100%",
+        width: "100%",
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         placeContent: "center",

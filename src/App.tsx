@@ -1,20 +1,27 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
 
-import { Outlet, Link } from "react-router-dom";
+import {
+  Outlet,
+  Link as RouterLink,
+  LinkProps as RouterLinkProps,
+} from "react-router-dom";
+import Link, { LinkProps } from "@mui/material/Link";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import { useLocation } from "react-router-dom";
-import { CssBaseline, Slide } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 
 // let hideAppBar = false;
 // export const setHideAppBar = (hide: boolean) => {
@@ -43,19 +50,15 @@ function MyAppBar(props: any) {
   );
 }
 
-// const darkTheme = createTheme({
-//   palette: {
-//     mode: "dark",
-//   },
-//   components: {
-//     MuiCssBaseline: {
-//       styleOverrides: {
-//         body: {
-//         },
-//       },
-//     },
-//   },
-// });
+const LinkBehavior = React.forwardRef<
+  HTMLAnchorElement,
+  Omit<RouterLinkProps, "to"> & { href: RouterLinkProps["to"] }
+>((props, ref) => {
+  const { href, ...other } = props;
+  // Map href (MUI) -> to (react-router)
+  return <RouterLink ref={ref} to={href} {...other} />;
+});
+
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
@@ -68,6 +71,19 @@ const darkTheme = createTheme({
     background: {
       default: "#121a22",
       paper: "#344556",
+      // paper: "#121212",
+    },
+  },
+  components: {
+    MuiLink: {
+      defaultProps: {
+        component: LinkBehavior,
+      } as LinkProps,
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: LinkBehavior,
+      },
     },
   },
 });
@@ -86,38 +102,92 @@ function App() {
           open={drawer}
           onClose={() => setDrawer(false)}
         >
-          <nav>
-            <ul>
-              <li>
-                <Link to="GamePlay" onClick={() => setDrawer(false)}>
-                  GamePlay
+          <List>
+            <ListItem>
+              <img
+                src={require("./assets/img/logo.png")}
+                style={{ borderRadius: 5.4 }}
+              />
+              <ListItemText style={{ textAlign: "center" }}>
+                GB Playbook
+              </ListItemText>
+            </ListItem>
+            <Divider />
+            <ListItem disablePadding>
+              <ListItemButton
+                href="/#/GamePlay"
+                onClick={() => setDrawer(false)}
+              >
+                <ListItemText>GamePlay</ListItemText>
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                href="/#/Library"
+                onClick={() => setDrawer(false)}
+              >
+                <ListItemText>Library</ListItemText>
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <Divider />
+          <List>
+            <ListItem>
+              <ListItemText>External Resources:</ListItemText>
+            </ListItem>
+            <nav
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginLeft: "2em",
+              }}
+            >
+              <ListItem disablePadding>
+                <Link
+                  component="a"
+                  href="https://www.longshanks.org/systems/guildball/tools/documents/rules/rules_s4.pdf"
+                >
+                  Core Rules
                 </Link>
-              </li>
-              <li>
-                <Link to="Library" onClick={() => setDrawer(false)}>
-                  Library
+              </ListItem>
+              <ListItem disablePadding>
+                <Link
+                  component="a"
+                  href="https://www.longshanks.org/systems/guildball/tools/documents/opd/"
+                >
+                  Organized Play Rules
                 </Link>
-              </li>
-            </ul>
-          </nav>
+              </ListItem>
+            </nav>
+          </List>
+          <Divider />
+          <List>
+            <ListItem>
+              <ListItemText>Community Links:</ListItemText>
+            </ListItem>
+            <nav
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginLeft: "2em",
+              }}
+            >
+              <ListItem disablePadding>
+                <Link component="a" href="https://discord.gg/fvpFSfm976">
+                  GBCP Discord
+                </Link>
+              </ListItem>
+              <ListItem disablePadding>
+                <Link
+                  component="a"
+                  href="https://www.longshanks.org/systems/guildball/"
+                >
+                  Longshanks
+                </Link>
+              </ListItem>
+            </nav>
+          </List>
         </Drawer>
-        {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-        {/* <nav>
-        <Link to="GamePlay">GamePlay</Link> | <Link to="Library">Library</Link>
-      </nav> */}
         <Outlet />
       </div>
     </ThemeProvider>

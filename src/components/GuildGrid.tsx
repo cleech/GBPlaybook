@@ -147,7 +147,17 @@ export function GuildGridInner({ dimensions, pickTeam, controls, size }: any) {
               }}
             />
           </div>
-          <Typography variant="caption">{g.name}</Typography>
+          <Typography
+            variant="caption"
+            style={{
+              letterSpacing: "normal",
+              textTransform: "capitalize",
+              textShadow:
+                "1px 1px 1px black, -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black, -1px 0 1px black",
+            }}
+          >
+            {g.name}
+          </Typography>
         </Button>
       ))}
     </>

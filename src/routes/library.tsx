@@ -1,5 +1,11 @@
 import React, { useRef, useState, useLayoutEffect } from "react";
-import { Link, Outlet, useParams, useNavigate } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useParams,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 
 import { useDimensionsRef } from "rooks";
 import _ from "lodash";
@@ -44,9 +50,11 @@ export function GuildList() {
 }
 
 export function Roster() {
+  const { guild } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
-  const { guild } = useParams();
 
   const ref = useRef<HTMLDivElement>(null);
   const [cardWidth, setCardWidth] = useState(240);
@@ -73,6 +81,10 @@ export function Roster() {
   const g = data.Guilds.find((g: any) => g.name === guild);
   return (
     <Swiper
+      initialSlide={g.roster.findIndex((m: any) => m === searchParams.get("m"))}
+      onSlideChange={(swiper) => {
+        setSearchParams(`m=${g.roster[swiper.activeIndex]}`, { replace: true });
+      }}
       // slidesPerView="auto"
       slidesPerView={1.1}
       centeredSlides={true}
@@ -123,10 +135,10 @@ function SwiperButtons(props: { roster: IGBPlayer[] }) {
         display: "flex",
         flexDirection: "row",
       }}
+      slot="container-end"
     >
       <div style={{ flex: "1 1" }} />
       <Box
-        slot="container-end"
         sx={{
           display: "flex",
           flex: "1 1 500px",
