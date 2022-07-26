@@ -15,7 +15,7 @@ export const itemSize = ({ width, height }: any, count: number, extra = 0) => {
   }
 
   const layout = (w: number, h: number) => {
-    // the 10 here it 2 * margin, or minimal spacing to use
+    // the # here is equal to the grid gap, or minimal spacing to use
     const iw = Math.floor((width - w * 10) / w);
     const ih = Math.floor((height - h * 10) / h);
     const size = Math.min(iw, ih);
@@ -73,13 +73,12 @@ export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
           display: "flex",
           flexDirection: "row",
           flexWrap: "wrap",
-          // alignContent: "flex-start",
-          alignContent: "space-evenly",
+          alignContent: "flex-start",
           justifyContent: "space-evenly",
           width: "100%",
           height: "100%",
-          // gap: "10px",
-          // padding: "5px",
+          gap: "10px",
+          padding: "5px",
         }}
       >
         {size > 0 && (
