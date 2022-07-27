@@ -1,10 +1,11 @@
-import React, { useRef, useState, useLayoutEffect } from "react";
+import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
 import {
   Link,
   Outlet,
   useParams,
   useNavigate,
   useSearchParams,
+  useLocation,
 } from "react-router-dom";
 
 import { useDimensionsRef } from "rooks";
@@ -20,9 +21,16 @@ import GBIcon from "../components/GBIcon";
 import { FlipCard, DoubleCard } from "../components/Card";
 
 import { GuildGrid } from "../components/GuildGrid";
-import { IGBPlayer, IGBTeam } from "../models/Root";
+import { useStore, IGBPlayer, IGBTeam } from "../models/Root";
 
 export default function Library() {
+  const location = useLocation();
+  const { setLibraryRoute } = useStore();
+
+  useEffect(() => {
+    setLibraryRoute(`#${location.pathname}${location.search}`);
+  }, [location]);
+
   return (
     <main
       style={{

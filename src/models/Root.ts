@@ -119,10 +119,20 @@ const RootModel = types
     team1: types.optional(GBTeam, {}),
     team2: types.optional(GBTeam, {}),
     settings: types.optional(Settings, {}),
+    gamePlayRoute: types.optional(types.string, "#/GamePlay"),
+    libraryRoute: types.optional(types.string, "#/library"),
   })
   .views((self) => ({
     get draftReady() {
       return self.team1.roster.length && self.team2.roster.length;
+    },
+  }))
+  .actions((self) => ({
+    setGamePlayRoute(route: string) {
+      self.gamePlayRoute = route;
+    },
+    setLibraryRoute(route: string) {
+      self.libraryRoute = route;
     },
   }));
 
@@ -130,6 +140,8 @@ let initialState = RootModel.create({
   team1: { name: "", score: 0, momentum: 0 },
   team2: { name: "", score: 0, momentum: 0 },
   settings: { colorScheme: "dark" },
+  gamePlayRoute: "#/GamePlay",
+  libraryRoute: "#/Library",
 });
 
 export const rootStore = initialState;

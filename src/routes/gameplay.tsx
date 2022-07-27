@@ -1,6 +1,12 @@
 import * as React from "react";
 import { useCallback, useState, useRef, useLayoutEffect } from "react";
-import { Outlet, Link, useSearchParams, useNavigate } from "react-router-dom";
+import {
+  Outlet,
+  Link,
+  useSearchParams,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import {
   Button,
   Divider,
@@ -9,6 +15,7 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
+  Breadcrumbs,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../components/GuildGrid";
@@ -64,14 +71,16 @@ function SelectedIcon({ team, size }: { team: string; size: number }) {
       />
       <Typography
         variant="caption"
-        style={{
-          position: "absolute",
-          color: "white",
-          textShadow:
-            "1px 1px 1px black, -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black, -1px 0 1px black",
-          letterSpacing: "normal",
-          textTransform: "capitalize",
-        }}
+        style={
+          {
+            position: "absolute",
+            color: "white",
+            textShadow:
+              "1px 1px 1px black, -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black, -1px 0 1px black",
+            letterSpacing: "normal",
+            textTransform: "capitalize",
+          } as React.CSSProperties
+        }
       >
         {team}
       </Typography>
@@ -148,7 +157,7 @@ function GameControls(
         color="secondary"
         disabled={!team1 || !team2}
         component={Link}
-        to={{ pathname: "/draft", search: `?p1=${team1}&p2=${team2}` }}
+        to={{ pathname: "/game/draft", search: `?p1=${team1}&p2=${team2}` }}
         sx={{ margin: "0 15px" }}
       >
         <PlayArrowIcon />
@@ -180,6 +189,13 @@ function GameControls(
 }
 
 export default function GamePlay() {
+  const location = useLocation();
+  const { setGamePlayRoute } = useStore();
+
+  React.useEffect(() => {
+    setGamePlayRoute(`#${location.pathname}${location.search}`);
+  }, [location]);
+
   return (
     <main
       style={{
@@ -253,7 +269,7 @@ export const Draft = () => {
         onClick={() => {
           store.team1.reset({ name: g1 ?? undefined, roster: team1 });
           store.team2.reset({ name: g2 ?? undefined, roster: team2 });
-          navigate("/play");
+          navigate("/game/draft/play");
         }}
         style={{ margin: "10px" }}
       >

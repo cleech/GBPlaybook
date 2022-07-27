@@ -5,7 +5,8 @@ import _ from "lodash";
 import { Badge, Card, Checkbox, FormControlLabel } from "@mui/material";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import { Check } from "@mui/icons-material";
+import { CheckCircleTwoTone as Check } from "@mui/icons-material";
+import { styled } from "@mui/material/styles";
 
 export interface model extends IGBPlayer {
   selected: boolean;
@@ -155,6 +156,16 @@ function DraftListItem({ model, onChange }: DraftListItemProps) {
   );
 }
 
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    right: "2em",
+    top: "2em",
+    // height: "2em",
+    // width: "2em",
+    // borderRadius: "1em",
+  },
+}));
+
 interface DraftListProps {
   guild: any;
   ready: (team: roster) => void;
@@ -242,20 +253,19 @@ export function DraftList({
   let squaddies = roster.filter((m: model) => !m.captain && !m.mascot);
 
   return (
-    <Badge
-      color="error"
-      badgeContent={ready ? <Check fontSize="inherit" /> : 0}
-    >
+    <StyledBadge badgeContent={ready ? <Check color="success" /> : 0}>
       <Card
         style={{
-          backgroundColor: "#121212",
+          // backgroundColor: "#121212",
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr",
           border: "4px solid",
           borderColor: guild.darkColor ?? guild.color,
-          borderRadius: "10px",
+          // borderRadius: "10px",
+          borderRadius: "1em",
           // margin: "10px",
-          padding: "10px",
+          // padding: "10px",
+          padding: "1ex",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -297,7 +307,7 @@ export function DraftList({
           ))}
         </div>
       </Card>
-    </Badge>
+    </StyledBadge>
   );
 }
 
@@ -369,10 +379,7 @@ export function BlacksmithDraftList({
   let apprentices = roster.filter((m: model) => !m.captain);
 
   return (
-    <Badge
-      color="error"
-      badgeContent={ready ? <Check fontSize="inherit" /> : 0}
-    >
+    <StyledBadge badgeContent={ready ? <Check color="success" /> : 0}>
       <Card
         style={{
           backgroundColor: "#121212",
@@ -416,6 +423,6 @@ export function BlacksmithDraftList({
           ))}
         </div>
       </Card>
-    </Badge>
+    </StyledBadge>
   );
 }

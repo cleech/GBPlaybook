@@ -142,7 +142,8 @@ export function GuildGridInner({ dimensions, pickTeam, controls, size }: any) {
               style={{
                 position: "absolute",
                 // zIndex: -1,
-                fill: "black",
+                // fill: "black",
+                fill: "#080808",
               }}
             />
           </div>

@@ -27,12 +27,12 @@ rootStorePersist().then(() =>
         <DataProvider>
           <HashRouter>
             <Routes>
-              <Route path="/" element={<Navigate to="/GamePlay" replace />} />
+              <Route path="/" element={<Navigate to="/game" replace />} />
               <Route element={<App />}>
                 <Route element={<GamePlay />}>
-                  <Route path="GamePlay" element={<TeamSelect />} />
-                  <Route path="draft" element={<Draft />} />
-                  <Route path="play" element={<Game />} />
+                  <Route path="game" element={<TeamSelect />} />
+                  <Route path="game/draft" element={<Draft />} />
+                  <Route path="game/draft/play" element={<Game />} />
                 </Route>
                 <Route path="library" element={<Library />}>
                   <Route index element={<GuildList />} />

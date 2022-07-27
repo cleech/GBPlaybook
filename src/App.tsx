@@ -18,23 +18,51 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
+import { Box, Breadcrumbs } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-
+import { NavigateNext } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
+import { useStore } from "./models/Root";
+import _ from "lodash";
 
-// let hideAppBar = false;
-// export const setHideAppBar = (hide: boolean) => {
-//   hideAppBar = hide;
-// };
+const breadCrumbNameMap: { [key: string]: string } = {
+  "/game": "Pick Guilds",
+  "/game/draft": "Draft",
+  "/game/draft/play": "Play",
+  "/library": "Library",
+};
+
+function PathBreadCrumbs() {
+  const location = useLocation();
+  const pathnames = location.pathname.split("/").filter((x) => x);
+  return (
+    <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+      {pathnames.map((pathComponent, index) => {
+        const last = index === pathnames.length - 1;
+        const to = `/${pathnames.slice(0, index + 1).join("/")}`;
+        return last ? (
+          <Typography color="text.primary" key={to}>
+            {breadCrumbNameMap[to] || pathComponent}
+          </Typography>
+        ) : (
+          <Link underline="hover" color="inherit" key={to} href={to}>
+            {breadCrumbNameMap[to] || pathComponent}
+          </Link>
+        );
+      })}
+    </Breadcrumbs>
+  );
+}
 
 function MyAppBar(props: any) {
-  const location = useLocation();
-  // const [hideAppBar, setHideAppBar] = useState(false);
   return (
-    // <Slide appear={false} direction="down" in={!hideAppBar}>
     <AppBar position="static">
-      <Toolbar variant="dense" sx={{ flexDirection: "row-reverse" }}>
+      <Toolbar variant="dense">
+        <Box>
+          <PathBreadCrumbs />
+        </Box>
+        <div style={{ flexGrow: 1 }} />
         <IconButton
           size="large"
           edge="start"
@@ -43,10 +71,8 @@ function MyAppBar(props: any) {
         >
           <MenuIcon />
         </IconButton>
-        <Typography>{location.pathname}</Typography>
       </Toolbar>
     </AppBar>
-    // </Slide>
   );
 }
 
@@ -62,17 +88,20 @@ const LinkBehavior = React.forwardRef<
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
+    /*
     primary: {
       main: "#3d708f",
+      // main: "#3399FF",
     },
     secondary: {
       main: "#ffb300",
     },
     background: {
       default: "#121a22",
-      paper: "#344556",
-      // paper: "#121212",
+      // paper: "#344556",
+      paper: "#121212",
     },
+*/
   },
   components: {
     MuiLink: {
@@ -90,6 +119,7 @@ const darkTheme = createTheme({
 
 function App() {
   const [drawer, setDrawer] = React.useState(false);
+  const { gamePlayRoute, libraryRoute } = useStore();
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -115,7 +145,7 @@ function App() {
             <Divider />
             <ListItem disablePadding>
               <ListItemButton
-                href="/#/GamePlay"
+                href={gamePlayRoute}
                 onClick={() => setDrawer(false)}
               >
                 <ListItemText>GamePlay</ListItemText>
@@ -123,7 +153,7 @@ function App() {
             </ListItem>
             <ListItem disablePadding>
               <ListItemButton
-                href="/#/Library"
+                href={libraryRoute}
                 onClick={() => setDrawer(false)}
               >
                 <ListItemText>Library</ListItemText>
