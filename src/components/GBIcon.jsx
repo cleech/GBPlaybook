@@ -14,7 +14,7 @@ const GBIcon = (props) => {
 
   return (
     <svg
-      className={`gbicon gbicon-${icon} ${className}`}
+      className={`gbicon gbicon-${icon} ${className||''}`}
       style={computedStyle}
       {...otherProps}
     >

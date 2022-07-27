@@ -59,8 +59,6 @@ const CardBack = (props) => {
           <div className="name-plate">
             <div className="guild-icon">
               <GBIcon id="guild-icon" icon={guild.name} />
-              <GBIcon id="guild-icon1" icon={model.guild1} />
-              <GBIcon id="guild-icon2" icon={model.guild2} />
             </div>
             <div className="name dropcap">
               {model.name.split(/(?=[A-Z])/).map((s, i) => (

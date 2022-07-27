@@ -20,7 +20,7 @@
     .card-front,
     .card-back {
       /* but they seem to print just fine */
-      --line-width: 1px;
+      /*  --line-width: 1px; */
     }
   }
 }
@@ -443,22 +443,10 @@ div.card-front.gbcp {
 
 /* Compound/Lucky cross-fade icons */
 
-#guild-icon1,
-#guild-icon2 {
-  display: none;
+.Compound .guild-icon {
+  content: url("../assets/compound.svg");
 }
 
-:is(.Compound, .Lucky) #guild-icon {
-  display: none;
-}
-
-:is(.Compound, .Lucky) #guild-icon1 {
-  display: block;
-  mask-image: linear-gradient(to right, black 40%, transparent 60%);
-}
-
-:is(.Compound, .Lucky) #guild-icon2 {
-  position: absolute;
-  display: block;
-  mask-image: linear-gradient(to left, black 40%, transparent 60%);
+.Lucky .guild-icon {
+  content: url("../assets/lucky.svg");
 }

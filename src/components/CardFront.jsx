@@ -88,8 +88,6 @@ const NamePlate = ({ model, guild }) => {
       <div className="guild-icon">
         <GBIcon id="guild-icon" icon={guild.name} />
         {/* <GBIcon id="guild-icon-gbcp" icon={`${guild.name}-GBCP`} /> */}
-        <GBIcon id="guild-icon1" icon={model.guild1} />
-        <GBIcon id="guild-icon2" icon={model.guild2} />
       </div>
       <div className="name-plate-right">
         <div className="name">
