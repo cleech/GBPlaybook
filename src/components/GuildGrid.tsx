@@ -123,9 +123,15 @@ export function GuildGridInner({ dimensions, pickTeam, controls, size }: any) {
           <div
             style={{
               display: "flex",
-              position: "relative",
               placeContent: "center",
+              placeItems: "center",
               fontSize: size * 0.65,
+              width: "1em",
+              height: "1em",
+              padding: "0.0625em",
+              borderRadius: "50%",
+              backgroundClip: "content-box",
+              backgroundColor: "#040404",
             }}
           >
             <GBIcon
@@ -135,15 +141,6 @@ export function GuildGridInner({ dimensions, pickTeam, controls, size }: any) {
                 flexShrink: 0,
                 zIndex: 1,
                 filter: "drop-shadow(0 0 3px black)",
-              }}
-            />
-            <GBIcon
-              icon="blank"
-              style={{
-                position: "absolute",
-                // zIndex: -1,
-                // fill: "black",
-                fill: "#080808",
               }}
             />
           </div>

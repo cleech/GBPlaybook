@@ -220,17 +220,21 @@ div.card-back.gbcp {
 }
 
 .card-back .footer .icons .wrapper {
-  position: relative;
-  width: 44px;
-  height: 44px;
   font-size: 44px;
+  width: 1em;
+  height: 1em;
+  padding: 0.0625em;
+  background-clip: content-box;
+  background-color: white;
+  border-radius: 50%;
+  overflow: visible;
   display: flex;
   place-content: center;
-  overflow: visible;
+  place-items: center;
 }
 
-.card-back.gbcp .footer .icons .background {
-  display: none;
+.card-back.gbcp .footer .icons .wrapper {
+  background-color: transparent;
 }
 
 .card-back .footer .icons svg {

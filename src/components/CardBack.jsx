@@ -88,22 +88,6 @@ const CardBack = (props) => {
 
 const FooterIcon = ({ icon }) => (
   <div className="icon wrapper">
-    <GBIcon
-      className="icon background"
-      icon="blank"
-      style={{ position: "absolute", zIndex: -1, fill: "white" }}
-    />
-    {/* <div className="icon background"
-      style={{
-        width: "38px",
-        height: "38px",
-        margin: "3px",
-        borderRadius: "38px",
-        backgroundColor: "white",
-        position: "absolute",
-        zIndex: -1,
-      }}
-    /> */}
     <GBIcon icon={icon} />
   </div>
 );
