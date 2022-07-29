@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/GBPlaybook/static/css/main.230a2039.css",
-    "main.js": "/GBPlaybook/static/js/main.6695adb8.js",
+    "main.css": "/GBPlaybook/static/css/main.6191babb.css",
+    "main.js": "/GBPlaybook/static/js/main.e296bb6d.js",
     "static/js/787.0ce958d9.chunk.js": "/GBPlaybook/static/js/787.0ce958d9.chunk.js",
     "static/media/cast-00.png": "/GBPlaybook/static/media/cast-00.e812f221d27b7cb34947.png",
     "static/media/steeljaw-00.png": "/GBPlaybook/static/media/steeljaw-00.cb357cc0a966f9d8a7e3.png",
@@ -328,13 +328,15 @@
     "static/media/GB-S4-Blacksmiths-20-03-03.jpg": "/GBPlaybook/static/media/GB-S4-Blacksmiths-20-03-03.07c2058c399fdfe54452.jpg",
     "static/media/GB-S4-Morticians-19-08-10.jpg": "/GBPlaybook/static/media/GB-S4-Morticians-19-08-10.91d713826c44a15ef0c0.jpg",
     "static/media/Order_back.jpg": "/GBPlaybook/static/media/Order_back.0a7d445d7f43f6c53b65.jpg",
+    "static/media/compound.svg": "/GBPlaybook/static/media/compound.ccaec29c51daf29ccf6f.svg",
+    "static/media/lucky.svg": "/GBPlaybook/static/media/lucky.3fde12172b597327ee8e.svg",
     "index.html": "/GBPlaybook/index.html",
-    "main.230a2039.css.map": "/GBPlaybook/static/css/main.230a2039.css.map",
-    "main.6695adb8.js.map": "/GBPlaybook/static/js/main.6695adb8.js.map",
+    "main.6191babb.css.map": "/GBPlaybook/static/css/main.6191babb.css.map",
+    "main.e296bb6d.js.map": "/GBPlaybook/static/js/main.e296bb6d.js.map",
     "787.0ce958d9.chunk.js.map": "/GBPlaybook/static/js/787.0ce958d9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.230a2039.css",
-    "static/js/main.6695adb8.js"
+    "static/css/main.6191babb.css",
+    "static/js/main.e296bb6d.js"
   ]
 }
