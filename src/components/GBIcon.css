@@ -37,7 +37,6 @@ Single-colored icons can be modified like so:
 }
 
 .gbicon-Blacksmiths {
-  width: 1.0273em;
   color: #82969f;
 }
 
@@ -58,7 +57,7 @@ Single-colored icons can be modified like so:
 }
 
 .gbicon-Falconers {
-  width: 1.25em;
+  width: 1.3125em;
   color: #39653b;
 }
 
@@ -79,7 +78,6 @@ Single-colored icons can be modified like so:
 }
 
 .gbicon-Miners {
-  width: 0.999em;
   color: #76151e;
 }
 
@@ -112,7 +110,6 @@ Single-colored icons can be modified like so:
 }
 
 .gbicon-Ratcatchers {
-  width: 0.999em;
   color: #1d2022;
 }
 
@@ -129,7 +126,7 @@ Single-colored icons can be modified like so:
 }
 
 .gbicon-Lamplighters {
-  width: 1.002em;
+  /* width: 1.002em; */
   color: #00994a;
 }
 
