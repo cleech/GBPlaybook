@@ -20,14 +20,14 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import { Box, Breadcrumbs } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { NavigateNext } from "@mui/icons-material";
+import { Home, NavigateNext } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
 import { useStore } from "./models/Root";
 import _ from "lodash";
 
-const breadCrumbNameMap: { [key: string]: string } = {
-  "/game": "Pick Guilds",
+const breadCrumbNameMap: { [key: string]: string | JSX.Element } = {
+  "/game": <Home />,
   "/game/draft": "Draft",
   "/game/draft/play": "Play",
   "/library": "Library",
@@ -93,9 +93,11 @@ const darkTheme = createTheme({
       main: "#3d708f",
       // main: "#3399FF",
     },
+    */
     secondary: {
       main: "#ffb300",
     },
+    /*
     background: {
       default: "#121a22",
       // paper: "#344556",
@@ -120,6 +122,7 @@ const darkTheme = createTheme({
 function App() {
   const [drawer, setDrawer] = React.useState(false);
   const { gamePlayRoute, libraryRoute } = useStore();
+  const location = useLocation();
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -127,10 +130,11 @@ function App() {
       <div className="App">
         <MyAppBar onClick={() => setDrawer(true)} />
         <Drawer
-          // variant="persistent"
           anchor="right"
           open={drawer}
           onClose={() => setDrawer(false)}
+          PaperProps={{ sx: { width: "225px" } }}
+          ModalProps={{ keepMounted: true }}
         >
           <List>
             <ListItem>
@@ -143,7 +147,10 @@ function App() {
               </ListItemText>
             </ListItem>
             <Divider />
-            <ListItem disablePadding>
+            <ListItem
+              disablePadding
+              selected={location.pathname.startsWith("/game")}
+            >
               <ListItemButton
                 href={gamePlayRoute}
                 onClick={() => setDrawer(false)}
@@ -151,7 +158,10 @@ function App() {
                 <ListItemText>GamePlay</ListItemText>
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding>
+            <ListItem
+              disablePadding
+              selected={location.pathname.startsWith("/library")}
+            >
               <ListItemButton
                 href={libraryRoute}
                 onClick={() => setDrawer(false)}

@@ -119,7 +119,7 @@ const RootModel = types
     team1: types.optional(GBTeam, {}),
     team2: types.optional(GBTeam, {}),
     settings: types.optional(Settings, {}),
-    gamePlayRoute: types.optional(types.string, "#/GamePlay"),
+    gamePlayRoute: types.optional(types.string, "#/game"),
     libraryRoute: types.optional(types.string, "#/library"),
   })
   .views((self) => ({
@@ -140,8 +140,8 @@ let initialState = RootModel.create({
   team1: { name: "", score: 0, momentum: 0 },
   team2: { name: "", score: 0, momentum: 0 },
   settings: { colorScheme: "dark" },
-  gamePlayRoute: "#/GamePlay",
-  libraryRoute: "#/Library",
+  gamePlayRoute: "#/game",
+  libraryRoute: "#/library",
 });
 
 export const rootStore = initialState;
