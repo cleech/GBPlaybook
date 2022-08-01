@@ -215,8 +215,15 @@ const CharacterPlays = ({ model }) => {
                   <span key={idx}>
                     {idx > 0 && "/"}
                     {{
-                      CP: <GBIcon icon="GB" size={18} />,
-                      CP2: <GBIcon icon="GBT" size={18} />,
+                      CP: (
+                        <GBIcon icon={model.gbcp ? "ball" : "GB"} size={18} />
+                      ),
+                      CP2: (
+                        <GBIcon
+                          icon={model.gbcp ? "trophy" : "GBT"}
+                          size={18}
+                        />
+                      ),
                     }[s] || <span>{s}</span>}
                   </span>
                 ))}

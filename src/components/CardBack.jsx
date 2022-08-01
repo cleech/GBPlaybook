@@ -74,7 +74,7 @@ const CardBack = (props) => {
           <div className="tags">{model.types}</div>
           <div className="right">
             <div className="icons">
-              <FooterIcon icon="GB" />
+              <FooterIcon icon={model.gbcp ? "gbcp" : "GB"} />
               {model.guild2 && <FooterIcon icon={model.guild2} />}
               <FooterIcon icon={model.guild1} />
             </div>
