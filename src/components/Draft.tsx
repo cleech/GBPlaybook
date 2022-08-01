@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, CSSProperties } from "react";
 import { IGBPlayer } from "../models/Root";
 import { useData } from "../components/DataContext";
 import _ from "lodash";
@@ -160,9 +160,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     right: "2em",
     top: "2em",
-    // height: "2em",
-    // width: "2em",
-    // borderRadius: "1em",
   },
 }));
 
@@ -171,6 +168,7 @@ interface DraftListProps {
   ready: (team: roster) => void;
   unready: () => void;
   ignoreRules?: boolean;
+  style?: CSSProperties;
 }
 
 export function DraftList({
@@ -178,6 +176,7 @@ export function DraftList({
   ready: listReady,
   unready,
   ignoreRules = false,
+  style,
 }: DraftListProps) {
   const { data } = useData();
   const Models = data.Models;
@@ -253,19 +252,20 @@ export function DraftList({
   let squaddies = roster.filter((m: model) => !m.captain && !m.mascot);
 
   return (
-    <StyledBadge badgeContent={ready ? <Check color="success" /> : 0}>
+    <StyledBadge
+      badgeContent={ready ? <Check color="success" /> : 0}
+      style={{ overflow: "visible", ...style }}
+    >
       <Card
-        style={{
-          // backgroundColor: "#121212",
+        sx={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr",
           border: "4px solid",
           borderColor: guild.darkColor ?? guild.color,
-          // borderRadius: "10px",
           borderRadius: "1em",
-          // margin: "10px",
-          // padding: "10px",
           padding: "1ex",
+          width: "100%",
+          overflow: "visible",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -316,6 +316,7 @@ export function BlacksmithDraftList({
   ready: listReady,
   unready,
   ignoreRules = false,
+  style,
 }: DraftListProps) {
   const { data } = useData();
   const Models = data.Models;
@@ -379,17 +380,20 @@ export function BlacksmithDraftList({
   let apprentices = roster.filter((m: model) => !m.captain);
 
   return (
-    <StyledBadge badgeContent={ready ? <Check color="success" /> : 0}>
+    <StyledBadge
+      badgeContent={ready ? <Check color="success" /> : 0}
+      style={{ overflow: "visible", ...style }}
+    >
       <Card
-        style={{
-          backgroundColor: "#121212",
+        sx={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr 1fr",
           border: "4px solid",
           borderColor: guild.darkColor ?? guild.color,
-          borderRadius: "10px",
-          // margin: "10px",
-          padding: "10px",
+          borderRadius: "1em",
+          padding: "1ex",
+          width: "100%",
+          overflow: "visible",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>

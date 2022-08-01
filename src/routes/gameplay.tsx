@@ -129,7 +129,6 @@ function GameControls(
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-evenly",
-        padding: "5px",
       }}
     >
       <Button
@@ -199,16 +198,10 @@ export default function GamePlay() {
   return (
     <main
       style={{
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        // flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
         width: "100%",
         height: "100%",
-        overflow: "hidden",
-        // backgroundImage: `url(${require('../assets/wallpaper.jpg')})`,
+        overflow: "auto",
+        display: "flex",
       }}
     >
       <Outlet />
@@ -247,14 +240,11 @@ export const Draft = () => {
   return (
     <div
       style={{
-        position: "absolute",
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        placeContent: "center",
-        placeItems: "center",
-        overflow: "auto",
+        display: "grid",
+        gridTemplateColumns: "1fr auto 1fr",
+        justifyItems: "center",
+        overflow: "visible",
+        margin: "auto",
       }}
     >
       <DraftList1
@@ -262,6 +252,7 @@ export const Draft = () => {
         ready={ready1}
         unready={unready1}
         ignoreRules={false}
+        style={{ width: "100%", gridColumn: 2 }}
       />
       <Fab
         disabled={!team1 || !team2}
@@ -271,7 +262,7 @@ export const Draft = () => {
           store.team2.reset({ name: g2 ?? undefined, roster: team2 });
           navigate("/game/draft/play");
         }}
-        style={{ margin: "10px" }}
+        style={{ margin: "10px", gridColumn: 2 }}
       >
         <PlayArrowIcon />
       </Fab>
@@ -280,6 +271,7 @@ export const Draft = () => {
         ready={ready2}
         unready={unready2}
         ignoreRules={false}
+        style={{ width: "100%", gridColumn: 2 }}
       />
     </div>
   );
@@ -316,7 +308,6 @@ export const Game = () => {
 export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
-  const ref = useRef<HTMLDivElement>(null);
   const sizeRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
@@ -358,76 +349,75 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
         }}
       />
       <div
-        ref={ref}
         style={{
           position: "relative",
           overflow: "hidden",
           flexGrow: 1,
         }}
-      />
-      <Modal
-        sx={{
-          /* same as app bar, bellow the drawer */
-          zIndex: 1100,
-        }}
-        open={open}
-        container={ref.current}
-        onClose={() => {
-          setOpen(false);
-          setExpanded(true);
-        }}
-        componentsProps={{
-          root: {
-            style: {
-              position: "absolute",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            },
-          },
-          backdrop: {
-            style: {
-              position: "absolute",
-            },
-          },
-        }}
       >
-        <Swiper
-          modules={[Virtual]}
-          virtual
-          initialSlide={index}
-          direction="vertical"
-          centeredSlides
-          spaceBetween={(slideHeight - Math.min(cardHeight, 500)) / 2}
-          onInit={(swiper) => {
-            swiper.el.style.width = `${Math.min(cardWidth, 500)}px`;
-            swiper.el.style.height = `${Math.min(cardHeight, 700)}px`;
-            // swiper.el.style.height = `${slideHeight}px`;
+        <Modal
+          disablePortal={true}
+          sx={{
+            /* same as app bar, bellow the drawer */
+            zIndex: 1100,
           }}
-          style={{
-            overflow: "visible",
+          open={open}
+          onClose={() => {
+            setOpen(false);
+            setExpanded(true);
+          }}
+          componentsProps={{
+            root: {
+              style: {
+                position: "absolute",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              },
+            },
+            backdrop: {
+              style: {
+                position: "absolute",
+              },
+            },
           }}
         >
-          {teams
-            .map((t) => t.roster)
-            .flat()
-            .map((m, index) => (
-              <SwiperSlide key={index} virtualIndex={index}>
-                <div
-                  style={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
-                  <FlipCard model={m} controls={CardControls} />
-                </div>
-                {/* <DoubleCard model={m} controls={CardControls} /> */}
-              </SwiperSlide>
-            ))}
-        </Swiper>
-      </Modal>
+          <Swiper
+            modules={[Virtual]}
+            virtual
+            initialSlide={index}
+            direction="vertical"
+            centeredSlides
+            spaceBetween={(slideHeight - Math.min(cardHeight, 500)) / 2}
+            onInit={(swiper) => {
+              swiper.el.style.width = `${Math.min(cardWidth, 500)}px`;
+              swiper.el.style.height = `${Math.min(cardHeight, 700)}px`;
+              // swiper.el.style.height = `${slideHeight}px`;
+            }}
+            style={{
+              overflow: "visible",
+            }}
+          >
+            {teams
+              .map((t) => t.roster)
+              .flat()
+              .map((m, index) => (
+                <SwiperSlide key={index} virtualIndex={index}>
+                  <div
+                    style={{
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <FlipCard model={m} controls={CardControls} />
+                  </div>
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        </Modal>
+      </div>
     </div>
   );
 };
