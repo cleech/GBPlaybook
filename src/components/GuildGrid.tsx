@@ -4,7 +4,7 @@ import { Link, Outlet, useParams } from "react-router-dom";
 import { useDimensionsRef } from "rooks";
 import _ from "lodash";
 
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Divider } from "@mui/material";
 
 import { useData } from "../components/DataContext";
 import GBIcon from "../components/GBIcon";
@@ -16,8 +16,10 @@ export const itemSize = ({ width, height }: any, count: number, extra = 0) => {
 
   const layout = (w: number, h: number) => {
     // the # here is equal to the grid gap, or minimal spacing to use
-    const iw = Math.floor((width - w * 10) / w);
-    const ih = Math.floor((height - h * 10) / h);
+    // const iw = Math.floor((width - w * 10) / w);
+    // const ih = Math.floor((height - h * 10) / h);
+    const iw = (width - w * 10) / w;
+    const ih = (height - h * 10) / h;
     const size = Math.min(iw, ih);
     const margin = (iw - size) / 2;
     return {
@@ -43,7 +45,6 @@ export interface ControlProps {
 
 interface GuildGridProps {
   pickTeam?: (guild: string) => void;
-  // controls?: (props: ControlProps) => JSX.Element;
   controls?: (props: ControlProps) => [JSX.Element, ((guild: string) => void)?];
 }
 
@@ -66,9 +67,16 @@ export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
   }
 
   return (
-    <>
+    <div
+      ref={ref}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        height: "100%",
+      }}
+    >
       <div
-        ref={ref}
         style={{
           display: "flex",
           flexDirection: "row",
@@ -90,8 +98,9 @@ export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
           />
         )}
       </div>
+      <Divider />
       {controlElement ?? null}
-    </>
+    </div>
   );
 }
 
@@ -128,10 +137,10 @@ export function GuildGridInner({ dimensions, pickTeam, controls, size }: any) {
               fontSize: size * 0.65,
               width: "1em",
               height: "1em",
-              padding: "0.0625em",
               borderRadius: "50%",
-              backgroundClip: "content-box",
-              backgroundColor: "#040404",
+              padding: "0.0625em",
+              // background: "content-box #111",
+              background: "content-box linear-gradient(#000, #333)"
             }}
           >
             <GBIcon
