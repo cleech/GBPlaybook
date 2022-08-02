@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/GBPlaybook/static/css/main.ddde276d.css",
-    "main.js": "/GBPlaybook/static/js/main.ae1fa677.js",
+    "main.css": "/GBPlaybook/static/css/main.d5e50ebf.css",
+    "main.js": "/GBPlaybook/static/js/main.ced0273a.js",
     "static/js/787.0ce958d9.chunk.js": "/GBPlaybook/static/js/787.0ce958d9.chunk.js",
     "static/media/cast-00.png": "/GBPlaybook/static/media/cast-00.e812f221d27b7cb34947.png",
     "static/media/steeljaw-00.png": "/GBPlaybook/static/media/steeljaw-00.cb357cc0a966f9d8a7e3.png",
@@ -46,7 +46,6 @@
     "static/media/Blackheart-00.png": "/GBPlaybook/static/media/Blackheart-00.483550f4414dafaf96f5.png",
     "static/media/Blackheart-01.png": "/GBPlaybook/static/media/Blackheart-01.92f5af8d33bf5ff83095.png",
     "static/media/beacon-00.jpg": "/GBPlaybook/static/media/beacon-00.8f86891cec58a1859d4b.jpg",
-    "static/media/playbook-symbol-defs.svg": "/GBPlaybook/static/media/playbook-symbol-defs.84d1771e4e78474d89198ef14a97f119.svg",
     "static/media/heat-01.jpg": "/GBPlaybook/static/media/heat-01.2f84d322d7261b88bdb5.jpg",
     "static/media/gb-symbol-defs.svg": "/GBPlaybook/static/media/gb-symbol-defs.f1c454aa94d4b31350b578f3849f6537.svg",
     "static/media/nightlight-01.jpg": "/GBPlaybook/static/media/nightlight-01.ddd945f1c6c56ee3ba24.jpg",
@@ -305,6 +304,7 @@
     "static/media/GB-S4-Shepherds-20-03-03.jpg": "/GBPlaybook/static/media/GB-S4-Shepherds-20-03-03.487c5dfdc65b41234a4b.jpg",
     "static/media/GB-S4-Morticians-19-08-34.jpg": "/GBPlaybook/static/media/GB-S4-Morticians-19-08-34.569ded94ce8249063305.jpg",
     "static/media/GB-S4-Farmers-19-12-03.jpg": "/GBPlaybook/static/media/GB-S4-Farmers-19-12-03.7642574f8051f4cad25c.jpg",
+    "static/media/playbook-symbol-defs.svg": "/GBPlaybook/static/media/playbook-symbol-defs.ece16d0ad7657c6b98f541e4b429bb50.svg",
     "static/media/GB-S4-Navigators-20-03-03.jpg": "/GBPlaybook/static/media/GB-S4-Navigators-20-03-03.63bed044abcd0e0a4b62.jpg",
     "static/media/GB-S4-Union-20-03-03.jpg": "/GBPlaybook/static/media/GB-S4-Union-20-03-03.5df3143c1f68247c1cbb.jpg",
     "static/media/GB-S4-Morticians-19-08-18.jpg": "/GBPlaybook/static/media/GB-S4-Morticians-19-08-18.81b44f2ceec2e1fab0af.jpg",
@@ -331,12 +331,12 @@
     "static/media/compound.svg": "/GBPlaybook/static/media/compound.ccaec29c51daf29ccf6f.svg",
     "static/media/lucky.svg": "/GBPlaybook/static/media/lucky.3fde12172b597327ee8e.svg",
     "index.html": "/GBPlaybook/index.html",
-    "main.ddde276d.css.map": "/GBPlaybook/static/css/main.ddde276d.css.map",
-    "main.ae1fa677.js.map": "/GBPlaybook/static/js/main.ae1fa677.js.map",
+    "main.d5e50ebf.css.map": "/GBPlaybook/static/css/main.d5e50ebf.css.map",
+    "main.ced0273a.js.map": "/GBPlaybook/static/js/main.ced0273a.js.map",
     "787.0ce958d9.chunk.js.map": "/GBPlaybook/static/js/787.0ce958d9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ddde276d.css",
-    "static/js/main.ae1fa677.js"
+    "static/css/main.d5e50ebf.css",
+    "static/js/main.ced0273a.js"
   ]
 }
