@@ -6,7 +6,6 @@ import { Observer } from "mobx-react-lite";
 import GBIcon, { PB } from "./GBIcon";
 import "./CardFront.css";
 
-import useFitText from "use-fit-text";
 import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
@@ -81,27 +80,24 @@ const CardFront = (props) => {
   );
 };
 
-const NamePlate = ({ model, guild }) => {
-  let { fontSize, ref } = useFitText();
-  return (
-    <div className="name-plate">
-      <div className="guild-icon">
-        <GBIcon id="guild-icon" icon={guild.name} />
-        {/* <GBIcon id="guild-icon-gbcp" icon={`${guild.name}-GBCP`} /> */}
-      </div>
-      <div className="name-plate-right">
-        <div className="name">
-          <div className="dropcap" ref={ref} style={{ fontSize: fontSize }}>
-            {model.name.split(/(?=[A-Z])/).map((s, i) => (
-              <span key={i}>{s}</span>
-            ))}
-          </div>
-        </div>
-        <div className="reach">Melee Zone {model.reach ? 2 : 1}"</div>
-      </div>
+const NamePlate = ({ model, guild }) => (
+  <div className="name-plate">
+    <div className="guild-icon">
+      <GBIcon id="guild-icon" icon={guild.name} />
+      {/* <GBIcon id="guild-icon-gbcp" icon={`${guild.name}-GBCP`} /> */}
     </div>
-  );
-};
+    <div className="name-plate-right">
+      <div className="name">
+        <div className="dropcap">
+          {model.name.split(/(?=[A-Z])/).map((s, i) => (
+            <span key={i}>{s}</span>
+          ))}
+        </div>
+      </div>
+      <div className="reach">Melee Zone {model.reach ? 2 : 1}"</div>
+    </div>
+  </div>
+);
 
 const HealthBoxes = ({ model }) => (
   <Observer>
@@ -124,36 +120,39 @@ const HealthBoxes = ({ model }) => (
   </Observer>
 );
 
-const Playbook = ({ model }) => {
-  const classes = (pbm) => {
-    const classNames = ["playbook-result"];
-    const [pb, mom] = pbm ? pbm.split(";") : [null, null];
-    if (mom) {
-      classNames.push("momentus");
-    }
-    if (!pb) {
-      classNames.push("spacer");
-    }
-    return classNames.join(" ");
-  };
-  return (
-    <div className="playbook">
-      {model.playbook.map((row, index) => {
-        return row.flatMap((pbm, key) => (
+const Playbook = ({ model }) => (
+  <div className="playbook">
+    {model.playbook.map((row, index) => {
+      return row.flatMap((pbm, key) => {
+        const [pb, mom] = pbm ? pbm.split(";") : [null, null];
+        return (
           <div
-            className={classes(pbm)}
+            className={`playbook-result ${!pb ? "spacer" : ""} ${
+              mom ? "momentus" : ""
+            }`}
             key={index * 7 + key}
             style={{
               "--col": key,
+              display: "flex",
+              flexDirection: "column",
+              // 0.15 is always safe; (sqrt(2)-1)/(2*sqrt(2))
+              // padding: "0.15em",
+              padding: "0.10em",
+              gap: "0.05em",
             }}
           >
-            {pbm ? <PB icon={pbm} /> : null}
+            {pb
+              ? pb.split(",").map((p) => {
+                  p = model.gbcp ? p.replace(/CP/, "CP-gbcp") : p;
+                  return <PB icon={p} />;
+                })
+              : null}
           </div>
-        ));
-      })}
-    </div>
-  );
-};
+        );
+      });
+    })}
+  </div>
+);
 
 const StatBox = ({ model }) => (
   <div className="statbox">
@@ -172,9 +171,9 @@ const StatBox = ({ model }) => (
   </div>
 );
 
-function BooleanIcon({ test }) {
-  return <GBIcon icon={test ? "checkmark" : "ballotX"} size={14} />;
-}
+const BooleanIcon = ({ test }) => (
+  <GBIcon icon={test ? "checkmark" : "ballotX"} size={14} />
+);
 
 function CPName({ text }) {
   const name = text.split("[", 1)[0];

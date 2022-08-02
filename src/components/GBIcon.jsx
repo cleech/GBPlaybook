@@ -14,7 +14,7 @@ const GBIcon = (props) => {
 
   return (
     <svg
-      className={`gbicon gbicon-${icon} ${className||''}`}
+      className={`gbicon gbicon-${icon} ${className || ""}`}
       style={computedStyle}
       {...otherProps}
     >
@@ -26,9 +26,7 @@ export default GBIcon;
 
 const PB = (props) => {
   const { icon, size, style } = props;
-
-  const [pb, mom] = icon ? icon.split(";") : [null, null];
-  const i = pb.replace(",", "-").replace(/</g, "D").replace(/>/g, "P");
+  const i = icon.replace(/</g, "D").replace(/>/g, "P");
 
   const computedStyle = {
     ...(size ? { width: size, height: size } : {}),

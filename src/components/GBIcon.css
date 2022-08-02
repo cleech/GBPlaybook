@@ -136,11 +136,25 @@ Single-colored icons can be modified like so:
 
 .pbicon {
   display: inline-block;
-  width: 1em;
-  height: 1em;
+  height: 0.4em;
+  min-height: 0.2em;
   stroke-width: 0;
-  stroke: currentcolor;
+  stroke: none;
   fill: currentcolor;
+}
+
+.pbicon-CP, .pbicon-CP-gbcp {
+  height: 0.7em;
+  min-height: 0.3em;
+  min-width: 0.3em;
+  flex-shrink: 2;
+}
+
+.pbicon-CP2, .pbicon-CP2-gbcp {
+  height: 0.6em;
+  min-height: 0.3em;
+  min-width: 0.3em;
+  flex-shrink: 2;
 }
 
 /* ==========================================

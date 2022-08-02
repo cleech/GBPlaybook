@@ -4,7 +4,6 @@
   all: initial;
   position: relative;
   overflow: hidden;
-  /* color: black; */
   --line-width: 1px;
   image-rendering: crisp-edges;
 }
@@ -26,10 +25,9 @@
 }
 
 /* card sizing and background image placement */
+
 div.card-front {
   width: 100%;
-  /* width: 2.5in; */
-  /* height: 3.5in; */
   aspect-ratio: 5 / 7;
   max-width: 500px;
   max-height: 700px;
@@ -48,6 +46,7 @@ div.card-front.gbcp {
 }
 
 /* scalable overlay */
+
 .card-front > .overlay {
   position: absolute;
   top: 0;
@@ -59,6 +58,7 @@ div.card-front.gbcp {
 }
 
 /* top box positioning and layout */
+
 .card-front .name-plate {
   position: absolute;
   top: 15px;
@@ -91,6 +91,7 @@ div.card-front.gbcp {
 }
 
 /* icon placement and styling */
+
 .card-front .name-plate .guild-icon {
   position: relative;
   width: 65px;
@@ -107,6 +108,7 @@ div.card-front.gbcp {
 }
 
 /* sub-box placement */
+
 .card-front .name-plate > .name-plate-right {
   position: relative;
   overflow: visible;
@@ -117,15 +119,12 @@ div.card-front.gbcp {
 
 .card-front .name-plate-right > .name {
   display: flex;
-  overflow: hidden;
   font-family: "IM Fell Great Primer SC", serif;
   font-weight: 400;
   font-size: 40px;
   letter-spacing: -0.05em;
-  /* letter-spacing: -0.01em; */
   margin-top: -8px;
-  /* check vHarriet before touching this */
-  line-height: 125%;
+  line-height: 50px;
 }
 
 .card-front.gbcp .name-plate-right > .name {
@@ -133,6 +132,7 @@ div.card-front.gbcp {
 }
 
 /* drop cap */
+
 .dropcap {
   white-space: pre-wrap;
 }
@@ -147,11 +147,6 @@ div.card-front.gbcp {
 }
 
 @-moz-document url-prefix() {
-  /* .dropcap span {
-    line-height: 0.7em;
-    align-self: baseline;
-    border: 1px solid blue;
-  } */
   .dropcap span::first-letter {
     float: unset;
     padding: inherit;
@@ -175,6 +170,7 @@ div.card-front.gbcp {
 }
 
 /* stat box */
+
 .card-front .statbox {
   /* positioning */
   position: absolute;
@@ -200,11 +196,11 @@ div.card-front.gbcp {
   padding: 0;
   padding: 0 5px 2px;
   width: calc(100% - 10px);
-  /* font-family: unset; */
   font-size: 24px;
 }
 
 /* interior border */
+
 .card-front .statbox > :nth-child(-n + 6) {
   border-bottom: var(--line-width) solid black;
 }
@@ -214,6 +210,7 @@ div.card-front.gbcp {
 }
 
 /* playbook */
+
 .card-front .playbook {
   /* positioning */
   position: absolute;
@@ -233,6 +230,7 @@ div.card-front.gbcp {
 }
 
 /* playbook result display */
+
 .card-front .playbook-result {
   width: 45px;
   height: 45px;
@@ -240,8 +238,6 @@ div.card-front.gbcp {
   box-sizing: border-box;
   border: 2px solid black;
   background-color: white;
-  /* text-align: center; */
-  /* line-height: 43px; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -252,6 +248,7 @@ div.card-front.gbcp {
 }
 
 /* momentus result display overrides */
+
 .card-front .playbook-result.momentus {
   border-color: var(--mom-border-color, black);
   background-color: var(--mom-color, var(--team-color));
@@ -262,12 +259,14 @@ div.card-front.gbcp {
 }
 
 /* blank spacer display overrides */
+
 .card-front .playbook-result.spacer {
   border: none;
   background-color: transparent;
 }
 
 /* character play box */
+
 .card-front .character-plays {
   /* placement */
   position: absolute;
@@ -308,6 +307,7 @@ div.card-front.gbcp {
 }
 
 /* first row borders */
+
 .card-front .character-plays > :nth-child(-n + 5) {
   padding: 2px;
   border-bottom: var(--line-width) solid black;
@@ -316,6 +316,7 @@ div.card-front.gbcp {
 }
 
 /* "Character Plays" header */
+
 .card-front .character-plays > :first-child {
   font-family: "IM Fell Great Primer SC", serif;
   font-weight: 400;
@@ -327,6 +328,7 @@ div.card-front.gbcp {
 }
 
 /* individual play name styling */
+
 .card-front .character-plays .name {
   font-family: "Crimson Text", serif;
   font-size: 21px;
@@ -346,6 +348,7 @@ div.card-front.gbcp {
 }
 
 /* chatacter play text layout and styling */
+
 .card-front .character-plays .text {
   grid-column-end: span 5;
   font-family: "Crimson Text", serif;
@@ -416,9 +419,18 @@ div.card-front.gbcp {
 /* quirks, card specific fixes, etc. */
 
 /* smoke has too much text */
+
 .Smoke .character-plays .Infuse.text {
   letter-spacing: -1.1px;
   word-spacing: -1.1px;
+}
+
+.HarryTheHat.card-front .name-plate-right > .name {
+  font-size: 36px;
+}
+
+.vHarrietTheHat.card-front .name-plate-right > .name {
+  font-size: 32px;
 }
 
 /* Compound/Lucky playbook gradients */

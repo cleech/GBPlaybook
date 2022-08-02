@@ -1,4 +1,5 @@
 /* card sizing and background image placement */
+
 div.card-back {
   width: 100%;
   aspect-ratio: 5 / 7;
@@ -18,6 +19,7 @@ div.card-back.gbcp {
 }
 
 /* scalable overlay */
+
 .card-back .overlay {
   position: absolute;
   top: 0;
@@ -67,11 +69,11 @@ div.card-back.gbcp {
 }
 
 /* icon placement and styling */
+
 .card-back .name-plate .guild-icon {
   width: 45px;
   height: 45px;
   font-size: 45px;
-  /* margin: 8px 3px 0px -3px; */
   display: flex;
   overflow: visible;
   align-items: center;
@@ -84,12 +86,10 @@ div.card-back.gbcp {
 
 .card-back .name-plate .name {
   display: flex;
-  overflow: hidden;
   font-family: "IM Fell Great Primer SC", serif;
   font-weight: 400;
   font-size: 40px;
-  /* letter-spacing: -0.05em; */
-  letter-spacing: -0.01em;
+  letter-spacing: -0.05em;
   border-bottom: var(--line-width) solid black;
   border-image-source: linear-gradient(to left, transparent, black 150px);
   border-image-slice: 0 0 1 0;
@@ -99,6 +99,7 @@ div.card-back.gbcp {
 
 /* applies to all headers */
 /* character traits, heroic plays, legendary plays */
+
 .card-back .header {
   text-align: left;
   font-family: "IM Fell Great Primer SC", serif;
@@ -108,7 +109,6 @@ div.card-back.gbcp {
   border-image-source: linear-gradient(to left, transparent, black 150px);
   border-image-slice: 0 0 1 0;
   line-height: 1em;
-  /* margin-top: 5px; */
 }
 
 .card-back .character-trait {
@@ -141,7 +141,6 @@ div.card-back.gbcp {
   font-family: "Crimson Text", serif;
   font-size: 21px;
   line-height: 22px;
-  /* letter-spacing: -1px; */
   text-align: left;
   white-space: pre-wrap;
   margin-bottom: 0.25em;
@@ -224,6 +223,7 @@ div.card-back.gbcp {
   width: 1em;
   height: 1em;
   padding: 0.0625em;
+  box-sizing: border-box;
   background-clip: content-box;
   background-color: white;
   border-radius: 50%;
