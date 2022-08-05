@@ -88,22 +88,20 @@ const LinkBehavior = React.forwardRef<
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
-    /*
     primary: {
       main: "#3d708f",
       // main: "#3399FF",
     },
-    */
     secondary: {
       main: "#ffb300",
     },
-    /*
     background: {
       default: "#121a22",
+      // default: 'rgb(15%, 20%, 25%)',
+      // paper: 'rgb(15%, 20%, 25%)',
       // paper: "#344556",
-      paper: "#121212",
+      // paper: "#121212",
     },
-*/
   },
   components: {
     MuiLink: {

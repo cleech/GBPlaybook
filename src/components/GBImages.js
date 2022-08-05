@@ -491,6 +491,13 @@ const GBImages = {
   Phosphor_back: require("../assets/cards/Lamplighters/phosphor-01.jpg"),
   Wick_front: require("../assets/cards/Lamplighters/wick-00.jpg"),
   Wick_back: require("../assets/cards/Lamplighters/wick-01.jpg"),
+  /* Lamplighters full card */
+  // Nightlight: require("../assets/cards/Lamplighters/nightlight.png"),
+  // Soot: require("../assets/cards/Lamplighters/soot.png"),
+  // Beacon: require("../assets/cards/Lamplighters/beacon.png"),
+  // Heat: require("../assets/cards/Lamplighters/heat.png"),
+  // Phosphor: require("../assets/cards/Lamplighters/phosphor.png"),
+  // Wick: require("../assets/cards/Lamplighters/wick.png"),
   /* GBCP 4.4 Errata Images */
   sBrisket_gbcp_front: require("../assets/cards/GBCP/brisket3-00.png"),
   sBrisket_gbcp_back: require("../assets/cards/GBCP/brisket3-01.png"),

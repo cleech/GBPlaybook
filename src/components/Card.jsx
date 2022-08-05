@@ -36,7 +36,8 @@ export function DoubleCard({ model, controls }) {
         aspectRatio: 10 / 7,
         display: "flex",
         flexDirection: "row",
-        postion: "relative",
+        // backgroundImage: model.gbcp ? `url(${GBImages[model.id]})` : undefined,
+        // backgroundSize: "contain",
       }}
     >
       <CardFront

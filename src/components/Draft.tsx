@@ -29,16 +29,17 @@ function checkSingleton(
     });
     return value;
   }
+  return undefined;
 }
 
 // returns true/false when captain is set/unset
-// returned undefined on other switch events
+// returns undefined on other switch events
 function checkCaptains(roster: roster, model: model, value: boolean) {
   return checkSingleton(roster, model, value, (m: model) => m.captain);
 }
 
 // returns true/false when mascot is set/unset
-// returned undefined on other switch events
+// returns undefined on other switch events
 function checkMascots(roster: roster, model: model, value: boolean) {
   return checkSingleton(roster, model, value, (m: model) => m.mascot);
 }

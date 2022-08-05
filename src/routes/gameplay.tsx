@@ -15,7 +15,6 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-  Breadcrumbs,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../components/GuildGrid";
@@ -38,7 +37,17 @@ import "swiper/css/virtual";
 
 import Color from "color";
 
-function SelectedIcon({ team, size }: { team: string; size: number }) {
+import "./Draft.css";
+
+function SelectedIcon({
+  team,
+  size,
+  focused,
+}: {
+  team: string;
+  size: number;
+  focused: boolean;
+}) {
   const { data, loading } = useData();
   if (loading) {
     return null;
@@ -54,8 +63,10 @@ function SelectedIcon({ team, size }: { team: string; size: number }) {
         placeContent: "center",
         placeItems: "center",
         overflow: "hidden",
+        zIndex: -1,
         backgroundColor: Color(guild.shadow ?? guild.darkColor ?? guild.color)
-          .alpha(0.7)
+          .darken(0.25)
+          .desaturate(0.25)
           .string(),
       }}
     >
@@ -74,10 +85,10 @@ function SelectedIcon({ team, size }: { team: string; size: number }) {
         style={
           {
             position: "absolute",
-            color: "white",
+            color: "whitesmoke",
             textShadow:
               "1px 1px 1px black, -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black, -1px 0 1px black",
-            letterSpacing: "normal",
+            // letterSpacing: "normal",
             textTransform: "capitalize",
           } as React.CSSProperties
         }
@@ -95,6 +106,7 @@ function GameControls(
   const [selector, setSelector] = useState("P1");
   const [team1, setTeam1] = useState(searchParams.get("p1") ?? "");
   const [team2, setTeam2] = useState(searchParams.get("p2") ?? "");
+  const theme = useTheme();
 
   function pickTeam(name: string) {
     if (selector === "P1") {
@@ -128,7 +140,7 @@ function GameControls(
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-evenly",
+        justifyContent: "center",
       }}
     >
       <Button
@@ -142,25 +154,50 @@ function GameControls(
           fontSize: props.size * 0.5,
           ...(selector === "P1"
             ? {
-                borderColor: "gold",
-                borderWidth: "3px",
+                borderColor: theme.palette.secondary.light,
+                borderRadius: "12px",
+                borderWidth: "4px",
               }
-            : { borderWidth: "3px" }),
+            : {
+                borderColor: theme.palette.primary.dark,
+                borderRadius: "12px",
+                borderWidth: "4px",
+              }),
         }}
         onClick={() => setSelector("P1")}
       >
-        {/* {team1 ? <GBIcon icon={team1} fontSize={props.size} /> : "P1"} */}
-        {team1 ? <SelectedIcon team={team1} size={props.size} /> : "P1"}
+        {team1 ? (
+          <SelectedIcon
+            team={team1}
+            size={props.size}
+            focused={selector === "P1"}
+          />
+        ) : (
+          "P1"
+        )}
       </Button>
-      <Fab
-        color="secondary"
-        disabled={!team1 || !team2}
-        component={Link}
-        to={{ pathname: "/game/draft", search: `?p1=${team1}&p2=${team2}` }}
-        sx={{ margin: "0 15px" }}
+      <div
+        style={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "0.25em",
+          paddingBottom: "1.25em",
+        }}
       >
-        <PlayArrowIcon />
-      </Fab>
+        <Typography>vs</Typography>
+        <Fab
+          color="secondary"
+          disabled={!team1 || !team2}
+          component={Link}
+          to={{ pathname: "/game/draft", search: `?p1=${team1}&p2=${team2}` }}
+          sx={{ margin: "0 15px" }}
+        >
+          <PlayArrowIcon />
+        </Fab>
+      </div>
       <Button
         variant="outlined"
         style={{
@@ -172,15 +209,27 @@ function GameControls(
           fontSize: props.size * 0.5,
           ...(selector === "P2"
             ? {
-                borderColor: "gold",
-                borderWidth: "3px",
+                borderColor: theme.palette.secondary.light,
+                borderRadius: "12px",
+                borderWidth: "4px",
               }
-            : { borderWidth: "3px" }),
+            : {
+                borderColor: theme.palette.primary.dark,
+                borderRadius: "12px",
+                borderWidth: "4px",
+              }),
         }}
         onClick={() => setSelector("P2")}
       >
-        {/* {team2 ? <GBIcon icon={team2} fontSize={props.size} /> : "P2"} */}
-        {team2 ? <SelectedIcon team={team2} size={props.size} /> : "P2"}
+        {team2 ? (
+          <SelectedIcon
+            team={team2}
+            size={props.size}
+            focused={selector === "P2"}
+          />
+        ) : (
+          "P2"
+        )}
       </Button>
     </div>,
     pickTeam,
@@ -189,10 +238,14 @@ function GameControls(
 
 export default function GamePlay() {
   const location = useLocation();
-  const { setGamePlayRoute } = useStore();
+  const { setGamePlayRoute, gameStackPush, gameStackPop } = useStore();
 
   React.useEffect(() => {
     setGamePlayRoute(`#${location.pathname}${location.search}`);
+    // gameStackPush(`#${location.pathname}${location.search}`);
+    // return () => {
+    //   let _old = gameStackPop();
+    // };
   }, [location]);
 
   return (
@@ -238,21 +291,13 @@ export const Draft = () => {
     guild2.name === "Blacksmiths" ? BlacksmithDraftList : DraftList;
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr auto 1fr",
-        justifyItems: "center",
-        overflow: "visible",
-        margin: "auto",
-      }}
-    >
+    <div className="DraftScreen">
       <DraftList1
         guild={guild1}
         ready={ready1}
         unready={unready1}
         ignoreRules={false}
-        style={{ width: "100%", gridColumn: 2 }}
+        style={{ width: "100%" }}
       />
       <Fab
         disabled={!team1 || !team2}
@@ -262,7 +307,7 @@ export const Draft = () => {
           store.team2.reset({ name: g2 ?? undefined, roster: team2 });
           navigate("/game/draft/play");
         }}
-        style={{ margin: "10px", gridColumn: 2 }}
+        style={{ margin: "10px" }}
       >
         <PlayArrowIcon />
       </Fab>
@@ -271,7 +316,7 @@ export const Draft = () => {
         ready={ready2}
         unready={unready2}
         ignoreRules={false}
-        style={{ width: "100%", gridColumn: 2 }}
+        style={{ width: "100%" }}
       />
     </div>
   );

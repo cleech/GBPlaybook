@@ -19,7 +19,8 @@ export const itemSize = ({ width, height }: any, count: number, extra = 0) => {
     // const iw = Math.floor((width - w * 10) / w);
     // const ih = Math.floor((height - h * 10) / h);
     const iw = (width - w * 10) / w;
-    const ih = (height - h * 10) / h;
+    // extra 5px is for the divider
+    const ih = (height - (h * 10) - 5) / h;
     const size = Math.min(iw, ih);
     const margin = (iw - size) / 2;
     return {
@@ -116,7 +117,6 @@ export function GuildGridInner({ dimensions, pickTeam, controls, size }: any) {
         <Button
           key={g.name}
           variant="outlined"
-          // variant="contained"
           onClick={() => {
             pickTeam && pickTeam(g.name);
           }}
@@ -127,6 +127,7 @@ export function GuildGridInner({ dimensions, pickTeam, controls, size }: any) {
             minHeight: size,
             maxWidth: size,
             maxHeight: size,
+            background: "rgba(100%, 100%, 100%, 5%)",
           }}
         >
           <div
@@ -134,13 +135,13 @@ export function GuildGridInner({ dimensions, pickTeam, controls, size }: any) {
               display: "flex",
               placeContent: "center",
               placeItems: "center",
-              fontSize: size * 0.65,
+              fontSize: size * 0.7,
+              // fontSize: size / 1.3125,
               width: "1em",
               height: "1em",
               borderRadius: "50%",
               padding: "0.0625em",
-              // background: "content-box #111",
-              background: "content-box linear-gradient(#000, #333)"
+              background: "content-box linear-gradient(to bottom, #000, #333)",
             }}
           >
             <GBIcon
@@ -148,15 +149,17 @@ export function GuildGridInner({ dimensions, pickTeam, controls, size }: any) {
               className="dark"
               style={{
                 flexShrink: 0,
-                zIndex: 1,
-                filter: "drop-shadow(0 0 3px black)",
+                // zIndex: 1,
+                // filter: "drop-shadow(0 0 3px black)",
+                filter: "drop-shadow(0 0 0.03em black)",
               }}
             />
           </div>
           <Typography
             variant="caption"
             style={{
-              letterSpacing: "normal",
+              color: "whitesmoke",
+              // letterSpacing: "normal",
               textTransform: "capitalize",
               textShadow:
                 "1px 1px 1px black, -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black, -1px 0 1px black",

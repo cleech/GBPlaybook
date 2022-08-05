@@ -121,6 +121,8 @@ const RootModel = types
     settings: types.optional(Settings, {}),
     gamePlayRoute: types.optional(types.string, "#/game"),
     libraryRoute: types.optional(types.string, "#/library"),
+    gameStack: types.array(types.string),
+    libraryStack: types.array(types.string),
   })
   .views((self) => ({
     get draftReady() {
@@ -133,6 +135,12 @@ const RootModel = types
     },
     setLibraryRoute(route: string) {
       self.libraryRoute = route;
+    },
+    gameStackPush(route: string) {
+      self.gameStack.push(route);
+    },
+    gameStackPop() {
+      return self.gameStack.pop();
     },
   }));
 

@@ -1,0 +1,25 @@
+.DraftScreen {
+  display: grid;
+  overflow: visible;
+  margin: auto;
+}
+
+@media (orientation: portrait) {
+  .DraftScreen {
+    grid-template-columns: 1fr auto 1fr;
+    justify-items: center;
+  }
+  .DraftScreen > * {
+    grid-column: 2;
+  }
+}
+
+@media (orientation: landscape) {
+  .DraftScreen {
+    grid-template-rows: 1fr auto 1fr;
+    align-items: center;
+  }
+  .DraftScreen > * {
+    grid-row: 2;
+  }
+}
