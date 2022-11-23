@@ -123,10 +123,10 @@ export function HealthCounter({ model }: { model: model }) {
       </Observer>
       <ButtonGroup size="small" variant="contained">
         <Button {...longPressDown} onClick={(e) => e.stopPropagation()}>
-          <MinusIcon fontSize="inherit" />
+          <MinusIcon fontSize="inherit" style={{ pointerEvents: "none" }} />
         </Button>
         <Button {...longPressUp} onClick={(e) => e.stopPropagation()}>
-          <PlusIcon fontSize="inherit" />
+          <PlusIcon fontSize="inherit" style={{ pointerEvents: "none" }} />
         </Button>
       </ButtonGroup>
     </div>

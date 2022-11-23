@@ -5,7 +5,7 @@ function preventDefault(e: Event) {
   if (!isTouchEvent(e)) return;
 
   if (e.touches.length < 2 && e.preventDefault) {
-    e.preventDefault();
+    if (e.cancelable) e.preventDefault();
   }
 }
 
@@ -74,5 +74,6 @@ export default function useLongPress<T>(
     onMouseUp: (e: React.MouseEvent<T>) => clear(e),
     onMouseLeave: (e: React.MouseEvent<T>) => clear(e, false),
     onTouchEnd: (e: React.TouchEvent<T>) => clear(e),
+    onTouchMove: (e: React.TouchEvent<T>) => clear(e),
   };
 }
