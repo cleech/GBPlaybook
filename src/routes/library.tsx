@@ -13,6 +13,7 @@ import _ from "lodash";
 
 import { Box, Card, Chip, useTheme, useMediaQuery } from "@mui/material";
 
+import type { Swiper as SwiperRef } from "swiper";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import "swiper/css";
 
@@ -35,8 +36,7 @@ export default function Library() {
     <main
       style={{
         display: "flex",
-        // flexDirection: "column",
-        flexDirection: "row",
+        flexDirection: "column",
         width: "100%",
         height: "100%",
       }}
@@ -64,23 +64,26 @@ export function Roster() {
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
 
-  const ref = useRef<HTMLDivElement>(null);
-  const [cardWidth, setCardWidth] = useState(240);
-  const [cardHeight, setCardHeight] = useState(336);
-  const [slideHeight, setSlideHeight] = useState(336);
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
-  function updateSize() {
-    let width = ref.current?.getBoundingClientRect().width ?? 0;
-    let height = ref.current?.getBoundingClientRect().height ?? 0;
-    let barHeight = large ? 56 : 112;
-    setCardWidth(Math.min(width - 12, ((height - barHeight) * 5) / 7 - 12));
-    setCardHeight(Math.min(height - barHeight - 12, (width * 7) / 5 - 12));
-    setSlideHeight(height - barHeight);
-  }
+  // const ref = useRef<HTMLDivElement>(null);
+  // const [cardWidth, setCardWidth] = useState(240);
+  // const [cardHeight, setCardHeight] = useState(336);
+  // const [slideHeight, setSlideHeight] = useState(336);
+  // useLayoutEffect(() => {
+  //   updateSize();
+  //   window.addEventListener("resize", updateSize);
+  //   return () => window.removeEventListener("resize", updateSize);
+  // });
+  // function updateSize() {
+  //   let wrapper = ref.current?.querySelector(".swiper-wrapper");
+  //   let width = wrapper?.getBoundingClientRect().width ?? 0;
+  //   let height = wrapper?.getBoundingClientRect().height ?? 0;
+  //   // let barHeight = large ? 56 : 112;
+  //   setCardWidth(Math.min(width - 12, (height * 5) / 7 - 12));
+  //   setCardHeight(Math.min(height - 12, (width * 7) / 5 - 12));
+  //   setSlideHeight(height);
+  // }
+
+  const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
   const { data, loading } = useData();
   if (loading) {
@@ -88,62 +91,71 @@ export function Roster() {
   }
   const g = data.Guilds.find((g: any) => g.name === guild);
   return (
-    <Swiper
-      initialSlide={g.roster.findIndex((m: any) => m === searchParams.get("m"))}
-      onSlideChange={(swiper) => {
-        setSearchParams(`m=${g.roster[swiper.activeIndex]}`, { replace: true });
-      }}
-      // slidesPerView="auto"
-      slidesPerView={1.1}
-      centeredSlides={true}
-      autoHeight={true}
-      spaceBetween={0.25 * 96}
-      style={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      {g.roster.map((m: string, index: number) => {
-        const model = data.Models.find((m2: any) => m2.id === m);
-        // if (GBImages[`${model.id}_gbcp_front`]) {
-        //   model.gbcp = true;
-        // }
-        return (
-          <SwiperSlide
-            key={model.id}
-            virtualIndex={index}
-            style={{
-              paddingTop: "0.25in",
-              paddingBottom: "0.25in",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            {large ? (
-              <DoubleCard model={model} controls={undefined} />
-            ) : (
-              <FlipCard model={model} controls={undefined} />
-            )}
-          </SwiperSlide>
-        );
-      })}
-      <SwiperButtons roster={g.roster} />
-    </Swiper>
+    <>
+      <Swiper
+        // ref={ref}
+        onSwiper={setSwiper}
+        initialSlide={g.roster.findIndex(
+          (m: any) => m === searchParams.get("m")
+        )}
+        onSlideChange={(swiper) => {
+          setSearchParams(`m=${g.roster[swiper.activeIndex]}`, {
+            replace: true,
+          });
+        }}
+        // slidesPerView="auto"
+        slidesPerView={1.1}
+        centeredSlides={true}
+        // autoHeight={true}
+        spaceBetween={0.25 * 96}
+        style={{
+          height: "100%",
+          width: "100%",
+          // flexShrink: 2,
+          // display: "flex",
+          // flexDirection: "column",
+        }}
+      >
+        {g.roster.map((m: string, index: number) => {
+          const model = data.Models.find((m2: any) => m2.id === m);
+          // if (GBImages[`${model.id}_gbcp_front`]) {
+          //   model.gbcp = true;
+          // }
+          return (
+            <SwiperSlide
+              key={model.id}
+              virtualIndex={index}
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {large ? (
+                <DoubleCard model={model} controls={undefined} />
+              ) : (
+                <FlipCard model={model} controls={undefined} />
+              )}
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+      <SwiperButtons roster={g.roster} swiper={swiper} />
+    </>
   );
 }
 
-function SwiperButtons(props: { roster: IGBPlayer[] }) {
+function SwiperButtons(props: {
+  roster: IGBPlayer[];
+  swiper: SwiperRef | null;
+}) {
   const { data, loading } = useData();
-  const swiper = useSwiper();
-  const { roster } = props;
+  const { roster, swiper } = props;
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "row",
       }}
-      slot="container-end"
     >
       <div style={{ flex: "1 1" }} />
       <Box
@@ -165,7 +177,7 @@ function SwiperButtons(props: { roster: IGBPlayer[] }) {
               // label={model.displayName}
               label={model.id}
               onClick={() => {
-                swiper.slideTo(index);
+                swiper?.slideTo(index);
               }}
             />
           );
