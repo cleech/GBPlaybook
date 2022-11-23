@@ -123,16 +123,16 @@ const HealthBoxes = ({ model }) => (
 const Playbook = ({ model }) => (
   <div className="playbook">
     {model.playbook.map((row, index) => {
-      return row.flatMap((pbm, key) => {
+      return row.flatMap((pbm, col) => {
         const [pb, mom] = pbm ? pbm.split(";") : [null, null];
         return (
           <div
             className={`playbook-result ${!pb ? "spacer" : ""} ${
               mom ? "momentus" : ""
             }`}
-            key={index * 7 + key}
+            key={index * 7 + col}
             style={{
-              "--col": key,
+              "--col": col,
               display: "flex",
               flexDirection: "column",
               // 0.15 is always safe; (sqrt(2)-1)/(2*sqrt(2))
@@ -142,9 +142,9 @@ const Playbook = ({ model }) => (
             }}
           >
             {pb
-              ? pb.split(",").map((p) => {
+              ? pb.split(",").map((p, index) => {
                   p = model.gbcp ? p.replace(/CP/, "CP-gbcp") : p;
-                  return <PB icon={p} />;
+                  return <PB icon={p} key={index} />;
                 })
               : null}
           </div>
