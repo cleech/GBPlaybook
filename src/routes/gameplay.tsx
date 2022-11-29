@@ -24,9 +24,9 @@ import {
   model,
   BlacksmithDraftList,
 } from "../components/Draft";
-import { useStore, IGBPlayer, IGBTeam } from "../models/Root";
+import { useStore, IGBTeam } from "../models/Root";
 import RosterList, { HealthCounter } from "../components/RosterList";
-import { FlipCard, DoubleCard } from "../components/Card";
+import { FlipCard } from "../components/Card";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Virtual } from "swiper";

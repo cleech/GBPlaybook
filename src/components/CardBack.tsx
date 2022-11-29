@@ -1,4 +1,5 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React from "react";
+// import { useState, useRef, useLayoutEffect } from "react";
 import GBImages from "./GBImages";
 import { useData } from "./DataContext";
 

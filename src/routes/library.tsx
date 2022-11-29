@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
+
 import {
   Outlet,
   useParams,
   useNavigate,
   useSearchParams,
   useLocation,
-  useOutletContext,
 } from "react-router-dom";
 
-import { useDimensionsRef } from "rooks";
-import _ from "lodash";
+// import { useDimensionsRef } from "rooks";
+// import _ from "lodash";
 
 import {
   Box,
@@ -22,14 +22,14 @@ import {
 } from "@mui/material";
 
 import type { Swiper as SwiperRef } from "swiper";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 import { useData } from "../components/DataContext";
 import { FlipCard, DoubleCard } from "../components/Card";
 
 import { GuildGrid } from "../components/GuildGrid";
-import { useStore, IGBPlayer, IGBTeam } from "../models/Root";
+import { useStore, IGBPlayer } from "../models/Root";
 import { AppBarContent } from "../App";
 import { NavigateNext } from "@mui/icons-material";
 

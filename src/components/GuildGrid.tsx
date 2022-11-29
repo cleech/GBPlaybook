@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link, Outlet, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+// import { Link, Outlet, useParams } from "react-router-dom";
 
 import { useDimensionsRef } from "rooks";
 import _ from "lodash";
@@ -50,7 +50,7 @@ interface GuildGridProps {
 }
 
 export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
-  const [ref, dimensions, node] = useDimensionsRef();
+  const [ref, dimensions, _node] = useDimensionsRef();
   const { data, loading } = useData();
   const [size, setSize] = useState(0);
 
@@ -61,7 +61,7 @@ export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
   useEffect(() => {
     if (!loading && dimensions)
       setSize(itemSize(dimensions, data.Guilds.length, 1)?.size ?? 0);
-  }, [data, dimensions]);
+  }, [data, dimensions, loading]);
 
   if (loading) {
     return null;

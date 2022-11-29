@@ -28,7 +28,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useLocation } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
 import { useStore } from "./models/Root";
-import _ from "lodash";
 
 const AppBarContext = createContext<HTMLElement | null>(null);
 
@@ -123,6 +122,7 @@ const App = () => {
               <img
                 src={require("./assets/img/logo.png")}
                 style={{ borderRadius: 5.4 }}
+                alt=""
               />
               <ListItemText style={{ textAlign: "center" }}>
                 GB Playbook

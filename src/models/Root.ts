@@ -1,4 +1,4 @@
-import localforage from "localforage";
+// import localforage from "localforage";
 import { types, Instance, applySnapshot, SnapshotIn } from "mobx-state-tree";
 import { persist } from "mst-persist";
 import localForage from "localforage";

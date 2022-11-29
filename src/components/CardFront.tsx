@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect, CSSProperties } from "react";
+import React, { CSSProperties } from "react";
 import GBImages from "./GBImages";
 import { useData } from "./DataContext";
 import { Observer } from "mobx-react-lite";
