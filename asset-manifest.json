@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/GBPlaybook/static/css/main.d733b612.css",
-    "main.js": "/GBPlaybook/static/js/main.aefa204a.js",
+    "main.js": "/GBPlaybook/static/js/main.9ef039d5.js",
     "static/js/787.0ce958d9.chunk.js": "/GBPlaybook/static/js/787.0ce958d9.chunk.js",
     "static/media/cast-00.png": "/GBPlaybook/static/media/cast-00.e812f221d27b7cb34947.png",
     "static/media/steeljaw-00.png": "/GBPlaybook/static/media/steeljaw-00.cb357cc0a966f9d8a7e3.png",
@@ -69,8 +69,8 @@
     "static/media/GB-S4-Alchemists-19-02-02.jpg": "/GBPlaybook/static/media/GB-S4-Alchemists-19-02-02.51b975f58ae89408782d.jpg",
     "static/media/GB-S4-Engineers-20-03-02.jpg": "/GBPlaybook/static/media/GB-S4-Engineers-20-03-02.b0146afd0c9d0fe907b4.jpg",
     "static/media/GB-S4-Hunters-19-08-02.jpg": "/GBPlaybook/static/media/GB-S4-Hunters-19-08-02.51cfb3ea36fbc4065b45.jpg",
-    "static/media/GB-S4-Order-19-08-02.jpg": "/GBPlaybook/static/media/GB-S4-Order-19-08-02.9e605ac7ba6209202e3f.jpg",
     "service-worker.js": "/GBPlaybook/service-worker.js",
+    "static/media/GB-S4-Order-19-08-02.jpg": "/GBPlaybook/static/media/GB-S4-Order-19-08-02.9e605ac7ba6209202e3f.jpg",
     "static/media/GB-S4-Blacksmiths-20-03-02.jpg": "/GBPlaybook/static/media/GB-S4-Blacksmiths-20-03-02.7bdc1b30ebfff6512d9c.jpg",
     "static/media/GB-S4-Miners-20-03-02.jpg": "/GBPlaybook/static/media/GB-S4-Miners-20-03-02.b05d7c2a156486f63291.jpg",
     "static/media/GB-S4-Union-20-03-02.jpg": "/GBPlaybook/static/media/GB-S4-Union-20-03-02.79f4f1a826aa364dd3c8.jpg",
@@ -332,11 +332,11 @@
     "static/media/lucky.svg": "/GBPlaybook/static/media/lucky.3fde12172b597327ee8e.svg",
     "index.html": "/GBPlaybook/index.html",
     "main.d733b612.css.map": "/GBPlaybook/static/css/main.d733b612.css.map",
-    "main.aefa204a.js.map": "/GBPlaybook/static/js/main.aefa204a.js.map",
+    "main.9ef039d5.js.map": "/GBPlaybook/static/js/main.9ef039d5.js.map",
     "787.0ce958d9.chunk.js.map": "/GBPlaybook/static/js/787.0ce958d9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d733b612.css",
-    "static/js/main.aefa204a.js"
+    "static/js/main.9ef039d5.js"
   ]
 }
