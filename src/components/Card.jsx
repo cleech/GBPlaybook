@@ -119,10 +119,12 @@ export function FlipCard({ model, controls }) {
           <div
             className="flip-card-front"
             style={{
-              width: "500px",
-              height: "700px",
-              transform: `scale(${scale})`,
-              transformOrigin: "top left",
+              width: "100%",
+              height: "100%",
+              // width: "500px",
+              // height: "700px",
+              // transform: `scale(${scale})`,
+              // transformOrigin: "top left",
             }}
           >
             {controls?.({ model, scale: 1/scale})}

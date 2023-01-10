@@ -474,10 +474,12 @@ function CardControls({ model, scale }: { model: model, scale: number }) {
       elevation={2}
       sx={{
         position: "absolute",
-        right: "0.125in",
-        bottom: "0.125in",
-        padding: "0.0625in",
-        transform: `scale(${scale ?? 1})`,
+        // right: "0.125in",
+        // bottom: "0.125in",
+        // padding: "0.0625in",
+        right: "0",
+        bottom: "0",
+        // transform: `scale(${scale ?? 1})`,
         transformOrigin: "bottom right",
       }}
     >
