@@ -125,7 +125,7 @@ export function FlipCard({ model, controls }) {
               transformOrigin: "top left",
             }}
           >
-            {controls?.({ model })}
+            {controls?.({ model, scale: 1/scale})}
           </div>
         ) : null}
         <CardBack

@@ -14,6 +14,7 @@ import {
   Divider,
   Typography,
   useTheme,
+  IconButton,
 } from "@mui/material";
 import MinusIcon from "@mui/icons-material/Remove";
 import PlusIcon from "@mui/icons-material/Add";
@@ -53,7 +54,7 @@ function Counter({ object, label, value, setValue }: CounterProps) {
         justifyContent: "center",
       }}
     >
-      <Typography variant="body2">
+      <Typography>
         <Observer>{() => <span>{label(object)}</span>}</Observer>
       </Typography>
       <ButtonGroup size="small" variant="contained">
@@ -114,7 +115,7 @@ export function HealthCounter({ model }: { model: model }) {
     >
       <Observer>
         {() => (
-          <Typography variant="body2">
+          <Typography>
             {`${String(model.health).padStart(2, "0")} / ${String(
               model.hp
             ).padStart(2, "0")}`}

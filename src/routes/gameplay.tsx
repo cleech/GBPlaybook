@@ -15,6 +15,7 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
+  Paper,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../components/GuildGrid";
@@ -467,16 +468,20 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
   );
 };
 
-function CardControls({ model }: { model: model }) {
+function CardControls({ model, scale }: { model: model, scale: number }) {
   return (
-    <div
-      style={{
+    <Paper
+      elevation={2}
+      sx={{
         position: "absolute",
-        right: "10px",
-        bottom: "10px",
+        right: "0.125in",
+        bottom: "0.125in",
+        padding: "0.0625in",
+        transform: `scale(${scale ?? 1})`,
+        transformOrigin: "bottom right",
       }}
     >
       <HealthCounter model={model} />
-    </div>
+    </Paper>
   );
 }
