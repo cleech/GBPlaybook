@@ -5,7 +5,13 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 
-import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
+import {
+  createHashRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import GamePlay, { TeamSelect, Draft, Game } from "./routes/gameplay";
 import Library, { GuildList, Roster } from "./routes/library";
 import Settings from "./routes/settings";
@@ -21,28 +27,32 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
+const router = createHashRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" element={<Navigate to="/game" replace />} />
+      <Route element={<App />}>
+        <Route element={<GamePlay />}>
+          <Route path="game" element={<TeamSelect />} />
+          <Route path="game/draft" element={<Draft />} />
+          <Route path="game/draft/play" element={<Game />} />
+        </Route>
+        <Route path="library" element={<Library />}>
+          <Route index element={<GuildList />} />
+          <Route path=":guild" element={<Roster />} />
+        </Route>
+        <Route path="settings" element={<Settings />} />
+      </Route>
+    </>
+  )
+);
+
 rootStorePersist().then(() =>
   root.render(
     <React.StrictMode>
       <RootStoreProvider value={rootStore}>
         <DataProvider>
-          <HashRouter>
-            <Routes>
-              <Route path="/" element={<Navigate to="/game" replace />} />
-              <Route element={<App />}>
-                <Route element={<GamePlay />}>
-                  <Route path="game" element={<TeamSelect />} />
-                  <Route path="game/draft" element={<Draft />} />
-                  <Route path="game/draft/play" element={<Game />} />
-                </Route>
-                <Route path="library" element={<Library />}>
-                  <Route index element={<GuildList />} />
-                  <Route path=":guild" element={<Roster />} />
-                </Route>
-                <Route path="settings" element={<Settings />} />
-              </Route>
-            </Routes>
-          </HashRouter>
+          <RouterProvider router={router} />
         </DataProvider>
       </RootStoreProvider>
     </React.StrictMode>
