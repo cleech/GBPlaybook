@@ -59,7 +59,7 @@ const CardFront = (props: CardFrontProps) => {
   const guild2 = data.Guilds.find((g: any) => g.name === model.guild2);
 
   // const image = GBImages[key + "_gbcp_front"] || GBImages[key + "_front"];
-  const image = (GBImages as any)[key + "_front"];
+  const image = GBImages[key + "_front"];
 
   return (
     <div

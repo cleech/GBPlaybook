@@ -18,7 +18,7 @@ const Ratcatchers_back = require("../assets/cards/Ratcatchers/GB-S4-Ratcatchers-
 const Shepherds_back = require("../assets/cards/Shepherds/GB-S4-Shepherds-20-03-03.jpg");
 const Union_back = require("../assets/cards/Union/GB-S4-Union-20-03-03.jpg");
 
-const GBImages = {
+const GBImages: {[key: string]: string} = {
   Alchemists_back: require("../assets/cards/Alchemists/GB-S4-Alchemists-19-02-01.jpg"),
   Alchemists_front: require("../assets/cards/Alchemists/GB-S4-Alchemists-19-02-02.jpg"),
   Midas_back: Alchemists_back,

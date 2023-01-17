@@ -44,7 +44,7 @@ const CardBack = (props: CardBackProps) => {
   );
 
   // const image = GBImages[key + "_gbcp_back"] || GBImages[key + "_back"];
-  const image = (GBImages as any)[key + "_back"];
+  const image = GBImages[key + "_back"];
 
   return (
     <div
