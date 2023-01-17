@@ -73,6 +73,7 @@ const GBPlayer = types
 
 // export interface IGBPlayer extends Instance<typeof GBPlayer> {}
 export type IGBPlayer = Instance<typeof GBPlayer>;
+export type JGBPlayer = SnapshotIn<typeof GBPlayer>;
 
 const GBTeam = types
   .model({

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React, { useState, useRef, useLayoutEffect, CSSProperties } from "react";
 import GBImages from "./GBImages";
 import { useData } from "./DataContext";
 import { Observer } from "mobx-react-lite";
@@ -9,7 +9,27 @@ import "./CardFront.css";
 import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
-const CardFront = (props) => {
+import { IGBPlayer, JGBPlayer } from "../models/Root";
+type model = JGBPlayer | IGBPlayer;
+
+interface CardFrontProps {
+  model: model;
+  style: GBCardCSS;
+  guild?: string;
+  className?: string;
+}
+
+export interface GBCardCSS extends CSSProperties {
+  "--scale": number;
+  "--gbcp-color"?: string;
+  "--mom-border-color"?: string;
+  "--mom-color"?: string;
+  "--team-color"?: string;
+  "--guild1-color"?: string;
+  "--guild2-color"?: string;
+}
+
+const CardFront = (props: CardFrontProps) => {
   const model = props.model;
   const key = model.id;
 
@@ -31,31 +51,30 @@ const CardFront = (props) => {
     return null;
   }
 
+  /* FIXME, need a type def for guild JSON */
   const guild = data.Guilds.find(
-    (g) => g.name === (props.guild ?? model.guild1)
+    (g: any) => g.name === (props.guild ?? model.guild1)
   );
-  const guild1 = data.Guilds.find((g) => g.name === model.guild1);
-  const guild2 = data.Guilds.find((g) => g.name === model.guild2);
+  const guild1 = data.Guilds.find((g: any) => g.name === model.guild1);
+  const guild2 = data.Guilds.find((g: any) => g.name === model.guild2);
 
   // const image = GBImages[key + "_gbcp_front"] || GBImages[key + "_front"];
-  const image = GBImages[key + "_front"];
+  const image = (GBImages as any)[key + "_front"];
 
   return (
     <div
       className={`card-front ${key} ${model.gbcp && "gbcp"} ${props.className}`}
       // ref={targetRef}
       style={{
-        // "--scale": scale,
         "--team-color": guild.color,
         /* not the best way to do this */
         // "--gbcp-color": Color(guild2 ? guild2.color : guild1.color).mix(
         //   Color.rgb(240, 230, 210),
         //   0.9
         // ),
-        "--gbcp-color": Color(guild1.shadow ?? guild1.color).mix(
-          Color.rgb(254, 246, 227),
-          0.9
-        ),
+        "--gbcp-color": Color(guild1.shadow ?? guild1.color)
+          .mix(Color.rgb(254, 246, 227), 0.9)
+          .string(),
         "--guild1-color": guild1.color,
         "--guild2-color": guild2 ? guild2.color : undefined,
         "--mom-color": guild.shadow,
@@ -80,7 +99,7 @@ const CardFront = (props) => {
   );
 };
 
-const NamePlate = ({ model, guild }) => (
+const NamePlate = ({ model, guild }: { model: model; guild: any }) => (
   <div className="name-plate">
     <div className="guild-icon">
       <GBIcon id="guild-icon" icon={guild.name} />
@@ -99,31 +118,36 @@ const NamePlate = ({ model, guild }) => (
   </div>
 );
 
-const HealthBoxes = ({ model }) => (
+const HealthBoxes = ({ model }: { model: model }) => (
   <Observer>
     {() => (
       <div className="health">
-        {[...Array(model.hp).keys()].map((key) => (
-          <div
-            className={`health-box ${key + 1 > model.health ? "damaged" : ""}`}
-            key={key}
-          >
-            {(key === 0 && <GBIcon icon="skull" size={17} />) ||
-              (key + 1 === model.recovery && (
-                <GBIcon icon="bandage" size={22} />
-              )) ||
-              (key + 1 === model.hp && key + 1)}
-          </div>
-        ))}
+        {[...Array(model.hp).keys()].map(
+          (key) =>
+            model.health && (
+              <div
+                className={`health-box ${
+                  key + 1 > model.health ? "damaged" : ""
+                }`}
+                key={key}
+              >
+                {(key === 0 && <GBIcon icon="skull" size={17} />) ||
+                  (key + 1 === model.recovery && (
+                    <GBIcon icon="bandage" size={22} />
+                  )) ||
+                  (key + 1 === model.hp && key + 1)}
+              </div>
+            )
+        )}
       </div>
     )}
   </Observer>
 );
 
-const Playbook = ({ model }) => (
+const Playbook = ({ model }: { model: model }) => (
   <div className="playbook">
-    {model.playbook.map((row, index) => {
-      return row.flatMap((pbm, col) => {
+    {model.playbook?.map((row, index) => {
+      return row?.flatMap((pbm, col) => {
         const [pb, mom] = pbm ? pbm.split(";") : [null, null];
         return (
           <div
@@ -131,15 +155,17 @@ const Playbook = ({ model }) => (
               mom ? "momentus" : ""
             }`}
             key={index * 7 + col}
-            style={{
-              "--col": col,
-              display: "flex",
-              flexDirection: "column",
-              // 0.15 is always safe; (sqrt(2)-1)/(2*sqrt(2))
-              // padding: "0.15em",
-              padding: "0.10em",
-              gap: "0.05em",
-            }}
+            style={
+              {
+                "--col": col,
+                display: "flex",
+                flexDirection: "column",
+                // 0.15 is always safe; (sqrt(2)-1)/(2*sqrt(2))
+                // padding: "0.15em",
+                padding: "0.10em",
+                gap: "0.05em",
+              } as CSSProperties
+            }
           >
             {pb
               ? pb.split(",").map((p, index) => {
@@ -154,7 +180,7 @@ const Playbook = ({ model }) => (
   </div>
 );
 
-const StatBox = ({ model }) => (
+const StatBox = ({ model }: { model: model }) => (
   <div className="statbox">
     <span>MOV</span>
     <span>TAC</span>
@@ -171,11 +197,11 @@ const StatBox = ({ model }) => (
   </div>
 );
 
-const BooleanIcon = ({ test }) => (
+const BooleanIcon = ({ test }: { test: boolean }) => (
   <GBIcon icon={test ? "checkmark" : "ballotX"} size={14} />
 );
 
-function CPName({ text }) {
+function CPName({ text }: { text: string }) {
   const name = text.split("[", 1)[0];
   const arg = text.replace(/[^[]*(\[.*\])?/, " $1");
   return (
@@ -186,7 +212,7 @@ function CPName({ text }) {
   );
 }
 
-const CharacterPlays = ({ model }) => {
+const CharacterPlays = ({ model }: { model: model }) => {
   const { data, loading } = useData();
   if (loading) {
     return null;
@@ -202,8 +228,8 @@ const CharacterPlays = ({ model }) => {
       <span>RNG</span>
       <span>SUS</span>
       <span>OPT</span>
-      {model.character_plays.map((key) => {
-        const cp = CPlays.find((cp) => cp.name === key);
+      {model.character_plays?.map((key) => {
+        const cp = CPlays.find((cp: any) => cp.name === key);
         return (
           <React.Fragment key={key}>
             <CPName text={cp.name} />

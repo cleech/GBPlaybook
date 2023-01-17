@@ -10,6 +10,7 @@ interface GBIconProps {
   style?: React.CSSProperties;
   className?: string;
   fontSize?: string | number;
+  id?: string;
 }
 
 const GBIcon = (props: GBIconProps) => {

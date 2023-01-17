@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useRef, useLayoutEffect } from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
@@ -5,8 +6,17 @@ import { CardBack } from "./CardBack";
 // import GBImages from "./GBImages";
 import "./Card.css";
 
-export function DoubleCard({ model, controls }) {
-  const targetRef = useRef();
+import { IGBPlayer, JGBPlayer } from "../models/Root";
+type model = IGBPlayer | JGBPlayer;
+
+export function DoubleCard({
+  model,
+  controls,
+}: {
+  model: model;
+  controls: any;
+}) {
+  const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1.0);
   useLayoutEffect(() => {
     updateSize();
@@ -14,6 +24,9 @@ export function DoubleCard({ model, controls }) {
     return () => window.removeEventListener("resize", updateSize);
   });
   function updateSize() {
+    if (!targetRef.current) {
+      return;
+    }
     let newScale = targetRef.current.getBoundingClientRect().width / 1000;
     setScale(newScale);
   }
@@ -59,13 +72,15 @@ export function DoubleCard({ model, controls }) {
       {controls ? (
         <div
           style={{
-            position: "absolute",
+            width: "100%",
+            height: "100%",
+            // position: "absolute",
             // top: "0px",
-            left: "0px",
-            width: "500px",
-            height: "700px",
-            transform: `scale(${scale})`,
-            transformOrigin: "top left",
+            // left: "0px",
+            // width: "500px",
+            // height: "700px",
+            // transform: `scale(${scale})`,
+            // transformOrigin: "top left",
           }}
         >
           {controls?.({ model })}
@@ -75,8 +90,8 @@ export function DoubleCard({ model, controls }) {
   );
 }
 
-export function FlipCard({ model, controls }) {
-  const targetRef = useRef();
+export function FlipCard({ model, controls }: { model: model; controls: any }) {
+  const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1.0);
   useLayoutEffect(() => {
     updateSize();
@@ -84,6 +99,9 @@ export function FlipCard({ model, controls }) {
     return () => window.removeEventListener("resize", updateSize);
   });
   function updateSize() {
+    if (!targetRef.current) {
+      return;
+    }
     let newScale = targetRef.current.getBoundingClientRect().width / 500;
     setScale(newScale);
   }
@@ -102,7 +120,7 @@ export function FlipCard({ model, controls }) {
       ref={targetRef}
       className="flip-card"
       onClick={() => {
-        targetRef.current.classList.toggle("flipped");
+        targetRef.current?.classList.toggle("flipped");
       }}
     >
       <div className="flip-card-inner">
@@ -127,7 +145,8 @@ export function FlipCard({ model, controls }) {
               // transformOrigin: "top left",
             }}
           >
-            {controls?.({ model, scale: 1/scale})}
+            {/* {controls?.({ model, scale: 1 / scale })} */}
+            {controls?.({ model })}
           </div>
         ) : null}
         <CardBack

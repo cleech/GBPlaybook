@@ -468,7 +468,7 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
   );
 };
 
-function CardControls({ model, scale }: { model: model, scale: number }) {
+function CardControls({ model }: { model: model }) {
   return (
     <Paper
       elevation={2}
@@ -480,7 +480,7 @@ function CardControls({ model, scale }: { model: model, scale: number }) {
         right: "0",
         bottom: "0",
         // transform: `scale(${scale ?? 1})`,
-        transformOrigin: "bottom right",
+        // transformOrigin: "bottom right",
       }}
     >
       <HealthCounter model={model} />
