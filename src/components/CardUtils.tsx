@@ -1,10 +1,8 @@
 import React from "react";
 import reactStringReplace from "react-string-replace";
-// import { PBIcon } from "./GBIcon";
 import { PB } from "./GBIcon";
-export { textIconReplace };
 
-function textIconReplace(text) {
+export const textIconReplace = (text: string | Array<string>) => {
   let replacedtext = reactStringReplace(
     text,
     /\(◉(.*?)\)/g,
@@ -75,7 +73,6 @@ function textIconReplace(text) {
                 justifyContent: "center",
               }}
             >
-              {/* {/* <PBIcon */}
               <PB
                 icon={
                   match
@@ -112,4 +109,4 @@ function textIconReplace(text) {
   );
 
   return <>{replacedtext}</>;
-}
+};
