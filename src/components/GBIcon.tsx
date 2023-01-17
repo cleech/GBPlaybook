@@ -1,12 +1,21 @@
+import React from "react";
 import "./GBIcon.css";
 
 import playbookDefs from "../assets/playbook-symbol-defs.svg";
 import gbDefs from "../assets/gb-symbol-defs.svg";
 
-const GBIcon = (props) => {
+interface GBIconProps {
+  icon?: string;
+  size?: string | number;
+  style?: React.CSSProperties;
+  className?: string;
+  fontSize?: string | number;
+}
+
+const GBIcon = (props: GBIconProps) => {
   const { icon, size, style, className, ...otherProps } = props;
 
-  const computedStyle = {
+  const computedStyle: React.CSSProperties = {
     ...(style || {}),
     ...(size ? { width: size, height: size } : {}),
     ...(style && style.height ? { fontSize: style.height } : {}),
@@ -24,11 +33,17 @@ const GBIcon = (props) => {
 };
 export default GBIcon;
 
-const PB = (props) => {
+interface PBProps {
+  icon: string;
+  size?: string;
+  style?: React.CSSProperties;
+}
+
+const PB = (props: PBProps) => {
   const { icon, size, style } = props;
   const i = icon.replace(/</g, "D").replace(/>/g, "P");
 
-  const computedStyle = {
+  const computedStyle: React.CSSProperties = {
     ...(size ? { width: size, height: size } : {}),
     ...(style && style.height ? { fontSize: style.height } : {}),
     ...(props.style || {}),
