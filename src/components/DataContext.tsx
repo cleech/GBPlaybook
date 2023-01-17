@@ -9,9 +9,25 @@ import React, {
 import { observer } from "mobx-react-lite";
 import { useStore } from "../models/Root";
 
-const DataContext = createContext();
+interface DataContextProps {
+  loading: boolean;
+  manifest: any;
+  data: any;
+  version: string;
+}
 
-export const DataProvider = observer(({ children }) => {
+const DataContext = createContext<DataContextProps>({
+  loading: false,
+  manifest: null,
+  data: null,
+  version: "0",
+});
+
+interface DataProviderProps {
+  children: React.ReactNode;
+}
+
+export const DataProvider = observer(({ children }: DataProviderProps) => {
   const [loading, setLoading] = useState(true);
   const [manifest, setManifest] = useState(null);
   const [data, setData] = useState(null);
@@ -26,7 +42,7 @@ export const DataProvider = observer(({ children }) => {
     setLoading(true);
     const manifest = await readManifest();
     setManifest(manifest);
-    var filename;
+    var filename: string;
     if (settings.dataSet) {
       // filename = manifest.datafiles.find((d) => d.filename === settings.dataSet).filename;
       filename = settings.dataSet;
@@ -34,7 +50,9 @@ export const DataProvider = observer(({ children }) => {
       filename = manifest.datafiles[0].filename;
       settings.setDataSet(filename);
     }
-    setVersion(manifest.datafiles.find((d) => d.filename === filename).version);
+    setVersion(
+      manifest.datafiles.find((d: any) => d.filename === filename).version
+    );
     setData(await readFile(filename));
     setLoading(false);
   }, [settings]);
@@ -67,7 +85,7 @@ const readManifest = async () => {
   return manifest;
 };
 
-const readFile = async (filename) => {
+const readFile = async (filename: string) => {
   let result = await fetch(`data/${filename}`, {
     headers: {
       "Content-Type": "application/json",
