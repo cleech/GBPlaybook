@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useRef, useLayoutEffect } from "react";
+import { min } from "lodash";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 // import { useData } from "./DataContext";
@@ -27,8 +28,11 @@ export function DoubleCard({
     if (!targetRef.current) {
       return;
     }
-    let newScale = targetRef.current.getBoundingClientRect().width / 1000;
-    setScale(newScale);
+    let { width, height } = targetRef.current.getBoundingClientRect();
+    let vertScale = width / 1000;
+    let horiScale = height / 700;
+    let newScale = min([vertScale, horiScale, 1]);
+    setScale(newScale ?? 1);
   }
 
   // const { data, loading } = useData();
@@ -45,52 +49,58 @@ export function DoubleCard({
       ref={targetRef}
       style={{
         width: "100%",
-        maxWidth: "1000px",
-        aspectRatio: 10 / 7,
-        display: "flex",
-        flexDirection: "row",
-        // backgroundImage: model.gbcp ? `url(${GBImages[model.id]})` : undefined,
-        // backgroundSize: "contain",
+        height: "100%",
       }}
     >
-      <CardFront
-        model={model}
+      <div
         style={{
-          "--scale": scale,
-          borderTopRightRadius: 0,
-          borderBottomRightRadius: 0,
+          width: `${1000 * scale}px`,
+          // height: `${700 * scale}px`,
+          aspectRatio: 10 / 7,
+          display: "flex",
+          flexDirection: "row",
         }}
-      />
-      <CardBack
-        model={model}
-        style={{
-          "--scale": scale,
-          borderTopLeftRadius: 0,
-          borderBottomLeftRadius: 0,
-        }}
-      />
-      {controls ? (
-        <div
+      >
+        <CardFront
+          model={model}
           style={{
-            width: "100%",
-            height: "100%",
-            // position: "absolute",
-            // top: "0px",
-            // left: "0px",
-            // width: "500px",
-            // height: "700px",
-            // transform: `scale(${scale})`,
-            // transformOrigin: "top left",
+            "--scale": scale,
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 0,
           }}
-        >
-          {controls?.({ model })}
-        </div>
-      ) : null}
+        />
+        <CardBack
+          model={model}
+          style={{
+            "--scale": scale,
+            borderTopLeftRadius: 0,
+            borderBottomLeftRadius: 0,
+          }}
+        />
+        {controls ? (
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              // position: "absolute",
+              // top: "0px",
+              // left: "0px",
+              // width: "500px",
+              // height: "700px",
+              // transform: `scale(${scale})`,
+              // transformOrigin: "top left",
+            }}
+          >
+            {controls?.({ model })}
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }
 
 export function FlipCard({ model, controls }: { model: model; controls: any }) {
+  const layoutRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1.0);
   useLayoutEffect(() => {
@@ -99,11 +109,14 @@ export function FlipCard({ model, controls }: { model: model; controls: any }) {
     return () => window.removeEventListener("resize", updateSize);
   });
   function updateSize() {
-    if (!targetRef.current) {
+    if (!layoutRef.current) {
       return;
     }
-    let newScale = targetRef.current.getBoundingClientRect().width / 500;
-    setScale(newScale);
+    let { width, height } = layoutRef.current.getBoundingClientRect();
+    let vertScale = width / 500;
+    let horiScale = height / 700;
+    let newScale = min([vertScale, horiScale, 1]);
+    setScale(newScale ?? 1);
   }
 
   // const { data, loading } = useData();
@@ -116,48 +129,56 @@ export function FlipCard({ model, controls }: { model: model; controls: any }) {
   // }
 
   return (
-    <div
-      ref={targetRef}
-      className="flip-card"
-      onClick={() => {
-        targetRef.current?.classList.toggle("flipped");
-      }}
-    >
-      <div className="flip-card-inner">
-        <CardFront
-          className="flip-card-front"
-          model={model}
-          style={{
-            // maxWidth: "2.5in",
-            // "--scale": "calc(2.5 * 96 / 500)",
-            "--scale": scale,
-          }}
-        />
-        {controls ? (
-          <div
+    <div ref={layoutRef} style={{ width: "100%", height: "100%" }}>
+      <div
+        ref={targetRef}
+        className="flip-card"
+        style={{
+          width: `${500 * scale}px`,
+          // height: `${700 * scale}px`,
+          aspectRatio: 5 / 7,
+          // display: "flex",
+        }}
+        onClick={() => {
+          targetRef.current?.classList.toggle("flipped");
+        }}
+      >
+        <div className="flip-card-inner">
+          <CardFront
             className="flip-card-front"
+            model={model}
             style={{
-              width: "100%",
-              height: "100%",
-              // width: "500px",
-              // height: "700px",
-              // transform: `scale(${scale})`,
-              // transformOrigin: "top left",
+              // maxWidth: "2.5in",
+              // "--scale": "calc(2.5 * 96 / 500)",
+              "--scale": scale,
             }}
-          >
-            {/* {controls?.({ model, scale: 1 / scale })} */}
-            {controls?.({ model })}
-          </div>
-        ) : null}
-        <CardBack
-          className="flip-card-back"
-          model={model}
-          style={{
-            // maxWidth: "2.5in",
-            // "--scale": "calc(2.5 * 96 / 500)",
-            "--scale": scale,
-          }}
-        />
+          />
+          {controls ? (
+            <div
+              className="flip-card-front"
+              style={{
+                width: "100%",
+                height: "100%",
+                // width: "500px",
+                // height: "700px",
+                // transform: `scale(${scale})`,
+                // transformOrigin: "top left",
+              }}
+            >
+              {/* {controls?.({ model, scale: 1 / scale })} */}
+              {controls?.({ model })}
+            </div>
+          ) : null}
+          <CardBack
+            className="flip-card-back"
+            model={model}
+            style={{
+              // maxWidth: "2.5in",
+              // "--scale": "calc(2.5 * 96 / 500)",
+              "--scale": scale,
+            }}
+          />
+        </div>
       </div>
     </div>
   );
