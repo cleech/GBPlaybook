@@ -31,6 +31,7 @@ const breadCrumbNameMap: { [key: string]: string | JSX.Element } = {
   "/game/draft": "Draft",
   "/game/draft/play": "Play",
   "/library": "Library",
+  "/settings": "Settings",
 };
 
 function PathBreadCrumbs() {
@@ -145,28 +146,27 @@ function App() {
               </ListItemText>
             </ListItem>
             <Divider />
-            <ListItem
-              disablePadding
+            <ListItemButton
+              href={gamePlayRoute}
               selected={location.pathname.startsWith("/game")}
+              onClick={() => setDrawer(false)}
             >
-              <ListItemButton
-                href={gamePlayRoute}
-                onClick={() => setDrawer(false)}
-              >
-                <ListItemText>GamePlay</ListItemText>
-              </ListItemButton>
-            </ListItem>
-            <ListItem
-              disablePadding
+              <ListItemText>GamePlay</ListItemText>
+            </ListItemButton>
+            <ListItemButton
+              href={libraryRoute}
               selected={location.pathname.startsWith("/library")}
+              onClick={() => setDrawer(false)}
             >
-              <ListItemButton
-                href={libraryRoute}
-                onClick={() => setDrawer(false)}
-              >
-                <ListItemText>Library</ListItemText>
-              </ListItemButton>
-            </ListItem>
+              <ListItemText>Library</ListItemText>
+            </ListItemButton>
+            <ListItemButton
+              href={"#/settings"}
+              selected={location.pathname.startsWith("/settings")}
+              onClick={() => setDrawer(false)}
+            >
+              <ListItemText>Settings</ListItemText>
+            </ListItemButton>
           </List>
           <Divider />
           <List>
@@ -185,7 +185,15 @@ function App() {
                   component="a"
                   href="https://www.longshanks.org/systems/guildball/tools/documents/rules/rules_s4.pdf"
                 >
-                  Core Rules
+                  Season 4 Core Rules
+                </Link>
+              </ListItem>
+              <ListItem disablePadding>
+                <Link
+                  component="a"
+                  href="https://www.longshanks.org/systems/guildball/tools/documents/rules/faq_s4_20191220.pdf"
+                >
+                  Season 4 FAQ
                 </Link>
               </ListItem>
               <ListItem disablePadding>

@@ -8,6 +8,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
 import GamePlay, { TeamSelect, Draft, Game } from "./routes/gameplay";
 import Library, { GuildList, Roster } from "./routes/library";
+import Settings from "./routes/settings";
 
 import { DataProvider } from "./components/DataContext";
 import {
@@ -38,6 +39,7 @@ rootStorePersist().then(() =>
                   <Route index element={<GuildList />} />
                   <Route path=":guild" element={<Roster />} />
                 </Route>
+                <Route path="settings" element={<Settings />} />
               </Route>
             </Routes>
           </HashRouter>
