@@ -122,23 +122,20 @@ const HealthBoxes = ({ model }: { model: model }) => (
   <Observer>
     {() => (
       <div className="health">
-        {[...Array(model.hp).keys()].map(
-          (key) =>
-            model.health && (
-              <div
-                className={`health-box ${
-                  key + 1 > model.health ? "damaged" : ""
-                }`}
-                key={key}
-              >
-                {(key === 0 && <GBIcon icon="skull" size={17} />) ||
-                  (key + 1 === model.recovery && (
-                    <GBIcon icon="bandage" size={22} />
-                  )) ||
-                  (key + 1 === model.hp && key + 1)}
-              </div>
-            )
-        )}
+        {[...Array(model.hp).keys()].map((key) => (
+          <div
+            className={`health-box ${
+              key + 1 > (model.health ?? model.hp) ? "damaged" : ""
+            }`}
+            key={key}
+          >
+            {(key === 0 && <GBIcon icon="skull" size={17} />) ||
+              (key + 1 === model.recovery && (
+                <GBIcon icon="bandage" size={22} />
+              )) ||
+              (key + 1 === model.hp && key + 1)}
+          </div>
+        ))}
       </div>
     )}
   </Observer>
