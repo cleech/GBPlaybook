@@ -1,28 +1,37 @@
-import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  Link,
   Outlet,
   useParams,
   useNavigate,
   useSearchParams,
   useLocation,
+  useOutletContext,
 } from "react-router-dom";
 
 import { useDimensionsRef } from "rooks";
 import _ from "lodash";
 
-import { Box, Card, Chip, useTheme, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Chip,
+  useTheme,
+  useMediaQuery,
+  Typography,
+  Breadcrumbs,
+  Link,
+} from "@mui/material";
 
 import type { Swiper as SwiperRef } from "swiper";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import "swiper/css";
 
 import { useData } from "../components/DataContext";
-import GBIcon from "../components/GBIcon";
 import { FlipCard, DoubleCard } from "../components/Card";
 
 import { GuildGrid } from "../components/GuildGrid";
 import { useStore, IGBPlayer, IGBTeam } from "../models/Root";
+import { AppBarContent } from "../App";
+import { NavigateNext } from "@mui/icons-material";
 
 export default function Library() {
   const location = useLocation();
@@ -49,11 +58,18 @@ export default function Library() {
 export function GuildList() {
   const navigate = useNavigate();
   return (
-    <GuildGrid
-      pickTeam={(guild) => {
-        navigate(guild);
-      }}
-    />
+    <>
+      <AppBarContent>
+        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+          <Typography>Library</Typography>
+        </Breadcrumbs>
+      </AppBarContent>
+      <GuildGrid
+        pickTeam={(guild) => {
+          navigate(guild);
+        }}
+      />
+    </>
   );
 }
 
@@ -92,6 +108,14 @@ export function Roster() {
   const g = data.Guilds.find((g: any) => g.name === guild);
   return (
     <>
+      <AppBarContent>
+        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+          <Link underline="hover" color="inherit" href={"/library"}>
+            Library
+          </Link>
+          <Typography>{g.name}</Typography>
+        </Breadcrumbs>
+      </AppBarContent>
       <Swiper
         // ref={ref}
         onSwiper={setSwiper}

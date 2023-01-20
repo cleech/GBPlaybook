@@ -9,7 +9,10 @@ import {
   MenuItem,
   FormControl,
   SelectChangeEvent,
+  Breadcrumbs,
 } from "@mui/material";
+
+import { AppBarContent } from "../App";
 
 const Settings = () => {
   const { loading, manifest } = useData();
@@ -22,11 +25,15 @@ const Settings = () => {
 
   return (
     <main style={{}}>
+      <AppBarContent>
+        <Breadcrumbs>
+          <Typography>Settings</Typography>
+        </Breadcrumbs>
+      </AppBarContent>
       <Typography variant="h6">
         GB Playbook {process.env.REACT_APP_VERSION}
       </Typography>
       <Divider sx={{ my: 2 }} />
-
       <Typography>Season and Erratra Version:</Typography>
       <Observer>
         {() => (
@@ -47,7 +54,6 @@ const Settings = () => {
         )}
       </Observer>
       <Divider sx={{ my: 2 }} />
-
       <Typography>Initial Screen:</Typography>
       <Observer>
         {() => (

@@ -1,12 +1,6 @@
-import * as React from "react";
+import React from "react";
 import { useCallback, useState, useRef, useLayoutEffect } from "react";
-import {
-  Outlet,
-  Link,
-  useSearchParams,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Outlet, useSearchParams, useLocation } from "react-router-dom";
 import {
   Button,
   Divider,
@@ -16,6 +10,9 @@ import {
   useMediaQuery,
   useTheme,
   Paper,
+  Link,
+  Breadcrumbs,
+  IconButton,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../components/GuildGrid";
@@ -39,6 +36,9 @@ import "swiper/css/virtual";
 import Color from "color";
 
 import "./Draft.css";
+
+import { Home, NavigateNext } from "@mui/icons-material";
+import { AppBarContent } from "../App";
 
 function SelectedIcon({
   team,
@@ -193,7 +193,7 @@ function GameControls(
           color="secondary"
           disabled={!team1 || !team2}
           component={Link}
-          to={{ pathname: "/game/draft", search: `?p1=${team1}&p2=${team2}` }}
+          href={`/game/draft/?p1=${team1}&p2=${team2}`}
           sx={{ margin: "0 15px" }}
         >
           <PlayArrowIcon />
@@ -263,11 +263,21 @@ export default function GamePlay() {
   );
 }
 
-export const TeamSelect = () => <GuildGrid controls={GameControls} />;
+export const TeamSelect = () => (
+  <>
+    <AppBarContent>
+      <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+        <IconButton disabled>
+          <Home sx={{ color: "text.secondary" }} />
+        </IconButton>
+      </Breadcrumbs>
+    </AppBarContent>
+    <GuildGrid controls={GameControls} />
+  </>
+);
 
 export const Draft = () => {
   const store = useStore();
-  const navigate = useNavigate();
   const [team1, setTeam1] = useState<roster | undefined>(undefined);
   const [team2, setTeam2] = useState<roster | undefined>(undefined);
   const ready1 = useCallback((team: roster) => setTeam1(team), []);
@@ -293,6 +303,14 @@ export const Draft = () => {
 
   return (
     <div className="DraftScreen">
+      <AppBarContent>
+        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+          <Link color="inherit" href={"/game"} component={IconButton}>
+            <Home />
+          </Link>
+          <Typography>Draft</Typography>
+        </Breadcrumbs>
+      </AppBarContent>
       <DraftList1
         guild={guild1}
         ready={ready1}
@@ -306,8 +324,9 @@ export const Draft = () => {
         onClick={() => {
           store.team1.reset({ name: g1 ?? undefined, roster: team1 });
           store.team2.reset({ name: g2 ?? undefined, roster: team2 });
-          navigate("/game/draft/play");
         }}
+        component={Link}
+        href="/game/draft/play"
         style={{ margin: "10px" }}
       >
         <PlayArrowIcon />
@@ -338,6 +357,21 @@ export const Game = () => {
         flexDirection: "row",
       }}
     >
+      <AppBarContent>
+        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+          <Link color="inherit" href={"/game"} component={IconButton}>
+            <Home />
+          </Link>
+          <Link
+            underline="hover"
+            color="inherit"
+            href={`/game/draft?p1=${teams[0].name}&p2=${teams[1].name}`}
+          >
+            Draft
+          </Link>
+          <Typography>Play</Typography>
+        </Breadcrumbs>
+      </AppBarContent>
       {large ? (
         <>
           <GameList teams={[teams[0]]} />

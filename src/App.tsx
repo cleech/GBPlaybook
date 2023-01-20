@@ -1,4 +1,10 @@
-import React from "react";
+import React, {
+  createContext,
+  forwardRef,
+  ReactNode,
+  useContext,
+  useState,
+} from "react";
 import "./App.css";
 
 import {
@@ -12,70 +18,48 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "@mui/material/Drawer";
-import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import { Box, Breadcrumbs } from "@mui/material";
+import { Box, Portal } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Home, NavigateNext } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
 import { CssBaseline } from "@mui/material";
 import { useStore } from "./models/Root";
 import _ from "lodash";
 
-const breadCrumbNameMap: { [key: string]: string | JSX.Element } = {
-  "/game": <Home />,
-  "/game/draft": "Draft",
-  "/game/draft/play": "Play",
-  "/library": "Library",
-  "/settings": "Settings",
+const AppBarContext = createContext<HTMLElement | null>(null);
+
+export const AppBarContent = (props: { children?: ReactNode }) => {
+  const containerRef = useContext(AppBarContext);
+  return <Portal container={containerRef}>{props.children}</Portal>;
 };
 
-function PathBreadCrumbs() {
-  const location = useLocation();
-  const pathnames = location.pathname.split("/").filter((x) => x);
-  return (
-    <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-      {pathnames.map((pathComponent, index) => {
-        const last = index === pathnames.length - 1;
-        const to = `/${pathnames.slice(0, index + 1).join("/")}`;
-        return last ? (
-          <Typography color="text.primary" key={to}>
-            {breadCrumbNameMap[to] || pathComponent}
-          </Typography>
-        ) : (
-          <Link underline="hover" color="inherit" key={to} href={to}>
-            {breadCrumbNameMap[to] || pathComponent}
-          </Link>
-        );
-      })}
-    </Breadcrumbs>
-  );
-}
-
-function MyAppBar(props: any) {
-  return (
-    <AppBar position="static">
-      <Toolbar variant="dense">
-        <Box>
-          <PathBreadCrumbs />
-        </Box>
-        <div style={{ flexGrow: 1 }} />
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          onClick={props.onClick}
-        >
-          <MenuIcon />
-        </IconButton>
-      </Toolbar>
-    </AppBar>
-  );
-}
+const MyAppBar = forwardRef((props: any, ref) => (
+  <AppBar position="static">
+    <Toolbar variant="dense">
+      <Box
+        ref={ref}
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          width: "100%",
+          mr: "12px",
+        }}
+      />
+      <IconButton
+        size="large"
+        edge="start"
+        color="inherit"
+        onClick={props.onClick}
+      >
+        <MenuIcon />
+      </IconButton>
+    </Toolbar>
+  </AppBar>
+));
 
 const LinkBehavior = React.forwardRef<
   HTMLAnchorElement,
@@ -91,17 +75,12 @@ const darkTheme = createTheme({
     mode: "dark",
     primary: {
       main: "#3d708f",
-      // main: "#3399FF",
     },
     secondary: {
       main: "#ffb300",
     },
     background: {
       default: "#121a22",
-      // default: 'rgb(15%, 20%, 25%)',
-      // paper: 'rgb(15%, 20%, 25%)',
-      // paper: "#344556",
-      // paper: "#121212",
     },
   },
   components: {
@@ -118,8 +97,9 @@ const darkTheme = createTheme({
   },
 });
 
-function App() {
-  const [drawer, setDrawer] = React.useState(false);
+const App = () => {
+  const [drawer, setDrawer] = useState(false);
+  const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
   const { gamePlayRoute, libraryRoute } = useStore();
   const location = useLocation();
 
@@ -127,7 +107,10 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <div className="App">
-        <MyAppBar onClick={() => setDrawer(true)} />
+        <MyAppBar
+          ref={(el: HTMLElement) => setContainer(el)}
+          onClick={() => setDrawer(true)}
+        />
         <Drawer
           anchor="right"
           open={drawer}
@@ -234,10 +217,12 @@ function App() {
             </nav>
           </List>
         </Drawer>
-        <Outlet />
+        <AppBarContext.Provider value={appBarContainer}>
+          <Outlet />
+        </AppBarContext.Provider>
       </div>
     </ThemeProvider>
   );
-}
+};
 
 export default App;
