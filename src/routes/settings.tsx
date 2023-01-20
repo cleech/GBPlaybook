@@ -44,8 +44,8 @@ const Settings = () => {
                 settings.setDataSet(event.target.value);
               }}
             >
-              {manifest.datafiles.map((dataSet: any) => (
-                <MenuItem value={dataSet.filename}>
+              {manifest.datafiles.map((dataSet: any, index: number) => (
+                <MenuItem value={dataSet.filename} key={index}>
                   {`[${dataSet.version}] ${dataSet.description}`}
                 </MenuItem>
               ))}
