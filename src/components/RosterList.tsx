@@ -11,7 +11,6 @@ import {
   ButtonGroup,
   Button,
   Box,
-  Divider,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -112,21 +111,23 @@ export function HealthCounter({ model }: { model: model }) {
         justifyContent: "center",
       }}
     >
-      <Observer>
-        {() => (
-          <Typography>
-            {`${String(model.health).padStart(2, "0")} / ${String(
-              model.hp
-            ).padStart(2, "0")}`}
-          </Typography>
-        )}
-      </Observer>
       <ButtonGroup size="small" variant="contained">
         <Button {...longPressDown} onClick={(e) => e.stopPropagation()}>
-          <MinusIcon fontSize="inherit" style={{ pointerEvents: "none" }} />
+          <MinusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
+        </Button>
+        <Button disabled>
+          <Observer>
+            {() => (
+              <Typography variant="body2" color="text.primary">
+                {`${String(model.health).padStart(2, "0")} / ${String(
+                  model.hp
+                ).padStart(2, "0")}`}
+              </Typography>
+            )}
+          </Observer>
         </Button>
         <Button {...longPressUp} onClick={(e) => e.stopPropagation()}>
-          <PlusIcon fontSize="inherit" style={{ pointerEvents: "none" }} />
+          <PlusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
         </Button>
       </ButtonGroup>
     </div>
@@ -160,6 +161,7 @@ export default function RosterList({
               backgroundColor: "transparent",
             }}
             disableGutters={true}
+            elevation={0}
           >
             <AccordionSummary
               sx={{
@@ -226,9 +228,16 @@ export default function RosterList({
             >
               <List
                 key={index}
-                dense
+                // dense
                 disablePadding
-                style={{ width: "100%", maxHeight: "inherit" }}
+                // style={{ width: "100%", maxHeight: "inherit" }}
+                sx={{
+                  "&.MuiList-root": {
+                    "> :nth-child(odd)": {
+                      backgroundColor: "rgba(100%, 100%, 100%, 5%)",
+                    },
+                  },
+                }}
               >
                 {team.roster.map((m: model, index: number) => (
                   <ListItem
@@ -240,7 +249,7 @@ export default function RosterList({
                   >
                     <ListItemText
                       primary={m.displayName}
-                      secondary={m.statLine}
+                      // secondary={m.statLine}
                     />
                   </ListItem>
                 ))}
