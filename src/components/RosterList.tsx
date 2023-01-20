@@ -170,7 +170,7 @@ export default function RosterList({
                 zIndex: 1,
                 padding: 0,
                 borderBottom: `1px solid ${theme.palette.divider}`,
-                "& .MuiAccordionSummary-content": {
+                ".MuiAccordionSummary-content": {
                   margin: 0,
                 },
               }}
@@ -232,8 +232,8 @@ export default function RosterList({
                 disablePadding
                 // style={{ width: "100%", maxHeight: "inherit" }}
                 sx={{
-                  "&.MuiList-root": {
-                    "> :nth-child(odd)": {
+                  "li:nth-of-type(odd)": {
+                    "&.MuiListItem-root": {
                       backgroundColor: "rgba(100%, 100%, 100%, 5%)",
                     },
                   },

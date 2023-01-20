@@ -152,6 +152,7 @@ export function Roster() {
               style={{
                 display: "flex",
                 alignItems: "center",
+                justifyContent: "center",
               }}
             >
               {large ? (

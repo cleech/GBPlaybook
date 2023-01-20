@@ -49,14 +49,19 @@ export function DoubleCard({
       ref={targetRef}
       style={{
         width: "100%",
+        maxWidth: "1000px",
         height: "100%",
+        maxHeight: "700px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       <div
         style={{
           width: `${1000 * scale}px`,
-          // height: `${700 * scale}px`,
-          aspectRatio: 10 / 7,
+          height: `${700 * scale}px`,
+          // aspectRatio: 10 / 7,
           display: "flex",
           flexDirection: "row",
         }}
@@ -129,14 +134,25 @@ export function FlipCard({ model, controls }: { model: model; controls: any }) {
   // }
 
   return (
-    <div ref={layoutRef} style={{ width: "100%", height: "100%" }}>
+    <div
+      ref={layoutRef}
+      style={{
+        width: "100%",
+        maxWidth: "500px",
+        height: "100%",
+        maxHeight: "700px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <div
         ref={targetRef}
         className="flip-card"
         style={{
           width: `${500 * scale}px`,
-          // height: `${700 * scale}px`,
-          aspectRatio: 5 / 7,
+          height: `${700 * scale}px`,
+          // aspectRatio: 5 / 7,
           // display: "flex",
         }}
         onClick={() => {
