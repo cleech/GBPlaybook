@@ -305,7 +305,11 @@ export const Draft = () => {
     <div className="DraftScreen">
       <AppBarContent>
         <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-          <Link color="inherit" href={"/game"} component={IconButton}>
+          <Link
+            color="inherit"
+            href={`/game?p1=${g1}&p2=${g2}`}
+            component={IconButton}
+          >
             <Home />
           </Link>
           <Typography>Draft</Typography>
@@ -359,7 +363,11 @@ export const Game = () => {
     >
       <AppBarContent>
         <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-          <Link color="inherit" href={"/game"} component={IconButton}>
+          <Link
+            color="inherit"
+            href={`/game?p1=${teams[0].name}&p2=${teams[1].name}`}
+            component={IconButton}
+          >
             <Home />
           </Link>
           <Link
