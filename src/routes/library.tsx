@@ -38,7 +38,7 @@ export default function Library() {
   const { setLibraryRoute } = useStore();
 
   useEffect(() => {
-    setLibraryRoute(`#${location.pathname}${location.search}`);
+    setLibraryRoute(`${location.pathname}${location.search}`);
   }, [location]);
 
   return (

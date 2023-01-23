@@ -1,4 +1,3 @@
-// import localforage from "localforage";
 import { types, Instance, applySnapshot, SnapshotIn } from "mobx-state-tree";
 import { persist } from "mst-persist";
 import localForage from "localforage";
@@ -120,10 +119,8 @@ const RootModel = types
     team1: types.optional(GBTeam, {}),
     team2: types.optional(GBTeam, {}),
     settings: types.optional(Settings, {}),
-    gamePlayRoute: types.optional(types.string, "#/game"),
-    libraryRoute: types.optional(types.string, "#/library"),
-    gameStack: types.array(types.string),
-    libraryStack: types.array(types.string),
+    gamePlayRoute: types.optional(types.string, "/game"),
+    libraryRoute: types.optional(types.string, "/library"),
   })
   .views((self) => ({
     get draftReady() {
@@ -137,20 +134,14 @@ const RootModel = types
     setLibraryRoute(route: string) {
       self.libraryRoute = route;
     },
-    gameStackPush(route: string) {
-      self.gameStack.push(route);
-    },
-    gameStackPop() {
-      return self.gameStack.pop();
-    },
   }));
 
 let initialState = RootModel.create({
   team1: { name: "", score: 0, momentum: 0 },
   team2: { name: "", score: 0, momentum: 0 },
   settings: { colorScheme: "dark" },
-  gamePlayRoute: "#/game",
-  libraryRoute: "#/library",
+  gamePlayRoute: "/game",
+  libraryRoute: "/library",
 });
 
 export const rootStore = initialState;

@@ -11,6 +11,7 @@ import {
   Outlet,
   Link as RouterLink,
   LinkProps as RouterLinkProps,
+  NavLink,
 } from "react-router-dom";
 import Link, { LinkProps } from "@mui/material/Link";
 import AppBar from "@mui/material/AppBar";
@@ -112,6 +113,24 @@ const darkTheme = createTheme({
   },
 });
 
+const DrawerNavigationButton = (props: {
+  to: string;
+  onClick?: any;
+  children?: React.ReactNode;
+}) => {
+  return (
+    <NavLink
+      to={props.to}
+      style={{ textDecoration: "inherit", color: "inherit" }}
+      onClick={props.onClick}
+    >
+      {({ isActive }) => (
+        <ListItemButton selected={isActive}>{props.children}</ListItemButton>
+      )}
+    </NavLink>
+  );
+};
+
 const App = () => {
   const [drawer, setDrawer] = useState(false);
   const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
@@ -145,41 +164,36 @@ const App = () => {
               </ListItemText>
             </ListItem>
             <Divider />
-            <ListItemButton
-              href={gamePlayRoute}
-              selected={location.pathname.startsWith("/game")}
+            <DrawerNavigationButton
+              to={gamePlayRoute}
               onClick={() => setDrawer(false)}
             >
-              <ListItemText>GamePlay</ListItemText>
-            </ListItemButton>
-            <ListItemButton
-              href={libraryRoute}
-              selected={location.pathname.startsWith("/library")}
+              <ListItemText>Game Play</ListItemText>
+            </DrawerNavigationButton>
+            <DrawerNavigationButton
+              to={libraryRoute}
               onClick={() => setDrawer(false)}
             >
               <ListItemText>Library</ListItemText>
-            </ListItemButton>
-            <ListItemButton
-              href={"#/settings"}
-              selected={location.pathname.startsWith("/settings")}
+            </DrawerNavigationButton>
+            <DrawerNavigationButton
+              to={"/settings"}
               onClick={() => setDrawer(false)}
             >
               <ListItemText>Settings</ListItemText>
-            </ListItemButton>
+            </DrawerNavigationButton>
           </List>
           <Divider />
           <List>
             <ListItem>
               <ListItemText>Experimental Tools:</ListItemText>
             </ListItem>
-
-            <ListItemButton
-              href={"#/print"}
-              selected={location.pathname.startsWith("/print")}
+            <DrawerNavigationButton
+              to={"/print"}
               onClick={() => setDrawer(false)}
             >
               <ListItemText>Card Printer</ListItemText>
-            </ListItemButton>
+            </DrawerNavigationButton>
           </List>
 
           <Divider />

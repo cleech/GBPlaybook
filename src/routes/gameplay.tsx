@@ -239,14 +239,10 @@ function GameControls(
 
 export default function GamePlay() {
   const location = useLocation();
-  const { setGamePlayRoute, gameStackPush, gameStackPop } = useStore();
+  const { setGamePlayRoute } = useStore();
 
   React.useEffect(() => {
-    setGamePlayRoute(`#${location.pathname}${location.search}`);
-    // gameStackPush(`#${location.pathname}${location.search}`);
-    // return () => {
-    //   let _old = gameStackPop();
-    // };
+    setGamePlayRoute(`${location.pathname}${location.search}`);
   }, [location]);
 
   return (
