@@ -186,15 +186,28 @@ export default function RosterList({
                 }}
               >
                 <ListItemIcon sx={{ alignItems: "center" }}>
-                  <GBIcon
-                    icon={team.name}
-                    size={36}
+                  <div
                     style={{
-                      color: theme.palette.text.secondary,
-                      // disable filter effects from icon specific CSS
-                      filter: "unset",
+                      fontSize: 36,
+                      width: "1em",
+                      height: "1em",
+                      overflow: "visible",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
-                  />
+                  >
+                    <GBIcon
+                      icon={team.name}
+                      // fontSize={36}
+                      style={{
+                        color: theme.palette.text.secondary,
+                        // disable filter effects from icon specific CSS
+                        filter: "unset",
+                        flexShrink: 0,
+                      }}
+                    />
+                  </div>
                 </ListItemIcon>
                 <ListItemText
                   primary={team.name}
