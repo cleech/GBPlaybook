@@ -7,7 +7,7 @@
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
-    "@mui/material": "^5.8.6",
+    "@mui/material": "^5.11.5",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -74,7 +74,7 @@
   },
   "devDependencies": {
     "@types/color": "^3.0.3",
-    "gh-pages": "^4.0.0",
+    "gh-pages": "^5.0.0",
     "patch-package": "^6.4.7",
     "postinstall-postinstall": "^2.1.0",
     "stylelint": "^14.9.1",
