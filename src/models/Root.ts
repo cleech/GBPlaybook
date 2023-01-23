@@ -100,7 +100,7 @@ const Settings = types
   .model({
     colorScheme: types.maybe(types.enumeration(["dark", "light"])),
     dataSet: types.maybe(types.string),
-    initialScreen: types.optional(types.string, "Game Play"),
+    initialScreen: types.optional(types.string, "/game"),
   })
   .actions((self) => ({
     setColorScheme(scheme: any) {

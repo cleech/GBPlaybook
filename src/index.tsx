@@ -24,32 +24,33 @@ import {
 } from "./models/Root";
 import { CardPrintScreen } from "./routes/print";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
-
-const router = createHashRouter(
-  createRoutesFromElements(
-    <>
-      <Route path="/" element={<Navigate to="/game" replace />} />
-      <Route element={<App />}>
-        <Route element={<GamePlay />}>
-          <Route path="game" element={<TeamSelect />} />
-          <Route path="game/draft" element={<Draft />} />
-          <Route path="game/draft/play" element={<Game />} />
+rootStorePersist().then(() => {
+  const router = createHashRouter(
+    createRoutesFromElements(
+      <>
+        <Route
+          path="/"
+          element={<Navigate to={rootStore.settings.initialScreen} replace />}
+        />
+        <Route element={<App />}>
+          <Route element={<GamePlay />}>
+            <Route path="game" element={<TeamSelect />} />
+            <Route path="game/draft" element={<Draft />} />
+            <Route path="game/draft/play" element={<Game />} />
+          </Route>
+          <Route path="library" element={<Library />}>
+            <Route index element={<GuildList />} />
+            <Route path=":guild" element={<Roster />} />
+          </Route>
+          <Route path="settings" element={<Settings />} />
+          <Route path="print" element={<CardPrintScreen />} />
         </Route>
-        <Route path="library" element={<Library />}>
-          <Route index element={<GuildList />} />
-          <Route path=":guild" element={<Roster />} />
-        </Route>
-        <Route path="settings" element={<Settings />} />
-        <Route path="print" element={<CardPrintScreen />} />
-      </Route>
-    </>
-  )
-);
-
-rootStorePersist().then(() =>
+      </>
+    )
+  );
+  const root = ReactDOM.createRoot(
+    document.getElementById("root") as HTMLElement
+  );
   root.render(
     <React.StrictMode>
       <RootStoreProvider value={rootStore}>
@@ -58,8 +59,8 @@ rootStorePersist().then(() =>
         </DataProvider>
       </RootStoreProvider>
     </React.StrictMode>
-  )
-);
+  );
+});
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

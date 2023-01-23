@@ -64,8 +64,8 @@ const Settings = () => {
                 settings.setInitialScreen(event.target.value);
               }}
             >
-              <MenuItem value="game">Game Play</MenuItem>
-              <MenuItem value="library">Card Library</MenuItem>
+              <MenuItem value="/game">Game Play</MenuItem>
+              <MenuItem value="/library">Card Library</MenuItem>
             </Select>
           </FormControl>
         )}
