@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  forwardRef,
-  ReactNode,
-  useContext,
-  useState,
-} from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 import "./App.css";
 
 import {
@@ -135,7 +129,6 @@ const App = () => {
   const [drawer, setDrawer] = useState(false);
   const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
   const { gamePlayRoute, libraryRoute } = useStore();
-  const location = useLocation();
 
   return (
     <ThemeProvider theme={darkTheme}>

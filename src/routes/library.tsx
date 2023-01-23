@@ -8,9 +8,6 @@ import {
   useLocation,
 } from "react-router-dom";
 
-// import { useDimensionsRef } from "rooks";
-// import _ from "lodash";
-
 import {
   Box,
   Chip,
@@ -39,7 +36,7 @@ export default function Library() {
 
   useEffect(() => {
     setLibraryRoute(`${location.pathname}${location.search}`);
-  }, [location]);
+  }, [location, setLibraryRoute]);
 
   return (
     <main
@@ -173,7 +170,7 @@ function SwiperButtons(props: {
   roster: IGBPlayer[];
   swiper: SwiperRef | null;
 }) {
-  const { data, loading } = useData();
+  const { data } = useData();
   const { roster, swiper } = props;
   return (
     <div

@@ -50,7 +50,7 @@ interface GuildGridProps {
 }
 
 export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
-  const [ref, dimensions, _node] = useDimensionsRef();
+  const [ref, dimensions] = useDimensionsRef();
   const { data, loading } = useData();
   const [size, setSize] = useState(0);
 
@@ -105,7 +105,7 @@ export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
   );
 }
 
-export function GuildGridInner({ dimensions, pickTeam, controls, size }: any) {
+export function GuildGridInner({ dimensions, pickTeam, size }: any) {
   const { data, loading } = useData();
   if (loading || !dimensions) {
     return null;

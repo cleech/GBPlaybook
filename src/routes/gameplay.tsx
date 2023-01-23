@@ -243,7 +243,7 @@ export default function GamePlay() {
 
   React.useEffect(() => {
     setGamePlayRoute(`${location.pathname}${location.search}`);
-  }, [location]);
+  }, [location, setGamePlayRoute]);
 
   return (
     <main
@@ -281,7 +281,7 @@ export const Draft = () => {
   const unready1 = useCallback(() => setTeam1(undefined), []);
   const unready2 = useCallback(() => setTeam2(undefined), []);
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const { data, loading } = useData();
   if (loading) {

@@ -10,7 +10,6 @@ import { useMutationObserverRef } from "rooks";
 import { CardFront, GBCardCSS } from "../components/CardFront";
 import { CardBack } from "../components/CardBack";
 import GBIcon from "../components/GBIcon";
-import GBImages from "../components/GBImages";
 
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
