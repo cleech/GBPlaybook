@@ -20,7 +20,7 @@ interface CardFrontProps {
 }
 
 export interface GBCardCSS extends CSSProperties {
-  "--scale": number;
+  "--scale": number | string;
   "--gbcp-color"?: string;
   "--mom-border-color"?: string;
   "--mom-color"?: string;

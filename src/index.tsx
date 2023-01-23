@@ -22,6 +22,7 @@ import {
   rootStorePersist,
   Provider as RootStoreProvider,
 } from "./models/Root";
+import { CardPrintScreen } from "./routes/print";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -42,6 +43,7 @@ const router = createHashRouter(
           <Route path=":guild" element={<Roster />} />
         </Route>
         <Route path="settings" element={<Settings />} />
+        <Route path="print" element={<CardPrintScreen />} />
       </Route>
     </>
   )

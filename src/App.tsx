@@ -36,8 +36,11 @@ export const AppBarContent = (props: { children?: ReactNode }) => {
   return <Portal container={containerRef}>{props.children}</Portal>;
 };
 
-const MyAppBar = forwardRef((props: any, ref) => (
-  <AppBar position="static">
+const MyAppBar = React.forwardRef<
+  HTMLElement,
+  { onClick: React.MouseEventHandler }
+>((props, ref) => (
+  <AppBar position="static" className="no-print">
     <Toolbar variant="dense">
       <Box
         ref={ref}
@@ -83,6 +86,19 @@ const darkTheme = createTheme({
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          background:
+            "linear-gradient(20deg, black, #121a22, #1d506f, #121a22, black)",
+        },
+        "@media print": {
+          body: {
+            background: "white",
+          },
+        },
+      },
+    },
     MuiLink: {
       defaultProps: {
         component: LinkBehavior,
@@ -151,6 +167,21 @@ const App = () => {
               <ListItemText>Settings</ListItemText>
             </ListItemButton>
           </List>
+          <Divider />
+          <List>
+            <ListItem>
+              <ListItemText>Experimental Tools:</ListItemText>
+            </ListItem>
+
+            <ListItemButton
+              href={"#/print"}
+              selected={location.pathname.startsWith("/print")}
+              onClick={() => setDrawer(false)}
+            >
+              <ListItemText>Card Printer</ListItemText>
+            </ListItemButton>
+          </List>
+
           <Divider />
           <List>
             <ListItem>

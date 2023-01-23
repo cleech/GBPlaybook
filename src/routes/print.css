@@ -1,0 +1,120 @@
+/* .App,
+.Main {
+  text-align: center;
+} */
+
+/* header { */
+.controls {
+  display: flex;
+  flex-direction: row;
+  /* background-color: #282c34; */
+  /* color: white; */
+}
+
+.guild {
+  box-sizing: initial;
+  display: inline-flex;
+  justify-content: space-between;
+  background-image: linear-gradient(
+    to right,
+    transparent 1em,
+    black 1em,
+    var(--guild-color) 4em,
+    var(--guild-color) 5em,
+    black calc(100% - 1em),
+    transparent calc(100% - 1em)
+  );
+  text-shadow: 0.1em 0.1em 0.1em black;
+}
+
+.guild::after {
+  width: 0.25em;
+  border-left: 0.75em solid black;
+  border-top: 1em solid transparent;
+  border-bottom: 1em solid transparent;
+  display: inline-block;
+  content: "";
+  margin: 0;
+  padding: 0;
+}
+.guild svg {
+  filter: drop-shadow(0px 0px 2px black);
+}
+
+.Cards {
+  display: block;
+}
+
+.Cards .card {
+  display: inline-block;
+  box-sizing: content-box;
+  break-inside: avoid;
+  border: thin solid black;
+  margin: 0.0625in;
+}
+
+.hide {
+  display: none !important;
+}
+
+.model-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+}
+
+.model-checkbox {
+  height: 1.5em;
+  border: 1px solid white;
+  margin: 0.25em;
+  padding: 0.25em;
+  text-shadow: 0.1em 0.1em 0.1em black;
+  background-image: linear-gradient(
+    to right,
+    var(--color1) 10%,
+    var(--color2) 90%
+  );
+}
+
+.model-checkbox {
+  order: var(--major-order);
+}
+.model-checkbox.minor {
+  order: var(--minor-order);
+}
+.model-checkbox:is(.Compound, .Lucky) {
+  order: calc(var(--major-order) + 1);
+}
+
+@media screen {
+  .Cards {
+    overflow-y: scroll;
+  }
+}
+
+@media print {
+  @page {
+    /* size: 5in 3.5in; */
+    /* margin: 0; */
+    size: auto;
+    margin: 0.25in;
+  }
+
+  .no-print {
+    display: none;
+  }
+
+  header {
+    display: none !important;
+  }
+
+  .Cards > .card {
+    display: inline-block;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin: 0.0625in;
+    /* box-sizing: border-box; */
+    /* border: none; */
+  }
+}
