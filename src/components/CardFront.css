@@ -6,6 +6,9 @@
   overflow: hidden;
   --line-width: 1px;
   image-rendering: crisp-edges;
+  -webkit-print-color-adjust: exact;
+  color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 @-moz-document url-prefix() {
