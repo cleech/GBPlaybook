@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 import { AppBarContent } from "../App";
 import { useData } from "../components/DataContext";
 import "./print.css";
@@ -15,8 +15,11 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { Box, IconButton, Divider } from "@mui/material";
-import { Print } from "@mui/icons-material";
+import { Box, Button, IconButton, Divider } from "@mui/material";
+import PrintIcon from "@mui/icons-material/Print";
+import SelectAllIcon from "@mui/icons-material/DoneAll";
+import ClearAllIcon from "@mui/icons-material/RemoveDone";
+import ClearIcon from "@mui/icons-material/Clear";
 
 export const CardPrintScreen = () => {
   const { loading, data } = useData();
@@ -43,21 +46,55 @@ export const CardPrintScreen = () => {
           }}
         >
           <Typography>Card Printer</Typography>
-          <IconButton
-            onClick={() => {
-              window.print();
-            }}
-          >
-            <Print />
-          </IconButton>
+          <Tooltip title="Print">
+            <IconButton
+              onClick={() => {
+                window.print();
+              }}
+            >
+              <PrintIcon />
+            </IconButton>
+          </Tooltip>
         </Box>
       </AppBarContent>
-      <div className="controls no-print">
+
+      <Box className="controls no-print">
         <GuildList />
-        <ModelLists />
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginLeft: "1rem",
+            }}
+          >
+            <Tooltip title="Select All">
+              <IconButton color="primary">
+                <SelectAllIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Clear All">
+              <IconButton color="primary">
+                <ClearAllIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
+          <ModelLists />
+        </div>
+      </Box>
+
+      <Divider sx={{ m: "1rem" }} />
+
+      <div
+        className="no-print"
+        style={{ marginLeft: "1rem", marginRight: "1rem" }}
+      >
+        <Button variant="text" color="primary" startIcon={<ClearIcon />}>
+          Clear Cards
+        </Button>
       </div>
-      <Divider />
-      <div className="Cards">
+
+      <div className="Cards" style={{ padding: "1rem" }}>
         {data.Models.map((m: any) => (
           <Content name={m.id} id={m.id} key={m.id} />
         ))}
@@ -67,8 +104,10 @@ export const CardPrintScreen = () => {
 };
 
 /* minor is never passed in, what was the idea here? */
-const SelectGuild = (props: { name: string; minor?: boolean }) => {
-  const { name, minor } = props;
+// const SelectGuild = (props: { name: string; minor?: boolean }) => {
+const SelectGuild = (guild: any) => {
+  const { name, minor } = guild;
+
   document
     .querySelectorAll(".model-checkbox")
     .forEach((m) => m.classList.add("hide"));
@@ -87,23 +126,22 @@ const SelectGuild = (props: { name: string; minor?: boolean }) => {
     .forEach((m) => m.classList.remove("hide"));
 };
 
-const _GuildList = () => {
+const GuildList = () => {
   const [guild, setGuild] = React.useState<string | undefined>(undefined);
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    setGuild(event.target.value);
-    SelectGuild({ name: event.target.value });
+  const handleChange = (event: SelectChangeEvent<any>) => {
+    setGuild(event.target.value.name);
+    SelectGuild(event.target.value);
   };
   const { data, loading } = useData();
   if (loading) {
     return null;
   }
   return (
-    <FormControl fullWidth>
+    <FormControl size="small" sx={{ m: "1rem" }}>
       <InputLabel>Guild</InputLabel>
       <Select label="Guild" value={guild} onChange={handleChange}>
         {data.Guilds.map((g: any) => (
-          <MenuItem key={g.name} value={g}>
-            {/* {g.name} */}
+          <MenuItem key={g.name} value={g} dense>
             <GuildListItem g={g} />
           </MenuItem>
         ))}
@@ -112,42 +150,46 @@ const _GuildList = () => {
   );
 };
 
-const GuildList = () => {
-  const { data, loading } = useData();
-  if (loading) {
-    return null;
-  }
-  return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "grid",
-        gap: "2px",
-        // gridTemplateColumns: "repeat(4, 1fr)",
-        gridTemplateRows: "repeat(7, 1fr)",
-        gridAutoFlow: "column",
-      }}
-    >
-      {data.Guilds.map((g: any) => (
-        <GuildListItem key={g.name} g={g} />
-      ))}
-    </div>
-  );
-};
+// const GuildList = () => {
+//   const { data, loading } = useData();
+//   if (loading) {
+//     return null;
+//   }
+//   return (
+//     <div
+//       style={{
+//         width: "100%",
+//         height: "100%",
+//         display: "grid",
+//         gap: "2px",
+//         // gridTemplateColumns: "repeat(4, 1fr)",
+//         gridTemplateRows: "repeat(7, 1fr)",
+//         gridAutoFlow: "column",
+//       }}
+//     >
+//       {data.Guilds.map((g: any) => (
+//         <GuildListItem key={g.name} g={g} />
+//       ))}
+//     </div>
+//   );
+// };
 
 const GuildListItem = ({ g }: { g: any }) => {
   return (
     <div
       className="guild"
       key={g.name}
-      onClick={() => {
-        SelectGuild(g);
-      }}
+      // onClick={() => {
+      //   SelectGuild(g);
+      // }}
       style={
         {
           "--guild-color": g.shadow ?? g.color,
-          width: "15em",
+          // width: "15em",
+          width: "100%",
+          // padding: 0,
+          // margin: 0,
+          fontSize: "1rem",
         } as React.CSSProperties
       }
     >
@@ -194,12 +236,12 @@ const DisplayModel = (name: string) => {
   var check = document.getElementById(name + "-check") as HTMLInputElement;
   var card = document.querySelector(`.card#${name}`);
 
-  // card.classList.toggle("hide");
-  if (check?.checked === true) {
-    card?.classList.remove("hide");
-  } else {
-    card?.classList.add("hide");
-  }
+  card?.classList.toggle("hide");
+  // if (check?.checked === true) {
+  //   card?.classList.remove("hide");
+  // } else {
+  //   card?.classList.add("hide");
+  // }
 };
 
 const ModelLists = () => {
@@ -212,9 +254,10 @@ const ModelLists = () => {
       className="model-list-container"
       style={
         {
-          width: "100%",
           "--major-order": 0,
           "--minor-order": 2,
+          marginLeft: "1rem",
+          marginRight: "1rem",
         } as React.CSSProperties
       }
     >

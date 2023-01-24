@@ -3,10 +3,10 @@
   text-align: center;
 } */
 
-/* header { */
 .controls {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
+  flex-direction: column;
   /* background-color: #282c34; */
   /* color: white; */
 }
@@ -19,10 +19,12 @@
     to right,
     transparent 1em,
     black 1em,
-    var(--guild-color) 4em,
-    var(--guild-color) 5em,
+    var(--guild-color) 3em,
+    var(--guild-color) 9em,
+
     black calc(100% - 1em),
     transparent calc(100% - 1em)
+    /* black 100% */
   );
   text-shadow: 0.1em 0.1em 0.1em black;
 }
@@ -37,6 +39,7 @@
   margin: 0;
   padding: 0;
 }
+
 .guild svg {
   filter: drop-shadow(0px 0px 2px black);
 }
@@ -88,8 +91,11 @@
 }
 
 @media screen {
+  main {
+    overflow: hidden;
+  }
   .Cards {
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 }
 
@@ -97,7 +103,7 @@
   @page {
     /* size: 5in 3.5in; */
     /* margin: 0; */
-    size: landscape;
+    /* size: landscape; */
     margin: 0.25in;
   }
 
@@ -107,6 +113,10 @@
 
   header {
     display: none !important;
+  }
+
+  .Cards {
+    padding: 0 !important;
   }
 
   .Cards > .card {
