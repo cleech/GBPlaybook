@@ -26,8 +26,10 @@
       "purpose": "maskable"
     }
   ],
-  "start_url": ".",
+  "scope": "https://cleech.github.io/GBPlaybook/",
+  "start_url": "https://cleech.github.io/GBPlaybook/",
   "display": "standalone",
+  "orientation": "any",
   "theme_color": "#000000",
   "background_color": "#004508"
 }
