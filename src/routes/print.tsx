@@ -1,10 +1,15 @@
 import React from "react";
-import { Tooltip, Typography } from "@mui/material";
+import {
+  ButtonGroup,
+  FormControlLabel,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { AppBarContent } from "../App";
 import { useData } from "../components/DataContext";
 import "./print.css";
 
-import { useState } from "react";
+import { useState, useRef, useImperativeHandle } from "react";
 import { useMutationObserverRef } from "rooks";
 
 import { CardFront, GBCardCSS } from "../components/CardFront";
@@ -15,7 +20,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { Box, Button, IconButton, Divider } from "@mui/material";
+import { Box, Button, IconButton, Divider, Checkbox } from "@mui/material";
 import PrintIcon from "@mui/icons-material/Print";
 import SelectAllIcon from "@mui/icons-material/DoneAll";
 import ClearAllIcon from "@mui/icons-material/RemoveDone";
@@ -23,6 +28,9 @@ import ClearIcon from "@mui/icons-material/Clear";
 
 export const CardPrintScreen = () => {
   const { loading, data } = useData();
+  const ref = useRef<Map<any, any>>(null);
+  const list = useRef<any>(null);
+
   if (loading) {
     return null;
   }
@@ -46,7 +54,7 @@ export const CardPrintScreen = () => {
           }}
         >
           <Typography>Card Printer</Typography>
-          <Tooltip title="Print">
+          <Tooltip title="Print" arrow>
             <IconButton
               onClick={() => {
                 window.print();
@@ -59,46 +67,81 @@ export const CardPrintScreen = () => {
       </AppBarContent>
 
       <Box className="controls no-print">
-        <GuildList />
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              marginLeft: "1rem",
-            }}
+        <GuildList ref={list} />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <ButtonGroup
+            variant="text"
+            orientation="vertical"
+            sx={{ mx: "1rem" }}
           >
-            <Tooltip title="Select All">
-              <IconButton color="primary">
+            <Tooltip title="Select All" arrow>
+              <Button
+                onClick={() => {
+                  ref.current?.forEach((control: any) => {
+                    if (
+                      control.m.guild1 === list.current.guild ||
+                      control.m.guild2 === list.current.guild
+                    ) {
+                      control?.setChecked(true);
+                    }
+                  });
+                }}
+              >
                 <SelectAllIcon />
-              </IconButton>
+              </Button>
             </Tooltip>
-            <Tooltip title="Clear All">
-              <IconButton color="primary">
+            <Tooltip title="Clear All" arrow>
+              <Button
+                onClick={() => {
+                  ref.current?.forEach((control: any) => {
+                    if (
+                      control.m.guild1 === list.current.guild ||
+                      control.m.guild2 === list.current.guild
+                    ) {
+                      control?.setChecked(false);
+                    }
+                  });
+                }}
+              >
                 <ClearAllIcon />
-              </IconButton>
+              </Button>
             </Tooltip>
-          </div>
-          <ModelLists />
-        </div>
+          </ButtonGroup>
+          <ModelLists ref={ref} />
+        </Box>
       </Box>
 
       <Divider sx={{ m: "1rem" }} />
 
-      <div
+      <Box
         className="no-print"
         style={{ marginLeft: "1rem", marginRight: "1rem" }}
       >
-        <Button variant="text" color="primary" startIcon={<ClearIcon />}>
+        <Button
+          variant="text"
+          color="primary"
+          startIcon={<ClearIcon />}
+          onClick={() => {
+            ref.current?.forEach((control: any) => {
+              control?.setChecked(false);
+            });
+          }}
+        >
           Clear Cards
         </Button>
-      </div>
+      </Box>
 
-      <div className="Cards" style={{ padding: "1rem" }}>
+      <Box className="Cards" style={{ padding: "1rem" }}>
         {data.Models.map((m: any) => (
           <Content name={m.id} id={m.id} key={m.id} />
         ))}
-      </div>
+      </Box>
     </main>
   );
 };
@@ -126,8 +169,15 @@ const SelectGuild = (guild: any) => {
     .forEach((m) => m.classList.remove("hide"));
 };
 
-const GuildList = () => {
+const GuildList = React.forwardRef((props, ref) => {
   const [guild, setGuild] = React.useState<string | undefined>(undefined);
+  useImperativeHandle(
+    ref,
+    () => {
+      return { guild };
+    },
+    [guild]
+  );
   const handleChange = (event: SelectChangeEvent<any>) => {
     setGuild(event.target.value.name);
     SelectGuild(event.target.value);
@@ -148,7 +198,7 @@ const GuildList = () => {
       </Select>
     </FormControl>
   );
-};
+});
 
 // const GuildList = () => {
 //   const { data, loading } = useData();
@@ -233,9 +283,8 @@ const GuildListItem = ({ g }: { g: any }) => {
 };
 
 const DisplayModel = (name: string) => {
-  var check = document.getElementById(name + "-check") as HTMLInputElement;
+  // var check = document.getElementById(name + "-check") as HTMLInputElement;
   var card = document.querySelector(`.card#${name}`);
-
   card?.classList.toggle("hide");
   // if (check?.checked === true) {
   //   card?.classList.remove("hide");
@@ -244,13 +293,63 @@ const DisplayModel = (name: string) => {
   // }
 };
 
-const ModelLists = () => {
+const ModelCheckBox = React.forwardRef((props: { m: any }, ref) => {
+  const { data } = useData();
+  const [checked, setChecked] = useState(false);
+  useImperativeHandle(
+    ref,
+    () => {
+      return {
+        m: props.m,
+        checked: checked,
+        setChecked: (value: boolean) => {
+          if (checked !== value) {
+            setChecked(value);
+            DisplayModel(props.m.id);
+          }
+        },
+      };
+    },
+    [props.m, checked]
+  );
+  const m = props.m;
+  const guild1 = data.Guilds.find((g: any) => g.name === m.guild1);
+  const guild2 = data.Guilds.find((g: any) => g.name === m.guild2);
+  return (
+    <FormControlLabel
+      control={<Checkbox checked={checked} size="small" color="warning" />}
+      label={m.id}
+      className={`model-checkbox ${m.guild1} ${m.guild2} ${m.id} hide ${
+        guild1.minor ? "minor" : ""
+      }`}
+      style={
+        {
+          "--color1": guild1.shadow ?? guild1.color + "80",
+          "--color2": guild2
+            ? guild2.shadow ?? guild2.color + "80"
+            : "var(--color1)",
+          // backgroundColor: guild1.shadow ?? guild1.color + "80",
+        } as React.CSSProperties
+      }
+      onChange={() => {
+        setChecked(!checked);
+        DisplayModel(m.id);
+      }}
+    />
+  );
+});
+
+const ModelLists = React.forwardRef<Map<string, any>>((props, ref) => {
   const { data, loading } = useData();
+  const checkboxes = useRef(new Map());
+  React.useImperativeHandle(ref, () => {
+    return checkboxes.current;
+  });
   if (loading) {
     return null;
   }
   return (
-    <div
+    <div // FormControl
       className="model-list-container"
       style={
         {
@@ -261,42 +360,21 @@ const ModelLists = () => {
         } as React.CSSProperties
       }
     >
-      {data.Models.map((m: any) => {
-        const guild1 = data.Guilds.find((g: any) => g.name === m.guild1);
-        const guild2 = data.Guilds.find((g: any) => g.name === m.guild2);
+      {data.Models.map((m: any, index: number) => {
         return (
-          <label
-            className={`model-checkbox ${m.guild1} ${m.guild2} ${m.id} hide ${
-              guild1.minor ? "minor" : ""
-            }`}
+          <ModelCheckBox
+            m={m}
             key={m.id}
-            style={
-              {
-                "--color1": guild1.shadow ?? guild1.color + "80",
-                "--color2": guild2
-                  ? guild2.shadow ?? guild2.color + "80"
-                  : "var(--color1)",
-                // backgroundColor: guild1.shadow ?? guild1.color + "80",
-              } as React.CSSProperties
-            }
-          >
-            <input
-              type="checkbox"
-              name={m.id}
-              id={`${m.id}-check`}
-              key={m.id}
-              onChange={() => DisplayModel(m.id)}
-            />
-            {m.id}
-          </label>
+            ref={(element) => checkboxes.current.set(m.id, element)}
+          />
         );
       })}
     </div>
   );
-};
+});
 
 const Content = (props: { name: string; guild?: string; id: string }) => {
-  const { name, guild, id } = props;
+  const { name, id } = props;
   const { data, loading } = useData();
 
   const [inView, setInView] = useState(false);

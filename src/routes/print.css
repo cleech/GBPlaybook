@@ -21,10 +21,8 @@
     black 1em,
     var(--guild-color) 3em,
     var(--guild-color) 9em,
-
     black calc(100% - 1em),
     transparent calc(100% - 1em)
-    /* black 100% */
   );
   text-shadow: 0.1em 0.1em 0.1em black;
 }
@@ -68,16 +66,20 @@
 }
 
 .model-checkbox {
-  height: 1.5em;
-  border: 1px solid white;
-  margin: 0.25em;
-  padding: 0.25em;
+  /* height: 1.5em; */
+  /* border: 1px solid white; */
+  /* margin: 0.25em; */
+  /* padding: 0.25em; */
   text-shadow: 0.1em 0.1em 0.1em black;
   background-image: linear-gradient(
     to right,
     var(--color1) 10%,
     var(--color2) 90%
   );
+}
+
+.model-checkbox .MuiCheckbox-root {
+  padding: 0;
 }
 
 .model-checkbox {
@@ -126,5 +128,9 @@
     margin: 0.0625in;
     /* box-sizing: border-box; */
     /* border: none; */
+  }
+
+  .MuiTooltip-popper {
+    display: none !important;
   }
 }
