@@ -146,8 +146,6 @@ export const CardPrintScreen = () => {
   );
 };
 
-/* minor is never passed in, what was the idea here? */
-// const SelectGuild = (props: { name: string; minor?: boolean }) => {
 const SelectGuild = (guild: any) => {
   const { name, minor } = guild;
 
@@ -171,25 +169,23 @@ const SelectGuild = (guild: any) => {
 
 const GuildList = React.forwardRef((props, ref) => {
   const [guild, setGuild] = React.useState<string | undefined>(undefined);
-  useImperativeHandle(
-    ref,
-    () => {
-      return { guild };
-    },
-    [guild]
-  );
-  const handleChange = (event: SelectChangeEvent<any>) => {
-    setGuild(event.target.value.name);
-    SelectGuild(event.target.value);
-  };
+
+  useImperativeHandle(ref, () => ({ guild }), [guild]);
+
   const { data, loading } = useData();
   if (loading) {
     return null;
   }
+
+  const handleChange = (event: SelectChangeEvent<any>) => {
+    setGuild(event.target.value.name);
+    SelectGuild(event.target.value);
+  };
+
   return (
     <FormControl size="small" sx={{ m: "1rem" }}>
       <InputLabel>Guild</InputLabel>
-      <Select label="Guild" value={guild} onChange={handleChange}>
+      <Select label="Guild" onChange={handleChange}>
         {data.Guilds.map((g: any) => (
           <MenuItem key={g.name} value={g} dense>
             <GuildListItem g={g} />
@@ -200,60 +196,58 @@ const GuildList = React.forwardRef((props, ref) => {
   );
 });
 
-const GuildListItem = ({ g }: { g: any }) => {
-  return (
-    <div
-      className="guild"
-      key={g.name}
-      style={
-        {
-          "--guild-color": g.shadow ?? g.color,
-          // width: "15em",
-          width: "100%",
-          // padding: 0,
-          // margin: 0,
-          fontSize: "1rem",
-        } as React.CSSProperties
-      }
-    >
-      <span style={{ display: "inline-flex" }}>
-        <div
+const GuildListItem = ({ g }: { g: any }) => (
+  <div
+    className="guild"
+    key={g.name}
+    style={
+      {
+        "--guild-color": g.shadow ?? g.color,
+        // width: "15em",
+        width: "100%",
+        // padding: 0,
+        // margin: 0,
+        fontSize: "1rem",
+      } as React.CSSProperties
+    }
+  >
+    <span style={{ display: "inline-flex" }}>
+      <div
+        style={{
+          backgroundColor: "black",
+          fontSize: "2em",
+          width: "1em",
+          height: "1em",
+          borderRadius: "1em",
+          display: "flex",
+          overflow: "visible",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <GBIcon
+          icon={g.name}
           style={{
-            backgroundColor: "black",
-            fontSize: "2em",
-            width: "1em",
-            height: "1em",
-            borderRadius: "1em",
-            display: "flex",
-            overflow: "visible",
-            alignItems: "center",
-            justifyContent: "center",
+            // FIXME, this is only working if the
+            // svg doesn't have fill color
+            color: g.darkColor ?? g.color,
+            flexShrink: 0,
           }}
-        >
-          <GBIcon
-            icon={g.name}
-            style={{
-              // FIXME, this is only working if the
-              // svg doesn't have fill color
-              color: g.darkColor ?? g.color,
-              flexShrink: 0,
-            }}
-          />
-        </div>
-        <span
-          style={{
-            color: "white",
-            alignSelf: "center",
-            marginLeft: "1em",
-            marginRight: "1em",
-          }}
-        >
-          {g.name}
-        </span>
+        />
+      </div>
+      <span
+        style={{
+          color: "white",
+          alignSelf: "center",
+          marginLeft: "1em",
+          marginRight: "1em",
+        }}
+      >
+        {g.name}
       </span>
-    </div>
-  );
-};
+    </span>
+  </div>
+);
 
 const DisplayModel = (name: string) => {
   // var check = document.getElementById(name + "-check") as HTMLInputElement;
@@ -271,19 +265,17 @@ const ModelCheckBox = React.forwardRef((props: { m: any }, ref) => {
   const [checked, setChecked] = useState(false);
   useImperativeHandle(
     ref,
-    () => {
-      return {
-        m: props.m,
-        checked: checked,
-        setChecked: (value: boolean) => {
-          if (checked !== value) {
-            setChecked(value);
-            DisplayModel(props.m.id);
-          }
-        },
-      };
-    },
-    [props.m, checked]
+    () => ({
+      m: props.m,
+      checked: checked,
+      setChecked: (value: boolean) => {
+        if (checked !== value) {
+          setChecked(value);
+          DisplayModel(props.m.id);
+        }
+      },
+    }),
+    [props.m, checked, setChecked]
   );
   const m = props.m;
   const guild1 = data.Guilds.find((g: any) => g.name === m.guild1);
@@ -315,9 +307,7 @@ const ModelCheckBox = React.forwardRef((props: { m: any }, ref) => {
 const ModelLists = React.forwardRef<Map<string, any>>((props, ref) => {
   const { data, loading } = useData();
   const checkboxes = useRef(new Map());
-  React.useImperativeHandle(ref, () => {
-    return checkboxes.current;
-  });
+  React.useImperativeHandle(ref, () => checkboxes.current, [checkboxes]);
   if (loading) {
     return null;
   }
