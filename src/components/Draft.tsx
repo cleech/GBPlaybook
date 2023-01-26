@@ -1,7 +1,7 @@
 import { useState, useEffect, CSSProperties } from "react";
 import { IGBPlayer } from "../models/Root";
 import { useData } from "../components/DataContext";
-import _ from "lodash";
+import cloneDeep from "lodash.clonedeep";
 import { Badge, Card, Checkbox, FormControlLabel } from "@mui/material";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
@@ -214,7 +214,7 @@ export function DraftList({
 
   let [roster, setRoster] = useState(() => {
     // need to make a deep copy of the roster data
-    let tmpRoster = _.cloneDeep(
+    let tmpRoster = cloneDeep(
       // Models.filter((m) => guild.roster.includes(m.id)),
       guild.roster.map((name: string) =>
         Models.find((m: model) => m.id === name)
@@ -239,8 +239,8 @@ export function DraftList({
   useEffect(() => {
     if (ready) {
       if (listReady) {
-        let team = _.cloneDeep(guild);
-        team.roster = _.cloneDeep(roster.filter((m: model) => m.selected));
+        let team = cloneDeep(guild);
+        team.roster = cloneDeep(roster.filter((m: model) => m.selected));
         listReady(team.roster);
       }
     } else {
@@ -354,7 +354,7 @@ export function BlacksmithDraftList({
 
   let [roster, setRoster] = useState(() => {
     // need to make a deep copy of the roster data
-    let tmpRoster = _.cloneDeep(
+    let tmpRoster = cloneDeep(
       // Models.filter((m) => guild.roster.includes(m.id)),
       guild.roster.map((name: string) =>
         Models.find((m: model) => m.id === name)
@@ -369,8 +369,8 @@ export function BlacksmithDraftList({
 
   useEffect(() => {
     if (ready) {
-      let team = _.cloneDeep(guild);
-      team.roster = _.cloneDeep(roster.filter((m: model) => m.selected));
+      let team = cloneDeep(guild);
+      team.roster = cloneDeep(roster.filter((m: model) => m.selected));
       listReady && listReady(team.roster);
     } else {
       unready && unready();

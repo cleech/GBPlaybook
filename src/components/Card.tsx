@@ -1,6 +1,4 @@
-import React from "react";
-import { useState, useRef, useLayoutEffect } from "react";
-import { min } from "lodash";
+import React, { useState, useRef, useLayoutEffect } from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 // import { useData } from "./DataContext";
@@ -31,7 +29,7 @@ export function DoubleCard({
     let { width, height } = targetRef.current.getBoundingClientRect();
     let vertScale = width / 1000;
     let horiScale = height / 700;
-    let newScale = min([vertScale, horiScale, 1]);
+    let newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
   }
 
@@ -120,7 +118,7 @@ export function FlipCard({ model, controls }: { model: model; controls: any }) {
     let { width, height } = layoutRef.current.getBoundingClientRect();
     let vertScale = width / 500;
     let horiScale = height / 700;
-    let newScale = min([vertScale, horiScale, 1]);
+    let newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
   }
 

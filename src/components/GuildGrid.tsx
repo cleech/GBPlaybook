@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 // import { Link, Outlet, useParams } from "react-router-dom";
 
 import { useDimensionsRef } from "rooks";
-import _ from "lodash";
+// import _ from "lodash";
 
 import { Button, Typography, Divider } from "@mui/material";
 
 import { useData } from "../components/DataContext";
 import GBIcon from "../components/GBIcon";
+
+const maxBy = (data: Array<any>, by: (v: any) => number) =>
+  data.reduce((a, b) => (by(a) >= by(b) ? a : b));
 
 export const itemSize = ({ width, height }: any, count: number, extra = 0) => {
   if (!width || !height) {
@@ -20,7 +23,7 @@ export const itemSize = ({ width, height }: any, count: number, extra = 0) => {
     // const ih = Math.floor((height - h * 10) / h);
     const iw = (width - w * 10) / w;
     // extra 5px is for the divider
-    const ih = (height - (h * 10) - 5) / h;
+    const ih = (height - h * 10 - 5) / h;
     const size = Math.min(iw, ih);
     const margin = (iw - size) / 2;
     return {
@@ -33,9 +36,12 @@ export const itemSize = ({ width, height }: any, count: number, extra = 0) => {
     };
   };
 
-  return _.maxBy(
+  return maxBy(
     // no more guessing, just check every possible layout
-    _.range(1, count + 1).map((n) => layout(n, Math.ceil(count / n) + extra)),
+    // _.range(1, count + 1)
+    Array.from({ length: count }, (_, i) => i + 1).map((n) =>
+      layout(n, Math.ceil(count / n) + extra)
+    ),
     (layout) => layout.size
   );
 };
