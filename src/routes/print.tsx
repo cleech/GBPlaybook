@@ -200,38 +200,11 @@ const GuildList = React.forwardRef((props, ref) => {
   );
 });
 
-// const GuildList = () => {
-//   const { data, loading } = useData();
-//   if (loading) {
-//     return null;
-//   }
-//   return (
-//     <div
-//       style={{
-//         width: "100%",
-//         height: "100%",
-//         display: "grid",
-//         gap: "2px",
-//         // gridTemplateColumns: "repeat(4, 1fr)",
-//         gridTemplateRows: "repeat(7, 1fr)",
-//         gridAutoFlow: "column",
-//       }}
-//     >
-//       {data.Guilds.map((g: any) => (
-//         <GuildListItem key={g.name} g={g} />
-//       ))}
-//     </div>
-//   );
-// };
-
 const GuildListItem = ({ g }: { g: any }) => {
   return (
     <div
       className="guild"
       key={g.name}
-      // onClick={() => {
-      //   SelectGuild(g);
-      // }}
       style={
         {
           "--guild-color": g.shadow ?? g.color,

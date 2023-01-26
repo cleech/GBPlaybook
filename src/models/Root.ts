@@ -123,8 +123,8 @@ const RootModel = types
     libraryRoute: types.optional(types.string, "/library"),
   })
   .views((self) => ({
-    get draftReady() {
-      return self.team1.roster.length && self.team2.roster.length;
+    get resumePossible() {
+      return !!self.team1.roster.length && !!self.team2.roster.length;
     },
   }))
   .actions((self) => ({

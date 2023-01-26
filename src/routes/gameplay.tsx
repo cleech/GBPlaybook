@@ -1,6 +1,11 @@
-import React from "react";
-import { useCallback, useState, useRef, useLayoutEffect } from "react";
-import { Outlet, useSearchParams, useLocation } from "react-router-dom";
+import React, { useCallback, useState, useRef, useLayoutEffect } from "react";
+import {
+  Outlet,
+  useLocation,
+  useSearchParams,
+  unstable_useBlocker,
+  unstable_BlockerFunction,
+} from "react-router-dom";
 import {
   Button,
   Divider,
@@ -13,6 +18,9 @@ import {
   Link,
   Breadcrumbs,
   IconButton,
+  Snackbar,
+  Alert,
+  Box,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../components/GuildGrid";
@@ -259,18 +267,46 @@ export default function GamePlay() {
   );
 }
 
-export const TeamSelect = () => (
-  <>
-    <AppBarContent>
-      <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-        <IconButton disabled>
-          <Home sx={{ color: "text.secondary" }} />
-        </IconButton>
-      </Breadcrumbs>
-    </AppBarContent>
-    <GuildGrid controls={GameControls} />
-  </>
-);
+const ResumeSnackBar = () => {
+  const { resumePossible } = useStore();
+  const [showSnack, setShowSnack] = useState(resumePossible);
+  return (
+    <Snackbar
+      open={showSnack}
+      onClose={() => setShowSnack(false)}
+      autoHideDuration={6000}
+    >
+      <Alert
+        severity="info"
+        action={
+          <Button size="small" href="/game/draft/play">
+            Resume Game
+          </Button>
+        }
+      >
+        There is an existing game that can be resumed.
+      </Alert>
+    </Snackbar>
+  );
+};
+
+export const TeamSelect = () => {
+  return (
+    <>
+      <AppBarContent>
+        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+          <IconButton disabled>
+            <Home sx={{ color: "text.secondary" }} />
+          </IconButton>
+        </Breadcrumbs>
+      </AppBarContent>
+
+      <GuildGrid controls={GameControls} />
+
+      <ResumeSnackBar />
+    </>
+  );
+};
 
 export const Draft = () => {
   const store = useStore();
@@ -298,7 +334,7 @@ export const Draft = () => {
     guild2.name === "Blacksmiths" ? BlacksmithDraftList : DraftList;
 
   return (
-    <div className="DraftScreen">
+    <Box className="DraftScreen">
       <AppBarContent>
         <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
           <Link
@@ -311,6 +347,7 @@ export const Draft = () => {
           <Typography>Draft</Typography>
         </Breadcrumbs>
       </AppBarContent>
+
       <DraftList1
         guild={guild1}
         ready={ready1}
@@ -318,6 +355,7 @@ export const Draft = () => {
         ignoreRules={false}
         style={{ width: "100%" }}
       />
+
       <Fab
         disabled={!team1 || !team2}
         color="secondary"
@@ -331,6 +369,7 @@ export const Draft = () => {
       >
         <PlayArrowIcon />
       </Fab>
+
       <DraftList2
         guild={guild2}
         ready={ready2}
@@ -338,7 +377,9 @@ export const Draft = () => {
         ignoreRules={false}
         style={{ width: "100%" }}
       />
-    </div>
+
+      <ResumeSnackBar />
+    </Box>
   );
 };
 
@@ -347,9 +388,29 @@ export const Game = () => {
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
   const teams = [store.team1, store.team2];
+  const [showSnack, setShowSnack] = useState(false);
+  const [blocked, setBlocked] = useState(false);
+
+  let blocker = unstable_useBlocker(
+    React.useCallback<unstable_BlockerFunction>(
+      (args) => {
+        if (args.nextLocation.pathname.startsWith("/game")) {
+          setShowSnack(true);
+          return true;
+        }
+        return false;
+      },
+      [setShowSnack]
+    )
+  );
+
+  /* useBlocker doesn't seem to work unless some state is updated */
+  React.useEffect(() => {
+    setBlocked(true);
+  }, [blocked, setBlocked]);
 
   return (
-    <div
+    <Box
       style={{
         width: "100%",
         height: "100%",
@@ -376,6 +437,7 @@ export const Game = () => {
           <Typography>Play</Typography>
         </Breadcrumbs>
       </AppBarContent>
+
       {large ? (
         <>
           <GameList teams={[teams[0]]} />
@@ -385,7 +447,24 @@ export const Game = () => {
       ) : (
         <GameList teams={teams} />
       )}
-    </div>
+
+      <Snackbar
+        open={showSnack}
+        onClose={() => setShowSnack(false)}
+        autoHideDuration={5000}
+      >
+        <Alert
+          severity="warning"
+          action={
+            <Button size="small" onClick={blocker.proceed}>
+              Exit Game
+            </Button>
+          }
+        >
+          Making changes to the team selections will reset the game state.
+        </Alert>
+      </Snackbar>
+    </Box>
   );
 };
 
