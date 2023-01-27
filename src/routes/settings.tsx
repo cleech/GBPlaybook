@@ -10,6 +10,7 @@ import {
   FormControl,
   SelectChangeEvent,
   Breadcrumbs,
+  Box,
 } from "@mui/material";
 
 import { AppBarContent } from "../App";
@@ -24,7 +25,7 @@ const Settings = () => {
   }
 
   return (
-    <main style={{}}>
+    <Box component={"main"} sx={{ p: "1rem" }}>
       <AppBarContent>
         <Breadcrumbs>
           <Typography>Settings</Typography>
@@ -70,7 +71,7 @@ const Settings = () => {
           </FormControl>
         )}
       </Observer>
-    </main>
+    </Box>
   );
 };
 

@@ -35,8 +35,9 @@ export const CardPrintScreen = () => {
     return null;
   }
   return (
-    <main
-      style={{
+    <Box
+      component="main"
+      sx={{
         display: "flex",
         flexDirection: "column",
         width: "100%",
@@ -66,23 +67,22 @@ export const CardPrintScreen = () => {
         </Box>
       </AppBarContent>
 
-      <Box className="controls no-print">
+      <Box className="controls no-print" sx={{ p: "1rem" }}>
         <GuildList ref={list} />
         <Box
           sx={{
             display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
+            flexDirection: "column",
+            my: "0.5rem",
           }}
         >
-          <ButtonGroup
-            variant="text"
-            orientation="vertical"
-            sx={{ mx: "1rem" }}
-          >
+          <ButtonGroup variant="text" sx={{ mb: "0.5rem" }}>
             <Tooltip title="Select All" arrow>
               <Button
                 onClick={() => {
+                  if (!list.current.guild) {
+                    return;
+                  }
                   ref.current?.forEach((control: any) => {
                     if (
                       control.m.guild1 === list.current.guild ||
@@ -100,6 +100,9 @@ export const CardPrintScreen = () => {
               <Button
                 onClick={() => {
                   ref.current?.forEach((control: any) => {
+                    if (!list.current.guild) {
+                      return;
+                    }
                     if (
                       control.m.guild1 === list.current.guild ||
                       control.m.guild2 === list.current.guild
@@ -115,34 +118,29 @@ export const CardPrintScreen = () => {
           </ButtonGroup>
           <ModelLists ref={ref} />
         </Box>
+        <Divider />
+        <Box>
+          <Button
+            variant="text"
+            color="primary"
+            startIcon={<ClearIcon />}
+            onClick={() => {
+              ref.current?.forEach((control: any) => {
+                control?.setChecked(false);
+              });
+            }}
+          >
+            Clear Cards
+          </Button>
+        </Box>
       </Box>
 
-      <Divider sx={{ m: "1rem" }} />
-
-      <Box
-        className="no-print"
-        style={{ marginLeft: "1rem", marginRight: "1rem" }}
-      >
-        <Button
-          variant="text"
-          color="primary"
-          startIcon={<ClearIcon />}
-          onClick={() => {
-            ref.current?.forEach((control: any) => {
-              control?.setChecked(false);
-            });
-          }}
-        >
-          Clear Cards
-        </Button>
-      </Box>
-
-      <Box className="Cards" style={{ padding: "1rem" }}>
+      <Box className="Cards">
         {data.Models.map((m: any) => (
           <Content name={m.id} id={m.id} key={m.id} />
         ))}
       </Box>
-    </main>
+    </Box>
   );
 };
 
@@ -183,7 +181,7 @@ const GuildList = React.forwardRef((props, ref) => {
   };
 
   return (
-    <FormControl size="small" sx={{ m: "1rem" }}>
+    <FormControl size="small">
       <InputLabel>Guild</InputLabel>
       <Select label="Guild" onChange={handleChange}>
         {data.Guilds.map((g: any) => (
@@ -203,10 +201,7 @@ const GuildListItem = ({ g }: { g: any }) => (
     style={
       {
         "--guild-color": g.shadow ?? g.color,
-        // width: "15em",
         width: "100%",
-        // padding: 0,
-        // margin: 0,
         fontSize: "1rem",
       } as React.CSSProperties
     }
@@ -250,9 +245,9 @@ const GuildListItem = ({ g }: { g: any }) => (
 );
 
 const DisplayModel = (name: string) => {
-  // var check = document.getElementById(name + "-check") as HTMLInputElement;
   var card = document.querySelector(`.card#${name}`);
   card?.classList.toggle("hide");
+  // var check = document.getElementById(name + "-check") as HTMLInputElement;
   // if (check?.checked === true) {
   //   card?.classList.remove("hide");
   // } else {
@@ -282,6 +277,11 @@ const ModelCheckBox = React.forwardRef((props: { m: any }, ref) => {
   const guild2 = data.Guilds.find((g: any) => g.name === m.guild2);
   return (
     <FormControlLabel
+      sx={{
+        border: 1,
+        borderRadius: 1,
+        borderColor: "primary.main",
+      }}
       control={<Checkbox checked={checked} size="small" color="warning" />}
       label={m.id}
       className={`model-checkbox ${m.guild1} ${m.guild2} ${m.id} hide ${
@@ -312,14 +312,12 @@ const ModelLists = React.forwardRef<Map<string, any>>((props, ref) => {
     return null;
   }
   return (
-    <div // FormControl
+    <Box
       className="model-list-container"
       style={
         {
           "--major-order": 0,
           "--minor-order": 2,
-          marginLeft: "1rem",
-          marginRight: "1rem",
         } as React.CSSProperties
       }
     >
@@ -332,7 +330,7 @@ const ModelLists = React.forwardRef<Map<string, any>>((props, ref) => {
           />
         );
       })}
-    </div>
+    </Box>
   );
 });
 
