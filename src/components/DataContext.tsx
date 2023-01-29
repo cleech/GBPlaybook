@@ -9,17 +9,19 @@ import React, {
 import { observer } from "mobx-react-lite";
 import { useStore } from "../models/Root";
 
+import DataFile, { Manifest } from "./DataContext.d";
+
 interface DataContextProps {
   loading: boolean;
-  manifest: any;
-  data: any;
+  manifest?: Manifest;
+  data?: DataFile;
   version: string;
 }
 
 const DataContext = createContext<DataContextProps>({
   loading: false,
-  manifest: null,
-  data: null,
+  manifest: undefined,
+  data: undefined,
   version: "0",
 });
 
@@ -29,8 +31,8 @@ interface DataProviderProps {
 
 export const DataProvider = observer(({ children }: DataProviderProps) => {
   const [loading, setLoading] = useState(true);
-  const [manifest, setManifest] = useState(null);
-  const [data, setData] = useState(null);
+  const [manifest, setManifest] = useState(undefined);
+  const [data, setData] = useState(undefined);
   const [version, setVersion] = useState("");
 
   const settings = useStore().settings;
@@ -51,7 +53,9 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
       settings.setDataSet(filename);
     }
     setVersion(
-      manifest.datafiles.find((d: any) => d.filename === filename).version
+      manifest.datafiles.find(
+        (d: typeof manifest.datafiles[0]) => d.filename === filename
+      ).version
     );
     setData(await readFile(filename));
     setLoading(false);

@@ -20,9 +20,9 @@ const Settings = () => {
   const store = useStore();
   const settings = store.settings;
 
-  if (loading) {
-    return null;
-  }
+  // if (loading) {
+  //   return null;
+  // }
 
   return (
     <Box component={"main"} sx={{ p: "1rem" }}>
@@ -45,7 +45,7 @@ const Settings = () => {
                 settings.setDataSet(event.target.value);
               }}
             >
-              {manifest.datafiles.map((dataSet: any, index: number) => (
+              {manifest?.datafiles.map((dataSet: any, index: number) => (
                 <MenuItem value={dataSet.filename} key={index}>
                   {`[${dataSet.version}] ${dataSet.description}`}
                 </MenuItem>

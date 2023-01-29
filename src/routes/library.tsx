@@ -99,10 +99,13 @@ export function Roster() {
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
   const { data, loading } = useData();
-  if (loading) {
+  if (loading || !data) {
     return null;
   }
   const g = data.Guilds.find((g: any) => g.name === guild);
+  if (!g) {
+    return null;
+  }
   return (
     <>
       <AppBarContent>
@@ -139,6 +142,9 @@ export function Roster() {
       >
         {g.roster.map((m: string, index: number) => {
           const model = data.Models.find((m2: any) => m2.id === m);
+          if (!model) {
+            return null;
+          }
           // if (GBImages[`${model.id}_gbcp_front`]) {
           //   model.gbcp = true;
           // }
@@ -153,15 +159,15 @@ export function Roster() {
               }}
             >
               {large ? (
-                <DoubleCard model={model} controls={undefined} />
+                <DoubleCard model={model as any} controls={undefined} />
               ) : (
-                <FlipCard model={model} controls={undefined} />
+                <FlipCard model={model as any} controls={undefined} />
               )}
             </SwiperSlide>
           );
         })}
       </Swiper>
-      <SwiperButtons roster={g.roster} swiper={swiper} />
+      <SwiperButtons roster={g.roster as any} swiper={swiper} />
     </>
   );
 }
@@ -172,6 +178,9 @@ function SwiperButtons(props: {
 }) {
   const { data } = useData();
   const { roster, swiper } = props;
+  if (!data) {
+    return null;
+  }
   return (
     <div
       style={{
@@ -192,6 +201,7 @@ function SwiperButtons(props: {
       >
         {roster.map((m, index) => {
           const model = data.Models.find((m2: any) => m2.id === m);
+          if (!model) { return null }
           return (
             <Chip
               color="primary"

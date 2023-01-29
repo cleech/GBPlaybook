@@ -9,6 +9,7 @@ import "./CardFront.css";
 import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
+import { Guild, Model } from "./DataContext.d";
 import { IGBPlayer, JGBPlayer } from "../models/Root";
 type model = JGBPlayer | IGBPlayer;
 
@@ -47,16 +48,18 @@ const CardFront = (props: CardFrontProps) => {
   // }
 
   const { data, loading } = useData();
-  if (loading) {
+  if (loading || !data) {
     return null;
   }
 
-  /* FIXME, need a type def for guild JSON */
   const guild = data.Guilds.find(
-    (g: any) => g.name === (props.guild ?? model.guild1)
+    (g) => g.name === (props.guild ?? model.guild1)
   );
-  const guild1 = data.Guilds.find((g: any) => g.name === model.guild1);
-  const guild2 = data.Guilds.find((g: any) => g.name === model.guild2);
+  const guild1 = data.Guilds.find((g) => g.name === model.guild1);
+  const guild2 = data.Guilds.find((g) => g.name === model.guild2);
+  if (!guild1 || !guild) {
+    return null;
+  }
 
   // const image = GBImages[key + "_gbcp_front"] || GBImages[key + "_front"];
   const image = GBImages[key + "_front"];
@@ -99,7 +102,7 @@ const CardFront = (props: CardFrontProps) => {
   );
 };
 
-const NamePlate = ({ model, guild }: { model: model; guild: any }) => (
+const NamePlate = ({ model, guild }: { model: model; guild: Guild }) => (
   <div className="name-plate">
     <div className="guild-icon">
       <GBIcon id="guild-icon" icon={guild.name} />
@@ -211,7 +214,7 @@ function CPName({ text }: { text: string }) {
 
 const CharacterPlays = ({ model }: { model: model }) => {
   const { data, loading } = useData();
-  if (loading) {
+  if (loading || !data) {
     return null;
   }
   const CPlays = data["Character Plays"];
@@ -226,7 +229,10 @@ const CharacterPlays = ({ model }: { model: model }) => {
       <span>SUS</span>
       <span>OPT</span>
       {model.character_plays?.map((key) => {
-        const cp = CPlays.find((cp: any) => cp.name === key);
+        const cp = CPlays.find((cp) => cp.name === key);
+        if (!cp) {
+          return null;
+        }
         return (
           <React.Fragment key={key}>
             <CPName text={cp.name} />

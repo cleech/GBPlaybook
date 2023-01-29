@@ -58,10 +58,13 @@ function SelectedIcon({
   focused: boolean;
 }) {
   const { data, loading } = useData();
-  if (loading) {
+  if (loading || !data) {
     return null;
   }
   const guild = data.Guilds.find((g: any) => g.name === team);
+  if (!guild) {
+    return null;
+  }
   return (
     <div
       style={{
@@ -320,13 +323,17 @@ export const Draft = () => {
   const [searchParams] = useSearchParams();
 
   const { data, loading } = useData();
-  if (loading) {
+  if (loading || !data) {
     return null;
   }
   const g1 = searchParams.get("p1");
   const g2 = searchParams.get("p2");
   const guild1 = data.Guilds.find((g: any) => g.name === g1);
   const guild2 = data.Guilds.find((g: any) => g.name === g2);
+
+  if (!guild1 || !guild2) {
+    return null;
+  }
 
   const DraftList1 =
     guild1.name === "Blacksmiths" ? BlacksmithDraftList : DraftList;

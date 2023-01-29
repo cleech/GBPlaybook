@@ -66,10 +66,10 @@ export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
 
   useEffect(() => {
     if (!loading && dimensions)
-      setSize(itemSize(dimensions, data.Guilds.length, 1)?.size ?? 0);
+      setSize(itemSize(dimensions, data?.Guilds.length ?? 0, 1)?.size ?? 0);
   }, [data, dimensions, loading]);
 
-  if (loading) {
+  if (loading || !data) {
     return null;
   }
 
@@ -113,7 +113,7 @@ export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
 
 export function GuildGridInner({ dimensions, pickTeam, size }: any) {
   const { data, loading } = useData();
-  if (loading || !dimensions) {
+  if (loading || !data || !dimensions) {
     return null;
   }
 

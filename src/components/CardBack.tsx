@@ -40,9 +40,16 @@ const CardBack = (props: CardBackProps) => {
   // }, [targetRef.current]);
 
   const { data } = useData();
+  if (!data) {
+    return null;
+  }
+
   const guild = data.Guilds.find(
-    (g: any) => g.name === (props.guild ?? model.guild1)
+    (g) => g.name === (props.guild ?? model.guild1)
   );
+  if (!guild) {
+    return null;
+  }
 
   // const image = GBImages[key + "_gbcp_back"] || GBImages[key + "_back"];
   const image = GBImages[key + "_back"];
@@ -115,7 +122,7 @@ function CTName({ text }: { text: string }) {
 
 const CharacterTraits = ({ model }: { model: model }) => {
   const { data, loading } = useData();
-  if (loading) {
+  if (loading || !data) {
     return null;
   }
   const Traits = data["Character Traits"];
@@ -126,9 +133,10 @@ const CharacterTraits = ({ model }: { model: model }) => {
         <span>Traits</span>
       </div>
       {model.character_traits?.map((key, index) => {
-        const ct = Traits.find(
-          (ct: any) => ct.name === key.replace(/ \[.*\]/, "")
-        );
+        const ct = Traits.find((ct) => ct.name === key.replace(/ \[.*\]/, ""));
+        if (!ct) {
+          return null;
+        }
         return (
           <div className="character-trait" key={`${key}-${index}`}>
             <div className={`trait ${ct.active && "active"}`}>

@@ -8,6 +8,8 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import { CheckCircleTwoTone as Check } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 
+// import { Guild } from './DataContext.d';
+
 export interface model extends IGBPlayer {
   selected: boolean;
   disabled: number;
@@ -180,7 +182,7 @@ export function DraftList({
   style,
 }: DraftListProps) {
   const { data } = useData();
-  const Models = data.Models;
+  const Models = data?.Models;
 
   const onSwitch = (model: model, value: boolean) => {
     model.selected = value;
@@ -216,9 +218,7 @@ export function DraftList({
     // need to make a deep copy of the roster data
     let tmpRoster = cloneDeep(
       // Models.filter((m) => guild.roster.includes(m.id)),
-      guild.roster.map((name: string) =>
-        Models.find((m: model) => m.id === name)
-      )
+      guild.roster.map((name: string) => Models?.find((m) => m.id === name))
     );
     // and add UI state
     tmpRoster.forEach((m: model) => {
@@ -247,6 +247,10 @@ export function DraftList({
       unready && unready();
     }
   }, [ready, guild, roster, listReady, unready]);
+
+  if (!data) {
+    return null;
+  }
 
   let captains = roster.filter((m: model) => m.captain);
   let mascots = roster.filter((m: model) => m.mascot && !m.captain);
@@ -320,7 +324,7 @@ export function BlacksmithDraftList({
   style,
 }: DraftListProps) {
   const { data } = useData();
-  const Models = data.Models;
+  const Models = data?.Models;
 
   const onSwitch = (model: model, value: boolean) => {
     model.selected = value;
@@ -356,9 +360,7 @@ export function BlacksmithDraftList({
     // need to make a deep copy of the roster data
     let tmpRoster = cloneDeep(
       // Models.filter((m) => guild.roster.includes(m.id)),
-      guild.roster.map((name: string) =>
-        Models.find((m: model) => m.id === name)
-      )
+      guild.roster.map((name: string) => Models?.find((m) => m.id === name))
     );
     // and add UI state
     tmpRoster.forEach((m: model) => {
@@ -376,6 +378,10 @@ export function BlacksmithDraftList({
       unready && unready();
     }
   }, [ready, guild, roster, listReady, unready]);
+
+  if (!data) {
+    return null;
+  }
 
   let masters = roster.filter((m: model) => m.captain);
   let apprentices = roster.filter((m: model) => !m.captain);

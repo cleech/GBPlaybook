@@ -31,7 +31,7 @@ export const CardPrintScreen = () => {
   const ref = useRef<Map<any, any>>(null);
   const list = useRef<any>(null);
 
-  if (loading) {
+  if (loading || !data) {
     return null;
   }
   return (
@@ -171,7 +171,7 @@ const GuildList = React.forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({ guild }), [guild]);
 
   const { data, loading } = useData();
-  if (loading) {
+  if (loading || !data) {
     return null;
   }
 
@@ -272,9 +272,16 @@ const ModelCheckBox = React.forwardRef((props: { m: any }, ref) => {
     }),
     [props.m, checked, setChecked]
   );
+
+  if (!data) {
+    return null;
+  }
   const m = props.m;
   const guild1 = data.Guilds.find((g: any) => g.name === m.guild1);
   const guild2 = data.Guilds.find((g: any) => g.name === m.guild2);
+  if (!guild1) {
+    return null;
+  }
   return (
     <FormControlLabel
       sx={{
@@ -308,7 +315,7 @@ const ModelLists = React.forwardRef<Map<string, any>>((props, ref) => {
   const { data, loading } = useData();
   const checkboxes = useRef(new Map());
   React.useImperativeHandle(ref, () => checkboxes.current, [checkboxes]);
-  if (loading) {
+  if (loading || !data) {
     return null;
   }
   return (
@@ -348,10 +355,13 @@ const Content = (props: { name: string; guild?: string; id: string }) => {
   };
   const [ref] = useMutationObserverRef(callback);
 
-  if (loading) {
+  if (loading || !data) {
     return null;
   }
   const model = data.Models.find((m: any) => m.id === name);
+  if (!model) {
+    return null;
+  }
 
   //   if (GBImages[`${model.id}_gbcp_front`]) {
   //     model.gbcp = true;
@@ -374,7 +384,7 @@ const Content = (props: { name: string; guild?: string; id: string }) => {
       {inView && (
         <>
           <CardFront
-            model={model}
+            model={model as any}
             style={
               {
                 width: "2.5in",
@@ -384,7 +394,7 @@ const Content = (props: { name: string; guild?: string; id: string }) => {
             }
           />
           <CardBack
-            model={model}
+            model={model as any}
             style={
               {
                 width: "2.5in",
