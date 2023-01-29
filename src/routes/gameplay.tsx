@@ -57,8 +57,8 @@ function SelectedIcon({
   size: number;
   focused: boolean;
 }) {
-  const { data, loading } = useData();
-  if (loading || !data) {
+  const { data } = useData();
+  if (!data) {
     return null;
   }
   const guild = data.Guilds.find((g: any) => g.name === team);
@@ -322,8 +322,8 @@ export const Draft = () => {
 
   const [searchParams] = useSearchParams();
 
-  const { data, loading } = useData();
-  if (loading || !data) {
+  const { data } = useData();
+  if (!data) {
     return null;
   }
   const g1 = searchParams.get("p1");

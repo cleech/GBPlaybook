@@ -121,8 +121,8 @@ function CTName({ text }: { text: string }) {
 }
 
 const CharacterTraits = ({ model }: { model: model }) => {
-  const { data, loading } = useData();
-  if (loading || !data) {
+  const { data } = useData();
+  if (!data) {
     return null;
   }
   const Traits = data["Character Traits"];

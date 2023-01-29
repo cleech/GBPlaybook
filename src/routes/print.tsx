@@ -27,11 +27,11 @@ import ClearAllIcon from "@mui/icons-material/RemoveDone";
 import ClearIcon from "@mui/icons-material/Clear";
 
 export const CardPrintScreen = () => {
-  const { loading, data } = useData();
+  const { data } = useData();
   const ref = useRef<Map<any, any>>(null);
   const list = useRef<any>(null);
 
-  if (loading || !data) {
+  if (!data) {
     return null;
   }
   return (
@@ -170,8 +170,8 @@ const GuildList = React.forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => ({ guild }), [guild]);
 
-  const { data, loading } = useData();
-  if (loading || !data) {
+  const { data } = useData();
+  if (!data) {
     return null;
   }
 
@@ -312,10 +312,10 @@ const ModelCheckBox = React.forwardRef((props: { m: any }, ref) => {
 });
 
 const ModelLists = React.forwardRef<Map<string, any>>((props, ref) => {
-  const { data, loading } = useData();
+  const { data } = useData();
   const checkboxes = useRef(new Map());
   React.useImperativeHandle(ref, () => checkboxes.current, [checkboxes]);
-  if (loading || !data) {
+  if (!data) {
     return null;
   }
   return (
@@ -343,7 +343,7 @@ const ModelLists = React.forwardRef<Map<string, any>>((props, ref) => {
 
 const Content = (props: { name: string; guild?: string; id: string }) => {
   const { name, id } = props;
-  const { data, loading } = useData();
+  const { data } = useData();
 
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList, observer) => {
@@ -355,7 +355,7 @@ const Content = (props: { name: string; guild?: string; id: string }) => {
   };
   const [ref] = useMutationObserverRef(callback);
 
-  if (loading || !data) {
+  if (!data) {
     return null;
   }
   const model = data.Models.find((m: any) => m.id === name);

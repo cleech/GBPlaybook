@@ -33,8 +33,8 @@ export function DoubleCard({
     setScale(newScale ?? 1);
   }
 
-  // const { data, loading } = useData();
-  // if (loading) {
+  // const { data } = useData();
+  // if (!data) {
   //   return null;
   // }
   // const model = data.Models.find((m) => m.id === name);
@@ -122,8 +122,8 @@ export function FlipCard({ model, controls }: { model: model; controls: any }) {
     setScale(newScale ?? 1);
   }
 
-  // const { data, loading } = useData();
-  // if (loading) {
+  // const { data } = useData();
+  // if (!data) {
   //   return null;
   // }
   // const model = data.Models.find((m) => m.id === name);

@@ -16,13 +16,9 @@ import {
 import { AppBarContent } from "../App";
 
 const Settings = () => {
-  const { loading, manifest } = useData();
+  const { manifest } = useData();
   const store = useStore();
   const settings = store.settings;
-
-  // if (loading) {
-  //   return null;
-  // }
 
   return (
     <Box component={"main"} sx={{ p: "1rem" }}>

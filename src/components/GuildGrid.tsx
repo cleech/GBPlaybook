@@ -57,7 +57,7 @@ interface GuildGridProps {
 
 export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
   const [ref, dimensions] = useDimensionsRef();
-  const { data, loading } = useData();
+  const { data } = useData();
   const [size, setSize] = useState(0);
 
   const [controlElement, controlCallback] = controls
@@ -65,11 +65,11 @@ export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
     : [undefined, undefined];
 
   useEffect(() => {
-    if (!loading && dimensions)
-      setSize(itemSize(dimensions, data?.Guilds.length ?? 0, 1)?.size ?? 0);
-  }, [data, dimensions, loading]);
+    if (data && dimensions)
+      setSize(itemSize(dimensions, data.Guilds.length ?? 0, 1)?.size ?? 0);
+  }, [data, dimensions]);
 
-  if (loading || !data) {
+  if (!data) {
     return null;
   }
 
@@ -112,8 +112,8 @@ export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
 }
 
 export function GuildGridInner({ dimensions, pickTeam, size }: any) {
-  const { data, loading } = useData();
-  if (loading || !data || !dimensions) {
+  const { data } = useData();
+  if (!data || !dimensions) {
     return null;
   }
 

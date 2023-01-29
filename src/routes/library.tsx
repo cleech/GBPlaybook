@@ -98,8 +98,8 @@ export function Roster() {
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
-  const { data, loading } = useData();
-  if (loading || !data) {
+  const { data } = useData();
+  if (!data) {
     return null;
   }
   const g = data.Guilds.find((g: any) => g.name === guild);
@@ -201,7 +201,9 @@ function SwiperButtons(props: {
       >
         {roster.map((m, index) => {
           const model = data.Models.find((m2: any) => m2.id === m);
-          if (!model) { return null }
+          if (!model) {
+            return null;
+          }
           return (
             <Chip
               color="primary"

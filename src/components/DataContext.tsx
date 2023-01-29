@@ -12,14 +12,12 @@ import { useStore } from "../models/Root";
 import DataFile, { Manifest } from "./DataContext.d";
 
 interface DataContextProps {
-  loading: boolean;
   manifest?: Manifest;
   data?: DataFile;
   version: string;
 }
 
 const DataContext = createContext<DataContextProps>({
-  loading: false,
   manifest: undefined,
   data: undefined,
   version: "0",
@@ -30,7 +28,6 @@ interface DataProviderProps {
 }
 
 export const DataProvider = observer(({ children }: DataProviderProps) => {
-  const [loading, setLoading] = useState(true);
   const [manifest, setManifest] = useState(undefined);
   const [data, setData] = useState(undefined);
   const [version, setVersion] = useState("");
@@ -41,7 +38,6 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
   // console.log('DataProvider render');
 
   const getData = useCallback(async () => {
-    setLoading(true);
     const manifest = await readManifest();
     setManifest(manifest);
     var filename: string;
@@ -58,7 +54,6 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
       ).version
     );
     setData(await readFile(filename));
-    setLoading(false);
   }, [settings]);
 
   useEffect(() => {
@@ -67,7 +62,7 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
   }, [filename, getData]);
 
   return (
-    <DataContext.Provider value={{ loading, data, version, manifest }}>
+    <DataContext.Provider value={{ data, version, manifest }}>
       {children}
     </DataContext.Provider>
   );

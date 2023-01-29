@@ -47,8 +47,8 @@ const CardFront = (props: CardFrontProps) => {
   //   setScale(newScale);
   // }
 
-  const { data, loading } = useData();
-  if (loading || !data) {
+  const { data } = useData();
+  if (!data) {
     return null;
   }
 
@@ -213,8 +213,8 @@ function CPName({ text }: { text: string }) {
 }
 
 const CharacterPlays = ({ model }: { model: model }) => {
-  const { data, loading } = useData();
-  if (loading || !data) {
+  const { data } = useData();
+  if (!data) {
     return null;
   }
   const CPlays = data["Character Plays"];
