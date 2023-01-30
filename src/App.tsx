@@ -23,9 +23,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { useStore } from "./models/Root";
 
-import { db } from './services/firestore';
-
-const AppBarContext = createContext<HTMLElement | null>(null);
+export const AppBarContext = createContext<HTMLElement | null>(null);
 
 export const AppBarContent = (props: { children?: ReactNode }) => {
   const containerRef = useContext(AppBarContext);

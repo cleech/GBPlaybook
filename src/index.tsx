@@ -24,6 +24,8 @@ import {
 } from "./models/Root";
 import { CardPrintScreen } from "./routes/print";
 
+import { FirebaseProvider } from "./services/firebase";
+
 rootStorePersist().then(() => {
   const router = createHashRouter(
     createRoutesFromElements(
@@ -55,7 +57,9 @@ rootStorePersist().then(() => {
     <React.StrictMode>
       <RootStoreProvider value={rootStore}>
         <DataProvider>
-          <RouterProvider router={router} />
+          <FirebaseProvider>
+            <RouterProvider router={router} />
+          </FirebaseProvider>
         </DataProvider>
       </RootStoreProvider>
     </React.StrictMode>

@@ -46,7 +46,11 @@ import Color from "color";
 import "./Draft.css";
 
 import { Home, NavigateNext } from "@mui/icons-material";
-import { AppBarContent } from "../App";
+import { AppBarContent, AppBarContext } from "../App";
+
+import SyncIcon from "@mui/icons-material/Sync";
+import SyncDisabledIcon from "@mui/icons-material/SyncDisabled";
+import SyncProblemIcon from "@mui/icons-material/SyncProblem";
 
 function SelectedIcon({
   team,
@@ -251,6 +255,7 @@ function GameControls(
 export default function GamePlay() {
   const location = useLocation();
   const { setGamePlayRoute } = useStore();
+  const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
 
   React.useEffect(() => {
     setGamePlayRoute(`${location.pathname}${location.search}`);
@@ -265,7 +270,22 @@ export default function GamePlay() {
         display: "flex",
       }}
     >
-      <Outlet />
+      <AppBarContent>
+        <Box
+          ref={(el: HTMLElement) => setContainer(el)}
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+          }}
+        />
+        <IconButton>
+          <SyncIcon />
+        </IconButton>
+      </AppBarContent>
+      <AppBarContext.Provider value={appBarContainer}>
+        <Outlet />
+      </AppBarContext.Provider>
     </main>
   );
 }
