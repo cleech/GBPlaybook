@@ -9,7 +9,7 @@ import "./CardFront.css";
 import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
-import { Guild, Model } from "./DataContext.d";
+import { Guild } from "./DataContext.d";
 import { IGBPlayer, JGBPlayer } from "../models/Root";
 type model = JGBPlayer | IGBPlayer;
 

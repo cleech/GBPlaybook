@@ -5,6 +5,7 @@ import React, {
   useLayoutEffect,
   Suspense,
   useEffect,
+  useMemo,
 } from "react";
 import {
   Outlet,
@@ -155,7 +156,7 @@ function GameControls(
         dc.onmessage = null;
       }
     };
-  }, [dc, waiting, locked]);
+  }, [dc, waiting, locked, navigate, team1, team2]);
 
   function pickTeam(name: string) {
     if (selector === "P1") {
@@ -416,22 +417,16 @@ export const Draft = () => {
 
   const [team1, setTeam1] = useState<roster | undefined>(undefined);
   const [team2, setTeam2] = useState<roster | undefined>(undefined);
-  const ready1 = useCallback(
-    (team: roster) => {
-      // dc?.send(JSON.stringify({ ready: true, team: team }));
-      setTeam1(team);
-    },
-    [dc]
-  );
+  const ready1 = useCallback((team: roster) => setTeam1(team), []);
   const ready2 = useCallback((team: roster) => setTeam2(team), []);
-  const unready1 = useCallback(() => {
-    // dc?.send(JSON.stringify({ unready: true }));
-    setTeam1(undefined);
-  }, []);
+  const unready1 = useCallback(() => setTeam1(undefined), []);
   const unready2 = useCallback(() => setTeam2(undefined), []);
-  const [searchParams] = useSearchParams();
 
   const player2 = useRef<any>();
+
+  const [searchParams] = useSearchParams();
+  const g1 = searchParams.get("p1");
+  const g2 = searchParams.get("p2");
 
   useEffect(() => {
     if (!!dc) {
@@ -455,14 +450,23 @@ export const Draft = () => {
         dc.onmessage = null;
       }
     };
-  }, [dc, waiting, locked]);
+  }, [
+    dc,
+    waiting,
+    locked,
+    g1,
+    g2,
+    navigate,
+    team1,
+    team2,
+    store.team1,
+    store.team2,
+  ]);
 
   const { data } = useData();
   if (!data) {
     return null;
   }
-  const g1 = searchParams.get("p1");
-  const g2 = searchParams.get("p2");
   const guild1 = data.Guilds.find((g: any) => g.name === g1);
   const guild2 = data.Guilds.find((g: any) => g.name === g2);
   /* FIXME, error message and kick back a screen ? */
@@ -553,7 +557,10 @@ export const Game = () => {
   const store = useStore();
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
-  const teams = [store.team1, store.team2];
+  const teams = useMemo(
+    () => [store.team1, store.team2],
+    [store.team1, store.team2]
+  );
   const [showSnack, setShowSnack] = useState(false);
   const [blocked, setBlocked] = useState(false);
 
@@ -583,7 +590,7 @@ export const Game = () => {
         dc.onmessage = null;
       }
     };
-  }, [dc]);
+  }, [dc, teams]);
 
   let blocker = unstable_useBlocker(
     React.useCallback<unstable_BlockerFunction>(

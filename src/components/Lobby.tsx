@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Dialog,
@@ -9,13 +9,10 @@ import {
   DialogContent,
   Button,
   TextField,
-  StepContent,
-  TextareaAutosize,
-  Typography,
   ButtonGroup,
 } from "@mui/material";
-import { Auth, signInAnonymously, signOut } from "firebase/auth";
-import { useAuth, useFirestore, useSigninCheck } from "reactfire";
+import { signInAnonymously } from "firebase/auth";
+import { useAuth, useFirestore } from "reactfire";
 import {
   collection,
   doc,
@@ -27,7 +24,7 @@ import {
   getDocs,
   getDoc,
 } from "firebase/firestore";
-import { iceConfig, RTCProvider, useRTC } from "../services/webrtc";
+import { useRTC } from "../services/webrtc";
 
 interface LobbyStepState {
   name: string;
@@ -109,7 +106,7 @@ const LobbyList = (props: LobbyStepProps) => {
   const db = useFirestore();
   const { pc } = useRTC();
   const [users, setUsers] = useState<Array<string>>([]);
-  const [q, setQ] = useState(query(collection(db, "lobby")));
+  const [q] = useState(query(collection(db, "lobby")));
 
   useEffect(() => {
     console.log("useEffect");
@@ -150,7 +147,7 @@ const LobbyList = (props: LobbyStepProps) => {
       unsubscribe();
       unsubscribe2();
     };
-  }, [db, q, props.state.name]);
+  }, [db, q, props.state.name, pc]);
 
   const onUserClick = async (user: string) => {
     if (!pc) {
@@ -265,7 +262,7 @@ interface LobbyProps {
 const Lobby = (props: LobbyProps) => {
   const { open, onClose } = props;
   return (
-    <Dialog open={props.open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose}>
       <DialogTitle>Going Online</DialogTitle>
       <DialogContent>
         <LobbyStepper onComplete={onClose} />
