@@ -137,14 +137,11 @@ function GameControls(
 
   useEffect(() => {
     if (!!dc) {
-      console.log("installing onMessage");
       dc.onmessage = (ev: MessageEvent<string>) => {
-        console.log(`msg received: ${ev.data}`);
         const msg = JSON.parse(ev.data);
         if (msg.team) {
           setTeam2(msg.team);
         }
-        console.log(`waiting: ${waiting}, locked: ${locked}`);
         if (msg.navigation === "ready") {
           setLocked(true);
           if (waiting) {
@@ -155,7 +152,6 @@ function GameControls(
     }
     return () => {
       if (!!dc) {
-        console.log("clearing onMessage");
         dc.onmessage = null;
       }
     };
@@ -168,7 +164,6 @@ function GameControls(
       newParams.sort();
       setSearchParams(newParams, { replace: true });
       if (!!dc) {
-        console.log("sending team message");
         dc.send(JSON.stringify({ team: name }));
       }
       setTeam1(name);
@@ -442,20 +437,9 @@ export const Draft = () => {
     if (!!dc) {
       dc.onmessage = (ev: MessageEvent<string>) => {
         const msg = JSON.parse(ev.data);
-        console.log(msg);
         if (msg.m) {
           player2.current?.setModel(msg.m.id, msg.selected);
         }
-
-        // if (msg.ready) {
-        //   console.log("remote ready");
-        //   setTeam2(msg.team);
-        // }
-        // if (msg.unready) {
-        //   console.log("remote unready");
-        //   setTeam2(undefined);
-        // }
-
         if (msg.navigation === "ready") {
           setLocked(true);
           if (waiting) {
@@ -581,7 +565,6 @@ export const Game = () => {
   useEffect(() => {
     if (!!dc) {
       dc.onmessage = (ev: MessageEvent<string>) => {
-        console.log(`msg received: ${ev.data}`);
         const msg = JSON.parse(ev.data);
         if (msg.model && msg.health !== undefined) {
           const m = teams[1].roster.find((m) => m.id === msg.model);

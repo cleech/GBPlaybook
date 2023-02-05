@@ -205,7 +205,6 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
 
   const onSwitch = useCallback(
     (model: model, value: boolean) => {
-      console.log(`onSwitch: ${model.id} ${value}`);
       onUpdate?.(model, value);
       model.selected = value;
 
@@ -221,20 +220,11 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
       checkVeterans(roster, model, value);
       checkBenched(roster, model, value);
 
-      console.log("checking ready state");
       if ((captain && mascot && squaddieCount === 4) || ignoreRules) {
-        console.log(`ready!!!`);
         setReady(true);
       } else {
         setReady(false);
       }
-      // } else if (ready) {
-      //   console.log("NOT ready!!!");
-      //   setReady(false);
-      // } else {
-      //   console.log(`whats going on? ready = ${ready}`);
-      // }
-
       setRoster(roster);
     },
     [ready, onUpdate]
@@ -279,7 +269,6 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
 
   const setModel = useCallback(
     (id: string, value: boolean) => {
-      console.log(`updating ${id}: ${value}`);
       const model: model | undefined = roster.find((m: model) => m.id === id);
       if (model) {
         onSwitch(model, value);
