@@ -1,10 +1,18 @@
-import React, { useCallback, useState, useRef, useLayoutEffect } from "react";
+import React, {
+  useCallback,
+  useState,
+  useRef,
+  useLayoutEffect,
+  Suspense,
+  useEffect,
+} from "react";
 import {
   Outlet,
   useLocation,
   useSearchParams,
   unstable_useBlocker,
   unstable_BlockerFunction,
+  useNavigate,
 } from "react-router-dom";
 import {
   Button,
@@ -26,12 +34,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../components/GuildGrid";
 import GBIcon from "../components/GBIcon";
 import { useData } from "../components/DataContext";
-import {
-  DraftList,
-  roster,
-  model,
-  BlacksmithDraftList,
-} from "../components/Draft";
+import { roster, model, DraftList, BSDraftList } from "../components/Draft";
 import { useStore, IGBTeam } from "../models/Root";
 import RosterList, { HealthCounter } from "../components/RosterList";
 import { FlipCard } from "../components/Card";
@@ -51,6 +54,9 @@ import { AppBarContent, AppBarContext } from "../App";
 import SyncIcon from "@mui/icons-material/Sync";
 import SyncDisabledIcon from "@mui/icons-material/SyncDisabled";
 import SyncProblemIcon from "@mui/icons-material/SyncProblem";
+
+import Lobby from "../components/Lobby";
+import { useRTC } from "../services/webrtc";
 
 function SelectedIcon({
   team,
@@ -122,7 +128,38 @@ function GameControls(
   const [selector, setSelector] = useState("P1");
   const [team1, setTeam1] = useState(searchParams.get("p1") ?? "");
   const [team2, setTeam2] = useState(searchParams.get("p2") ?? "");
+  const [waiting, setWaiting] = useState(false);
+  const [locked, setLocked] = useState(false);
+  const navigate = useNavigate();
   const theme = useTheme();
+
+  const { dc } = useRTC();
+
+  useEffect(() => {
+    if (!!dc) {
+      console.log("installing onMessage");
+      dc.onmessage = (ev: MessageEvent<string>) => {
+        console.log(`msg received: ${ev.data}`);
+        const msg = JSON.parse(ev.data);
+        if (msg.team) {
+          setTeam2(msg.team);
+        }
+        console.log(`waiting: ${waiting}, locked: ${locked}`);
+        if (msg.navigation === "ready") {
+          setLocked(true);
+          if (waiting) {
+            navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
+          }
+        }
+      };
+    }
+    return () => {
+      if (!!dc) {
+        console.log("clearing onMessage");
+        dc.onmessage = null;
+      }
+    };
+  }, [dc, waiting, locked]);
 
   function pickTeam(name: string) {
     if (selector === "P1") {
@@ -130,8 +167,12 @@ function GameControls(
       newParams.set("p1", name);
       newParams.sort();
       setSearchParams(newParams, { replace: true });
+      if (!!dc) {
+        console.log("sending team message");
+        dc.send(JSON.stringify({ team: name }));
+      }
       setTeam1(name);
-      if (!team2) {
+      if (!team2 && !dc) {
         setSelector("P2");
       } else {
         setSelector("GO");
@@ -207,8 +248,19 @@ function GameControls(
         <Fab
           color="secondary"
           disabled={!team1 || !team2}
-          component={Link}
-          href={`/game/draft/?p1=${team1}&p2=${team2}`}
+          // component={Link}
+          // href={`/game/draft/?p1=${team1}&p2=${team2}`}
+          onClick={() => {
+            if (dc) {
+              setWaiting(true);
+              dc.send(JSON.stringify({ navigation: "ready" }));
+              if (locked) {
+                navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
+              }
+            } else {
+              navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
+            }
+          }}
           sx={{ margin: "0 15px" }}
         >
           <PlayArrowIcon />
@@ -236,6 +288,7 @@ function GameControls(
               }),
         }}
         onClick={() => setSelector("P2")}
+        disabled={!!dc}
       >
         {team2 ? (
           <SelectedIcon
@@ -251,6 +304,27 @@ function GameControls(
     pickTeam,
   ];
 }
+
+const LoginButton = () => {
+  // const auth = useAuth();
+  // const firestore = useFirestore();
+  const [showDialog, setShowDialog] = useState(false);
+
+  return (
+    <>
+      <Lobby open={showDialog} onClose={() => setShowDialog(false)} />
+      <IconButton
+        // onClick={async () => {
+        //   await signInAnonymously(auth);
+        //   const ref = doc(firestore, "lobby", "offers");
+        // }}
+        onClick={() => setShowDialog(true)}
+      >
+        <SyncIcon />
+      </IconButton>
+    </>
+  );
+};
 
 export default function GamePlay() {
   const location = useLocation();
@@ -279,9 +353,16 @@ export default function GamePlay() {
             flexDirection: "row",
           }}
         />
-        <IconButton>
-          <SyncIcon />
-        </IconButton>
+
+        <Suspense
+          fallback={
+            <IconButton disabled>
+              <SyncProblemIcon />
+            </IconButton>
+          }
+        >
+          <LoginButton />
+        </Suspense>
       </AppBarContent>
       <AppBarContext.Provider value={appBarContainer}>
         <Outlet />
@@ -333,14 +414,54 @@ export const TeamSelect = () => {
 
 export const Draft = () => {
   const store = useStore();
+  const [waiting, setWaiting] = useState(false);
+  const [locked, setLocked] = useState(false);
+  const navigate = useNavigate();
+  const { dc } = useRTC();
+
   const [team1, setTeam1] = useState<roster | undefined>(undefined);
   const [team2, setTeam2] = useState<roster | undefined>(undefined);
-  const ready1 = useCallback((team: roster) => setTeam1(team), []);
+  const ready1 = useCallback(
+    (team: roster) => {
+      dc?.send(JSON.stringify({ team: team }));
+      setTeam1(team);
+    },
+    [dc]
+  );
   const ready2 = useCallback((team: roster) => setTeam2(team), []);
   const unready1 = useCallback(() => setTeam1(undefined), []);
   const unready2 = useCallback(() => setTeam2(undefined), []);
-
   const [searchParams] = useSearchParams();
+
+  const player2 = useRef<any>();
+
+  useEffect(() => {
+    if (!!dc) {
+      dc.onmessage = (ev: MessageEvent<string>) => {
+        const msg = JSON.parse(ev.data);
+        console.log(msg);
+        if (msg.m) {
+          player2.current?.setModel(msg.m.id, msg.selected);
+        }
+        if (msg.team) {
+          ready2(msg.team);
+        }
+        if (msg.navigation === "ready") {
+          setLocked(true);
+          if (waiting) {
+            store.team1.reset({ name: g1 ?? undefined, roster: team1 });
+            store.team2.reset({ name: g2 ?? undefined, roster: team2 });
+            navigate("/game/draft/play");
+          }
+        }
+      };
+    }
+    return () => {
+      if (!!dc) {
+        dc.onmessage = null;
+      }
+    };
+  }, [dc, waiting, locked]);
 
   const { data } = useData();
   if (!data) {
@@ -350,15 +471,13 @@ export const Draft = () => {
   const g2 = searchParams.get("p2");
   const guild1 = data.Guilds.find((g: any) => g.name === g1);
   const guild2 = data.Guilds.find((g: any) => g.name === g2);
-
+  /* FIXME, error message and kick back a screen ? */
   if (!guild1 || !guild2) {
     return null;
   }
 
-  const DraftList1 =
-    guild1.name === "Blacksmiths" ? BlacksmithDraftList : DraftList;
-  const DraftList2 =
-    guild2.name === "Blacksmiths" ? BlacksmithDraftList : DraftList;
+  const DraftList1 = guild1.name === "Blacksmiths" ? BSDraftList : DraftList;
+  const DraftList2 = guild2.name === "Blacksmiths" ? BSDraftList : DraftList;
 
   return (
     <Box className="DraftScreen">
@@ -381,17 +500,40 @@ export const Draft = () => {
         unready={unready1}
         ignoreRules={false}
         style={{ width: "100%" }}
+        // network play additions
+        onUpdate={
+          dc
+            ? (m, v) => {
+                dc.send(JSON.stringify({ m: m, selected: v }));
+              }
+            : undefined
+        }
       />
 
       <Fab
         disabled={!team1 || !team2}
         color="secondary"
+        // onClick={() => {
+        //   store.team1.reset({ name: g1 ?? undefined, roster: team1 });
+        //   store.team2.reset({ name: g2 ?? undefined, roster: team2 });
+        // }}
+        // component={Link}
+        // href="/game/draft/play"
         onClick={() => {
-          store.team1.reset({ name: g1 ?? undefined, roster: team1 });
-          store.team2.reset({ name: g2 ?? undefined, roster: team2 });
+          if (dc) {
+            setWaiting(true);
+            dc.send(JSON.stringify({ navigation: "ready" }));
+            if (locked) {
+              store.team1.reset({ name: g1 ?? undefined, roster: team1 });
+              store.team2.reset({ name: g2 ?? undefined, roster: team2 });
+              navigate("/game/draft/play");
+            }
+          } else {
+            store.team1.reset({ name: g1 ?? undefined, roster: team1 });
+            store.team2.reset({ name: g2 ?? undefined, roster: team2 });
+            navigate("/game/draft/play");
+          }
         }}
-        component={Link}
-        href="/game/draft/play"
         style={{ margin: "10px" }}
       >
         <PlayArrowIcon />
@@ -403,6 +545,9 @@ export const Draft = () => {
         unready={unready2}
         ignoreRules={false}
         style={{ width: "100%" }}
+        // network play additions
+        disabled={!!dc}
+        ref={player2}
       />
 
       <ResumeSnackBar />

@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { connectAuthEmulator, getAuth } from "firebase/auth";
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 import {
   FirebaseAppProvider,
   useFirebaseApp,
@@ -22,6 +22,12 @@ const FirebaseComponents = (props: { children: ReactNode }) => {
   const app = useFirebaseApp();
   const auth = getAuth(app);
   const firestore = getFirestore(app);
+
+  if (process.env.NODE_ENV !== "production") {
+    connectAuthEmulator(auth, "http://localhost:9099");
+    connectFirestoreEmulator(firestore, "localhost", 8080);
+  }
+
   return (
     <AuthProvider sdk={auth}>
       <FirestoreProvider sdk={firestore}>{props.children}</FirestoreProvider>
@@ -30,7 +36,7 @@ const FirebaseComponents = (props: { children: ReactNode }) => {
 };
 
 export const FirebaseProvider = (props: { children: ReactNode }) => (
-  <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+  <FirebaseAppProvider firebaseConfig={firebaseConfig} suspense={true}>
     <FirebaseComponents>{props.children}</FirebaseComponents>
   </FirebaseAppProvider>
 );

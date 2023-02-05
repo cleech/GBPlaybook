@@ -25,6 +25,7 @@ import {
 import { CardPrintScreen } from "./routes/print";
 
 import { FirebaseProvider } from "./services/firebase";
+import { RTCProvider } from "./services/webrtc";
 
 rootStorePersist().then(() => {
   const router = createHashRouter(
@@ -56,11 +57,13 @@ rootStorePersist().then(() => {
   root.render(
     <React.StrictMode>
       <RootStoreProvider value={rootStore}>
-        <DataProvider>
+        <RTCProvider>
           <FirebaseProvider>
-            <RouterProvider router={router} />
+            <DataProvider>
+              <RouterProvider router={router} />
+            </DataProvider>
           </FirebaseProvider>
-        </DataProvider>
+        </RTCProvider>
       </RootStoreProvider>
     </React.StrictMode>
   );

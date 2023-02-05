@@ -1,11 +1,17 @@
-import { useState, useEffect, CSSProperties } from "react";
+import React, {
+  useState,
+  useEffect,
+  CSSProperties,
+  useImperativeHandle,
+  useCallback,
+} from "react";
 import { IGBPlayer } from "../models/Root";
 import { useData } from "../components/DataContext";
 import cloneDeep from "lodash.clonedeep";
 import { Badge, Card, Checkbox, FormControlLabel } from "@mui/material";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import { CheckCircleTwoTone as Check } from "@mui/icons-material";
+import { CheckCircleTwoTone as Check, PropaneSharp } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 
 // import { Guild } from './DataContext.d';
@@ -134,10 +140,15 @@ function checkApprenticeCount(
 
 interface DraftListItemProps {
   model: model;
+  disabled?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function DraftListItem({ model, onChange }: DraftListItemProps) {
+function DraftListItem({
+  model,
+  disabled = false,
+  onChange,
+}: DraftListItemProps) {
   return (
     <FormControlLabel
       // label={model.id}
@@ -149,7 +160,7 @@ function DraftListItem({ model, onChange }: DraftListItemProps) {
         <Checkbox
           size="small"
           checked={model.selected}
-          disabled={model.disabled > 0}
+          disabled={model.disabled > 0 || disabled}
           onChange={onChange}
           icon={<RadioButtonUncheckedIcon />}
           checkedIcon={<RadioButtonCheckedIcon />}
@@ -168,23 +179,29 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 interface DraftListProps {
   guild: any;
+  disabled?: boolean;
   ready: (team: roster) => void;
   unready: () => void;
+  onUpdate?: (m: model, selected: boolean) => void;
   ignoreRules?: boolean;
   style?: CSSProperties;
 }
 
-export function DraftList({
-  guild,
-  ready: listReady,
-  unready,
-  ignoreRules = false,
-  style,
-}: DraftListProps) {
+export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
+  const {
+    guild,
+    ready: listReady,
+    unready,
+    onUpdate,
+    disabled = false,
+    ignoreRules = false,
+    style,
+  } = props;
   const { data } = useData();
   const Models = data?.Models;
 
   const onSwitch = (model: model, value: boolean) => {
+    onUpdate?.(model, value);
     model.selected = value;
 
     captain = checkCaptains(roster, model, value) ?? captain;
@@ -201,8 +218,10 @@ export function DraftList({
 
     if ((captain && mascot && squaddieCount === 4) || ignoreRules) {
       setReady(true);
+      console.log(`ready!!!`);
     } else if (ready) {
       setReady(false);
+      console.log("NOT ready!!!");
     }
 
     setRoster(roster);
@@ -214,7 +233,7 @@ export function DraftList({
   let [squaddieCount, setSquadCount] = useState(0);
   let [ready, setReady] = useState(false);
 
-  let [roster, setRoster] = useState(() => {
+  let [roster, setRoster] = useState<roster>(() => {
     // need to make a deep copy of the roster data
     let tmpRoster = cloneDeep(
       // Models.filter((m) => guild.roster.includes(m.id)),
@@ -248,6 +267,22 @@ export function DraftList({
     }
   }, [ready, guild, roster, listReady, unready]);
 
+  const setModel = useCallback(
+    (id: string, value: boolean) => {
+      console.log(`updating ${id}: ${value}`);
+      const model: model | undefined = roster.find((m: model) => m.id === id);
+      if (model) {
+        onSwitch(model, value);
+        // model.selected = value;
+      } else {
+        console.log(`failed to find ${id}`);
+      }
+    },
+    [roster]
+  );
+
+  useImperativeHandle(ref, () => ({ setModel: setModel }), []);
+
   if (!data) {
     return null;
   }
@@ -280,6 +315,7 @@ export function DraftList({
               key={m.id}
               model={m}
               onChange={(e) => onSwitch(m, !m.selected)}
+              disabled={disabled}
             />
           ))}
           <span>Mascots :</span>
@@ -288,6 +324,7 @@ export function DraftList({
               key={m.id}
               model={m}
               onChange={(e) => onSwitch(m, !m.selected)}
+              disabled={disabled}
             />
           ))}
         </div>
@@ -298,6 +335,7 @@ export function DraftList({
               key={m.id}
               model={m}
               onChange={(e) => onSwitch(m, !m.selected)}
+              disabled={disabled}
             />
           ))}
         </div>
@@ -308,21 +346,24 @@ export function DraftList({
               key={m.id}
               model={m}
               onChange={(e) => onSwitch(m, !m.selected)}
+              disabled={disabled}
             />
           ))}
         </div>
       </Card>
     </StyledBadge>
   );
-}
+});
 
-export function BlacksmithDraftList({
-  guild,
-  ready: listReady,
-  unready,
-  ignoreRules = false,
-  style,
-}: DraftListProps) {
+export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
+  const {
+    guild,
+    ready: listReady,
+    unready,
+    ignoreRules = false,
+    disabled = false,
+    style,
+  } = props;
   const { data } = useData();
   const Models = data?.Models;
 
@@ -410,6 +451,7 @@ export function BlacksmithDraftList({
               key={m.id}
               model={m}
               onChange={(e) => onSwitch(m, !m.selected)}
+              disabled={disabled}
             />
           ))}
         </div>
@@ -420,6 +462,7 @@ export function BlacksmithDraftList({
               key={m.id}
               model={m}
               onChange={(e) => onSwitch(m, !m.selected)}
+              disabled={disabled}
             />
           ))}
         </div>
@@ -430,10 +473,11 @@ export function BlacksmithDraftList({
               key={m.id}
               model={m}
               onChange={(e) => onSwitch(m, !m.selected)}
+              disabled={disabled}
             />
           ))}
         </div>
       </Card>
     </StyledBadge>
   );
-}
+});
