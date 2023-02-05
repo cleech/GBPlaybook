@@ -13,6 +13,7 @@ import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import { CheckCircleTwoTone as Check, PropaneSharp } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
+import { connectStorageEmulator } from "firebase/storage";
 
 // import { Guild } from './DataContext.d';
 
@@ -200,38 +201,49 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
   const { data } = useData();
   const Models = data?.Models;
 
-  const onSwitch = (model: model, value: boolean) => {
-    onUpdate?.(model, value);
-    model.selected = value;
+  let [ready, setReady] = useState(false);
 
-    captain = checkCaptains(roster, model, value) ?? captain;
-    setCaptain(captain);
+  const onSwitch = useCallback(
+    (model: model, value: boolean) => {
+      console.log(`onSwitch: ${model.id} ${value}`);
+      onUpdate?.(model, value);
+      model.selected = value;
 
-    mascot = checkMascots(roster, model, value) ?? mascot;
-    setMascot(mascot);
+      captain = checkCaptains(roster, model, value) ?? captain;
+      setCaptain(captain);
 
-    squaddieCount = checkSquaddieCount(roster, model, squaddieCount, value);
-    setSquadCount(squaddieCount);
+      mascot = checkMascots(roster, model, value) ?? mascot;
+      setMascot(mascot);
 
-    checkVeterans(roster, model, value);
-    checkBenched(roster, model, value);
+      squaddieCount = checkSquaddieCount(roster, model, squaddieCount, value);
+      setSquadCount(squaddieCount);
 
-    if ((captain && mascot && squaddieCount === 4) || ignoreRules) {
-      setReady(true);
-      console.log(`ready!!!`);
-    } else if (ready) {
-      setReady(false);
-      console.log("NOT ready!!!");
-    }
+      checkVeterans(roster, model, value);
+      checkBenched(roster, model, value);
 
-    setRoster(roster);
-  };
+      console.log("checking ready state");
+      if ((captain && mascot && squaddieCount === 4) || ignoreRules) {
+        console.log(`ready!!!`);
+        setReady(true);
+      } else {
+        setReady(false);
+      }
+      // } else if (ready) {
+      //   console.log("NOT ready!!!");
+      //   setReady(false);
+      // } else {
+      //   console.log(`whats going on? ready = ${ready}`);
+      // }
+
+      setRoster(roster);
+    },
+    [ready, onUpdate]
+  );
 
   // captain and mascot get pre-selected for minor guilds
   let [captain, setCaptain] = useState(guild.minor ? true : false);
   let [mascot, setMascot] = useState(guild.minor ? true : false);
   let [squaddieCount, setSquadCount] = useState(0);
-  let [ready, setReady] = useState(false);
 
   let [roster, setRoster] = useState<roster>(() => {
     // need to make a deep copy of the roster data
@@ -257,13 +269,11 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
 
   useEffect(() => {
     if (ready) {
-      if (listReady) {
-        let team = cloneDeep(guild);
-        team.roster = cloneDeep(roster.filter((m: model) => m.selected));
-        listReady(team.roster);
-      }
+      let team = cloneDeep(guild);
+      team.roster = cloneDeep(roster.filter((m: model) => m.selected));
+      listReady?.(team.roster);
     } else {
-      unready && unready();
+      unready?.();
     }
   }, [ready, guild, roster, listReady, unready]);
 
@@ -273,15 +283,14 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
       const model: model | undefined = roster.find((m: model) => m.id === id);
       if (model) {
         onSwitch(model, value);
-        // model.selected = value;
       } else {
         console.log(`failed to find ${id}`);
       }
     },
-    [roster]
+    [ready, roster, onSwitch]
   );
 
-  useImperativeHandle(ref, () => ({ setModel: setModel }), []);
+  useImperativeHandle(ref, () => ({ setModel }), [setModel]);
 
   if (!data) {
     return null;
@@ -360,6 +369,7 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
     guild,
     ready: listReady,
     unready,
+    onUpdate,
     ignoreRules = false,
     disabled = false,
     style,
@@ -368,6 +378,7 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
   const Models = data?.Models;
 
   const onSwitch = (model: model, value: boolean) => {
+    onUpdate?.(model, value);
     model.selected = value;
 
     masterCount = checkMasterCount(roster, model, masterCount, value);
@@ -386,7 +397,7 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
 
     if ((masterCount === 3 && apprenticeCount === 3) || ignoreRules) {
       setReady(true);
-    } else if (ready) {
+    } else {
       setReady(false);
     }
 
@@ -414,11 +425,25 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
     if (ready) {
       let team = cloneDeep(guild);
       team.roster = cloneDeep(roster.filter((m: model) => m.selected));
-      listReady && listReady(team.roster);
+      listReady?.(team.roster);
     } else {
-      unready && unready();
+      unready?.();
     }
   }, [ready, guild, roster, listReady, unready]);
+
+  const setModel = useCallback(
+    (id: string, value: boolean) => {
+      const model: model | undefined = roster.find((m: model) => m.id === id);
+      if (model) {
+        onSwitch(model, value);
+      } else {
+        console.log(`failed to find ${id}`);
+      }
+    },
+    [ready, roster, onSwitch]
+  );
+
+  useImperativeHandle(ref, () => ({ setModel }), [setModel]);
 
   if (!data) {
     return null;

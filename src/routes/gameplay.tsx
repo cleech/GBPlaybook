@@ -423,13 +423,16 @@ export const Draft = () => {
   const [team2, setTeam2] = useState<roster | undefined>(undefined);
   const ready1 = useCallback(
     (team: roster) => {
-      dc?.send(JSON.stringify({ team: team }));
+      // dc?.send(JSON.stringify({ ready: true, team: team }));
       setTeam1(team);
     },
     [dc]
   );
   const ready2 = useCallback((team: roster) => setTeam2(team), []);
-  const unready1 = useCallback(() => setTeam1(undefined), []);
+  const unready1 = useCallback(() => {
+    // dc?.send(JSON.stringify({ unready: true }));
+    setTeam1(undefined);
+  }, []);
   const unready2 = useCallback(() => setTeam2(undefined), []);
   const [searchParams] = useSearchParams();
 
@@ -443,9 +446,16 @@ export const Draft = () => {
         if (msg.m) {
           player2.current?.setModel(msg.m.id, msg.selected);
         }
-        if (msg.team) {
-          ready2(msg.team);
-        }
+
+        // if (msg.ready) {
+        //   console.log("remote ready");
+        //   setTeam2(msg.team);
+        // }
+        // if (msg.unready) {
+        //   console.log("remote unready");
+        //   setTeam2(undefined);
+        // }
+
         if (msg.navigation === "ready") {
           setLocked(true);
           if (waiting) {
@@ -562,6 +572,8 @@ export const Game = () => {
   const teams = [store.team1, store.team2];
   const [showSnack, setShowSnack] = useState(false);
   const [blocked, setBlocked] = useState(false);
+
+  const { dc } = useRTC();
 
   let blocker = unstable_useBlocker(
     React.useCallback<unstable_BlockerFunction>(
