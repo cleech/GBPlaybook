@@ -80,6 +80,7 @@ const GBTeam = types
     roster: types.array(GBPlayer),
     momentum: types.optional(types.integer, 0),
     score: types.optional(types.integer, 0),
+    disabled: types.optional(types.boolean, false),
   })
   .actions((self) => ({
     setScore(score: number) {
@@ -90,6 +91,9 @@ const GBTeam = types
     },
     reset(snap: IGBTeamSnapshotIn) {
       applySnapshot(self, snap);
+    },
+    disable(disabled: boolean) {
+      self.disabled = disabled;
     },
   }));
 

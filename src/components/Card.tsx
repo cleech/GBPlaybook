@@ -11,9 +11,11 @@ type model = IGBPlayer | JGBPlayer;
 export function DoubleCard({
   model,
   controls,
+  controlProps,
 }: {
   model: model;
   controls: any;
+  controlProps?: any;
 }) {
   const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1.0);
@@ -94,7 +96,7 @@ export function DoubleCard({
               // transformOrigin: "top left",
             }}
           >
-            {controls?.({ model })}
+            {controls?.({ model, ...controlProps })}
           </div>
         ) : null}
       </div>
@@ -102,7 +104,15 @@ export function DoubleCard({
   );
 }
 
-export function FlipCard({ model, controls }: { model: model; controls: any }) {
+export function FlipCard({
+  model,
+  controls,
+  controlProps,
+}: {
+  model: model;
+  controls: any;
+  controlProps?: any;
+}) {
   const layoutRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1.0);
@@ -180,7 +190,7 @@ export function FlipCard({ model, controls }: { model: model; controls: any }) {
               }}
             >
               {/* {controls?.({ model, scale: 1 / scale })} */}
-              {controls?.({ model })}
+              {controls?.({ model, ...controlProps })}
             </div>
           ) : null}
           <CardBack

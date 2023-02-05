@@ -574,6 +574,33 @@ export const Game = () => {
   const [blocked, setBlocked] = useState(false);
 
   const { dc } = useRTC();
+  if (dc) {
+    teams[1].disable(true);
+  }
+
+  useEffect(() => {
+    if (!!dc) {
+      dc.onmessage = (ev: MessageEvent<string>) => {
+        console.log(`msg received: ${ev.data}`);
+        const msg = JSON.parse(ev.data);
+        if (msg.model && msg.health !== undefined) {
+          const m = teams[1].roster.find((m) => m.id === msg.model);
+          m?.setHealth(msg.health);
+        }
+        if (msg.VP) {
+          teams[1].setScore(msg.VP);
+        }
+        if (msg.MOM) {
+          teams[1].setMomentum(msg.MOM);
+        }
+      };
+    }
+    return () => {
+      if (!!dc) {
+        dc.onmessage = null;
+      }
+    };
+  }, [dc]);
 
   let blocker = unstable_useBlocker(
     React.useCallback<unstable_BlockerFunction>(
@@ -686,7 +713,10 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
         flexDirection: "column",
       }}
     >
+      {/* {teams.map((t, index) => ( */}
       <RosterList
+        // key={index}
+        // teams={[t]}
         teams={teams}
         expanded={expanded}
         onClick={(i, expandList) => {
@@ -695,6 +725,8 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
           setOpen(!expandList);
         }}
       />
+      {/* ))} */}
+
       <div
         style={{
           position: "relative",
@@ -746,9 +778,9 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
             }}
           >
             {teams
-              .map((t) => t.roster)
+              .map((t) => t.roster.map((m) => ({ m, disabled: t.disabled })))
               .flat()
-              .map((m, index) => (
+              .map(({ m, disabled }, index) => (
                 <SwiperSlide key={index} virtualIndex={index}>
                   <div
                     style={{
@@ -758,7 +790,11 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
                       justifyContent: "center",
                     }}
                   >
-                    <FlipCard model={m} controls={CardControls} />
+                    <FlipCard
+                      model={m}
+                      controls={CardControls}
+                      controlProps={{ disabled: disabled }}
+                    />
                   </div>
                 </SwiperSlide>
               ))}
@@ -769,7 +805,13 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
   );
 };
 
-function CardControls({ model }: { model: model }) {
+function CardControls({
+  model,
+  disabled = false,
+}: {
+  model: model;
+  disabled?: boolean;
+}) {
   return (
     <Paper
       elevation={2}
@@ -784,7 +826,7 @@ function CardControls({ model }: { model: model }) {
         // transformOrigin: "bottom right",
       }}
     >
-      <HealthCounter model={model} />
+      <HealthCounter model={model} disabled={disabled} />
     </Paper>
   );
 }

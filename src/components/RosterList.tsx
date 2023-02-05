@@ -20,6 +20,7 @@ import { Observer } from "mobx-react-lite";
 import { IGBPlayer, IGBTeam } from "../models/Root";
 import useLongPress from "../components/useLongPress";
 import GBIcon from "./GBIcon";
+import { useRTC } from "../services/webrtc";
 
 type model = IGBPlayer;
 type team = IGBTeam;
@@ -40,9 +41,18 @@ interface CounterProps {
   label: (o: any) => string;
   value: (o: any) => number;
   setValue: (o: any, v: number) => void;
+  disabled?: boolean;
 }
 
-function Counter({ object, label, value, setValue }: CounterProps) {
+/* TODO, disable and emit messages for VP and MOM counters */
+
+function Counter({
+  object,
+  label,
+  value,
+  setValue,
+  disabled = false,
+}: CounterProps) {
   return (
     <div
       style={{
@@ -55,7 +65,7 @@ function Counter({ object, label, value, setValue }: CounterProps) {
       <Typography>
         <Observer>{() => <span>{label(object)}</span>}</Observer>
       </Typography>
-      <ButtonGroup size="small" variant="contained">
+      <ButtonGroup size="small" variant="contained" disabled={disabled}>
         <Button
           onClick={(e) => {
             e.stopPropagation();
@@ -81,12 +91,26 @@ function Counter({ object, label, value, setValue }: CounterProps) {
   );
 }
 
-export function HealthCounter({ model }: { model: model }) {
+export function HealthCounter({
+  model,
+  disabled = false,
+}: {
+  model: model;
+  disabled?: boolean;
+}) {
+  const { dc } = useRTC();
   const longPressDown = useLongPress({
-    onLongPress: (e) => model.setHealth(0),
+    onLongPress: (e) => {
+      model.setHealth(0);
+      dc?.send(JSON.stringify({ model: model.id, health: 0 }));
+    },
     onClick: (e) => {
+      /* this is dumb, fix the type? */
+      /* we never put counters on raw data, right? */
       if ((model.health ?? 0) > 0) {
-        model.setHealth((model.health ?? 0) - 1);
+        let h = (model.health ?? 0) - 1;
+        model.setHealth(h);
+        dc?.send(JSON.stringify({ model: model.id, health: h }));
       }
     },
   });
@@ -94,14 +118,18 @@ export function HealthCounter({ model }: { model: model }) {
     onLongPress: (e) => {
       if ((model.health ?? 0) < model.recovery) {
         model.setHealth(model.recovery);
+        dc?.send(JSON.stringify({ model: model.id, health: model.recovery }));
       }
     },
     onClick: (e) => {
       if ((model.health ?? 0) < model.hp) {
-        model.setHealth((model.health ?? 0) + 1);
+        let h = (model.health ?? 0) + 1;
+        model.setHealth(h);
+        dc?.send(JSON.stringify({ model: model.id, health: h }));
       }
     },
   });
+
   return (
     <div
       style={{
@@ -111,7 +139,7 @@ export function HealthCounter({ model }: { model: model }) {
         justifyContent: "center",
       }}
     >
-      <ButtonGroup size="small" variant="contained">
+      <ButtonGroup size="small" variant="contained" disabled={disabled}>
         <Button {...longPressDown} onClick={(e) => e.stopPropagation()}>
           <MinusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
         </Button>
@@ -140,6 +168,7 @@ export default function RosterList({
   onClick,
 }: RosterListProps) {
   const theme = useTheme();
+  const { dc } = useRTC();
   return (
     <Box
       sx={{
@@ -221,15 +250,23 @@ export default function RosterList({
                 >
                   <Counter
                     object={team}
+                    disabled={team.disabled}
                     label={(t) => `VP: ${t.score}`}
                     value={(t) => t.score}
-                    setValue={(t, v) => t.setScore(v)}
+                    setValue={(t, v) => {
+                      t.setScore(v);
+                      dc?.send(JSON.stringify({ VP: v }));
+                    }}
                   />
                   <Counter
                     object={team}
+                    disabled={team.disabled}
                     label={(t) => `MOM: ${t.momentum}`}
                     value={(t) => t.momentum}
-                    setValue={(t, v) => t.setMomentum(v)}
+                    setValue={(t, v) => {
+                      t.setMomentum(v);
+                      dc?.send(JSON.stringify({ MOM: v }));
+                    }}
                   />
                 </div>
               </ListSubheader>
@@ -255,7 +292,9 @@ export default function RosterList({
                 {team.roster.map((m: model, index: number) => (
                   <ListItem
                     key={m.id}
-                    secondaryAction={<HealthCounter model={m} />}
+                    secondaryAction={
+                      <HealthCounter model={m} disabled={team.disabled} />
+                    }
                     onClick={(e) => {
                       onClick(indexBase + index, false);
                     }}
