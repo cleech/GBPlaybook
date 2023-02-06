@@ -28,6 +28,7 @@ import { useRTC } from "../services/webrtc";
 
 interface LobbyStepState {
   name: string;
+  uid: string;
   pc?: RTCPeerConnection;
 }
 
@@ -40,16 +41,11 @@ interface LobbyStepProps {
 const LobbyLogin = (props: LobbyStepProps) => {
   const auth = useAuth();
   const db = useFirestore();
-  const { pc: peer, newPc, setDc } = useRTC();
+  const { newPc, setDc } = useRTC();
 
   const enterLobby = async (name: string) => {
-    // let pc = peer ?? newPc();
-    if (peer) {
-      console.log("closing");
-      peer.close();
-    }
     let pc = newPc();
-    let dc = pc.createDataChannel("dataSync", { negotiated: true, id: 27 });
+    let dc = pc.createDataChannel("dataSync", { negotiated: true, id: 1 });
     dc.addEventListener("open", (event) => {
       setDc(dc);
     });
@@ -58,18 +54,20 @@ const LobbyLogin = (props: LobbyStepProps) => {
     });
     // pc.onnegotiationneeded = (ev) => {
     return Promise.all([signInAnonymously(auth), pc.createOffer()]).then(
-      ([_user, offer]) => {
+      ([cred, offer]) => {
+        props.setState((state) => ({ ...state, uid: cred.user.uid }));
         pc.onicecandidate = ({ candidate }) => {
           if (candidate) {
             addDoc(
-              collection(db, "lobby", name, "iceCandidates"),
+              collection(db, "lobby", cred.user.uid, "iceCandidates"),
               candidate.toJSON()
             );
           }
         };
         return Promise.all([
-          setDoc(doc(db, "lobby", name), {
+          setDoc(doc(db, "lobby", cred.user.uid), {
             name: name,
+            uid: cred.user.uid,
             sdp: offer.sdp,
             type: offer.type,
           }),
@@ -86,7 +84,7 @@ const LobbyLogin = (props: LobbyStepProps) => {
         variant="outlined"
         value={props.state.name}
         onChange={(e) => {
-          props.setState({ ...props.state, name: e.target.value });
+          props.setState((state) => ({ ...state, name: e.target.value }));
         }}
       />
       <Button
@@ -105,7 +103,7 @@ const LobbyLogin = (props: LobbyStepProps) => {
 const LobbyList = (props: LobbyStepProps) => {
   const db = useFirestore();
   const { pc } = useRTC();
-  const [users, setUsers] = useState<Array<string>>([]);
+  const [users, setUsers] = useState<Array<{ uid: string; name: string }>>([]);
   const [q] = useState(query(collection(db, "lobby")));
 
   useEffect(() => {
@@ -115,15 +113,15 @@ const LobbyList = (props: LobbyStepProps) => {
       console.log(
         `snapShot: ${querySnapshot.docs.map((doc) => doc.data().name)}`
       );
-      const users: Array<string> = [];
+      const users: Array<{ uid: string; name: string }> = [];
       querySnapshot.forEach((doc) => {
-        users.push(doc.data().name);
+        users.push({ uid: doc.data().uid, name: doc.data().name });
       });
       setUsers(users);
     });
 
     const unsubscribe2 = onSnapshot(
-      doc(db, "lobby", props.state.name),
+      doc(db, "lobby", props.state.uid),
       (doc) => {
         if (!doc.data()?.answer) {
           return;
@@ -134,7 +132,7 @@ const LobbyList = (props: LobbyStepProps) => {
           sdp: doc.data()?.answer.sdp,
         });
         getDocs(
-          collection(db, "lobby", doc.data()?.answer.name, "iceCandidates")
+          collection(db, "lobby", doc.data()?.answer.uid, "iceCandidates")
         ).then((snapshot) => {
           snapshot.forEach((doc) => {
             pc?.addIceCandidate(doc.data());
@@ -149,25 +147,26 @@ const LobbyList = (props: LobbyStepProps) => {
     };
   }, [db, q, props.state.name, pc]);
 
-  const onUserClick = async (user: string) => {
+  const onUserClick = async (uid: string) => {
     if (!pc) {
       throw new Error("no peer connection?");
     }
-    const snap = await getDoc(doc(db, "lobby", user));
+    const snap = await getDoc(doc(db, "lobby", uid));
     const offer = snap.data() as RTCSessionDescriptionInit;
     if (offer) {
       pc.setRemoteDescription(offer);
     }
     await pc.createAnswer().then(async (answer) => {
       await pc.setLocalDescription(answer);
-      await updateDoc(doc(db, "lobby", user), {
+      await updateDoc(doc(db, "lobby", uid), {
         answer: {
+          uid: props.state.uid,
           name: props.state.name,
           sdp: answer.sdp,
           type: answer.type,
         },
       });
-      await getDocs(collection(db, "lobby", user, "iceCandidates")).then(
+      await getDocs(collection(db, "lobby", uid, "iceCandidates")).then(
         (snapshot) => {
           snapshot.forEach((doc) => {
             pc?.addIceCandidate(doc.data());
@@ -180,14 +179,14 @@ const LobbyList = (props: LobbyStepProps) => {
   return (
     <Box>
       <ButtonGroup variant="text">
-        {users.map((user, index) => (
+        {users.map(({ uid, name }) => (
           <Button
-            key={user}
+            key={uid}
             onClick={(ev) => {
-              onUserClick(user);
+              onUserClick(uid);
             }}
           >
-            {user}
+            {name}
           </Button>
         ))}
       </ButtonGroup>
@@ -215,7 +214,7 @@ const LobbyStepper = (props: { onComplete?: () => void }) => {
     props.onComplete?.();
   };
 
-  const [state, setState] = useState({ name: "" });
+  const [state, setState] = useState({ name: "", uid: "" });
 
   const lobbySteps = [
     {
