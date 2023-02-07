@@ -303,10 +303,11 @@ function GameControls(
 
 const LoginButton = () => {
   const [showDialog, setShowDialog] = useState(false);
+  const { dc } = useRTC();
   return (
     <>
       <Lobby open={showDialog} onClose={() => setShowDialog(false)} />
-      <IconButton onClick={() => setShowDialog(true)}>
+      <IconButton onClick={() => setShowDialog(true)} disabled={!!dc}>
         <SyncIcon />
       </IconButton>
     </>
