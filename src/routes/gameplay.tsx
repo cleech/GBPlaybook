@@ -302,20 +302,11 @@ function GameControls(
 }
 
 const LoginButton = () => {
-  // const auth = useAuth();
-  // const firestore = useFirestore();
   const [showDialog, setShowDialog] = useState(false);
-
   return (
     <>
       <Lobby open={showDialog} onClose={() => setShowDialog(false)} />
-      <IconButton
-        // onClick={async () => {
-        //   await signInAnonymously(auth);
-        //   const ref = doc(firestore, "lobby", "offers");
-        // }}
-        onClick={() => setShowDialog(true)}
-      >
+      <IconButton onClick={() => setShowDialog(true)}>
         <SyncIcon />
       </IconButton>
     </>

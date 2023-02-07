@@ -1,8 +1,47 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if true;
+    match /lobby/{gameID} {
+      allow list: if false
+
+      allow get:  if request.auth.uid != null
+                  && (request.auth.uid == resource.data.uid || request.auth.uid == resource.data.oid)
+
+      allow create: if request.auth.uid != null
+                    && request.auth.uid == request.resource.data.uid
+                    && gameID == request.resource.data.gid
+                    && request.resource.data.keys().hasOnly(['gid', 'uid'])
+
+      allow update: if request.auth.uid != null
+                    && request.auth.uid == request.resource.data.oid
+                    && (!('oid' in resource.data) || (resource.data.oid == request.auth.uid))
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['oid'])
+
+      allow delete: if request.auth.uid != null
+                    && request.auth.uid == resource.data.uid
+
+      // overkill? will count as an extra read
+      function userInGame() {
+        let gameDoc = get(/databases/$(database)/documents/lobby/$(gameID)).data;
+        return (gameDoc.uid == request.auth.uid || gameDoc.oid == request.auth.uid);
+      }
+
+      match /players/{playerID} {
+        allow read: if request.auth.uid != null
+                    && userInGame()
+
+        allow create: if request.auth.uid != null
+                      && request.auth.uid == playerID
+                      && request.auth.uid == request.resource.data.uid
+                      && request.resource.data.keys().hasOnly(['uid', 'offer', 'answer', 'iceCandidates'])
+
+        allow update: if request.auth.uid != null
+                      && request.auth.uid == playerID
+                      && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['offer', 'answer', 'iceCandidates'])
+
+        allow delete: if request.auth.uid != null
+                      && request.auth.uid == playerID
+      }
     }
   }
 }

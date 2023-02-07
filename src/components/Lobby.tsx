@@ -2,34 +2,40 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Dialog,
-  DialogTitle,
   Stepper,
   Step,
   StepLabel,
   DialogContent,
   Button,
   TextField,
-  ButtonGroup,
+  Typography,
 } from "@mui/material";
 import { signInAnonymously } from "firebase/auth";
 import { useAuth, useFirestore } from "reactfire";
 import {
   collection,
   doc,
-  addDoc,
   setDoc,
   query,
   onSnapshot,
   updateDoc,
-  getDocs,
   getDoc,
+  arrayUnion,
+  where,
+  deleteDoc,
 } from "firebase/firestore";
 import { useRTC } from "../services/webrtc";
+import { FirebaseError } from "firebase/app";
 
 interface LobbyStepState {
-  name: string;
-  uid: string;
-  pc?: RTCPeerConnection;
+  // Game ID
+  gid?: string;
+  // User ID, from firebase authentication
+  uid?: string;
+  // Opponents ID, from firebase authentication
+  oid?: string;
+  // did I start the game, or am I joining?
+  initiator?: boolean;
 }
 
 interface LobbyStepProps {
@@ -38,165 +44,224 @@ interface LobbyStepProps {
   onComplete: () => void;
 }
 
-const LobbyLogin = (props: LobbyStepProps) => {
+const LobbyStart = (props: LobbyStepProps) => {
   const auth = useAuth();
   const db = useFirestore();
   const { newPc, setDc } = useRTC();
 
-  const enterLobby = async (name: string) => {
-    let pc = newPc();
-    let dc = pc.createDataChannel("dataSync", { negotiated: true, id: 1 });
-    dc.addEventListener("open", (event) => {
-      setDc(dc);
-    });
-    dc.addEventListener("close", (event) => {
-      setDc(undefined);
-    });
-    // pc.onnegotiationneeded = (ev) => {
-    return Promise.all([signInAnonymously(auth), pc.createOffer()]).then(
-      ([cred, offer]) => {
-        props.setState((state) => ({ ...state, uid: cred.user.uid }));
-        pc.onicecandidate = ({ candidate }) => {
-          if (candidate) {
-            addDoc(
-              collection(db, "lobby", cred.user.uid, "iceCandidates"),
-              candidate.toJSON()
-            );
-          }
-        };
-        return Promise.all([
-          setDoc(doc(db, "lobby", cred.user.uid), {
-            name: name,
-            uid: cred.user.uid,
-            sdp: offer.sdp,
-            type: offer.type,
-          }),
-          pc.setLocalDescription(offer),
-        ]);
+  const [pc, setPc] = useState<RTCPeerConnection | undefined>(undefined);
+
+  useEffect(() => {
+    const peer = newPc();
+    setPc(peer);
+    try {
+      let dc = peer.createDataChannel("gameSync", { negotiated: true, id: 27 });
+      dc.addEventListener("open", (event) => {
+        setDc(dc);
+      });
+      dc.addEventListener("close", (event) => {
+        setDc(undefined);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }, [setDc]); // why is newPc causing this to re-run?
+
+  if (!pc) {
+    return null;
+  }
+
+  const newGame = async () => {
+    const {
+      user: { uid },
+    } = await signInAnonymously(auth);
+
+    let gid = Math.floor(Math.random() * 10000)
+      .toString()
+      .padStart(4, "0");
+
+    let written = false;
+    while (!written) {
+      try {
+        await setDoc(doc(db, "lobby", gid), {
+          gid: gid,
+          uid: uid,
+        });
+        written = true;
+      } catch (e) {
+        if (e instanceof FirebaseError && e.code === "permission-denied") {
+          console.log(e);
+          // gid conflict, pick a new one and try again
+          gid = Math.floor(Math.random() * 10000)
+            .toString()
+            .padStart(4, "0");
+        } else {
+          throw e;
+        }
       }
-    );
-    // };
+    }
+
+    props.setState((state) => ({
+      ...state,
+      gid: gid,
+      uid: uid,
+      initiator: true,
+    }));
+
+    /* FIXME batch these */
+    pc.onicecandidate = async ({ candidate }) => {
+      if (candidate) {
+        await updateDoc(doc(db, "lobby", gid, "players", uid), {
+          iceCandidates: arrayUnion(JSON.stringify(candidate)),
+        });
+      }
+    };
+    await pc.setLocalDescription();
+    await setDoc(doc(db, "lobby", gid, "players", uid), {
+      uid: uid,
+      offer: JSON.stringify(pc.localDescription),
+    });
   };
+
+  const joinGame = async () => {
+    const {
+      user: { uid },
+    } = await signInAnonymously(auth);
+    props.setState((state) => ({ ...state, oid: uid, initiator: false }));
+    await pc.setLocalDescription();
+  };
+
   return (
     <Box component="form" noValidate autoComplete="off">
-      <TextField
-        label="screen name"
-        variant="outlined"
-        value={props.state.name}
-        onChange={(e) => {
-          props.setState((state) => ({ ...state, name: e.target.value }));
-        }}
-      />
       <Button
-        disabled={props.state.name === ""}
         onClick={async () => {
-          await enterLobby(props.state.name);
+          await newGame();
           props?.onComplete();
         }}
       >
-        next
+        Start a Game
+      </Button>
+      <Button
+        onClick={async () => {
+          await joinGame();
+          props?.onComplete();
+        }}
+      >
+        Join a Game
       </Button>
     </Box>
   );
 };
 
-const LobbyList = (props: LobbyStepProps) => {
+const LobbyConnect = (props: LobbyStepProps) => {
+  const { initiator } = props.state;
+  if (initiator) {
+    return <LobbyConnectWait {...props} />;
+  } else {
+    return <LobbyConnectJoin {...props} />;
+  }
+};
+
+const LobbyConnectWait = (props: LobbyStepProps) => {
+  // const auth = useAuth();
   const db = useFirestore();
   const { pc } = useRTC();
-  const [users, setUsers] = useState<Array<{ uid: string; name: string }>>([]);
-  const [q] = useState(query(collection(db, "lobby")));
+  const { state, setState, onComplete } = props;
+  const { initiator, gid, uid } = state;
+
+  if (!(!!pc && !!db && initiator && !!gid && !!uid)) {
+    throw Error();
+  }
 
   useEffect(() => {
-    console.log("useEffect");
-
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      console.log(
-        `snapShot: ${querySnapshot.docs.map((doc) => doc.data().name)}`
-      );
-      const users: Array<{ uid: string; name: string }> = [];
-      querySnapshot.forEach((doc) => {
-        users.push({ uid: doc.data().uid, name: doc.data().name });
-      });
-      setUsers(users);
-    });
-
-    const unsubscribe2 = onSnapshot(
-      doc(db, "lobby", props.state.uid),
-      (doc) => {
-        if (!doc.data()?.answer) {
-          return;
-        }
-        /* answer received from someone */
-        pc?.setRemoteDescription({
-          type: doc.data()?.answer.type,
-          sdp: doc.data()?.answer.sdp,
-        });
-        getDocs(
-          collection(db, "lobby", doc.data()?.answer.uid, "iceCandidates")
-        ).then((snapshot) => {
-          snapshot.forEach((doc) => {
-            pc?.addIceCandidate(doc.data());
+    pc.onconnectionstatechange = () => {
+      if (pc.connectionState === "connected") {
+        pc.onconnectionstatechange = null;
+        onComplete();
+      }
+    };
+    console.log("start listening to firebase for players");
+    const queryUnsubscribe = onSnapshot(
+      query(collection(db, "lobby", gid, "players"), where("uid", "!=", uid)),
+      (snapshot) => {
+        snapshot.forEach((doc) => {
+          pc?.setRemoteDescription(JSON.parse(doc.data()?.answer)).then(() => {
+            setState((state) => ({ ...state, oid: doc.data()?.oid }));
           });
         });
       }
     );
-
     return () => {
-      unsubscribe();
-      unsubscribe2();
+      console.log("stop listening to firebase for players");
+      queryUnsubscribe();
     };
-  }, [db, q, props.state.name, pc]);
-
-  const onUserClick = async (uid: string) => {
-    if (!pc) {
-      throw new Error("no peer connection?");
-    }
-    const snap = await getDoc(doc(db, "lobby", uid));
-    const offer = snap.data() as RTCSessionDescriptionInit;
-    if (offer) {
-      pc.setRemoteDescription(offer);
-    }
-    await pc.createAnswer().then(async (answer) => {
-      await pc.setLocalDescription(answer);
-      await updateDoc(doc(db, "lobby", uid), {
-        answer: {
-          uid: props.state.uid,
-          name: props.state.name,
-          sdp: answer.sdp,
-          type: answer.type,
-        },
-      });
-      await getDocs(collection(db, "lobby", uid, "iceCandidates")).then(
-        (snapshot) => {
-          snapshot.forEach((doc) => {
-            pc?.addIceCandidate(doc.data());
-          });
-        }
-      );
-    });
-  };
+  }, [onComplete, pc, db, gid, uid]);
 
   return (
     <Box>
-      <ButtonGroup variant="text">
-        {users.map(({ uid, name }) => (
-          <Button
-            key={uid}
-            onClick={(ev) => {
-              onUserClick(uid);
-            }}
-          >
-            {name}
-          </Button>
-        ))}
-      </ButtonGroup>
+      <Typography variant="h2">{state.gid}</Typography>
+      <Typography variant="subtitle1">(waiting on opponent)</Typography>
+    </Box>
+  );
+};
+
+const LobbyConnectJoin = (props: LobbyStepProps) => {
+  // const auth = useAuth();
+  const db = useFirestore();
+  const { pc } = useRTC();
+  const { state, setState, onComplete } = props;
+  const { oid, initiator } = state;
+
+  if (!(!!pc && !!db && !initiator && !!oid)) {
+    throw Error();
+  }
+
+  useEffect(() => {
+    pc.onconnectionstatechange = () => {
+      if (pc.connectionState === "connected") {
+        pc.onconnectionstatechange = null;
+        onComplete();
+      }
+    };
+  }, [onComplete, pc]);
+
+  const joinGame = async (gid: string) => {
+    await updateDoc(doc(db, "lobby", gid), { oid: oid });
+    await getDoc(doc(db, "lobby", gid)).then(async (snapshot) => {
+      const uid = snapshot.data()?.uid;
+      await getDoc(doc(db, "lobby", gid, "players", uid)).then((snapshot) => {
+        const offer = JSON.parse(snapshot.data()?.offer);
+        pc.setRemoteDescription(offer);
+        /// tell ice about remote iceCandidates
+        snapshot.data()?.iceCandidates.forEach((candidate: string) => {
+          pc.addIceCandidate(JSON.parse(candidate));
+        });
+      });
+    });
+    await pc.setLocalDescription();
+    await setDoc(doc(db, "lobby", gid, "players", oid), {
+      uid: oid,
+      answer: JSON.stringify(pc.localDescription),
+    });
+  };
+  return (
+    <Box>
+      <TextField
+        onChange={(ev) => {
+          setState((state) => ({
+            ...state,
+            gid: ev.target.value.padStart(4, "0"),
+          }));
+        }}
+      />
       <Button
-        onClick={async () => {
-          console.log(users);
-          props?.onComplete();
+        onClick={() => {
+          if (props.state.gid) {
+            joinGame(props.state.gid);
+          }
         }}
       >
-        next
+        Join
       </Button>
     </Box>
   );
@@ -204,51 +269,64 @@ const LobbyList = (props: LobbyStepProps) => {
 
 const LobbyStepper = (props: { onComplete?: () => void }) => {
   const [activeStep, setActiveStep] = useState(0);
+  const [state, setState] = useState<LobbyStepState>({});
+  const db = useFirestore();
 
   const handleNext = () => {
     setActiveStep((step) => step + 1);
   };
 
   const handleFinish = () => {
-    setActiveStep(0);
+    // cleanup
+    if (state.initiator && state.gid) {
+      console.log(`cleanup: state: ${JSON.stringify(state)}`);
+      if (state.uid) {
+        deleteDoc(doc(db, "lobby", state.gid, "players", state.uid));
+      }
+      if (state.oid) {
+        deleteDoc(doc(db, "lobby", state.gid, "players", state.oid));
+      }
+      deleteDoc(doc(db, "lobby", state.gid));
+    }
+    if (!state.initiator && state.gid) {
+      console.log(`cleanup: state: ${JSON.stringify(state)}`);
+      if (state.oid) {
+        deleteDoc(doc(db, "lobby", state.gid, "players", state.oid));
+      }
+    }
     props.onComplete?.();
   };
 
-  const [state, setState] = useState({ name: "", uid: "" });
-
   const lobbySteps = [
     {
-      label: "login",
+      label: "start",
       element: (
-        <LobbyLogin state={state} setState={setState} onComplete={handleNext} />
+        <LobbyStart state={state} setState={setState} onComplete={handleNext} />
       ),
     },
     {
-      label: "lobby",
+      label: "connect",
       element: (
-        <LobbyList state={state} setState={setState} onComplete={handleNext} />
+        <LobbyConnect
+          state={state}
+          setState={setState}
+          onComplete={handleFinish}
+        />
       ),
     },
-    { label: "connect", element: null },
   ];
 
   return (
     <Box>
       <Stepper activeStep={activeStep}>
-        {lobbySteps.map(({ label, element }, index) => (
+        {lobbySteps.map(({ label }) => (
           <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+            {/* <StepLabel>{label}</StepLabel> */}
+            <StepLabel />
           </Step>
         ))}
       </Stepper>
-      <Box sx={{ m: 1 }}>
-        {lobbySteps[activeStep].element}
-        {/* {activeStep === lobbySteps.length - 1 ? (
-          <Button onClick={handleFinish}>Finish</Button>
-        ) : (
-          <Button onClick={handleNext}>Next</Button>
-        )} */}
-      </Box>
+      <Box sx={{ m: 1 }}>{lobbySteps[activeStep].element}</Box>
     </Box>
   );
 };
@@ -262,7 +340,7 @@ const Lobby = (props: LobbyProps) => {
   const { open, onClose } = props;
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Going Online</DialogTitle>
+      {/* <DialogTitle>Going Online</DialogTitle> */}
       <DialogContent>
         <LobbyStepper onComplete={onClose} />
       </DialogContent>

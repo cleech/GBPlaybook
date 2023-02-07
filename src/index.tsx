@@ -55,17 +55,17 @@ rootStorePersist().then(() => {
     document.getElementById("root") as HTMLElement
   );
   root.render(
-    <React.StrictMode>
-      <RootStoreProvider value={rootStore}>
-        <RTCProvider>
-          <FirebaseProvider>
-            <DataProvider>
-              <RouterProvider router={router} />
-            </DataProvider>
-          </FirebaseProvider>
-        </RTCProvider>
-      </RootStoreProvider>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <RootStoreProvider value={rootStore}>
+      <RTCProvider>
+        <FirebaseProvider>
+          <DataProvider>
+            <RouterProvider router={router} />
+          </DataProvider>
+        </FirebaseProvider>
+      </RTCProvider>
+    </RootStoreProvider>
+    // </React.StrictMode>
   );
 });
 

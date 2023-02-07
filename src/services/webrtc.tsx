@@ -28,10 +28,12 @@ const iceConfig = {
     },
   ],
 };
+
 interface RTCContextValues {
   pc?: RTCPeerConnection;
-  dc?: RTCDataChannel;
   newPc: (config?: RTCConfiguration) => RTCPeerConnection;
+  // setPc: (peer?: RTCPeerConnection) => void;
+  dc?: RTCDataChannel;
   setDc: (channel?: RTCDataChannel) => void;
 }
 
@@ -39,6 +41,7 @@ const RTCContext = createContext<RTCContextValues>({
   pc: undefined,
   newPc: (config?: RTCConfiguration) =>
     new RTCPeerConnection(config ?? iceConfig),
+  // setPc: (peer?: RTCPeerConnection) => {},
   dc: undefined,
   setDc: (channel?: RTCDataChannel) => {},
 });
@@ -48,11 +51,13 @@ export const RTCProvider = ({ children }: { children: ReactNode }) => {
   const [dc, setDc] = useState<RTCDataChannel | undefined>(undefined);
   const newPc = useCallback(
     (config?: RTCConfiguration) => {
-      const pc = new RTCPeerConnection(config ?? iceConfig);
-      setPc(pc);
-      return pc;
+      pc?.close();
+      setPc(undefined);
+      const newPeer = new RTCPeerConnection(config ?? iceConfig);
+      setPc(newPeer);
+      return newPeer;
     },
-    [setPc]
+    [pc, setPc]
   );
   return (
     <RTCContext.Provider value={{ pc, newPc, dc, setDc }}>
