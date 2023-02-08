@@ -174,12 +174,7 @@ const App = () => {
             >
               <ListItemText>Settings</ListItemText>
             </DrawerNavigationButton>
-          </List>
-          <Divider />
-          <List>
-            <ListItem>
-              <ListItemText>Experimental Tools:</ListItemText>
-            </ListItem>
+            <Divider />
             <DrawerNavigationButton
               to={"/print"}
               onClick={() => setDrawer(false)}
