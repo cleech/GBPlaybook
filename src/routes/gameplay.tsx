@@ -3,7 +3,6 @@ import React, {
   useState,
   useRef,
   useLayoutEffect,
-  Suspense,
   useEffect,
   useMemo,
 } from "react";
@@ -59,6 +58,7 @@ import SyncProblemIcon from "@mui/icons-material/SyncProblem";
 import Lobby from "../components/Lobby";
 import { useRTC } from "../services/webrtc";
 import { observer } from "mobx-react-lite";
+import { Offline, Online } from "react-detect-offline";
 
 function SelectedIcon({
   team,
@@ -343,16 +343,14 @@ export default function GamePlay() {
             flexDirection: "row",
           }}
         />
-
-        <Suspense
-          fallback={
-            <IconButton disabled>
-              <SyncProblemIcon />
-            </IconButton>
-          }
-        >
+        <Offline>
+          <IconButton disabled>
+            <SyncDisabledIcon />
+          </IconButton>
+        </Offline>
+        <Online>
           <LoginButton />
-        </Suspense>
+        </Online>
       </AppBarContent>
       <AppBarContext.Provider value={appBarContainer}>
         <Outlet />
