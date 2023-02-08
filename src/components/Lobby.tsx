@@ -21,6 +21,7 @@ import {
   arrayUnion,
   deleteDoc,
   Unsubscribe,
+  writeBatch,
 } from "firebase/firestore";
 import { useRTC } from "../services/webrtc";
 import { FirebaseError } from "firebase/app";
@@ -106,18 +107,34 @@ const LobbyStart = (props: LobbyStepProps) => {
       initiator: true,
     }));
 
-    /* FIXME batch these */
+    /* batching instead of trickle ice ... */
+    const batch = writeBatch(db);
     pc.onicecandidate = async ({ candidate }) => {
       if (candidate) {
-        await updateDoc(doc(db, "lobby", gid, "players", uid), {
+        batch.update(doc(db, "lobby", gid, "players", uid), {
           iceCandidates: arrayUnion(JSON.stringify(candidate)),
         });
       }
     };
     await pc.setLocalDescription();
-    await setDoc(doc(db, "lobby", gid, "players", uid), {
+    batch.set(doc(db, "lobby", gid, "players", uid), {
       uid: uid,
       offer: JSON.stringify(pc.localDescription),
+    });
+    await Promise.race([
+      new Promise<void>(
+        (resolve, _reject) =>
+          (pc.onicegatheringstatechange = (ev) => {
+            if (pc.iceGatheringState === "complete") {
+              resolve();
+            }
+          })
+      ),
+      new Promise<void>((resolve, _reject) => setTimeout(resolve, 1000)),
+    ]).then(async () => {
+      pc.onicecandidate = null;
+      pc.onicegatheringstatechange = null;
+      return batch.commit();
     });
   };
 
@@ -192,7 +209,7 @@ const LobbyConnectWait = (props: LobbyStepProps) => {
             return;
           }
           let answer = JSON.parse(docSnap.data().answer);
-          await pc?.setRemoteDescription(answer).then(() => {
+          await pc.setRemoteDescription(answer).then(() => {
             setState((state) => ({ ...state, oid: oid }));
           });
           const iceCandidates = docSnap.data().iceCandidates;
@@ -277,14 +294,40 @@ const LobbyConnectJoin = (props: LobbyStepProps) => {
       const offer: RTCSessionDescriptionInit = JSON.parse(uidDoc.data().offer);
       // generate SDP answer and publish
       await pc.setRemoteDescription(offer);
+
+      // batching instead of trickle ice
+      const batch = writeBatch(db);
+      pc.onicecandidate = async ({ candidate }) => {
+        if (candidate) {
+          batch.update(oidRef, {
+            iceCandidates: arrayUnion(JSON.stringify(candidate)),
+          });
+        }
+      };
       await pc.setLocalDescription();
-      await setDoc(oidRef, {
+      batch.set(oidRef, {
         uid: oid,
         answer: JSON.stringify(pc.localDescription),
       });
+      await Promise.race([
+        new Promise<void>(
+          (resolve, _reject) =>
+            (pc.onicegatheringstatechange = (ev) => {
+              if (pc.iceGatheringState === "complete") {
+                resolve();
+              }
+            })
+        ),
+        new Promise<void>((resolve, _reject) => setTimeout(resolve, 1000)),
+      ]).then(() => {
+        pc.onicecandidate = null;
+        pc.onicegatheringstatechange = null;
+        return batch.commit();
+      });
+
       // tell ice about remote iceCandidates
       const iceCandidates = uidDoc.data().iceCandidates;
-      iceCandidates.forEach((candidate: string) => {
+      iceCandidates?.forEach((candidate: string) => {
         pc.addIceCandidate(JSON.parse(candidate));
       });
     } catch (e) {
