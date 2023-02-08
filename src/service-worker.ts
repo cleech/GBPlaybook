@@ -10,7 +10,11 @@
 
 import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
-import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
+import {
+  precacheAndRoute,
+  createHandlerBoundToURL,
+  PrecacheEntry,
+} from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
 
@@ -22,7 +26,18 @@ clientsClaim();
 // Their URLs are injected into the manifest variable below.
 // This variable must be present somewhere in your service worker file,
 // even if you decide not to use precaching. See https://cra.link/PWA
-precacheAndRoute(self.__WB_MANIFEST);
+const staticBuildFiles = self.__WB_MANIFEST as PrecacheEntry[];
+// extra files served via the fetch API, but cached for offline use
+const extraPrecachedFiles: (string | PrecacheEntry)[] = [
+  'data/manifest.json',
+  'data/GB-Playbook-4-3.json',
+  'data/GB-Playbook-4-4.json',
+  'data/GB-Playbook-4-5.json',
+];
+precacheAndRoute([
+  ...staticBuildFiles,
+  ...extraPrecachedFiles, //.map((url) => ({ url, revision: null })),
+]);
 
 // Set up App Shell-style routing, so that all navigation requests
 // are fulfilled with your index.html shell. Learn more at
