@@ -58,6 +58,7 @@ import SyncProblemIcon from "@mui/icons-material/SyncProblem";
 
 import Lobby from "../components/Lobby";
 import { useRTC } from "../services/webrtc";
+import { observer } from "mobx-react-lite";
 
 function SelectedIcon({
   team,
@@ -301,18 +302,19 @@ function GameControls(
   ];
 }
 
-const LoginButton = () => {
+const LoginButton = observer(() => {
   const [showDialog, setShowDialog] = useState(false);
+  const { settings } = useStore();
   const { dc } = useRTC();
-  return (
+  return settings.networkPlay ? (
     <>
       <Lobby open={showDialog} onClose={() => setShowDialog(false)} />
       <IconButton onClick={() => setShowDialog(true)} disabled={!!dc}>
         <SyncIcon color={dc ? "success" : "inherit"} />
       </IconButton>
     </>
-  );
-};
+  ) : null;
+});
 
 export default function GamePlay() {
   const location = useLocation();

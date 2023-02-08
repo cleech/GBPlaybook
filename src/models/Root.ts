@@ -105,6 +105,7 @@ const Settings = types
     colorScheme: types.maybe(types.enumeration(["dark", "light"])),
     dataSet: types.maybe(types.string),
     initialScreen: types.optional(types.string, "/game"),
+    networkPlay: types.optional(types.boolean, false),
   })
   .actions((self) => ({
     setColorScheme(scheme: any) {
@@ -116,6 +117,9 @@ const Settings = types
     setInitialScreen(route: To) {
       self.initialScreen = route.toString();
     },
+    setNetworkPlay(net: boolean) {
+      self.networkPlay = net;
+    }
   }));
 
 const RootModel = types

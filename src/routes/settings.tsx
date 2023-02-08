@@ -8,6 +8,8 @@ import {
   Select,
   MenuItem,
   FormControl,
+  FormControlLabel,
+  Switch,
   SelectChangeEvent,
   Breadcrumbs,
   Box,
@@ -30,7 +32,9 @@ const Settings = () => {
       <Typography variant="h6">
         GB Playbook {process.env.REACT_APP_VERSION}
       </Typography>
+
       <Divider sx={{ my: 2 }} />
+
       <Typography>Season and Erratra Version:</Typography>
       <Observer>
         {() => (
@@ -50,7 +54,9 @@ const Settings = () => {
           </FormControl>
         )}
       </Observer>
+
       <Divider sx={{ my: 2 }} />
+
       <Typography>Initial Screen:</Typography>
       <Observer>
         {() => (
@@ -64,6 +70,28 @@ const Settings = () => {
               <MenuItem value="/game">Game Play</MenuItem>
               <MenuItem value="/library">Card Library</MenuItem>
             </Select>
+          </FormControl>
+        )}
+      </Observer>
+
+      <Divider sx={{ my: 2 }} />
+
+      <Typography>Experimental Features:</Typography>
+      <Observer>
+        {() => (
+          <FormControl>
+            <FormControlLabel
+              control={
+                <Switch
+                  size="small"
+                  checked={settings.networkPlay}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    settings.setNetworkPlay(event.target.checked);
+                  }}
+                />
+              }
+              label="Online Play"
+            />
           </FormControl>
         )}
       </Observer>
