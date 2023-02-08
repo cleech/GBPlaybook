@@ -30,29 +30,21 @@ const iceConfig = {
 };
 
 interface RTCContextValues {
-  pc?: RTCPeerConnection;
-  newPc: (config?: RTCConfiguration) => RTCPeerConnection;
-  // setPc: (peer?: RTCPeerConnection) => void;
+  pc: RTCPeerConnection;
   dc?: RTCDataChannel;
+  newPc: (config?: RTCConfiguration) => RTCPeerConnection;
   setDc: (channel?: RTCDataChannel) => void;
 }
 
-const RTCContext = createContext<RTCContextValues>({
-  pc: undefined,
-  newPc: (config?: RTCConfiguration) =>
-    new RTCPeerConnection(config ?? iceConfig),
-  // setPc: (peer?: RTCPeerConnection) => {},
-  dc: undefined,
-  setDc: (channel?: RTCDataChannel) => {},
-});
+const RTCContext = createContext<RTCContextValues | undefined>(undefined);
 
 export const RTCProvider = ({ children }: { children: ReactNode }) => {
-  const [pc, setPc] = useState<RTCPeerConnection | undefined>(undefined);
+  const [pc, setPc] = useState(new RTCPeerConnection(iceConfig));
   const [dc, setDc] = useState<RTCDataChannel | undefined>(undefined);
+
   const newPc = useCallback(
     (config?: RTCConfiguration) => {
-      pc?.close();
-      setPc(undefined);
+      pc.close();
       const newPeer = new RTCPeerConnection(config ?? iceConfig);
       setPc(newPeer);
       return newPeer;
@@ -66,4 +58,10 @@ export const RTCProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useRTC = () => useContext(RTCContext);
+export const useRTC = () => {
+  const context = useContext(RTCContext);
+  if (!context) {
+    throw Error("WebRTC Context.Provider not found");
+  }
+  return context;
+};

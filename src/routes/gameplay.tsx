@@ -308,7 +308,7 @@ const LoginButton = () => {
     <>
       <Lobby open={showDialog} onClose={() => setShowDialog(false)} />
       <IconButton onClick={() => setShowDialog(true)} disabled={!!dc}>
-        <SyncIcon />
+        <SyncIcon color={dc ? "success" : "inherit"} />
       </IconButton>
     </>
   );

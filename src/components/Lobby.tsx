@@ -13,16 +13,14 @@ import {
 import { signInAnonymously } from "firebase/auth";
 import { useAuth, useFirestore } from "reactfire";
 import {
-  collection,
   doc,
   setDoc,
-  query,
   onSnapshot,
   updateDoc,
   getDoc,
   arrayUnion,
-  where,
   deleteDoc,
+  Unsubscribe,
 } from "firebase/firestore";
 import { useRTC } from "../services/webrtc";
 import { FirebaseError } from "firebase/app";
@@ -163,11 +161,11 @@ const LobbyConnect = (props: LobbyStepProps) => {
 };
 
 const LobbyConnectWait = (props: LobbyStepProps) => {
-  // const auth = useAuth();
   const db = useFirestore();
   const { pc } = useRTC();
   const { state, setState, onComplete } = props;
   const { initiator, gid, uid } = state;
+  const [oid, setOid] = useState<string | undefined>(undefined);
 
   if (!(!!pc && !!db && initiator && !!gid && !!uid)) {
     throw Error();
@@ -180,22 +178,49 @@ const LobbyConnectWait = (props: LobbyStepProps) => {
         onComplete();
       }
     };
-    console.log("start listening to firebase for players");
-    const queryUnsubscribe = onSnapshot(
-      query(collection(db, "lobby", gid, "players"), where("uid", "!=", uid)),
-      (snapshot) => {
-        snapshot.forEach((doc) => {
-          pc?.setRemoteDescription(JSON.parse(doc.data()?.answer)).then(() => {
-            setState((state) => ({ ...state, oid: doc.data()?.oid }));
+    let unsubscribe: Unsubscribe | undefined = undefined;
+    if (!oid) {
+      unsubscribe = onSnapshot(doc(db, "lobby", gid), (snapshot) => {
+        let oid = snapshot.data()?.oid ?? undefined;
+        setOid(oid);
+      });
+    } else if (!state.oid) {
+      unsubscribe = onSnapshot(
+        doc(db, "lobby", gid, "players", oid),
+        async (docSnap) => {
+          if (!docSnap.exists()) {
+            return;
+          }
+          let answer = JSON.parse(docSnap.data().answer);
+          await pc?.setRemoteDescription(answer).then(() => {
+            setState((state) => ({ ...state, oid: oid }));
           });
-        });
-      }
-    );
+          const iceCandidates = docSnap.data().iceCandidates;
+          await iceCandidates?.forEach(async (candidate: string) => {
+            await pc.addIceCandidate(JSON.parse(candidate));
+          });
+        }
+      );
+    } else if (pc.connectionState !== "connected") {
+      unsubscribe = onSnapshot(
+        doc(db, "lobby", gid, "players", oid),
+        async (docSnap) => {
+          if (!docSnap.exists()) {
+            return;
+          }
+          const iceCandidates = docSnap.data().iceCandidates;
+          await iceCandidates?.forEach(async (candidate: string) => {
+            await pc.addIceCandidate(JSON.parse(candidate));
+          });
+        }
+      );
+    }
+
     return () => {
-      console.log("stop listening to firebase for players");
-      queryUnsubscribe();
+      // pc.onconnectionstatechange = null;
+      unsubscribe?.();
     };
-  }, [onComplete, pc, db, gid, uid]);
+  }, [onComplete, setState, pc, db, gid, uid, oid, state.oid]);
 
   return (
     <Box>
@@ -206,7 +231,6 @@ const LobbyConnectWait = (props: LobbyStepProps) => {
 };
 
 const LobbyConnectJoin = (props: LobbyStepProps) => {
-  // const auth = useAuth();
   const db = useFirestore();
   const { pc } = useRTC();
   const { state, setState, onComplete } = props;
@@ -223,26 +247,49 @@ const LobbyConnectJoin = (props: LobbyStepProps) => {
         onComplete();
       }
     };
+    return () => {
+      // pc.onconnectionstatechange = null;
+    };
   }, [onComplete, pc]);
 
   const joinGame = async (gid: string) => {
-    await updateDoc(doc(db, "lobby", gid), { oid: oid });
-    await getDoc(doc(db, "lobby", gid)).then(async (snapshot) => {
-      const uid = snapshot.data()?.uid;
-      await getDoc(doc(db, "lobby", gid, "players", uid)).then((snapshot) => {
-        const offer = JSON.parse(snapshot.data()?.offer);
-        pc.setRemoteDescription(offer);
-        /// tell ice about remote iceCandidates
-        snapshot.data()?.iceCandidates.forEach((candidate: string) => {
-          pc.addIceCandidate(JSON.parse(candidate));
-        });
+    const gameDocRef = doc(db, "lobby", gid);
+    const oidRef = doc(db, "lobby", gid, "players", oid);
+    let uid: string | undefined = undefined;
+
+    try {
+      // claiming write, once this is done we can access other documents
+      await updateDoc(gameDocRef, { oid: oid });
+      // read back game and player 1 info
+      const gameDoc = await getDoc(gameDocRef);
+      if (!gameDoc.exists()) {
+        throw Error("Game ID does not exist");
+      }
+      uid = gameDoc.data().uid;
+      if (!uid) {
+        throw Error("Bad Game Document, no uid");
+      }
+      const uidRef = doc(db, "lobby", gid, "players", uid);
+      const uidDoc = await getDoc(uidRef);
+      if (!uidDoc.exists()) {
+        throw Error("Player 1 offer not found");
+      }
+      const offer: RTCSessionDescriptionInit = JSON.parse(uidDoc.data().offer);
+      // generate SDP answer and publish
+      await pc.setRemoteDescription(offer);
+      await pc.setLocalDescription();
+      await setDoc(oidRef, {
+        uid: oid,
+        answer: JSON.stringify(pc.localDescription),
       });
-    });
-    await pc.setLocalDescription();
-    await setDoc(doc(db, "lobby", gid, "players", oid), {
-      uid: oid,
-      answer: JSON.stringify(pc.localDescription),
-    });
+      // tell ice about remote iceCandidates
+      const iceCandidates = uidDoc.data().iceCandidates;
+      iceCandidates.forEach((candidate: string) => {
+        pc.addIceCandidate(JSON.parse(candidate));
+      });
+    } catch (e) {
+      console.error(e);
+    }
   };
   return (
     <Box>
@@ -279,17 +326,12 @@ const LobbyStepper = (props: { onComplete?: () => void }) => {
   const handleFinish = () => {
     // cleanup
     if (state.initiator && state.gid) {
-      console.log(`cleanup: state: ${JSON.stringify(state)}`);
       if (state.uid) {
         deleteDoc(doc(db, "lobby", state.gid, "players", state.uid));
-      }
-      if (state.oid) {
-        deleteDoc(doc(db, "lobby", state.gid, "players", state.oid));
       }
       deleteDoc(doc(db, "lobby", state.gid));
     }
     if (!state.initiator && state.gid) {
-      console.log(`cleanup: state: ${JSON.stringify(state)}`);
       if (state.oid) {
         deleteDoc(doc(db, "lobby", state.gid, "players", state.oid));
       }
@@ -321,7 +363,6 @@ const LobbyStepper = (props: { onComplete?: () => void }) => {
       <Stepper activeStep={activeStep}>
         {lobbySteps.map(({ label }) => (
           <Step key={label}>
-            {/* <StepLabel>{label}</StepLabel> */}
             <StepLabel />
           </Step>
         ))}
@@ -340,7 +381,6 @@ const Lobby = (props: LobbyProps) => {
   const { open, onClose } = props;
   return (
     <Dialog open={open} onClose={onClose}>
-      {/* <DialogTitle>Going Online</DialogTitle> */}
       <DialogContent>
         <LobbyStepper onComplete={onClose} />
       </DialogContent>

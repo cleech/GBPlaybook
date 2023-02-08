@@ -3,7 +3,6 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /lobby/{gameID} {
       allow list: if false
-
       allow get:  if request.auth.uid != null
                   && (request.auth.uid == resource.data.uid || request.auth.uid == resource.data.oid)
 
@@ -16,6 +15,9 @@ service cloud.firestore {
                     && request.auth.uid == request.resource.data.oid
                     && (!('oid' in resource.data) || (resource.data.oid == request.auth.uid))
                     && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['oid'])
+                    // enforce transactional updates with he player document
+                    // && existsAfter(/databases/$(database)/documents/lobby/$(gameID)/players/$(request.auth.uid))
+                    // can't do that and keep SDP information semi-secret
 
       allow delete: if request.auth.uid != null
                     && request.auth.uid == resource.data.uid
@@ -27,8 +29,9 @@ service cloud.firestore {
       }
 
       match /players/{playerID} {
-        allow read: if request.auth.uid != null
-                    && userInGame()
+        allow list: if false
+        allow get:  if request.auth.uid != null
+                    && (request.auth.uid == playerID || userInGame())
 
         allow create: if request.auth.uid != null
                       && request.auth.uid == playerID

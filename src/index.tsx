@@ -57,13 +57,13 @@ rootStorePersist().then(() => {
   root.render(
     // <React.StrictMode>
     <RootStoreProvider value={rootStore}>
-      <RTCProvider>
-        <FirebaseProvider>
+      <FirebaseProvider>
+        <RTCProvider>
           <DataProvider>
             <RouterProvider router={router} />
           </DataProvider>
-        </FirebaseProvider>
-      </RTCProvider>
+        </RTCProvider>
+      </FirebaseProvider>
     </RootStoreProvider>
     // </React.StrictMode>
   );
