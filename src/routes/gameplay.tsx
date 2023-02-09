@@ -569,10 +569,10 @@ export const Game = () => {
           const m = teams[1].roster.find((m) => m.id === msg.model);
           m?.setHealth(msg.health);
         }
-        if (msg.VP) {
+        if (msg.VP !== undefined) {
           teams[1].setScore(msg.VP);
         }
-        if (msg.MOM) {
+        if (msg.MOM !== undefined) {
           teams[1].setMomentum(msg.MOM);
         }
       };

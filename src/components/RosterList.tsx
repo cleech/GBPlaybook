@@ -44,8 +44,6 @@ interface CounterProps {
   disabled?: boolean;
 }
 
-/* TODO, disable and emit messages for VP and MOM counters */
-
 function Counter({
   object,
   label,
