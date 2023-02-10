@@ -309,13 +309,20 @@ const LoginButton = observer(() => {
   return settings.networkPlay ? (
     <>
       <Lobby open={showDialog} onClose={() => setShowDialog(false)} />
-      <IconButton
-        size="small"
-        onClick={() => setShowDialog(true)}
-        disabled={!!dc}
-      >
-        <SyncIcon color={dc ? "success" : "inherit"} />
-      </IconButton>
+      <Online polling={false}>
+        <IconButton
+          size="small"
+          onClick={() => setShowDialog(true)}
+          disabled={!!dc}
+        >
+          <SyncIcon color={dc ? "success" : "inherit"} />
+        </IconButton>
+      </Online>
+      <Offline polling={false}>
+        <IconButton size="small" disabled>
+          <SyncDisabledIcon />
+        </IconButton>
+      </Offline>
     </>
   ) : null;
 });
@@ -347,14 +354,7 @@ export default function GamePlay() {
             flexDirection: "row",
           }}
         />
-        <Offline polling={false}>
-          <IconButton size="small" disabled>
-            <SyncDisabledIcon />
-          </IconButton>
-        </Offline>
-        <Online polling={false}>
-          <LoginButton />
-        </Online>
+        <LoginButton />
       </AppBarContent>
       <AppBarContext.Provider value={appBarContainer}>
         <Outlet />
