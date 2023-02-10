@@ -347,12 +347,12 @@ export default function GamePlay() {
             flexDirection: "row",
           }}
         />
-        <Offline>
+        <Offline polling={false}>
           <IconButton size="small" disabled>
             <SyncDisabledIcon />
           </IconButton>
         </Offline>
-        <Online>
+        <Online polling={false}>
           <LoginButton />
         </Online>
       </AppBarContent>

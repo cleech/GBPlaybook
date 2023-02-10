@@ -167,6 +167,12 @@ export default function RosterList({
 }: RosterListProps) {
   const theme = useTheme();
   const { dc } = useRTC();
+  const indexBases = teams.reduce(
+    (acc, team, index) => {
+      return [...acc, acc[index] + team.roster.length];
+    },
+    [0]
+  );
   return (
     <Box
       sx={{
@@ -175,10 +181,7 @@ export default function RosterList({
       }}
     >
       {teams.map((team, index) => {
-        const indexBase = teams
-          .slice(0, index)
-          .map((t) => t.roster.length)
-          .reduce((acc, l) => acc + l, 0);
+        const indexBase = indexBases[index];
         return (
           <Accordion
             key={index}
