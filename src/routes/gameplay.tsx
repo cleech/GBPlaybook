@@ -309,7 +309,11 @@ const LoginButton = observer(() => {
   return settings.networkPlay ? (
     <>
       <Lobby open={showDialog} onClose={() => setShowDialog(false)} />
-      <IconButton onClick={() => setShowDialog(true)} disabled={!!dc}>
+      <IconButton
+        size="small"
+        onClick={() => setShowDialog(true)}
+        disabled={!!dc}
+      >
         <SyncIcon color={dc ? "success" : "inherit"} />
       </IconButton>
     </>
@@ -344,7 +348,7 @@ export default function GamePlay() {
           }}
         />
         <Offline>
-          <IconButton disabled>
+          <IconButton size="small" disabled>
             <SyncDisabledIcon />
           </IconButton>
         </Offline>
@@ -387,7 +391,7 @@ export const TeamSelect = () => {
     <>
       <AppBarContent>
         <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-          <IconButton disabled>
+          <IconButton size="small" disabled>
             <Home sx={{ color: "text.secondary" }} />
           </IconButton>
         </Breadcrumbs>
@@ -477,6 +481,7 @@ export const Draft = () => {
             color="inherit"
             href={`/game?p1=${g1}&p2=${g2}`}
             component={IconButton}
+            size="small"
           >
             <Home />
           </Link>
@@ -617,6 +622,7 @@ export const Game = () => {
             color="inherit"
             href={`/game?p1=${teams[0].name}&p2=${teams[1].name}`}
             component={IconButton}
+            size="small"
           >
             <Home />
           </Link>

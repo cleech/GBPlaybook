@@ -27,6 +27,8 @@ import { CardPrintScreen } from "./routes/print";
 import { FirebaseProvider } from "./services/firebase";
 import { RTCProvider } from "./services/webrtc";
 
+import { ServiceWorker } from "./useServiceWorker";
+
 rootStorePersist().then(() => {
   const router = createHashRouter(
     createRoutesFromElements(
@@ -56,15 +58,17 @@ rootStorePersist().then(() => {
   );
   root.render(
     // <React.StrictMode>
-    <RootStoreProvider value={rootStore}>
-      <FirebaseProvider>
-        <RTCProvider>
-          <DataProvider>
-            <RouterProvider router={router} />
-          </DataProvider>
-        </RTCProvider>
-      </FirebaseProvider>
-    </RootStoreProvider>
+    <ServiceWorker>
+      <RootStoreProvider value={rootStore}>
+        <FirebaseProvider>
+          <RTCProvider>
+            <DataProvider>
+              <RouterProvider router={router} />
+            </DataProvider>
+          </RTCProvider>
+        </FirebaseProvider>
+      </RootStoreProvider>
+    </ServiceWorker>
     // </React.StrictMode>
   );
 });
@@ -72,7 +76,10 @@ rootStorePersist().then(() => {
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
-serviceWorkerRegistration.register();
+// serviceWorkerRegistration.register();
+//
+// https://medium.com/toplyne-engineering/pwa-update-notifications-in-a-react-application-f5680d51bb2
+// Moved to App.tsx
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

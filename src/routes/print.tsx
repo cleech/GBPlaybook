@@ -57,6 +57,7 @@ export const CardPrintScreen = () => {
           <Typography>Card Printer</Typography>
           <Tooltip title="Print" arrow>
             <IconButton
+              size="small"
               onClick={() => {
                 window.print();
               }}
