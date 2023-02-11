@@ -58,6 +58,7 @@ export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
         }}
       >
         <div
+          className="card-front"
           style={
             {
               backgroundImage: `url(${GBImages[guild + "_front"]})`,
@@ -68,12 +69,13 @@ export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
           }
         />
         <div
+          className="card-back"
           style={
             {
               backgroundImage: `url(${GBImages[guild + "_back"]})`,
               "--scale": scale,
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0,
+              borderTopLeftRadius: 0,
+              borderBottomLeftRadius: 0,
             } as CardCSS
           }
         />

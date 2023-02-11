@@ -29,6 +29,7 @@ import { GuildGrid } from "../components/GuildGrid";
 import { useStore, IGBPlayer } from "../models/Root";
 import { AppBarContent } from "../App";
 import { NavigateNext } from "@mui/icons-material";
+import { DoubleGuildCard, FlipGuildCard } from "../components/GuildCard";
 
 export default function Library() {
   const location = useLocation();
@@ -117,7 +118,6 @@ export function Roster() {
         </Breadcrumbs>
       </AppBarContent>
       <Swiper
-        // ref={ref}
         onSwiper={setSwiper}
         initialSlide={g.roster.findIndex(
           (m: any) => m === searchParams.get("m")
@@ -140,6 +140,21 @@ export function Roster() {
           // flexDirection: "column",
         }}
       >
+        <SwiperSlide
+          key={g.name}
+          virtualIndex={0}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {large ? (
+            <DoubleGuildCard guild={g.name} />
+          ) : (
+            <FlipGuildCard guild={g.name} />
+          )}
+        </SwiperSlide>
         {g.roster.map((m: string, index: number) => {
           const model = data.Models.find((m2: any) => m2.id === m);
           if (!model) {
@@ -151,7 +166,7 @@ export function Roster() {
           return (
             <SwiperSlide
               key={model.id}
-              virtualIndex={index}
+              virtualIndex={index + 1}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -211,7 +226,7 @@ function SwiperButtons(props: {
               // label={model.displayName}
               label={model.id}
               onClick={() => {
-                swiper?.slideTo(index);
+                swiper?.slideTo(index + 1);
               }}
             />
           );

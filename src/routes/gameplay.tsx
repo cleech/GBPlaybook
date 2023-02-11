@@ -39,6 +39,7 @@ import { useStore, IGBTeam } from "../models/Root";
 import RosterList, { HealthCounter } from "../components/RosterList";
 import { FlipCard } from "../components/Card";
 
+import type { Swiper as SwiperRef } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Virtual } from "swiper";
 import "swiper/css";
@@ -676,6 +677,8 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(true);
 
+  const [swiper, setSwiper] = useState<SwiperRef | null>(null);
+
   const [cardWidth, setCardWidth] = useState(240);
   const [cardHeight, setCardHeight] = useState(336);
   const [slideHeight, setSlideHeight] = useState(336);
@@ -692,7 +695,6 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
     setCardHeight(Math.min(height - barHeight - 12, (width * 7) / 5 - 12));
     setSlideHeight(height - barHeight);
   }
-
   return (
     <div
       ref={sizeRef}
@@ -707,6 +709,7 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
         expanded={expanded}
         onClick={(i, expandList) => {
           setIndex(i);
+          // swiper?.slideTo(index, 0, false);
           setExpanded(expandList);
           setOpen(!expandList);
         }}
@@ -746,6 +749,7 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
           }}
         >
           <Swiper
+            onSwiper={setSwiper}
             modules={[Virtual]}
             virtual
             initialSlide={index}
