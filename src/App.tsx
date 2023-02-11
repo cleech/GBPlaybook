@@ -18,7 +18,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import { Box, Portal } from "@mui/material";
+import { Box, Portal, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { useStore } from "./models/Root";
@@ -169,7 +169,9 @@ const App = () => {
                 alt=""
               />
               <ListItemText style={{ textAlign: "center" }}>
-                GB Playbook
+                <Typography variant="h6" fontFamily="Comfortaa">
+                  GB Playbook
+                </Typography>
               </ListItemText>
             </ListItem>
             <Divider />
