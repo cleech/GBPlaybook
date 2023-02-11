@@ -25,6 +25,7 @@ import PrintIcon from "@mui/icons-material/Print";
 import SelectAllIcon from "@mui/icons-material/DoneAll";
 import ClearAllIcon from "@mui/icons-material/RemoveDone";
 import ClearIcon from "@mui/icons-material/Clear";
+import VersionTag from "../components/VersionTag";
 
 export const CardPrintScreen = () => {
   const { data } = useData();
@@ -77,46 +78,49 @@ export const CardPrintScreen = () => {
             my: "0.5rem",
           }}
         >
-          <ButtonGroup variant="text" sx={{ mb: "0.5rem" }}>
-            <Tooltip title="Select All" arrow>
-              <Button
-                onClick={() => {
-                  if (!list.current.guild) {
-                    return;
-                  }
-                  ref.current?.forEach((control: any) => {
-                    if (
-                      control.m.guild1 === list.current.guild ||
-                      control.m.guild2 === list.current.guild
-                    ) {
-                      control?.setChecked(true);
-                    }
-                  });
-                }}
-              >
-                <SelectAllIcon />
-              </Button>
-            </Tooltip>
-            <Tooltip title="Clear All" arrow>
-              <Button
-                onClick={() => {
-                  ref.current?.forEach((control: any) => {
+          <Box sx={{ position: "relative" }}>
+            <ButtonGroup variant="text" sx={{ mb: "0.5rem" }}>
+              <Tooltip title="Select All" arrow>
+                <Button
+                  onClick={() => {
                     if (!list.current.guild) {
                       return;
                     }
-                    if (
-                      control.m.guild1 === list.current.guild ||
-                      control.m.guild2 === list.current.guild
-                    ) {
-                      control?.setChecked(false);
-                    }
-                  });
-                }}
-              >
-                <ClearAllIcon />
-              </Button>
-            </Tooltip>
-          </ButtonGroup>
+                    ref.current?.forEach((control: any) => {
+                      if (
+                        control.m.guild1 === list.current.guild ||
+                        control.m.guild2 === list.current.guild
+                      ) {
+                        control?.setChecked(true);
+                      }
+                    });
+                  }}
+                >
+                  <SelectAllIcon />
+                </Button>
+              </Tooltip>
+              <Tooltip title="Clear All" arrow>
+                <Button
+                  onClick={() => {
+                    ref.current?.forEach((control: any) => {
+                      if (!list.current.guild) {
+                        return;
+                      }
+                      if (
+                        control.m.guild1 === list.current.guild ||
+                        control.m.guild2 === list.current.guild
+                      ) {
+                        control?.setChecked(false);
+                      }
+                    });
+                  }}
+                >
+                  <ClearAllIcon />
+                </Button>
+              </Tooltip>
+            </ButtonGroup>
+            <VersionTag />
+          </Box>
           <ModelLists ref={ref} />
         </Box>
         <Divider />

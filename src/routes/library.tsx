@@ -30,6 +30,7 @@ import { useStore, IGBPlayer } from "../models/Root";
 import { AppBarContent } from "../App";
 import { NavigateNext } from "@mui/icons-material";
 import { DoubleGuildCard, FlipGuildCard } from "../components/GuildCard";
+import VersionTag from "../components/VersionTag";
 
 export default function Library() {
   const location = useLocation();
@@ -67,6 +68,7 @@ export function GuildList() {
           navigate(guild);
         }}
       />
+      <VersionTag />
     </>
   );
 }
@@ -117,71 +119,74 @@ export function Roster() {
           <Typography>{g.name}</Typography>
         </Breadcrumbs>
       </AppBarContent>
-      <Swiper
-        onSwiper={setSwiper}
-        initialSlide={g.roster.findIndex(
-          (m: any) => m === searchParams.get("m")
-        )}
-        onSlideChange={(swiper) => {
-          setSearchParams(`m=${g.roster[swiper.activeIndex]}`, {
-            replace: true,
-          });
-        }}
-        // slidesPerView="auto"
-        slidesPerView={1.1}
-        centeredSlides={true}
-        // autoHeight={true}
-        spaceBetween={0.25 * 96}
-        style={{
-          height: "100%",
-          width: "100%",
-          // flexShrink: 2,
-          // display: "flex",
-          // flexDirection: "column",
-        }}
-      >
-        <SwiperSlide
-          key={g.name}
-          virtualIndex={0}
+      <Box sx={{ width: "100%", height: "100%", position: "relative" }}>
+        <Swiper
+          onSwiper={setSwiper}
+          initialSlide={g.roster.findIndex(
+            (m: any) => m === searchParams.get("m")
+          )}
+          onSlideChange={(swiper) => {
+            setSearchParams(`m=${g.roster[swiper.activeIndex]}`, {
+              replace: true,
+            });
+          }}
+          // slidesPerView="auto"
+          slidesPerView={1.1}
+          centeredSlides={true}
+          // autoHeight={true}
+          spaceBetween={0.25 * 96}
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            height: "100%",
+            width: "100%",
+            // flexShrink: 2,
+            // display: "flex",
+            // flexDirection: "column",
           }}
         >
-          {large ? (
-            <DoubleGuildCard guild={g.name} />
-          ) : (
-            <FlipGuildCard guild={g.name} />
-          )}
-        </SwiperSlide>
-        {g.roster.map((m: string, index: number) => {
-          const model = data.Models.find((m2: any) => m2.id === m);
-          if (!model) {
-            return null;
-          }
-          // if (GBImages[`${model.id}_gbcp_front`]) {
-          //   model.gbcp = true;
-          // }
-          return (
-            <SwiperSlide
-              key={model.id}
-              virtualIndex={index + 1}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {large ? (
-                <DoubleCard model={model as any} controls={undefined} />
-              ) : (
-                <FlipCard model={model as any} controls={undefined} />
-              )}
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
+          <SwiperSlide
+            key={g.name}
+            virtualIndex={0}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {large ? (
+              <DoubleGuildCard guild={g.name} />
+            ) : (
+              <FlipGuildCard guild={g.name} />
+            )}
+          </SwiperSlide>
+          {g.roster.map((m: string, index: number) => {
+            const model = data.Models.find((m2: any) => m2.id === m);
+            if (!model) {
+              return null;
+            }
+            // if (GBImages[`${model.id}_gbcp_front`]) {
+            //   model.gbcp = true;
+            // }
+            return (
+              <SwiperSlide
+                key={model.id}
+                virtualIndex={index + 1}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {large ? (
+                  <DoubleCard model={model as any} controls={undefined} />
+                ) : (
+                  <FlipCard model={model as any} controls={undefined} />
+                )}
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+        <VersionTag />
+      </Box>
       <SwiperButtons roster={g.roster as any} swiper={swiper} />
     </>
   );

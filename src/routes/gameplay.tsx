@@ -61,6 +61,7 @@ import { useRTC } from "../services/webrtc";
 import { observer } from "mobx-react-lite";
 import { Offline, Online } from "react-detect-offline";
 import { FlipGuildCard } from "../components/GuildCard";
+import VersionTag from "../components/VersionTag";
 
 function SelectedIcon({
   team,
@@ -390,7 +391,13 @@ const ResumeSnackBar = () => {
 
 export const TeamSelect = () => {
   return (
-    <>
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        position: "relative",
+      }}
+    >
       <AppBarContent>
         <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
           <IconButton size="small" disabled>
@@ -398,11 +405,10 @@ export const TeamSelect = () => {
           </IconButton>
         </Breadcrumbs>
       </AppBarContent>
-
-      <GuildGrid controls={GameControls} />
-
       <ResumeSnackBar />
-    </>
+      <GuildGrid controls={GameControls} />
+      <VersionTag />
+    </Box>
   );
 };
 
@@ -548,6 +554,7 @@ export const Draft = () => {
       />
 
       <ResumeSnackBar />
+      <VersionTag />
     </Box>
   );
 };
