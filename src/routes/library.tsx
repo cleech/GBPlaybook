@@ -31,6 +31,7 @@ import { AppBarContent } from "../App";
 import { NavigateNext } from "@mui/icons-material";
 import { DoubleGuildCard, FlipGuildCard } from "../components/GuildCard";
 import VersionTag from "../components/VersionTag";
+import { Guild } from "../components/DataContext.d";
 
 export default function Library() {
   const location = useLocation();
@@ -102,6 +103,18 @@ export function Roster() {
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
   const { data } = useData();
+
+  useEffect(() => {
+    const savedPosition = searchParams.get("m");
+    if (savedPosition && data) {
+      const g = data.Guilds.find((g: Guild) => g.name === guild);
+      const index = g?.roster.findIndex((m: any) => m === savedPosition);
+      if (index) {
+        swiper?.slideTo(index + 1);
+      }
+    }
+  }, [swiper, searchParams, data]);
+
   if (!data) {
     return null;
   }
@@ -122,11 +135,8 @@ export function Roster() {
       <Box sx={{ width: "100%", height: "100%", position: "relative" }}>
         <Swiper
           onSwiper={setSwiper}
-          initialSlide={g.roster.findIndex(
-            (m: any) => m === searchParams.get("m")
-          )}
           onSlideChange={(swiper) => {
-            setSearchParams(`m=${g.roster[swiper.activeIndex]}`, {
+            setSearchParams(`m=${g.roster[swiper.activeIndex - 1]}`, {
               replace: true,
             });
           }}
