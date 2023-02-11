@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/GBPlaybook/static/css/main.6d994dab.css",
-    "main.js": "/GBPlaybook/static/js/main.b1d7e36b.js",
+    "main.css": "/GBPlaybook/static/css/main.4a2de255.css",
+    "main.js": "/GBPlaybook/static/js/main.c63019cf.js",
     "static/js/787.0ce958d9.chunk.js": "/GBPlaybook/static/js/787.0ce958d9.chunk.js",
     "static/media/cast-00.png": "/GBPlaybook/static/media/cast-00.e812f221d27b7cb34947.png",
     "static/media/steeljaw-00.png": "/GBPlaybook/static/media/steeljaw-00.cb357cc0a966f9d8a7e3.png",
@@ -331,12 +331,12 @@
     "static/media/compound.svg": "/GBPlaybook/static/media/compound.ccaec29c51daf29ccf6f.svg",
     "static/media/lucky.svg": "/GBPlaybook/static/media/lucky.3fde12172b597327ee8e.svg",
     "index.html": "/GBPlaybook/index.html",
-    "main.6d994dab.css.map": "/GBPlaybook/static/css/main.6d994dab.css.map",
-    "main.b1d7e36b.js.map": "/GBPlaybook/static/js/main.b1d7e36b.js.map",
+    "main.4a2de255.css.map": "/GBPlaybook/static/css/main.4a2de255.css.map",
+    "main.c63019cf.js.map": "/GBPlaybook/static/js/main.c63019cf.js.map",
     "787.0ce958d9.chunk.js.map": "/GBPlaybook/static/js/787.0ce958d9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6d994dab.css",
-    "static/js/main.b1d7e36b.js"
+    "static/css/main.4a2de255.css",
+    "static/js/main.c63019cf.js"
   ]
 }
