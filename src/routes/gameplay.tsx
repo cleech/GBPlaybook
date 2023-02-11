@@ -59,6 +59,7 @@ import Lobby from "../components/Lobby";
 import { useRTC } from "../services/webrtc";
 import { observer } from "mobx-react-lite";
 import { Offline, Online } from "react-detect-offline";
+import { FlipGuildCard } from "../components/GuildCard";
 
 function SelectedIcon({
   team,
@@ -701,10 +702,7 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
         flexDirection: "column",
       }}
     >
-      {/* {teams.map((t, index) => ( */}
       <RosterList
-        // key={index}
-        // teams={[t]}
         teams={teams}
         expanded={expanded}
         onClick={(i, expandList) => {
@@ -713,8 +711,6 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
           setOpen(!expandList);
         }}
       />
-      {/* ))} */}
-
       <div
         style={{
           position: "relative",
@@ -766,9 +762,20 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
             }}
           >
             {teams
-              .map((t) => t.roster.map((m) => ({ m, disabled: t.disabled })))
-              .flat()
-              .map(({ m, disabled }, index) => (
+              .map((t) => [
+                // Guild Rules Card
+                () => <FlipGuildCard guild={t.name} />,
+                // Model Cards
+                t.roster.map((m) => () => (
+                  <FlipCard
+                    model={m}
+                    controls={CardControls}
+                    controlProps={{ disabled: t.disabled }}
+                  />
+                )),
+              ])
+              .flat(2)
+              .map((component, index) => (
                 <SwiperSlide key={index} virtualIndex={index}>
                   <div
                     style={{
@@ -778,11 +785,7 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
                       justifyContent: "center",
                     }}
                   >
-                    <FlipCard
-                      model={m}
-                      controls={CardControls}
-                      controlProps={{ disabled: disabled }}
-                    />
+                    {component?.()}
                   </div>
                 </SwiperSlide>
               ))}

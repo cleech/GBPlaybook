@@ -169,7 +169,7 @@ export default function RosterList({
   const { dc } = useRTC();
   const indexBases = teams.reduce(
     (acc, team, index) => {
-      return [...acc, acc[index] + team.roster.length];
+      return [...acc, acc[index] + team.roster.length + 1];
     },
     [0]
   );
@@ -181,7 +181,7 @@ export default function RosterList({
       }}
     >
       {teams.map((team, index) => {
-        const indexBase = indexBases[index];
+        const indexBase = indexBases[index] + 1;
         return (
           <Accordion
             key={index}
@@ -207,7 +207,7 @@ export default function RosterList({
             >
               <ListSubheader
                 onClick={() => {
-                  onClick(0, true);
+                  onClick(indexBase - 1, !expanded);
                 }}
                 sx={{
                   width: "100%",
