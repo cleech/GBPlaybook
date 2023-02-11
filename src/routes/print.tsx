@@ -26,10 +26,14 @@ import SelectAllIcon from "@mui/icons-material/DoneAll";
 import ClearAllIcon from "@mui/icons-material/RemoveDone";
 import ClearIcon from "@mui/icons-material/Clear";
 import VersionTag from "../components/VersionTag";
+import GBImages from "../components/GBImages";
+import { Guild, Model } from "../components/DataContext.d";
 
 export const CardPrintScreen = () => {
   const { data } = useData();
-  const ref = useRef<Map<any, any>>(null);
+  const ref = useRef<{ models: Map<string, any>; guilds: Map<string, any> }>(
+    null
+  );
   const list = useRef<any>(null);
 
   if (!data) {
@@ -86,7 +90,10 @@ export const CardPrintScreen = () => {
                     if (!list.current.guild) {
                       return;
                     }
-                    ref.current?.forEach((control: any) => {
+                    ref.current?.guilds
+                      .get(list.current.guild)
+                      .setChecked(true);
+                    ref.current?.models.forEach((control: any) => {
                       if (
                         control.m.guild1 === list.current.guild ||
                         control.m.guild2 === list.current.guild
@@ -102,7 +109,10 @@ export const CardPrintScreen = () => {
               <Tooltip title="Clear All" arrow>
                 <Button
                   onClick={() => {
-                    ref.current?.forEach((control: any) => {
+                    ref.current?.guilds
+                      .get(list.current.guild)
+                      .setChecked(false);
+                    ref.current?.models.forEach((control: any) => {
                       if (!list.current.guild) {
                         return;
                       }
@@ -130,7 +140,10 @@ export const CardPrintScreen = () => {
             color="primary"
             startIcon={<ClearIcon />}
             onClick={() => {
-              ref.current?.forEach((control: any) => {
+              ref.current?.guilds.forEach((control: any) => {
+                control?.setChecked(false);
+              });
+              ref.current?.models.forEach((control: any) => {
                 control?.setChecked(false);
               });
             }}
@@ -141,8 +154,11 @@ export const CardPrintScreen = () => {
       </Box>
 
       <Box className="Cards">
-        {data.Models.map((m: any) => (
-          <Content name={m.id} id={m.id} key={m.id} />
+        {data.Guilds.map((g: Guild) => (
+          <GuildCard name={g.name} />
+        ))}
+        {data.Models.map((m: Model) => (
+          <ModelCard name={m.id} id={m.id} key={m.id} />
         ))}
       </Box>
     </Box>
@@ -260,7 +276,48 @@ const DisplayModel = (name: string) => {
   // }
 };
 
-const ModelCheckBox = React.forwardRef((props: { m: any }, ref) => {
+const GuildCheckBox = React.forwardRef((props: { g: Guild }, ref) => {
+  const [checked, setChecked] = useState(false);
+  const g = props.g;
+  useImperativeHandle(
+    ref,
+    () => ({
+      g: props.g,
+      checked: checked,
+      setChecked: (value: boolean) => {
+        if (checked !== value) {
+          setChecked(value);
+          DisplayModel(props.g.name);
+        }
+      },
+    }),
+    [props.g, checked, setChecked]
+  );
+  return (
+    <FormControlLabel
+      sx={{
+        border: 1,
+        borderRadius: 1,
+        borderColor: "primary.main",
+      }}
+      control={<Checkbox checked={checked} size="small" color="warning" />}
+      label={g.name}
+      className={`model-checkbox ${g.name} hide ${g.minor ? "minor" : ""}`}
+      style={
+        {
+          "--color1": g.shadow ?? g.color + "80",
+          "--color2": "var(--color1)",
+        } as React.CSSProperties
+      }
+      onChange={() => {
+        setChecked(!checked);
+        DisplayModel(g.name);
+      }}
+    />
+  );
+});
+
+const ModelCheckBox = React.forwardRef((props: { m: Model }, ref) => {
   const { data } = useData();
   const [checked, setChecked] = useState(false);
   useImperativeHandle(
@@ -282,8 +339,8 @@ const ModelCheckBox = React.forwardRef((props: { m: any }, ref) => {
     return null;
   }
   const m = props.m;
-  const guild1 = data.Guilds.find((g: any) => g.name === m.guild1);
-  const guild2 = data.Guilds.find((g: any) => g.name === m.guild2);
+  const guild1 = data.Guilds.find((g: Guild) => g.name === m.guild1);
+  const guild2 = data.Guilds.find((g: Guild) => g.name === m.guild2);
   if (!guild1) {
     return null;
   }
@@ -316,10 +373,18 @@ const ModelCheckBox = React.forwardRef((props: { m: any }, ref) => {
   );
 });
 
-const ModelLists = React.forwardRef<Map<string, any>>((props, ref) => {
+const ModelLists = React.forwardRef<{
+  models: Map<string, any>;
+  guilds: Map<string, any>;
+}>((props, ref) => {
   const { data } = useData();
   const checkboxes = useRef(new Map());
-  React.useImperativeHandle(ref, () => checkboxes.current, [checkboxes]);
+  const guilds = useRef(new Map());
+  React.useImperativeHandle(
+    ref,
+    () => ({ models: checkboxes.current, guilds: guilds.current }),
+    [checkboxes, guilds]
+  );
   if (!data) {
     return null;
   }
@@ -333,20 +398,25 @@ const ModelLists = React.forwardRef<Map<string, any>>((props, ref) => {
         } as React.CSSProperties
       }
     >
-      {data.Models.map((m: any, index: number) => {
-        return (
-          <ModelCheckBox
-            m={m}
-            key={m.id}
-            ref={(element) => checkboxes.current.set(m.id, element)}
-          />
-        );
-      })}
+      {data.Guilds.map((g: Guild) => (
+        <GuildCheckBox
+          g={g}
+          key={g.name}
+          ref={(element) => guilds.current.set(g.name, element)}
+        />
+      ))}
+      {data.Models.map((m: Model) => (
+        <ModelCheckBox
+          m={m}
+          key={m.id}
+          ref={(element) => checkboxes.current.set(m.id, element)}
+        />
+      ))}
     </Box>
   );
 });
 
-const Content = (props: { name: string; guild?: string; id: string }) => {
+const ModelCard = (props: { name: string; guild?: string; id: string }) => {
   const { name, id } = props;
   const { data } = useData();
 
@@ -402,6 +472,63 @@ const Content = (props: { name: string; guild?: string; id: string }) => {
             model={model as any}
             style={
               {
+                width: "2.5in",
+                borderRadius: 0,
+                "--scale": "calc(2.5 * 96 / 500)",
+              } as GBCardCSS
+            }
+          />
+        </>
+      )}
+    </div>
+  );
+};
+
+const GuildCard = (props: { name: string }) => {
+  const { name } = props;
+
+  const [inView, setInView] = useState(false);
+  const callback: MutationCallback = (mutationList, observer) => {
+    if (mutationList && mutationList[0]) {
+      let { target } = mutationList[0];
+      let style = getComputedStyle(target as Element);
+      setInView(style.getPropertyValue("display") !== "none");
+    }
+  };
+  const [ref] = useMutationObserverRef(callback);
+
+  return (
+    <div
+      ref={ref}
+      className={`card ${!inView ? "hide" : null}`}
+      id={name}
+      style={{
+        position: "relative",
+        width: "5in",
+        height: "3.5in",
+        display: "inline-flex",
+        flexDirection: "row",
+        gap: 0,
+      }}
+    >
+      {inView && (
+        <>
+          <div
+            className="card-front"
+            style={
+              {
+                backgroundImage: `url(${GBImages[name + "_front"]})`,
+                width: "2.5in",
+                borderRadius: 0,
+                "--scale": "calc(2.5 * 96 / 500)",
+              } as GBCardCSS
+            }
+          />
+          <div
+            className="card-back"
+            style={
+              {
+                backgroundImage: `url(${GBImages[name + "_back"]})`,
                 width: "2.5in",
                 borderRadius: 0,
                 "--scale": "calc(2.5 * 96 / 500)",
