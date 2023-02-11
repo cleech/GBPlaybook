@@ -13,6 +13,7 @@ import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import { CheckCircleTwoTone as Check } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
+import { useUpdateAnimation } from "./useUpdateAnimation";
 
 // import { Guild } from './DataContext.d';
 
@@ -149,10 +150,10 @@ function DraftListItem({
   disabled = false,
   onChange,
 }: DraftListItemProps) {
+  const ref = useUpdateAnimation(disabled, [model.selected]);
   return (
     <FormControlLabel
-      // label={model.id}
-      // label={model.displayName}
+      ref={ref}
       label={
         (model.veteran ? "v" : "") + (model.seasoned ? "s" : "") + model.name
       }

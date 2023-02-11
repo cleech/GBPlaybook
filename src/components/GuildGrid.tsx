@@ -135,6 +135,16 @@ export function GuildGridInner({ dimensions, pickTeam, size }: any) {
             maxHeight: size,
             background: "rgba(100%, 100%, 100%, 5%)",
           }}
+          sx={{
+            "@media (hover: hover)": {
+              "& > div": {
+                transition: "transform .25s",
+              },
+              "&:hover > div": {
+                transform: "scale(1.2)",
+              },
+            },
+          }}
         >
           <div
             style={{
@@ -169,6 +179,7 @@ export function GuildGridInner({ dimensions, pickTeam, size }: any) {
               textTransform: "capitalize",
               textShadow:
                 "1px 1px 1px black, -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black, -1px 0 1px black",
+              zIndex: 1,
             }}
           >
             {g.name}

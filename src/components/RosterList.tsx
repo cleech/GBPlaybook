@@ -16,11 +16,12 @@ import {
 } from "@mui/material";
 import MinusIcon from "@mui/icons-material/Remove";
 import PlusIcon from "@mui/icons-material/Add";
-import { Observer } from "mobx-react-lite";
+import { observer } from "mobx-react-lite";
 import { IGBPlayer, IGBTeam } from "../models/Root";
 import useLongPress from "../components/useLongPress";
 import GBIcon from "./GBIcon";
 import { useRTC } from "../services/webrtc";
+import { useUpdateAnimation } from "./useUpdateAnimation";
 
 type model = IGBPlayer;
 type team = IGBTeam;
@@ -44,13 +45,21 @@ interface CounterProps {
   disabled?: boolean;
 }
 
-function Counter({
+const CounterLabel = observer(
+  (props: { disabled: boolean; object: any; label: (o: any) => string }) => {
+    const { disabled, object, label } = props;
+    const ref = useUpdateAnimation(disabled, [label(object)]);
+    return <Typography ref={ref}>{label(object)}</Typography>;
+  }
+);
+
+const Counter = ({
   object,
   label,
   value,
   setValue,
   disabled = false,
-}: CounterProps) {
+}: CounterProps) => {
   return (
     <div
       style={{
@@ -60,9 +69,7 @@ function Counter({
         justifyContent: "center",
       }}
     >
-      <Typography>
-        <Observer>{() => <span>{label(object)}</span>}</Observer>
-      </Typography>
+      <CounterLabel disabled={disabled} object={object} label={label} />
       <ButtonGroup size="small" variant="contained" disabled={disabled}>
         <Button
           onClick={(e) => {
@@ -87,7 +94,23 @@ function Counter({
       </ButtonGroup>
     </div>
   );
-}
+};
+
+const HealthCounterLabel = observer(
+  (props: { model: model; disabled: boolean }) => {
+    const { model, disabled } = props;
+    const ref = useUpdateAnimation(disabled, [model.health]);
+    return (
+      <Button ref={ref} disabled>
+        <Typography variant="body2" color="text.primary">
+          {`${String(model.health).padStart(2, "0")} / ${String(
+            model.hp
+          ).padStart(2, "0")}`}
+        </Typography>
+      </Button>
+    );
+  }
+);
 
 export function HealthCounter({
   model,
@@ -141,17 +164,7 @@ export function HealthCounter({
         <Button {...longPressDown} onClick={(e) => e.stopPropagation()}>
           <MinusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
         </Button>
-        <Button disabled>
-          <Observer>
-            {() => (
-              <Typography variant="body2" color="text.primary">
-                {`${String(model.health).padStart(2, "0")} / ${String(
-                  model.hp
-                ).padStart(2, "0")}`}
-              </Typography>
-            )}
-          </Observer>
-        </Button>
+        <HealthCounterLabel model={model} disabled={disabled} />
         <Button {...longPressUp} onClick={(e) => e.stopPropagation()}>
           <PlusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
         </Button>

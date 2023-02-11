@@ -244,12 +244,10 @@ function GameControls(
           paddingBottom: "1.25em",
         }}
       >
-        <Typography>vs</Typography>
+        <Typography variant="caption">vs</Typography>
         <Fab
           color="secondary"
           disabled={!team1 || !team2}
-          // component={Link}
-          // href={`/game/draft/?p1=${team1}&p2=${team2}`}
           onClick={() => {
             if (dc) {
               setWaiting(true);
@@ -265,6 +263,9 @@ function GameControls(
         >
           <PlayArrowIcon />
         </Fab>
+        <Typography variant="caption">
+          {waiting ? "(waiting)" : "\u00A0"}
+        </Typography>
       </div>
       <Button
         variant="outlined"
@@ -516,12 +517,6 @@ export const Draft = () => {
       <Fab
         disabled={!team1 || !team2}
         color="secondary"
-        // onClick={() => {
-        //   store.team1.reset({ name: g1 ?? undefined, roster: team1 });
-        //   store.team2.reset({ name: g2 ?? undefined, roster: team2 });
-        // }}
-        // component={Link}
-        // href="/game/draft/play"
         onClick={() => {
           if (dc) {
             setWaiting(true);
@@ -541,6 +536,9 @@ export const Draft = () => {
       >
         <PlayArrowIcon />
       </Fab>
+      <Typography variant="caption">
+        {waiting ? "(waiting)" : "\u00A0"}
+      </Typography>
 
       <DraftList2
         guild={guild2}
