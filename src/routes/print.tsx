@@ -155,7 +155,7 @@ export const CardPrintScreen = () => {
 
       <Box className="Cards">
         {data.Guilds.map((g: Guild) => (
-          <GuildCard name={g.name} />
+          <GuildCard name={g.name} key={g.name} />
         ))}
         {data.Models.map((m: Model) => (
           <ModelCard name={m.id} id={m.id} key={m.id} />
@@ -204,7 +204,7 @@ const GuildList = React.forwardRef((props, ref) => {
   return (
     <FormControl size="small">
       <InputLabel>Guild</InputLabel>
-      <Select label="Guild" onChange={handleChange}>
+      <Select label="Guild" onChange={handleChange} defaultValue="">
         {data.Guilds.map((g: any) => (
           <MenuItem key={g.name} value={g} dense>
             <GuildListItem g={g} />
