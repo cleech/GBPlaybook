@@ -29,10 +29,26 @@ clientsClaim();
 const staticBuildFiles = self.__WB_MANIFEST as PrecacheEntry[];
 // extra files served via the fetch API, but cached for offline use
 const extraPrecachedFiles: (string | PrecacheEntry)[] = [
-  'data/manifest.json',
-  'data/GB-Playbook-4-3.json',
-  'data/GB-Playbook-4-4.json',
-  'data/GB-Playbook-4-5.json',
+  {
+    url: 'data/manifest.json',
+    revision:
+      'b349a8c3a5db32de30401a2a3a560047576b28fcc3f55a648f707353a10e0809',
+  },
+  {
+    url: 'data/GB-Playbook-4-3.json',
+    revision:
+      '14aadd32d2cf9d8727ae08cfdaf1a1eb3bcbeda1bf7bcfc5e3b093d4a16243e5',
+  },
+  {
+    url: 'data/GB-Playbook-4-4.json',
+    revision:
+      '98b0c85b50889ac3b92463a1d1830af68b844993431ecbd41c1625abd04eef49',
+  },
+  {
+    url: 'data/GB-Playbook-4-5.json',
+    revision:
+      '0dc1a5bbef7b16fa8743edb41ccc9d4b0df5e7619132e83f6ef52e27e1f2ad98',
+  },
 ];
 precacheAndRoute([
   ...staticBuildFiles,
