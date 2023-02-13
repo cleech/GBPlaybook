@@ -22,34 +22,12 @@ import { Box, Portal, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { useStore } from "./models/Root";
-import { useServiceWorkerCtx as useServiceWorker } from "./useServiceWorker";
-
-import UpdateAvailableIcon from "@mui/icons-material/SecurityUpdateTwoTone";
-import UpdateWarningIcon from "@mui/icons-material/SecurityUpdateWarningTwoTone";
-import UpdateGoodIcon from "@mui/icons-material/SecurityUpdateGoodTwoTone";
 
 export const AppBarContext = createContext<HTMLElement | null>(null);
 
 export const AppBarContent = (props: { children?: ReactNode }) => {
   const containerRef = useContext(AppBarContext);
   return <Portal container={containerRef}>{props.children}</Portal>;
-};
-
-const UpdateButton = () => {
-  const { waitingWorker, showReload, reloadPage } = useServiceWorker();
-  if (waitingWorker && showReload) {
-    return (
-      <IconButton
-        onClick={() => {
-          reloadPage();
-        }}
-      >
-        <UpdateAvailableIcon />
-      </IconButton>
-    );
-  } else {
-    return null;
-  }
 };
 
 const MyAppBar = React.forwardRef<
@@ -66,7 +44,6 @@ const MyAppBar = React.forwardRef<
           width: "100%",
         }}
       />
-      <UpdateButton />
       <IconButton size="small" color="inherit" onClick={props.onClick}>
         <MenuIcon />
       </IconButton>
