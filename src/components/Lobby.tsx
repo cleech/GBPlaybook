@@ -143,7 +143,9 @@ const LobbyStart = (props: LobbyStepProps) => {
       user: { uid },
     } = await signInAnonymously(auth);
     props.setState((state) => ({ ...state, oid: uid, initiator: false }));
-    await pc.setLocalDescription();
+    // can't do this to kick ICE gathering early, because Safari doesn't support
+    // automatic rollback before 5.14, which is only about a year old
+    // await pc.setLocalDescription();
   };
 
   return (
