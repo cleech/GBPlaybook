@@ -62,11 +62,7 @@ import { observer } from "mobx-react-lite";
 import { Offline, Online } from "react-detect-offline";
 import { FlipGuildCard } from "../components/GuildCard";
 import VersionTag from "../components/VersionTag";
-import {
-  pulseAnimationKeyFrames,
-  usePulseAnimation,
-  useUpdateAnimation,
-} from "../components/useUpdateAnimation";
+import { pulseAnimationKeyFrames } from "../components/useUpdateAnimation";
 
 function SelectedIcon({
   team,
@@ -131,36 +127,6 @@ function SelectedIcon({
   );
 }
 
-const AnimatedFab = React.forwardRef<
-  HTMLElement | undefined,
-  { disabled: boolean; onClick: React.MouseEventHandler }
->((props, ref?) => {
-  // const ref = usePulseAnimation(!props.disabled, undefined);
-  return (
-    <Fab
-      color="secondary"
-      disabled={props.disabled}
-      onClick={props.onClick}
-      sx={{
-        margin: "0 15px",
-        position: "relative",
-      }}
-    >
-      <PlayArrowIcon />
-      <Box
-        ref={ref}
-        sx={{
-          position: "absolute",
-          height: "100%",
-          width: "100%",
-          borderRadius: "50%",
-          outline: "solid red 0px",
-        }}
-      />
-    </Fab>
-  );
-});
-
 function GameControls(
   props: ControlProps
 ): [JSX.Element, (name: string) => void] {
@@ -172,7 +138,7 @@ function GameControls(
   const [locked, setLocked] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
-  const fabRef = useRef<HTMLElement>();
+  const fabRef = useRef<HTMLButtonElement | null>(null);
 
   const { dc } = useRTC();
 
@@ -282,8 +248,9 @@ function GameControls(
         }}
       >
         <Typography variant="caption">vs</Typography>
-        <AnimatedFab
+        <Fab
           ref={fabRef}
+          color="secondary"
           disabled={!team1 || !team2}
           onClick={() => {
             if (dc) {
@@ -296,7 +263,10 @@ function GameControls(
               navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
             }
           }}
-        />
+          sx={{ m: "0 15px" }}
+        >
+          <PlayArrowIcon />
+        </Fab>
         <Typography variant="caption">
           {waiting ? "(waiting)" : "\u00A0"}
         </Typography>
@@ -462,7 +432,7 @@ export const Draft = () => {
   const unready2 = useCallback(() => setTeam2(undefined), []);
 
   const player2 = useRef<any>();
-  const fabRef = useRef<HTMLElement>();
+  const fabRef = useRef<HTMLButtonElement | null>(null);
 
   const [searchParams] = useSearchParams();
   const g1 = searchParams.get("p1");
@@ -551,8 +521,9 @@ export const Draft = () => {
       />
 
       <Typography variant="caption">{"\u00A0"}</Typography>
-      <AnimatedFab
+      <Fab
         ref={fabRef}
+        color="secondary"
         disabled={!team1 || !team2}
         onClick={() => {
           if (dc) {
@@ -569,7 +540,10 @@ export const Draft = () => {
             navigate("/game/draft/play");
           }
         }}
-      />
+        sx={{ m: "10px" }}
+      >
+        <PlayArrowIcon />
+      </Fab>
       <Typography variant="caption">
         {waiting ? "(waiting)" : "\u00A0"}
       </Typography>

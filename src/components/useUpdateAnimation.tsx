@@ -11,15 +11,13 @@ export const useUpdateAnimation = (
       ref.current?.animate(
         {
           backgroundColor: ["initial", "red", "initial"],
-          outline: [
-            "initial",
-            "0px solid red",
-            "0.5em solid red",
-            "0px solid red",
-            "initial",
+          boxShadow: [
+            "0 0 0px 0px transparent",
+            "0 0 0.25em 0.25em red",
+            "0 0 0.25em 0.25em transparent",
           ],
         },
-        750
+        500
       );
     }
   }, deps);
@@ -27,26 +25,9 @@ export const useUpdateAnimation = (
 };
 
 export const pulseAnimationKeyFrames = {
-  opacity: [0, 1, 0],
-  outlineWidth: ["1px", "20px"],
-};
-
-export const usePulseAnimation = (
-  animate: boolean,
-  deps?: unknown[]
-): React.RefObject<any> => {
-  const ref = React.useRef<any>(null);
-  useDidUpdate(() => {
-    if (animate) {
-      console.log(`animate: ${ref.current}`);
-      ref.current?.animate(
-        {
-          opacity: [0, 1, 0],
-          outlineWidth: ["1px", "20px"],
-        },
-        { duration: 1000, easing: "ease-in-out" }
-      );
-    }
-  }, deps);
-  return ref;
+  boxShadow: [
+    "0 0 0px 0px transparent",
+    "0 0 20px 20px red",
+    "0 0 20px 20px transparent",
+  ],
 };

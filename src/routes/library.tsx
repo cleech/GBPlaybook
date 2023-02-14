@@ -113,7 +113,7 @@ export function Roster() {
         swiper?.slideTo(index + 1);
       }
     }
-  }, [swiper, searchParams, data]);
+  }, [swiper, searchParams, data, guild]);
 
   if (!data) {
     return null;
