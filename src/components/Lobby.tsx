@@ -339,6 +339,7 @@ const LobbyConnectJoin = (props: LobbyStepProps) => {
   return (
     <Box>
       <TextField
+        inputProps={{ pattern: "[0-9]*", inputMode: "numeric" }}
         onChange={(ev) => {
           setState((state) => ({
             ...state,
