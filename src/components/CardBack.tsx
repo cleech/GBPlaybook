@@ -10,7 +10,7 @@ import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
 import { GBCardCSS } from "./CardFront";
-import { IGBPlayer, JGBPlayer } from "../models/Root";
+import { IGBPlayer, JGBPlayer, useStore } from "../models/Root";
 type model = IGBPlayer | JGBPlayer;
 
 interface CardBackProps {
@@ -39,6 +39,7 @@ const CardBack = (props: CardBackProps) => {
   // });
   // }, [targetRef.current]);
 
+  const { settings } = useStore();
   const { data } = useData();
   if (!data) {
     return null;
@@ -51,12 +52,18 @@ const CardBack = (props: CardBackProps) => {
     return null;
   }
 
-  // const image = GBImages[key + "_gbcp_back"] || GBImages[key + "_back"];
-  const image = GBImages[key + "_back"];
+  const gbcp =
+    model.gbcp ||
+    (settings.cardPreferences.perferedStyled === "gbcp" &&
+      GBImages.has(`${key}_gbcp_front`));
+
+  const image =
+    (gbcp ? GBImages.get(`${key}_gbcp_back`) : GBImages.get(`${key}_back`)) ??
+    GBImages.get(`${key}_back`);
 
   return (
     <div
-      className={`card-back ${key} ${model.gbcp && "gbcp"} ${props.className}`}
+      className={`card-back ${key} ${gbcp && "gbcp"} ${props.className}`}
       // ref={targetRef}
       style={{
         "--team-color": guild.color,
@@ -66,12 +73,11 @@ const CardBack = (props: CardBackProps) => {
         ),
         "--mom-color": guild.shadow,
         "--mom-border-color": guild.darkColor,
-        // backgroundImage: `url(${GBImages[key + "_back"]})`,
         backgroundImage: `url(${image})`,
         ...props.style,
       }}
     >
-      <div className={`overlay ${model.gbcp ? "gbcp" : ""}`}>
+      <div className={`overlay ${gbcp ? "gbcp" : ""}`}>
         <div className="container">
           <div className="name-plate">
             <div className="guild-icon">
@@ -91,7 +97,7 @@ const CardBack = (props: CardBackProps) => {
           <div className="tags">{model.types}</div>
           <div className="right">
             <div className="icons">
-              <FooterIcon icon={model.gbcp ? "gbcp" : "GB"} />
+              <FooterIcon icon={gbcp ? "gbcp" : "GB"} />
               {model.guild2 && <FooterIcon icon={model.guild2} />}
               <FooterIcon icon={model.guild1} />
             </div>

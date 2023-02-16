@@ -74,6 +74,26 @@ const Settings = () => {
         )}
       </Observer>
 
+      <Typography>Prefered Card Layout:</Typography>
+      <Typography variant="subtitle2">
+        (Only applies to updated cards, where both styles are available)
+      </Typography>
+      <Observer>
+        {() => (
+          <FormControl>
+            <Select
+              value={settings.cardPreferences.perferedStyled}
+              onChange={(event: SelectChangeEvent) => {
+                settings.setCardStyle(event.target.value);
+              }}
+            >
+              <MenuItem value="sfg">Steamforged</MenuItem>
+              <MenuItem value="gbcp">Community</MenuItem>
+            </Select>
+          </FormControl>
+        )}
+      </Observer>
+
       <Divider sx={{ my: 2 }} />
 
       <Typography>Experimental Features:</Typography>

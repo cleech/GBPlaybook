@@ -10,7 +10,7 @@ import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
 import { Guild } from "./DataContext.d";
-import { IGBPlayer, JGBPlayer } from "../models/Root";
+import { IGBPlayer, JGBPlayer, useStore } from "../models/Root";
 type model = JGBPlayer | IGBPlayer;
 
 interface CardFrontProps {
@@ -47,6 +47,7 @@ const CardFront = (props: CardFrontProps) => {
   //   setScale(newScale);
   // }
 
+  const { settings } = useStore();
   const { data } = useData();
   if (!data) {
     return null;
@@ -61,12 +62,18 @@ const CardFront = (props: CardFrontProps) => {
     return null;
   }
 
-  // const image = GBImages[key + "_gbcp_front"] || GBImages[key + "_front"];
-  const image = GBImages[key + "_front"];
+  const gbcp =
+    model.gbcp ||
+    (settings.cardPreferences.perferedStyled === "gbcp" &&
+      GBImages.has(`${key}_gbcp_front`));
+
+  const image =
+    (gbcp ? GBImages.get(`${key}_gbcp_front`) : GBImages.get(`${key}_front`)) ??
+    GBImages.get(`${key}_front`);
 
   return (
     <div
-      className={`card-front ${key} ${model.gbcp && "gbcp"} ${props.className}`}
+      className={`card-front ${key} ${gbcp && "gbcp"} ${props.className}`}
       // ref={targetRef}
       style={{
         "--team-color": guild.color,
@@ -82,19 +89,18 @@ const CardFront = (props: CardFrontProps) => {
         "--guild2-color": guild2 ? guild2.color : undefined,
         "--mom-color": guild.shadow,
         "--mom-border-color": guild.darkColor,
-        // backgroundImage: `url(${GBImages[key + "_front"]})`,
         backgroundImage: `url(${image})`,
         ...props.style,
       }}
     >
-      <div className={`overlay ${model.gbcp ? "gbcp" : ""}`}>
+      <div className={`overlay ${gbcp ? "gbcp" : ""}`}>
         <div className="font-top-box">
           <NamePlate model={model} guild={guild} />
           <StatBox model={model} />
         </div>
-        <Playbook model={model} />
+        <Playbook model={model} gbcp={gbcp} />
         <div className="character-plays-wrapper">
-          <CharacterPlays model={model} />
+          <CharacterPlays model={model} gbcp={gbcp} />
         </div>
         <HealthBoxes model={model} />
       </div>
@@ -144,7 +150,13 @@ const HealthBoxes = ({ model }: { model: model }) => (
   </Observer>
 );
 
-const Playbook = ({ model }: { model: model }) => (
+const Playbook = ({
+  model,
+  gbcp = false,
+}: {
+  model: model;
+  gbcp?: boolean;
+}) => (
   <div className="playbook">
     {model.playbook?.map((row, index) => {
       return row?.flatMap((pbm, col) => {
@@ -169,7 +181,9 @@ const Playbook = ({ model }: { model: model }) => (
           >
             {pb
               ? pb.split(",").map((p, index) => {
-                  p = model.gbcp ? p.replace(/CP/, "CP-gbcp") : p;
+                  p = gbcp
+                    ? p.replace(/^CP$/, "CP-gbcp").replace(/^CP2$/, "CP2-gbcp")
+                    : p;
                   return <PB icon={p} key={index} />;
                 })
               : null}
@@ -212,7 +226,13 @@ function CPName({ text }: { text: string }) {
   );
 }
 
-const CharacterPlays = ({ model }: { model: model }) => {
+const CharacterPlays = ({
+  model,
+  gbcp = false,
+}: {
+  model: model;
+  gbcp?: boolean;
+}) => {
   const { data } = useData();
   if (!data) {
     return null;
@@ -243,15 +263,8 @@ const CharacterPlays = ({ model }: { model: model }) => {
                   <span key={idx}>
                     {idx > 0 && "/"}
                     {{
-                      CP: (
-                        <GBIcon icon={model.gbcp ? "ball" : "GB"} size={18} />
-                      ),
-                      CP2: (
-                        <GBIcon
-                          icon={model.gbcp ? "trophy" : "GBT"}
-                          size={18}
-                        />
-                      ),
+                      CP: <GBIcon icon={gbcp ? "ball" : "GB"} size={18} />,
+                      CP2: <GBIcon icon={gbcp ? "trophy" : "GBT"} size={18} />,
                     }[s] || <span>{s}</span>}
                   </span>
                 ))}

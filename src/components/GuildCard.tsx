@@ -61,7 +61,7 @@ export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
           className="card-front"
           style={
             {
-              backgroundImage: `url(${GBImages[guild + "_front"]})`,
+              backgroundImage: `url(${GBImages.get(`${guild}_front`)})`,
               "--scale": scale,
               borderTopRightRadius: 0,
               borderBottomRightRadius: 0,
@@ -72,7 +72,7 @@ export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
           className="card-back"
           style={
             {
-              backgroundImage: `url(${GBImages[guild + "_back"]})`,
+              backgroundImage: `url(${GBImages.get(`${guild}_back`)})`,
               "--scale": scale,
               borderTopLeftRadius: 0,
               borderBottomLeftRadius: 0,
@@ -135,7 +135,7 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
             className="flip-card-front card-front"
             style={
               {
-                backgroundImage: `url(${GBImages[guild + "_front"]})`,
+                backgroundImage: `url(${GBImages.get(`${guild}_front`)})`,
                 "--scale": scale,
                 borderTopRightRadius: 0,
                 borderBottomRightRadius: 0,
@@ -146,7 +146,7 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
             className="flip-card-back card-back"
             style={
               {
-                backgroundImage: `url(${GBImages[guild + "_back"]})`,
+                backgroundImage: `url(${GBImages.get(`${guild}_back`)})`,
                 "--scale": scale,
                 borderTopRightRadius: 0,
                 borderBottomRightRadius: 0,

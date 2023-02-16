@@ -102,15 +102,24 @@ interface IGBTeamSnapshotIn extends SnapshotIn<typeof GBTeam> {}
 
 const Settings = types
   .model({
-    colorScheme: types.maybe(types.enumeration(["dark", "light"])),
+    // colorScheme: types.maybe(types.enumeration(["dark", "light"])),
     dataSet: types.maybe(types.string),
     initialScreen: types.optional(types.string, "/game"),
     networkPlay: types.optional(types.boolean, false),
+    cardPreferences: types.optional(
+      types.model({
+        perferedStyled: types.optional(
+          types.enumeration<string>(["sfg", "gbcp"]),
+          "sfg"
+        ),
+      }),
+      {}
+    ),
   })
   .actions((self) => ({
-    setColorScheme(scheme: any) {
-      self.colorScheme = scheme;
-    },
+    // setColorScheme(scheme: any) {
+    //   self.colorScheme = scheme;
+    // },
     setDataSet(filename: string) {
       self.dataSet = filename;
     },
@@ -119,7 +128,10 @@ const Settings = types
     },
     setNetworkPlay(net: boolean) {
       self.networkPlay = net;
-    }
+    },
+    setCardStyle(style: string) {
+      self.cardPreferences.perferedStyled = style;
+    },
   }));
 
 const RootModel = types
@@ -147,7 +159,7 @@ const RootModel = types
 let initialState = RootModel.create({
   team1: { name: "", score: 0, momentum: 0 },
   team2: { name: "", score: 0, momentum: 0 },
-  settings: { colorScheme: "dark" },
+  // settings: { colorScheme: "dark" },
   gamePlayRoute: "/game",
   libraryRoute: "/library",
 });

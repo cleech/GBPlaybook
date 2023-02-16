@@ -517,7 +517,7 @@ const GuildCard = (props: { name: string }) => {
             className="card-front"
             style={
               {
-                backgroundImage: `url(${GBImages[name + "_front"]})`,
+                backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
                 width: "2.5in",
                 borderRadius: 0,
                 "--scale": "calc(2.5 * 96 / 500)",
@@ -528,7 +528,7 @@ const GuildCard = (props: { name: string }) => {
             className="card-back"
             style={
               {
-                backgroundImage: `url(${GBImages[name + "_back"]})`,
+                backgroundImage: `url(${GBImages.get(`${name}_back`)})`,
                 width: "2.5in",
                 borderRadius: 0,
                 "--scale": "calc(2.5 * 96 / 500)",
