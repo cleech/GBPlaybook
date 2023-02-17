@@ -171,11 +171,11 @@ const Playbook = ({
               {
                 "--col": col,
                 display: "flex",
-                flexDirection: "column",
+                flexDirection: gbcp ? "row" : "column",
                 // 0.15 is always safe; (sqrt(2)-1)/(2*sqrt(2))
                 // padding: "0.15em",
                 padding: "0.10em",
-                gap: "0.05em",
+                gap: gbcp ? 0 : "0.05em",
               } as CSSProperties
             }
           >

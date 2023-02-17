@@ -81,7 +81,7 @@ div.card-front.gbcp {
   top: 17px;
   left: 12px;
   width: 376px;
-  height: 131px;
+  height: 132px;
   background-color: var(--gbcp-color);
   z-index: -2;
 }
@@ -292,7 +292,7 @@ div.card-front.gbcp {
   top: 256px;
   left: 13px;
   width: 373px;
-  height: 316px;
+  height: 318px;
   border: 2px solid black;
   border-radius: 5px;
   background-color: var(--gbcp-color);
@@ -377,10 +377,11 @@ div.card-front.gbcp {
 .card-front.gbcp .health {
   bottom: unset;
   /* bottom: 40px; */
-  top: calc(100% - 110px);
+  top: calc(100% - 109px);
   left: 10px;
   grid-template-columns: repeat(4, 1fr) 1.5fr repeat(5, 1fr);
-  gap: 5px 5px;
+  gap: 5.5px 4.8px;
+  filter: drop-shadow(0 0 5px black);
 }
 
 .card-front .health-box {
@@ -408,6 +409,7 @@ div.card-front.gbcp {
   height: 32px;
   border-radius: 32px;
   font-size: 23px;
+  filter: drop-shadow(0 0 5px black);
 }
 
 .card-front .health-box.damaged {
@@ -452,6 +454,10 @@ div.card-front.gbcp {
     var(--guild2-color) calc((0 - var(--col)) * 100%),
     var(--guild1-color) calc((4 - var(--col)) * 100%)
   );
+}
+
+.Lucky .gbcp .health-box {
+  color: var(--guild2-color);
 }
 
 /* Compound/Lucky cross-fade icons */
