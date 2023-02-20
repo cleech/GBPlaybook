@@ -13,7 +13,7 @@ interface GBIconProps {
   id?: string;
 }
 
-const GBIcon = (props: GBIconProps) => {
+export default function GBIcon(props: GBIconProps) {
   const { icon, size, style, className, ...otherProps } = props;
 
   const computedStyle: React.CSSProperties = {
@@ -31,8 +31,7 @@ const GBIcon = (props: GBIconProps) => {
       <use href={`${gbDefs}#gbicon-${icon}`} />
     </svg>
   );
-};
-export default GBIcon;
+}
 
 interface PBProps {
   icon: string;
@@ -40,7 +39,7 @@ interface PBProps {
   style?: React.CSSProperties;
 }
 
-const PB = (props: PBProps) => {
+function PB(props: PBProps) {
   const { icon, size, style } = props;
   const i = icon.replace(/</g, "D").replace(/>/g, "P");
 
@@ -54,5 +53,5 @@ const PB = (props: PBProps) => {
       <use href={`${playbookDefs}#pbicon-${i}`} />
     </svg>
   );
-};
+}
 export { PB };

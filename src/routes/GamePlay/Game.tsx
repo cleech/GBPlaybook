@@ -27,7 +27,7 @@ import {
 import { model } from "../../components/Draft";
 import { useStore, IGBTeam } from "../../models/Root";
 import RosterList, { HealthCounter } from "../../components/RosterList";
-import { FlipCard } from "../../components/Card";
+import { FlipCard } from "../../components/FlipCard";
 
 import type { Swiper as SwiperRef } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";

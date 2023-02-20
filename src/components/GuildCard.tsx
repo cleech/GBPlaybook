@@ -1,7 +1,7 @@
 import React, { useState, useRef, useLayoutEffect, CSSProperties } from "react";
 // import { useData } from "./DataContext";
 import GBImages from "./GBImages";
-import "./Card.css";
+import "./FlipCard.css";
 
 interface CardCSS extends CSSProperties {
   "--scale": number | string;
@@ -137,8 +137,6 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
               {
                 backgroundImage: `url(${GBImages.get(`${guild}_front`)})`,
                 "--scale": scale,
-                borderTopRightRadius: 0,
-                borderBottomRightRadius: 0,
               } as CardCSS
             }
           />
@@ -148,8 +146,6 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
               {
                 backgroundImage: `url(${GBImages.get(`${guild}_back`)})`,
                 "--scale": scale,
-                borderTopRightRadius: 0,
-                borderBottomRightRadius: 0,
               } as CardCSS
             }
           />

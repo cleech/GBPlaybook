@@ -23,7 +23,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 import { useData } from "../components/DataContext";
-import { FlipCard, DoubleCard } from "../components/Card";
+import { FlipCard } from "../components/FlipCard";
+import { DoubleCard } from "../components/DoubleCard";
 
 import { GuildGrid } from "../components/GuildGrid";
 import { useStore, IGBPlayer } from "../models/Root";
