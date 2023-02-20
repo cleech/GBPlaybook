@@ -101,7 +101,7 @@ const HealthCounterLabel = observer(
     const { model, disabled } = props;
     const ref = useUpdateAnimation(disabled, [model.health]);
     return (
-      <Button ref={ref} disabled>
+      <Button ref={ref} disabled size="small">
         <Typography variant="body2" color="text.primary">
           {`${String(model.health).padStart(2, "0")} / ${String(
             model.hp
@@ -115,9 +115,11 @@ const HealthCounterLabel = observer(
 export function HealthCounter({
   model,
   disabled = false,
+  stacked = false,
 }: {
   model: model;
   disabled?: boolean;
+  stacked?: boolean;
 }) {
   const { dc } = useRTC();
   const longPressDown = useLongPress({
@@ -160,15 +162,36 @@ export function HealthCounter({
         justifyContent: "center",
       }}
     >
-      <ButtonGroup size="small" variant="contained" disabled={disabled}>
-        <Button {...longPressDown} onClick={(e) => e.stopPropagation()}>
-          <MinusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
-        </Button>
-        <HealthCounterLabel model={model} disabled={disabled} />
-        <Button {...longPressUp} onClick={(e) => e.stopPropagation()}>
-          <PlusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
-        </Button>
-      </ButtonGroup>
+      {stacked ? (
+        <>
+          <HealthCounterLabel model={model} disabled={disabled} />
+          <ButtonGroup
+            size="small"
+            variant="contained"
+            disabled={disabled}
+            sx={{
+              "& .MuiButtonGroup-grouped": { minWidth: "1rem" },
+            }}
+          >
+            <Button {...longPressDown} onClick={(e) => e.stopPropagation()}>
+              <MinusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
+            </Button>
+            <Button {...longPressUp} onClick={(e) => e.stopPropagation()}>
+              <PlusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
+            </Button>
+          </ButtonGroup>
+        </>
+      ) : (
+        <ButtonGroup size="small" variant="contained" disabled={disabled}>
+          <Button {...longPressDown} onClick={(e) => e.stopPropagation()}>
+            <MinusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
+          </Button>
+          <HealthCounterLabel model={model} disabled={disabled} />
+          <Button {...longPressUp} onClick={(e) => e.stopPropagation()}>
+            <PlusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
+          </Button>
+        </ButtonGroup>
+      )}
     </div>
   );
 }

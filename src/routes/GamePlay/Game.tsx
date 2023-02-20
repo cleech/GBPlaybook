@@ -301,16 +301,14 @@ function CardControls({
       elevation={2}
       sx={{
         position: "absolute",
-        // right: "0.125in",
-        // bottom: "0.125in",
-        // padding: "0.0625in",
-        right: "0",
-        bottom: "0",
+        right: 0,
+        bottom: 0,
+        // bottom: `calc(22px * ${scale})`,
         // transform: `scale(${scale ?? 1})`,
         // transformOrigin: "bottom right",
       }}
     >
-      <HealthCounter model={model} disabled={disabled} />
+      <HealthCounter model={model} disabled={disabled} stacked />
     </Paper>
   );
 }
