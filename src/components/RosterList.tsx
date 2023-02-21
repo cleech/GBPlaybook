@@ -49,7 +49,11 @@ const CounterLabel = observer(
   (props: { disabled: boolean; object: any; label: (o: any) => string }) => {
     const { disabled, object, label } = props;
     const ref = useUpdateAnimation(disabled, [label(object)]);
-    return <Typography ref={ref}>{label(object)}</Typography>;
+    return (
+      <Typography ref={ref} sx={{ width: "100%", textAlign: "center" }}>
+        {label(object)}
+      </Typography>
+    );
   }
 );
 
