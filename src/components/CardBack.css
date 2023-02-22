@@ -15,7 +15,8 @@ div.card-back {
 }
 
 div.card-back.gbcp {
-  background-size: 100%;
+  background-size: auto 100%;
+  background-position: right;
 }
 
 /* scalable overlay */

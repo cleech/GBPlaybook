@@ -18,6 +18,7 @@ interface CardBackProps {
   style: GBCardCSS;
   guild?: string;
   className?: string;
+  noBackground?: boolean;
 }
 
 const CardBack = (props: CardBackProps) => {
@@ -58,6 +59,7 @@ const CardBack = (props: CardBackProps) => {
       GBImages.has(`${key}_gbcp_front`));
 
   const image =
+    GBImages.get(`${key}_full`) ??
     (gbcp ? GBImages.get(`${key}_gbcp_back`) : GBImages.get(`${key}_back`)) ??
     GBImages.get(`${key}_back`);
 
@@ -73,7 +75,7 @@ const CardBack = (props: CardBackProps) => {
         ),
         "--mom-color": guild.shadow,
         "--mom-border-color": guild.darkColor,
-        backgroundImage: `url(${image})`,
+        backgroundImage: props.noBackground ? undefined : `url(${image})`,
         ...props.style,
       }}
     >

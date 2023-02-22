@@ -18,6 +18,7 @@ interface CardFrontProps {
   style: GBCardCSS;
   guild?: string;
   className?: string;
+  noBackground?: boolean;
 }
 
 export interface GBCardCSS extends CSSProperties {
@@ -68,6 +69,7 @@ const CardFront = (props: CardFrontProps) => {
       GBImages.has(`${key}_gbcp_front`));
 
   const image =
+    GBImages.get(`${key}_full`) ??
     (gbcp ? GBImages.get(`${key}_gbcp_front`) : GBImages.get(`${key}_front`)) ??
     GBImages.get(`${key}_front`);
 
@@ -89,7 +91,7 @@ const CardFront = (props: CardFrontProps) => {
         "--guild2-color": guild2 ? guild2.color : undefined,
         "--mom-color": guild.shadow,
         "--mom-border-color": guild.darkColor,
-        backgroundImage: `url(${image})`,
+        backgroundImage: props.noBackground ? undefined : `url(${image})`,
         ...props.style,
       }}
     >

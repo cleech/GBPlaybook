@@ -35,7 +35,7 @@ div.card-front {
   max-width: 500px;
   max-height: 700px;
   border-radius: calc(25px * var(--scale));
-  background-size: 110%;
+  background-size: 110% auto;
   background-repeat: no-repeat;
   background-position: center center;
   display: inline-flex;
@@ -45,7 +45,8 @@ div.card-front {
 
 div.card-front.gbcp {
   /* no print bleed on these */
-  background-size: 100%;
+  background-size: auto 100%;
+  background-position: left;
 }
 
 /* scalable overlay */

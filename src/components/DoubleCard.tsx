@@ -2,6 +2,7 @@ import React, { useState, useRef, useLayoutEffect } from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 import { model } from "./FlipCard";
+import GBImages from "./GBImages";
 
 export function DoubleCard({
   model,
@@ -38,6 +39,10 @@ export function DoubleCard({
   // if (GBImages[`${model.id}_gbcp_front`]) {
   //   model.gbcp = true;
   // }
+
+  const key = model.id;
+  const image = GBImages.get(`${key}_full`) ?? undefined;
+
   return (
     <div
       ref={targetRef}
@@ -58,10 +63,20 @@ export function DoubleCard({
           // aspectRatio: 10 / 7,
           display: "flex",
           flexDirection: "row",
+          ...(image
+            ? {
+                backgroundImage: `url(${image})`,
+                backgroundSize: "100%",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center center",
+                borderRadius: `${25 * scale}px`,
+              }
+            : {}),
         }}
       >
         <CardFront
           model={model}
+          noBackground={!!image}
           style={{
             "--scale": scale,
             borderTopRightRadius: 0,
@@ -70,6 +85,7 @@ export function DoubleCard({
         />
         <CardBack
           model={model}
+          noBackground={!!image}
           style={{
             "--scale": scale,
             borderTopLeftRadius: 0,
