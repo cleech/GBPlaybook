@@ -137,6 +137,7 @@ Single-colored icons can be modified like so:
 .pbicon {
   display: inline-block;
   height: 0.4em;
+  width: 1em;
   min-height: 0.2em;
   stroke-width: 0;
   stroke: none;
