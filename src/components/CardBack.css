@@ -249,3 +249,8 @@ div.card-back.gbcp {
   line-height: 20px;
   text-align: right;
 }
+
+/* Nightlight has too much back of card text */
+.Nightlight .character-trait .text {
+  word-spacing: -1px;
+}

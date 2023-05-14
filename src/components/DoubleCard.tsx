@@ -3,6 +3,7 @@ import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 import { model } from "./FlipCard";
 import GBImages from "./GBImages";
+import { useStore } from "../models/Root";
 
 export function DoubleCard({
   model,
@@ -13,6 +14,7 @@ export function DoubleCard({
   controls: any;
   controlProps?: any;
 }): JSX.Element {
+  const { settings } = useStore();
   const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1.0);
   useLayoutEffect(() => {
@@ -41,7 +43,12 @@ export function DoubleCard({
   // }
 
   const key = model.id;
-  const image = GBImages.get(`${key}_full`) ?? undefined;
+  const gbcp =
+    (settings.cardPreferences.perferedStyled === "gbcp" && (
+      GBImages.has(`${key}_gbcp_front`) ||
+      GBImages.has(`${key}_full`)
+    ));
+  const image = gbcp ? GBImages.get(`${key}_full`) ?? undefined : undefined;
 
   return (
     <div

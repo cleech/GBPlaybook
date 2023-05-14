@@ -17,6 +17,7 @@ const Order_back = require("../assets/cards/Order_back.jpg");
 const Ratcatchers_back = require("../assets/cards/Ratcatchers/GB-S4-Ratcatchers-19-08-03.jpg");
 const Shepherds_back = require("../assets/cards/Shepherds/GB-S4-Shepherds-20-03-03.jpg");
 const Union_back = require("../assets/cards/Union/GB-S4-Union-20-03-03.jpg");
+const Lamps_back = require("../assets/cards/Lamps_Backs/lamps_back_blank.jpg");
 
 const GBImages: Map<string, string> = new Map([
   [
@@ -1139,5 +1140,21 @@ const GBImages: Map<string, string> = new Map([
   ["Ulfr_gbcp_back", require("../assets/cards/GBCP/Ulfr-01.jpg")],
   ["vGutter_gbcp_front", require("../assets/cards/GBCP/vGutter-00.jpg")],
   ["vGutter_gbcp_back", require("../assets/cards/GBCP/vGutter-01.jpg")],
+
+  /* Lamplighters in SFG style */
+  ["Beacon_front", require("../assets/cards/Lamps_Backs/beacon.jpg")],
+  ["Beacon_back", Lamps_back],
+  ["Heat_front", require("../assets/cards/Lamps_Backs/heat.jpg")],
+  ["Heat_back", Lamps_back],
+  // ["Nightlight_front", require("../assets/cards/Lamps_Backs/nightlight.jpg")],
+  ["Nightlight_front", require("../assets/cards/Lamps_Backs/nightlight_smallbox.jpg")],
+  ["Nightlight_back", Lamps_back],
+  // ["Phosphor_front", require("../assets/cards/Lamps_Backs/phosphor.jpg")],
+  ["Phosphor_front", require("../assets/cards/Lamps_Backs/phosphor_smallbox.jpg")],
+  ["Phosphor_back", Lamps_back],
+  ["Soot_front", require("../assets/cards/Lamps_Backs/soot.jpg")],
+  ["Soot_back", Lamps_back],
+  ["Wick_front", require("../assets/cards/Lamps_Backs/wick.jpg")],
+  ["Wick_back", Lamps_back],
 ]);
 export default GBImages;

@@ -64,14 +64,19 @@ const CardFront = (props: CardFrontProps) => {
   }
 
   const gbcp =
-    model.gbcp ||
-    (settings.cardPreferences.perferedStyled === "gbcp" &&
-      GBImages.has(`${key}_gbcp_front`));
+    (settings.cardPreferences.perferedStyled === "gbcp" && (
+      GBImages.has(`${key}_gbcp_front`) ||
+      GBImages.has(`${key}_full`)
+    ));
 
   const image =
-    GBImages.get(`${key}_full`) ??
-    (gbcp ? GBImages.get(`${key}_gbcp_front`) : GBImages.get(`${key}_front`)) ??
-    GBImages.get(`${key}_front`);
+    gbcp ?
+      (GBImages.get(`${key}_full`) ??
+        GBImages.get(`${key}_gbcp_front`) ??
+        GBImages.get(`${key}_front`)) :
+      (GBImages.get(`${key}_front`) ??
+        GBImages.get(`${key}_full`) ??
+        GBImages.get(`${key}_gbcp_front`));
 
   return (
     <div
