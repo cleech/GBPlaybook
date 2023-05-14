@@ -110,7 +110,7 @@ const Settings = types
       types.model({
         perferedStyled: types.optional(
           types.enumeration<string>(["sfg", "gbcp"]),
-          "sfg"
+          "gbcp"
         ),
       }),
       {}
