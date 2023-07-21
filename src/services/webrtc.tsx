@@ -13,18 +13,18 @@ const iceConfig = {
     { urls: "stun:relay.metered.ca:80" },
     {
       urls: "turn:relay.metered.ca:80",
-      username: process.env.REACT_APP_METERED_USERNAME,
-      credential: process.env.REACT_APP_METERED_PASSWORD,
+      username: import.meta.env.VITE_METERED_USERNAME,
+      credential: import.meta.env.VITE_METERED_PASSWORD,
     },
     {
       urls: "turn:relay.metered.ca:443",
-      username: process.env.REACT_APP_METERED_USERNAME,
-      credential: process.env.REACT_APP_METERED_PASSWORD,
+      username: import.meta.env.VITE_METERED_USERNAME,
+      credential: import.meta.env.VITE_METERED_PASSWORD,
     },
     {
       urls: "turn:relay.metered.ca:443?transport=tcp",
-      username: process.env.REACT_APP_METERED_USERNAME,
-      credential: process.env.REACT_APP_METERED_PASSWORD,
+      username: import.meta.env.VITE_METERED_USERNAME,
+      credential: import.meta.env.VITE_METERED_PASSWORD,
     },
   ],
 };

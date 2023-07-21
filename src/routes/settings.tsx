@@ -30,7 +30,7 @@ const Settings = () => {
         </Breadcrumbs>
       </AppBarContent>
       <Typography variant="h6">
-        GB Playbook {process.env.REACT_APP_VERSION}
+        GB Playbook {import.meta.env.VITE_VERSION}
       </Typography>
 
       <Divider sx={{ my: 2 }} />
