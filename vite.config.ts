@@ -2,7 +2,6 @@ import { defineConfig, Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 import svgrPlugin from 'vite-plugin-svgr';
-import {nodePolyfills } from 'vite-plugin-node-polyfills';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,13 +9,10 @@ export default defineConfig({
     react(),
     viteTsconfigPaths(),
     svgrPlugin(),
-    nodePolyfills({
-	    globals: {
-		    global: true,
-	    },
-	    protocolImports: false,
-    }),
   ],
+  define: {
+	  global: "globalThis",
+  },
   build: {
     outDir: 'build',
   },
