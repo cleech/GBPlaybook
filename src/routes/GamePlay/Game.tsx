@@ -31,7 +31,7 @@ import { FlipCard } from "../../components/FlipCard";
 
 import type { Swiper as SwiperRef } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Virtual } from "swiper";
+import { Virtual } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/virtual";
 
