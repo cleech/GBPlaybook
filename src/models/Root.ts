@@ -66,7 +66,7 @@ const GBPlayer = types
       return (self.veteran ? "v" : "") + (self.seasoned ? "s" : "") + self.name;
     },
     get statLine() {
-      return `${self.jog}"/${self.sprint}" | ${self.tac} | ${self.kickdice}/${self.kickdist}" | ${self.def}+ | ${self.arm} | ${self.inf}/${self.infmax}`;
+      return `${self.jog}"/${self.sprint}" | ${self.tac} | ${self.kickdice}/${self.kickdist}" | ${self.def}+ | ${self.arm} | ${self.inf}/${self.infmax} | ${self.reach ? 2 : 1}"`;
     },
   }));
 

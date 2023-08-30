@@ -342,7 +342,7 @@ export default function RosterList({
                   >
                     <ListItemText
                       primary={m.displayName}
-                    // secondary={m.statLine}
+                      secondary={m.statLine}
                     />
                   </ListItem>
                 ))}
