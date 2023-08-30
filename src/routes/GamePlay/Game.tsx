@@ -31,9 +31,7 @@ import { FlipCard } from "../../components/FlipCard";
 
 import type { Swiper as SwiperRef } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Virtual } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/virtual";
 
 import { Home, NavigateNext } from "@mui/icons-material";
 import { AppBarContent } from "../../App";
@@ -239,8 +237,6 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
         >
           <Swiper
             onSwiper={setSwiper}
-            modules={[Virtual]}
-            virtual
             initialSlide={index}
             direction="vertical"
             centeredSlides
