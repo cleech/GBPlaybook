@@ -57,6 +57,8 @@ const Settings = () => {
 
       <Divider sx={{ my: 2 }} />
 
+      <Typography>UI Options:</Typography>
+
       <Typography>Initial Screen:</Typography>
       <Observer>
         {() => (
@@ -73,7 +75,26 @@ const Settings = () => {
           </FormControl>
         )}
       </Observer>
-
+      <p />
+      <Observer>
+        {() => (
+          <FormControl>
+            <FormControlLabel
+              control={
+                <Switch
+                  size="small"
+                  checked={settings.uiPreferences.displayStatLine}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    settings.setStatLine(event.target.checked);
+                  }}
+                />
+              }
+              label="Stat Line in Game Roster List"
+            />
+          </FormControl>
+        )}
+      </Observer>
+      <p />
       <Typography>Prefered Card Layout:</Typography>
       <Typography variant="subtitle2">
         (Only applies to updated cards, where both styles are available)

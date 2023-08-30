@@ -22,6 +22,8 @@ import useLongPress from "../components/useLongPress";
 import GBIcon from "./GBIcon";
 import { useRTC } from "../services/webrtc";
 import { useUpdateAnimation } from "./useUpdateAnimation";
+import { useStore } from "../models/Root";
+
 
 type model = IGBPlayer;
 type team = IGBTeam;
@@ -206,6 +208,7 @@ export default function RosterList({
   onClick,
 }: RosterListProps) {
   const theme = useTheme();
+  const { settings } = useStore();
   const { dc } = useRTC();
   const indexBases = teams.reduce(
     (acc, team, index) => {
@@ -342,7 +345,7 @@ export default function RosterList({
                   >
                     <ListItemText
                       primary={m.displayName}
-                      secondary={m.statLine}
+                      secondary={settings.uiPreferences.displayStatLine ? m.statLine : null}
                     />
                   </ListItem>
                 ))}

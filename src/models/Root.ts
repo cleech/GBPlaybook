@@ -106,6 +106,12 @@ const Settings = types
     dataSet: types.maybe(types.string),
     initialScreen: types.optional(types.string, "/game"),
     networkPlay: types.optional(types.boolean, false),
+    uiPreferences: types.optional(
+      types.model({
+	displayStatLine: types.optional(types.boolean, false),
+      }),
+      {}
+    ),
     cardPreferences: types.optional(
       types.model({
         perferedStyled: types.optional(
@@ -131,6 +137,9 @@ const Settings = types
     },
     setCardStyle(style: string) {
       self.cardPreferences.perferedStyled = style;
+    },
+    setStatLine(display: boolean) {
+      self.uiPreferences.displayStatLine = display;
     },
   }));
 
