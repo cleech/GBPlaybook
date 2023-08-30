@@ -76,7 +76,7 @@
     "@types/lodash.clonedeep": "^4.5.7",
     "@types/react-detect-offline": "^2.4.1",
     "@vitejs/plugin-react": "^4.0.3",
-    "gh-pages": "^5.0.0",
+    "gh-pages": "^6.0.0",
     "postinstall-postinstall": "^2.1.0",
     "stylelint": "^15.10.2",
     "stylelint-config-standard": "^34.0.0",
