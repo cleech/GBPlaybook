@@ -337,8 +337,6 @@ div.card-front.gbcp {
   font-family: "Crimson Text", serif;
   font-size: 21px;
   text-align: left;
-  letter-spacing: -1px;
-  word-spacing: -1px;
 }
 
 .card-front .character-plays .name > span:first-child {
