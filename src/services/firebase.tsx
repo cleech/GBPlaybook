@@ -23,7 +23,7 @@ const FirebaseComponents = (props: { children: ReactNode }) => {
   const auth = getAuth(app);
   const firestore = getFirestore(app);
 
-  if (import.meta.env.NODE_ENV !== "production") {
+  if (import.meta.env.DEV) {
     connectAuthEmulator(auth, `http://${import.meta.env.VITE_FIREBASE_HOST ?? "localhost"}:9099`);
     connectFirestoreEmulator(firestore, import.meta.env.VITE_FIREBASE_HOST ?? "localhost", 8080);
   }
