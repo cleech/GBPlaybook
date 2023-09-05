@@ -127,7 +127,7 @@ div.card-back.gbcp {
   content: "◉ ";
   font-style: normal;
   font-weight: 400;
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
 }
 
 .card-back .character-trait .trait > :first-child > :nth-child(2) {
