@@ -51,27 +51,26 @@ export default defineConfig({
         description: 'Guild Ball reference and tracking',
         icons: [
           {
-            src: "favicon.ico",
-            sizes: "48x48 32x32 16x16",
-            type: "image/x-icon"
+            src: 'pwa-64x64.png',
+            sizes: '64x64',
+            type: 'image/png'
           },
           {
-            src: "logo192.png",
-            type: "image/png",
-            sizes: "192x192",
-            purpose: "any"
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
           },
           {
-            src: "logo512.png",
-            type: "image/png",
-            sizes: "512x512",
-            purpose: "any"
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any'
           },
           {
-            src: "gbpb-logo-full.png",
-            type: "image/png",
-            sizes: "1024x1024",
-            purpose: "maskable"
+            src: 'maskable-icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
           }
         ],
         display: "standalone",
