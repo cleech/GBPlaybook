@@ -115,7 +115,7 @@ const Settings = types
     cardPreferences: types.optional(
       types.model({
         perferedStyled: types.optional(
-          types.enumeration<string>(["sfg", "gbcp"]),
+          types.enumeration(["sfg", "gbcp"]),
           "gbcp"
         ),
       }),
