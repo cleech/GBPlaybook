@@ -123,14 +123,13 @@ export default function Draft() {
     <Box className="DraftScreen">
       <AppBarContent>
         <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-          <Link
+          <IconButton
             color="inherit"
             href={`/game?p1=${g1}&p2=${g2}`}
-            component={IconButton}
             size="small"
           >
             <Home />
-          </Link>
+          </IconButton>
           <Typography>Draft</Typography>
         </Breadcrumbs>
       </AppBarContent>

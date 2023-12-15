@@ -107,14 +107,13 @@ export default function Game() {
     >
       <AppBarContent>
         <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-          <Link
+          <IconButton
             color="inherit"
             href={`/game?p1=${teams[0].name}&p2=${teams[1].name}`}
-            component={IconButton}
             size="small"
           >
             <Home />
-          </Link>
+          </IconButton>
           <Link
             underline="hover"
             color="inherit"

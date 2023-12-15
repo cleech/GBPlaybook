@@ -57,7 +57,7 @@ const LinkBehavior = React.forwardRef<
 >((props, ref) => {
   const { href, ...other } = props;
   // Map href (MUI) -> to (react-router)
-  return <RouterLink ref={ref} to={href} {...other} />;
+  return <RouterLink ref={ref} to={href} {...other} role={undefined} />;
 });
 
 const darkTheme = createTheme({
