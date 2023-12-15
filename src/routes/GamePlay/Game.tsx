@@ -6,9 +6,11 @@ import React, {
   useMemo,
 } from "react";
 import {
-  unstable_useBlocker,
-  unstable_BlockerFunction,
+  useBlocker,
 } from "react-router-dom";
+import type {
+  BlockerFunction,
+} from "@remix-run/router";
 import {
   Button,
   Divider,
@@ -78,8 +80,8 @@ export default function Game() {
     };
   }, [dc, teams]);
 
-  let blocker = unstable_useBlocker(
-    React.useCallback<unstable_BlockerFunction>(
+  let blocker = useBlocker(
+    React.useCallback<BlockerFunction>(
       (args) => {
         if (args.nextLocation.pathname.startsWith("/game")) {
           setShowSnack(true);
