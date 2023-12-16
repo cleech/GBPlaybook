@@ -165,17 +165,16 @@ const App = () => {
               <ListItemText>Library</ListItemText>
             </DrawerNavigationButton>
             <DrawerNavigationButton
-              to={"/settings"}
-              onClick={() => setDrawer(false)}
-            >
-              <ListItemText>Settings</ListItemText>
-            </DrawerNavigationButton>
-            <Divider />
-            <DrawerNavigationButton
               to={"/print"}
               onClick={() => setDrawer(false)}
             >
               <ListItemText>Card Printer</ListItemText>
+            </DrawerNavigationButton>
+            <DrawerNavigationButton
+              to={"/settings"}
+              onClick={() => setDrawer(false)}
+            >
+              <ListItemText>Settings</ListItemText>
             </DrawerNavigationButton>
           </List>
 
@@ -240,6 +239,22 @@ const App = () => {
                   href="https://www.longshanks.org/systems/guildball/"
                 >
                   Longshanks
+                </Link>
+              </ListItem>
+            </nav>
+          </List>
+          <Divider />
+          <List style={{ marginTop: "auto" }}>
+            <nav
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginLeft: "1em",
+              }}
+            >
+              <ListItem disablePadding>
+                <Link component="a" href="/privacy.html">
+                 Privacy Policy
                 </Link>
               </ListItem>
             </nav>
