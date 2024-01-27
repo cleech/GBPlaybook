@@ -135,7 +135,7 @@ const App = () => {
           anchor="right"
           open={drawer}
           onClose={() => setDrawer(false)}
-          PaperProps={{ sx: { width: "225px" } }}
+          PaperProps={{ sx: { width: "275px" } }}
           ModalProps={{ keepMounted: true }}
         >
           <List>
@@ -181,7 +181,7 @@ const App = () => {
           <Divider />
           <List>
             <ListItem>
-              <ListItemText>External Resources:</ListItemText>
+              <ListItemText>Rules Documents:</ListItemText>
             </ListItem>
             <nav
               style={{
@@ -193,15 +193,19 @@ const App = () => {
               <ListItem disablePadding>
                 <Link
                   component="a"
-                  href="https://www.longshanks.org/systems/guildball/tools/documents/rules/rules_s4.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="/docs/GB-S4-Rulebook-4.1.pdf"
                 >
-                  Season 4 Core Rules
+                  Season 4 Core Rulebook
                 </Link>
               </ListItem>
               <ListItem disablePadding>
                 <Link
                   component="a"
-                  href="https://www.longshanks.org/systems/guildball/tools/documents/rules/faq_s4_20191220.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="/docs/GB-S4-FAQ-19-12-20.pdf"
                 >
                   Season 4 FAQ
                 </Link>
@@ -209,7 +213,9 @@ const App = () => {
               <ListItem disablePadding>
                 <Link
                   component="a"
-                  href="https://www.longshanks.org/systems/guildball/tools/documents/opd/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="/docs/GB-S4-RegionalCup-Rules-200128__1.pdf"
                 >
                   Organized Play Rules
                 </Link>
@@ -229,13 +235,28 @@ const App = () => {
               }}
             >
               <ListItem disablePadding>
-                <Link component="a" href="https://discord.gg/fvpFSfm976">
-                  GBCP Discord
+                <Link
+                  component="a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://steamforged.com/pages/guild-ball">
+                  Steamforged Games
                 </Link>
               </ListItem>
               <ListItem disablePadding>
                 <Link
                   component="a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://discord.gg/fvpFSfm976">
+                  Guild Ball Community Project
+                </Link>
+              </ListItem>
+              <ListItem disablePadding>
+                <Link
+                  component="a"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   href="https://www.longshanks.org/systems/guildball/"
                 >
                   Longshanks
@@ -254,7 +275,7 @@ const App = () => {
             >
               <ListItem disablePadding>
                 <Link component="a" href="/privacy.html">
-                 Privacy Policy
+                  Privacy Policy
                 </Link>
               </ListItem>
             </nav>
