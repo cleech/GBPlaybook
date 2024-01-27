@@ -1,9 +1,6 @@
 [{
         "relation": ["delegate_permission/common.handle_all_urls"],
         "target" : { "namespace": "android_app", "package_name": "com.gbplaybook",
-                     "sha256_cert_fingerprints": [
-			     "88:EA:00:A3:53:12:F2:75:09:3D:80:8B:74:97:75:6C:5D:1B:52:28:C6:16:3F:0E:45:04:F8:85:BA:EC:7D:C4",
-			     "42:4C:70:EB:0F:4C:60:DC:43:DF:45:BE:8A:A3:AD:C8:F9:CB:96:C8:9D:8C:D3:01:4D:5D:D8:82:2E:02:9E:CF"
-		     ] }
+                     "sha256_cert_fingerprints": ["88:EA:00:A3:53:12:F2:75:09:3D:80:8B:74:97:75:6C:5D:1B:52:28:C6:16:3F:0E:45:04:F8:85:BA:EC:7D:C4"] }
       }
 ]
