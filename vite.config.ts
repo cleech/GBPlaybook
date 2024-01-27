@@ -9,6 +9,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       workbox: {
+        maximumFileSizeToCacheInBytes: 10000000,
         // cache all imports
         globPatterns: ['**/*'],
         // cache google fonts
