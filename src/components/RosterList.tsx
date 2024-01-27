@@ -45,6 +45,7 @@ interface CounterProps {
   value: (o: any) => number;
   setValue: (o: any, v: number) => void;
   disabled?: boolean;
+  longPressClear?: boolean;
 }
 
 const CounterLabel = observer(
@@ -65,7 +66,13 @@ const Counter = ({
   value,
   setValue,
   disabled = false,
+  longPressClear = false,
 }: CounterProps) => {
+  const longPressDown = useLongPress({
+    onLongPress: (e) => {
+      setValue(object, 0);
+    },
+  });
   return (
     <div
       style={{
@@ -78,6 +85,7 @@ const Counter = ({
       <CounterLabel disabled={disabled} object={object} label={label} />
       <ButtonGroup size="small" variant="contained" disabled={disabled}>
         <Button
+          {...(longPressClear ? longPressDown : {})}
           onClick={(e) => {
             e.stopPropagation();
             const v = value(object);
@@ -305,6 +313,7 @@ export default function RosterList({
                   <Counter
                     object={team}
                     disabled={team.disabled}
+                    longPressClear={true}
                     label={(t) => `MOM: ${t.momentum}`}
                     value={(t) => t.momentum}
                     setValue={(t, v) => {
