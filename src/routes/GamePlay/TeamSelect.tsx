@@ -206,7 +206,6 @@ function GameControls(
           alignItems: "center",
           justifyContent: "center",
           gap: "0.25em",
-          paddingBottom: "1.25em",
         }}
       >
         <Typography variant="caption">vs</Typography>
