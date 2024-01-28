@@ -10,8 +10,13 @@ import {
   Snackbar,
   Alert,
   Box,
+  Menu,
+  MenuItem,
+  MenuList,
+  Avatar,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { useData } from "../../components/DataContext";
 import { roster, DraftList, BSDraftList } from "../../components/Draft";
 import { useStore } from "../../models/Root";
@@ -69,6 +74,15 @@ export default function Draft() {
   const g1 = searchParams.get("p1");
   const g2 = searchParams.get("p2");
 
+  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
+  const settingsOpen = Boolean(menuAnchor);
+  const settingsClick = (e: React.MouseEvent<HTMLElement>) => {
+    setMenuAnchor(e.currentTarget);
+  }
+  const settingsClose = () => {
+    setMenuAnchor(null);
+  }
+
   useEffect(() => {
     if (!!dc) {
       dc.onmessage = (ev: MessageEvent<string>) => {
@@ -122,19 +136,62 @@ export default function Draft() {
   return (
     <Box className="DraftScreen">
       <AppBarContent>
-        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+        <Box sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}>
+          <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+            <IconButton
+              color="inherit"
+              href={`/game?p1=${g1}&p2=${g2}`}
+              size="small"
+            >
+              <Home />
+            </IconButton>
+            <Typography>Draft</Typography>
+          </Breadcrumbs>
+
           <IconButton
+            onClick={settingsClick}
             color="inherit"
-            href={`/game?p1=${g1}&p2=${g2}`}
             size="small"
+            // variant="contained"
+            sx= {{
+              backgroundColor: "primary.dark",
+            }}
           >
-            <Home />
+            <Typography>
+              {store.settings.gameSize}
+              v
+              {store.settings.gameSize}
+            </Typography>
           </IconButton>
-          <Typography>Draft</Typography>
-        </Breadcrumbs>
+          <Menu
+            anchorEl={menuAnchor}
+            open={settingsOpen}
+            onClose={settingsClose}
+            onClick={settingsClose}
+          >
+            <MenuList dense>
+              <MenuItem selected={store.settings.gameSize === 6}
+                onClick={() => { store.settings.setGameSize(6) }}
+              >6v6</MenuItem>
+              <MenuItem selected={store.settings.gameSize === 4}
+                onClick={() => { store.settings.setGameSize(4) }}
+              >4v4</MenuItem>
+              <MenuItem selected={store.settings.gameSize === 3}
+                onClick={() => { store.settings.setGameSize(3) }}
+              >3v3</MenuItem>
+            </MenuList>
+          </Menu>
+        </Box>
       </AppBarContent>
 
       <DraftList1
+        // hacky, but force reset when this setting changes
+        key={`1-${store.settings.gameSize}`}
         guild={guild1}
         ready={ready1}
         unready={unready1}
@@ -144,8 +201,8 @@ export default function Draft() {
         onUpdate={
           dc
             ? (m, v) => {
-                dc.send(JSON.stringify({ m: m, selected: v }));
-              }
+              dc.send(JSON.stringify({ m: m, selected: v }));
+            }
             : undefined
         }
       />
@@ -179,6 +236,8 @@ export default function Draft() {
       </Typography>
 
       <DraftList2
+        // hacky, but force reset when this setting changes
+        key={`2-${store.settings.gameSize}`}
         guild={guild2}
         ready={ready2}
         unready={unready2}

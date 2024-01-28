@@ -98,7 +98,7 @@ const GBTeam = types
   }));
 
 export type IGBTeam = Instance<typeof GBTeam>;
-interface IGBTeamSnapshotIn extends SnapshotIn<typeof GBTeam> {}
+interface IGBTeamSnapshotIn extends SnapshotIn<typeof GBTeam> { }
 
 const Settings = types
   .model({
@@ -106,9 +106,10 @@ const Settings = types
     dataSet: types.maybe(types.string),
     initialScreen: types.optional(types.string, "/game"),
     networkPlay: types.optional(types.boolean, false),
+    gameSize: types.optional(types.number, 6),
     uiPreferences: types.optional(
       types.model({
-	displayStatLine: types.optional(types.boolean, false),
+        displayStatLine: types.optional(types.boolean, false),
       }),
       {}
     ),
@@ -131,6 +132,9 @@ const Settings = types
     },
     setInitialScreen(route: To) {
       self.initialScreen = route.toString();
+    },
+    setGameSize(size: number) {
+      self.gameSize = size;
     },
     setNetworkPlay(net: boolean) {
       self.networkPlay = net;

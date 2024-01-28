@@ -5,7 +5,7 @@ import React, {
   useImperativeHandle,
   useCallback,
 } from "react";
-import { IGBPlayer } from "../models/Root";
+import { IGBPlayer, useStore } from "../models/Root";
 import { useData } from "../components/DataContext";
 import cloneDeep from "lodash.clonedeep";
 import { Badge, Card, Checkbox, FormControlLabel } from "@mui/material";
@@ -14,6 +14,7 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import { CheckCircleTwoTone as Check } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useUpdateAnimation } from "./useUpdateAnimation";
+import { observer } from "mobx-react-lite";
 
 // import { Guild } from './DataContext.d';
 
@@ -23,55 +24,6 @@ export interface model extends IGBPlayer {
 }
 export type roster = model[];
 type condition = (m: model) => boolean;
-
-function checkSingleton(
-  roster: roster,
-  model: model,
-  value: boolean,
-  condition: condition
-) {
-  if (condition(model)) {
-    roster.forEach((m) => {
-      if (condition(m) && m !== model) {
-        m.disabled += value ? 1 : -1;
-      }
-    });
-    return value;
-  }
-  return undefined;
-}
-
-// returns true/false when captain is set/unset
-// returns undefined on other switch events
-function checkCaptains(roster: roster, model: model, value: boolean) {
-  return checkSingleton(roster, model, value, (m: model) => m.captain);
-}
-
-// returns true/false when mascot is set/unset
-// returns undefined on other switch events
-function checkMascots(roster: roster, model: model, value: boolean) {
-  return checkSingleton(roster, model, value, (m: model) => m.mascot);
-}
-
-function checkVeterans(roster: roster, model: model, value: boolean) {
-  roster.forEach((m) => {
-    if (m !== model && m.name === model.name) {
-      m.disabled += value ? 1 : -1;
-    }
-    // special handling of vGreede / Averisse
-    // for veteran of previously benched model
-    if (m.dehcneb === model.name || m.name === model.dehcneb) {
-      m.disabled += value ? 1 : -1;
-    }
-  });
-}
-
-function checkBenched(roster: roster, model: model, value: boolean) {
-  if (model.dehcneb) {
-    let b = roster.find((b) => b.benched && b.name === model.dehcneb);
-    b && (b.selected = value);
-  }
-}
 
 // enforce a limit of how many models can be selected that match a given condition
 function checkCount(
@@ -102,41 +54,24 @@ function checkCount(
   return newCount;
 }
 
-// 4 squaddies
-function checkSquaddieCount(
-  roster: roster,
-  model: model,
-  count: number,
-  value: boolean
-) {
-  return checkCount(
-    roster,
-    model,
-    count,
-    value,
-    (m: model) => !(m.captain || m.mascot),
-    4
-  );
+function checkVeterans(roster: roster, model: model, value: boolean) {
+  roster.forEach((m) => {
+    if (m !== model && m.name === model.name) {
+      m.disabled += value ? 1 : -1;
+    }
+    // special handling of vGreede / Averisse
+    // for veteran of previously benched model
+    if (m.dehcneb === model.name || m.name === model.dehcneb) {
+      m.disabled += value ? 1 : -1;
+    }
+  });
 }
 
-// 3 masters
-function checkMasterCount(
-  roster: roster,
-  model: model,
-  count: number,
-  value: boolean
-) {
-  return checkCount(roster, model, count, value, (m: model) => m.captain, 3);
-}
-
-// 3 apprentices
-function checkApprenticeCount(
-  roster: roster,
-  model: model,
-  count: number,
-  value: boolean
-) {
-  return checkCount(roster, model, count, value, (m: model) => !m.captain, 3);
+function checkBenched(roster: roster, model: model, value: boolean) {
+  if (model.dehcneb) {
+    let b = roster.find((b) => b.benched && b.name === model.dehcneb);
+    b && (b.selected = value);
+  }
 }
 
 interface DraftListItemProps {
@@ -188,7 +123,25 @@ interface DraftListProps {
   style?: CSSProperties;
 }
 
-export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
+const DraftLimits = {
+  3: {
+    captain: 1,
+    mascot: 0,
+    squaddies: 2,
+  },
+  4: {
+    captain: 1,
+    mascot: 1,
+    squaddies: 2,
+  },
+  6: {
+    captain: 1,
+    mascot: 1,
+    squaddies: 4,
+  }
+};
+
+export const DraftList = observer(React.forwardRef((props: DraftListProps, ref) => {
   const {
     guild,
     ready: listReady,
@@ -201,11 +154,12 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
   const { data } = useData();
   const Models = data?.Models;
 
+  const { settings } = useStore();
   let [ready, setReady] = useState(false);
 
   // captain and mascot get pre-selected for minor guilds
-  let [captain, setCaptain] = useState(guild.minor ? true : false);
-  let [mascot, setMascot] = useState(guild.minor ? true : false);
+  let [captain, setCaptain] = useState(guild.minor ? 1 : 0);
+  let [mascot, setMascot] = useState((guild.minor && DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot > 0) ? 1 : 0);
   let [squaddieCount, setSquadCount] = useState(0);
 
   let [roster, setRoster] = useState<roster>(() => {
@@ -221,24 +175,52 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
     // pre-select captain and mascot for minor guilds
     if (guild.minor) {
       tmpRoster.forEach((m: model) => {
-        if (m.captain || m.mascot) {
+        if (m.captain ||
+          (m.mascot && DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot > 0)) {
           m.selected = true;
           m.disabled = 1;
         }
       });
     }
+    // disable mascots in a 3v3 game
+    if (DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot === 0) {
+      tmpRoster.forEach((m: model) => {
+        if (m.mascot) { m.disabled = 1; }
+      })
+    }
     return tmpRoster;
   });
+
+
+  function checkCaptains(roster: roster, model: model, count: number, value: boolean) {
+    return checkCount(roster, model, count, value,
+      (m: model) => m.captain,
+      DraftLimits[settings.gameSize as (3 | 4 | 6)].captain
+    );
+  }
+
+  function checkMascots(roster: roster, model: model, count: number, value: boolean) {
+    return checkCount(roster, model, count, value,
+      (m: model) => m.mascot,
+      DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot);
+  }
+
+  function checkSquaddieCount(roster: roster, model: model, count: number, value: boolean) {
+    return checkCount(roster, model, count, value,
+      (m: model) => !(m.captain || m.mascot),
+      DraftLimits[settings.gameSize as (3 | 4 | 6)].squaddies
+    );
+  }
 
   const onSwitch = useCallback(
     (model: model, value: boolean) => {
       onUpdate?.(model, value);
       model.selected = value;
 
-      let newCaptain = checkCaptains(roster, model, value) ?? captain;
+      let newCaptain = checkCaptains(roster, model, captain, value);
       setCaptain(newCaptain);
 
-      let newMascot = checkMascots(roster, model, value) ?? mascot;
+      let newMascot = checkMascots(roster, model, mascot, value);
       setMascot(newMascot);
 
       let newCount = checkSquaddieCount(roster, model, squaddieCount, value);
@@ -247,7 +229,9 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
       checkVeterans(roster, model, value);
       checkBenched(roster, model, value);
 
-      if ((newCaptain && newMascot && newCount === 4) || ignoreRules) {
+      if ((newCaptain === DraftLimits[settings.gameSize as (3 | 4 | 6)].captain &&
+        newMascot === DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot &&
+        newCount === DraftLimits[settings.gameSize as (3 | 4 | 6)].squaddies) || ignoreRules) {
         setReady(true);
       } else {
         setReady(false);
@@ -352,9 +336,24 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
       </Card>
     </StyledBadge>
   );
-});
+}));
 
-export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
+const BSDraftLimits = {
+  3: {
+    master: 1,
+    apprentice: 2,
+  },
+  4: {
+    master: 2,
+    apprentice: 2,
+  },
+  6: {
+    master: 3,
+    apprentice: 3,
+  }
+};
+
+export const BSDraftList = observer(React.forwardRef((props: DraftListProps, ref) => {
   const {
     guild,
     ready: listReady,
@@ -366,6 +365,8 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
   } = props;
   const { data } = useData();
   const Models = data?.Models;
+
+  const { settings } = useStore();
 
   let [masterCount, setMasterCount] = useState(0);
   let [apprenticeCount, setApprenticeCount] = useState(0);
@@ -383,6 +384,28 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
     });
     return tmpRoster;
   });
+
+  function checkMasterCount(
+    roster: roster,
+    model: model,
+    count: number,
+    value: boolean
+  ) {
+    return checkCount(roster, model, count, value,
+      (m: model) => m.captain,
+      BSDraftLimits[settings.gameSize as (3 | 4 | 6)].master);
+  }
+
+  function checkApprenticeCount(
+    roster: roster,
+    model: model,
+    count: number,
+    value: boolean
+  ) {
+    return checkCount(roster, model, count, value,
+      (m: model) => !m.captain,
+      BSDraftLimits[settings.gameSize as (3 | 4 | 6)].apprentice);
+  }
 
   const onSwitch = useCallback(
     (model: model, value: boolean) => {
@@ -403,7 +426,8 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
       checkVeterans(roster, model, value);
       checkBenched(roster, model, value);
 
-      if ((newMasterCount === 3 && newApprenticeCount === 3) || ignoreRules) {
+      if ((newMasterCount === BSDraftLimits[settings.gameSize as (3 | 4 | 6)].master &&
+        newApprenticeCount === BSDraftLimits[settings.gameSize as (3 | 4 | 6)].apprentice) || ignoreRules) {
         setReady(true);
       } else {
         setReady(false);
@@ -499,4 +523,4 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
       </Card>
     </StyledBadge>
   );
-});
+}));
