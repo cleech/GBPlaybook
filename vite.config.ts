@@ -75,7 +75,7 @@ export default defineConfig({
           }
         ],
         display: "standalone",
-        orientation: "any",
+        // orientation: "any",
         theme_color: "#000000",
         background_color: "#004508"
       },
