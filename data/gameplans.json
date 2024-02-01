@@ -1,0 +1,115 @@
+[
+  {
+    "title": "Caught out of Position",
+    "text": "Starting with the player that has the\nInitiative, both players may choose\n1 enemy model and make a 2\" dodge\nwith that model. The chosen model\nis a friendly model during this action.",
+    "initiative": 7,
+    "influence": -1
+  },
+  {
+    "title": "Risky Play",
+    "text": "The opposing player may choose\none of their Squaddie models.\nThe chosen model gains +1 TAC.",
+    "initiative": 7,
+    "influence": 0
+  },
+  {
+    "title": "Play to the Crowd",
+    "text": "Friendly models may spend 1 less\nMP to make Snap Shots.",
+    "initiative": 6,
+    "influence": 0
+  },
+  {
+    "title": "Pick up the Pace!",
+    "text": "Starting with the player that has the\nInitiative, both players may choose\n1 friendly Squaddie model.\nThe chosen models gain +2\"/+2\" MOV.",
+    "initiative": 6,
+    "influence": 0
+  },
+  {
+    "title": "Boot Sponsorship",
+    "text": "Friendly models may use Gliding\nwithout spending MP.",
+    "initiative": 5,
+    "influence": 0
+  },
+  {
+    "title": "Mud Slide",
+    "text": "Choose a piece of rough ground on\nthe pitch. The chosen terrain piece\ninstead counts as fast ground.",
+    "initiative": 5,
+    "influence": 0
+  },
+  {
+    "title": "Punching Bag",
+    "text": "Choose a friendly Squaddie model.\nThe chosen model gains Tough Hide.",
+    "detail": "(This model suffers –1 DMG from enemy\nplays and playbook damage results.)",
+    "initiative": 4,
+    "influence": -1
+  },
+  {
+    "title": "Form a Wall!",
+    "text": "Friendly models gain Goal Defence.",
+    "detail": "(Enemy models suffer +1 TN to Shots\nwhile this model is within 4\" of a\nfriendly goalpost.)",
+    "initiative": 4,
+    "influence": 0
+  },
+  {
+    "title": "Sidestep",
+    "text": "The player that has the Initiative\nmay choose 1-3 friendly models.\nEach chosen model may make a 2\"\ndodge. Then the other player may\nchoose up to the same number of\nfriendly models. Each chosen model\nmay make a 2\" dodge.",
+    "initiative": 4,
+    "influence": 0
+  },
+  {
+    "title": "Pass Out the\nOrange Slices",
+    "text": "Friendly models on the pitch\nimmediately recover 2 HP.",
+    "initiative": 4,
+    "influence": 0
+  },
+  {
+    "title": "Hit ’Em Where\nit Hurts!",
+    "text": "Choose an enemy Squaddie model.\nThe chosen model suffers Weak Point.",
+    "detail": "(Target enemy model suffers -1 ARM.)",
+    "initiative": 4,
+    "influence": 0
+  },
+  {
+    "title": "Lock Them Down",
+    "text": "Choose an enemy Squaddie model.\nThe chosen model suffers -1 TAC.",
+    "initiative": 3,
+    "influence": 0
+  },
+  {
+    "title": "Cool Head",
+    "text": "The first time a friendly model\nwould spend MP for an action or\nmomentous ability this turn, except\nfor a Shot or Snap Shot, it may do so\nwithout spending MP.",
+    "initiative": 3,
+    "influence": 0
+  },
+  {
+    "title": "Aggressive Defence",
+    "text": "Friendly models gain Poised while\nwithin the enemy half of the pitch.",
+    "detail": "(Once per turn, this model may make a\nCounter Attack without spending MP.)",
+    "initiative": 3,
+    "influence": 1
+  },
+  {
+    "title": "Never Say Die",
+    "text": "Each time a friendly model suffers\nthe taken out condition, the friendly\nteam gains +2 MP.",
+    "initiative": 2,
+    "influence": 1
+  },
+  {
+    "title": "Raw Enthusiasm",
+    "text": "Choose a friendly Squaddie model. The\nchosen model gains Put Me Back In, Coach!",
+    "detail": "(Once per turn when this model suffers\nthe taken out condition, this model\nmay immediately remove the taken out\ncondition and return to the pitch as if it\nwere the Maintenance Phase.)",
+    "initiative": 2,
+    "influence": 1
+  },
+  {
+    "title": "Give Me 110%!",
+    "text": "",
+    "initiative": 1,
+    "influence": 2
+  },
+  {
+    "title": "Break Out the Knives",
+    "text": "Friendly Squaddie models gain +1 TAC.",
+    "initiative": 1,
+    "influence": 0
+  }
+]
