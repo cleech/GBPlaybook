@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 
 import {
   Outlet,
@@ -16,6 +16,7 @@ import {
   Typography,
   Breadcrumbs,
   Link,
+  IconButton,
 } from "@mui/material";
 
 import type { Swiper as SwiperRef } from "swiper";
@@ -33,6 +34,7 @@ import { NavigateNext } from "@mui/icons-material";
 import { DoubleGuildCard, FlipGuildCard } from "../components/GuildCard";
 import VersionTag from "../components/VersionTag";
 import { Guild } from "../components/DataContext.d";
+import GBIcon from "../components/GBIcon";
 
 export default function Library() {
   const location = useLocation();
@@ -46,7 +48,7 @@ export default function Library() {
     <main
       style={{
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "column-reverse",
         width: "100%",
         height: "100%",
       }}
@@ -82,24 +84,22 @@ export function Roster() {
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
 
-  // const ref = useRef<HTMLDivElement>(null);
-  // const [cardWidth, setCardWidth] = useState(240);
-  // const [cardHeight, setCardHeight] = useState(336);
-  // const [slideHeight, setSlideHeight] = useState(336);
-  // useLayoutEffect(() => {
-  //   updateSize();
-  //   window.addEventListener("resize", updateSize);
-  //   return () => window.removeEventListener("resize", updateSize);
-  // });
-  // function updateSize() {
-  //   let wrapper = ref.current?.querySelector(".swiper-wrapper");
-  //   let width = wrapper?.getBoundingClientRect().width ?? 0;
-  //   let height = wrapper?.getBoundingClientRect().height ?? 0;
-  //   // let barHeight = large ? 56 : 112;
-  //   setCardWidth(Math.min(width - 12, (height * 5) / 7 - 12));
-  //   setCardHeight(Math.min(height - 12, (width * 7) / 5 - 12));
-  //   setSlideHeight(height);
-  // }
+  const ref = useRef<HTMLDivElement>(null);
+  const [cardWidth, setCardWidth] = useState(large ? 1000 : 500);
+  const [cardHeight, setCardHeight] = useState(700);
+  const [slideHeight, setSlideHeight] = useState(700);
+  useLayoutEffect(() => {
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  });
+  function updateSize() {
+    let width = ref.current?.getBoundingClientRect().width ?? 0;
+    let height = ref.current?.getBoundingClientRect().height ?? 0;
+    setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
+    setCardHeight(Math.min(height, (width * 7) / 5) - 12);
+    setSlideHeight(height);
+  }
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
@@ -133,7 +133,14 @@ export function Roster() {
           <Typography>{g.name}</Typography>
         </Breadcrumbs>
       </AppBarContent>
-      <Box sx={{ width: "100%", height: "100%", position: "relative" }}>
+      <SwiperButtons guild={g} swiper={swiper} />
+      <Box
+        ref={ref}
+        sx={{
+          height: "100%",
+          position: "relative",
+        }}
+      >
         <Swiper
           onSwiper={setSwiper}
           onSlideChange={(swiper) => {
@@ -141,33 +148,39 @@ export function Roster() {
               replace: true,
             });
           }}
-          // slidesPerView="auto"
-          slidesPerView={1.1}
-          centeredSlides={true}
-          // autoHeight={true}
+          slidesPerView="auto"
           spaceBetween={0.25 * 96}
+          centeredSlides
           style={{
             height: "100%",
             width: "100%",
-            // flexShrink: 2,
-            // display: "flex",
-            // flexDirection: "column",
           }}
         >
           <SwiperSlide
             key={g.name}
             virtualIndex={0}
             style={{
+              width: "auto",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            {large ? (
-              <DoubleGuildCard guild={g.name} />
-            ) : (
-              <FlipGuildCard guild={g.name} />
-            )}
+            <div
+              style={{
+                height: cardHeight,
+                width: cardWidth,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {large ? (
+                <DoubleGuildCard guild={g.name} />
+              ) : (
+                <FlipGuildCard guild={g.name} />
+              )}
+            </div>
           </SwiperSlide>
           {g.roster.map((m: string, index: number) => {
             const model = data.Models.find((m2: any) => m2.id === m);
@@ -182,33 +195,41 @@ export function Roster() {
                 key={model.id}
                 virtualIndex={index + 1}
                 style={{
+                  width: "auto",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                 }}
               >
-                {large ? (
-                  <DoubleCard model={model as any} controls={undefined} />
-                ) : (
-                  <FlipCard model={model as any} controls={undefined} />
-                )}
+                <div
+                  style={{
+                    height: cardHeight,
+                    width: cardWidth,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {large ? (
+                    <DoubleCard model={model as any} controls={undefined} />
+                  ) : (
+                    <FlipCard model={model as any} controls={undefined} />
+                  )}
+                </div>
               </SwiperSlide>
             );
           })}
         </Swiper>
         <VersionTag />
       </Box>
-      <SwiperButtons roster={g.roster as any} swiper={swiper} />
     </>
   );
 }
 
-function SwiperButtons(props: {
-  roster: IGBPlayer[];
-  swiper: SwiperRef | null;
-}) {
+function SwiperButtons(props: { guild: Guild; swiper: SwiperRef | null }) {
   const { data } = useData();
-  const { roster, swiper } = props;
+  const { guild, swiper } = props;
+  const roster = guild.roster;
   if (!data) {
     return null;
   }
@@ -230,6 +251,22 @@ function SwiperButtons(props: {
           gap: "5px",
         }}
       >
+        <IconButton
+          sx={{ padding: 0 }}
+          onClick={() => {
+            swiper?.slideTo(0);
+          }}
+        >
+          <GBIcon
+            icon={guild.name}
+            className="dark"
+            fontSize="32px"
+            style={{
+              backgroundColor: "black",
+              borderRadius: "50%",
+            }}
+          />
+        </IconButton>
         {roster.map((m, index) => {
           const model = data.Models.find((m2: any) => m2.id === m);
           if (!model) {
