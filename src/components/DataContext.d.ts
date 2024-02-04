@@ -70,3 +70,11 @@ export interface Manifest {
     timestamp: string;
   }[];
 }
+
+export interface Gameplan {
+  title: string;
+  text: string;
+  detail?: string;
+  initiative: number;
+  influence: number;
+}

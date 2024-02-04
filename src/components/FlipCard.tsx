@@ -23,8 +23,7 @@ export function FlipCard({
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   });
-  const updateSize = useCallback(() =>
-  {
+  const updateSize = useCallback(() => {
     if (!layoutRef.current) {
       return;
     }

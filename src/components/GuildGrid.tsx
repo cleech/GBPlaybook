@@ -8,11 +8,13 @@ import { Button, Typography, Divider } from "@mui/material";
 
 import { useData } from "../components/DataContext";
 import GBIcon from "../components/GBIcon";
+import { Guild } from "./DataContext.d";
 
-const maxBy = (data: Array<any>, by: (v: any) => number) =>
-  data.reduce((a, b) => (by(a) >= by(b) ? a : b));
+function maxBy(data: Array<any>, by: (v: any) => number) {
+  return data.reduce((a, b) => (by(a) >= by(b) ? a : b));
+}
 
-export const itemSize = ({ width, height }: any, count: number, extra = 0) => {
+function itemSize({ width, height }: { width: number; height: number; }, count: number, extra: number = 0) {
   if (!width || !height) {
     return undefined;
   }
@@ -39,23 +41,30 @@ export const itemSize = ({ width, height }: any, count: number, extra = 0) => {
   return maxBy(
     // no more guessing, just check every possible layout
     // _.range(1, count + 1)
-    Array.from({ length: count }, (_, i) => i + 1).map((n) =>
-      layout(n, Math.ceil(count / n) + extra)
+    Array.from({ length: count }, (_, i) => i + 1).map((n) => layout(n, Math.ceil(count / n) + extra)
     ),
     (layout) => layout.size
   );
-};
+}
 
 export interface ControlProps {
   size: number;
 }
 
+interface GridIcon {
+  key: string,
+  name: string,
+  icon: string,
+  style?: React.CSSProperties,
+}
+
 interface GuildGridProps {
   pickTeam?: (guild: string) => void;
   controls?: (props: ControlProps) => [JSX.Element, ((guild: string) => void)?];
+  extraIcons?: [GridIcon];
 }
 
-export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
+export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
   const [ref, dimensions] = useDimensionsRef();
   const { data } = useData();
   const [size, setSize] = useState(0);
@@ -102,6 +111,7 @@ export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
             pickTeam={controlCallback ?? pickTeam}
             controls={controls}
             size={size}
+            extraIcons={extraIcons}
           />
         )}
       </div>
@@ -111,20 +121,29 @@ export function GuildGrid({ pickTeam, controls }: GuildGridProps) {
   );
 }
 
-export function GuildGridInner({ dimensions, pickTeam, size }: any) {
+function GuildGridInner({ dimensions, pickTeam, size, extraIcons }: any) {
   const { data } = useData();
   if (!data || !dimensions) {
     return null;
   }
 
+  const list: GridIcon[] = data.Guilds.map((g: Guild) => (
+    {
+      key: g.name,
+      name: g.name,
+      icon: g.name,
+    }
+  ));
+  list.push(...(extraIcons ?? []));
+
   return (
     <>
-      {data.Guilds.map((g: any) => (
+      {list.map((g) => (
         <Button
-          key={g.name}
+          key={g.key}
           variant="outlined"
           onClick={() => {
-            pickTeam && pickTeam(g.name);
+            pickTeam && pickTeam(g.key);
           }}
           style={{
             display: "flex",
@@ -161,13 +180,14 @@ export function GuildGridInner({ dimensions, pickTeam, size }: any) {
             }}
           >
             <GBIcon
-              icon={g.name}
+              icon={g.icon}
               className="dark"
               style={{
                 flexShrink: 0,
                 // zIndex: 1,
                 // filter: "drop-shadow(0 0 3px black)",
                 filter: "drop-shadow(0 0 0.03em black)",
+                ...(g.style || {})
               }}
             />
           </div>

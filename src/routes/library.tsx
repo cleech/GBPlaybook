@@ -39,8 +39,9 @@ import { AppBarContent } from "../App";
 import { NavigateNext } from "@mui/icons-material";
 import { DoubleGuildCard, FlipGuildCard } from "../components/GuildCard";
 import VersionTag from "../components/VersionTag";
-import { Guild } from "../components/DataContext.d";
+import type { Guild, Gameplan } from "../components/DataContext.d";
 import GBIcon from "../components/GBIcon";
+import { GameplanCard } from "../components/Gameplan";
 
 export default function Library() {
   const location = useLocation();
@@ -77,6 +78,14 @@ export function GuildList() {
         pickTeam={(guild) => {
           navigate(guild);
         }}
+        extraIcons={[
+          {
+            key: "gameplans",
+            name: "Gameplans",
+            icon: "GB",
+            style: { color: "#f8f7f4" },
+          },
+        ]}
       />
       <VersionTag />
     </>
@@ -145,6 +154,8 @@ export function Roster() {
         sx={{
           height: "100%",
           position: "relative",
+          display: "flex",
+          alignItems: "center",
         }}
       >
         <Swiper
@@ -231,6 +242,122 @@ export function Roster() {
   );
 }
 
+export function GamePlans() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const theme = useTheme();
+  // const large = useMediaQuery(theme.breakpoints.up("sm"));
+  const large = false;
+
+  const ref = useRef<HTMLDivElement>(null);
+  const [cardWidth, setCardWidth] = useState(large ? 1000 : 500);
+  const [cardHeight, setCardHeight] = useState(700);
+
+  const updateSize = useCallback(() => {
+    let width = ref.current?.getBoundingClientRect().width ?? 0;
+    let height = ref.current?.getBoundingClientRect().height ?? 0;
+    setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
+    setCardHeight(Math.min(height, (width * 7) / 5) - 12);
+  }, []);
+
+  useLayoutEffect(() => {
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  });
+
+  const [swiper, setSwiper] = useState<SwiperRef | null>(null);
+
+  const { data, gameplans } = useData();
+
+  useEffect(() => {
+    const savedPosition = searchParams.get("m");
+    if (savedPosition) {
+      const index = Number(savedPosition);
+      if (index) {
+        swiper?.slideTo(index);
+      }
+    }
+  }, [swiper, searchParams]);
+
+  if (!gameplans || !data) {
+    return null;
+  }
+
+  return (
+    <>
+      <AppBarContent>
+        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+          <Link underline="hover" color="inherit" href={"/library"}>
+            Library
+          </Link>
+          <Typography>Gameplan Cards</Typography>
+        </Breadcrumbs>
+      </AppBarContent>
+
+      <GameplanButtons swiper={swiper} />
+
+      <Box
+        ref={ref}
+        sx={{
+          height: "100%",
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Swiper
+          onSwiper={setSwiper}
+          onSlideChange={(swiper) => {
+            setSearchParams(`m=${swiper.activeIndex}`, {
+              replace: true,
+            });
+          }}
+          slidesPerView="auto"
+          centeredSlides={true}
+          spaceBetween={0.25 * 96}
+          style={{
+            // height: "100%",
+            // width: "100%",
+            // width: cardWidth,
+            height: cardHeight,
+            // aspectRatio: 5 / 7,
+          }}
+        >
+          {gameplans.map((gameplan: Gameplan, index: number) => {
+            return (
+              <SwiperSlide
+                key={index}
+                style={{
+                  // width: "auto",
+                  width: cardWidth,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <div
+                  style={{
+                    height: cardHeight,
+                    width: cardWidth,
+                    // aspectRatio: 5 / 7,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <GameplanCard gameplan={gameplan} />
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+        <VersionTag />
+      </Box>
+    </>
+  );
+}
+
 function SwiperButtons(props: { guild: Guild; swiper: SwiperRef | null }) {
   const { data } = useData();
   const { guild, swiper } = props;
@@ -285,6 +412,49 @@ function SwiperButtons(props: { guild: Guild; swiper: SwiperRef | null }) {
               label={model.id}
               onClick={() => {
                 swiper?.slideTo(index + 1);
+              }}
+            />
+          );
+        })}
+      </Box>
+      <div style={{ flex: "1 1" }} />
+    </div>
+  );
+}
+
+function GameplanButtons(props: { swiper: SwiperRef | null }) {
+  const { gameplans } = useData();
+  const { swiper } = props;
+  if (!gameplans) {
+    return null;
+  }
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+      }}
+    >
+      <div style={{ flex: "1 1" }} />
+      <Box
+        sx={{
+          display: "flex",
+          flex: "1 1 500px",
+          // width: "100%",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "5px",
+        }}
+      >
+        {gameplans.map((g, index) => {
+          return (
+            <Chip
+              color="primary"
+              key={index}
+              // label={model.displayName}
+              label={g.title}
+              onClick={() => {
+                swiper?.slideTo(index);
               }}
             />
           );

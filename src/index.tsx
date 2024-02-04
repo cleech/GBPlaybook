@@ -13,7 +13,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import GamePlay, { TeamSelect, Draft, Game } from "./routes/GamePlay";
-import Library, { GuildList, Roster } from "./routes/library";
+import Library, { GamePlans, GuildList, Roster } from "./routes/library";
 import Settings from "./routes/settings";
 
 import { DataProvider } from "./components/DataContext";
@@ -43,6 +43,7 @@ rootStorePersist().then(() => {
           </Route>
           <Route path="library" element={<Library />}>
             <Route index element={<GuildList />} />
+            <Route path="gameplans" element={<GamePlans />} />
             <Route path=":guild" element={<Roster />} />
           </Route>
           <Route path="settings" element={<Settings />} />

@@ -9,18 +9,20 @@ import React, {
 import { observer } from "mobx-react-lite";
 import { useStore } from "../models/Root";
 
-import DataFile, { Manifest } from "./DataContext.d";
+import DataFile, { Manifest, Gameplan } from "./DataContext.d";
 
 interface DataContextProps {
   manifest?: Manifest;
   data?: DataFile;
   version: string;
+  gameplans?: Gameplan[];
 }
 
 const DataContext = createContext<DataContextProps>({
   manifest: undefined,
   data: undefined,
   version: "0",
+  gameplans: undefined,
 });
 
 interface DataProviderProps {
@@ -30,6 +32,7 @@ interface DataProviderProps {
 export const DataProvider = observer(({ children }: DataProviderProps) => {
   const [manifest, setManifest] = useState(undefined);
   const [data, setData] = useState(undefined);
+  const [gameplans, setGameplans] = useState(undefined);
   const [version, setVersion] = useState("");
 
   const settings = useStore().settings;
@@ -54,6 +57,7 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
       ).version
     );
     setData(await readFile(filename));
+    setGameplans(await readFile('gameplans.json'));
   }, [settings]);
 
   useEffect(() => {
@@ -62,7 +66,7 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
   }, [filename, getData]);
 
   return (
-    <DataContext.Provider value={{ data, version, manifest }}>
+    <DataContext.Provider value={{ data, version, manifest, gameplans }}>
       {children}
     </DataContext.Provider>
   );
