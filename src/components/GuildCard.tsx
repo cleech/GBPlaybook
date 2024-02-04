@@ -1,4 +1,10 @@
-import React, { useState, useRef, useLayoutEffect, CSSProperties } from "react";
+import React, {
+  useState,
+  useRef,
+  useLayoutEffect,
+  CSSProperties,
+  useCallback,
+} from "react";
 // import { useData } from "./DataContext";
 import GBImages from "./GBImages";
 import "./FlipCard.css";
@@ -15,7 +21,7 @@ export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   });
-  function updateSize() {
+  const updateSize = useCallback(() => {
     if (!targetRef.current) {
       return;
     }
@@ -24,7 +30,7 @@ export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
     let horiScale = height / 700;
     let newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
-  }
+  }, []);
 
   // const { data } = useData();
   // if (!data) {
@@ -93,7 +99,7 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   });
-  function updateSize() {
+  const updateSize = useCallback(() => {
     if (!layoutRef.current) {
       return;
     }
@@ -102,7 +108,7 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
     let horiScale = height / 700;
     let newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
-  }
+  }, []);
 
   return (
     <div

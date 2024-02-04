@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React, { useState, useRef, useLayoutEffect, useCallback } from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 import "./FlipCard.css";
@@ -23,7 +23,8 @@ export function FlipCard({
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   });
-  function updateSize() {
+  const updateSize = useCallback(() =>
+  {
     if (!layoutRef.current) {
       return;
     }
@@ -32,7 +33,7 @@ export function FlipCard({
     let horiScale = height / 700;
     let newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
-  }
+  }, []);
 
   // const { data } = useData();
   // if (!data) {

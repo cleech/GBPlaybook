@@ -35,19 +35,6 @@ const CardFront = (props: CardFrontProps) => {
   const model = props.model;
   const key = model.id;
 
-  // const targetRef = useRef();
-  // const [scale, setScale] = useState(props.scale ?? 1.0);
-  // useLayoutEffect(() => {
-  //   updateSize();
-  //   window.addEventListener("resize", updateSize);
-  //   return () => window.removeEventListener("resize", updateSize);
-  // });
-  // function updateSize() {
-  //   let newScale = targetRef.current.getBoundingClientRect().width / 500;
-  //   // let newScale = targetRef.current.getBoundingClientRect().height / 700;
-  //   setScale(newScale);
-  // }
-
   const { settings } = useStore();
   const { data } = useData();
   if (!data) {

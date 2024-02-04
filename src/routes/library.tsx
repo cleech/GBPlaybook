@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useLayoutEffect,
+  useCallback,
+} from "react";
 
 import {
   Outlet,
@@ -87,19 +93,19 @@ export function Roster() {
   const ref = useRef<HTMLDivElement>(null);
   const [cardWidth, setCardWidth] = useState(large ? 1000 : 500);
   const [cardHeight, setCardHeight] = useState(700);
-  const [slideHeight, setSlideHeight] = useState(700);
+
+  const updateSize = useCallback(() => {
+    let width = ref.current?.getBoundingClientRect().width ?? 0;
+    let height = ref.current?.getBoundingClientRect().height ?? 0;
+    setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
+    setCardHeight(Math.min(height, (width * 7) / 5) - 12);
+  }, []);
+
   useLayoutEffect(() => {
     updateSize();
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   });
-  function updateSize() {
-    let width = ref.current?.getBoundingClientRect().width ?? 0;
-    let height = ref.current?.getBoundingClientRect().height ?? 0;
-    setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
-    setCardHeight(Math.min(height, (width * 7) / 5) - 12);
-    setSlideHeight(height);
-  }
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
@@ -158,7 +164,6 @@ export function Roster() {
         >
           <SwiperSlide
             key={g.name}
-            virtualIndex={0}
             style={{
               width: "auto",
               display: "flex",
@@ -182,6 +187,7 @@ export function Roster() {
               )}
             </div>
           </SwiperSlide>
+
           {g.roster.map((m: string, index: number) => {
             const model = data.Models.find((m2: any) => m2.id === m);
             if (!model) {
@@ -193,7 +199,6 @@ export function Roster() {
             return (
               <SwiperSlide
                 key={model.id}
-                virtualIndex={index + 1}
                 style={{
                   width: "auto",
                   display: "flex",

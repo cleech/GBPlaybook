@@ -25,21 +25,6 @@ const CardBack = (props: CardBackProps) => {
   const model = props.model;
   const key = model.id;
 
-  // const targetRef = useRef();
-  // const [scale, setScale] = useState(props.scale ?? 1.0);
-  // function updateSize() {
-  //   // let newScale = targetRef.current.getBoundingClientRect().width / 500;
-  //   let newScale = targetRef.current.getBoundingClientRect().height / 700;
-  //   // console.log(`scale = ${newScale}`);
-  //   setScale(newScale);
-  // }
-  // useLayoutEffect(() => {
-  //   updateSize();
-  //   window.addEventListener("resize", updateSize);
-  //   return () => window.removeEventListener("resize", updateSize);
-  // });
-  // }, [targetRef.current]);
-
   const { settings } = useStore();
   const { data } = useData();
   if (!data) {

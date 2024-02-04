@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React, { useState, useRef, useLayoutEffect, useCallback } from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 import { model } from "./FlipCard";
@@ -22,7 +22,8 @@ export function DoubleCard({
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   });
-  function updateSize() {
+  const updateSize = useCallback(() =>
+  {
     if (!targetRef.current) {
       return;
     }
@@ -31,7 +32,7 @@ export function DoubleCard({
     let horiScale = height / 700;
     let newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
-  }
+  }, []);
 
   // const { data } = useData();
   // if (!data) {

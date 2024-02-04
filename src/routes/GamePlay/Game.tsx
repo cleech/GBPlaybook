@@ -4,13 +4,10 @@ import React, {
   useLayoutEffect,
   useEffect,
   useMemo,
+  useCallback,
 } from "react";
-import {
-  useBlocker,
-} from "react-router-dom";
-import type {
-  BlockerFunction,
-} from "@remix-run/router";
+import { useBlocker } from "react-router-dom";
+import type { BlockerFunction } from "@remix-run/router";
 import {
   Button,
   Divider,
@@ -175,14 +172,16 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   });
-  function updateSize() {
+
+  const updateSize = useCallback(() => {
     let width = sizeRef.current?.getBoundingClientRect().width ?? 0;
     let height = sizeRef.current?.getBoundingClientRect().height ?? 0;
     let barHeight = large ? 56 : 112;
     setCardWidth(Math.min(width - 12, ((height - barHeight) * 5) / 7 - 12));
     setCardHeight(Math.min(height - barHeight - 12, (width * 7) / 5 - 12));
     setSlideHeight(height - barHeight);
-  }
+  }, []);
+
   return (
     <div
       ref={sizeRef}
@@ -266,7 +265,7 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
               ])
               .flat(2)
               .map((component, index) => (
-                <SwiperSlide key={index} virtualIndex={index}>
+                <SwiperSlide key={index}>
                   <div
                     style={{
                       height: "100%",
