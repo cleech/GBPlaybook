@@ -19,8 +19,8 @@
     to right,
     transparent 1em,
     black 1em,
-    var(--guild-color) 3em,
-    var(--guild-color) 9em,
+    var(--color) 3em,
+    var(--color) 9em,
     black calc(100% - 1em),
     transparent calc(100% - 1em)
   );

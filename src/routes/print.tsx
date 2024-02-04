@@ -1,4 +1,11 @@
-import React from "react";
+import {
+  useState,
+  useCallback,
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+  CSSProperties,
+} from "react";
 import {
   ButtonGroup,
   FormControlLabel,
@@ -9,7 +16,6 @@ import { AppBarContent } from "../App";
 import { useData } from "../components/DataContext";
 import "./print.css";
 
-import { useState, useRef, useImperativeHandle } from "react";
 import { useMutationObserverRef } from "rooks";
 
 import { CardFront, GBCardCSS } from "../components/CardFront";
@@ -27,13 +33,16 @@ import ClearAllIcon from "@mui/icons-material/RemoveDone";
 import ClearIcon from "@mui/icons-material/Clear";
 import VersionTag from "../components/VersionTag";
 import GBImages from "../components/GBImages";
-import { Guild, Model } from "../components/DataContext.d";
+import { Gameplan, Guild, Model } from "../components/DataContext.d";
+import { GameplanCard, GameplanFront } from "../components/Gameplan";
 
 export const CardPrintScreen = () => {
-  const { data } = useData();
-  const ref = useRef<{ models: Map<string, any>; guilds: Map<string, any> }>(
-    null
-  );
+  const { data, gameplans } = useData();
+  const ref = useRef<{
+    models: Map<string, any>;
+    guilds: Map<string, any>;
+    gameplans: Map<string, Gameplan>;
+  }>(null);
   const list = useRef<any>(null);
 
   if (!data) {
@@ -92,7 +101,7 @@ export const CardPrintScreen = () => {
                     }
                     ref.current?.guilds
                       .get(list.current.guild)
-                      .setChecked(true);
+                      ?.setChecked(true);
                     ref.current?.models.forEach((control: any) => {
                       if (
                         control.m.guild1 === list.current.guild ||
@@ -101,6 +110,12 @@ export const CardPrintScreen = () => {
                         control?.setChecked(true);
                       }
                     });
+
+                    if (list.current?.guild === "gameplans") {
+                      ref.current?.gameplans.forEach((control: any) => {
+                        control?.setChecked(true);
+                      });
+                    }
                   }}
                 >
                   <SelectAllIcon />
@@ -111,7 +126,7 @@ export const CardPrintScreen = () => {
                   onClick={() => {
                     ref.current?.guilds
                       .get(list.current.guild)
-                      .setChecked(false);
+                      ?.setChecked(false);
                     ref.current?.models.forEach((control: any) => {
                       if (!list.current.guild) {
                         return;
@@ -123,6 +138,11 @@ export const CardPrintScreen = () => {
                         control?.setChecked(false);
                       }
                     });
+                    if (list.current?.guild === "gameplans") {
+                      ref.current?.gameplans.forEach((control: any) => {
+                        control?.setChecked(false);
+                      });
+                    }
                   }}
                 >
                   <ClearAllIcon />
@@ -146,6 +166,9 @@ export const CardPrintScreen = () => {
               ref.current?.models.forEach((control: any) => {
                 control?.setChecked(false);
               });
+              ref.current?.gameplans.forEach((control: any) => {
+                control?.setChecked(false);
+              });
             }}
           >
             Clear Cards
@@ -160,34 +183,16 @@ export const CardPrintScreen = () => {
         {data.Models.map((m: Model) => (
           <ModelCard name={m.id} id={m.id} key={m.id} />
         ))}
+        {gameplans?.map((gp: Gameplan, index) => (
+          <GameplanPrintCard gameplan={gp} key={`gameplan-${index}`} />
+        ))}
       </Box>
     </Box>
   );
 };
 
-const SelectGuild = (guild: any) => {
-  const { name, minor } = guild;
-
-  document
-    .querySelectorAll(".model-checkbox")
-    .forEach((m) => m.classList.add("hide"));
-
-  let e = document.querySelector<HTMLElement>(".model-list-container");
-  if (minor) {
-    e?.style.setProperty("--major-order", "2");
-    e?.style.setProperty("--minor-order", "0");
-  } else {
-    e?.style.setProperty("--major-order", "0");
-    e?.style.setProperty("--minor-order", "2");
-  }
-
-  document
-    .querySelectorAll(`.model-checkbox.${name}`)
-    .forEach((m) => m.classList.remove("hide"));
-};
-
-const GuildList = React.forwardRef((props, ref) => {
-  const [guild, setGuild] = React.useState<string | undefined>(undefined);
+const GuildList = forwardRef((props, ref) => {
+  const [guild, setGuild] = useState<string | undefined>(undefined);
 
   useImperativeHandle(ref, () => ({ guild }), [guild]);
 
@@ -196,17 +201,51 @@ const GuildList = React.forwardRef((props, ref) => {
     return null;
   }
 
-  const handleChange = (event: SelectChangeEvent<any>) => {
-    setGuild(event.target.value.name);
+  const SelectGuild = useCallback(
+    (name: string) => {
+      document
+        .querySelectorAll(".model-checkbox")
+        .forEach((m) => m.classList.add("hide"));
+
+      const guild = data.Guilds.find((g) => g.name === name);
+      if (guild) {
+        const { minor } = guild;
+
+        let e = document.querySelector<HTMLElement>(".model-list-container");
+        if (minor) {
+          e?.style.setProperty("--major-order", "2");
+          e?.style.setProperty("--minor-order", "0");
+        } else {
+          e?.style.setProperty("--major-order", "0");
+          e?.style.setProperty("--minor-order", "2");
+        }
+      }
+
+      document
+        .querySelectorAll(`.model-checkbox.${name}`)
+        .forEach((m) => m.classList.remove("hide"));
+    },
+    [data]
+  );
+
+  const handleChange = useCallback((event: SelectChangeEvent<any>) => {
+    setGuild(event.target.value);
     SelectGuild(event.target.value);
-  };
+  }, []);
 
   return (
     <FormControl size="small">
       <InputLabel>Guild</InputLabel>
       <Select label="Guild" onChange={handleChange} defaultValue="">
+        <MenuItem key="gameplans" value="gameplans" dense>
+          <ListItemBanner
+            text="gameplans"
+            icon="GB"
+            style={{ "--color": "#333333" }}
+          />
+        </MenuItem>
         {data.Guilds.map((g: any) => (
-          <MenuItem key={g.name} value={g} dense>
+          <MenuItem key={g.name} value={g.name} dense>
             <GuildListItem g={g} />
           </MenuItem>
         ))}
@@ -215,16 +254,33 @@ const GuildList = React.forwardRef((props, ref) => {
   );
 });
 
-const GuildListItem = ({ g }: { g: any }) => (
+const GuildListItem = ({ g }: { g: Guild }) => (
+  <ListItemBanner
+    text={g.name}
+    icon={g.name}
+    style={{ "--color": g.shadow ?? g.color }}
+  />
+);
+
+const ListItemBanner = ({
+  text,
+  icon,
+  style,
+}: {
+  text: string;
+  icon: string;
+  style?: any;
+}) => (
   <div
     className="guild"
-    key={g.name}
+    key={text}
     style={
       {
-        "--guild-color": g.shadow ?? g.color,
+        // "--color": g.shadow ?? g.color,
         width: "100%",
         fontSize: "1rem",
-      } as React.CSSProperties
+        ...style,
+      } as CSSProperties
     }
   >
     <span style={{ display: "inline-flex" }}>
@@ -242,11 +298,9 @@ const GuildListItem = ({ g }: { g: any }) => (
         }}
       >
         <GBIcon
-          icon={g.name}
+          icon={icon}
+          className="dark"
           style={{
-            // FIXME, this is only working if the
-            // svg doesn't have fill color
-            color: g.darkColor ?? g.color,
             flexShrink: 0,
           }}
         />
@@ -259,7 +313,7 @@ const GuildListItem = ({ g }: { g: any }) => (
           marginRight: "1em",
         }}
       >
-        {g.name}
+        {text}
       </span>
     </span>
   </div>
@@ -268,15 +322,9 @@ const GuildListItem = ({ g }: { g: any }) => (
 const DisplayModel = (name: string) => {
   var card = document.querySelector(`.card#${name}`);
   card?.classList.toggle("hide");
-  // var check = document.getElementById(name + "-check") as HTMLInputElement;
-  // if (check?.checked === true) {
-  //   card?.classList.remove("hide");
-  // } else {
-  //   card?.classList.add("hide");
-  // }
 };
 
-const GuildCheckBox = React.forwardRef((props: { g: Guild }, ref) => {
+const GuildCheckBox = forwardRef((props: { g: Guild }, ref) => {
   const [checked, setChecked] = useState(false);
   const g = props.g;
   useImperativeHandle(
@@ -307,7 +355,7 @@ const GuildCheckBox = React.forwardRef((props: { g: Guild }, ref) => {
         {
           "--color1": g.shadow ?? g.color + "80",
           "--color2": "var(--color1)",
-        } as React.CSSProperties
+        } as CSSProperties
       }
       onChange={() => {
         setChecked(!checked);
@@ -317,7 +365,7 @@ const GuildCheckBox = React.forwardRef((props: { g: Guild }, ref) => {
   );
 });
 
-const ModelCheckBox = React.forwardRef((props: { m: Model }, ref) => {
+const ModelCheckBox = forwardRef((props: { m: Model }, ref) => {
   const { data } = useData();
   const [checked, setChecked] = useState(false);
   useImperativeHandle(
@@ -363,7 +411,7 @@ const ModelCheckBox = React.forwardRef((props: { m: Model }, ref) => {
             ? guild2.shadow ?? guild2.color + "80"
             : "var(--color1)",
           // backgroundColor: guild1.shadow ?? guild1.color + "80",
-        } as React.CSSProperties
+        } as CSSProperties
       }
       onChange={() => {
         setChecked(!checked);
@@ -373,19 +421,68 @@ const ModelCheckBox = React.forwardRef((props: { m: Model }, ref) => {
   );
 });
 
-const ModelLists = React.forwardRef<{
+const GameplanCheckBox = forwardRef((props: { g: Gameplan }, ref) => {
+  const [checked, setChecked] = useState(false);
+  const g = props.g;
+  useImperativeHandle(
+    ref,
+    () => ({
+      g: props.g,
+      checked: checked,
+      setChecked: (value: boolean) => {
+        if (checked !== value) {
+          setChecked(value);
+          DisplayModel(props.g.title.replace(/[^a-zA-Z0-9]+/g, ""));
+        }
+      },
+    }),
+    [props.g, checked, setChecked]
+  );
+  return (
+    <FormControlLabel
+      sx={{
+        border: 1,
+        borderRadius: 1,
+        borderColor: "primary.main",
+      }}
+      control={<Checkbox checked={checked} size="small" color="warning" />}
+      label={g.title}
+      className={`model-checkbox gameplans ${g.title.replace(
+        /[^a-zA-Z0-9]/g,
+        ""
+      )} hide`}
+      style={
+        {
+          "--color1": "#333333",
+          "--color2": "var(--color1)",
+        } as CSSProperties
+      }
+      onChange={() => {
+        setChecked(!checked);
+        DisplayModel(props.g.title.replace(/[^a-zA-Z0-9]+/g, ""));
+      }}
+    />
+  );
+});
+
+const ModelLists = forwardRef<{
   models: Map<string, any>;
   guilds: Map<string, any>;
 }>((props, ref) => {
-  const { data } = useData();
+  const { data, gameplans } = useData();
   const checkboxes = useRef(new Map());
   const guilds = useRef(new Map());
-  React.useImperativeHandle(
+  const gps = useRef(new Map());
+  useImperativeHandle(
     ref,
-    () => ({ models: checkboxes.current, guilds: guilds.current }),
-    [checkboxes, guilds]
+    () => ({
+      models: checkboxes.current,
+      guilds: guilds.current,
+      gameplans: gps.current,
+    }),
+    [checkboxes, guilds, gps]
   );
-  if (!data) {
+  if (!data || !gameplans) {
     return null;
   }
   return (
@@ -395,9 +492,16 @@ const ModelLists = React.forwardRef<{
         {
           "--major-order": 0,
           "--minor-order": 2,
-        } as React.CSSProperties
+        } as CSSProperties
       }
     >
+      {gameplans.map((gp: Gameplan) => (
+        <GameplanCheckBox
+          g={gp}
+          key={gp.title}
+          ref={(element) => gps.current.set(gp.title, element)}
+        />
+      ))}
       {data.Guilds.map((g: Guild) => (
         <GuildCheckBox
           g={g}
@@ -520,7 +624,7 @@ const GuildCard = (props: { name: string }) => {
                 backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
                 width: "2.5in",
                 borderRadius: 0,
-                "--scale": "calc(2.5 * 96 / 500)",
+                // "--scale": "calc(2.5 * 96 / 500)",
               } as GBCardCSS
             }
           />
@@ -531,11 +635,57 @@ const GuildCard = (props: { name: string }) => {
                 backgroundImage: `url(${GBImages.get(`${name}_back`)})`,
                 width: "2.5in",
                 borderRadius: 0,
-                "--scale": "calc(2.5 * 96 / 500)",
+                // "--scale": "calc(2.5 * 96 / 500)",
               } as GBCardCSS
             }
           />
         </>
+      )}
+    </div>
+  );
+};
+
+const GameplanPrintCard = (props: { gameplan: Gameplan }) => {
+  const { gameplan } = props;
+
+  const [inView, setInView] = useState(false);
+  const callback: MutationCallback = (mutationList, observer) => {
+    if (mutationList && mutationList[0]) {
+      let { target } = mutationList[0];
+      let style = getComputedStyle(target as Element);
+      setInView(style.getPropertyValue("display") !== "none");
+    }
+  };
+  const [ref] = useMutationObserverRef(callback);
+
+  return (
+    <div
+      ref={ref}
+      className={`card ${!inView ? "hide" : null}`}
+      id={gameplan.title.replace(/[^A-Za-z0-9]+/g, "")}
+      style={{
+        position: "relative",
+        width: "2.5in",
+        height: "3.5in",
+        display: "inline-flex",
+        flexDirection: "row",
+        gap: 0,
+      }}
+    >
+      {inView && (
+        <div
+          className="card-front"
+          style={
+            {
+              // backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
+              width: "2.5in",
+              borderRadius: 0,
+              "--scale": "calc(2.5 * 96 / 500)",
+            } as GBCardCSS
+          }
+        >
+          <GameplanFront gameplan={gameplan} style={{ borderRadius: 0 }} />
+        </div>
       )}
     </div>
   );

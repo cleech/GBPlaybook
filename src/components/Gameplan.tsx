@@ -9,7 +9,7 @@ import React, {
 import { Gameplan } from "./DataContext.d";
 
 interface CardCSS extends CSSProperties {
-  "--scale": number | string;
+  "--scale"?: number | string;
 }
 
 const image = new URL(
@@ -17,7 +17,10 @@ const image = new URL(
   import.meta.url
 ).href;
 
-const GameplanFront = (props: { gameplan: Gameplan; style?: CardCSS }) => {
+export const GameplanFront = (props: {
+  gameplan: Gameplan;
+  style?: CardCSS;
+}) => {
   const gameplan = props.gameplan;
   const nf = new Intl.NumberFormat("en-US", { signDisplay: "always" });
 
@@ -173,7 +176,8 @@ const GameplanCard = (props: { gameplan: Gameplan }) => {
         // display: "flex",
         // alignItems: "center",
         // justifyContent: "center",
-        padding: 0, margin: 0
+        padding: 0,
+        margin: 0,
       }}
     >
       {/* sizing div */}
