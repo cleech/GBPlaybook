@@ -24,7 +24,6 @@ import { useRTC } from "../services/webrtc";
 import { useUpdateAnimation } from "./useUpdateAnimation";
 import { useStore } from "../models/Root";
 
-
 type model = IGBPlayer;
 type team = IGBTeam;
 
@@ -72,6 +71,13 @@ const Counter = ({
     onLongPress: (e) => {
       setValue(object, 0);
     },
+    onClick: (e) => {
+      e.stopPropagation();
+      const v = value(object);
+      if (v > 0) {
+        setValue(object, v - 1);
+      }
+    },
   });
   return (
     <div
@@ -88,9 +94,11 @@ const Counter = ({
           {...(longPressClear ? longPressDown : {})}
           onClick={(e) => {
             e.stopPropagation();
-            const v = value(object);
-            if (v > 0) {
-              setValue(object, v - 1);
+            if (!longPressClear) {
+              const v = value(object);
+              if (v > 0) {
+                setValue(object, v - 1);
+              }
             }
           }}
         >
@@ -354,7 +362,11 @@ export default function RosterList({
                   >
                     <ListItemText
                       primary={m.displayName}
-                      secondary={settings.uiPreferences.displayStatLine ? m.statLine : null}
+                      secondary={
+                        settings.uiPreferences.displayStatLine
+                          ? m.statLine
+                          : null
+                      }
                     />
                   </ListItem>
                 ))}
