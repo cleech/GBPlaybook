@@ -47,7 +47,7 @@
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "firebase-tools": "^13.0.1",
+    "firebase-tools": "^13.1.0",
     "gh-pages": "^6.1.0",
     "typescript": "^5.0.2",
     "vite": "^5.0.12",
