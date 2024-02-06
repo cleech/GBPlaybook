@@ -9,6 +9,7 @@ import SyncIcon from "@mui/icons-material/Sync";
 import SyncDisabledIcon from "@mui/icons-material/SyncDisabled";
 
 import Lobby from "../../components/Lobby";
+import OddsCalc from "../../components/Calc";
 import { useRTC } from "../../services/webrtc";
 import { observer } from "mobx-react-lite";
 import { Offline, Online } from "react-detect-offline";
@@ -65,6 +66,7 @@ export default function GamePlay() {
             flexDirection: "row",
           }}
         />
+        <OddsCalc />
         <LoginButton />
       </AppBarContent>
       <AppBarContext.Provider value={appBarContainer}>
