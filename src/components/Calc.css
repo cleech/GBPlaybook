@@ -1,10 +1,12 @@
-.dice-bin-9 { background-color: #2e7d3266}
-.dice-bin-8 { background-color: #558b2f66}
-.dice-bin-7 { background-color: #7a942a66}
-.dice-bin-6 { background-color: #9e9d2466}
-.dice-bin-5 { background-color: #f9a82566}
-.dice-bin-4 { background-color: #ff6f0066}
-.dice-bin-3 { background-color: #bf360c66}
-.dice-bin-2 { background-color: #b71c1c66}
-.dice-bin-1 { background-color: #3e272366}
-.dice-bin-0 { background-color: #21212166}
+.dice-bin-10,
+.dice-bin-9 { background-color: #39653b66 }
+.dice-bin-8 { background-color: #4e933966 }
+.dice-bin-7 { background-color: #8EA32D66 }
+.dice-bin-6 { background-color: #cdb32066 }
+.dice-bin-5 { background-color: #DC9B2566 }
+.dice-bin-4 { background-color: #ea832966 }
+.dice-bin-3 { background-color: #ce1f2755 }
+.dice-bin-2 { background-color: #76151e66 }
+.dice-bin-1 { background-color: #4A1B2066 }
+.dice-bin-0 { background-color: #1d202266 }
+

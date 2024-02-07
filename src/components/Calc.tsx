@@ -17,8 +17,7 @@ const formatter = new Intl.NumberFormat(undefined, {
   style: "percent",
   minimumFractionDigits: 1,
   maximumFractionDigits: 1,
-  roundingMode: "floor",
-} as any);
+});
 
 function fact(n: number): number {
   if (n === 0) {
@@ -47,10 +46,11 @@ function OddsToHit(target: number, pool: number, reroll: Boolean): number[] {
           Math.pow(p, k) *
           Math.pow(1 - p, n - k)
       );
-  // sum to provide odds of "at least" k hits
-  const cumulative_odds = [...Array(pool).keys()].map((i) =>
-    exact_odds.slice(i).reduce((acc, x) => acc + x, 0)
-  );
+  const cumulative_odds = [...Array(pool).keys()]
+    // sum to provide odds of "at least" k hits
+    .map((i) => exact_odds.slice(i).reduce((acc, x) => acc + x, 0))
+    // limit to 99.9 to prevent floating point rounding errors going to 100% or higher
+    .map((n) => Math.min(n, 0.999));
   return cumulative_odds;
 }
 
@@ -171,17 +171,21 @@ function OddsCalc() {
         >
           <Typography sx={{ textDecoration: "underline" }}>Hits</Typography>
           <Typography sx={{ textDecoration: "underline" }}>Chance</Typography>
-          {OddsToHit(target, pool, reroll).map((n, i) => (
-            <Fragment key={i}>
-              <div>{i + 1}+</div>
-              <div
-                className={`dice-bin-${Math.floor(n * 10)}`}
-                style={{ padding: "0 1em", margin: "1px", width: "100%" }}
-              >
-                {formatter.format(n)}
-              </div>
-            </Fragment>
-          ))}
+          {
+            // [.95, .85, .75, .65, .55, .45, .35, .25, .15, .05]
+            OddsToHit(target, pool, reroll)
+            .map((n, i) => (
+              <Fragment key={i}>
+                <div>{i + 1}+</div>
+                <div
+                  className={`dice-bin-${Math.floor(n * 10)}`}
+                  style={{ padding: "0 1em", margin: "1px", width: "100%" }}
+                >
+                  {formatter.format(n)}
+                </div>
+              </Fragment>
+            ))
+          }
         </div>
       </Menu>
     </>
