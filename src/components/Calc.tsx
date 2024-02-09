@@ -151,7 +151,7 @@ function OddsCalc() {
           <Counter value={pool} setValue={setPool} clamp={(n) => n > 0} />
           <Typography>Reroll :</Typography>
           <Checkbox
-            value={reroll}
+            checked={reroll}
             onChange={(_e, checked) => {
               setReroll(checked);
             }}
