@@ -34,7 +34,12 @@ import ClearIcon from "@mui/icons-material/Clear";
 import VersionTag from "../components/VersionTag";
 import GBImages from "../components/GBImages";
 import { Gameplan, Guild, Model } from "../components/DataContext.d";
-import { GameplanCard, GameplanFront } from "../components/Gameplan";
+import {
+  GameplanCard,
+  GameplanFront,
+  ReferenceCard,
+  ReferenceCardFront,
+} from "../components/Gameplan";
 
 export const CardPrintScreen = () => {
   const { data, gameplans } = useData();
@@ -42,6 +47,7 @@ export const CardPrintScreen = () => {
     models: Map<string, any>;
     guilds: Map<string, any>;
     gameplans: Map<string, Gameplan>;
+    refcards: Map<string, number>;
   }>(null);
   const list = useRef<any>(null);
 
@@ -116,6 +122,11 @@ export const CardPrintScreen = () => {
                         control?.setChecked(true);
                       });
                     }
+                    if (list.current?.guild === "refcards") {
+                      ref.current?.refcards.forEach((control: any) => {
+                        control?.setChecked(true);
+                      });
+                    }
                   }}
                 >
                   <SelectAllIcon />
@@ -140,6 +151,11 @@ export const CardPrintScreen = () => {
                     });
                     if (list.current?.guild === "gameplans") {
                       ref.current?.gameplans.forEach((control: any) => {
+                        control?.setChecked(false);
+                      });
+                    }
+                    if (list.current?.guild === "refcards") {
+                      ref.current?.refcards.forEach((control: any) => {
                         control?.setChecked(false);
                       });
                     }
@@ -169,6 +185,9 @@ export const CardPrintScreen = () => {
               ref.current?.gameplans.forEach((control: any) => {
                 control?.setChecked(false);
               });
+              ref.current?.refcards.forEach((control: any) => {
+                control?.setChecked(false);
+              });
             }}
           >
             Clear Cards
@@ -185,6 +204,9 @@ export const CardPrintScreen = () => {
         ))}
         {gameplans?.map((gp: Gameplan, index) => (
           <GameplanPrintCard gameplan={gp} key={`gameplan-${index}`} />
+        ))}
+        {gameplans?.map((gp: Gameplan, index) => (
+          <RefcardPrintCard index={index} key={`refcard-${index}`} />
         ))}
       </Box>
     </Box>
@@ -237,9 +259,16 @@ const GuildList = forwardRef((props, ref) => {
     <FormControl size="small">
       <InputLabel>Guild</InputLabel>
       <Select label="Guild" onChange={handleChange} defaultValue="">
+        <MenuItem key="redcards" value="refcards" dense>
+          <ListItemBanner
+            text="Rules Reference Cards"
+            icon="GB"
+            style={{ "--color": "#333333" }}
+          />
+        </MenuItem>
         <MenuItem key="gameplans" value="gameplans" dense>
           <ListItemBanner
-            text="gameplans"
+            text="Gameplans"
             icon="GB"
             style={{ "--color": "#333333" }}
           />
@@ -465,6 +494,54 @@ const GameplanCheckBox = forwardRef((props: { g: Gameplan }, ref) => {
   );
 });
 
+const RefCardCheckBox = forwardRef((props: { id: number }, ref) => {
+  const [checked, setChecked] = useState(false);
+
+  const titles = [
+    "Playbook Results",
+    "Turn Sequence",
+    "Conditions",
+    "Spending Momentum",
+  ];
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      id: props.id,
+      checked: checked,
+      setChecked: (value: boolean) => {
+        if (checked !== value) {
+          setChecked(value);
+          DisplayModel(`refcard-${props.id}`);
+        }
+      },
+    }),
+    [props.id, checked, setChecked]
+  );
+  return (
+    <FormControlLabel
+      sx={{
+        border: 1,
+        borderRadius: 1,
+        borderColor: "primary.main",
+      }}
+      control={<Checkbox checked={checked} size="small" color="warning" />}
+      label={titles[props.id]}
+      className={`model-checkbox refcards refcard-${props.id} hide`}
+      style={
+        {
+          "--color1": "#333333",
+          "--color2": "var(--color1)",
+        } as CSSProperties
+      }
+      onChange={() => {
+        setChecked(!checked);
+        DisplayModel(`refcard-${props.id}`);
+      }}
+    />
+  );
+});
+
 const ModelLists = forwardRef<{
   models: Map<string, any>;
   guilds: Map<string, any>;
@@ -473,12 +550,14 @@ const ModelLists = forwardRef<{
   const checkboxes = useRef(new Map());
   const guilds = useRef(new Map());
   const gps = useRef(new Map());
+  const refcards = useRef(new Map());
   useImperativeHandle(
     ref,
     () => ({
       models: checkboxes.current,
       guilds: guilds.current,
       gameplans: gps.current,
+      refcards: refcards.current,
     }),
     [checkboxes, guilds, gps]
   );
@@ -500,6 +579,18 @@ const ModelLists = forwardRef<{
           g={gp}
           key={gp.title}
           ref={(element) => gps.current.set(gp.title, element)}
+        />
+      ))}
+      {[
+        "Playbook Results",
+        "Turn Sequence",
+        "Conditions",
+        "Spending Momentum",
+      ].map((title, index) => (
+        <RefCardCheckBox
+          id={index}
+          key={`refcard-${index}`}
+          ref={(element) => refcards.current.set(title, element)}
         />
       ))}
       {data.Guilds.map((g: Guild) => (
@@ -685,6 +776,52 @@ const GameplanPrintCard = (props: { gameplan: Gameplan }) => {
           }
         >
           <GameplanFront gameplan={gameplan} style={{ borderRadius: 0 }} />
+        </div>
+      )}
+    </div>
+  );
+};
+
+const RefcardPrintCard = (props: { index: number }) => {
+  const { index } = props;
+
+  const [inView, setInView] = useState(false);
+  const callback: MutationCallback = (mutationList, observer) => {
+    if (mutationList && mutationList[0]) {
+      let { target } = mutationList[0];
+      let style = getComputedStyle(target as Element);
+      setInView(style.getPropertyValue("display") !== "none");
+    }
+  };
+  const [ref] = useMutationObserverRef(callback);
+
+  return (
+    <div
+      ref={ref}
+      className={`card ${!inView ? "hide" : null}`}
+      id={`refcard-${index}`}
+      style={{
+        position: "relative",
+        width: "2.5in",
+        height: "3.5in",
+        display: "inline-flex",
+        flexDirection: "row",
+        gap: 0,
+      }}
+    >
+      {inView && (
+        <div
+          className="card-front"
+          style={
+            {
+              // backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
+              width: "2.5in",
+              borderRadius: 0,
+              "--scale": "calc(2.5 * 96 / 500)",
+            } as GBCardCSS
+          }
+        >
+          <ReferenceCardFront index={index + 1} style={{ borderRadius: 0 }} />
         </div>
       )}
     </div>

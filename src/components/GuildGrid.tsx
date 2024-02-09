@@ -14,7 +14,11 @@ function maxBy(data: Array<any>, by: (v: any) => number) {
   return data.reduce((a, b) => (by(a) >= by(b) ? a : b));
 }
 
-function itemSize({ width, height }: { width: number; height: number; }, count: number, extra: number = 0) {
+function itemSize(
+  { width, height }: { width: number; height: number },
+  count: number,
+  extra: number = 0
+) {
   if (!width || !height) {
     return undefined;
   }
@@ -41,7 +45,8 @@ function itemSize({ width, height }: { width: number; height: number; }, count: 
   return maxBy(
     // no more guessing, just check every possible layout
     // _.range(1, count + 1)
-    Array.from({ length: count }, (_, i) => i + 1).map((n) => layout(n, Math.ceil(count / n) + extra)
+    Array.from({ length: count }, (_, i) => i + 1).map((n) =>
+      layout(n, Math.ceil(count / n) + extra)
     ),
     (layout) => layout.size
   );
@@ -52,16 +57,16 @@ export interface ControlProps {
 }
 
 interface GridIcon {
-  key: string,
-  name: string,
-  icon: string,
-  style?: React.CSSProperties,
+  key: string;
+  name: string;
+  icon: string;
+  style?: React.CSSProperties;
 }
 
 interface GuildGridProps {
   pickTeam?: (guild: string) => void;
   controls?: (props: ControlProps) => [JSX.Element, ((guild: string) => void)?];
-  extraIcons?: [GridIcon];
+  extraIcons?: GridIcon[];
 }
 
 export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
@@ -127,85 +132,94 @@ function GuildGridInner({ dimensions, pickTeam, size, extraIcons }: any) {
     return null;
   }
 
-  const list: GridIcon[] = data.Guilds.map((g: Guild) => (
-    {
-      key: g.name,
-      name: g.name,
-      icon: g.name,
-    }
-  ));
-  list.push(...(extraIcons ?? []));
+  const list: GridIcon[] = data.Guilds.map((g: Guild) => ({
+    key: g.name,
+    name: g.name,
+    icon: g.name,
+  }));
+  // list.push(...(extraIcons ?? []));
 
   return (
     <>
-      {list.map((g) => (
-        <Button
-          key={g.key}
-          variant="outlined"
-          onClick={() => {
-            pickTeam && pickTeam(g.key);
-          }}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            minWidth: size,
-            minHeight: size,
-            maxWidth: size,
-            maxHeight: size,
-            background: "rgba(100%, 100%, 100%, 5%)",
-          }}
-          sx={{
-            "@media (hover: hover)": {
-              "& > div": {
-                transition: "transform .25s",
-              },
-              "&:hover > div": {
-                transform: "scale(1.2)",
-              },
-            },
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              placeContent: "center",
-              placeItems: "center",
-              fontSize: size * 0.7,
-              // fontSize: size / 1.3125,
-              width: "1em",
-              height: "1em",
-              borderRadius: "50%",
-              padding: "0.0625em",
-              background: "content-box linear-gradient(to bottom, #000, #333)",
-            }}
-          >
-            <GBIcon
-              icon={g.icon}
-              className="dark"
-              style={{
-                flexShrink: 0,
-                // zIndex: 1,
-                // filter: "drop-shadow(0 0 3px black)",
-                filter: "drop-shadow(0 0 0.03em black)",
-                ...(g.style || {})
-              }}
-            />
-          </div>
-          <Typography
-            variant="caption"
-            style={{
-              color: "whitesmoke",
-              // letterSpacing: "normal",
-              textTransform: "capitalize",
-              textShadow:
-                "1px 1px 1px black, -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black, -1px 0 1px black",
-              zIndex: 1,
-            }}
-          >
-            {g.name}
-          </Typography>
-        </Button>
+      {list.map((g, i) => (
+        <GridIconButton key={i} g={g} pickTeam={pickTeam} size={size} />
       ))}
     </>
+  );
+}
+
+export function GridIconButton(props: {
+  g: GridIcon;
+  pickTeam: (guild: string) => void;
+  size: number;
+}) {
+  const { g, pickTeam, size } = props;
+  return (
+    <Button
+      key={g.key}
+      variant="outlined"
+      onClick={() => {
+        pickTeam && pickTeam(g.key);
+      }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        minWidth: size,
+        minHeight: size,
+        maxWidth: size,
+        maxHeight: size,
+        background: "rgba(100%, 100%, 100%, 5%)",
+      }}
+      sx={{
+        "@media (hover: hover)": {
+          "& > div": {
+            transition: "transform .25s",
+          },
+          "&:hover > div": {
+            transform: "scale(1.2)",
+          },
+        },
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          placeContent: "center",
+          placeItems: "center",
+          fontSize: size * 0.7,
+          // fontSize: size / 1.3125,
+          width: "1em",
+          height: "1em",
+          borderRadius: "50%",
+          padding: "0.0625em",
+          background: "content-box linear-gradient(to bottom, #000, #333)",
+        }}
+      >
+        <GBIcon
+          icon={g.icon}
+          className="dark"
+          style={{
+            flexShrink: 0,
+            // zIndex: 1,
+            // filter: "drop-shadow(0 0 3px black)",
+            filter: "drop-shadow(0 0 0.03em black)",
+            ...(g.style || {}),
+          }}
+        />
+      </div>
+      <Typography
+        variant="caption"
+        style={{
+          color: "whitesmoke",
+          // letterSpacing: "normal",
+          textTransform: "capitalize",
+          textShadow:
+            "1px 1px 1px black, -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black, 0 1px 1px black, 1px 0 1px black, 0 -1px 1px black, -1px 0 1px black",
+          zIndex: 1,
+        }}
+      >
+        {g.name}
+      </Typography>
+    </Button>
   );
 }

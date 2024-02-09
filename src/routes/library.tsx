@@ -23,6 +23,7 @@ import {
   Breadcrumbs,
   Link,
   IconButton,
+  Button,
 } from "@mui/material";
 
 import type { Swiper as SwiperRef } from "swiper";
@@ -33,7 +34,11 @@ import { useData } from "../components/DataContext";
 import { FlipCard } from "../components/FlipCard";
 import { DoubleCard } from "../components/DoubleCard";
 
-import { GuildGrid } from "../components/GuildGrid";
+import {
+  ControlProps,
+  GridIconButton,
+  GuildGrid,
+} from "../components/GuildGrid";
 import { useStore, IGBPlayer } from "../models/Root";
 import { AppBarContent } from "../App";
 import { NavigateNext } from "@mui/icons-material";
@@ -41,7 +46,7 @@ import { DoubleGuildCard, FlipGuildCard } from "../components/GuildCard";
 import VersionTag from "../components/VersionTag";
 import type { Guild, Gameplan } from "../components/DataContext.d";
 import GBIcon from "../components/GBIcon";
-import { GameplanCard } from "../components/Gameplan";
+import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 
 export default function Library() {
   const location = useLocation();
@@ -78,10 +83,17 @@ export function GuildList() {
         pickTeam={(guild) => {
           navigate(guild);
         }}
+        controls={extraIconsControl}
         extraIcons={[
           {
             key: "gameplans",
             name: "Gameplans",
+            icon: "GB",
+            style: { color: "#f8f7f4" },
+          },
+          {
+            key: "reference",
+            name: "Rules",
             icon: "GB",
             style: { color: "#f8f7f4" },
           },
@@ -90,6 +102,44 @@ export function GuildList() {
       <VersionTag />
     </>
   );
+}
+
+function extraIconsControl(
+  props: ControlProps
+): [JSX.Element, ((g: string) => void)?] {
+  const navigate = useNavigate();
+  return [
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        margin: "5px",
+      }}
+    >
+      <GridIconButton
+        g={{
+          key: "gameplans",
+          name: "gameplans",
+          icon: "GB",
+          style: { color: "#f8f7f4" },
+        }}
+        pickTeam={() => navigate("gameplans")}
+        size={props.size}
+      />
+      <GridIconButton
+        g={{
+          key: "refcards",
+          name: "Rules",
+          icon: "GB",
+          style: { color: "#f8f7f4" },
+        }}
+        pickTeam={() => navigate("refcards")}
+        size={props.size}
+      />
+    </div>,
+    undefined,
+  ];
 }
 
 export function Roster() {
@@ -324,10 +374,125 @@ export function GamePlans() {
             // aspectRatio: 5 / 7,
           }}
         >
-          {gameplans.map((gameplan: Gameplan, index: number) => {
-            return (
+          {gameplans.map((gameplan: Gameplan, index: number) => (
+            <SwiperSlide
+              key={`gameplan-${index}`}
+              style={{
+                // width: "auto",
+                width: cardWidth,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                style={{
+                  height: cardHeight,
+                  width: cardWidth,
+                  // aspectRatio: 5 / 7,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <GameplanCard gameplan={gameplan} />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <VersionTag />
+      </Box>
+    </>
+  );
+}
+
+export function RefCards() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const theme = useTheme();
+  // const large = useMediaQuery(theme.breakpoints.up("sm"));
+  const large = false;
+
+  const ref = useRef<HTMLDivElement>(null);
+  const [cardWidth, setCardWidth] = useState(large ? 1000 : 500);
+  const [cardHeight, setCardHeight] = useState(700);
+
+  const updateSize = useCallback(() => {
+    let width = ref.current?.getBoundingClientRect().width ?? 0;
+    let height = ref.current?.getBoundingClientRect().height ?? 0;
+    setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
+    setCardHeight(Math.min(height, (width * 7) / 5) - 12);
+  }, []);
+
+  useLayoutEffect(() => {
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  });
+
+  const [swiper, setSwiper] = useState<SwiperRef | null>(null);
+
+  const { data, gameplans } = useData();
+
+  useEffect(() => {
+    const savedPosition = searchParams.get("m");
+    if (savedPosition) {
+      const index = Number(savedPosition);
+      if (index) {
+        swiper?.slideTo(index);
+      }
+    }
+  }, [swiper, searchParams]);
+
+  if (!gameplans || !data) {
+    return null;
+  }
+
+  return (
+    <>
+      <AppBarContent>
+        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+          <Link underline="hover" color="inherit" href={"/library"}>
+            Library
+          </Link>
+          <Typography>Rules Reference Cards</Typography>
+        </Breadcrumbs>
+      </AppBarContent>
+
+      <RefCardButtons swiper={swiper} />
+
+      <Box
+        ref={ref}
+        sx={{
+          height: "100%",
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Swiper
+          onSwiper={setSwiper}
+          onSlideChange={(swiper) => {
+            setSearchParams(`m=${swiper.activeIndex}`, {
+              replace: true,
+            });
+          }}
+          slidesPerView="auto"
+          centeredSlides={true}
+          spaceBetween={0.25 * 96}
+          style={{
+            // height: "100%",
+            // width: "100%",
+            // width: cardWidth,
+            height: cardHeight,
+            // aspectRatio: 5 / 7,
+          }}
+        >
+          {[...Array(4).keys()]
+            .map((i) => i + 1)
+            .map((i) => (
               <SwiperSlide
-                key={index}
+                key={`ref-${i}`}
                 style={{
                   // width: "auto",
                   width: cardWidth,
@@ -346,11 +511,10 @@ export function GamePlans() {
                     justifyContent: "center",
                   }}
                 >
-                  <GameplanCard gameplan={gameplan} />
+                  <ReferenceCard index={i} />
                 </div>
               </SwiperSlide>
-            );
-          })}
+            ))}
         </Swiper>
         <VersionTag />
       </Box>
@@ -453,6 +617,54 @@ function GameplanButtons(props: { swiper: SwiperRef | null }) {
               key={index}
               // label={model.displayName}
               label={g.title}
+              onClick={() => {
+                swiper?.slideTo(index);
+              }}
+            />
+          );
+        })}
+      </Box>
+      <div style={{ flex: "1 1" }} />
+    </div>
+  );
+}
+
+function RefCardButtons(props: { swiper: SwiperRef | null }) {
+  const { gameplans } = useData();
+  const { swiper } = props;
+  if (!gameplans) {
+    return null;
+  }
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+      }}
+    >
+      <div style={{ flex: "1 1" }} />
+      <Box
+        sx={{
+          display: "flex",
+          flex: "1 1 500px",
+          // width: "100%",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "5px",
+        }}
+      >
+        {[
+          "Playbook Results",
+          "Turn Sequence",
+          "Conditions",
+          "Spending Momentum",
+        ].map((title, index) => {
+          return (
+            <Chip
+              color="primary"
+              key={index}
+              // label={model.displayName}
+              label={title}
               onClick={() => {
                 swiper?.slideTo(index);
               }}

@@ -4,6 +4,8 @@ import React, {
   useState,
   useLayoutEffect,
   useCallback,
+  ReactComponentElement,
+  ReactNode,
 } from "react";
 
 import { Gameplan } from "./DataContext.d";
@@ -142,9 +144,7 @@ export const GameplanFront = (props: {
   );
 };
 
-const GameplanCard = (props: { gameplan: Gameplan }) => {
-  const gameplan = props.gameplan;
-
+const SimpleCard = (props: { children?: ReactNode }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1.0);
 
@@ -182,24 +182,48 @@ const GameplanCard = (props: { gameplan: Gameplan }) => {
     >
       {/* sizing div */}
       <div
-        style={{
-          width: `${500 * scale}px`,
-          height: `${700 * scale}px`,
-          display: "flex",
-        }}
-      >
-        <GameplanFront
-          gameplan={gameplan}
-          style={{
+        style={
+          {
+            width: `${500 * scale}px`,
+            height: `${700 * scale}px`,
+            display: "flex",
             "--scale": scale,
-          }}
-        />
+          } as any
+        }
+      >
+        {props.children}
       </div>
     </div>
   );
 };
 
-// const MemoGameplanCard = React.memo(GameplanCard);
-// export { MemoGameplanCard as GameplanCard };
+export const GameplanCard = (props: { gameplan: Gameplan }) => (
+  <SimpleCard>
+    <GameplanFront {...props} />
+  </SimpleCard>
+);
 
-export { GameplanCard };
+export const ReferenceCardFront = (props: {
+  index: number;
+  style?: CardCSS;
+}) => {
+  const image = new URL(
+    `../assets/cards/Reference/GB-S4-Reference-${props.index}.png`,
+    import.meta.url
+  ).href;
+  return (
+    <div
+      className="card-front"
+      style={{
+        backgroundImage: `url(${image})`,
+        ...props.style,
+      }}
+    />
+  );
+};
+
+export const ReferenceCard = (props: { index: number }) => (
+  <SimpleCard>
+    <ReferenceCardFront {...props} />
+  </SimpleCard>
+);
