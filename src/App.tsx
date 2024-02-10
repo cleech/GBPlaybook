@@ -176,6 +176,24 @@ const App = () => {
             >
               <ListItemText>Settings</ListItemText>
             </DrawerNavigationButton>
+            <nav
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginLeft: "1em",
+              }}
+            >
+              <ListItem disablePadding>
+                <Link
+                  component="a"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://github.com/cleech/GBPlaybook/blob/pwa/README.md"
+                >
+                  About
+                </Link>
+              </ListItem>
+            </nav>
           </List>
 
           <Divider />
@@ -239,7 +257,8 @@ const App = () => {
                   component="a"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://steamforged.com/pages/guild-ball">
+                  href="https://steamforged.com/pages/guild-ball"
+                >
                   Steamforged Games
                 </Link>
               </ListItem>
@@ -248,7 +267,8 @@ const App = () => {
                   component="a"
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="https://discord.gg/fvpFSfm976">
+                  href="https://discord.gg/fvpFSfm976"
+                >
                   Guild Ball Community Project
                 </Link>
               </ListItem>
