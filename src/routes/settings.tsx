@@ -32,6 +32,7 @@ const Settings = () => {
       <Typography variant="h6">
         GB Playbook {import.meta.env.VITE_VERSION}
       </Typography>
+      <Typography variant="caption">({BUILD_DATE})</Typography>
 
       <Divider sx={{ my: 2 }} />
 

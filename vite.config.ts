@@ -85,7 +85,8 @@ export default defineConfig({
     })
   ],
   define: {
-    global: 'globalThis'
+    global: 'globalThis',
+    BUILD_DATE: JSON.stringify(new Date().toISOString())
   },
   server: {
     port: 3000
