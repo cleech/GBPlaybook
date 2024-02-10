@@ -502,6 +502,7 @@ const RefCardCheckBox = forwardRef((props: { id: number }, ref) => {
     "Turn Sequence",
     "Conditions",
     "Spending Momentum",
+    "Actions",
   ];
 
   useImperativeHandle(
@@ -586,6 +587,7 @@ const ModelLists = forwardRef<{
         "Turn Sequence",
         "Conditions",
         "Spending Momentum",
+        "Actions",
       ].map((title, index) => (
         <RefCardCheckBox
           id={index}

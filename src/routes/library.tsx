@@ -488,7 +488,7 @@ export function RefCards() {
             // aspectRatio: 5 / 7,
           }}
         >
-          {[...Array(4).keys()]
+          {[...Array(5).keys()]
             .map((i) => i + 1)
             .map((i) => (
               <SwiperSlide
@@ -658,6 +658,7 @@ function RefCardButtons(props: { swiper: SwiperRef | null }) {
           "Turn Sequence",
           "Conditions",
           "Spending Momentum",
+          "Actions",
         ].map((title, index) => {
           return (
             <Chip
