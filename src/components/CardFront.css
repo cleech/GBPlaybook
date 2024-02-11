@@ -22,7 +22,7 @@
     .card-front,
     .card-back {
       /* but they seem to print just fine */
-      /*  --line-width: 1px; */
+       --line-width: 1px;
     }
   }
 }

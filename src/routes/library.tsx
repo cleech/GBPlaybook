@@ -216,17 +216,18 @@ export function Roster() {
             });
           }}
           slidesPerView="auto"
+          centeredSlides={true}
           spaceBetween={0.25 * 96}
-          centeredSlides
           style={{
-            height: "100%",
-            width: "100%",
+            // height: "100%",
+            // width: "100%",
+            height: cardHeight,
           }}
         >
           <SwiperSlide
             key={g.name}
             style={{
-              width: "auto",
+              width: cardWidth,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -261,7 +262,7 @@ export function Roster() {
               <SwiperSlide
                 key={model.id}
                 style={{
-                  width: "auto",
+                  width: cardWidth,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
