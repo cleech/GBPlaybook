@@ -23,7 +23,7 @@
     "lodash.clonedeep": "^4.5.0",
     "mobx": "^6.10.2",
     "mobx-react-lite": "^4.0.4",
-    "mobx-state-tree": "^5.1.8",
+    "mobx-state-tree": "^5.4.1",
     "mst-persist": "^0.1.4",
     "react": "^18.2.0",
     "react-detect-offline": "^2.4.5",
