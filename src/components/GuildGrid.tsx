@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 // import { Link, Outlet, useParams } from "react-router-dom";
 
 import { useDimensionsRef } from "rooks";
@@ -9,6 +9,9 @@ import { Button, Typography, Divider } from "@mui/material";
 import { useData } from "../components/DataContext";
 import GBIcon from "../components/GBIcon";
 import { Guild } from "./DataContext.d";
+import { GBGuild, GBGuildCollection } from "../models/gbdb";
+import usePromise from "react-promise-suspense";
+import { RxDocument, RxQuery } from "rxdb";
 
 function maxBy(data: Array<any>, by: (v: any) => number) {
   return data.reduce((a, b) => (by(a) >= by(b) ? a : b));
@@ -71,15 +74,21 @@ interface GuildGridProps {
 
 export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
   const [ref, dimensions] = useDimensionsRef();
-  const { data } = useData();
+  const { data, gbdb: db } = useData();
   const [size, setSize] = useState(0);
 
   const [controlElement, controlCallback] = controls
     ? controls({ size })
     : [undefined, undefined];
 
+  if (!db) {
+    return null;
+  }
+
+  // const guilds = usePromise((db) => db.guilds.find().exec(), [db]);
+
   useEffect(() => {
-    if (data && dimensions)
+    if (db && data && dimensions)
       setSize(itemSize(dimensions, data.Guilds.length ?? 0, 1)?.size ?? 0);
   }, [data, dimensions]);
 
@@ -111,13 +120,15 @@ export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
         }}
       >
         {size > 0 && (
-          <GuildGridInner
-            dimensions={dimensions}
-            pickTeam={controlCallback ?? pickTeam}
-            controls={controls}
-            size={size}
-            extraIcons={extraIcons}
-          />
+          <Suspense fallback={<p>Loading ...</p>}>
+            <GuildGridInner
+              dimensions={dimensions}
+              pickTeam={controlCallback ?? pickTeam}
+              controls={controls}
+              size={size}
+              extraIcons={extraIcons}
+            />
+          </Suspense>
         )}
       </div>
       <Divider />
@@ -126,13 +137,35 @@ export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
   );
 }
 
+const delay = (t: number | undefined) =>
+  new Promise((resolve) => setTimeout(resolve, t));
+
+function useRxQuery<T>(query: RxQuery<T>): RxDocument<T>[] {
+  const [result, setResult] = useState<RxDocument<T>[]>([]);
+  useEffect(() => {
+    const sub = query.$.subscribe((result) => {
+      setResult(result);
+    });
+    return () => {
+      sub.unsubscribe();
+    };
+  }, [query]);
+  return result;
+}
+
 function GuildGridInner({ dimensions, pickTeam, size, extraIcons }: any) {
-  const { data } = useData();
-  if (!data || !dimensions) {
+  const { gbdb: db } = useData();
+  if (!dimensions || !db) {
     return null;
   }
 
-  const list: GridIcon[] = data.Guilds.map((g: Guild) => ({
+  const guilds = useRxQuery(db.guilds.find());
+
+  // delay(3000).then(async () => {
+  //   await db.guilds.find().where("name").eq("Brewers").remove();
+  // });
+
+  const list: GridIcon[] = (guilds as GBGuild[]).map((g: GBGuild) => ({
     key: g.name,
     name: g.name,
     icon: g.name,

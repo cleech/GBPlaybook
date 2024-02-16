@@ -11,11 +11,14 @@ import { useStore } from "../models/Root";
 
 import DataFile, { Manifest, Gameplan } from "./DataContext.d";
 
+import gbdb, { GBDatabase } from "../models/gbdb";
+
 interface DataContextProps {
   manifest?: Manifest;
   data?: DataFile;
   version: string;
   gameplans?: Gameplan[];
+  gbdb?: GBDatabase;
 }
 
 const DataContext = createContext<DataContextProps>({
@@ -27,6 +30,27 @@ const DataContext = createContext<DataContextProps>({
 
 interface DataProviderProps {
   children: React.ReactNode;
+}
+
+async function bulkLoadDB(data: any) {
+  await Promise.all([
+    gbdb.guilds
+      .find()
+      .remove()
+      .then(() => gbdb.guilds.bulkInsert(data.Guilds)),
+    gbdb.models
+      .find()
+      .remove()
+      .then(() => gbdb.models.bulkInsert(data.Models)),
+    gbdb.character_plays
+      .find()
+      .remove()
+      .then(() => gbdb.character_plays.bulkInsert(data["Character Plays"])),
+    gbdb.character_traits
+      .find()
+      .remove()
+      .then(() => gbdb.character_traits.bulkInsert(data["Character Traits"])),
+  ]);
 }
 
 export const DataProvider = observer(({ children }: DataProviderProps) => {
@@ -53,11 +77,14 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
     }
     setVersion(
       manifest.datafiles.find(
-        (d: typeof manifest.datafiles[0]) => d.filename === filename
+        (d: (typeof manifest.datafiles)[0]) => d.filename === filename
       ).version
     );
-    setData(await readFile(filename));
-    setGameplans(await readFile('gameplans.json'));
+    readFile(filename).then((data) => {
+      bulkLoadDB(data);
+      setData(data);
+    });
+    setGameplans(await readFile("gameplans.json"));
   }, [settings]);
 
   useEffect(() => {
@@ -66,7 +93,7 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
   }, [filename, getData]);
 
   return (
-    <DataContext.Provider value={{ data, version, manifest, gameplans }}>
+    <DataContext.Provider value={{ data, version, manifest, gameplans, gbdb }}>
       {children}
     </DataContext.Provider>
   );

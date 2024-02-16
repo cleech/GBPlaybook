@@ -13,7 +13,12 @@ import {
   Navigate,
 } from "react-router-dom";
 import GamePlay, { TeamSelect, Draft, Game } from "./routes/GamePlay";
-import Library, { GamePlans, GuildList, RefCards, Roster } from "./routes/library";
+import Library, {
+  GamePlans,
+  GuildList,
+  RefCards,
+  Roster,
+} from "./routes/library";
 import Settings from "./routes/settings";
 
 import { DataProvider } from "./components/DataContext";
@@ -26,6 +31,7 @@ import { CardPrintScreen } from "./routes/print";
 
 import { FirebaseProvider } from "./services/firebase";
 import { RTCProvider } from "./services/webrtc";
+import gbdb from "./models/gbdb";
 
 rootStorePersist().then(() => {
   const router = createHashRouter(
