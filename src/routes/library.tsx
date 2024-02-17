@@ -4,6 +4,7 @@ import React, {
   useRef,
   useLayoutEffect,
   useCallback,
+  Suspense,
 } from "react";
 
 import {
@@ -47,6 +48,9 @@ import VersionTag from "../components/VersionTag";
 import type { Guild, Gameplan } from "../components/DataContext.d";
 import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
+import { useRxQuery } from "../components/useRxQuery";
+import usePromise from "react-promise-suspense";
+import { GBGuild, GBGuildType, GBModel } from "../models/gbdb";
 
 export default function Library() {
   const location = useLocation();
@@ -65,7 +69,9 @@ export default function Library() {
         height: "100%",
       }}
     >
-      <Outlet />
+      <Suspense fallback={<p>Loading ...</p>}>
+        <Outlet />
+      </Suspense>
     </main>
   );
 }
@@ -142,6 +148,43 @@ function extraIconsControl(
   ];
 }
 
+// function usePromise<T>(promise: Promise<T>): () => T {
+//   const [status, setStatus] = useState("pending");
+//   let response: T;
+//   const suspender = promise.then(
+//     (res) => {
+//       setStatus("success");
+//       response = res;
+//     },
+//     (err) => {
+//       setStatus("error");
+//       response = err;
+//     }
+//   );
+//   return () => {
+//     switch (status) {
+//       case "pending":
+//         throw suspender;
+//       case "error":
+//         throw response;
+//       default:
+//         return response;
+//     }
+//   };
+// }
+
+function reSort<T, K extends keyof T, V extends T[K]>(
+  data: Array<T>,
+  key: K,
+  template: Array<V>
+): Array<T> {
+  return data.sort((a, b) => {
+    const _a = template.findIndex((value) => value === a[key]);
+    const _b = template.findIndex((value) => value === b[key]);
+    return _a - _b;
+  });
+}
+
 export function Roster() {
   const { guild } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -168,7 +211,7 @@ export function Roster() {
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
-  const { data } = useData();
+  const { data, gbdb: db } = useData();
 
   useEffect(() => {
     const savedPosition = searchParams.get("m");
@@ -181,13 +224,33 @@ export function Roster() {
     }
   }, [swiper, searchParams, data, guild]);
 
-  if (!data) {
+  if (!data || !db) {
     return null;
   }
-  const g = data.Guilds.find((g: any) => g.name === guild);
-  if (!g) {
+
+  const [g, roster]: [GBGuild, Array<GBModel>] = usePromise(
+    (guild) => {
+      return Promise.all([
+        db.guilds.findOne().where({ name: guild }).exec(),
+        db.models
+          .find()
+          .or([{ guild1: guild }, { guild2: guild }])
+          .exec(),
+      ]).then(([g, roster]) => {
+        if (!g) {
+          throw "error";
+        }
+        reSort(roster, "id", g.roster);
+        return [g, roster];
+      });
+    },
+    [guild]
+  );
+
+  if (!g || !roster) {
     return null;
   }
+
   return (
     <>
       <AppBarContent>
@@ -250,11 +313,7 @@ export function Roster() {
             </div>
           </SwiperSlide>
 
-          {g.roster.map((m: string, index: number) => {
-            const model = data.Models.find((m2: any) => m2.id === m);
-            if (!model) {
-              return null;
-            }
+          {roster.map((model) => {
             // if (GBImages[`${model.id}_gbcp_front`]) {
             //   model.gbcp = true;
             // }

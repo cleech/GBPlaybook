@@ -121,8 +121,8 @@ const gbModelSchema: RxJsonSchema<GBModelType> = {
       type: "integer",
       enum: [30, 40, 50],
     },
-    guild1: { type: "string" },
-    guild2: { type: "string" },
+    guild1: { type: "string", maxLength: 32 },
+    guild2: { type: "string", maxLength: 32, default: "" },
     gbcp: { type: "boolean", default: false },
   },
   required: [
@@ -145,14 +145,15 @@ const gbModelSchema: RxJsonSchema<GBModelType> = {
     "base",
     "guild1",
   ],
+  indexes: ["guild1", "guild2"],
 };
 
-type GBGuildType = {
+export type GBGuildType = {
   name: string;
-  minor?: boolean;
+  minor: boolean;
   color: string;
   shadow?: string;
-  darkColor: string;
+  darkColor?: string;
   roster: string[];
 };
 
@@ -236,8 +237,8 @@ export type GBDatabase = RxDatabase<GBDataCollections>;
 
 const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>({
   name: "gbcp_4_5",
-  // storage: getRxStorageDexie(),
-  storage: getRxStorageMemory(),
+  storage: getRxStorageDexie(),
+  // storage: getRxStorageMemory(),
 });
 
 gbdb.addCollections({

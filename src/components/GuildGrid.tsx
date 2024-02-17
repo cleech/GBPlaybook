@@ -11,7 +11,7 @@ import GBIcon from "../components/GBIcon";
 import { Guild } from "./DataContext.d";
 import { GBGuild, GBGuildCollection } from "../models/gbdb";
 import usePromise from "react-promise-suspense";
-import { RxDocument, RxQuery } from "rxdb";
+import { useRxQuery } from "./useRxQuery";
 
 function maxBy(data: Array<any>, by: (v: any) => number) {
   return data.reduce((a, b) => (by(a) >= by(b) ? a : b));
@@ -139,19 +139,6 @@ export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
 
 const delay = (t: number | undefined) =>
   new Promise((resolve) => setTimeout(resolve, t));
-
-function useRxQuery<T>(query: RxQuery<T>): RxDocument<T>[] {
-  const [result, setResult] = useState<RxDocument<T>[]>([]);
-  useEffect(() => {
-    const sub = query.$.subscribe((result) => {
-      setResult(result);
-    });
-    return () => {
-      sub.unsubscribe();
-    };
-  }, [query]);
-  return result;
-}
 
 function GuildGridInner({ dimensions, pickTeam, size, extraIcons }: any) {
   const { gbdb: db } = useData();
