@@ -25,6 +25,7 @@ import { AppBarContent } from "../../App";
 import { useRTC } from "../../services/webrtc";
 import VersionTag from "../../components/VersionTag";
 import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
+import { GBGuild } from "../../models/gbdb";
 
 function SelectedIcon({
   team,
@@ -35,11 +36,20 @@ function SelectedIcon({
   size: number;
   focused: boolean;
 }) {
-  const { data } = useData();
-  if (!data) {
-    return null;
-  }
-  const guild = data.Guilds.find((g: any) => g.name === team);
+  const { gbdb: db } = useData();
+  const [guild, setGuild] = useState<GBGuild | null>(null);
+
+  useEffect(() => {
+    if (!db) {
+      return;
+    }
+    const fetchData = async () => {
+      const guild = await db.guilds.findOne().where({ name: team }).exec();
+      setGuild(guild);
+    };
+    fetchData();
+  }, [db, team]);
+
   if (!guild) {
     return null;
   }

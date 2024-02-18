@@ -42,7 +42,7 @@ type GBModelType = {
   benched?: string;
   dehcneb?: string;
 
-  playbook: string[][];
+  playbook: (string | null)[][];
   character_plays: string[];
   character_traits: string[];
   heroic?: string;
@@ -101,7 +101,7 @@ const gbModelSchema: RxJsonSchema<GBModelType> = {
         minItems: 7,
         maxItems: 7,
         items: {
-          type: "string",
+          type: ["string", "null"],
         },
       },
     },
@@ -241,7 +241,7 @@ const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>({
   // storage: getRxStorageMemory(),
 });
 
-gbdb.addCollections({
+await gbdb.addCollections({
   guilds: { schema: gbGuildSchema },
   models: { schema: gbModelSchema },
   character_plays: { schema: gbCharacterPlaySchema },

@@ -49,8 +49,12 @@ import type { Guild, Gameplan } from "../components/DataContext.d";
 import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 import { useRxQuery } from "../components/useRxQuery";
-import usePromise from "react-promise-suspense";
-import { GBGuild, GBGuildType, GBModel } from "../models/gbdb";
+import {
+  GBGuild,
+  GBGuildType,
+  GBModel,
+  GBModelCollection,
+} from "../models/gbdb";
 
 export default function Library() {
   const location = useLocation();
@@ -148,31 +152,6 @@ function extraIconsControl(
   ];
 }
 
-// function usePromise<T>(promise: Promise<T>): () => T {
-//   const [status, setStatus] = useState("pending");
-//   let response: T;
-//   const suspender = promise.then(
-//     (res) => {
-//       setStatus("success");
-//       response = res;
-//     },
-//     (err) => {
-//       setStatus("error");
-//       response = err;
-//     }
-//   );
-//   return () => {
-//     switch (status) {
-//       case "pending":
-//         throw suspender;
-//       case "error":
-//         throw response;
-//       default:
-//         return response;
-//     }
-//   };
-// }
-
 function reSort<T, K extends keyof T, V extends T[K]>(
   data: Array<T>,
   key: K,
@@ -211,43 +190,53 @@ export function Roster() {
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
-  const { data, gbdb: db } = useData();
+  const { gbdb: db } = useData();
+
+  const [g, setGuild] = useState<GBGuild | null>(null);
+  const [roster, setRoster] = useState<GBModel[]>();
 
   useEffect(() => {
     const savedPosition = searchParams.get("m");
-    if (savedPosition && data) {
-      const g = data.Guilds.find((g: Guild) => g.name === guild);
+    if (savedPosition) {
       const index = g?.roster.findIndex((m: any) => m === savedPosition);
       if (index) {
         swiper?.slideTo(index + 1);
       }
     }
-  }, [swiper, searchParams, data, guild]);
+  }, [swiper, searchParams, g]);
 
-  if (!data || !db) {
-    return null;
-  }
-
-  const [g, roster]: [GBGuild, Array<GBModel>] = usePromise(
-    (guild) => {
-      return Promise.all([
+  useEffect(() => {
+    let isLive = true;
+    if (!db) {
+      return;
+    }
+    const fetchData = async () => {
+      const [g, roster]: [GBGuild | null, GBModel[]] = await Promise.all([
         db.guilds.findOne().where({ name: guild }).exec(),
         db.models
           .find()
           .or([{ guild1: guild }, { guild2: guild }])
           .exec(),
       ]).then(([g, roster]) => {
-        if (!g) {
-          throw "error";
+        if (g) {
+          reSort(roster, "id", g.roster);
         }
-        reSort(roster, "id", g.roster);
         return [g, roster];
       });
-    },
-    [guild]
-  );
+      if (isLive) {
+        setGuild(g);
+        setRoster(roster);
+      }
+    };
+    fetchData().catch(console.error);
+    return () => {
+      isLive = false;
+    };
+  }, [db]);
 
   if (!g || !roster) {
+    // console.log(g);
+    // console.log(roster);
     return null;
   }
 
@@ -378,7 +367,7 @@ export function GamePlans() {
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
-  const { data, gameplans } = useData();
+  const { gameplans } = useData();
 
   useEffect(() => {
     const savedPosition = searchParams.get("m");
@@ -390,7 +379,7 @@ export function GamePlans() {
     }
   }, [swiper, searchParams]);
 
-  if (!gameplans || !data) {
+  if (!gameplans) {
     return null;
   }
 
@@ -492,8 +481,6 @@ export function RefCards() {
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
-  const { data, gameplans } = useData();
-
   useEffect(() => {
     const savedPosition = searchParams.get("m");
     if (savedPosition) {
@@ -503,10 +490,6 @@ export function RefCards() {
       }
     }
   }, [swiper, searchParams]);
-
-  if (!gameplans || !data) {
-    return null;
-  }
 
   return (
     <>
@@ -582,13 +565,9 @@ export function RefCards() {
   );
 }
 
-function SwiperButtons(props: { guild: Guild; swiper: SwiperRef | null }) {
-  const { data } = useData();
+function SwiperButtons(props: { guild: GBGuild; swiper: SwiperRef | null }) {
   const { guild, swiper } = props;
   const roster = guild.roster;
-  if (!data) {
-    return null;
-  }
   return (
     <div
       style={{
@@ -613,27 +592,34 @@ function SwiperButtons(props: { guild: Guild; swiper: SwiperRef | null }) {
             swiper?.slideTo(0);
           }}
         >
-          <GBIcon
-            icon={guild.name}
-            className="dark"
-            fontSize="32px"
-            style={{
-              backgroundColor: "black",
-              borderRadius: "50%",
-            }}
-          />
+          <span>
+            <div
+              style={{
+                width: "32px",
+                height: "32px",
+                backgroundColor: "black",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "visible",
+              }}
+            >
+              <GBIcon
+                icon={guild.name}
+                className="dark"
+                fontSize="32px"
+                style={{ flexShrink: 0 }}
+              />
+            </div>
+          </span>
         </IconButton>
         {roster.map((m, index) => {
-          const model = data.Models.find((m2: any) => m2.id === m);
-          if (!model) {
-            return null;
-          }
           return (
             <Chip
               color="primary"
-              key={model.id}
-              // label={model.displayName}
-              label={model.id}
+              key={index}
+              label={m}
               onClick={() => {
                 swiper?.slideTo(index + 1);
               }}

@@ -58,6 +58,7 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
   const [data, setData] = useState(undefined);
   const [gameplans, setGameplans] = useState(undefined);
   const [version, setVersion] = useState("");
+  const [db, setDB] = useState<GBDatabase>();
 
   const settings = useStore().settings;
   const filename = settings.dataSet;
@@ -81,7 +82,8 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
       ).version
     );
     readFile(filename).then((data) => {
-      bulkLoadDB(data);
+      console.log('setting data and db');
+      bulkLoadDB(data).then(() => setDB(gbdb));
       setData(data);
     });
     setGameplans(await readFile("gameplans.json"));
@@ -93,7 +95,9 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
   }, [filename, getData]);
 
   return (
-    <DataContext.Provider value={{ data, version, manifest, gameplans, gbdb }}>
+    <DataContext.Provider
+      value={{ data, version, manifest, gameplans, gbdb: db }}
+    >
       {children}
     </DataContext.Provider>
   );

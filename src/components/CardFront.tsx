@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 import GBImages from "./GBImages";
 import { useData } from "./DataContext";
 import { Observer } from "mobx-react-lite";
@@ -11,12 +11,12 @@ import Color from "color";
 
 import { Guild } from "./DataContext.d";
 import { IGBPlayer, JGBPlayer, useStore } from "../models/Root";
+import { GBCharacterPlay, GBGuild, GBModel } from "../models/gbdb";
 type model = JGBPlayer | IGBPlayer;
 
 interface CardFrontProps {
   model: model;
   style: GBCardCSS;
-  guild?: string;
   className?: string;
   noBackground?: boolean;
 }
@@ -36,41 +36,54 @@ const CardFront = (props: CardFrontProps) => {
   const key = model.id;
 
   const { settings } = useStore();
-  const { data } = useData();
-  if (!data) {
-    return null;
-  }
+  const { gbdb: db } = useData();
 
-  const guild = data.Guilds.find(
-    (g) => g.name === (props.guild ?? model.guild1)
-  );
-  const guild1 = data.Guilds.find((g) => g.name === model.guild1);
-  const guild2 = data.Guilds.find((g) => g.name === model.guild2);
-  if (!guild1 || !guild) {
+  const [guild1, setGuild1] = useState<GBGuild | null>(null);
+  const [guild2, setGuild2] = useState<GBGuild | null>(null);
+
+  useEffect(() => {
+    let isLive = true;
+    if (!db) {
+      return;
+    }
+    const fetchData = async () => {
+      const [guild1, guild2] = await Promise.all([
+        db.guilds.findOne().where({ name: model.guild1 }).exec(),
+        db.guilds.findOne().where({ name: model.guild2 }).exec(),
+      ]);
+      if (isLive) {
+        setGuild1(guild1);
+        setGuild2(guild2);
+      }
+    };
+    fetchData().catch(console.error);
+    return () => {
+      isLive = false;
+    };
+  }, [db]);
+
+  if (!guild1) {
     return null;
   }
 
   const gbcp =
-    (settings.cardPreferences.perferedStyled === "gbcp" && (
-      GBImages.has(`${key}_gbcp_front`) ||
-      GBImages.has(`${key}_full`)
-    ));
+    settings.cardPreferences.perferedStyled === "gbcp" &&
+    (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
 
-  const image =
-    gbcp ?
-      (GBImages.get(`${key}_full`) ??
-        GBImages.get(`${key}_gbcp_front`) ??
-        GBImages.get(`${key}_front`)) :
-      (GBImages.get(`${key}_front`) ??
-        GBImages.get(`${key}_full`) ??
-        GBImages.get(`${key}_gbcp_front`));
+  const image = gbcp
+    ? GBImages.get(`${key}_full`) ??
+      GBImages.get(`${key}_gbcp_front`) ??
+      GBImages.get(`${key}_front`)
+    : GBImages.get(`${key}_front`) ??
+      GBImages.get(`${key}_full`) ??
+      GBImages.get(`${key}_gbcp_front`);
 
   return (
     <div
       className={`card-front ${key} ${gbcp && "gbcp"} ${props.className}`}
       // ref={targetRef}
       style={{
-        "--team-color": guild.color,
+        "--team-color": guild1.color,
         /* not the best way to do this */
         // "--gbcp-color": Color(guild2 ? guild2.color : guild1.color).mix(
         //   Color.rgb(240, 230, 210),
@@ -81,20 +94,20 @@ const CardFront = (props: CardFrontProps) => {
           .string(),
         "--guild1-color": guild1.color,
         "--guild2-color": guild2 ? guild2.color : undefined,
-        "--mom-color": guild.shadow,
-        "--mom-border-color": guild.darkColor,
+        "--mom-color": guild1.shadow,
+        "--mom-border-color": guild1.darkColor,
         backgroundImage: props.noBackground ? undefined : `url(${image})`,
         ...props.style,
       }}
     >
       <div className={`overlay ${gbcp ? "gbcp" : ""}`}>
         <div className="font-top-box">
-          <NamePlate model={model} guild={guild} />
+          <NamePlate model={model} guild={guild1} />
           <StatBox model={model} />
         </div>
         <Playbook model={model} gbcp={gbcp} />
         <div className="character-plays-wrapper">
-          <CharacterPlays model={model} gbcp={gbcp} />
+          <CharacterPlays model={model as GBModel} gbcp={gbcp} />
         </div>
         <HealthBoxes model={model} />
       </div>
@@ -224,14 +237,35 @@ const CharacterPlays = ({
   model,
   gbcp = false,
 }: {
-  model: model;
+  model: GBModel;
   gbcp?: boolean;
 }) => {
-  const { data } = useData();
-  if (!data) {
+  const { gbdb: db } = useData();
+
+  const [CPlays, setCPlays] = useState<GBCharacterPlay[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!db) {
+        return;
+      }
+      if (!model.character_plays) {
+        return;
+      }
+      const CPs = await db.character_plays
+        .find()
+        .where("name")
+        .in(model.character_plays)
+        .exec();
+      setCPlays(CPs);
+    };
+    fetchData().catch(console.error);
+  }, [db, model]);
+
+  if (!CPlays) {
     return null;
   }
-  const CPlays = data["Character Plays"];
+
   return (
     <div className="character-plays">
       <span className="dropcap">

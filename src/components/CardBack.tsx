@@ -1,5 +1,4 @@
-import React from "react";
-// import { useState, useRef, useLayoutEffect } from "react";
+import React, { useEffect, useState } from "react";
 import GBImages from "./GBImages";
 import { useData } from "./DataContext";
 
@@ -11,6 +10,7 @@ import Color from "color";
 
 import { GBCardCSS } from "./CardFront";
 import { IGBPlayer, JGBPlayer, useStore } from "../models/Root";
+import { GBCharacterTrait, GBGuild } from "../models/gbdb";
 type model = IGBPlayer | JGBPlayer;
 
 interface CardBackProps {
@@ -26,32 +26,45 @@ const CardBack = (props: CardBackProps) => {
   const key = model.id;
 
   const { settings } = useStore();
-  const { data } = useData();
-  if (!data) {
-    return null;
-  }
+  const { gbdb: db } = useData();
 
-  const guild = data.Guilds.find(
-    (g) => g.name === (props.guild ?? model.guild1)
-  );
+  const [guild, setGuild1] = useState<GBGuild | null>(null);
+
+  useEffect(() => {
+    let isLive = true;
+    if (!db) {
+      return;
+    }
+    const fetchData = async () => {
+      const guild1 = await db.guilds
+        .findOne()
+        .where({ name: model.guild1 })
+        .exec();
+      if (isLive) {
+        setGuild1(guild1);
+      }
+    };
+    fetchData().catch(console.error);
+    return () => {
+      isLive = false;
+    };
+  }, [db]);
+
   if (!guild) {
     return null;
   }
 
   const gbcp =
-    (settings.cardPreferences.perferedStyled === "gbcp" && (
-      GBImages.has(`${key}_gbcp_front`) ||
-      GBImages.has(`${key}_full`)
-    ));
+    settings.cardPreferences.perferedStyled === "gbcp" &&
+    (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
 
-  const image =
-    gbcp ?
-      (GBImages.get(`${key}_full`) ??
-        GBImages.get(`${key}_gbcp_back`) ??
-        GBImages.get(`${key}_back`)) :
-      (GBImages.get(`${key}_back`) ??
-        GBImages.get(`${key}_full`) ??
-        GBImages.get(`${key}_gbcp_back`));
+  const image = gbcp
+    ? GBImages.get(`${key}_full`) ??
+      GBImages.get(`${key}_gbcp_back`) ??
+      GBImages.get(`${key}_back`)
+    : GBImages.get(`${key}_back`) ??
+      GBImages.get(`${key}_full`) ??
+      GBImages.get(`${key}_gbcp_back`);
 
   return (
     <div
@@ -119,11 +132,32 @@ function CTName({ text }: { text: string }) {
 }
 
 const CharacterTraits = ({ model }: { model: model }) => {
-  const { data } = useData();
-  if (!data) {
+  const { gbdb: db } = useData();
+
+  const [Traits, setTraits] = useState<GBCharacterTrait[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!db) {
+        return;
+      }
+      if (!model.character_traits) {
+        return;
+      }
+      const Traits = await db.character_traits
+        .find()
+        .where("name")
+        .in(model.character_traits.map((t) => t.replace(/ \[.*\]/, "")))
+        .exec();
+      setTraits(Traits);
+    };
+    fetchData().catch(console.error);
+  }, [db, model]);
+
+  if (!Traits) {
     return null;
   }
-  const Traits = data["Character Traits"];
+
   return (
     <div>
       <div className="header dropcap">

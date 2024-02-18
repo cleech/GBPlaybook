@@ -18,7 +18,7 @@ import {
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { useData } from "../../components/DataContext";
-import { roster, DraftList, BSDraftList } from "../../components/Draft";
+import { DraftList, BSDraftList } from "../../components/Draft";
 import { useStore } from "../../models/Root";
 
 import "./Draft.css";
@@ -29,6 +29,9 @@ import { AppBarContent } from "../../App";
 import { useRTC } from "../../services/webrtc";
 import VersionTag from "../../components/VersionTag";
 import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
+import { GBGuild, GBModel } from "../../models/gbdb";
+import { retry } from "rxjs";
+import { GBModelType } from "../../models/rxdb";
 
 const ResumeSnackBar = () => {
   const { resumePossible } = useStore();
@@ -60,10 +63,10 @@ export default function Draft() {
   const navigate = useNavigate();
   const { dc } = useRTC();
 
-  const [team1, setTeam1] = useState<roster | undefined>(undefined);
-  const [team2, setTeam2] = useState<roster | undefined>(undefined);
-  const ready1 = useCallback((team: roster) => setTeam1(team), []);
-  const ready2 = useCallback((team: roster) => setTeam2(team), []);
+  const [team1, setTeam1] = useState<GBModelType[] | undefined>(undefined);
+  const [team2, setTeam2] = useState<GBModelType[] | undefined>(undefined);
+  const ready1 = useCallback((team: GBModelType[]) => setTeam1(team), []);
+  const ready2 = useCallback((team: GBModelType[]) => setTeam2(team), []);
   const unready1 = useCallback(() => setTeam1(undefined), []);
   const unready2 = useCallback(() => setTeam2(undefined), []);
 
@@ -78,10 +81,10 @@ export default function Draft() {
   const settingsOpen = Boolean(menuAnchor);
   const settingsClick = (e: React.MouseEvent<HTMLElement>) => {
     setMenuAnchor(e.currentTarget);
-  }
+  };
   const settingsClose = () => {
     setMenuAnchor(null);
-  }
+  };
 
   useEffect(() => {
     if (!!dc) {
@@ -119,13 +122,26 @@ export default function Draft() {
     store.team2,
   ]);
 
-  const { data } = useData();
-  if (!data) {
-    return null;
-  }
-  const guild1 = data.Guilds.find((g: any) => g.name === g1);
-  const guild2 = data.Guilds.find((g: any) => g.name === g2);
-  /* FIXME, error message and kick back a screen ? */
+  const { gbdb: db } = useData();
+
+  const [guild1, setGuild1] = useState<GBGuild | null>(null);
+  const [guild2, setGuild2] = useState<GBGuild | null>(null);
+
+  useEffect(() => {
+    if (!db || !g1 || !g2) {
+      return;
+    }
+    const fetchData = async () => {
+      const [guild1, guild2] = await Promise.all([
+        db.guilds.findOne().where({ name: g1 }).exec(),
+        db.guilds.findOne().where({ name: g2 }).exec(),
+      ]);
+      setGuild1(guild1);
+      setGuild2(guild2);
+    };
+    fetchData();
+  }, [db, g1, g2]);
+
   if (!guild1 || !guild2) {
     return null;
   }
@@ -136,12 +152,14 @@ export default function Draft() {
   return (
     <Box className="DraftScreen">
       <AppBarContent>
-        <Box sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
           <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
             <IconButton
               color="inherit"
@@ -158,14 +176,12 @@ export default function Draft() {
             color="inherit"
             size="small"
             // variant="contained"
-            sx= {{
+            sx={{
               backgroundColor: "primary.dark",
             }}
           >
             <Typography>
-              {store.settings.gameSize}
-              v
-              {store.settings.gameSize}
+              {store.settings.gameSize}v{store.settings.gameSize}
             </Typography>
           </IconButton>
           <Menu
@@ -175,15 +191,30 @@ export default function Draft() {
             onClick={settingsClose}
           >
             <MenuList dense>
-              <MenuItem selected={store.settings.gameSize === 6}
-                onClick={() => { store.settings.setGameSize(6) }}
-              >6v6</MenuItem>
-              <MenuItem selected={store.settings.gameSize === 4}
-                onClick={() => { store.settings.setGameSize(4) }}
-              >4v4</MenuItem>
-              <MenuItem selected={store.settings.gameSize === 3}
-                onClick={() => { store.settings.setGameSize(3) }}
-              >3v3</MenuItem>
+              <MenuItem
+                selected={store.settings.gameSize === 6}
+                onClick={() => {
+                  store.settings.setGameSize(6);
+                }}
+              >
+                6v6
+              </MenuItem>
+              <MenuItem
+                selected={store.settings.gameSize === 4}
+                onClick={() => {
+                  store.settings.setGameSize(4);
+                }}
+              >
+                4v4
+              </MenuItem>
+              <MenuItem
+                selected={store.settings.gameSize === 3}
+                onClick={() => {
+                  store.settings.setGameSize(3);
+                }}
+              >
+                3v3
+              </MenuItem>
             </MenuList>
           </Menu>
         </Box>
@@ -201,8 +232,8 @@ export default function Draft() {
         onUpdate={
           dc
             ? (m, v) => {
-              dc.send(JSON.stringify({ m: m, selected: v }));
-            }
+                dc.send(JSON.stringify({ m: m, selected: v }));
+              }
             : undefined
         }
       />

@@ -15,6 +15,8 @@ import { CheckCircleTwoTone as Check } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useUpdateAnimation } from "./useUpdateAnimation";
 import { observer } from "mobx-react-lite";
+import { GBGuild, GBModel } from "../models/gbdb";
+import { GBModelType } from "../models/rxdb";
 
 // import { Guild } from './DataContext.d';
 
@@ -114,9 +116,10 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 interface DraftListProps {
-  guild: any;
+  // guild: any;
+  guild: GBGuild;
   disabled?: boolean;
-  ready: (team: roster) => void;
+  ready: (team: GBModelType[]) => void;
   unready: () => void;
   onUpdate?: (m: model, selected: boolean) => void;
   ignoreRules?: boolean;
@@ -151,7 +154,7 @@ export const DraftList = observer(React.forwardRef((props: DraftListProps, ref) 
     ignoreRules = false,
     style,
   } = props;
-  const { data } = useData();
+  const { data, gbdb: db } = useData();
   const Models = data?.Models;
 
   const { settings } = useStore();
@@ -166,7 +169,7 @@ export const DraftList = observer(React.forwardRef((props: DraftListProps, ref) 
     // need to make a deep copy of the roster data
     let tmpRoster = cloneDeep(
       // Models.filter((m) => guild.roster.includes(m.id)),
-      guild.roster.map((name: string) => Models?.find((m) => m.id === name))
+      guild.roster.map((name: string) => Models?.find((m) => m.id === name)).filter(Boolean) as model[]
     );
     // and add UI state
     tmpRoster.forEach((m: model) => {
@@ -242,10 +245,9 @@ export const DraftList = observer(React.forwardRef((props: DraftListProps, ref) 
   );
 
   useEffect(() => {
-    if (ready) {
-      let team = cloneDeep(guild);
-      team.roster = cloneDeep(roster.filter((m: model) => m.selected));
-      listReady?.(team.roster);
+    if (ready) {      
+      const team = cloneDeep(roster.filter((m: model) => m.selected));
+      listReady?.(team);
     } else {
       unready?.();
     }
@@ -376,7 +378,7 @@ export const BSDraftList = observer(React.forwardRef((props: DraftListProps, ref
     // need to make a deep copy of the roster data
     let tmpRoster = cloneDeep(
       // Models.filter((m) => guild.roster.includes(m.id)),
-      guild.roster.map((name: string) => Models?.find((m) => m.id === name))
+      guild.roster.map((name: string) => Models?.find((m) => m.id === name)).filter(Boolean) as model[]
     );
     // and add UI state
     tmpRoster.forEach((m: model) => {
@@ -440,9 +442,8 @@ export const BSDraftList = observer(React.forwardRef((props: DraftListProps, ref
 
   useEffect(() => {
     if (ready) {
-      let team = cloneDeep(guild);
-      team.roster = cloneDeep(roster.filter((m: model) => m.selected));
-      listReady?.(team.roster);
+      const team = cloneDeep(roster.filter((m: model) => m.selected));
+      listReady?.(team);
     } else {
       unready?.();
     }

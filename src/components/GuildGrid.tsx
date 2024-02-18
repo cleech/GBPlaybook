@@ -10,7 +10,6 @@ import { useData } from "../components/DataContext";
 import GBIcon from "../components/GBIcon";
 import { Guild } from "./DataContext.d";
 import { GBGuild, GBGuildCollection } from "../models/gbdb";
-import usePromise from "react-promise-suspense";
 import { useRxQuery } from "./useRxQuery";
 
 function maxBy(data: Array<any>, by: (v: any) => number) {
@@ -74,25 +73,31 @@ interface GuildGridProps {
 
 export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
   const [ref, dimensions] = useDimensionsRef();
-  const { data, gbdb: db } = useData();
+  const { gbdb: db } = useData();
   const [size, setSize] = useState(0);
 
   const [controlElement, controlCallback] = controls
     ? controls({ size })
     : [undefined, undefined];
 
-  if (!db) {
-    return null;
-  }
-
-  // const guilds = usePromise((db) => db.guilds.find().exec(), [db]);
-
   useEffect(() => {
-    if (db && data && dimensions)
-      setSize(itemSize(dimensions, data.Guilds.length ?? 0, 1)?.size ?? 0);
-  }, [data, dimensions]);
+    let isLive = true;
+    if (!db || !dimensions) {
+      return;
+    }
+    const fetchData = async () => {
+      let count = await db.guilds.count().exec();
+      if (isLive && dimensions) {
+        setSize(itemSize(dimensions, count, 1)?.size ?? 0);
+      }
+    };
+    fetchData().catch(console.error);
+    return () => {
+      isLive = false;
+    };
+  }, [db, dimensions]);
 
-  if (!data) {
+  if (!db) {
     return null;
   }
 

@@ -23,13 +23,13 @@ const GBPlayer = types
     arm: types.integer,
     inf: types.integer,
     infmax: types.integer,
-    reach: types.boolean,
+    reach: types.optional(types.boolean, false),
 
     // used in draft screen, here for completeness
     benched: types.maybe(types.string),
     dehcneb: types.maybe(types.string),
 
-    playbook: types.array(types.array(types.maybeNull(types.string))),
+    playbook: types.array(types.array(types.maybe(types.maybeNull(types.string)))),
     character_plays: types.array(types.string),
     character_traits: types.array(types.string),
     heroic: types.maybe(types.string),
@@ -66,7 +66,11 @@ const GBPlayer = types
       return (self.veteran ? "v" : "") + (self.seasoned ? "s" : "") + self.name;
     },
     get statLine() {
-      return `${self.jog}"/${self.sprint}" | ${self.tac} | ${self.kickdice}/${self.kickdist}" | ${self.def}+ | ${self.arm} | ${self.inf}/${self.infmax} | ${self.reach ? 2 : 1}"`;
+      return `${self.jog}"/${self.sprint}" | ${self.tac} | ${self.kickdice}/${
+        self.kickdist
+      }" | ${self.def}+ | ${self.arm} | ${self.inf}/${self.infmax} | ${
+        self.reach ? 2 : 1
+      }"`;
     },
   }));
 
@@ -98,7 +102,7 @@ const GBTeam = types
   }));
 
 export type IGBTeam = Instance<typeof GBTeam>;
-interface IGBTeamSnapshotIn extends SnapshotIn<typeof GBTeam> { }
+interface IGBTeamSnapshotIn extends SnapshotIn<typeof GBTeam> {}
 
 const Settings = types
   .model({

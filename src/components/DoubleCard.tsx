@@ -22,8 +22,7 @@ export function DoubleCard({
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   });
-  const updateSize = useCallback(() =>
-  {
+  const updateSize = useCallback(() => {
     if (!targetRef.current) {
       return;
     }
@@ -45,10 +44,8 @@ export function DoubleCard({
 
   const key = model.id;
   const gbcp =
-    (settings.cardPreferences.perferedStyled === "gbcp" && (
-      GBImages.has(`${key}_gbcp_front`) ||
-      GBImages.has(`${key}_full`)
-    ));
+    settings.cardPreferences.perferedStyled === "gbcp" &&
+    (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
   const image = gbcp ? GBImages.get(`${key}_full`) ?? undefined : undefined;
 
   return (
