@@ -11,12 +11,17 @@ import { getRxStorageMemory } from "rxdb/plugins/storage-memory";
 import { RxDBJsonDumpPlugin } from "rxdb/plugins/json-dump";
 import { RxDBDevModePlugin } from "rxdb/plugins/dev-mode";
 import { RxDBQueryBuilderPlugin } from "rxdb/plugins/query-builder";
+import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
 
 if (import.meta.env.MODE === "development") {
   addRxPlugin(RxDBDevModePlugin);
 }
 addRxPlugin(RxDBJsonDumpPlugin);
 addRxPlugin(RxDBQueryBuilderPlugin);
+addRxPlugin(RxDBLocalDocumentsPlugin);
+
+type _Tuple<T, N extends Number> = [T, ...T[]] & { length: N };
+type GBPlaybook = _Tuple<_Tuple<string | null, 7>, 2>;
 
 export type GBModelType = {
   id: string;
@@ -43,12 +48,13 @@ export type GBModelType = {
   dehcneb?: string;
 
   playbook: (string | null)[][];
+  // playbook: GBPlaybook;
   character_plays: string[];
   character_traits: string[];
   heroic?: string;
   legendary?: string;
   types: string;
-  base: number;
+  base: 30 | 40 | 50;
 
   guild1: string;
   guild2?: string;
@@ -237,6 +243,7 @@ export type GBDatabase = RxDatabase<GBDataCollections>;
 
 const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>({
   name: "gbcp_4_5",
+  localDocuments: true,
   storage: getRxStorageDexie(),
   // storage: getRxStorageMemory(),
 });

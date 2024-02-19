@@ -30,25 +30,56 @@ interface DataProviderProps {
   children: React.ReactNode;
 }
 
-async function bulkLoadDB(data: any) {
+type GBDBSettings = {
+  filename: string;
+  sha256: string;
+};
+
+async function bulkLoadDB(
+  filename: string,
+  manifest: Manifest,
+  data: DataFile
+) {
+  const _sha256 = manifest.datafiles.find(
+    (df) => df.filename === filename
+  )?.sha256;
+  const dbSettings = await gbdb.getLocal("settings");
+  if (dbSettings) {
+    if (
+      dbSettings.get("filename") === filename &&
+      dbSettings.get("sha256") === _sha256
+    ) {
+      // console.log("database pre-loaded :)");
+      return;
+    }
+  }
+  // console.log("database re-loading :(");
   await Promise.all([
     gbdb.guilds
       .find()
-      .remove()
+      .exec()
+      .then((gs) => gbdb.guilds.bulkRemove(gs.map((g) => g.name)))
       .then(() => gbdb.guilds.bulkInsert(data.Guilds)),
     gbdb.models
       .find()
-      .remove()
+      .exec()
+      .then((ms) => gbdb.guilds.bulkRemove(ms.map((m) => m.id)))
       .then(() => gbdb.models.bulkInsert(data.Models)),
     gbdb.character_plays
       .find()
-      .remove()
+      .exec()
+      .then((cps) => gbdb.guilds.bulkRemove(cps.map((cp) => cp.name)))
       .then(() => gbdb.character_plays.bulkInsert(data["Character Plays"])),
     gbdb.character_traits
       .find()
-      .remove()
+      .exec()
+      .then((cts) => gbdb.guilds.bulkRemove(cts.map((ct) => ct.name)))
       .then(() => gbdb.character_traits.bulkInsert(data["Character Traits"])),
-  ]);
+  ])
+    // .then(() => console.log("re-load complete :|"))
+    .then(() =>
+      gbdb.upsertLocal("settings", { filename: filename, sha256: _sha256 })
+    );
 }
 
 export const DataProvider = observer(({ children }: DataProviderProps) => {
@@ -80,7 +111,8 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
       ).version
     );
     readFile(filename).then((data) => {
-      bulkLoadDB(data).then(() => setDB(gbdb));
+      setDB(undefined);
+      bulkLoadDB(filename, manifest, data).then(() => setDB(gbdb));
       setData(data);
     });
     setGameplans(await readFile("gameplans.json"));
