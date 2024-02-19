@@ -306,7 +306,7 @@ export const DraftList = observer(
     useEffect(() => {
       if (ready && roster) {
         const team = cloneDeep(roster.filter((m: model) => m.selected));
-        listReady?.(team);
+        listReady?.(team as any);
       } else {
         unready?.();
       }
@@ -547,7 +547,7 @@ export const BSDraftList = observer(
       }
       if (ready) {
         const team = cloneDeep(roster.filter((m: model) => m.selected));
-        listReady?.(team);
+        listReady?.(team as any);
       } else {
         unready?.();
       }

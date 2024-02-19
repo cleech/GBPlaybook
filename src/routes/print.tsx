@@ -62,17 +62,43 @@ export const CardPrintScreen = () => {
       return;
     }
     const fetchData = async () => {
-      const [g, m] = await db.guilds
-        .find()
-        .exec()
-        .then((gs) => {
-          return [
-            gs.map((_g) => _g.name),
-            [...new Set(gs.flatMap((_g) => _g.roster))],
-          ];
+      /* This is crazy, but gets all the models in a very particular order */
+      const [g, m]: [GBGuild[], GBModel[]] = await Promise.all([
+        db.guilds.find().where({ minor: false }).exec(),
+        db.guilds.find().where({ minor: true }).exec(),
+      ])
+        .then(async ([_majors, _minors]) => {
+          return Promise.all([
+            _majors,
+            db.models
+              .find()
+              .where("guild1")
+              .in(_majors.map((g) => g.name))
+              .exec(),
+            _minors,
+            db.models
+              .find()
+              .where("guild1")
+              .in(_minors.map((g) => g.name))
+              .exec(),
+          ]);
+        })
+        .then(([_majors, _majorMs, _minors, _minorMs]) => {
+          reSort(
+            _majorMs,
+            "id",
+            _majors.flatMap((_g) => _g.roster)
+          );
+          reSort(
+            _minorMs,
+            "id",
+            _minors.flatMap((_g) => _g.roster)
+          );
+          return [_majors.concat(_minors), _majorMs.concat(_minorMs)];
         });
-      setGuilds(g);
-      setModels(m);
+
+      setGuilds(g.map((_g) => _g.name));
+      setModels(m.map((_m) => _m.id));
     };
     fetchData();
   }, [db]);
@@ -629,14 +655,42 @@ const ModelLists = forwardRef<{
       if (!db) {
         return;
       }
+
+      /* This is crazy, but gets all the models in a very particular order */
       const [guilds, models]: [GBGuild[], GBModel[]] = await Promise.all([
-        db.guilds.find().exec(),
-        db.models.find().exec(),
-      ]).then(([_guilds, _models]) => {
-        const sort = _guilds.flatMap((g) => g.roster);
-        reSort(_models, "id", sort);
-        return [_guilds, _models];
-      });
+        db.guilds.find().where({ minor: false }).exec(),
+        db.guilds.find().where({ minor: true }).exec(),
+      ])
+        .then(async ([_majors, _minors]) => {
+          return Promise.all([
+            _majors,
+            db.models
+              .find()
+              .where("guild1")
+              .in(_majors.map((g) => g.name))
+              .exec(),
+            _minors,
+            db.models
+              .find()
+              .where("guild1")
+              .in(_minors.map((g) => g.name))
+              .exec(),
+          ]);
+        })
+        .then(([_majors, _majorMs, _minors, _minorMs]) => {
+          reSort(
+            _majorMs,
+            "id",
+            _majors.flatMap((_g) => _g.roster)
+          );
+          reSort(
+            _minorMs,
+            "id",
+            _minors.flatMap((_g) => _g.roster)
+          );
+          return [_majors.concat(_minors), _majorMs.concat(_minorMs)];
+        });
+
       setGuilds(guilds);
       setModels(models);
     };
