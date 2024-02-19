@@ -29,9 +29,8 @@ import { AppBarContent } from "../../App";
 import { useRTC } from "../../services/webrtc";
 import VersionTag from "../../components/VersionTag";
 import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
-import { GBGuild, GBModel } from "../../models/gbdb";
+import { GBGuild, GBModel, GBModelType } from "../../models/gbdb";
 import { retry } from "rxjs";
-import { GBModelType } from "../../models/rxdb";
 
 const ResumeSnackBar = () => {
   const { resumePossible } = useStore();

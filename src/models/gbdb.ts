@@ -18,7 +18,7 @@ if (import.meta.env.MODE === "development") {
 addRxPlugin(RxDBJsonDumpPlugin);
 addRxPlugin(RxDBQueryBuilderPlugin);
 
-type GBModelType = {
+export type GBModelType = {
   id: string;
   name: string;
   captain?: boolean;

@@ -15,8 +15,7 @@ import { CheckCircleTwoTone as Check } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useUpdateAnimation } from "./useUpdateAnimation";
 import { observer } from "mobx-react-lite";
-import { GBGuild, GBModel } from "../models/gbdb";
-import { GBModelType } from "../models/rxdb";
+import { GBGuild, GBModel, GBModelType } from "../models/gbdb";
 import { reSort } from "./reSort";
 
 // import { Guild } from './DataContext.d';
