@@ -361,7 +361,7 @@ export default function RosterList({
                     }}
                   >
                     <ListItemText
-                      primary={m.displayName}
+                      primary={m.id}
                       secondary={
                         settings.uiPreferences.displayStatLine
                           ? m.statLine

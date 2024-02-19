@@ -221,7 +221,7 @@ export function Roster() {
     return () => {
       isLive = false;
     };
-  }, [db]);
+  }, [db, guild]);
 
   if (!g || !roster) {
     // console.log(g);

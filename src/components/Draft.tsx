@@ -91,9 +91,7 @@ function DraftListItem({
   return (
     <FormControlLabel
       ref={ref}
-      label={
-        (model.veteran ? "v" : "") + (model.seasoned ? "s" : "") + model.name
-      }
+      label={model.id}
       control={
         <Checkbox
           size="small"
