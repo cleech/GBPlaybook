@@ -17,6 +17,7 @@ import { useUpdateAnimation } from "./useUpdateAnimation";
 import { observer } from "mobx-react-lite";
 import { GBGuild, GBModel } from "../models/gbdb";
 import { GBModelType } from "../models/rxdb";
+import { reSort } from "./reSort";
 
 // import { Guild } from './DataContext.d';
 
@@ -141,204 +142,266 @@ const DraftLimits = {
     captain: 1,
     mascot: 1,
     squaddies: 4,
-  }
+  },
 };
 
-export const DraftList = observer(React.forwardRef((props: DraftListProps, ref) => {
-  const {
-    guild,
-    ready: listReady,
-    unready,
-    onUpdate,
-    disabled = false,
-    ignoreRules = false,
-    style,
-  } = props;
-  const { data, gbdb: db } = useData();
-  const Models = data?.Models;
+export const DraftList = observer(
+  React.forwardRef((props: DraftListProps, ref) => {
+    const {
+      guild,
+      ready: listReady,
+      unready,
+      onUpdate,
+      disabled = false,
+      ignoreRules = false,
+      style,
+    } = props;
+    const { gbdb: db } = useData();
+    const { settings } = useStore();
+    let [ready, setReady] = useState(false);
 
-  const { settings } = useStore();
-  let [ready, setReady] = useState(false);
-
-  // captain and mascot get pre-selected for minor guilds
-  let [captain, setCaptain] = useState(guild.minor ? 1 : 0);
-  let [mascot, setMascot] = useState((guild.minor && DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot > 0) ? 1 : 0);
-  let [squaddieCount, setSquadCount] = useState(0);
-
-  let [roster, setRoster] = useState<roster>(() => {
-    // need to make a deep copy of the roster data
-    let tmpRoster = cloneDeep(
-      // Models.filter((m) => guild.roster.includes(m.id)),
-      guild.roster.map((name: string) => Models?.find((m) => m.id === name)).filter(Boolean) as model[]
+    // captain and mascot get pre-selected for minor guilds
+    let [captain, setCaptain] = useState(guild.minor ? 1 : 0);
+    let [mascot, setMascot] = useState(
+      guild.minor && DraftLimits[settings.gameSize as 3 | 4 | 6].mascot > 0
+        ? 1
+        : 0
     );
-    // and add UI state
-    tmpRoster.forEach((m: model) => {
-      Object.assign(m, { selected: false, disabled: m.benched ? 1 : 0 });
-    });
-    // pre-select captain and mascot for minor guilds
-    if (guild.minor) {
-      tmpRoster.forEach((m: model) => {
-        if (m.captain ||
-          (m.mascot && DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot > 0)) {
-          m.selected = true;
-          m.disabled = 1;
+    let [squaddieCount, setSquadCount] = useState(0);
+
+    let [roster, setRoster] = useState<roster>();
+
+    useEffect(() => {
+      const fetchData = async () => {
+        if (!db) {
+          return;
         }
-      });
-    }
-    // disable mascots in a 3v3 game
-    if (DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot === 0) {
-      tmpRoster.forEach((m: model) => {
-        if (m.mascot) { m.disabled = 1; }
-      })
-    }
-    return tmpRoster;
-  });
+        let models = await db.models
+          .find()
+          .where("id")
+          .in(guild.roster)
+          .exec()
+          .then((models) => {
+            // need to make a deep copy of the roster data
+            let tmpRoster = models.map((m) => m.toMutableJSON()) as model[];
+            reSort(tmpRoster, "id", guild.roster);
+            // and add UI state
+            tmpRoster.forEach((m) => {
+              Object.assign(m, {
+                selected: false,
+                disabled: m.benched ? 1 : 0,
+              });
+            });
+            // pre-select captain and mascot for minor guilds
+            if (guild.minor) {
+              tmpRoster.forEach((m) => {
+                if (
+                  m.captain ||
+                  (m.mascot &&
+                    DraftLimits[settings.gameSize as 3 | 4 | 6].mascot > 0)
+                ) {
+                  m.selected = true;
+                  m.disabled = 1;
+                }
+              });
+            }
+            // disable mascots in a 3v3 game
+            if (DraftLimits[settings.gameSize as 3 | 4 | 6].mascot === 0) {
+              tmpRoster.forEach((m) => {
+                if (m.mascot) {
+                  m.disabled = 1;
+                }
+              });
+            }
+            setRoster(tmpRoster);
+          });
+      };
+      fetchData();
+    }, [guild, db]);
 
+    function checkCaptains(
+      roster: roster,
+      model: model,
+      count: number,
+      value: boolean
+    ) {
+      return checkCount(
+        roster,
+        model,
+        count,
+        value,
+        (m: model) => m.captain,
+        DraftLimits[settings.gameSize as 3 | 4 | 6].captain
+      );
+    }
 
-  function checkCaptains(roster: roster, model: model, count: number, value: boolean) {
-    return checkCount(roster, model, count, value,
-      (m: model) => m.captain,
-      DraftLimits[settings.gameSize as (3 | 4 | 6)].captain
+    function checkMascots(
+      roster: roster,
+      model: model,
+      count: number,
+      value: boolean
+    ) {
+      return checkCount(
+        roster,
+        model,
+        count,
+        value,
+        (m: model) => m.mascot,
+        DraftLimits[settings.gameSize as 3 | 4 | 6].mascot
+      );
+    }
+
+    function checkSquaddieCount(
+      roster: roster,
+      model: model,
+      count: number,
+      value: boolean
+    ) {
+      return checkCount(
+        roster,
+        model,
+        count,
+        value,
+        (m: model) => !(m.captain || m.mascot),
+        DraftLimits[settings.gameSize as 3 | 4 | 6].squaddies
+      );
+    }
+
+    const onSwitch = useCallback(
+      (model: model, value: boolean) => {
+        if (!roster) {
+          return;
+        }
+        onUpdate?.(model, value);
+        model.selected = value;
+
+        let newCaptain = checkCaptains(roster, model, captain, value);
+        setCaptain(newCaptain);
+
+        let newMascot = checkMascots(roster, model, mascot, value);
+        setMascot(newMascot);
+
+        let newCount = checkSquaddieCount(roster, model, squaddieCount, value);
+        setSquadCount(newCount);
+
+        checkVeterans(roster, model, value);
+        checkBenched(roster, model, value);
+
+        if (
+          (newCaptain === DraftLimits[settings.gameSize as 3 | 4 | 6].captain &&
+            newMascot === DraftLimits[settings.gameSize as 3 | 4 | 6].mascot &&
+            newCount ===
+              DraftLimits[settings.gameSize as 3 | 4 | 6].squaddies) ||
+          ignoreRules
+        ) {
+          setReady(true);
+        } else {
+          setReady(false);
+        }
+        setRoster(roster);
+      },
+      [roster, onUpdate, captain, mascot, squaddieCount, ignoreRules]
     );
-  }
 
-  function checkMascots(roster: roster, model: model, count: number, value: boolean) {
-    return checkCount(roster, model, count, value,
-      (m: model) => m.mascot,
-      DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot);
-  }
+    useEffect(() => {
+      if (ready && roster) {
+        const team = cloneDeep(roster.filter((m: model) => m.selected));
+        listReady?.(team);
+      } else {
+        unready?.();
+      }
+    }, [ready, guild, roster, listReady, unready]);
 
-  function checkSquaddieCount(roster: roster, model: model, count: number, value: boolean) {
-    return checkCount(roster, model, count, value,
-      (m: model) => !(m.captain || m.mascot),
-      DraftLimits[settings.gameSize as (3 | 4 | 6)].squaddies
+    const setModel = useCallback(
+      (id: string, value: boolean) => {
+        if (!roster) {
+          return;
+        }
+        const model: model | undefined = roster.find((m: model) => m.id === id);
+        if (model) {
+          onSwitch(model, value);
+        } else {
+          console.log(`failed to find ${id}`);
+        }
+      },
+      // [ready, roster, onSwitch]
+      [roster, onSwitch]
     );
-  }
 
-  const onSwitch = useCallback(
-    (model: model, value: boolean) => {
-      onUpdate?.(model, value);
-      model.selected = value;
+    useImperativeHandle(ref, () => ({ setModel }), [setModel]);
 
-      let newCaptain = checkCaptains(roster, model, captain, value);
-      setCaptain(newCaptain);
-
-      let newMascot = checkMascots(roster, model, mascot, value);
-      setMascot(newMascot);
-
-      let newCount = checkSquaddieCount(roster, model, squaddieCount, value);
-      setSquadCount(newCount);
-
-      checkVeterans(roster, model, value);
-      checkBenched(roster, model, value);
-
-      if ((newCaptain === DraftLimits[settings.gameSize as (3 | 4 | 6)].captain &&
-        newMascot === DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot &&
-        newCount === DraftLimits[settings.gameSize as (3 | 4 | 6)].squaddies) || ignoreRules) {
-        setReady(true);
-      } else {
-        setReady(false);
-      }
-      setRoster(roster);
-    },
-    [roster, onUpdate, captain, mascot, squaddieCount, ignoreRules]
-  );
-
-  useEffect(() => {
-    if (ready) {      
-      const team = cloneDeep(roster.filter((m: model) => m.selected));
-      listReady?.(team);
-    } else {
-      unready?.();
+    if (!roster) {
+      return null;
     }
-  }, [ready, guild, roster, listReady, unready]);
 
-  const setModel = useCallback(
-    (id: string, value: boolean) => {
-      const model: model | undefined = roster.find((m: model) => m.id === id);
-      if (model) {
-        onSwitch(model, value);
-      } else {
-        console.log(`failed to find ${id}`);
-      }
-    },
-    // [ready, roster, onSwitch]
-    [roster, onSwitch]
-  );
+    let captains = roster.filter((m: model) => m.captain);
+    let mascots = roster.filter((m: model) => m.mascot && !m.captain);
+    let squaddies = roster.filter((m: model) => !m.captain && !m.mascot);
 
-  useImperativeHandle(ref, () => ({ setModel }), [setModel]);
-
-  if (!data) {
-    return null;
-  }
-
-  let captains = roster.filter((m: model) => m.captain);
-  let mascots = roster.filter((m: model) => m.mascot && !m.captain);
-  let squaddies = roster.filter((m: model) => !m.captain && !m.mascot);
-
-  return (
-    <StyledBadge
-      badgeContent={ready ? <Check color="success" /> : 0}
-      style={{ overflow: "visible", ...style }}
-    >
-      <Card
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
-          border: "4px solid",
-          borderColor: guild.darkColor ?? guild.color,
-          borderRadius: "1em",
-          padding: "1ex",
-          width: "100%",
-          overflow: "visible",
-        }}
+    return (
+      <StyledBadge
+        badgeContent={ready ? <Check color="success" /> : 0}
+        style={{ overflow: "visible", ...style }}
       >
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <span>Captains :</span>
-          {captains.map((m: model) => (
-            <DraftListItem
-              key={m.id}
-              model={m}
-              onChange={(e) => onSwitch(m, !m.selected)}
-              disabled={disabled}
-            />
-          ))}
-          <span>Mascots :</span>
-          {mascots.map((m: model) => (
-            <DraftListItem
-              key={m.id}
-              model={m}
-              onChange={(e) => onSwitch(m, !m.selected)}
-              disabled={disabled}
-            />
-          ))}
-        </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <span>Squaddies :</span>
-          {squaddies.slice(0, squaddies.length / 2).map((m: model) => (
-            <DraftListItem
-              key={m.id}
-              model={m}
-              onChange={(e) => onSwitch(m, !m.selected)}
-              disabled={disabled}
-            />
-          ))}
-        </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <span>&nbsp;</span>
-          {squaddies.slice(squaddies.length / 2).map((m: model) => (
-            <DraftListItem
-              key={m.id}
-              model={m}
-              onChange={(e) => onSwitch(m, !m.selected)}
-              disabled={disabled}
-            />
-          ))}
-        </div>
-      </Card>
-    </StyledBadge>
-  );
-}));
+        <Card
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            border: "4px solid",
+            borderColor: guild.darkColor ?? guild.color,
+            borderRadius: "1em",
+            padding: "1ex",
+            width: "100%",
+            overflow: "visible",
+          }}
+        >
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span>Captains :</span>
+            {captains.map((m: model) => (
+              <DraftListItem
+                key={m.id}
+                model={m}
+                onChange={(e) => onSwitch(m, !m.selected)}
+                disabled={disabled}
+              />
+            ))}
+            <span>Mascots :</span>
+            {mascots.map((m: model) => (
+              <DraftListItem
+                key={m.id}
+                model={m}
+                onChange={(e) => onSwitch(m, !m.selected)}
+                disabled={disabled}
+              />
+            ))}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span>Squaddies :</span>
+            {squaddies.slice(0, squaddies.length / 2).map((m: model) => (
+              <DraftListItem
+                key={m.id}
+                model={m}
+                onChange={(e) => onSwitch(m, !m.selected)}
+                disabled={disabled}
+              />
+            ))}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span>&nbsp;</span>
+            {squaddies.slice(squaddies.length / 2).map((m: model) => (
+              <DraftListItem
+                key={m.id}
+                model={m}
+                onChange={(e) => onSwitch(m, !m.selected)}
+                disabled={disabled}
+              />
+            ))}
+          </div>
+        </Card>
+      </StyledBadge>
+    );
+  })
+);
 
 const BSDraftLimits = {
   3: {
@@ -352,176 +415,221 @@ const BSDraftLimits = {
   6: {
     master: 3,
     apprentice: 3,
-  }
+  },
 };
 
-export const BSDraftList = observer(React.forwardRef((props: DraftListProps, ref) => {
-  const {
-    guild,
-    ready: listReady,
-    unready,
-    onUpdate,
-    ignoreRules = false,
-    disabled = false,
-    style,
-  } = props;
-  const { data } = useData();
-  const Models = data?.Models;
+export const BSDraftList = observer(
+  React.forwardRef((props: DraftListProps, ref) => {
+    const {
+      guild,
+      ready: listReady,
+      unready,
+      onUpdate,
+      ignoreRules = false,
+      disabled = false,
+      style,
+    } = props;
+    const { gbdb: db } = useData();
+    const { settings } = useStore();
 
-  const { settings } = useStore();
+    let [masterCount, setMasterCount] = useState(0);
+    let [apprenticeCount, setApprenticeCount] = useState(0);
+    let [ready, setReady] = useState(false);
 
-  let [masterCount, setMasterCount] = useState(0);
-  let [apprenticeCount, setApprenticeCount] = useState(0);
-  let [ready, setReady] = useState(false);
+    let [roster, setRoster] = useState<roster>();
 
-  let [roster, setRoster] = useState(() => {
-    // need to make a deep copy of the roster data
-    let tmpRoster = cloneDeep(
-      // Models.filter((m) => guild.roster.includes(m.id)),
-      guild.roster.map((name: string) => Models?.find((m) => m.id === name)).filter(Boolean) as model[]
-    );
-    // and add UI state
-    tmpRoster.forEach((m: model) => {
-      Object.assign(m, { selected: false, disabled: m.benched ? 1 : 0 });
-    });
-    return tmpRoster;
-  });
+    useEffect(() => {
+      const fetchData = async () => {
+        if (!db) {
+          return;
+        }
+        let models = await db.models
+          .find()
+          .where("id")
+          .in(guild.roster)
+          .exec()
+          .then((models) => {
+            // need to make a deep copy of the roster data
+            let tmpRoster = models.map((m) => m.toMutableJSON()) as model[];
+            reSort(tmpRoster, "id", guild.roster);
+            // and add UI state
+            tmpRoster.forEach((m) => {
+              Object.assign(m, {
+                selected: false,
+                disabled: m.benched ? 1 : 0,
+              });
+            });
+            setRoster(tmpRoster);
+          });
+      };
+      fetchData();
+    }, [guild, db]);
 
-  function checkMasterCount(
-    roster: roster,
-    model: model,
-    count: number,
-    value: boolean
-  ) {
-    return checkCount(roster, model, count, value,
-      (m: model) => m.captain,
-      BSDraftLimits[settings.gameSize as (3 | 4 | 6)].master);
-  }
-
-  function checkApprenticeCount(
-    roster: roster,
-    model: model,
-    count: number,
-    value: boolean
-  ) {
-    return checkCount(roster, model, count, value,
-      (m: model) => !m.captain,
-      BSDraftLimits[settings.gameSize as (3 | 4 | 6)].apprentice);
-  }
-
-  const onSwitch = useCallback(
-    (model: model, value: boolean) => {
-      onUpdate?.(model, value);
-      model.selected = value;
-
-      let newMasterCount = checkMasterCount(roster, model, masterCount, value);
-      setMasterCount(newMasterCount);
-
-      let newApprenticeCount = checkApprenticeCount(
+    function checkMasterCount(
+      roster: roster,
+      model: model,
+      count: number,
+      value: boolean
+    ) {
+      return checkCount(
         roster,
         model,
-        apprenticeCount,
-        value
+        count,
+        value,
+        (m: model) => m.captain,
+        BSDraftLimits[settings.gameSize as 3 | 4 | 6].master
       );
-      setApprenticeCount(newApprenticeCount);
-
-      checkVeterans(roster, model, value);
-      checkBenched(roster, model, value);
-
-      if ((newMasterCount === BSDraftLimits[settings.gameSize as (3 | 4 | 6)].master &&
-        newApprenticeCount === BSDraftLimits[settings.gameSize as (3 | 4 | 6)].apprentice) || ignoreRules) {
-        setReady(true);
-      } else {
-        setReady(false);
-      }
-
-      setRoster(roster);
-    },
-    [roster, onUpdate, masterCount, apprenticeCount, ignoreRules]
-  );
-
-  useEffect(() => {
-    if (ready) {
-      const team = cloneDeep(roster.filter((m: model) => m.selected));
-      listReady?.(team);
-    } else {
-      unready?.();
     }
-  }, [ready, guild, roster, listReady, unready]);
 
-  const setModel = useCallback(
-    (id: string, value: boolean) => {
-      const model: model | undefined = roster.find((m: model) => m.id === id);
-      if (model) {
-        onSwitch(model, value);
-      } else {
-        console.log(`failed to find ${id}`);
+    function checkApprenticeCount(
+      roster: roster,
+      model: model,
+      count: number,
+      value: boolean
+    ) {
+      return checkCount(
+        roster,
+        model,
+        count,
+        value,
+        (m: model) => !m.captain,
+        BSDraftLimits[settings.gameSize as 3 | 4 | 6].apprentice
+      );
+    }
+
+    const onSwitch = useCallback(
+      (model: model, value: boolean) => {
+        if (!roster) {
+          return;
+        }
+        onUpdate?.(model, value);
+        model.selected = value;
+
+        let newMasterCount = checkMasterCount(
+          roster,
+          model,
+          masterCount,
+          value
+        );
+        setMasterCount(newMasterCount);
+
+        let newApprenticeCount = checkApprenticeCount(
+          roster,
+          model,
+          apprenticeCount,
+          value
+        );
+        setApprenticeCount(newApprenticeCount);
+
+        checkVeterans(roster, model, value);
+        checkBenched(roster, model, value);
+
+        if (
+          (newMasterCount ===
+            BSDraftLimits[settings.gameSize as 3 | 4 | 6].master &&
+            newApprenticeCount ===
+              BSDraftLimits[settings.gameSize as 3 | 4 | 6].apprentice) ||
+          ignoreRules
+        ) {
+          setReady(true);
+        } else {
+          setReady(false);
+        }
+
+        setRoster(roster);
+      },
+      [roster, onUpdate, masterCount, apprenticeCount, ignoreRules]
+    );
+
+    useEffect(() => {
+      if (!roster) {
+        return;
       }
-    },
-    // [ready, roster, onSwitch]
-    [roster, onSwitch]
-  );
+      if (ready) {
+        const team = cloneDeep(roster.filter((m: model) => m.selected));
+        listReady?.(team);
+      } else {
+        unready?.();
+      }
+    }, [ready, guild, roster, listReady, unready]);
 
-  useImperativeHandle(ref, () => ({ setModel }), [setModel]);
+    const setModel = useCallback(
+      (id: string, value: boolean) => {
+        if (!roster) {
+          return;
+        }
+        const model: model | undefined = roster.find((m: model) => m.id === id);
+        if (model) {
+          onSwitch(model, value);
+        } else {
+          console.log(`failed to find ${id}`);
+        }
+      },
+      // [ready, roster, onSwitch]
+      [roster, onSwitch]
+    );
 
-  if (!data) {
-    return null;
-  }
+    useImperativeHandle(ref, () => ({ setModel }), [setModel]);
 
-  let masters = roster.filter((m: model) => m.captain);
-  let apprentices = roster.filter((m: model) => !m.captain);
+    if (!roster) {
+      return null;
+    }
 
-  return (
-    <StyledBadge
-      badgeContent={ready ? <Check color="success" /> : 0}
-      style={{ overflow: "visible", ...style }}
-    >
-      <Card
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
-          border: "4px solid",
-          borderColor: guild.darkColor ?? guild.color,
-          borderRadius: "1em",
-          padding: "1ex",
-          width: "100%",
-          overflow: "visible",
-        }}
+    let masters = roster.filter((m: model) => m.captain);
+    let apprentices = roster.filter((m: model) => !m.captain);
+
+    return (
+      <StyledBadge
+        badgeContent={ready ? <Check color="success" /> : 0}
+        style={{ overflow: "visible", ...style }}
       >
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <span>Masters :</span>
-          {masters.map((m: model) => (
-            <DraftListItem
-              key={m.id}
-              model={m}
-              onChange={(e) => onSwitch(m, !m.selected)}
-              disabled={disabled}
-            />
-          ))}
-        </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <span>Apprentices :</span>
-          {apprentices.slice(0, apprentices.length / 2).map((m: model) => (
-            <DraftListItem
-              key={m.id}
-              model={m}
-              onChange={(e) => onSwitch(m, !m.selected)}
-              disabled={disabled}
-            />
-          ))}
-        </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <span>&nbsp;</span>
-          {apprentices.slice(apprentices.length / 2).map((m: model) => (
-            <DraftListItem
-              key={m.id}
-              model={m}
-              onChange={(e) => onSwitch(m, !m.selected)}
-              disabled={disabled}
-            />
-          ))}
-        </div>
-      </Card>
-    </StyledBadge>
-  );
-}));
+        <Card
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            border: "4px solid",
+            borderColor: guild.darkColor ?? guild.color,
+            borderRadius: "1em",
+            padding: "1ex",
+            width: "100%",
+            overflow: "visible",
+          }}
+        >
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span>Masters :</span>
+            {masters.map((m: model) => (
+              <DraftListItem
+                key={m.id}
+                model={m}
+                onChange={(e) => onSwitch(m, !m.selected)}
+                disabled={disabled}
+              />
+            ))}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span>Apprentices :</span>
+            {apprentices.slice(0, apprentices.length / 2).map((m: model) => (
+              <DraftListItem
+                key={m.id}
+                model={m}
+                onChange={(e) => onSwitch(m, !m.selected)}
+                disabled={disabled}
+              />
+            ))}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span>&nbsp;</span>
+            {apprentices.slice(apprentices.length / 2).map((m: model) => (
+              <DraftListItem
+                key={m.id}
+                model={m}
+                onChange={(e) => onSwitch(m, !m.selected)}
+                disabled={disabled}
+              />
+            ))}
+          </div>
+        </Card>
+      </StyledBadge>
+    );
+  })
+);

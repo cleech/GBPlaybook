@@ -5,6 +5,7 @@ import {
   useImperativeHandle,
   forwardRef,
   CSSProperties,
+  useEffect,
 } from "react";
 import {
   ButtonGroup,
@@ -40,9 +41,11 @@ import {
   ReferenceCard,
   ReferenceCardFront,
 } from "../components/Gameplan";
+import { GBGuild, GBModel } from "../models/gbdb";
+import { reSort } from "../components/reSort";
 
 export const CardPrintScreen = () => {
-  const { data, gameplans } = useData();
+  const { gbdb: db, gameplans } = useData();
   const ref = useRef<{
     models: Map<string, any>;
     guilds: Map<string, any>;
@@ -51,9 +54,33 @@ export const CardPrintScreen = () => {
   }>(null);
   const list = useRef<any>(null);
 
-  if (!data) {
+  const [Guilds, setGuilds] = useState<string[]>();
+  const [Models, setModels] = useState<string[]>();
+
+  useEffect(() => {
+    if (!db) {
+      return;
+    }
+    const fetchData = async () => {
+      const [g, m] = await db.guilds
+        .find()
+        .exec()
+        .then((gs) => {
+          return [
+            gs.map((_g) => _g.name),
+            [...new Set(gs.flatMap((_g) => _g.roster))],
+          ];
+        });
+      setGuilds(g);
+      setModels(m);
+    };
+    fetchData();
+  }, [db]);
+
+  if (!Guilds || !Models) {
     return null;
   }
+
   return (
     <Box
       component="main"
@@ -196,11 +223,11 @@ export const CardPrintScreen = () => {
       </Box>
 
       <Box className="Cards">
-        {data.Guilds.map((g: Guild) => (
-          <GuildCard name={g.name} key={g.name} />
+        {Guilds.map((g) => (
+          <GuildCard name={g} key={g} />
         ))}
-        {data.Models.map((m: Model) => (
-          <ModelCard name={m.id} id={m.id} key={m.id} />
+        {Models.map((m) => (
+          <ModelCard name={m} id={m} key={m} />
         ))}
         {gameplans?.map((gp: Gameplan, index) => (
           <GameplanPrintCard gameplan={gp} key={`gameplan-${index}`} />
@@ -218,18 +245,31 @@ const GuildList = forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => ({ guild }), [guild]);
 
-  const { data } = useData();
-  if (!data) {
-    return null;
-  }
+  const { gbdb: db } = useData();
+
+  const [Guilds, setGuilds] = useState<GBGuild[]>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!db) {
+        return;
+      }
+      const guilds = await db.guilds.find().exec();
+      setGuilds(guilds);
+    };
+    fetchData();
+  }, [db]);
 
   const SelectGuild = useCallback(
     (name: string) => {
+      if (!Guilds) {
+        return;
+      }
       document
         .querySelectorAll(".model-checkbox")
         .forEach((m) => m.classList.add("hide"));
 
-      const guild = data.Guilds.find((g) => g.name === name);
+      const guild = Guilds.find((g) => g.name === name);
       if (guild) {
         const { minor } = guild;
 
@@ -247,13 +287,19 @@ const GuildList = forwardRef((props, ref) => {
         .querySelectorAll(`.model-checkbox.${name}`)
         .forEach((m) => m.classList.remove("hide"));
     },
-    [data]
+    [Guilds]
+  );
+  const handleChange = useCallback(
+    (event: SelectChangeEvent<any>) => {
+      setGuild(event.target.value);
+      SelectGuild(event.target.value);
+    },
+    [SelectGuild]
   );
 
-  const handleChange = useCallback((event: SelectChangeEvent<any>) => {
-    setGuild(event.target.value);
-    SelectGuild(event.target.value);
-  }, []);
+  if (!Guilds) {
+    return;
+  }
 
   return (
     <FormControl size="small">
@@ -273,7 +319,7 @@ const GuildList = forwardRef((props, ref) => {
             style={{ "--color": "#333333" }}
           />
         </MenuItem>
-        {data.Guilds.map((g: any) => (
+        {Guilds.map((g: any) => (
           <MenuItem key={g.name} value={g.name} dense>
             <GuildListItem g={g} />
           </MenuItem>
@@ -394,8 +440,8 @@ const GuildCheckBox = forwardRef((props: { g: Guild }, ref) => {
   );
 });
 
-const ModelCheckBox = forwardRef((props: { m: Model }, ref) => {
-  const { data } = useData();
+const ModelCheckBox = forwardRef((props: { m: GBModel }, ref) => {
+  const { gbdb: db } = useData();
   const [checked, setChecked] = useState(false);
   useImperativeHandle(
     ref,
@@ -412,12 +458,25 @@ const ModelCheckBox = forwardRef((props: { m: Model }, ref) => {
     [props.m, checked, setChecked]
   );
 
-  if (!data) {
-    return null;
-  }
   const m = props.m;
-  const guild1 = data.Guilds.find((g: Guild) => g.name === m.guild1);
-  const guild2 = data.Guilds.find((g: Guild) => g.name === m.guild2);
+  const [guild1, setGuild1] = useState<GBGuild | null>(null);
+  const [guild2, setGuild2] = useState<GBGuild | null>(null);
+
+  useEffect(() => {
+    if (!db) {
+      return;
+    }
+    const fetchData = async () => {
+      const [guild1, guild2] = await Promise.all([
+        db.guilds.findOne().where({ name: m.guild1 }).exec(),
+        m.guild2 ? db.guilds.findOne().where({ name: m.guild2 }).exec() : null,
+      ]);
+      setGuild1(guild1);
+      setGuild2(guild2);
+    };
+    fetchData();
+  }, [db, m]);
+
   if (!guild1) {
     return null;
   }
@@ -547,7 +606,7 @@ const ModelLists = forwardRef<{
   models: Map<string, any>;
   guilds: Map<string, any>;
 }>((props, ref) => {
-  const { data, gameplans } = useData();
+  const { gbdb: db, gameplans } = useData();
   const checkboxes = useRef(new Map());
   const guilds = useRef(new Map());
   const gps = useRef(new Map());
@@ -562,9 +621,32 @@ const ModelLists = forwardRef<{
     }),
     [checkboxes, guilds, gps]
   );
-  if (!data || !gameplans) {
+
+  const [Guilds, setGuilds] = useState<GBGuild[]>();
+  const [Models, setModels] = useState<GBModel[]>();
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!db) {
+        return;
+      }
+      const [guilds, models]: [GBGuild[], GBModel[]] = await Promise.all([
+        db.guilds.find().exec(),
+        db.models.find().exec(),
+      ]).then(([_guilds, _models]) => {
+        const sort = _guilds.flatMap((g) => g.roster);
+        reSort(_models, "id", sort);
+        return [_guilds, _models];
+      });
+      setGuilds(guilds);
+      setModels(models);
+    };
+    fetchData();
+  }, [db]);
+
+  if (!gameplans || !Guilds || !Models) {
     return null;
   }
+
   return (
     <Box
       className="model-list-container"
@@ -595,14 +677,14 @@ const ModelLists = forwardRef<{
           ref={(element) => refcards.current.set(title, element)}
         />
       ))}
-      {data.Guilds.map((g: Guild) => (
+      {Guilds.map((g) => (
         <GuildCheckBox
           g={g}
           key={g.name}
           ref={(element) => guilds.current.set(g.name, element)}
         />
       ))}
-      {data.Models.map((m: Model) => (
+      {Models.map((m) => (
         <ModelCheckBox
           m={m}
           key={m.id}
@@ -615,7 +697,7 @@ const ModelLists = forwardRef<{
 
 const ModelCard = (props: { name: string; guild?: string; id: string }) => {
   const { name, id } = props;
-  const { data } = useData();
+  const { gbdb: db } = useData();
 
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList, observer) => {
@@ -627,10 +709,18 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
   };
   const [ref] = useMutationObserverRef(callback);
 
-  if (!data) {
-    return null;
-  }
-  const model = data.Models.find((m: any) => m.id === name);
+  const [model, setModel] = useState<GBModel | null>();
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!db) {
+        return;
+      }
+      const _model = await db.models.findOne().where({ id: name }).exec();
+      setModel(_model);
+    };
+    fetchData();
+  }, [db]);
+
   if (!model) {
     return null;
   }

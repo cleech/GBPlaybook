@@ -15,7 +15,6 @@ import gbdb, { GBDatabase } from "../models/gbdb";
 
 interface DataContextProps {
   manifest?: Manifest;
-  data?: DataFile;
   version: string;
   gameplans?: Gameplan[];
   gbdb?: GBDatabase;
@@ -23,7 +22,6 @@ interface DataContextProps {
 
 const DataContext = createContext<DataContextProps>({
   manifest: undefined,
-  data: undefined,
   version: "0",
   gameplans: undefined,
 });
@@ -82,7 +80,6 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
       ).version
     );
     readFile(filename).then((data) => {
-      console.log('setting data and db');
       bulkLoadDB(data).then(() => setDB(gbdb));
       setData(data);
     });
@@ -95,9 +92,7 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
   }, [filename, getData]);
 
   return (
-    <DataContext.Provider
-      value={{ data, version, manifest, gameplans, gbdb: db }}
-    >
+    <DataContext.Provider value={{ version, manifest, gameplans, gbdb: db }}>
       {children}
     </DataContext.Provider>
   );
