@@ -11,11 +11,11 @@ import Color from "color";
 
 import { Guild } from "./DataContext.d";
 import { IGBPlayer, JGBPlayer, useStore } from "../models/Root";
-import { GBCharacterPlay, GBGuild, GBModel } from "../models/gbdb";
+import { GBCharacterPlay, GBGuild, GBModel, GBModelData } from "../models/gbdb";
 type model = JGBPlayer | IGBPlayer;
 
 interface CardFrontProps {
-  model: model;
+  model: GBModelData;
   style: GBCardCSS;
   className?: string;
   noBackground?: boolean;
@@ -107,7 +107,7 @@ const CardFront = (props: CardFrontProps) => {
         </div>
         <Playbook model={model} gbcp={gbcp} />
         <div className="character-plays-wrapper">
-          <CharacterPlays model={model as GBModel} gbcp={gbcp} />
+          <CharacterPlays model={model} gbcp={gbcp} />
         </div>
         <HealthBoxes model={model} />
       </div>
@@ -115,7 +115,7 @@ const CardFront = (props: CardFrontProps) => {
   );
 };
 
-const NamePlate = ({ model, guild }: { model: model; guild: Guild }) => (
+const NamePlate = ({ model, guild }: { model: GBModelData; guild: Guild }) => (
   <div className="name-plate">
     <div className="guild-icon">
       <GBIcon id="guild-icon" icon={guild.name} />
@@ -134,15 +134,15 @@ const NamePlate = ({ model, guild }: { model: model; guild: Guild }) => (
   </div>
 );
 
-const HealthBoxes = ({ model }: { model: model }) => (
+const HealthBoxes = ({ model }: { model: GBModelData }) => (
   <Observer>
     {() => (
       <div className="health">
         {[...Array(model.hp).keys()].map((key) => (
           <div
-            className={`health-box ${
-              key + 1 > (model.health ?? model.hp) ? "damaged" : ""
-            }`}
+            className={`health-box `}
+            // ${key + 1 > (model.health ?? model.hp) ? "damaged" : ""}
+            // `}
             key={key}
           >
             {(key === 0 && <GBIcon icon="skull" size={17} />) ||
@@ -161,7 +161,7 @@ const Playbook = ({
   model,
   gbcp = false,
 }: {
-  model: model;
+  model: GBModelData;
   gbcp?: boolean;
 }) => (
   <div className="playbook">
@@ -201,7 +201,7 @@ const Playbook = ({
   </div>
 );
 
-const StatBox = ({ model }: { model: model }) => (
+const StatBox = ({ model }: { model: GBModelData }) => (
   <div className="statbox">
     <span>MOV</span>
     <span>TAC</span>
@@ -237,34 +237,30 @@ const CharacterPlays = ({
   model,
   gbcp = false,
 }: {
-  model: GBModel;
+  model: GBModelData;
   gbcp?: boolean;
 }) => {
   const { gbdb: db } = useData();
 
-  const [CPlays, setCPlays] = useState<GBCharacterPlay[]>([]);
+  // const [CPlays, setCPlays] = useState<GBCharacterPlay[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!db) {
-        return;
-      }
-      if (!model.character_plays) {
-        return;
-      }
-      const CPs = await db.character_plays
-        .find()
-        .where("name")
-        .in(model.character_plays)
-        .exec();
-      setCPlays(CPs);
-    };
-    fetchData().catch(console.error);
-  }, [db, model]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (!db) {
+  //       return;
+  //     }
+  //     if (!model.character_plays) {
+  //       return;
+  //     }
+  //     let CPs = await model.populate("character_plays");
+  //     setCPlays(CPs);
+  //   };
+  //   fetchData().catch(console.error);
+  // }, [db, model]);
 
-  if (!CPlays) {
-    return null;
-  }
+  // if (!CPlays) {
+  //   return null;
+  // }
 
   return (
     <div className="character-plays">
@@ -276,13 +272,13 @@ const CharacterPlays = ({
       <span>RNG</span>
       <span>SUS</span>
       <span>OPT</span>
-      {model.character_plays?.map((key) => {
-        const cp = CPlays.find((cp) => cp.name === key);
+      {model.character_plays.map((cp) => {
+        // const cp = CPlays.find((cp) => cp.name === key);
         if (!cp) {
           return null;
         }
         return (
-          <React.Fragment key={key}>
+          <React.Fragment key={cp.name}>
             <CPName text={cp.name} />
             <span>
               {String(cp.CST)
@@ -307,7 +303,7 @@ const CharacterPlays = ({
             <span>
               <BooleanIcon test={cp.OPT} />
             </span>
-            <div className={`text ${key}`}>{textIconReplace(cp.text)}</div>
+            <div className={`text ${cp.name}`}>{textIconReplace(cp.text)}</div>
           </React.Fragment>
         );
       })}

@@ -54,6 +54,7 @@ import {
   GBGuildType,
   GBModel,
   GBModelCollection,
+  GBModelData,
 } from "../models/gbdb";
 import { reSort } from "../components/reSort";
 
@@ -182,7 +183,7 @@ export function Roster() {
   const { gbdb: db } = useData();
 
   const [g, setGuild] = useState<GBGuild | null>(null);
-  const [roster, setRoster] = useState<GBModel[]>();
+  const [roster, setRoster] = useState<GBModelData[]>();
 
   useEffect(() => {
     const savedPosition = searchParams.get("m");
@@ -200,18 +201,17 @@ export function Roster() {
       return;
     }
     const fetchData = async () => {
-      const [g, roster]: [GBGuild | null, GBModel[]] = await Promise.all([
+      const [g, _roster] = await Promise.all([
         db.guilds.findOne().where({ name: guild }).exec(),
         db.models
           .find()
           .or([{ guild1: guild }, { guild2: guild }])
           .exec(),
-      ]).then(([g, roster]) => {
-        if (g) {
-          reSort(roster, "id", g.roster);
-        }
-        return [g, roster];
-      });
+      ]);
+      if (g) {
+        reSort(_roster, "id", g.roster);
+      }
+      let roster = await Promise.all(_roster.map((m) => m.resolve()));
       if (isLive) {
         setGuild(g);
         setRoster(roster);
@@ -315,9 +315,9 @@ export function Roster() {
                   }}
                 >
                   {large ? (
-                    <DoubleCard model={model as any} controls={undefined} />
+                    <DoubleCard model={model} controls={undefined} />
                   ) : (
-                    <FlipCard model={model as any} controls={undefined} />
+                    <FlipCard model={model} controls={undefined} />
                   )}
                 </div>
               </SwiperSlide>

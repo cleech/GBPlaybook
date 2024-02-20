@@ -7,8 +7,8 @@ import {
   addRxPlugin,
 } from "rxdb";
 import { getRxStorageDexie } from "rxdb/plugins/storage-dexie";
-import { getRxStorageMemory } from "rxdb/plugins/storage-memory";
-import { RxDBJsonDumpPlugin } from "rxdb/plugins/json-dump";
+// import { getRxStorageMemory } from "rxdb/plugins/storage-memory";
+// import { RxDBJsonDumpPlugin } from "rxdb/plugins/json-dump";
 import { RxDBDevModePlugin } from "rxdb/plugins/dev-mode";
 import { RxDBQueryBuilderPlugin } from "rxdb/plugins/query-builder";
 import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
@@ -16,7 +16,7 @@ import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
 if (import.meta.env.MODE === "development") {
   addRxPlugin(RxDBDevModePlugin);
 }
-addRxPlugin(RxDBJsonDumpPlugin);
+// addRxPlugin(RxDBJsonDumpPlugin);
 addRxPlugin(RxDBQueryBuilderPlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
 
@@ -61,8 +61,41 @@ export type GBModelType = {
   gbcp?: boolean;
 };
 
+export type GBModelData = Omit<
+  GBModelType,
+  "character_plays" | "character_traits"
+> & {
+  character_plays: GBCharacterPlayType[];
+  character_traits: GBCharacterTraitType[];
+};
+
 type GBModelMethods = {
   statLine: () => string;
+  resolve: () => Promise<GBModelData>;
+};
+
+const gbModelDocMethods: GBModelMethods = {
+  statLine: function (this: GBModel): string {
+    return `${this.jog}"/${this.sprint}" | ${this.tac} | ${this.kickdice}/${
+      this.kickdist
+    }" | ${this.def}+ | ${this.arm} | ${this.inf}/${this.infmax} | ${
+      this.reach ? 2 : 1
+    }"`;
+  },
+  resolve: async function (this: GBModel): Promise<GBModelData> {
+    let model = this.toMutableJSON();
+    let [character_plays, character_traits]: [
+      GBCharacterPlay[],
+      GBCharacterTrait[]
+    ] = await Promise.all([
+      this.populate("character_plays"),
+      this.populate("character_traits"),
+    ]);
+    return Object.assign(model, {
+      character_plays: character_plays.map((cp) => cp.toMutableJSON()),
+      character_traits: character_traits.map((ct) => ct.toMutableJSON()),
+    });
+  },
 };
 
 export type GBModel = RxDocument<GBModelType, GBModelMethods>;
@@ -112,10 +145,12 @@ const gbModelSchema: RxJsonSchema<GBModelType> = {
 
     character_plays: {
       type: "array",
+      ref: "character_plays",
       items: { type: "string" },
     },
     character_traits: {
       type: "array",
+      ref: "character_traits",
       items: { type: "string" },
     },
     heroic: { type: "string" },
@@ -248,7 +283,10 @@ const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>({
 
 await gbdb.addCollections({
   guilds: { schema: gbGuildSchema },
-  models: { schema: gbModelSchema },
+  models: {
+    schema: gbModelSchema,
+    methods: gbModelDocMethods,
+  },
   character_plays: { schema: gbCharacterPlaySchema },
   character_traits: { schema: gbCharacterTraitSchema },
 });

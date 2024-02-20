@@ -10,11 +10,11 @@ import Color from "color";
 
 import { GBCardCSS } from "./CardFront";
 import { IGBPlayer, JGBPlayer, useStore } from "../models/Root";
-import { GBCharacterTrait, GBGuild } from "../models/gbdb";
+import { GBCharacterTrait, GBGuild, GBModel, GBModelData } from "../models/gbdb";
 type model = IGBPlayer | JGBPlayer;
 
 interface CardBackProps {
-  model: model;
+  model: GBModelData;
   style: GBCardCSS;
   guild?: string;
   className?: string;
@@ -131,32 +131,28 @@ function CTName({ text }: { text: string }) {
   );
 }
 
-const CharacterTraits = ({ model }: { model: model }) => {
+const CharacterTraits = ({ model }: { model: GBModelData }) => {
   const { gbdb: db } = useData();
 
-  const [Traits, setTraits] = useState<GBCharacterTrait[]>([]);
+  // const [Traits, setTraits] = useState<GBCharacterTrait[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!db) {
-        return;
-      }
-      if (!model.character_traits) {
-        return;
-      }
-      const Traits = await db.character_traits
-        .find()
-        .where("name")
-        .in(model.character_traits.map((t) => t.replace(/ \[.*\]/, "")))
-        .exec();
-      setTraits(Traits);
-    };
-    fetchData().catch(console.error);
-  }, [db, model]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (!db) {
+  //       return;
+  //     }
+  //     if (!model.character_traits) {
+  //       return;
+  //     }
+  //     const Traits = await model.populate("character_traits");
+  //     setTraits(Traits);
+  //   };
+  //   fetchData().catch(console.error);
+  // }, [db, model]);
 
-  if (!Traits) {
-    return null;
-  }
+  // if (!Traits) {
+  //   return null;
+  // }
 
   return (
     <div>
@@ -164,15 +160,15 @@ const CharacterTraits = ({ model }: { model: model }) => {
         <span>Character </span>
         <span>Traits</span>
       </div>
-      {model.character_traits?.map((key, index) => {
-        const ct = Traits.find((ct) => ct.name === key.replace(/ \[.*\]/, ""));
+      {model.character_traits.map((ct, index) => {
+        // const ct = Traits.find((ct) => ct.name === key.replace(/ \[.*\]/, ""));
         if (!ct) {
           return null;
         }
         return (
-          <div className="character-trait" key={`${key}-${index}`}>
+          <div className="character-trait" key={`${ct.name}-${index}`}>
             <div className={`trait ${ct.active && "active"}`}>
-              <CTName text={key} />
+              <CTName text={ct.name} />
             </div>
             <span className="text">{textIconReplace(ct.text)}</span>
           </div>
@@ -182,7 +178,7 @@ const CharacterTraits = ({ model }: { model: model }) => {
   );
 };
 
-const Heroic = ({ model }: { model: model }) => {
+const Heroic = ({ model }: { model: GBModelData }) => {
   if (!model.heroic) {
     return null;
   }
@@ -202,7 +198,7 @@ const Heroic = ({ model }: { model: model }) => {
   );
 };
 
-const Legendary = ({ model }: { model: model }) => {
+const Legendary = ({ model }: { model: GBModelData }) => {
   if (!model.legendary) {
     return null;
   }

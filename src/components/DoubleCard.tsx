@@ -1,16 +1,17 @@
 import React, { useState, useRef, useLayoutEffect, useCallback } from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
-import { model } from "./FlipCard";
+// import { model } from "./FlipCard";
 import GBImages from "./GBImages";
 import { useStore } from "../models/Root";
+import { GBModelData } from "../models/gbdb";
 
 export function DoubleCard({
   model,
   controls,
   controlProps,
 }: {
-  model: model;
+  model: GBModelData;
   controls: any;
   controlProps?: any;
 }): JSX.Element {
