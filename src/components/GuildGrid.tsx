@@ -9,7 +9,7 @@ import { Button, Typography, Divider } from "@mui/material";
 import { useData } from "../components/DataContext";
 import GBIcon from "../components/GBIcon";
 import { Guild } from "./DataContext.d";
-import { GBGuild, GBGuildCollection } from "../models/gbdb";
+import { GBGuildDoc, GBGuildCollection } from "../models/gbdb";
 import { useRxQuery } from "./useRxQuery";
 
 function maxBy(data: Array<any>, by: (v: any) => number) {
@@ -157,7 +157,7 @@ function GuildGridInner({ dimensions, pickTeam, size, extraIcons }: any) {
   //   await db.guilds.find().where("name").eq("Brewers").remove();
   // });
 
-  const list: GridIcon[] = (guilds as GBGuild[]).map((g: GBGuild) => ({
+  const list: GridIcon[] = (guilds as GBGuildDoc[]).map((g: GBGuildDoc) => ({
     key: g.name,
     name: g.name,
     icon: g.name,

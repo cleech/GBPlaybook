@@ -3,7 +3,7 @@ import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 import "./FlipCard.css";
 
-import { GBModelData } from "../models/gbdb";
+import { GBModelFull } from "../models/gbdb";
 // import { IGBPlayer, JGBPlayer } from "../models/Root";
 // export type model = IGBPlayer | JGBPlayer;
 
@@ -12,7 +12,7 @@ export function FlipCard({
   controls,
   controlProps,
 }: {
-  model: GBModelData;
+  model: GBModelFull;
   controls: any;
   controlProps?: any;
 }): JSX.Element {

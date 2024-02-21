@@ -256,11 +256,12 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
                 () => <FlipGuildCard guild={t.name} />,
                 // Model Cards
                 t.roster.map((m) => () => (
-                  <FlipCard
-                    model={m}
-                    controls={CardControls}
-                    controlProps={{ disabled: t.disabled }}
-                  />
+                  // <FlipCard
+                  //   model={m}
+                  //   controls={CardControls}
+                  //   controlProps={{ disabled: t.disabled }}
+                  // />
+                  <></>
                 )),
               ])
               .flat(2)

@@ -7,8 +7,7 @@ import {
   addRxPlugin,
 } from "rxdb";
 import { getRxStorageDexie } from "rxdb/plugins/storage-dexie";
-// import { getRxStorageMemory } from "rxdb/plugins/storage-memory";
-// import { RxDBJsonDumpPlugin } from "rxdb/plugins/json-dump";
+import { getRxStorageMemory } from "rxdb/plugins/storage-memory";
 import { RxDBDevModePlugin } from "rxdb/plugins/dev-mode";
 import { RxDBQueryBuilderPlugin } from "rxdb/plugins/query-builder";
 import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
@@ -16,20 +15,19 @@ import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
 if (import.meta.env.MODE === "development") {
   addRxPlugin(RxDBDevModePlugin);
 }
-// addRxPlugin(RxDBJsonDumpPlugin);
 addRxPlugin(RxDBQueryBuilderPlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
 
 type _Tuple<T, N extends Number> = [T, ...T[]] & { length: N };
-type GBPlaybook = _Tuple<_Tuple<string | null, 7>, 2>;
+type Playbook = _Tuple<_Tuple<string | null, 7>, 2>;
 
-export type GBModelType = {
+export interface GBModel {
   id: string;
   name: string;
-  captain?: boolean;
-  mascot?: boolean;
-  veteran?: boolean;
-  seasoned?: boolean;
+  captain: boolean;
+  mascot: boolean;
+  veteran: boolean;
+  seasoned: boolean;
   hp: number;
   recovery: number;
   jog: number;
@@ -41,14 +39,14 @@ export type GBModelType = {
   arm: number;
   inf: number;
   infmax: number;
-  reach?: boolean;
+  reach: boolean;
 
   // used in draft screen, here for completeness
   benched?: string;
   dehcneb?: string;
 
   playbook: (string | null)[][];
-  // playbook: GBPlaybook;
+  // playbook: Playbook;
   character_plays: string[];
   character_traits: string[];
   heroic?: string;
@@ -58,35 +56,37 @@ export type GBModelType = {
 
   guild1: string;
   guild2?: string;
-  gbcp?: boolean;
-};
+  gbcp: boolean;
+}
 
-export type GBModelData = Omit<
-  GBModelType,
-  "character_plays" | "character_traits"
-> & {
-  character_plays: GBCharacterPlayType[];
-  character_traits: GBCharacterTraitType[];
-};
+export interface GBModelFull
+  extends Omit<GBModel, "character_plays" | "character_traits"> {
+  character_plays: GBCharacterPlay[];
+  character_traits: GBCharacterTrait[];
+}
+
+export interface GBModelLive extends GBModelFull {
+  health: number;
+}
 
 type GBModelMethods = {
   statLine: () => string;
-  resolve: () => Promise<GBModelData>;
+  resolve: () => Promise<GBModelFull>;
 };
 
 const gbModelDocMethods: GBModelMethods = {
-  statLine: function (this: GBModel): string {
+  statLine: function (this: GBModelDoc): string {
     return `${this.jog}"/${this.sprint}" | ${this.tac} | ${this.kickdice}/${
       this.kickdist
     }" | ${this.def}+ | ${this.arm} | ${this.inf}/${this.infmax} | ${
       this.reach ? 2 : 1
     }"`;
   },
-  resolve: async function (this: GBModel): Promise<GBModelData> {
+  resolve: async function (this: GBModelDoc): Promise<GBModelFull> {
     let model = this.toMutableJSON();
     let [character_plays, character_traits]: [
-      GBCharacterPlay[],
-      GBCharacterTrait[]
+      GBCharacterPlayDoc[],
+      GBCharacterTraitDoc[]
     ] = await Promise.all([
       this.populate("character_plays"),
       this.populate("character_traits"),
@@ -98,10 +98,10 @@ const gbModelDocMethods: GBModelMethods = {
   },
 };
 
-export type GBModel = RxDocument<GBModelType, GBModelMethods>;
-export type GBModelCollection = RxCollection<GBModelType, GBModelMethods>;
+export type GBModelDoc = RxDocument<GBModel, GBModelMethods>;
+export type GBModelCollection = RxCollection<GBModel, GBModelMethods>;
 
-const gbModelSchema: RxJsonSchema<GBModelType> = {
+const gbModelSchema: RxJsonSchema<GBModel> = {
   title: "Guild Ball model",
   version: 0,
   primaryKey: "id",
@@ -178,8 +178,6 @@ const gbModelSchema: RxJsonSchema<GBModelType> = {
     "inf",
     "infmax",
     "playbook",
-    "character_plays",
-    "character_traits",
     "types",
     "base",
     "guild1",
@@ -187,19 +185,19 @@ const gbModelSchema: RxJsonSchema<GBModelType> = {
   indexes: ["guild1", "guild2"],
 };
 
-export type GBGuildType = {
+export interface GBGuild {
   name: string;
   minor: boolean;
   color: string;
   shadow?: string;
   darkColor?: string;
   roster: string[];
-};
+}
 
-export type GBGuild = RxDocument<GBGuildType>;
-export type GBGuildCollection = RxCollection<GBGuildType>;
+export type GBGuildDoc = RxDocument<GBGuild>;
+export type GBGuildCollection = RxCollection<GBGuild>;
 
-const gbGuildSchema: RxJsonSchema<GBGuildType> = {
+const gbGuildSchema: RxJsonSchema<GBGuild> = {
   title: "Guild Ball guild",
   version: 0,
   primaryKey: "name",
@@ -215,19 +213,19 @@ const gbGuildSchema: RxJsonSchema<GBGuildType> = {
   required: ["color", "roster"],
 };
 
-type GBCharacterPlayType = {
+interface GBCharacterPlay {
   name: string;
   text: string;
   CST: string;
   RNG: string;
   SUS: boolean;
   OPT: boolean;
-};
+}
 
-export type GBCharacterPlay = RxDocument<GBCharacterPlayType>;
-export type GBCharacterPlayCollection = RxCollection<GBCharacterPlayType>;
+export type GBCharacterPlayDoc = RxDocument<GBCharacterPlay>;
+export type GBCharacterPlayCollection = RxCollection<GBCharacterPlay>;
 
-const gbCharacterPlaySchema: RxJsonSchema<GBCharacterPlayType> = {
+const gbCharacterPlaySchema: RxJsonSchema<GBCharacterPlay> = {
   title: "Guild Ball character play",
   version: 0,
   primaryKey: "name",
@@ -243,16 +241,16 @@ const gbCharacterPlaySchema: RxJsonSchema<GBCharacterPlayType> = {
   required: ["text", "CST", "RNG"],
 };
 
-type GBCharacterTraitType = {
+interface GBCharacterTrait {
   name: string;
   active?: boolean;
   text: string;
-};
+}
 
-export type GBCharacterTrait = RxDocument<GBCharacterTraitType>;
-export type GBCharacterTraitCollection = RxCollection<GBCharacterTraitType>;
+export type GBCharacterTraitDoc = RxDocument<GBCharacterTrait>;
+export type GBCharacterTraitCollection = RxCollection<GBCharacterTrait>;
 
-const gbCharacterTraitSchema: RxJsonSchema<GBCharacterTraitType> = {
+const gbCharacterTraitSchema: RxJsonSchema<GBCharacterTrait> = {
   title: "Guild Ball character trait",
   version: 0,
   primaryKey: "name",
@@ -265,20 +263,20 @@ const gbCharacterTraitSchema: RxJsonSchema<GBCharacterTraitType> = {
   required: ["text"],
 };
 
-type GBDataCollections = {
+interface GBDataCollections {
   guilds: GBGuildCollection;
   models: GBModelCollection;
   character_plays: GBCharacterPlayCollection;
   character_traits: GBCharacterTraitCollection;
-};
+}
 
 export type GBDatabase = RxDatabase<GBDataCollections>;
 
 const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>({
   name: "gbcp_4_5",
   localDocuments: true,
-  storage: getRxStorageDexie(),
-  // storage: getRxStorageMemory(),
+  // storage: getRxStorageDexie(),
+  storage: getRxStorageMemory(),
 });
 
 await gbdb.addCollections({
@@ -292,17 +290,18 @@ await gbdb.addCollections({
 });
 
 // data quirks
-gbdb.models.postCreate((_, model) => {
-  // don't let Soma/Pneuma double add influence to the pool
-  Object.defineProperty(model, "inf_", {
-    get: () => {
-      if (model.name === "Pneuma") {
-        return 0;
-      } else {
-        return model.inf;
-      }
-    },
-  });
-});
+
+// gbdb.models.postCreate((_, model) => {
+//   // don't let Soma/Pneuma double add influence to the pool
+//   Object.defineProperty(model, "inf_", {
+//     get: () => {
+//       if (model.name === "Pneuma") {
+//         return 0;
+//       } else {
+//         return model.inf;
+//       }
+//     },
+//   });
+// });
 
 export default gbdb;

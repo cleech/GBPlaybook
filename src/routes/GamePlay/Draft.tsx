@@ -29,7 +29,7 @@ import { AppBarContent } from "../../App";
 import { useRTC } from "../../services/webrtc";
 import VersionTag from "../../components/VersionTag";
 import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
-import { GBGuild, GBModel, GBModelType } from "../../models/gbdb";
+import { GBGuildDoc, GBModelDoc, GBModel } from "../../models/gbdb";
 import { retry } from "rxjs";
 
 const ResumeSnackBar = () => {
@@ -62,10 +62,10 @@ export default function Draft() {
   const navigate = useNavigate();
   const { dc } = useRTC();
 
-  const [team1, setTeam1] = useState<GBModelType[] | undefined>(undefined);
-  const [team2, setTeam2] = useState<GBModelType[] | undefined>(undefined);
-  const ready1 = useCallback((team: GBModelType[]) => setTeam1(team), []);
-  const ready2 = useCallback((team: GBModelType[]) => setTeam2(team), []);
+  const [team1, setTeam1] = useState<GBModel[] | undefined>(undefined);
+  const [team2, setTeam2] = useState<GBModel[] | undefined>(undefined);
+  const ready1 = useCallback((team: GBModel[]) => setTeam1(team), []);
+  const ready2 = useCallback((team: GBModel[]) => setTeam2(team), []);
   const unready1 = useCallback(() => setTeam1(undefined), []);
   const unready2 = useCallback(() => setTeam2(undefined), []);
 
@@ -123,8 +123,8 @@ export default function Draft() {
 
   const { gbdb: db } = useData();
 
-  const [guild1, setGuild1] = useState<GBGuild | null>(null);
-  const [guild2, setGuild2] = useState<GBGuild | null>(null);
+  const [guild1, setGuild1] = useState<GBGuildDoc | null>(null);
+  const [guild2, setGuild2] = useState<GBGuildDoc | null>(null);
 
   useEffect(() => {
     if (!db || !g1 || !g2) {

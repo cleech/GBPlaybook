@@ -15,7 +15,7 @@ import { CheckCircleTwoTone as Check } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useUpdateAnimation } from "./useUpdateAnimation";
 import { observer } from "mobx-react-lite";
-import { GBGuild, GBModel, GBModelType } from "../models/gbdb";
+import { GBGuildDoc, GBModelDoc, GBModel } from "../models/gbdb";
 import { reSort } from "./reSort";
 
 // import { Guild } from './DataContext.d';
@@ -23,6 +23,8 @@ import { reSort } from "./reSort";
 export interface model extends IGBPlayer {
   selected: boolean;
   disabled: number;
+  // health: number;
+  // _inf?: number;
 }
 export type roster = model[];
 type condition = (m: model) => boolean;
@@ -115,9 +117,9 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 interface DraftListProps {
   // guild: any;
-  guild: GBGuild;
+  guild: GBGuildDoc;
   disabled?: boolean;
-  ready: (team: GBModelType[]) => void;
+  ready: (team: GBModel[]) => void;
   unready: () => void;
   onUpdate?: (m: model, selected: boolean) => void;
   ignoreRules?: boolean;
@@ -227,7 +229,7 @@ export const DraftList = observer(
         model,
         count,
         value,
-        (m: model) => m.captain,
+        (m: model) => !!m.captain,
         DraftLimits[settings.gameSize as 3 | 4 | 6].captain
       );
     }
@@ -243,7 +245,7 @@ export const DraftList = observer(
         model,
         count,
         value,
-        (m: model) => m.mascot,
+        (m: model) => !!m.mascot,
         DraftLimits[settings.gameSize as 3 | 4 | 6].mascot
       );
     }
@@ -473,7 +475,7 @@ export const BSDraftList = observer(
         model,
         count,
         value,
-        (m: model) => m.captain,
+        (m: model) => !!m.captain,
         BSDraftLimits[settings.gameSize as 3 | 4 | 6].master
       );
     }

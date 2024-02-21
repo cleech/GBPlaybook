@@ -25,7 +25,7 @@ import { AppBarContent } from "../../App";
 import { useRTC } from "../../services/webrtc";
 import VersionTag from "../../components/VersionTag";
 import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
-import { GBGuild } from "../../models/gbdb";
+import { GBGuildDoc } from "../../models/gbdb";
 
 function SelectedIcon({
   team,
@@ -37,7 +37,7 @@ function SelectedIcon({
   focused: boolean;
 }) {
   const { gbdb: db } = useData();
-  const [guild, setGuild] = useState<GBGuild | null>(null);
+  const [guild, setGuild] = useState<GBGuildDoc | null>(null);
 
   useEffect(() => {
     if (!db) {

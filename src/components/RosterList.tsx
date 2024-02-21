@@ -23,6 +23,7 @@ import GBIcon from "./GBIcon";
 import { useRTC } from "../services/webrtc";
 import { useUpdateAnimation } from "./useUpdateAnimation";
 import { useStore } from "../models/Root";
+import { GBModelDoc } from "../models/gbdb";
 
 type model = IGBPlayer;
 type team = IGBTeam;

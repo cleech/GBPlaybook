@@ -41,7 +41,7 @@ import {
   ReferenceCard,
   ReferenceCardFront,
 } from "../components/Gameplan";
-import { GBGuild, GBModel } from "../models/gbdb";
+import { GBGuildDoc, GBModelDoc } from "../models/gbdb";
 import { reSort } from "../components/reSort";
 
 export const CardPrintScreen = () => {
@@ -63,7 +63,7 @@ export const CardPrintScreen = () => {
     }
     const fetchData = async () => {
       /* This is crazy, but gets all the models in a very particular order */
-      const [g, m]: [GBGuild[], GBModel[]] = await Promise.all([
+      const [g, m]: [GBGuildDoc[], GBModelDoc[]] = await Promise.all([
         db.guilds.find().where({ minor: false }).exec(),
         db.guilds.find().where({ minor: true }).exec(),
       ])
@@ -273,7 +273,7 @@ const GuildList = forwardRef((props, ref) => {
 
   const { gbdb: db } = useData();
 
-  const [Guilds, setGuilds] = useState<GBGuild[]>();
+  const [Guilds, setGuilds] = useState<GBGuildDoc[]>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -466,7 +466,7 @@ const GuildCheckBox = forwardRef((props: { g: Guild }, ref) => {
   );
 });
 
-const ModelCheckBox = forwardRef((props: { m: GBModel }, ref) => {
+const ModelCheckBox = forwardRef((props: { m: GBModelDoc }, ref) => {
   const { gbdb: db } = useData();
   const [checked, setChecked] = useState(false);
   useImperativeHandle(
@@ -485,8 +485,8 @@ const ModelCheckBox = forwardRef((props: { m: GBModel }, ref) => {
   );
 
   const m = props.m;
-  const [guild1, setGuild1] = useState<GBGuild | null>(null);
-  const [guild2, setGuild2] = useState<GBGuild | null>(null);
+  const [guild1, setGuild1] = useState<GBGuildDoc | null>(null);
+  const [guild2, setGuild2] = useState<GBGuildDoc | null>(null);
 
   useEffect(() => {
     if (!db) {
@@ -648,8 +648,8 @@ const ModelLists = forwardRef<{
     [checkboxes, guilds, gps]
   );
 
-  const [Guilds, setGuilds] = useState<GBGuild[]>();
-  const [Models, setModels] = useState<GBModel[]>();
+  const [Guilds, setGuilds] = useState<GBGuildDoc[]>();
+  const [Models, setModels] = useState<GBModelDoc[]>();
   useEffect(() => {
     const fetchData = async () => {
       if (!db) {
@@ -657,7 +657,7 @@ const ModelLists = forwardRef<{
       }
 
       /* This is crazy, but gets all the models in a very particular order */
-      const [guilds, models]: [GBGuild[], GBModel[]] = await Promise.all([
+      const [guilds, models]: [GBGuildDoc[], GBModelDoc[]] = await Promise.all([
         db.guilds.find().where({ minor: false }).exec(),
         db.guilds.find().where({ minor: true }).exec(),
       ])
@@ -763,7 +763,7 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
   };
   const [ref] = useMutationObserverRef(callback);
 
-  const [model, setModel] = useState<GBModel | null>();
+  const [model, setModel] = useState<GBModelDoc | null>();
   useEffect(() => {
     const fetchData = async () => {
       if (!db) {

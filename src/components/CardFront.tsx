@@ -11,11 +11,11 @@ import Color from "color";
 
 import { Guild } from "./DataContext.d";
 import { IGBPlayer, JGBPlayer, useStore } from "../models/Root";
-import { GBCharacterPlay, GBGuild, GBModel, GBModelData } from "../models/gbdb";
+import { GBCharacterPlayDoc, GBGuildDoc, GBModelDoc, GBModelFull } from "../models/gbdb";
 type model = JGBPlayer | IGBPlayer;
 
 interface CardFrontProps {
-  model: GBModelData;
+  model: GBModelFull;
   style: GBCardCSS;
   className?: string;
   noBackground?: boolean;
@@ -38,8 +38,8 @@ const CardFront = (props: CardFrontProps) => {
   const { settings } = useStore();
   const { gbdb: db } = useData();
 
-  const [guild1, setGuild1] = useState<GBGuild | null>(null);
-  const [guild2, setGuild2] = useState<GBGuild | null>(null);
+  const [guild1, setGuild1] = useState<GBGuildDoc | null>(null);
+  const [guild2, setGuild2] = useState<GBGuildDoc | null>(null);
 
   useEffect(() => {
     let isLive = true;
@@ -115,7 +115,7 @@ const CardFront = (props: CardFrontProps) => {
   );
 };
 
-const NamePlate = ({ model, guild }: { model: GBModelData; guild: Guild }) => (
+const NamePlate = ({ model, guild }: { model: GBModelFull; guild: Guild }) => (
   <div className="name-plate">
     <div className="guild-icon">
       <GBIcon id="guild-icon" icon={guild.name} />
@@ -134,7 +134,7 @@ const NamePlate = ({ model, guild }: { model: GBModelData; guild: Guild }) => (
   </div>
 );
 
-const HealthBoxes = ({ model }: { model: GBModelData }) => (
+const HealthBoxes = ({ model }: { model: GBModelFull }) => (
   <Observer>
     {() => (
       <div className="health">
@@ -161,7 +161,7 @@ const Playbook = ({
   model,
   gbcp = false,
 }: {
-  model: GBModelData;
+  model: GBModelFull;
   gbcp?: boolean;
 }) => (
   <div className="playbook">
@@ -201,7 +201,7 @@ const Playbook = ({
   </div>
 );
 
-const StatBox = ({ model }: { model: GBModelData }) => (
+const StatBox = ({ model }: { model: GBModelFull }) => (
   <div className="statbox">
     <span>MOV</span>
     <span>TAC</span>
@@ -237,7 +237,7 @@ const CharacterPlays = ({
   model,
   gbcp = false,
 }: {
-  model: GBModelData;
+  model: GBModelFull;
   gbcp?: boolean;
 }) => {
   const { gbdb: db } = useData();

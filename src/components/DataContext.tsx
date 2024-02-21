@@ -35,11 +35,7 @@ type GBDBSettings = {
   sha256: string;
 };
 
-async function bulkLoadDB(
-  filename: string,
-  manifest: Manifest,
-  data: DataFile
-) {
+async function bulkLoadDB(filename: string, manifest: Manifest, data: any) {
   const _sha256 = manifest.datafiles.find(
     (df) => df.filename === filename
   )?.sha256;
@@ -76,10 +72,11 @@ async function bulkLoadDB(
       .then((cts) => gbdb.guilds.bulkRemove(cts.map((ct) => ct.name)))
       .then(() => gbdb.character_traits.bulkInsert(data["Character Traits"])),
   ])
-    // .then(() => console.log("re-load complete :|"))
     .then(() =>
       gbdb.upsertLocal("settings", { filename: filename, sha256: _sha256 })
-    );
+    )
+    // .then(() => console.log("database re-load complete :|"))
+    .catch(console.error);
 }
 
 export const DataProvider = observer(({ children }: DataProviderProps) => {

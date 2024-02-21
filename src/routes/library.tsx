@@ -50,11 +50,11 @@ import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 import { useRxQuery } from "../components/useRxQuery";
 import {
+  GBGuildDoc,
   GBGuild,
-  GBGuildType,
-  GBModel,
+  GBModelDoc,
   GBModelCollection,
-  GBModelData,
+  GBModelFull,
 } from "../models/gbdb";
 import { reSort } from "../components/reSort";
 
@@ -182,8 +182,8 @@ export function Roster() {
 
   const { gbdb: db } = useData();
 
-  const [g, setGuild] = useState<GBGuild | null>(null);
-  const [roster, setRoster] = useState<GBModelData[]>();
+  const [g, setGuild] = useState<GBGuildDoc | null>(null);
+  const [roster, setRoster] = useState<GBModelFull[]>();
 
   useEffect(() => {
     const savedPosition = searchParams.get("m");
@@ -554,7 +554,7 @@ export function RefCards() {
   );
 }
 
-function SwiperButtons(props: { guild: GBGuild; swiper: SwiperRef | null }) {
+function SwiperButtons(props: { guild: GBGuildDoc; swiper: SwiperRef | null }) {
   const { guild, swiper } = props;
   const roster = guild.roster;
   return (

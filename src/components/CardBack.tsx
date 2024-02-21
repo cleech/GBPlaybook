@@ -10,11 +10,11 @@ import Color from "color";
 
 import { GBCardCSS } from "./CardFront";
 import { IGBPlayer, JGBPlayer, useStore } from "../models/Root";
-import { GBCharacterTrait, GBGuild, GBModel, GBModelData } from "../models/gbdb";
+import { GBCharacterTraitDoc, GBGuildDoc, GBModelDoc, GBModelFull } from "../models/gbdb";
 type model = IGBPlayer | JGBPlayer;
 
 interface CardBackProps {
-  model: GBModelData;
+  model: GBModelFull;
   style: GBCardCSS;
   guild?: string;
   className?: string;
@@ -28,7 +28,7 @@ const CardBack = (props: CardBackProps) => {
   const { settings } = useStore();
   const { gbdb: db } = useData();
 
-  const [guild, setGuild1] = useState<GBGuild | null>(null);
+  const [guild, setGuild1] = useState<GBGuildDoc | null>(null);
 
   useEffect(() => {
     let isLive = true;
@@ -131,7 +131,7 @@ function CTName({ text }: { text: string }) {
   );
 }
 
-const CharacterTraits = ({ model }: { model: GBModelData }) => {
+const CharacterTraits = ({ model }: { model: GBModelFull }) => {
   const { gbdb: db } = useData();
 
   // const [Traits, setTraits] = useState<GBCharacterTrait[]>([]);
@@ -178,7 +178,7 @@ const CharacterTraits = ({ model }: { model: GBModelData }) => {
   );
 };
 
-const Heroic = ({ model }: { model: GBModelData }) => {
+const Heroic = ({ model }: { model: GBModelFull }) => {
   if (!model.heroic) {
     return null;
   }
@@ -198,7 +198,7 @@ const Heroic = ({ model }: { model: GBModelData }) => {
   );
 };
 
-const Legendary = ({ model }: { model: GBModelData }) => {
+const Legendary = ({ model }: { model: GBModelFull }) => {
   if (!model.legendary) {
     return null;
   }
