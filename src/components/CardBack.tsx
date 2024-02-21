@@ -10,7 +10,12 @@ import Color from "color";
 
 import { GBCardCSS } from "./CardFront";
 import { IGBPlayer, JGBPlayer, useStore } from "../models/Root";
-import { GBCharacterTraitDoc, GBGuildDoc, GBModelDoc, GBModelFull } from "../models/gbdb";
+import {
+  GBCharacterTraitDoc,
+  GBGuildDoc,
+  GBModelDoc,
+  GBModelFull,
+} from "../models/gbdb";
 type model = IGBPlayer | JGBPlayer;
 
 interface CardBackProps {
@@ -168,7 +173,9 @@ const CharacterTraits = ({ model }: { model: GBModelFull }) => {
         return (
           <div className="character-trait" key={`${ct.name}-${index}`}>
             <div className={`trait ${ct.active && "active"}`}>
-              <CTName text={ct.name} />
+              <CTName
+                text={ct.name.concat(ct.parameter ? ` [${ct.parameter}]` : "")}
+              />
             </div>
             <span className="text">{textIconReplace(ct.text)}</span>
           </div>

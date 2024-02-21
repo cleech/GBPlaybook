@@ -41,7 +41,7 @@ import {
   ReferenceCard,
   ReferenceCardFront,
 } from "../components/Gameplan";
-import { GBGuildDoc, GBModelDoc } from "../models/gbdb";
+import { GBGuildDoc, GBModel, GBModelDoc, GBModelFull } from "../models/gbdb";
 import { reSort } from "../components/reSort";
 
 export const CardPrintScreen = () => {
@@ -763,14 +763,14 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
   };
   const [ref] = useMutationObserverRef(callback);
 
-  const [model, setModel] = useState<GBModelDoc | null>();
+  const [model, setModel] = useState<GBModelFull>();
   useEffect(() => {
     const fetchData = async () => {
       if (!db) {
         return;
       }
       const _model = await db.models.findOne().where({ id: name }).exec();
-      setModel(_model);
+      setModel(await _model?.resolve());
     };
     fetchData();
   }, [db]);
@@ -800,7 +800,7 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
       {inView && (
         <>
           <CardFront
-            model={model as any}
+            model={model}
             style={
               {
                 width: "2.5in",
@@ -810,7 +810,7 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
             }
           />
           <CardBack
-            model={model as any}
+            model={model}
             style={
               {
                 width: "2.5in",

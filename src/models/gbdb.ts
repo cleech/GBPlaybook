@@ -11,6 +11,7 @@ import { getRxStorageMemory } from "rxdb/plugins/storage-memory";
 import { RxDBDevModePlugin } from "rxdb/plugins/dev-mode";
 import { RxDBQueryBuilderPlugin } from "rxdb/plugins/query-builder";
 import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
+import { Minimize } from "@mui/icons-material";
 
 if (import.meta.env.MODE === "development") {
   addRxPlugin(RxDBDevModePlugin);
@@ -59,41 +60,48 @@ export interface GBModel {
   gbcp: boolean;
 }
 
+interface ParameterizedTrait extends GBCharacterTrait {
+  parameter?: string;
+}
+
 export interface GBModelFull
   extends Omit<GBModel, "character_plays" | "character_traits"> {
   character_plays: GBCharacterPlay[];
-  character_traits: GBCharacterTrait[];
-}
-
-export interface GBModelLive extends GBModelFull {
-  health: number;
+  character_traits: ParameterizedTrait[];
 }
 
 type GBModelMethods = {
-  statLine: () => string;
   resolve: () => Promise<GBModelFull>;
 };
 
+function character_trait_populate(doc: GBModelDoc) {
+  return Promise.all(
+    doc.character_traits
+      .map((s) => s.split(/[\[\]]/))
+      .map(async ([name, param]) => {
+        let ct = await gbdb.character_traits.findOne(name.trim()).exec();
+        return Object.assign({}, ct?.toJSON(), { parameter: param?.trim() });
+      })
+  );
+}
+
 const gbModelDocMethods: GBModelMethods = {
-  statLine: function (this: GBModelDoc): string {
-    return `${this.jog}"/${this.sprint}" | ${this.tac} | ${this.kickdice}/${
-      this.kickdist
-    }" | ${this.def}+ | ${this.arm} | ${this.inf}/${this.infmax} | ${
-      this.reach ? 2 : 1
-    }"`;
-  },
   resolve: async function (this: GBModelDoc): Promise<GBModelFull> {
+    let doc = this;
     let model = this.toMutableJSON();
     let [character_plays, character_traits]: [
-      GBCharacterPlayDoc[],
-      GBCharacterTraitDoc[]
+      GBCharacterPlay[],
+      ParameterizedTrait[]
     ] = await Promise.all([
-      this.populate("character_plays"),
-      this.populate("character_traits"),
+      this.populate("character_plays").then((cps) =>
+        cps.map((cp: GBCharacterPlayDoc) => cp.toMutableJSON())
+      ),
+      // this.populate("character_traits"),
+      character_trait_populate(this),
     ]);
     return Object.assign(model, {
-      character_plays: character_plays.map((cp) => cp.toMutableJSON()),
-      character_traits: character_traits.map((ct) => ct.toMutableJSON()),
+      character_plays: character_plays,
+      character_traits: character_traits,
     });
   },
 };
@@ -263,17 +271,91 @@ const gbCharacterTraitSchema: RxJsonSchema<GBCharacterTrait> = {
   required: ["text"],
 };
 
+// export interface GBModelLive extends GBModelFull {
+//   health: number;
+// }
+// export type GBModelLiveDoc = RxDocument<GBModelLive>;
+// export type GBModelLiveCollection = RxCollection<GBModelLive>;
+
+// const gbModelLiveProperties = Object.assign({}, gbModelSchema.properties, {
+//   character_plays: {
+//     type: "array",
+//     items: {
+//       type: "object",
+//       properties: Object.assign({}, gbCharacterPlaySchema.properties),
+//       required: gbCharacterPlaySchema.required?.concat([]),
+//     },
+//   },
+//   character_traits: {
+//     type: "array",
+//     items: {
+//       type: "object",
+//       properties: Object.assign({}, gbCharacterTraitSchema.properties),
+//       required: gbCharacterTraitSchema.required?.concat([]),
+//     },
+//   },
+//   health: { type: "integer", minimum: 0 },
+// });
+
+// const gbModelLiveSchema: RxJsonSchema<GBModelLive> = {
+//   title: "Guild Ball character trait",
+//   version: 0,
+//   primaryKey: "id",
+//   type: "object",
+//   properties: gbModelLiveProperties,
+//   required: new Array().concat(gbModelSchema.required),
+// };
+
+export interface GBGameState {
+  _id: string;
+  guild: string;
+  score: number;
+  momentum: number;
+  disabled: boolean;
+  roster: { name: string; health: number }[];
+}
+
+export type GBGameStateDoc = RxDocument<GBGameState>;
+export type GBGameStateCollection = RxCollection<GBGameState>;
+
+const gbGameStateSchema: RxJsonSchema<GBGameState> = {
+  title: "Guild Ball Game State",
+  version: 0,
+  primaryKey: "_id",
+  type: "object",
+  properties: {
+    _id: { type: "string", maxLength: 128 },
+    guild: { type: "string", ref: "guilds" },
+    score: { type: "integer", minimum: 0, default: 0 },
+    momentum: { type: "integer", minimum: 0, default: 0 },
+    disabled: { type: "boolean", default: false },
+    roster: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          name: { type: "string", ref: "models" },
+          health: { type: "integer", minimum: 0 },
+        },
+        required: ["name", "health"],
+      },
+    },
+  },
+  required: ["guild", "roster"],
+};
+
 interface GBDataCollections {
   guilds: GBGuildCollection;
   models: GBModelCollection;
   character_plays: GBCharacterPlayCollection;
   character_traits: GBCharacterTraitCollection;
+  game_state: GBGameStateCollection;
 }
 
 export type GBDatabase = RxDatabase<GBDataCollections>;
 
 const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>({
-  name: "gbcp_4_5",
+  name: "gb_playbook",
   localDocuments: true,
   // storage: getRxStorageDexie(),
   storage: getRxStorageMemory(),
@@ -287,21 +369,41 @@ await gbdb.addCollections({
   },
   character_plays: { schema: gbCharacterPlaySchema },
   character_traits: { schema: gbCharacterTraitSchema },
+  game_state: { schema: gbGameStateSchema },
 });
 
-// data quirks
+// start off at full health
+gbdb.game_state.preInsert(async (state) => {
+  for (const [index, { name, health }] of state.roster.entries()) {
+    const model = await gbdb.models.findOne().where({ id: name }).exec();
+    state.roster[index].health = model?.hp ?? 0;
+  }
+}, false);
 
-// gbdb.models.postCreate((_, model) => {
-//   // don't let Soma/Pneuma double add influence to the pool
-//   Object.defineProperty(model, "inf_", {
-//     get: () => {
-//       if (model.name === "Pneuma") {
-//         return 0;
-//       } else {
-//         return model.inf;
-//       }
-//     },
-//   });
-// });
+/*
+// data quirks
+gbdb.fmodels.postCreate((_, model) => {
+  // mini stat line
+  Object.defineProperty(model, "statLine", {
+    get: () => {
+      return `${model.jog}"/${model.sprint}" | ${model.tac} | ${
+        model.kickdice
+      }/${model.kickdist}" | ${model.def}+ | ${model.arm} | ${model.inf}/${
+        model.infmax
+      } | ${model.reach ? 2 : 1}"`;
+    },
+  });
+  // don't let Soma/Pneuma double add influence to the pool
+  Object.defineProperty(model, "inf_", {
+    get: () => {
+      if (model.name === "Pneuma") {
+        return 0;
+      } else {
+        return model.inf;
+      }
+    },
+  });
+});
+*/
 
 export default gbdb;
