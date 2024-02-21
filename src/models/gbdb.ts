@@ -62,8 +62,6 @@ export type GBModelType = {
 };
 
 type GBModelMethods = {
-  setHealth: (hp: number) => void;
-  displayName: () => string;
   statLine: () => string;
 };
 
@@ -253,6 +251,20 @@ await gbdb.addCollections({
   models: { schema: gbModelSchema },
   character_plays: { schema: gbCharacterPlaySchema },
   character_traits: { schema: gbCharacterTraitSchema },
+});
+
+// data quirks
+gbdb.models.postCreate((_, model) => {
+  // don't let Soma/Pneuma double add influence to the pool
+  Object.defineProperty(model, "inf_", {
+    get: () => {
+      if (model.name === "Pneuma") {
+        return 0;
+      } else {
+        return model.inf;
+      }
+    },
+  });
 });
 
 export default gbdb;
