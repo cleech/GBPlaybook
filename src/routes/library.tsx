@@ -196,7 +196,7 @@ export function Roster() {
   }, [swiper, searchParams, g]);
 
   useEffect(() => {
-    let isLive = true;
+    let cancled = false;
     if (!db) {
       return;
     }
@@ -212,14 +212,14 @@ export function Roster() {
         reSort(_roster, "id", g.roster);
       }
       let roster = await Promise.all(_roster.map((m) => m.resolve()));
-      if (isLive) {
+      if (!cancled) {
         setGuild(g);
         setRoster(roster);
       }
     };
     fetchData().catch(console.error);
     return () => {
-      isLive = false;
+      cancled = true;
     };
   }, [db, guild]);
 

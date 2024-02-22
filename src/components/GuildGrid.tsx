@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 // import { Link, Outlet, useParams } from "react-router-dom";
 
 import { useDimensionsRef } from "rooks";
@@ -142,20 +142,13 @@ export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
   );
 }
 
-const delay = (t: number | undefined) =>
-  new Promise((resolve) => setTimeout(resolve, t));
-
 function GuildGridInner({ dimensions, pickTeam, size, extraIcons }: any) {
   const { gbdb: db } = useData();
   if (!dimensions || !db) {
     return null;
   }
 
-  const guilds = useRxQuery(db.guilds.find());
-
-  // delay(3000).then(async () => {
-  //   await db.guilds.find().where("name").eq("Brewers").remove();
-  // });
+  const guilds = useRxQuery(useCallback((db) => db.guilds.find(), []));
 
   const list: GridIcon[] = (guilds as GBGuildDoc[]).map((g: GBGuildDoc) => ({
     key: g.name,

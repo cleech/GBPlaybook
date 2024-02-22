@@ -36,18 +36,24 @@ function SelectedIcon({
   size: number;
   focused: boolean;
 }) {
-  const { gbdb: db } = useData();
+  const { gbdb: db } = useData();  
   const [guild, setGuild] = useState<GBGuildDoc | null>(null);
-
+  
   useEffect(() => {
+    let cancled = false;
     if (!db) {
       return;
     }
     const fetchData = async () => {
       const guild = await db.guilds.findOne().where({ name: team }).exec();
-      setGuild(guild);
+      if (!cancled) {
+        setGuild(guild);
+      }
     };
     fetchData();
+    return () => {
+      cancled = true;
+    };
   }, [db, team]);
 
   if (!guild) {

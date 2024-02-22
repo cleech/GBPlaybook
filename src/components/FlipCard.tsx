@@ -62,10 +62,10 @@ export function FlipCard({
             <CardFront model={model} style={{ "--scale": scale }} />
             {controls ? (
               <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
+              // style={{
+              //   width: "100%",
+              //   height: "100%",
+              // }}
               >
                 {controls?.({ model, ...controlProps })}
               </div>

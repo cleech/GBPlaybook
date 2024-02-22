@@ -9,12 +9,14 @@ import {
 import { getRxStorageDexie } from "rxdb/plugins/storage-dexie";
 import { getRxStorageMemory } from "rxdb/plugins/storage-memory";
 import { RxDBDevModePlugin } from "rxdb/plugins/dev-mode";
+import { RxDBUpdatePlugin } from "rxdb/plugins/update";
 import { RxDBQueryBuilderPlugin } from "rxdb/plugins/query-builder";
 import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
 
 if (import.meta.env.MODE === "development") {
   addRxPlugin(RxDBDevModePlugin);
 }
+addRxPlugin(RxDBUpdatePlugin);
 addRxPlugin(RxDBQueryBuilderPlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
 
@@ -67,6 +69,7 @@ export interface GBModelFull
   extends Omit<GBModel, "character_plays" | "character_traits"> {
   character_plays: GBCharacterPlay[];
   character_traits: ParameterizedTrait[];
+  health: number;
 }
 
 type GBModelMethods = {
@@ -100,6 +103,7 @@ const gbModelDocMethods: GBModelMethods = {
     return Object.assign(model, {
       character_plays: character_plays,
       character_traits: character_traits,
+      health: model.hp,
     });
   },
 };
@@ -320,8 +324,8 @@ export type GBDatabase = RxDatabase<GBDataCollections>;
 const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>({
   name: "gb_playbook",
   localDocuments: true,
-  // storage: getRxStorageDexie(),
-  storage: getRxStorageMemory(),
+  storage: getRxStorageDexie(),
+  // storage: getRxStorageMemory(),
 });
 
 await gbdb.addCollections({

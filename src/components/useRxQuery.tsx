@@ -1,15 +1,23 @@
 import { useEffect, useState } from "react";
 import { RxDocument, RxQuery } from "rxdb";
+import { useData } from "./DataContext";
+import { GBDatabase } from "../models/gbdb";
 
-export function useRxQuery<T>(query: RxQuery<T>): RxDocument<T>[] {
+export function useRxQuery<T>(
+  query: (db: GBDatabase) => RxQuery<T>
+): RxDocument<T>[] {
+  const { gbdb: db } = useData();
   const [result, setResult] = useState<RxDocument<T>[]>([]);
   useEffect(() => {
-    const sub = query.$.subscribe((result) => {
+    if (!db || !query) {
+      return;
+    }
+    const sub = query(db).$.subscribe((result) => {
       setResult(result);
     });
     return () => {
       sub.unsubscribe();
     };
-  }, [query]);
+  }, [db, query]);
   return result;
 }

@@ -11,7 +11,12 @@ import Color from "color";
 
 import { Guild } from "./DataContext.d";
 import { IGBPlayer, JGBPlayer, useStore } from "../models/Root";
-import { GBCharacterPlayDoc, GBGuildDoc, GBModelDoc, GBModelFull } from "../models/gbdb";
+import {
+  GBCharacterPlayDoc,
+  GBGuildDoc,
+  GBModelDoc,
+  GBModelFull,
+} from "../models/gbdb";
 type model = JGBPlayer | IGBPlayer;
 
 interface CardFrontProps {
@@ -140,9 +145,9 @@ const HealthBoxes = ({ model }: { model: GBModelFull }) => (
       <div className="health">
         {[...Array(model.hp).keys()].map((key) => (
           <div
-            className={`health-box `}
-            // ${key + 1 > (model.health ?? model.hp) ? "damaged" : ""}
-            // `}
+            className={`health-box ${
+              key + 1 > (model.health ?? model.hp) ? "damaged" : ""
+            }`}
             key={key}
           >
             {(key === 0 && <GBIcon icon="skull" size={17} />) ||

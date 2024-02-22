@@ -4,7 +4,6 @@ import {
   Button,
   Fab,
   Typography,
-  Link,
   Breadcrumbs,
   IconButton,
   Snackbar,
@@ -13,10 +12,8 @@ import {
   Menu,
   MenuItem,
   MenuList,
-  Avatar,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SettingsIcon from "@mui/icons-material/Settings";
 import { useData } from "../../components/DataContext";
 import { DraftList, BSDraftList } from "../../components/Draft";
 import { useStore } from "../../models/Root";
@@ -62,8 +59,8 @@ export default function Draft() {
   const navigate = useNavigate();
   const { dc } = useRTC();
 
-  const [team1, setTeam1] = useState<GBModel[] | undefined>(undefined);
-  const [team2, setTeam2] = useState<GBModel[] | undefined>(undefined);
+  const [team1, setTeam1] = useState<GBModel[] | undefined>();
+  const [team2, setTeam2] = useState<GBModel[] | undefined>();
   const ready1 = useCallback((team: GBModel[]) => setTeam1(team), []);
   const ready2 = useCallback((team: GBModel[]) => setTeam2(team), []);
   const unready1 = useCallback(() => setTeam1(undefined), []);
@@ -85,48 +82,48 @@ export default function Draft() {
     setMenuAnchor(null);
   };
 
-  useEffect(() => {
-    if (!!dc) {
-      dc.onmessage = (ev: MessageEvent<string>) => {
-        const msg = JSON.parse(ev.data);
-        if (msg.m) {
-          player2.current?.setModel(msg.m.id, msg.selected);
-        }
-        if (msg.navigation === "ready") {
-          setLocked(true);
-          fabRef.current?.animate(pulseAnimationKeyFrames, 1000);
-          if (waiting) {
-            store.team1.reset({ name: g1 ?? undefined, roster: team1 });
-            store.team2.reset({ name: g2 ?? undefined, roster: team2 });
-            navigate("/game/draft/play");
-          }
-        }
-      };
-    }
-    return () => {
-      if (!!dc) {
-        dc.onmessage = null;
-      }
-    };
-  }, [
-    dc,
-    waiting,
-    locked,
-    g1,
-    g2,
-    navigate,
-    team1,
-    team2,
-    store.team1,
-    store.team2,
-  ]);
+  // useEffect(() => {
+  //   if (!!dc) {
+  //     dc.onmessage = (ev: MessageEvent<string>) => {
+  //       const msg = JSON.parse(ev.data);
+  //       if (msg.m) {
+  //         player2.current?.setModel(msg.m.id, msg.selected);
+  //       }
+  //       if (msg.navigation === "ready") {
+  //         setLocked(true);
+  //         fabRef.current?.animate(pulseAnimationKeyFrames, 1000);
+  //         if (waiting) {
+  //           store.team1.reset({ name: g1 ?? undefined, roster: team1 });
+  //           store.team2.reset({ name: g2 ?? undefined, roster: team2 });
+  //           navigate("/game/draft/play");
+  //         }
+  //       }
+  //     };
+  //   }
+  //   return () => {
+  //     if (!!dc) {
+  //       dc.onmessage = null;
+  //     }
+  //   };
+  // }, [
+  //   dc,
+  //   waiting,
+  //   locked,
+  //   g1,
+  //   g2,
+  //   navigate,
+  //   team1,
+  //   team2,
+  //   store.team1,
+  //   store.team2,
+  // ]);
 
   const { gbdb: db } = useData();
-
   const [guild1, setGuild1] = useState<GBGuildDoc | null>(null);
   const [guild2, setGuild2] = useState<GBGuildDoc | null>(null);
 
   useEffect(() => {
+    let cancled = false;
     if (!db || !g1 || !g2) {
       return;
     }
@@ -135,10 +132,15 @@ export default function Draft() {
         db.guilds.findOne().where({ name: g1 }).exec(),
         db.guilds.findOne().where({ name: g2 }).exec(),
       ]);
-      setGuild1(guild1);
-      setGuild2(guild2);
+      if (!cancled) {
+        setGuild1(guild1);
+        setGuild2(guild2);
+      }
     };
     fetchData();
+    return () => {
+      cancled = true;
+    };
   }, [db, g1, g2]);
 
   if (!guild1 || !guild2) {
@@ -228,13 +230,13 @@ export default function Draft() {
         ignoreRules={false}
         style={{ width: "100%" }}
         // network play additions
-        onUpdate={
-          dc
-            ? (m, v) => {
-                dc.send(JSON.stringify({ m: m, selected: v }));
-              }
-            : undefined
-        }
+        // onUpdate={
+        //   dc
+        //     ? (m, v) => {
+        //         dc.send(JSON.stringify({ m: m, selected: v }));
+        //       }
+        //     : undefined
+        // }
       />
 
       <Typography variant="caption">{"\u00A0"}</Typography>
@@ -242,20 +244,42 @@ export default function Draft() {
         ref={fabRef}
         color="secondary"
         disabled={!team1 || !team2}
-        onClick={() => {
-          if (dc) {
-            setWaiting(true);
-            dc.send(JSON.stringify({ navigation: "ready" }));
-            if (locked) {
-              store.team1.reset({ name: g1 ?? undefined, roster: team1 });
-              store.team2.reset({ name: g2 ?? undefined, roster: team2 });
-              navigate("/game/draft/play");
-            }
-          } else {
-            store.team1.reset({ name: g1 ?? undefined, roster: team1 });
-            store.team2.reset({ name: g2 ?? undefined, roster: team2 });
-            navigate("/game/draft/play");
-          }
+        onClick={async () => {
+          // if (dc) {
+          // setWaiting(true);
+          // dc.send(JSON.stringify({ navigation: "ready" }));
+          // if (locked) {
+          //   store.team1.reset({ name: g1 ?? undefined, roster: team1 });
+          //   store.team2.reset({ name: g2 ?? undefined, roster: team2 });
+          //   navigate("/game/draft/play");
+          // }
+          // } else {
+          store.team1.reset({ name: g1 ?? undefined, roster: team1 });
+          store.team2.reset({ name: g2 ?? undefined, roster: team2 });
+          await db?.game_state
+            .upsert({
+              _id: "Player1",
+              guild: guild1.name,
+              roster: team1?.map((m) => ({ name: m.id, health: m.hp })) || [],
+              // why don't defaults work?
+              score: 0,
+              momentum: 0,
+              disabled: false,
+            })
+            .catch(console.error);
+          await db?.game_state
+            .upsert({
+              _id: "Player2",
+              guild: guild2.name,
+              roster: team2?.map((m) => ({ name: m.id, health: m.hp })) || [],
+              // why don't defaults work?
+              score: 0,
+              momentum: 0,
+              disabled: false,
+            })
+            .catch(console.error);
+          navigate("/game/draft/play");
+          // }
         }}
         sx={{ m: "10px" }}
       >
@@ -274,7 +298,7 @@ export default function Draft() {
         ignoreRules={false}
         style={{ width: "100%" }}
         // network play additions
-        disabled={!!dc}
+        // disabled={!!dc}
         ref={player2}
       />
 

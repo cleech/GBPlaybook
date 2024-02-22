@@ -23,8 +23,8 @@ import {
   Alert,
   Box,
 } from "@mui/material";
-import { model } from "../../components/Draft";
-import { useStore, IGBTeam } from "../../models/Root";
+// import { DraftModel } from "../../components/Draft";
+// import { useStore, IGBTeam } from "../../models/Root";
 import RosterList, { HealthCounter } from "../../components/RosterList";
 import { FlipCard } from "../../components/FlipCard";
 
@@ -37,45 +37,111 @@ import { AppBarContent } from "../../App";
 
 import { useRTC } from "../../services/webrtc";
 import { FlipGuildCard } from "../../components/GuildCard";
+import { useData } from "../../components/DataContext";
+import { useRxQuery } from "../../components/useRxQuery";
+import {
+  GBDatabase,
+  GBGameStateDoc,
+  GBModel,
+  GBModelFull,
+} from "../../models/gbdb";
+import { reSort } from "../../components/reSort";
 
 export default function Game() {
-  const store = useStore();
+  const { gbdb: db } = useData();
+  // const store = useStore();
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
-  const teams = useMemo(
-    () => [store.team1, store.team2],
-    [store.team1, store.team2]
+  // const teams = useMemo(
+  //   () => [store.team1, store.team2],
+  //   [store.team1, store.team2]
+  // );
+
+  // do i ever need this to be an array, or can I observe findOne?
+  const team1 = useRxQuery(
+    useCallback((db) => db.game_state.find().where({ _id: "Player1" }), [])
   );
+  const team2 = useRxQuery(
+    useCallback((db) => db.game_state.find().where({ _id: "Player2" }), [])
+  );
+  const teams = [team1[0], team2[0]];
+
+  const [roster1, setRoster1] = useState<GBModelFull[]>();
+  const [roster2, setRoster2] = useState<GBModelFull[]>();
+
+  useEffect(() => {
+    let cancled = false;
+    if (!db || !teams[0] || !teams[1]) {
+      return;
+    }
+    const fetchData = async () => {
+      const _roster1 = await db.models
+        .find()
+        .where("id")
+        .in(teams[0].roster.map((r) => r.name))
+        .exec();
+
+      const roster1 = await Promise.all(_roster1.map((m) => m.resolve()));
+      reSort(
+        roster1,
+        "id",
+        teams[0].roster.map((r) => r.name)
+      );
+
+      const _roster2 = await db.models
+        .find()
+        .where("id")
+        .in(teams[1].roster.map((r) => r.name))
+        .exec();
+
+      const roster2 = await Promise.all(_roster2.map((m) => m.resolve()));
+      reSort(
+        roster2,
+        "id",
+        teams[1].roster.map((r) => r.name)
+      );
+
+      if (!cancled) {
+        setRoster1(roster1);
+        setRoster2(roster2);
+      }
+    };
+    fetchData();
+    return () => {
+      cancled = true;
+    };
+  }, [db, teams[0]?.guild, teams[1]?.guild]);
+
   const [showSnack, setShowSnack] = useState(false);
   const [blocked, setBlocked] = useState(false);
 
-  const { dc } = useRTC();
-  if (dc) {
-    teams[1].disable(true);
-  }
+  // const { dc } = useRTC();
+  // if (dc) {
+  //   teams[1].disable(true);
+  // }
 
-  useEffect(() => {
-    if (!!dc) {
-      dc.onmessage = (ev: MessageEvent<string>) => {
-        const msg = JSON.parse(ev.data);
-        if (msg.model && msg.health !== undefined) {
-          const m = teams[1].roster.find((m) => m.id === msg.model);
-          m?.setHealth(msg.health);
-        }
-        if (msg.VP !== undefined) {
-          teams[1].setScore(msg.VP);
-        }
-        if (msg.MOM !== undefined) {
-          teams[1].setMomentum(msg.MOM);
-        }
-      };
-    }
-    return () => {
-      if (!!dc) {
-        dc.onmessage = null;
-      }
-    };
-  }, [dc, teams]);
+  // useEffect(() => {
+  //   if (!!dc) {
+  //     dc.onmessage = (ev: MessageEvent<string>) => {
+  //       const msg = JSON.parse(ev.data);
+  //       if (msg.model && msg.health !== undefined) {
+  //         const m = teams[1].roster.find((m) => m.id === msg.model);
+  //         m?.setHealth(msg.health);
+  //       }
+  //       if (msg.VP !== undefined) {
+  //         teams[1].setScore(msg.VP);
+  //       }
+  //       if (msg.MOM !== undefined) {
+  //         teams[1].setMomentum(msg.MOM);
+  //       }
+  //     };
+  //   }
+  //   return () => {
+  //     if (!!dc) {
+  //       dc.onmessage = null;
+  //     }
+  //   };
+  // }, [dc, teams]);
 
   let blocker = useBlocker(
     React.useCallback<BlockerFunction>(
@@ -95,6 +161,16 @@ export default function Game() {
     setBlocked(true);
   }, [blocked, setBlocked]);
 
+  if (!db) {
+    return null;
+  }
+  if (!team1[0] || !team2[0] || !teams[0] || !teams[1]) {
+    return null;
+  }
+  if (!roster1 || !roster2) {
+    return null;
+  }
+
   return (
     <Box
       style={{
@@ -108,7 +184,7 @@ export default function Game() {
         <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
           <IconButton
             color="inherit"
-            href={`/game?p1=${teams[0].name}&p2=${teams[1].name}`}
+            href={`/game?p1=${teams[0].guild}&p2=${teams[1].guild}`}
             size="small"
           >
             <Home />
@@ -116,7 +192,7 @@ export default function Game() {
           <Link
             underline="hover"
             color="inherit"
-            href={`/game/draft?p1=${teams[0].name}&p2=${teams[1].name}`}
+            href={`/game/draft?p1=${teams[0].guild}&p2=${teams[1].guild}`}
           >
             Draft
           </Link>
@@ -126,12 +202,12 @@ export default function Game() {
 
       {large ? (
         <>
-          <GameList teams={[teams[0]]} />
+          <GameList teams={[teams[0]]} rosters={[roster1]} />
           <Divider orientation="vertical" />
-          <GameList teams={[teams[1]]} />
+          <GameList teams={[teams[1]]} rosters={[roster2]} />
         </>
       ) : (
-        <GameList teams={teams} />
+        <GameList teams={teams} rosters={[roster1, roster2]} />
       )}
 
       <Snackbar
@@ -154,7 +230,13 @@ export default function Game() {
   );
 }
 
-export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
+export const GameList = ({
+  teams,
+  rosters,
+}: {
+  teams: GBGameStateDoc[];
+  rosters: GBModelFull[][];
+}) => {
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
   const sizeRef = useRef<HTMLDivElement>(null);
@@ -193,6 +275,7 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
     >
       <RosterList
         teams={teams}
+        rosters={rosters}
         expanded={expanded}
         onClick={(i, expandList) => {
           setIndex(i);
@@ -251,17 +334,16 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
             }}
           >
             {teams
-              .map((t) => [
+              .map((t, index) => [
                 // Guild Rules Card
-                () => <FlipGuildCard guild={t.name} />,
+                () => <FlipGuildCard guild={t.guild} />,
                 // Model Cards
-                t.roster.map((m) => () => (
-                  // <FlipCard
-                  //   model={m}
-                  //   controls={CardControls}
-                  //   controlProps={{ disabled: t.disabled }}
-                  // />
-                  <></>
+                rosters[index].map((m) => () => (
+                  <FlipCard
+                    model={m}
+                    controls={CardControls}
+                    controlProps={{ state: teams[index], disabled: t.disabled }}
+                  />
                 )),
               ])
               .flat(2)
@@ -287,10 +369,12 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
 };
 
 function CardControls({
+  state,
   model,
   disabled = false,
 }: {
-  model: model;
+  state: GBGameStateDoc;
+  model: GBModelFull;
   disabled?: boolean;
 }) {
   return (
@@ -305,7 +389,7 @@ function CardControls({
         // transformOrigin: "bottom right",
       }}
     >
-      <HealthCounter model={model} disabled={disabled} stacked />
+      <HealthCounter state={state} model={model} disabled={disabled} stacked />
     </Paper>
   );
 }

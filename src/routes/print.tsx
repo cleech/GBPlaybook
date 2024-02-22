@@ -489,6 +489,7 @@ const ModelCheckBox = forwardRef((props: { m: GBModelDoc }, ref) => {
   const [guild2, setGuild2] = useState<GBGuildDoc | null>(null);
 
   useEffect(() => {
+    let cancled = false;
     if (!db) {
       return;
     }
@@ -497,10 +498,15 @@ const ModelCheckBox = forwardRef((props: { m: GBModelDoc }, ref) => {
         db.guilds.findOne().where({ name: m.guild1 }).exec(),
         m.guild2 ? db.guilds.findOne().where({ name: m.guild2 }).exec() : null,
       ]);
-      setGuild1(guild1);
-      setGuild2(guild2);
+      if (!cancled) {
+        setGuild1(guild1);
+        setGuild2(guild2);
+      }
     };
     fetchData();
+    return () => {
+      cancled = true;
+    };
   }, [db, m]);
 
   if (!guild1) {
