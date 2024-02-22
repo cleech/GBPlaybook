@@ -1,11 +1,10 @@
-import React, {
+import {
   useState,
   useRef,
   useLayoutEffect,
   CSSProperties,
   useCallback,
 } from "react";
-// import { useData } from "./DataContext";
 import GBImages from "./GBImages";
 import "./FlipCard.css";
 
@@ -32,15 +31,6 @@ export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
     setScale(newScale ?? 1);
   }, []);
 
-  // const { data } = useData();
-  // if (!data) {
-  //   return null;
-  // }
-  // const model = data.Models.find((m) => m.id === name);
-  // if (GBImages[`${model.id}_gbcp_front`]) {
-  //   model.gbcp = true;
-  // }
-
   return (
     <div
       ref={targetRef}
@@ -58,7 +48,6 @@ export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
         style={{
           width: `${1000 * scale}px`,
           height: `${700 * scale}px`,
-          // aspectRatio: 10 / 7,
           display: "flex",
           flexDirection: "row",
         }}
@@ -129,32 +118,34 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
         style={{
           width: `${500 * scale}px`,
           height: `${700 * scale}px`,
-          // aspectRatio: 5 / 7,
-          // display: "flex",
         }}
         onClick={() => {
           targetRef.current?.classList.toggle("flipped");
         }}
       >
         <div className="flip-card-inner">
-          <div
-            className="flip-card-front card-front"
-            style={
-              {
-                backgroundImage: `url(${GBImages.get(`${guild}_front`)})`,
-                "--scale": scale,
-              } as CardCSS
-            }
-          />
-          <div
-            className="flip-card-back card-back"
-            style={
-              {
-                backgroundImage: `url(${GBImages.get(`${guild}_back`)})`,
-                "--scale": scale,
-              } as CardCSS
-            }
-          />
+          <div className="flip-card-front">
+            <div
+              className="card-front"
+              style={
+                {
+                  backgroundImage: `url(${GBImages.get(`${guild}_front`)})`,
+                  "--scale": scale,
+                } as CardCSS
+              }
+            />
+          </div>
+          <div className="flip-card-back">
+            <div
+              className="card-back"
+              style={
+                {
+                  backgroundImage: `url(${GBImages.get(`${guild}_back`)})`,
+                  "--scale": scale,
+                } as CardCSS
+              }
+            />
+          </div>
         </div>
       </div>
     </div>

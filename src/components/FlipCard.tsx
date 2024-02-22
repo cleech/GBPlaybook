@@ -1,11 +1,9 @@
-import React, { useState, useRef, useLayoutEffect, useCallback } from "react";
+import { useState, useRef, useLayoutEffect, useCallback } from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 import "./FlipCard.css";
 
 import { GBModelFull } from "../models/gbdb";
-// import { IGBPlayer, JGBPlayer } from "../models/Root";
-// export type model = IGBPlayer | JGBPlayer;
 
 export function FlipCard({
   model,
@@ -35,15 +33,6 @@ export function FlipCard({
     setScale(newScale ?? 1);
   }, []);
 
-  // const { data } = useData();
-  // if (!data) {
-  //   return null;
-  // }
-  // const model = data.Models.find((m) => m.id === name);
-  // if (GBImages[`${model.id}_gbcp_front`]) {
-  //   model.gbcp = true;
-  // }
-
   return (
     <div
       ref={layoutRef}
@@ -63,48 +52,28 @@ export function FlipCard({
         style={{
           width: `${500 * scale}px`,
           height: `${700 * scale}px`,
-          // aspectRatio: 5 / 7,
-          // display: "flex",
         }}
         onClick={() => {
           targetRef.current?.classList.toggle("flipped");
         }}
       >
         <div className="flip-card-inner">
-          <CardFront
-            className="flip-card-front"
-            model={model}
-            style={{
-              // maxWidth: "2.5in",
-              // "--scale": "calc(2.5 * 96 / 500)",
-              "--scale": scale,
-            }}
-          />
-          {controls ? (
-            <div
-              className="flip-card-front"
-              style={{
-                width: "100%",
-                height: "100%",
-                // width: "500px",
-                // height: "700px",
-                // transform: `scale(${scale})`,
-                // transformOrigin: "top left",
-              }}
-            >
-              {/* {controls?.({ model, scale: 1 / scale })} */}
-              {controls?.({ model, ...controlProps })}
-            </div>
-          ) : null}
-          <CardBack
-            className="flip-card-back"
-            model={model}
-            style={{
-              // maxWidth: "2.5in",
-              // "--scale": "calc(2.5 * 96 / 500)",
-              "--scale": scale,
-            }}
-          />
+          <div className="flip-card-front">
+            <CardFront model={model} style={{ "--scale": scale }} />
+            {controls ? (
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                {controls?.({ model, ...controlProps })}
+              </div>
+            ) : null}
+          </div>
+          <div className="flip-card-back">
+            <CardBack model={model} style={{ "--scale": scale }} />
+          </div>
         </div>
       </div>
     </div>
