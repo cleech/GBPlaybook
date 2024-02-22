@@ -11,7 +11,6 @@ import { getRxStorageMemory } from "rxdb/plugins/storage-memory";
 import { RxDBDevModePlugin } from "rxdb/plugins/dev-mode";
 import { RxDBQueryBuilderPlugin } from "rxdb/plugins/query-builder";
 import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
-import { Minimize } from "@mui/icons-material";
 
 if (import.meta.env.MODE === "development") {
   addRxPlugin(RxDBDevModePlugin);
@@ -74,7 +73,7 @@ type GBModelMethods = {
   resolve: () => Promise<GBModelFull>;
 };
 
-function character_trait_populate(doc: GBModelDoc) {
+function populate_character_traits(doc: GBModelDoc) {
   return Promise.all(
     doc.character_traits
       .map((s) => s.split(/[\[\]]/))
@@ -87,7 +86,6 @@ function character_trait_populate(doc: GBModelDoc) {
 
 const gbModelDocMethods: GBModelMethods = {
   resolve: async function (this: GBModelDoc): Promise<GBModelFull> {
-    let doc = this;
     let model = this.toMutableJSON();
     let [character_plays, character_traits]: [
       GBCharacterPlay[],
@@ -97,7 +95,7 @@ const gbModelDocMethods: GBModelMethods = {
         cps.map((cp: GBCharacterPlayDoc) => cp.toMutableJSON())
       ),
       // this.populate("character_traits"),
-      character_trait_populate(this),
+      populate_character_traits(this),
     ]);
     return Object.assign(model, {
       character_plays: character_plays,
@@ -270,41 +268,6 @@ const gbCharacterTraitSchema: RxJsonSchema<GBCharacterTrait> = {
   },
   required: ["text"],
 };
-
-// export interface GBModelLive extends GBModelFull {
-//   health: number;
-// }
-// export type GBModelLiveDoc = RxDocument<GBModelLive>;
-// export type GBModelLiveCollection = RxCollection<GBModelLive>;
-
-// const gbModelLiveProperties = Object.assign({}, gbModelSchema.properties, {
-//   character_plays: {
-//     type: "array",
-//     items: {
-//       type: "object",
-//       properties: Object.assign({}, gbCharacterPlaySchema.properties),
-//       required: gbCharacterPlaySchema.required?.concat([]),
-//     },
-//   },
-//   character_traits: {
-//     type: "array",
-//     items: {
-//       type: "object",
-//       properties: Object.assign({}, gbCharacterTraitSchema.properties),
-//       required: gbCharacterTraitSchema.required?.concat([]),
-//     },
-//   },
-//   health: { type: "integer", minimum: 0 },
-// });
-
-// const gbModelLiveSchema: RxJsonSchema<GBModelLive> = {
-//   title: "Guild Ball character trait",
-//   version: 0,
-//   primaryKey: "id",
-//   type: "object",
-//   properties: gbModelLiveProperties,
-//   required: new Array().concat(gbModelSchema.required),
-// };
 
 export interface GBGameState {
   _id: string;
