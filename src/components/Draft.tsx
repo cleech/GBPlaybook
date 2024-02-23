@@ -34,7 +34,7 @@ function checkCount(
   condition: condition,
   limit: number
 ) {
-  var newCount = oldCount;
+  let newCount = oldCount;
   if (condition(model)) {
     newCount += value ? 1 : -1;
     if (newCount === limit) {
@@ -69,7 +69,7 @@ function checkVeterans(roster: Roster, model: DraftModel, value: boolean) {
 
 function checkBenched(roster: Roster, model: DraftModel, value: boolean) {
   if (model.dehcneb) {
-    let b = roster.find((b) => b.benched && b.name === model.dehcneb);
+    const b = roster.find((b) => b.benched && b.name === model.dehcneb);
     b && (b.selected = value);
   }
 }
@@ -152,18 +152,18 @@ export const DraftList = observer(
     } = props;
     const { gbdb: db } = useData();
     const { settings } = useStore();
-    let [ready, setReady] = useState(false);
+    const [ready, setReady] = useState(false);
 
     // captain and mascot get pre-selected for minor guilds
-    let [captain, setCaptain] = useState(guild.minor ? 1 : 0);
-    let [mascot, setMascot] = useState(
+    const [captain, setCaptain] = useState(guild.minor ? 1 : 0);
+    const [mascot, setMascot] = useState(
       guild.minor && DraftLimits[settings.gameSize as 3 | 4 | 6].mascot > 0
         ? 1
         : 0
     );
-    let [squaddieCount, setSquadCount] = useState(0);
+    const [squaddieCount, setSquadCount] = useState(0);
 
-    let [roster, setRoster] = useState<Roster>();
+    const [roster, setRoster] = useState<Roster>();
 
     useEffect(() => {
       const fetchData = async () => {
@@ -177,7 +177,7 @@ export const DraftList = observer(
           .exec();
         // need to make a deep copy of the roster data
         // and add in UI state for drafting
-        let tmpRoster: DraftModel[] = models.map((m) =>
+        const tmpRoster: DraftModel[] = models.map((m) =>
           Object.assign(m.toMutableJSON(), {
             selected: false,
             disabled: m.benched ? 1 : 0,
@@ -266,13 +266,13 @@ export const DraftList = observer(
         onUpdate?.(model, value);
         model.selected = value;
 
-        let newCaptain = checkCaptains(roster, model, captain, value);
+        const newCaptain = checkCaptains(roster, model, captain, value);
         setCaptain(newCaptain);
 
-        let newMascot = checkMascots(roster, model, mascot, value);
+        const newMascot = checkMascots(roster, model, mascot, value);
         setMascot(newMascot);
 
-        let newCount = checkSquaddieCount(roster, model, squaddieCount, value);
+        const newCount = checkSquaddieCount(roster, model, squaddieCount, value);
         setSquadCount(newCount);
 
         checkVeterans(roster, model, value);
@@ -327,9 +327,9 @@ export const DraftList = observer(
       return null;
     }
 
-    let captains = roster.filter((m: DraftModel) => m.captain);
-    let mascots = roster.filter((m: DraftModel) => m.mascot && !m.captain);
-    let squaddies = roster.filter((m: DraftModel) => !m.captain && !m.mascot);
+    const captains = roster.filter((m: DraftModel) => m.captain);
+    const mascots = roster.filter((m: DraftModel) => m.mascot && !m.captain);
+    const squaddies = roster.filter((m: DraftModel) => !m.captain && !m.mascot);
 
     return (
       <StyledBadge
@@ -425,11 +425,11 @@ export const BSDraftList = observer(
     const { gbdb: db } = useData();
     const { settings } = useStore();
 
-    let [masterCount, setMasterCount] = useState(0);
-    let [apprenticeCount, setApprenticeCount] = useState(0);
-    let [ready, setReady] = useState(false);
+    const [masterCount, setMasterCount] = useState(0);
+    const [apprenticeCount, setApprenticeCount] = useState(0);
+    const [ready, setReady] = useState(false);
 
-    let [roster, setRoster] = useState<Roster>();
+    const [roster, setRoster] = useState<Roster>();
 
     useEffect(() => {
       const fetchData = async () => {
@@ -443,7 +443,7 @@ export const BSDraftList = observer(
           .exec();
         // need to make a deep copy of the roster data
         // and add UI state for drafting
-        let tmpRoster: DraftModel[] = models.map((m) =>
+        const tmpRoster: DraftModel[] = models.map((m) =>
           Object.assign(m.toMutableJSON(), {
             selected: false,
             disabled: m.benched ? 1 : 0,
@@ -495,7 +495,7 @@ export const BSDraftList = observer(
         onUpdate?.(model, value);
         model.selected = value;
 
-        let newMasterCount = checkMasterCount(
+        const newMasterCount = checkMasterCount(
           roster,
           model,
           masterCount,
@@ -503,7 +503,7 @@ export const BSDraftList = observer(
         );
         setMasterCount(newMasterCount);
 
-        let newApprenticeCount = checkApprenticeCount(
+        const newApprenticeCount = checkApprenticeCount(
           roster,
           model,
           apprenticeCount,
@@ -567,8 +567,8 @@ export const BSDraftList = observer(
       return null;
     }
 
-    let masters = roster.filter((m: DraftModel) => m.captain);
-    let apprentices = roster.filter((m: DraftModel) => !m.captain);
+    const masters = roster.filter((m: DraftModel) => m.captain);
+    const apprentices = roster.filter((m: DraftModel) => !m.captain);
 
     return (
       <StyledBadge

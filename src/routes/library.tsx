@@ -166,8 +166,8 @@ export function Roster() {
   const [cardHeight, setCardHeight] = useState(700);
 
   const updateSize = useCallback(() => {
-    let width = ref.current?.getBoundingClientRect().width ?? 0;
-    let height = ref.current?.getBoundingClientRect().height ?? 0;
+    const width = ref.current?.getBoundingClientRect().width ?? 0;
+    const height = ref.current?.getBoundingClientRect().height ?? 0;
     setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
     setCardHeight(Math.min(height, (width * 7) / 5) - 12);
   }, []);
@@ -211,7 +211,7 @@ export function Roster() {
       if (g) {
         reSort(_roster, "id", g.roster);
       }
-      let roster = await Promise.all(_roster.map((m) => m.expand()));
+      const roster = await Promise.all(_roster.map((m) => m.expand()));
       if (!cancled) {
         setGuild(g);
         setRoster(roster);
@@ -342,8 +342,8 @@ export function GamePlans() {
   const [cardHeight, setCardHeight] = useState(700);
 
   const updateSize = useCallback(() => {
-    let width = ref.current?.getBoundingClientRect().width ?? 0;
-    let height = ref.current?.getBoundingClientRect().height ?? 0;
+    const width = ref.current?.getBoundingClientRect().width ?? 0;
+    const height = ref.current?.getBoundingClientRect().height ?? 0;
     setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
     setCardHeight(Math.min(height, (width * 7) / 5) - 12);
   }, []);
@@ -456,8 +456,8 @@ export function RefCards() {
   const [cardHeight, setCardHeight] = useState(700);
 
   const updateSize = useCallback(() => {
-    let width = ref.current?.getBoundingClientRect().width ?? 0;
-    let height = ref.current?.getBoundingClientRect().height ?? 0;
+    const width = ref.current?.getBoundingClientRect().width ?? 0;
+    const height = ref.current?.getBoundingClientRect().height ?? 0;
     setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
     setCardHeight(Math.min(height, (width * 7) / 5) - 12);
   }, []);

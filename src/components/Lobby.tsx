@@ -54,7 +54,7 @@ const LobbyStart = (props: LobbyStepProps) => {
     const peer = newPc();
     setPc(peer);
     try {
-      let dc = peer.createDataChannel("gameSync", { negotiated: true, id: 27 });
+      const dc = peer.createDataChannel("gameSync", { negotiated: true, id: 27 });
       dc.addEventListener("open", (event) => {
         setDc(dc);
       });
@@ -200,7 +200,7 @@ const LobbyConnectWait = (props: LobbyStepProps) => {
     let unsubscribe: Unsubscribe | undefined = undefined;
     if (!oid) {
       unsubscribe = onSnapshot(doc(db, "lobby", gid), (snapshot) => {
-        let oid = snapshot.data()?.oid ?? undefined;
+        const oid = snapshot.data()?.oid ?? undefined;
         setOid(oid);
       });
     } else if (!state.oid) {
@@ -210,7 +210,7 @@ const LobbyConnectWait = (props: LobbyStepProps) => {
           if (!docSnap.exists()) {
             return;
           }
-          let answer = JSON.parse(docSnap.data().answer);
+          const answer = JSON.parse(docSnap.data().answer);
           await pc.setRemoteDescription(answer).then(() => {
             setState((state) => ({ ...state, oid: oid }));
           });

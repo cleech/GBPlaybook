@@ -94,7 +94,7 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
   const getData = useCallback(async () => {
     const manifest = await readManifest();
     setManifest(manifest);
-    var filename: string;
+    let filename: string;
     if (settings.dataSet) {
       // filename = manifest.datafiles.find((d) => d.filename === settings.dataSet).filename;
       filename = settings.dataSet;
@@ -132,7 +132,7 @@ export const useData = () => {
 };
 
 const readManifest = async () => {
-  let manifest = await fetch("data/manifest.json", {
+  const manifest = await fetch("data/manifest.json", {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
@@ -144,7 +144,7 @@ const readManifest = async () => {
 };
 
 const readFile = async (filename: string) => {
-  let result = await fetch(`data/${filename}`, {
+  const result = await fetch(`data/${filename}`, {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",

@@ -27,10 +27,10 @@ export function DoubleCard({
     if (!targetRef.current) {
       return;
     }
-    let { width, height } = targetRef.current.getBoundingClientRect();
-    let vertScale = width / 1000;
-    let horiScale = height / 700;
-    let newScale = Math.min(vertScale, horiScale, 1);
+    const { width, height } = targetRef.current.getBoundingClientRect();
+    const vertScale = width / 1000;
+    const horiScale = height / 700;
+    const newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
   }, []);
 

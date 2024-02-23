@@ -121,7 +121,7 @@ function GameControls(
   const { dc } = useRTC();
 
   useEffect(() => {
-    if (!!dc) {
+    if (dc) {
       dc.onmessage = (ev: MessageEvent<string>) => {
         const msg = JSON.parse(ev.data);
         if (msg.team) {
@@ -137,7 +137,7 @@ function GameControls(
       };
     }
     return () => {
-      if (!!dc) {
+      if (dc) {
         dc.onmessage = null;
       }
     };
@@ -145,11 +145,11 @@ function GameControls(
 
   function pickTeam(name: string) {
     if (selector === "P1") {
-      let newParams = new URLSearchParams(searchParams);
+      const newParams = new URLSearchParams(searchParams);
       newParams.set("p1", name);
       newParams.sort();
       setSearchParams(newParams, { replace: true });
-      if (!!dc) {
+      if (dc) {
         dc.send(JSON.stringify({ team: name }));
       }
       setTeam1(name);
@@ -159,7 +159,7 @@ function GameControls(
         setSelector("GO");
       }
     } else if (selector === "P2") {
-      let newParams = new URLSearchParams(searchParams);
+      const newParams = new URLSearchParams(searchParams);
       newParams.set("p2", name);
       newParams.sort();
       setSearchParams(newParams, { replace: true });

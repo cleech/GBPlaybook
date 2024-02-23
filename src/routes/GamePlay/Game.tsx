@@ -140,7 +140,7 @@ export default function Game() {
   //   };
   // }, [dc, teams]);
 
-  let blocker = useBlocker(
+  const blocker = useBlocker(
     React.useCallback<BlockerFunction>(
       (args) => {
         if (args.nextLocation.pathname.startsWith("/game")) {
@@ -253,9 +253,9 @@ export const GameList = ({
   });
 
   const updateSize = useCallback(() => {
-    let width = sizeRef.current?.getBoundingClientRect().width ?? 0;
-    let height = sizeRef.current?.getBoundingClientRect().height ?? 0;
-    let barHeight = large ? 56 : 112;
+    const width = sizeRef.current?.getBoundingClientRect().width ?? 0;
+    const height = sizeRef.current?.getBoundingClientRect().height ?? 0;
+    const barHeight = large ? 56 : 112;
     setCardWidth(Math.min(width - 12, ((height - barHeight) * 5) / 7 - 12));
     setCardHeight(Math.min(height - barHeight - 12, (width * 7) / 5 - 12));
     setSlideHeight(height - barHeight);

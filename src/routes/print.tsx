@@ -299,7 +299,7 @@ const GuildList = forwardRef((props, ref) => {
       if (guild) {
         const { minor } = guild;
 
-        let e = document.querySelector<HTMLElement>(".model-list-container");
+        const e = document.querySelector<HTMLElement>(".model-list-container");
         if (minor) {
           e?.style.setProperty("--major-order", "2");
           e?.style.setProperty("--minor-order", "0");
@@ -421,7 +421,7 @@ const ListItemBanner = ({
 );
 
 const DisplayModel = (name: string) => {
-  var card = document.querySelector(`.card#${name}`);
+  const card = document.querySelector(`.card#${name}`);
   card?.classList.toggle("hide");
 };
 
@@ -762,8 +762,8 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList, observer) => {
     if (mutationList && mutationList[0]) {
-      let { target } = mutationList[0];
-      let style = getComputedStyle(target as Element);
+      const { target } = mutationList[0];
+      const style = getComputedStyle(target as Element);
       setInView(style.getPropertyValue("display") !== "none");
     }
   };
@@ -837,8 +837,8 @@ const GuildCard = (props: { name: string }) => {
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList, observer) => {
     if (mutationList && mutationList[0]) {
-      let { target } = mutationList[0];
-      let style = getComputedStyle(target as Element);
+      const { target } = mutationList[0];
+      const style = getComputedStyle(target as Element);
       setInView(style.getPropertyValue("display") !== "none");
     }
   };
@@ -894,8 +894,8 @@ const GameplanPrintCard = (props: { gameplan: Gameplan }) => {
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList, observer) => {
     if (mutationList && mutationList[0]) {
-      let { target } = mutationList[0];
-      let style = getComputedStyle(target as Element);
+      const { target } = mutationList[0];
+      const style = getComputedStyle(target as Element);
       setInView(style.getPropertyValue("display") !== "none");
     }
   };
@@ -940,8 +940,8 @@ const RefcardPrintCard = (props: { index: number }) => {
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList, observer) => {
     if (mutationList && mutationList[0]) {
-      let { target } = mutationList[0];
-      let style = getComputedStyle(target as Element);
+      const { target } = mutationList[0];
+      const style = getComputedStyle(target as Element);
       setInView(style.getPropertyValue("display") !== "none");
     }
   };

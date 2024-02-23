@@ -86,7 +86,7 @@ export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
       return;
     }
     const fetchData = async () => {
-      let count = await db.guilds.count().exec();
+      const count = await db.guilds.count().exec();
       if (isLive && dimensions) {
         setSize(itemSize(dimensions, count, 1)?.size ?? 0);
       }

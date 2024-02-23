@@ -156,7 +156,7 @@ export function HealthCounter({
       //   'roster.$[m].health': 0
       // }});
       state.incrementalModify((oldState) => {
-        let m = oldState.roster.findIndex((_m) => _m.name === model.id);
+        const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         model.health = oldState.roster[m].health = 0;
         return oldState;
       });
@@ -167,7 +167,7 @@ export function HealthCounter({
       /* this is dumb, fix the type? */
       /* we never put counters on raw data, right? */
       state.incrementalModify((oldState) => {
-        let m = oldState.roster.findIndex((_m) => _m.name === model.id);
+        const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health > 0) {
           model.health = oldState.roster[m].health -= 1;
         }
@@ -183,7 +183,7 @@ export function HealthCounter({
   const longPressUp = useLongPress({
     onLongPress: (e) => {
       state.incrementalModify((oldState) => {
-        let m = oldState.roster.findIndex((_m) => _m.name === model.id);
+        const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health < model.recovery) {
           model.health = oldState.roster[m].health = model.recovery;
         }
@@ -196,7 +196,7 @@ export function HealthCounter({
     },
     onClick: (e) => {
       state.incrementalModify((oldState) => {
-        let m = oldState.roster.findIndex((_m) => _m.name === model.id);
+        const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health < model.hp) {
           model.health = oldState.roster[m].health += 1;
         }

@@ -20,7 +20,7 @@ addRxPlugin(RxDBUpdatePlugin);
 addRxPlugin(RxDBQueryBuilderPlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
 
-type TupleOf<T, N extends Number> = [T, ...T[]] & { length: N };
+type TupleOf<T, N extends number> = [T, ...T[]] & { length: N };
 type Playbook = TupleOf<TupleOf<string | null, 7>, 2>;
 
 // Model as it loads from the JSON dataset
@@ -85,7 +85,7 @@ function populate_character_traits(doc: GBModelDoc) {
     doc.character_traits
       .map((s) => s.split(/[\[\]]/))
       .map(async ([name, param]) => {
-        let ct = await gbdb.character_traits.findOne(name.trim()).exec();
+        const ct = await gbdb.character_traits.findOne(name.trim()).exec();
         return Object.assign({}, ct?.toMutableJSON(), {
           parameter: param?.trim(),
         });

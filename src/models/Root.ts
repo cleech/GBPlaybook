@@ -173,7 +173,7 @@ const RootModel = types
     },
   }));
 
-let initialState = RootModel.create({
+const initialState = RootModel.create({
   team1: { name: "", score: 0, momentum: 0 },
   team2: { name: "", score: 0, momentum: 0 },
   // settings: { colorScheme: "dark" },

@@ -26,10 +26,10 @@ export function FlipCard({
     if (!layoutRef.current) {
       return;
     }
-    let { width, height } = layoutRef.current.getBoundingClientRect();
-    let vertScale = width / 500;
-    let horiScale = height / 700;
-    let newScale = Math.min(vertScale, horiScale, 1);
+    const { width, height } = layoutRef.current.getBoundingClientRect();
+    const vertScale = width / 500;
+    const horiScale = height / 700;
+    const newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
   }, []);
 
