@@ -32,16 +32,11 @@ import "swiper/css";
 import { Home, NavigateNext } from "@mui/icons-material";
 import { AppBarContent } from "../../App";
 
-import { useRTC } from "../../services/webrtc";
+// import { useRTC } from "../../services/webrtc";
 import { FlipGuildCard } from "../../components/GuildCard";
 import { useData } from "../../components/DataContext";
 import { useRxQuery } from "../../components/useRxQuery";
-import {
-  GBDatabase,
-  GBGameStateDoc,
-  GBModel,
-  GBModelExpanded,
-} from "../../models/gbdb";
+import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdb";
 import { reSort } from "../../components/reSort";
 
 export default function Game() {
@@ -241,8 +236,6 @@ export const GameList = ({
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(true);
 
-  const [swiper, setSwiper] = useState<SwiperRef | null>(null);
-
   const [cardWidth, setCardWidth] = useState(240);
   const [cardHeight, setCardHeight] = useState(336);
   const [slideHeight, setSlideHeight] = useState(336);
@@ -259,7 +252,7 @@ export const GameList = ({
     setCardWidth(Math.min(width - 12, ((height - barHeight) * 5) / 7 - 12));
     setCardHeight(Math.min(height - barHeight - 12, (width * 7) / 5 - 12));
     setSlideHeight(height - barHeight);
-  }, []);
+  }, [large]);
 
   return (
     <div
@@ -276,7 +269,6 @@ export const GameList = ({
         expanded={expanded}
         onClick={(i, expandList) => {
           setIndex(i);
-          // swiper?.slideTo(index, 0, false);
           setExpanded(expandList);
           setOpen(!expandList);
         }}
@@ -316,7 +308,6 @@ export const GameList = ({
           }}
         >
           <Swiper
-            onSwiper={setSwiper}
             initialSlide={index}
             direction="vertical"
             centeredSlides

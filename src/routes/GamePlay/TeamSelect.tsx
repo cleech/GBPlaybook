@@ -27,18 +27,10 @@ import VersionTag from "../../components/VersionTag";
 import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
 import { GBGuildDoc } from "../../models/gbdb";
 
-function SelectedIcon({
-  team,
-  size,
-  focused,
-}: {
-  team: string;
-  size: number;
-  focused: boolean;
-}) {
-  const { gbdb: db } = useData();  
+function SelectedIcon({ team, size }: { team: string; size: number }) {
+  const { gbdb: db } = useData();
   const [guild, setGuild] = useState<GBGuildDoc | null>(null);
-  
+
   useEffect(() => {
     let cancled = false;
     if (!db) {
@@ -204,15 +196,7 @@ function GameControls(
         }}
         onClick={() => setSelector("P1")}
       >
-        {team1 ? (
-          <SelectedIcon
-            team={team1}
-            size={props.size}
-            focused={selector === "P1"}
-          />
-        ) : (
-          "P1"
-        )}
+        {team1 ? <SelectedIcon team={team1} size={props.size} /> : "P1"}
       </Button>
       <div
         style={{
@@ -272,15 +256,7 @@ function GameControls(
         onClick={() => setSelector("P2")}
         disabled={!!dc}
       >
-        {team2 ? (
-          <SelectedIcon
-            team={team2}
-            size={props.size}
-            focused={selector === "P2"}
-          />
-        ) : (
-          "P2"
-        )}
+        {team2 ? <SelectedIcon team={team2} size={props.size} /> : "P2"}
       </Button>
     </div>,
     pickTeam,

@@ -1,20 +1,11 @@
-import React, { useState, useRef, useLayoutEffect, useCallback } from "react";
+import { useState, useRef, useLayoutEffect, useCallback, JSX } from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
-// import { model } from "./FlipCard";
 import GBImages from "./GBImages";
 import { useStore } from "../models/Root";
 import { GBModelExpanded } from "../models/gbdb";
 
-export function DoubleCard({
-  model,
-  controls,
-  controlProps,
-}: {
-  model: GBModelExpanded;
-  controls: any;
-  controlProps?: any;
-}): JSX.Element {
+export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
   const { settings } = useStore();
   const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1.0);
@@ -33,15 +24,6 @@ export function DoubleCard({
     const newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
   }, []);
-
-  // const { data } = useData();
-  // if (!data) {
-  //   return null;
-  // }
-  // const model = data.Models.find((m) => m.id === name);
-  // if (GBImages[`${model.id}_gbcp_front`]) {
-  //   model.gbcp = true;
-  // }
 
   const key = model.id;
   const gbcp =
@@ -98,23 +80,6 @@ export function DoubleCard({
             borderBottomLeftRadius: 0,
           }}
         />
-        {controls ? (
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              // position: "absolute",
-              // top: "0px",
-              // left: "0px",
-              // width: "500px",
-              // height: "700px",
-              // transform: `scale(${scale})`,
-              // transformOrigin: "top left",
-            }}
-          >
-            {controls?.({ model, ...controlProps })}
-          </div>
-        ) : null}
       </div>
     </div>
   );

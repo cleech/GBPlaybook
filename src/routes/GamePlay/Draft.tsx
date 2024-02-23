@@ -23,11 +23,10 @@ import "./Draft.css";
 import { Home, NavigateNext } from "@mui/icons-material";
 import { AppBarContent } from "../../App";
 
-import { useRTC } from "../../services/webrtc";
+// import { useRTC } from "../../services/webrtc";
 import VersionTag from "../../components/VersionTag";
-import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
-import { GBGuildDoc, GBModelDoc, GBModel } from "../../models/gbdb";
-import { retry } from "rxjs";
+// import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
+import { GBGuildDoc, GBModel } from "../../models/gbdb";
 
 const ResumeSnackBar = () => {
   const { resumePossible } = useStore();
@@ -54,10 +53,10 @@ const ResumeSnackBar = () => {
 
 export default function Draft() {
   const store = useStore();
-  const [waiting, setWaiting] = useState(false);
-  const [locked, setLocked] = useState(false);
+  // const [waiting, setWaiting] = useState(false);
+  // const [locked, setLocked] = useState(false);
   const navigate = useNavigate();
-  const { dc } = useRTC();
+  // const { dc } = useRTC();
 
   const [team1, setTeam1] = useState<GBModel[] | undefined>();
   const [team2, setTeam2] = useState<GBModel[] | undefined>();
@@ -66,7 +65,7 @@ export default function Draft() {
   const unready1 = useCallback(() => setTeam1(undefined), []);
   const unready2 = useCallback(() => setTeam2(undefined), []);
 
-  const player2 = useRef<any>();
+  const player2 = useRef<unknown>();
   const fabRef = useRef<HTMLButtonElement | null>(null);
 
   const [searchParams] = useSearchParams();
@@ -285,9 +284,9 @@ export default function Draft() {
       >
         <PlayArrowIcon />
       </Fab>
-      <Typography variant="caption">
+      {/* <Typography variant="caption">
         {waiting ? "(waiting)" : "\u00A0"}
-      </Typography>
+      </Typography> */}
 
       <DraftList2
         // hacky, but force reset when this setting changes

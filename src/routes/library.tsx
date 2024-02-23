@@ -1,4 +1,4 @@
-import React, {
+import {
   useState,
   useEffect,
   useRef,
@@ -24,7 +24,6 @@ import {
   Breadcrumbs,
   Link,
   IconButton,
-  Button,
 } from "@mui/material";
 
 import type { Swiper as SwiperRef } from "swiper";
@@ -40,22 +39,15 @@ import {
   GridIconButton,
   GuildGrid,
 } from "../components/GuildGrid";
-import { useStore, IGBPlayer } from "../models/Root";
+import { useStore } from "../models/Root";
 import { AppBarContent } from "../App";
 import { NavigateNext } from "@mui/icons-material";
 import { DoubleGuildCard, FlipGuildCard } from "../components/GuildCard";
 import VersionTag from "../components/VersionTag";
-import type { Guild, Gameplan } from "../components/DataContext.d";
+import type { Gameplan } from "../components/DataContext.d";
 import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
-import { useRxQuery } from "../components/useRxQuery";
-import {
-  GBGuildDoc,
-  GBGuild,
-  GBModelDoc,
-  GBModelCollection,
-  GBModelExpanded,
-} from "../models/gbdb";
+import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";
 import { reSort } from "../components/reSort";
 
 export default function Library() {
@@ -95,7 +87,7 @@ export function GuildList() {
         pickTeam={(guild) => {
           navigate(guild);
         }}
-        controls={extraIconsControl}
+        controls={ExtraIconsControl}
         extraIcons={[
           {
             key: "gameplans",
@@ -116,7 +108,7 @@ export function GuildList() {
   );
 }
 
-function extraIconsControl(
+function ExtraIconsControl(
   props: ControlProps
 ): [JSX.Element, ((g: string) => void)?] {
   const navigate = useNavigate();
@@ -170,7 +162,7 @@ export function Roster() {
     const height = ref.current?.getBoundingClientRect().height ?? 0;
     setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
     setCardHeight(Math.min(height, (width * 7) / 5) - 12);
-  }, []);
+  }, [large]);
 
   useLayoutEffect(() => {
     updateSize();
@@ -188,7 +180,7 @@ export function Roster() {
   useEffect(() => {
     const savedPosition = searchParams.get("m");
     if (savedPosition) {
-      const index = g?.roster.findIndex((m: any) => m === savedPosition);
+      const index = g?.roster.findIndex((m) => m === savedPosition);
       if (index) {
         swiper?.slideTo(index + 1);
       }
@@ -315,9 +307,9 @@ export function Roster() {
                   }}
                 >
                   {large ? (
-                    <DoubleCard model={model} controls={undefined} />
+                    <DoubleCard model={model} />
                   ) : (
-                    <FlipCard model={model} controls={undefined} />
+                    <FlipCard model={model} />
                   )}
                 </div>
               </SwiperSlide>
@@ -333,7 +325,6 @@ export function Roster() {
 export function GamePlans() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const theme = useTheme();
   // const large = useMediaQuery(theme.breakpoints.up("sm"));
   const large = false;
 
@@ -346,7 +337,7 @@ export function GamePlans() {
     const height = ref.current?.getBoundingClientRect().height ?? 0;
     setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
     setCardHeight(Math.min(height, (width * 7) / 5) - 12);
-  }, []);
+  }, [large]);
 
   useLayoutEffect(() => {
     updateSize();
@@ -447,7 +438,6 @@ export function GamePlans() {
 export function RefCards() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const theme = useTheme();
   // const large = useMediaQuery(theme.breakpoints.up("sm"));
   const large = false;
 
@@ -460,7 +450,7 @@ export function RefCards() {
     const height = ref.current?.getBoundingClientRect().height ?? 0;
     setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
     setCardHeight(Math.min(height, (width * 7) / 5) - 12);
-  }, []);
+  }, [large]);
 
   useLayoutEffect(() => {
     updateSize();

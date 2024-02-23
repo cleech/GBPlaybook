@@ -1,18 +1,15 @@
 import React, { Suspense, useCallback, useEffect, useState } from "react";
-// import { Link, Outlet, useParams } from "react-router-dom";
 
 import { useDimensionsRef } from "rooks";
-// import _ from "lodash";
 
 import { Button, Typography, Divider } from "@mui/material";
 
 import { useData } from "../components/DataContext";
 import GBIcon from "../components/GBIcon";
-import { Guild } from "./DataContext.d";
-import { GBGuildDoc, GBGuildCollection } from "../models/gbdb";
+import { GBGuildDoc } from "../models/gbdb";
 import { useRxQuery } from "./useRxQuery";
 
-function maxBy(data: Array<any>, by: (v: any) => number) {
+function maxBy<T>(data: Array<T>, by: (v: T) => number) {
   return data.reduce((a, b) => (by(a) >= by(b) ? a : b));
 }
 
@@ -129,7 +126,7 @@ export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
             <GuildGridInner
               dimensions={dimensions}
               pickTeam={controlCallback ?? pickTeam}
-              controls={controls}
+              // controls={controls}
               size={size}
               extraIcons={extraIcons}
             />
@@ -142,20 +139,26 @@ export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
   );
 }
 
-function GuildGridInner({ dimensions, pickTeam, size, extraIcons }: any) {
-  const { gbdb: db } = useData();
-  if (!dimensions || !db) {
-    return null;
-  }
+function GuildGridInner(props: {
+  dimensions: ReturnType<typeof useDimensionsRef>[1];
+  pickTeam?: (guild: string) => void;
+  size: number;
+  extraIcons?: GridIcon[];
+}) {
+  const { dimensions, pickTeam, size } = props;
 
   const guilds = useRxQuery(useCallback((db) => db.guilds.find(), []));
+
+  if (!dimensions || !guilds) {
+    return null;
+  }
 
   const list: GridIcon[] = (guilds as GBGuildDoc[]).map((g: GBGuildDoc) => ({
     key: g.name,
     name: g.name,
     icon: g.name,
   }));
-  // list.push(...(extraIcons ?? []));
+  // list.push(...(props.extraIcons ?? []));
 
   return (
     <>
@@ -168,7 +171,7 @@ function GuildGridInner({ dimensions, pickTeam, size, extraIcons }: any) {
 
 export function GridIconButton(props: {
   g: GridIcon;
-  pickTeam: (guild: string) => void;
+  pickTeam?: (guild: string) => void;
   size: number;
 }) {
   const { g, pickTeam, size } = props;
@@ -176,9 +179,7 @@ export function GridIconButton(props: {
     <Button
       key={g.key}
       variant="outlined"
-      onClick={() => {
-        pickTeam && pickTeam(g.key);
-      }}
+      onClick={() => pickTeam?.(g.key)}
       style={{
         display: "flex",
         flexDirection: "column",

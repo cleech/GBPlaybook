@@ -17,59 +17,52 @@ import MinusIcon from "@mui/icons-material/Remove";
 import PlusIcon from "@mui/icons-material/Add";
 import useLongPress from "../components/useLongPress";
 import GBIcon from "./GBIcon";
-import { useRTC } from "../services/webrtc";
+// import { useRTC } from "../services/webrtc";
 import { useUpdateAnimation } from "./useUpdateAnimation";
 import { useStore } from "../models/Root";
-import { GBGameStateDoc, GBModel, GBModelExpanded } from "../models/gbdb";
-
-// type model = IGBPlayer;
-// type team = IGBTeam;
+import { GBGameStateDoc, GBModelExpanded } from "../models/gbdb";
 
 interface RosterListProps {
   teams: GBGameStateDoc[];
   rosters: GBModelExpanded[][];
   expanded: boolean;
-  onClick: (
-    // event: React.MouseEvent<HTMLElement>,
-    // model: model,
-    index: number,
-    expand: boolean
-  ) => void;
+  onClick: (index: number, expand: boolean) => void;
 }
 
-interface CounterProps {
-  object: any;
-  label: (o: any) => string;
-  value: (o: any) => number;
-  setValue: (o: any, v: number) => void;
+interface CounterProps<T> {
+  object: T;
+  label: (o: T) => string;
+  value: (o: T) => number;
+  setValue: (o: T, v: number) => void;
   disabled?: boolean;
   longPressClear?: boolean;
 }
 
-const CounterLabel = (props: {
+function CounterLabel<T>(props: {
   disabled: boolean;
-  object: any;
-  label: (o: any) => string;
-}) => {
+  object: T;
+  label: (o: T) => string;
+}) {
   const { disabled, object, label } = props;
-  const ref = useUpdateAnimation(disabled, [label(object)]);
+  const newLabel = label(object);
+  const ref = useUpdateAnimation(disabled, [newLabel]);
   return (
     <Typography ref={ref} sx={{ width: "100%", textAlign: "center" }}>
-      {label(object)}
+      {newLabel}
     </Typography>
   );
-};
+}
 
-const Counter = ({
+function Counter<T>({
   object,
   label,
   value,
   setValue,
   disabled = false,
   longPressClear = false,
-}: CounterProps) => {
+}: CounterProps<T>) {
   const longPressDown = useLongPress({
-    onLongPress: (e) => {
+    onLongPress: () => {
       setValue(object, 0);
     },
     onClick: (e) => {
@@ -117,7 +110,7 @@ const Counter = ({
       </ButtonGroup>
     </div>
   );
-};
+}
 
 const HealthCounterLabel = (props: {
   health: number;
@@ -125,7 +118,7 @@ const HealthCounterLabel = (props: {
   disabled: boolean;
 }) => {
   const { model, disabled } = props;
-  const ref = useUpdateAnimation(disabled, [props.health]);
+  const ref = useUpdateAnimation<HTMLButtonElement>(disabled, [props.health]);
   return (
     <Button ref={ref} disabled size="small">
       <Typography variant="body2" color="text.primary">
@@ -148,24 +141,17 @@ export function HealthCounter({
   disabled?: boolean;
   stacked?: boolean;
 }) {
-  const { dc } = useRTC();
+  // const { dc } = useRTC();
   const longPressDown = useLongPress({
-    onLongPress: async (e) => {
-      // state.update({
-      //   $set: {
-      //   'roster.$[m].health': 0
-      // }});
+    onLongPress: () => {
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         model.health = oldState.roster[m].health = 0;
         return oldState;
       });
-      // model.setHealth(0);
       // dc?.send(JSON.stringify({ model: model.id, health: 0 }));
     },
-    onClick: (e) => {
-      /* this is dumb, fix the type? */
-      /* we never put counters on raw data, right? */
+    onClick: () => {
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health > 0) {
@@ -173,15 +159,11 @@ export function HealthCounter({
         }
         return oldState;
       });
-      // if ((model.health ?? 0) > 0) {
-      //   let h = (model.health ?? 0) - 1;
-      //   model.setHealth(h);
-      //   dc?.send(JSON.stringify({ model: model.id, health: h }));
-      // }
+      // dc?.send(JSON.stringify({ model: model.id, health: h }));
     },
   });
   const longPressUp = useLongPress({
-    onLongPress: (e) => {
+    onLongPress: () => {
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health < model.recovery) {
@@ -189,12 +171,9 @@ export function HealthCounter({
         }
         return oldState;
       });
-      // if ((model.health ?? 0) < model.recovery) {
-      //   model.setHealth(model.recovery);
-      //   dc?.send(JSON.stringify({ model: model.id, health: model.recovery }));
-      // }
+      // dc?.send(JSON.stringify({ model: model.id, health: model.recovery }));
     },
-    onClick: (e) => {
+    onClick: () => {
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health < model.hp) {
@@ -202,11 +181,7 @@ export function HealthCounter({
         }
         return oldState;
       });
-      // if ((model.health ?? 0) < model.hp) {
-      //   let h = (model.health ?? 0) + 1;
-      //   model.setHealth(h);
-      //   dc?.send(JSON.stringify({ model: model.id, health: h }));
-      // }
+      // dc?.send(JSON.stringify({ model: model.id, health: h }));
     },
   });
 
@@ -271,7 +246,7 @@ export default function RosterList({
 }: RosterListProps) {
   const theme = useTheme();
   const { settings } = useStore();
-  const { dc } = useRTC();
+  // const { dc } = useRTC();
   const indexBases = teams.reduce(
     (acc, team, index) => {
       return [...acc, acc[index] + team.roster.length + 1];
@@ -360,11 +335,10 @@ export default function RosterList({
                     label={(t) => `VP: ${t.score}`}
                     value={(t) => t.score}
                     setValue={(t, v) => {
-                      t.incrementalModify((oldValue: GBGameStateDoc) => {
+                      t.incrementalModify((oldValue) => {
                         oldValue.score = v;
                         return oldValue;
                       });
-                      // t.setScore(v);
                       // dc?.send(JSON.stringify({ VP: v }));
                     }}
                   />
@@ -375,11 +349,10 @@ export default function RosterList({
                     label={(t) => `MOM: ${t.momentum}`}
                     value={(t) => t.momentum}
                     setValue={(t, v) => {
-                      t.incrementalModify((oldValue: GBGameStateDoc) => {
+                      t.incrementalModify((oldValue) => {
                         oldValue.momentum = v;
                         return oldValue;
                       });
-                      // t.setMomentum(v);
                       // dc?.send(JSON.stringify({ MOM: v }));
                     }}
                   />
@@ -414,7 +387,7 @@ export default function RosterList({
                         disabled={team.disabled}
                       />
                     }
-                    onClick={(e) => {
+                    onClick={() => {
                       onClick(indexBase + index, false);
                     }}
                   >

@@ -1,9 +1,6 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-// import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
-// import reportWebVitals from "./reportWebVitals";
 
 import {
   createHashRouter,
@@ -31,7 +28,6 @@ import { CardPrintScreen } from "./routes/print";
 
 import { FirebaseProvider } from "./services/firebase";
 import { RTCProvider } from "./services/webrtc";
-import gbdb from "./models/gbdb";
 
 rootStorePersist().then(() => {
   const router = createHashRouter(

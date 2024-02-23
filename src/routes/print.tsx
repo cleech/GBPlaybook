@@ -34,14 +34,9 @@ import ClearAllIcon from "@mui/icons-material/RemoveDone";
 import ClearIcon from "@mui/icons-material/Clear";
 import VersionTag from "../components/VersionTag";
 import GBImages from "../components/GBImages";
-import { Gameplan, Guild, Model } from "../components/DataContext.d";
-import {
-  GameplanCard,
-  GameplanFront,
-  ReferenceCard,
-  ReferenceCardFront,
-} from "../components/Gameplan";
-import { GBGuildDoc, GBModel, GBModelDoc, GBModelExpanded } from "../models/gbdb";
+import { Gameplan, Guild } from "../components/DataContext.d";
+import { GameplanFront, ReferenceCardFront } from "../components/Gameplan";
+import { GBGuildDoc, GBModelDoc, GBModelExpanded } from "../models/gbdb";
 import { reSort } from "../components/reSort";
 
 export const CardPrintScreen = () => {
@@ -760,7 +755,7 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
   const { gbdb: db } = useData();
 
   const [inView, setInView] = useState(false);
-  const callback: MutationCallback = (mutationList, observer) => {
+  const callback: MutationCallback = (mutationList) => {
     if (mutationList && mutationList[0]) {
       const { target } = mutationList[0];
       const style = getComputedStyle(target as Element);
@@ -779,7 +774,7 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
       setModel(await _model?.expand());
     };
     fetchData();
-  }, [db]);
+  }, [db, name]);
 
   if (!model) {
     return null;
@@ -835,7 +830,7 @@ const GuildCard = (props: { name: string }) => {
   const { name } = props;
 
   const [inView, setInView] = useState(false);
-  const callback: MutationCallback = (mutationList, observer) => {
+  const callback: MutationCallback = (mutationList) => {
     if (mutationList && mutationList[0]) {
       const { target } = mutationList[0];
       const style = getComputedStyle(target as Element);
@@ -892,7 +887,7 @@ const GameplanPrintCard = (props: { gameplan: Gameplan }) => {
   const { gameplan } = props;
 
   const [inView, setInView] = useState(false);
-  const callback: MutationCallback = (mutationList, observer) => {
+  const callback: MutationCallback = (mutationList) => {
     if (mutationList && mutationList[0]) {
       const { target } = mutationList[0];
       const style = getComputedStyle(target as Element);
@@ -938,7 +933,7 @@ const RefcardPrintCard = (props: { index: number }) => {
   const { index } = props;
 
   const [inView, setInView] = useState(false);
-  const callback: MutationCallback = (mutationList, observer) => {
+  const callback: MutationCallback = (mutationList) => {
     if (mutationList && mutationList[0]) {
       const { target } = mutationList[0];
       const style = getComputedStyle(target as Element);

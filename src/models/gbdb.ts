@@ -83,7 +83,7 @@ type GBModelMethods = {
 function populate_character_traits(doc: GBModelDoc) {
   return Promise.all(
     doc.character_traits
-      .map((s) => s.split(/[\[\]]/))
+      .map((s) => s.split(/[[\]]/))
       .map(async ([name, param]) => {
         const ct = await gbdb.character_traits.findOne(name.trim()).exec();
         return Object.assign({}, ct?.toMutableJSON(), {
@@ -354,7 +354,7 @@ await gbdb.addCollections({
 
 // start off at full health
 gbdb.game_state.preInsert(async (state) => {
-  for (const [index, { name, health }] of state.roster.entries()) {
+  for (const [index, { name }] of state.roster.entries()) {
     const model = await gbdb.models.findOne().where({ id: name }).exec();
     state.roster[index].health = model?.hp ?? 0;
   }

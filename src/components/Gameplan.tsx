@@ -4,7 +4,6 @@ import React, {
   useState,
   useLayoutEffect,
   useCallback,
-  ReactComponentElement,
   ReactNode,
 } from "react";
 
@@ -29,12 +28,10 @@ export const GameplanFront = (props: {
   return (
     <div
       className="card-front"
-      style={
-        {
-          backgroundImage: `url(${image})`,
-          ...props.style,
-        } as any
-      }
+      style={{
+        backgroundImage: `url(${image})`,
+        ...props.style,
+      }}
     >
       <div className="overlay">
         <div
@@ -188,7 +185,7 @@ const SimpleCard = (props: { children?: ReactNode }) => {
             height: `${700 * scale}px`,
             display: "flex",
             "--scale": scale,
-          } as any
+          } as CardCSS
         }
       >
         {props.children}

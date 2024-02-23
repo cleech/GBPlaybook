@@ -30,16 +30,12 @@ interface DataProviderProps {
   children: React.ReactNode;
 }
 
-type GBDBSettings = {
-  filename: string;
-  sha256: string;
-};
-
 async function bulkLoadDB(filename: string, manifest: Manifest, data: any) {
   const _sha256 = manifest.datafiles.find(
     (df) => df.filename === filename
   )?.sha256;
-  const dbSettings = await gbdb.getLocal("settings");
+  // local documents don't really have a type
+  const dbSettings: any = await gbdb.getLocal("settings");
   if (dbSettings) {
     if (
       dbSettings.get("filename") === filename &&
@@ -81,7 +77,7 @@ async function bulkLoadDB(filename: string, manifest: Manifest, data: any) {
 
 export const DataProvider = observer(({ children }: DataProviderProps) => {
   const [manifest, setManifest] = useState(undefined);
-  const [data, setData] = useState(undefined);
+  // const [data, setData] = useState(undefined);
   const [gameplans, setGameplans] = useState(undefined);
   const [version, setVersion] = useState("");
   const [db, setDB] = useState<GBDatabase>();
@@ -110,7 +106,7 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
     readFile(filename).then((data) => {
       setDB(undefined);
       bulkLoadDB(filename, manifest, data).then(() => setDB(gbdb));
-      setData(data);
+      // setData(data);
     });
     setGameplans(await readFile("gameplans.json"));
   }, [settings]);

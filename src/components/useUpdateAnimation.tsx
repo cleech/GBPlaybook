@@ -1,11 +1,11 @@
 import React from "react";
 import { useDidUpdate } from "rooks";
 
-export const useUpdateAnimation = (
+export const useUpdateAnimation = <T extends HTMLElement>(
   animate: boolean,
   deps?: unknown[]
-): React.RefObject<any> => {
-  const ref = React.useRef<any>(null);
+): React.RefObject<T> => {
+  const ref = React.useRef<T>(null);
   useDidUpdate(() => {
     if (animate) {
       ref.current?.animate(

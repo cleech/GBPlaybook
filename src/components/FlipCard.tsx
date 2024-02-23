@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect, useCallback } from "react";
+import { useState, useRef, useLayoutEffect, useCallback, JSX } from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 import "./FlipCard.css";
@@ -11,7 +11,7 @@ export function FlipCard({
   controlProps,
 }: {
   model: GBModelExpanded;
-  controls: any;
+  controls?: (props: any) => JSX.Element;
   controlProps?: any;
 }): JSX.Element {
   const layoutRef = useRef<HTMLDivElement>(null);

@@ -104,7 +104,7 @@ function DraftListItem({
   );
 }
 
-const StyledBadge = styled(Badge)(({ theme }) => ({
+const StyledBadge = styled(Badge)(() => ({
   "& .MuiBadge-badge": {
     right: "2em",
     top: "2em",
@@ -208,7 +208,7 @@ export const DraftList = observer(
         setRoster(tmpRoster);
       };
       fetchData();
-    }, [guild, db]);
+    }, [guild, db, settings.gameSize]);
 
     function checkCaptains(
       roster: Roster,
@@ -272,7 +272,12 @@ export const DraftList = observer(
         const newMascot = checkMascots(roster, model, mascot, value);
         setMascot(newMascot);
 
-        const newCount = checkSquaddieCount(roster, model, squaddieCount, value);
+        const newCount = checkSquaddieCount(
+          roster,
+          model,
+          squaddieCount,
+          value
+        );
         setSquadCount(newCount);
 
         checkVeterans(roster, model, value);
@@ -354,7 +359,7 @@ export const DraftList = observer(
               <DraftListItem
                 key={m.id}
                 model={m}
-                onChange={(e) => onSwitch(m, !m.selected)}
+                onChange={() => onSwitch(m, !m.selected)}
                 disabled={disabled}
               />
             ))}
@@ -363,7 +368,7 @@ export const DraftList = observer(
               <DraftListItem
                 key={m.id}
                 model={m}
-                onChange={(e) => onSwitch(m, !m.selected)}
+                onChange={() => onSwitch(m, !m.selected)}
                 disabled={disabled}
               />
             ))}
@@ -374,7 +379,7 @@ export const DraftList = observer(
               <DraftListItem
                 key={m.id}
                 model={m}
-                onChange={(e) => onSwitch(m, !m.selected)}
+                onChange={() => onSwitch(m, !m.selected)}
                 disabled={disabled}
               />
             ))}
@@ -385,7 +390,7 @@ export const DraftList = observer(
               <DraftListItem
                 key={m.id}
                 model={m}
-                onChange={(e) => onSwitch(m, !m.selected)}
+                onChange={() => onSwitch(m, !m.selected)}
                 disabled={disabled}
               />
             ))}
@@ -593,7 +598,7 @@ export const BSDraftList = observer(
               <DraftListItem
                 key={m.id}
                 model={m}
-                onChange={(e) => onSwitch(m, !m.selected)}
+                onChange={() => onSwitch(m, !m.selected)}
                 disabled={disabled}
               />
             ))}
@@ -606,7 +611,7 @@ export const BSDraftList = observer(
                 <DraftListItem
                   key={m.id}
                   model={m}
-                  onChange={(e) => onSwitch(m, !m.selected)}
+                  onChange={() => onSwitch(m, !m.selected)}
                   disabled={disabled}
                 />
               ))}
@@ -617,7 +622,7 @@ export const BSDraftList = observer(
               <DraftListItem
                 key={m.id}
                 model={m}
-                onChange={(e) => onSwitch(m, !m.selected)}
+                onChange={() => onSwitch(m, !m.selected)}
                 disabled={disabled}
               />
             ))}
