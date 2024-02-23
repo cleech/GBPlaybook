@@ -9,14 +9,8 @@ import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
 import { GBCardCSS } from "./CardFront";
-import { IGBPlayer, JGBPlayer, useStore } from "../models/Root";
-import {
-  GBCharacterTraitDoc,
-  GBGuildDoc,
-  GBModelDoc,
-  GBModelExpanded,
-} from "../models/gbdb";
-type model = IGBPlayer | JGBPlayer;
+import { useStore } from "../models/Root";
+import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";
 
 interface CardBackProps {
   model: GBModelExpanded;
@@ -53,7 +47,7 @@ const CardBack = (props: CardBackProps) => {
     return () => {
       isLive = false;
     };
-  }, [db]);
+  }, [db, model.guild1]);
 
   if (!guild) {
     return null;
@@ -136,54 +130,24 @@ function CTName({ text }: { text: string }) {
   );
 }
 
-const CharacterTraits = ({ model }: { model: GBModelExpanded }) => {
-  const { gbdb: db } = useData();
-
-  // const [Traits, setTraits] = useState<GBCharacterTrait[]>([]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (!db) {
-  //       return;
-  //     }
-  //     if (!model.character_traits) {
-  //       return;
-  //     }
-  //     const Traits = await model.populate("character_traits");
-  //     setTraits(Traits);
-  //   };
-  //   fetchData().catch(console.error);
-  // }, [db, model]);
-
-  // if (!Traits) {
-  //   return null;
-  // }
-
-  return (
-    <div>
-      <div className="header dropcap">
-        <span>Character </span>
-        <span>Traits</span>
-      </div>
-      {model.character_traits.map((ct, index) => {
-        // const ct = Traits.find((ct) => ct.name === key.replace(/ \[.*\]/, ""));
-        if (!ct) {
-          return null;
-        }
-        return (
-          <div className="character-trait" key={`${ct.name}-${index}`}>
-            <div className={`trait ${ct.active && "active"}`}>
-              <CTName
-                text={ct.name.concat(ct.parameter ? ` [${ct.parameter}]` : "")}
-              />
-            </div>
-            <span className="text">{textIconReplace(ct.text)}</span>
-          </div>
-        );
-      })}
+const CharacterTraits = ({ model }: { model: GBModelExpanded }) => (
+  <div>
+    <div className="header dropcap">
+      <span>Character </span>
+      <span>Traits</span>
     </div>
-  );
-};
+    {model.character_traits.map((ct, index) => (
+      <div className="character-trait" key={`${ct.name}-${index}`}>
+        <div className={`trait ${ct.active && "active"}`}>
+          <CTName
+            text={ct.name.concat(ct.parameter ? ` [${ct.parameter}]` : "")}
+          />
+        </div>
+        <span className="text">{textIconReplace(ct.text)}</span>
+      </div>
+    ))}
+  </div>
+);
 
 const Heroic = ({ model }: { model: GBModelExpanded }) => {
   if (!model.heroic) {

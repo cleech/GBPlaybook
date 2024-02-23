@@ -1,7 +1,6 @@
 import React, { CSSProperties, useEffect, useState } from "react";
 import GBImages from "./GBImages";
 import { useData } from "./DataContext";
-import { Observer } from "mobx-react-lite";
 
 import GBIcon, { PB } from "./GBIcon";
 import "./CardFront.css";
@@ -10,14 +9,8 @@ import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
 import { Guild } from "./DataContext.d";
-import { IGBPlayer, JGBPlayer, useStore } from "../models/Root";
-import {
-  GBCharacterPlayDoc,
-  GBGuildDoc,
-  GBModelDoc,
-  GBModelExpanded,
-} from "../models/gbdb";
-type model = JGBPlayer | IGBPlayer;
+import { useStore } from "../models/Root";
+import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";
 
 interface CardFrontProps {
   model: GBModelExpanded;
@@ -65,7 +58,7 @@ const CardFront = (props: CardFrontProps) => {
     return () => {
       isLive = false;
     };
-  }, [db]);
+  }, [db, model.guild1, model.guild2]);
 
   if (!guild1) {
     return null;
@@ -86,7 +79,6 @@ const CardFront = (props: CardFrontProps) => {
   return (
     <div
       className={`card-front ${key} ${gbcp && "gbcp"} ${props.className}`}
-      // ref={targetRef}
       style={{
         "--team-color": guild1.color,
         /* not the best way to do this */
@@ -120,7 +112,13 @@ const CardFront = (props: CardFrontProps) => {
   );
 };
 
-const NamePlate = ({ model, guild }: { model: GBModelExpanded; guild: Guild }) => (
+const NamePlate = ({
+  model,
+  guild,
+}: {
+  model: GBModelExpanded;
+  guild: Guild;
+}) => (
   <div className="name-plate">
     <div className="guild-icon">
       <GBIcon id="guild-icon" icon={guild.name} />
@@ -140,26 +138,20 @@ const NamePlate = ({ model, guild }: { model: GBModelExpanded; guild: Guild }) =
 );
 
 const HealthBoxes = ({ model }: { model: GBModelExpanded }) => (
-  <Observer>
-    {() => (
-      <div className="health">
-        {[...Array(model.hp).keys()].map((key) => (
-          <div
-            className={`health-box ${
-              key + 1 > (model.health ?? model.hp) ? "damaged" : ""
-            }`}
-            key={key}
-          >
-            {(key === 0 && <GBIcon icon="skull" size={17} />) ||
-              (key + 1 === model.recovery && (
-                <GBIcon icon="bandage" size={22} />
-              )) ||
-              (key + 1 === model.hp && key + 1)}
-          </div>
-        ))}
+  <div className="health">
+    {[...Array(model.hp).keys()].map((key) => (
+      <div
+        className={`health-box ${
+          key + 1 > (model.health ?? model.hp) ? "damaged" : ""
+        }`}
+        key={key}
+      >
+        {(key === 0 && <GBIcon icon="skull" size={17} />) ||
+          (key + 1 === model.recovery && <GBIcon icon="bandage" size={22} />) ||
+          (key + 1 === model.hp && key + 1)}
       </div>
-    )}
-  </Observer>
+    ))}
+  </div>
 );
 
 const Playbook = ({
@@ -244,77 +236,47 @@ const CharacterPlays = ({
 }: {
   model: GBModelExpanded;
   gbcp?: boolean;
-}) => {
-  const { gbdb: db } = useData();
-
-  // const [CPlays, setCPlays] = useState<GBCharacterPlay[]>([]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (!db) {
-  //       return;
-  //     }
-  //     if (!model.character_plays) {
-  //       return;
-  //     }
-  //     let CPs = await model.populate("character_plays");
-  //     setCPlays(CPs);
-  //   };
-  //   fetchData().catch(console.error);
-  // }, [db, model]);
-
-  // if (!CPlays) {
-  //   return null;
-  // }
-
-  return (
-    <div className="character-plays">
-      <span className="dropcap">
-        <span>Character </span>
-        <span>Plays</span>
-      </span>
-      <span>CST</span>
-      <span>RNG</span>
-      <span>SUS</span>
-      <span>OPT</span>
-      {model.character_plays.map((cp) => {
-        // const cp = CPlays.find((cp) => cp.name === key);
-        if (!cp) {
-          return null;
-        }
-        return (
-          <React.Fragment key={cp.name}>
-            <CPName text={cp.name} />
-            <span>
-              {String(cp.CST)
-                .split(",")
-                .map((s, idx) => (
-                  <span key={idx}>
-                    {idx > 0 && "/"}
-                    {{
-                      CP: <GBIcon icon={gbcp ? "ball" : "GB"} size={18} />,
-                      CP2: <GBIcon icon={gbcp ? "trophy" : "GBT"} size={18} />,
-                    }[s] || <span>{s}</span>}
-                  </span>
-                ))}
-            </span>
-            <span>
-              {cp.RNG}
-              {typeof cp.RNG === "number" && '"'}
-            </span>
-            <span>
-              <BooleanIcon test={cp.SUS} />
-            </span>
-            <span>
-              <BooleanIcon test={cp.OPT} />
-            </span>
-            <div className={`text ${cp.name}`}>{textIconReplace(cp.text)}</div>
-          </React.Fragment>
-        );
-      })}
-    </div>
-  );
-};
+}) => (
+  <div className="character-plays">
+    <span className="dropcap">
+      <span>Character </span>
+      <span>Plays</span>
+    </span>
+    <span>CST</span>
+    <span>RNG</span>
+    <span>SUS</span>
+    <span>OPT</span>
+    {model.character_plays.map((cp) => (
+      <React.Fragment key={cp.name}>
+        <CPName text={cp.name} />
+        <span>
+          {String(cp.CST)
+            .split(",")
+            .map((s, idx) => (
+              <span key={idx}>
+                {idx > 0 && "/"}
+                {{
+                  CP: <GBIcon icon={gbcp ? "ball" : "GB"} size={18} />,
+                  CP2: <GBIcon icon={gbcp ? "trophy" : "GBT"} size={18} />,
+                }[s] || <span>{s}</span>}
+              </span>
+            ))}
+        </span>
+        <span>
+          {cp.RNG}
+          {typeof cp.RNG === "number" && '"'}
+        </span>
+        <span>
+          <BooleanIcon test={cp.SUS} />
+        </span>
+        <span>
+          <BooleanIcon test={cp.OPT} />
+        </span>
+        <div className={`text ${cp.name}`}>{textIconReplace(cp.text)}</div>
+      </React.Fragment>
+    ))}
+  </div>
+);
 
 const MemoCardFront = React.memo(CardFront);
 export { MemoCardFront as CardFront };

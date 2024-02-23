@@ -26,7 +26,7 @@ function fact(n: number): number {
   return n * fact(n - 1);
 }
 
-function OddsToHit(target: number, pool: number, reroll: Boolean): number[] {
+function OddsToHit(target: number, pool: number, reroll: boolean): number[] {
   if (!target || !pool) {
     return [];
   }
