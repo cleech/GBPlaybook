@@ -14,12 +14,12 @@ import {
   GBCharacterTraitDoc,
   GBGuildDoc,
   GBModelDoc,
-  GBModelFull,
+  GBModelExpanded,
 } from "../models/gbdb";
 type model = IGBPlayer | JGBPlayer;
 
 interface CardBackProps {
-  model: GBModelFull;
+  model: GBModelExpanded;
   style: GBCardCSS;
   guild?: string;
   className?: string;
@@ -136,7 +136,7 @@ function CTName({ text }: { text: string }) {
   );
 }
 
-const CharacterTraits = ({ model }: { model: GBModelFull }) => {
+const CharacterTraits = ({ model }: { model: GBModelExpanded }) => {
   const { gbdb: db } = useData();
 
   // const [Traits, setTraits] = useState<GBCharacterTrait[]>([]);
@@ -185,7 +185,7 @@ const CharacterTraits = ({ model }: { model: GBModelFull }) => {
   );
 };
 
-const Heroic = ({ model }: { model: GBModelFull }) => {
+const Heroic = ({ model }: { model: GBModelExpanded }) => {
   if (!model.heroic) {
     return null;
   }
@@ -205,7 +205,7 @@ const Heroic = ({ model }: { model: GBModelFull }) => {
   );
 };
 
-const Legendary = ({ model }: { model: GBModelFull }) => {
+const Legendary = ({ model }: { model: GBModelExpanded }) => {
   if (!model.legendary) {
     return null;
   }

@@ -15,12 +15,12 @@ import {
   GBCharacterPlayDoc,
   GBGuildDoc,
   GBModelDoc,
-  GBModelFull,
+  GBModelExpanded,
 } from "../models/gbdb";
 type model = JGBPlayer | IGBPlayer;
 
 interface CardFrontProps {
-  model: GBModelFull;
+  model: GBModelExpanded;
   style: GBCardCSS;
   className?: string;
   noBackground?: boolean;
@@ -120,7 +120,7 @@ const CardFront = (props: CardFrontProps) => {
   );
 };
 
-const NamePlate = ({ model, guild }: { model: GBModelFull; guild: Guild }) => (
+const NamePlate = ({ model, guild }: { model: GBModelExpanded; guild: Guild }) => (
   <div className="name-plate">
     <div className="guild-icon">
       <GBIcon id="guild-icon" icon={guild.name} />
@@ -139,7 +139,7 @@ const NamePlate = ({ model, guild }: { model: GBModelFull; guild: Guild }) => (
   </div>
 );
 
-const HealthBoxes = ({ model }: { model: GBModelFull }) => (
+const HealthBoxes = ({ model }: { model: GBModelExpanded }) => (
   <Observer>
     {() => (
       <div className="health">
@@ -166,7 +166,7 @@ const Playbook = ({
   model,
   gbcp = false,
 }: {
-  model: GBModelFull;
+  model: GBModelExpanded;
   gbcp?: boolean;
 }) => (
   <div className="playbook">
@@ -206,7 +206,7 @@ const Playbook = ({
   </div>
 );
 
-const StatBox = ({ model }: { model: GBModelFull }) => (
+const StatBox = ({ model }: { model: GBModelExpanded }) => (
   <div className="statbox">
     <span>MOV</span>
     <span>TAC</span>
@@ -242,7 +242,7 @@ const CharacterPlays = ({
   model,
   gbcp = false,
 }: {
-  model: GBModelFull;
+  model: GBModelExpanded;
   gbcp?: boolean;
 }) => {
   const { gbdb: db } = useData();

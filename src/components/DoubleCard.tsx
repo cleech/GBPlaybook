@@ -4,14 +4,14 @@ import { CardBack } from "./CardBack";
 // import { model } from "./FlipCard";
 import GBImages from "./GBImages";
 import { useStore } from "../models/Root";
-import { GBModelFull } from "../models/gbdb";
+import { GBModelExpanded } from "../models/gbdb";
 
 export function DoubleCard({
   model,
   controls,
   controlProps,
 }: {
-  model: GBModelFull;
+  model: GBModelExpanded;
   controls: any;
   controlProps?: any;
 }): JSX.Element {

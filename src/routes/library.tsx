@@ -54,7 +54,7 @@ import {
   GBGuild,
   GBModelDoc,
   GBModelCollection,
-  GBModelFull,
+  GBModelExpanded,
 } from "../models/gbdb";
 import { reSort } from "../components/reSort";
 
@@ -183,7 +183,7 @@ export function Roster() {
   const { gbdb: db } = useData();
 
   const [g, setGuild] = useState<GBGuildDoc | null>(null);
-  const [roster, setRoster] = useState<GBModelFull[]>();
+  const [roster, setRoster] = useState<GBModelExpanded[]>();
 
   useEffect(() => {
     const savedPosition = searchParams.get("m");
@@ -211,7 +211,7 @@ export function Roster() {
       if (g) {
         reSort(_roster, "id", g.roster);
       }
-      let roster = await Promise.all(_roster.map((m) => m.resolve()));
+      let roster = await Promise.all(_roster.map((m) => m.expand()));
       if (!cancled) {
         setGuild(g);
         setRoster(roster);

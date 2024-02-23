@@ -3,14 +3,14 @@ import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 import "./FlipCard.css";
 
-import { GBModelFull } from "../models/gbdb";
+import { GBModelExpanded } from "../models/gbdb";
 
 export function FlipCard({
   model,
   controls,
   controlProps,
 }: {
-  model: GBModelFull;
+  model: GBModelExpanded;
   controls: any;
   controlProps?: any;
 }): JSX.Element {

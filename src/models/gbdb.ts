@@ -20,9 +20,10 @@ addRxPlugin(RxDBUpdatePlugin);
 addRxPlugin(RxDBQueryBuilderPlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
 
-type _Tuple<T, N extends Number> = [T, ...T[]] & { length: N };
-type Playbook = _Tuple<_Tuple<string | null, 7>, 2>;
+type TupleOf<T, N extends Number> = [T, ...T[]] & { length: N };
+type Playbook = TupleOf<TupleOf<string | null, 7>, 2>;
 
+// Model as it loads from the JSON dataset
 export interface GBModel {
   id: string;
   name: string;
@@ -43,12 +44,11 @@ export interface GBModel {
   infmax: number;
   reach: boolean;
 
-  // used in draft screen, here for completeness
+  // used in draft screen
   benched?: string;
   dehcneb?: string;
 
-  playbook: (string | null)[][];
-  // playbook: Playbook;
+  playbook: Playbook;
   character_plays: string[];
   character_traits: string[];
   heroic?: string;
@@ -65,15 +65,19 @@ interface ParameterizedTrait extends GBCharacterTrait {
   parameter?: string;
 }
 
-export interface GBModelFull
+// Expanded Model, with plays and traits populated
+// Also adds in additional runtime values
+export interface GBModelExpanded
   extends Omit<GBModel, "character_plays" | "character_traits"> {
   character_plays: GBCharacterPlay[];
   character_traits: ParameterizedTrait[];
   health: number;
+  _inf?: number;
+  statLine: string;
 }
 
 type GBModelMethods = {
-  resolve: () => Promise<GBModelFull>;
+  expand: () => Promise<GBModelExpanded>;
 };
 
 function populate_character_traits(doc: GBModelDoc) {
@@ -82,29 +86,38 @@ function populate_character_traits(doc: GBModelDoc) {
       .map((s) => s.split(/[\[\]]/))
       .map(async ([name, param]) => {
         let ct = await gbdb.character_traits.findOne(name.trim()).exec();
-        return Object.assign({}, ct?.toJSON(), { parameter: param?.trim() });
+        return Object.assign({}, ct?.toMutableJSON(), {
+          parameter: param?.trim(),
+        });
       })
   );
 }
 
 const gbModelDocMethods: GBModelMethods = {
-  resolve: async function (this: GBModelDoc): Promise<GBModelFull> {
-    let model = this.toMutableJSON();
-    let [character_plays, character_traits]: [
+  expand: async function (this: GBModelDoc): Promise<GBModelExpanded> {
+    const [character_plays, character_traits]: [
       GBCharacterPlay[],
       ParameterizedTrait[]
     ] = await Promise.all([
       this.populate("character_plays").then((cps) =>
         cps.map((cp: GBCharacterPlayDoc) => cp.toMutableJSON())
       ),
-      // this.populate("character_traits"),
       populate_character_traits(this),
     ]);
-    return Object.assign(model, {
+    const model: GBModelExpanded = Object.assign({}, this.toMutableJSON(), {
       character_plays: character_plays,
       character_traits: character_traits,
-      health: model.hp,
+      health: this.hp,
+      // dont let Some/Pneuma count twice for the INF pool
+      _inf: this.id === "Pneuma" ? 0 : undefined,
+      // mini-statline display
+      statLine: `${this.jog}"/${this.sprint}" | ${this.tac} | ${
+        this.kickdice
+      }/${this.kickdist}" | ${this.def}+ | ${this.arm} | ${this.inf}/${
+        this.infmax
+      } | ${this.reach ? 2 : 1}"`,
     });
+    return model;
   },
 };
 
@@ -346,31 +359,5 @@ gbdb.game_state.preInsert(async (state) => {
     state.roster[index].health = model?.hp ?? 0;
   }
 }, false);
-
-/*
-// data quirks
-gbdb.fmodels.postCreate((_, model) => {
-  // mini stat line
-  Object.defineProperty(model, "statLine", {
-    get: () => {
-      return `${model.jog}"/${model.sprint}" | ${model.tac} | ${
-        model.kickdice
-      }/${model.kickdist}" | ${model.def}+ | ${model.arm} | ${model.inf}/${
-        model.infmax
-      } | ${model.reach ? 2 : 1}"`;
-    },
-  });
-  // don't let Soma/Pneuma double add influence to the pool
-  Object.defineProperty(model, "inf_", {
-    get: () => {
-      if (model.name === "Pneuma") {
-        return 0;
-      } else {
-        return model.inf;
-      }
-    },
-  });
-});
-*/
 
 export default gbdb;

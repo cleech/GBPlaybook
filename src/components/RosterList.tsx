@@ -20,14 +20,14 @@ import GBIcon from "./GBIcon";
 import { useRTC } from "../services/webrtc";
 import { useUpdateAnimation } from "./useUpdateAnimation";
 import { useStore } from "../models/Root";
-import { GBGameStateDoc, GBModel, GBModelFull } from "../models/gbdb";
+import { GBGameStateDoc, GBModel, GBModelExpanded } from "../models/gbdb";
 
 // type model = IGBPlayer;
 // type team = IGBTeam;
 
 interface RosterListProps {
   teams: GBGameStateDoc[];
-  rosters: GBModelFull[][];
+  rosters: GBModelExpanded[][];
   expanded: boolean;
   onClick: (
     // event: React.MouseEvent<HTMLElement>,
@@ -121,7 +121,7 @@ const Counter = ({
 
 const HealthCounterLabel = (props: {
   health: number;
-  model: GBModelFull;
+  model: GBModelExpanded;
   disabled: boolean;
 }) => {
   const { model, disabled } = props;
@@ -144,7 +144,7 @@ export function HealthCounter({
   stacked = false,
 }: {
   state: GBGameStateDoc;
-  model: GBModelFull;
+  model: GBModelExpanded;
   disabled?: boolean;
   stacked?: boolean;
 }) {
@@ -347,9 +347,7 @@ export default function RosterList({
                 <ListItemText
                   primary={team.guild}
                   secondary={`${rosters[index].reduce(
-                    // FIXME Pneuma bug
-                    // (acc, m) => acc + (m._inf ?? m.inf),
-                    (acc, m) => acc + m.inf,
+                    (acc, m) => acc + (m._inf ?? m.inf),
                     0
                   )} INF`}
                 />
@@ -406,7 +404,7 @@ export default function RosterList({
                   },
                 }}
               >
-                {rosters[index].map((m: GBModelFull, index: number) => (
+                {rosters[index].map((m: GBModelExpanded, index: number) => (
                   <ListItem
                     key={m.id}
                     secondaryAction={
@@ -422,12 +420,11 @@ export default function RosterList({
                   >
                     <ListItemText
                       primary={m.id}
-                      // FIXME statlines
-                      // secondary={
-                      //   settings.uiPreferences.displayStatLine
-                      //     ? m.statLine
-                      //     : null
-                      // }
+                      secondary={
+                        settings.uiPreferences.displayStatLine
+                          ? m.statLine
+                          : null
+                      }
                     />
                   </ListItem>
                 ))}

@@ -3,7 +3,6 @@ import React, {
   useRef,
   useLayoutEffect,
   useEffect,
-  useMemo,
   useCallback,
 } from "react";
 import { useBlocker } from "react-router-dom";
@@ -23,8 +22,6 @@ import {
   Alert,
   Box,
 } from "@mui/material";
-// import { DraftModel } from "../../components/Draft";
-// import { useStore, IGBTeam } from "../../models/Root";
 import RosterList, { HealthCounter } from "../../components/RosterList";
 import { FlipCard } from "../../components/FlipCard";
 
@@ -43,7 +40,7 @@ import {
   GBDatabase,
   GBGameStateDoc,
   GBModel,
-  GBModelFull,
+  GBModelExpanded,
 } from "../../models/gbdb";
 import { reSort } from "../../components/reSort";
 
@@ -66,8 +63,8 @@ export default function Game() {
   );
   const teams = [team1[0], team2[0]];
 
-  const [roster1, setRoster1] = useState<GBModelFull[]>();
-  const [roster2, setRoster2] = useState<GBModelFull[]>();
+  const [roster1, setRoster1] = useState<GBModelExpanded[]>();
+  const [roster2, setRoster2] = useState<GBModelExpanded[]>();
 
   useEffect(() => {
     let cancled = false;
@@ -81,7 +78,7 @@ export default function Game() {
         .in(teams[0].roster.map((r) => r.name))
         .exec();
 
-      const roster1 = await Promise.all(_roster1.map((m) => m.resolve()));
+      const roster1 = await Promise.all(_roster1.map((m) => m.expand()));
       reSort(
         roster1,
         "id",
@@ -94,7 +91,7 @@ export default function Game() {
         .in(teams[1].roster.map((r) => r.name))
         .exec();
 
-      const roster2 = await Promise.all(_roster2.map((m) => m.resolve()));
+      const roster2 = await Promise.all(_roster2.map((m) => m.expand()));
       reSort(
         roster2,
         "id",
@@ -235,7 +232,7 @@ export const GameList = ({
   rosters,
 }: {
   teams: GBGameStateDoc[];
-  rosters: GBModelFull[][];
+  rosters: GBModelExpanded[][];
 }) => {
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
@@ -374,7 +371,7 @@ function CardControls({
   disabled = false,
 }: {
   state: GBGameStateDoc;
-  model: GBModelFull;
+  model: GBModelExpanded;
   disabled?: boolean;
 }) {
   return (

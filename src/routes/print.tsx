@@ -41,7 +41,7 @@ import {
   ReferenceCard,
   ReferenceCardFront,
 } from "../components/Gameplan";
-import { GBGuildDoc, GBModel, GBModelDoc, GBModelFull } from "../models/gbdb";
+import { GBGuildDoc, GBModel, GBModelDoc, GBModelExpanded } from "../models/gbdb";
 import { reSort } from "../components/reSort";
 
 export const CardPrintScreen = () => {
@@ -769,14 +769,14 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
   };
   const [ref] = useMutationObserverRef(callback);
 
-  const [model, setModel] = useState<GBModelFull>();
+  const [model, setModel] = useState<GBModelExpanded>();
   useEffect(() => {
     const fetchData = async () => {
       if (!db) {
         return;
       }
       const _model = await db.models.findOne().where({ id: name }).exec();
-      setModel(await _model?.resolve());
+      setModel(await _model?.expand());
     };
     fetchData();
   }, [db]);
