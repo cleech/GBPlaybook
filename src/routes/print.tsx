@@ -95,7 +95,7 @@ export const CardPrintScreen = () => {
       setGuilds(g.map((_g) => _g.name));
       setModels(m.map((_m) => _m.id));
     };
-    fetchData();
+    fetchData().catch(console.error);
   }, [db]);
 
   if (!Guilds || !Models) {
@@ -288,7 +288,7 @@ const GuildList = forwardRef((props, ref) => {
       const guilds = await db.guilds.find().exec();
       setGuilds(guilds);
     };
-    fetchData();
+    fetchData().catch(console.error);
   }, [db]);
 
   const SelectGuild = useCallback(
@@ -530,7 +530,7 @@ const ModelCheckBox = forwardRef<ModelCheckBoxRef, { m: GBModelDoc }>(
           setGuild2(guild2);
         }
       };
-      fetchData();
+      fetchData().catch(console.error);
       return () => {
         cancled = true;
       };
@@ -742,7 +742,7 @@ const ModelLists = forwardRef<{
       setGuilds(guilds);
       setModels(models);
     };
-    fetchData();
+    fetchData().catch(console.error);
   }, [db]);
 
   if (!gameplans || !Guilds || !Models) {
@@ -844,7 +844,7 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
       const _model = await db.models.findOne().where({ id: name }).exec();
       setModel(await _model?.expand());
     };
-    fetchData();
+    fetchData().catch(console.error);
   }, [db, name]);
 
   if (!model) {

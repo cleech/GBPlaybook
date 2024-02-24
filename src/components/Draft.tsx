@@ -207,7 +207,7 @@ export const DraftList = observer(
         }
         setRoster(tmpRoster);
       };
-      fetchData();
+      fetchData().catch(console.error);
     }, [guild, db, settings.gameSize]);
 
     function checkCaptains(
@@ -457,7 +457,7 @@ export const BSDraftList = observer(
         reSort(tmpRoster, "id", guild.roster);
         setRoster(tmpRoster);
       };
-      fetchData();
+      fetchData().catch(console.error);
     }, [guild, db]);
 
     function checkMasterCount(

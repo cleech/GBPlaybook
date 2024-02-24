@@ -5,9 +5,9 @@ import { GBDatabase } from "../models/gbdb";
 
 export function useRxQuery<T>(
   query: (db: GBDatabase) => RxQuery<T>
-): RxDocument<T>[] {
+): RxDocument<T>[] | undefined {
   const { gbdb: db } = useData();
-  const [result, setResult] = useState<RxDocument<T>[]>([]);
+  const [result, setResult] = useState<RxDocument<T>[]>();
   useEffect(() => {
     if (!db || !query) {
       return;

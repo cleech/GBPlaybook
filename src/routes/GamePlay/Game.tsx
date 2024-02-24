@@ -4,8 +4,9 @@ import React, {
   useLayoutEffect,
   useEffect,
   useCallback,
+  useMemo,
 } from "react";
-import { useBlocker } from "react-router-dom";
+import { useBlocker, useNavigate } from "react-router-dom";
 import type { BlockerFunction } from "@remix-run/router";
 import {
   Button,
@@ -56,17 +57,30 @@ export default function Game() {
   const team2 = useRxQuery(
     useCallback((db) => db.game_state.find().where({ _id: "Player2" }), [])
   );
-  const teams = [team1[0], team2[0]];
-
+  const teams = useMemo(() => [team1?.[0], team2?.[0]], [team1, team2]);
+  /*
+  const [team1, setTeam1] = useState<GBGameStateDoc>();
+  const [team2, setTeam2] = useState<GBGameStateDoc>();
+  */
   const [roster1, setRoster1] = useState<GBModelExpanded[]>();
   const [roster2, setRoster2] = useState<GBModelExpanded[]>();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     let cancled = false;
-    if (!db || !teams[0] || !teams[1]) {
+    // wait for db init
+    if (!db || !team1 || !team2) {
+      return;
+    }
+    if (!team1.length || !team2.length) {
+      navigate("/game");
       return;
     }
     const fetchData = async () => {
+      if (!teams[0] || !teams[1]) {
+        return;
+      }
       const _roster1 = await db.models
         .find()
         .where("id")
@@ -98,11 +112,11 @@ export default function Game() {
         setRoster2(roster2);
       }
     };
-    fetchData();
+    fetchData().catch(console.error);
     return () => {
       cancled = true;
     };
-  }, [db, teams[0]?.guild, teams[1]?.guild]);
+  }, [db, team1, team2, teams, navigate]);
 
   const [showSnack, setShowSnack] = useState(false);
   const [blocked, setBlocked] = useState(false);
@@ -153,10 +167,10 @@ export default function Game() {
     setBlocked(true);
   }, [blocked, setBlocked]);
 
-  if (!db) {
+  if (!db || !team1 || !team2) {
     return null;
   }
-  if (!team1[0] || !team2[0] || !teams[0] || !teams[1]) {
+  if (!teams[0] || !teams[1]) {
     return null;
   }
   if (!roster1 || !roster2) {
@@ -199,7 +213,7 @@ export default function Game() {
           <GameList teams={[teams[1]]} rosters={[roster2]} />
         </>
       ) : (
-        <GameList teams={teams} rosters={[roster1, roster2]} />
+        <GameList teams={[teams[0], teams[1]]} rosters={[roster1, roster2]} />
       )}
 
       <Snackbar

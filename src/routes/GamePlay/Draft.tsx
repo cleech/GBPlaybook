@@ -125,7 +125,13 @@ export default function Draft() {
 
   useEffect(() => {
     let cancled = false;
-    if (!db || !g1 || !g2) {
+    // kick out if we didn't get guild names in URL
+    if (!g1 || !g2) {
+      navigate("/game");
+      return;
+    }
+    // wait for db init
+    if (!db) {
       return;
     }
     const fetchData = async () => {
@@ -133,17 +139,23 @@ export default function Draft() {
         db.guilds.findOne().where({ name: g1 }).exec(),
         db.guilds.findOne().where({ name: g2 }).exec(),
       ]);
+      // kick out if we can't find the guild names passed in the URL
+      if (!guild1 || !guild2) {
+        navigate("/game");
+        return;
+      }
       if (!cancled) {
         setGuild1(guild1);
         setGuild2(guild2);
       }
     };
-    fetchData();
+    fetchData().catch(console.error);
     return () => {
       cancled = true;
     };
-  }, [db, g1, g2]);
+  }, [db, g1, g2, navigate]);
 
+  // wait for data load from db
   if (!guild1 || !guild2) {
     return null;
   }
@@ -240,7 +252,7 @@ export default function Draft() {
         // }
       />
 
-      <Typography variant="caption">{"\u00A0"}</Typography>
+      {/* <Typography variant="caption">{"\u00A0"}</Typography> */}
       <Fab
         ref={fabRef}
         color="secondary"

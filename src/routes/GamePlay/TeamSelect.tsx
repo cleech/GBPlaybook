@@ -41,7 +41,7 @@ function SelectedIcon({ team, size }: { team: string; size: number }) {
         setGuild(guild);
       }
     };
-    fetchData();
+    fetchData().catch(console.error);
     return () => {
       cancled = true;
     };

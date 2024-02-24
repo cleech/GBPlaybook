@@ -177,6 +177,8 @@ export function Roster() {
   const [g, setGuild] = useState<GBGuildDoc | null>(null);
   const [roster, setRoster] = useState<GBModelExpanded[]>();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const savedPosition = searchParams.get("m");
     if (savedPosition) {
@@ -200,9 +202,11 @@ export function Roster() {
           .or([{ guild1: guild }, { guild2: guild }])
           .exec(),
       ]);
-      if (g) {
-        reSort(_roster, "id", g.roster);
+      if (!g || !_roster.length) {
+        navigate("/library");
+        return;
       }
+      reSort(_roster, "id", g.roster);
       const roster = await Promise.all(_roster.map((m) => m.expand()));
       if (!cancled) {
         setGuild(g);
@@ -213,7 +217,7 @@ export function Roster() {
     return () => {
       cancled = true;
     };
-  }, [db, guild]);
+  }, [db, guild, navigate]);
 
   if (!g || !roster) {
     // console.log(g);
