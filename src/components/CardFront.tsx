@@ -11,9 +11,11 @@ import Color from "color";
 import { Guild } from "./DataContext.d";
 import { useStore } from "../models/Root";
 import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";
+import { Observable } from "rxjs";
 
 interface CardFrontProps {
   model: GBModelExpanded;
+  health$?: Observable<number>;
   style: GBCardCSS;
   className?: string;
   noBackground?: boolean;
@@ -106,7 +108,7 @@ const CardFront = (props: CardFrontProps) => {
         <div className="character-plays-wrapper">
           <CharacterPlays model={model} gbcp={gbcp} />
         </div>
-        <HealthBoxes model={model} />
+        <HealthBoxes model={model} health$={props.health$} />
       </div>
     </div>
   );
@@ -137,22 +139,36 @@ const NamePlate = ({
   </div>
 );
 
-const HealthBoxes = ({ model }: { model: GBModelExpanded }) => (
-  <div className="health">
-    {[...Array(model.hp).keys()].map((key) => (
-      <div
-        className={`health-box ${
-          key + 1 > (model.health ?? model.hp) ? "damaged" : ""
-        }`}
-        key={key}
-      >
-        {(key === 0 && <GBIcon icon="skull" size={17} />) ||
-          (key + 1 === model.recovery && <GBIcon icon="bandage" size={22} />) ||
-          (key + 1 === model.hp && key + 1)}
-      </div>
-    ))}
-  </div>
-);
+const HealthBoxes = ({
+  model,
+  health$,
+}: {
+  model: GBModelExpanded;
+  health$?: Observable<number>;
+}) => {
+  const [health, setHealth] = useState<number>(model.hp);
+  useEffect(() => {
+    let observer = health$?.subscribe((newHealth) => setHealth(newHealth));
+    return () => observer?.unsubscribe();
+  }, [health$]);
+
+  return (
+    <div className="health">
+      {[...Array(model.hp).keys()].map((key) => (
+        <div
+          className={`health-box ${key + 1 > health ? "damaged" : ""}`}
+          key={key}
+        >
+          {(key === 0 && <GBIcon icon="skull" size={17} />) ||
+            (key + 1 === model.recovery && (
+              <GBIcon icon="bandage" size={22} />
+            )) ||
+            (key + 1 === model.hp && key + 1)}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const Playbook = ({
   model,

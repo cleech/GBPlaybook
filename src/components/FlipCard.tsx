@@ -4,13 +4,16 @@ import { CardBack } from "./CardBack";
 import "./FlipCard.css";
 
 import { GBModelExpanded } from "../models/gbdb";
+import { Observable } from "rxjs";
 
 export function FlipCard({
   model,
+  health$,
   controls,
   controlProps,
 }: {
   model: GBModelExpanded;
+  health$?: Observable<number>;
   controls?: (props: any) => JSX.Element;
   controlProps?: any;
 }): JSX.Element {
@@ -55,7 +58,11 @@ export function FlipCard({
       >
         <div className="flip-card-inner">
           <div className="flip-card-front">
-            <CardFront model={model} style={{ "--scale": scale }} />
+            <CardFront
+              model={model}
+              health$={health$}
+              style={{ "--scale": scale }}
+            />
             {controls?.({ model, ...controlProps })}
           </div>
           <div className="flip-card-back">

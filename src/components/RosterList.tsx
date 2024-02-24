@@ -146,7 +146,7 @@ export function HealthCounter({
     onLongPress: () => {
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
-        model.health = oldState.roster[m].health = 0;
+        oldState.roster[m].health = 0;
         return oldState;
       });
       // dc?.send(JSON.stringify({ model: model.id, health: 0 }));
@@ -155,7 +155,7 @@ export function HealthCounter({
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health > 0) {
-          model.health = oldState.roster[m].health -= 1;
+          oldState.roster[m].health -= 1;
         }
         return oldState;
       });
@@ -167,7 +167,7 @@ export function HealthCounter({
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health < model.recovery) {
-          model.health = oldState.roster[m].health = model.recovery;
+          oldState.roster[m].health = model.recovery;
         }
         return oldState;
       });
@@ -177,7 +177,7 @@ export function HealthCounter({
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health < model.hp) {
-          model.health = oldState.roster[m].health += 1;
+          oldState.roster[m].health += 1;
         }
         return oldState;
       });

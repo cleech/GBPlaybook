@@ -37,6 +37,7 @@ import { useData } from "../../components/DataContext";
 import { useRxQuery } from "../../components/useRxQuery";
 import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdb";
 import { reSort } from "../../components/reSort";
+import { map } from "rxjs";
 
 export default function Game() {
   const { gbdb: db } = useData();
@@ -325,13 +326,23 @@ export const GameList = ({
                 // Guild Rules Card
                 () => <FlipGuildCard guild={t.guild} />,
                 // Model Cards
-                rosters[index].map((m) => () => (
-                  <FlipCard
-                    model={m}
-                    controls={CardControls}
-                    controlProps={{ state: teams[index], disabled: t.disabled }}
-                  />
-                )),
+                rosters[index].map((m, _index) => () => {
+                  return (
+                    <FlipCard
+                      model={m}
+                      health$={t.get$("roster").pipe(
+                        map((r) => {
+                          return r[_index].health;
+                        })
+                      )}
+                      controls={CardControls}
+                      controlProps={{
+                        state: teams[index],
+                        disabled: t.disabled,
+                      }}
+                    />
+                  );
+                }),
               ])
               .flat(2)
               .map((component, index) => (

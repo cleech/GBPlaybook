@@ -71,9 +71,8 @@ export interface GBModelExpanded
   extends Omit<GBModel, "character_plays" | "character_traits"> {
   character_plays: GBCharacterPlay[];
   character_traits: ParameterizedTrait[];
-  health: number;
-  _inf?: number;
   statLine: string;
+  _inf?: number;
 }
 
 type GBModelMethods = {
@@ -107,7 +106,6 @@ const gbModelDocMethods: GBModelMethods = {
     const model: GBModelExpanded = Object.assign({}, this.toMutableJSON(), {
       character_plays: character_plays,
       character_traits: character_traits,
-      health: this.hp,
       // dont let Some/Pneuma count twice for the INF pool
       _inf: this.id === "Pneuma" ? 0 : undefined,
       // mini-statline display
@@ -337,8 +335,8 @@ export type GBDatabase = RxDatabase<GBDataCollections>;
 const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>({
   name: "gb_playbook",
   localDocuments: true,
-  storage: getRxStorageDexie(),
-  // storage: getRxStorageMemory(),
+  // storage: getRxStorageDexie(),
+  storage: getRxStorageMemory(),
 });
 
 await gbdb.addCollections({
@@ -351,13 +349,5 @@ await gbdb.addCollections({
   character_traits: { schema: gbCharacterTraitSchema },
   game_state: { schema: gbGameStateSchema },
 });
-
-// start off at full health
-gbdb.game_state.preInsert(async (state) => {
-  for (const [index, { name }] of state.roster.entries()) {
-    const model = await gbdb.models.findOne().where({ id: name }).exec();
-    state.roster[index].health = model?.hp ?? 0;
-  }
-}, false);
 
 export default gbdb;
