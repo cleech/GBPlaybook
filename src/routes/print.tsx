@@ -42,12 +42,12 @@ import { reSort } from "../components/reSort";
 export const CardPrintScreen = () => {
   const { gbdb: db, gameplans } = useData();
   const ref = useRef<{
-    models: Map<string, any>;
-    guilds: Map<string, any>;
-    gameplans: Map<string, Gameplan>;
-    refcards: Map<string, number>;
+    models: Map<string, ModelCheckBoxRef>;
+    guilds: Map<string, GuildCheckBoxRef>;
+    gameplans: Map<string, GameplanCheckBoxRef>;
+    refcards: Map<string, RefCardCheckBoxRef>;
   }>(null);
-  const list = useRef<any>(null);
+  const list = useRef<GuildListRef>();
 
   const [Guilds, setGuilds] = useState<string[]>();
   const [Models, setModels] = useState<string[]>();
@@ -150,29 +150,32 @@ export const CardPrintScreen = () => {
               <Tooltip title="Select All" arrow>
                 <Button
                   onClick={() => {
-                    if (!list.current.guild) {
+                    if (!list.current?.guild) {
                       return;
                     }
                     ref.current?.guilds
                       .get(list.current.guild)
                       ?.setChecked(true);
-                    ref.current?.models.forEach((control: any) => {
+                    ref.current?.models.forEach((control) => {
+                      if (!list.current?.guild) {
+                        return;
+                      }
                       if (
                         control.m.guild1 === list.current.guild ||
                         control.m.guild2 === list.current.guild
                       ) {
-                        control?.setChecked(true);
+                        control.setChecked(true);
                       }
                     });
 
-                    if (list.current?.guild === "gameplans") {
-                      ref.current?.gameplans.forEach((control: any) => {
-                        control?.setChecked(true);
+                    if (list.current.guild === "gameplans") {
+                      ref.current?.gameplans.forEach((control) => {
+                        control.setChecked(true);
                       });
                     }
-                    if (list.current?.guild === "refcards") {
-                      ref.current?.refcards.forEach((control: any) => {
-                        control?.setChecked(true);
+                    if (list.current.guild === "refcards") {
+                      ref.current?.refcards.forEach((control) => {
+                        control.setChecked(true);
                       });
                     }
                   }}
@@ -183,28 +186,31 @@ export const CardPrintScreen = () => {
               <Tooltip title="Clear All" arrow>
                 <Button
                   onClick={() => {
+                    if (!list.current?.guild) {
+                      return;
+                    }
                     ref.current?.guilds
                       .get(list.current.guild)
                       ?.setChecked(false);
-                    ref.current?.models.forEach((control: any) => {
-                      if (!list.current.guild) {
+                    ref.current?.models.forEach((control) => {
+                      if (!list.current?.guild) {
                         return;
                       }
                       if (
                         control.m.guild1 === list.current.guild ||
                         control.m.guild2 === list.current.guild
                       ) {
-                        control?.setChecked(false);
+                        control.setChecked(false);
                       }
                     });
-                    if (list.current?.guild === "gameplans") {
-                      ref.current?.gameplans.forEach((control: any) => {
-                        control?.setChecked(false);
+                    if (list.current.guild === "gameplans") {
+                      ref.current?.gameplans.forEach((control) => {
+                        control.setChecked(false);
                       });
                     }
-                    if (list.current?.guild === "refcards") {
-                      ref.current?.refcards.forEach((control: any) => {
-                        control?.setChecked(false);
+                    if (list.current.guild === "refcards") {
+                      ref.current?.refcards.forEach((control) => {
+                        control.setChecked(false);
                       });
                     }
                   }}
@@ -224,17 +230,17 @@ export const CardPrintScreen = () => {
             color="primary"
             startIcon={<ClearIcon />}
             onClick={() => {
-              ref.current?.guilds.forEach((control: any) => {
-                control?.setChecked(false);
+              ref.current?.guilds.forEach((control) => {
+                control.setChecked(false);
               });
-              ref.current?.models.forEach((control: any) => {
-                control?.setChecked(false);
+              ref.current?.models.forEach((control) => {
+                control.setChecked(false);
               });
-              ref.current?.gameplans.forEach((control: any) => {
-                control?.setChecked(false);
+              ref.current?.gameplans.forEach((control) => {
+                control.setChecked(false);
               });
-              ref.current?.refcards.forEach((control: any) => {
-                control?.setChecked(false);
+              ref.current?.refcards.forEach((control) => {
+                control.setChecked(false);
               });
             }}
           >
@@ -260,6 +266,10 @@ export const CardPrintScreen = () => {
     </Box>
   );
 };
+
+interface GuildListRef {
+  guild: string | undefined;
+}
 
 const GuildList = forwardRef((props, ref) => {
   const [guild, setGuild] = useState<string | undefined>(undefined);
@@ -311,7 +321,7 @@ const GuildList = forwardRef((props, ref) => {
     [Guilds]
   );
   const handleChange = useCallback(
-    (event: SelectChangeEvent<any>) => {
+    (event: SelectChangeEvent<string>) => {
       setGuild(event.target.value);
       SelectGuild(event.target.value);
     },
@@ -340,7 +350,7 @@ const GuildList = forwardRef((props, ref) => {
             style={{ "--color": "#333333" }}
           />
         </MenuItem>
-        {Guilds.map((g: any) => (
+        {Guilds.map((g) => (
           <MenuItem key={g.name} value={g.name} dense>
             <GuildListItem g={g} />
           </MenuItem>
@@ -358,6 +368,10 @@ const GuildListItem = ({ g }: { g: Guild }) => (
   />
 );
 
+interface ListCSS extends CSSProperties {
+  "--color": string;
+}
+
 const ListItemBanner = ({
   text,
   icon,
@@ -365,7 +379,7 @@ const ListItemBanner = ({
 }: {
   text: string;
   icon: string;
-  style?: any;
+  style?: ListCSS;
 }) => (
   <div
     className="guild"
@@ -420,224 +434,257 @@ const DisplayModel = (name: string) => {
   card?.classList.toggle("hide");
 };
 
-const GuildCheckBox = forwardRef((props: { g: Guild }, ref) => {
-  const [checked, setChecked] = useState(false);
-  const g = props.g;
-  useImperativeHandle(
-    ref,
-    () => ({
-      g: props.g,
-      checked: checked,
-      setChecked: (value: boolean) => {
-        if (checked !== value) {
-          setChecked(value);
-          DisplayModel(props.g.name);
+interface CheckBoxRef {
+  checked: boolean;
+  setChecked: (v: boolean) => void;
+}
+
+interface GuildCheckBoxRef extends CheckBoxRef {
+  g: Guild;
+}
+
+const GuildCheckBox = forwardRef<GuildCheckBoxRef, { g: Guild }>(
+  (props, ref) => {
+    const [checked, setChecked] = useState(false);
+    const g = props.g;
+    useImperativeHandle(
+      ref,
+      () => ({
+        g: props.g,
+        checked: checked,
+        setChecked: (value: boolean) => {
+          if (checked !== value) {
+            setChecked(value);
+            DisplayModel(props.g.name);
+          }
+        },
+      }),
+      [props.g, checked, setChecked]
+    );
+    return (
+      <FormControlLabel
+        sx={{
+          border: 1,
+          borderRadius: 1,
+          borderColor: "primary.main",
+        }}
+        control={<Checkbox checked={checked} size="small" color="warning" />}
+        label={g.name}
+        className={`model-checkbox ${g.name} hide ${g.minor ? "minor" : ""}`}
+        style={
+          {
+            "--color1": g.shadow ?? g.color + "80",
+            "--color2": "var(--color1)",
+          } as CSSProperties
         }
-      },
-    }),
-    [props.g, checked, setChecked]
-  );
-  return (
-    <FormControlLabel
-      sx={{
-        border: 1,
-        borderRadius: 1,
-        borderColor: "primary.main",
-      }}
-      control={<Checkbox checked={checked} size="small" color="warning" />}
-      label={g.name}
-      className={`model-checkbox ${g.name} hide ${g.minor ? "minor" : ""}`}
-      style={
-        {
-          "--color1": g.shadow ?? g.color + "80",
-          "--color2": "var(--color1)",
-        } as CSSProperties
-      }
-      onChange={() => {
-        setChecked(!checked);
-        DisplayModel(g.name);
-      }}
-    />
-  );
-});
-
-const ModelCheckBox = forwardRef((props: { m: GBModelDoc }, ref) => {
-  const { gbdb: db } = useData();
-  const [checked, setChecked] = useState(false);
-  useImperativeHandle(
-    ref,
-    () => ({
-      m: props.m,
-      checked: checked,
-      setChecked: (value: boolean) => {
-        if (checked !== value) {
-          setChecked(value);
-          DisplayModel(props.m.id);
-        }
-      },
-    }),
-    [props.m, checked, setChecked]
-  );
-
-  const m = props.m;
-  const [guild1, setGuild1] = useState<GBGuildDoc | null>(null);
-  const [guild2, setGuild2] = useState<GBGuildDoc | null>(null);
-
-  useEffect(() => {
-    let cancled = false;
-    if (!db) {
-      return;
-    }
-    const fetchData = async () => {
-      const [guild1, guild2] = await Promise.all([
-        db.guilds.findOne().where({ name: m.guild1 }).exec(),
-        m.guild2 ? db.guilds.findOne().where({ name: m.guild2 }).exec() : null,
-      ]);
-      if (!cancled) {
-        setGuild1(guild1);
-        setGuild2(guild2);
-      }
-    };
-    fetchData();
-    return () => {
-      cancled = true;
-    };
-  }, [db, m]);
-
-  if (!guild1) {
-    return null;
+        onChange={() => {
+          setChecked(!checked);
+          DisplayModel(g.name);
+        }}
+      />
+    );
   }
-  return (
-    <FormControlLabel
-      sx={{
-        border: 1,
-        borderRadius: 1,
-        borderColor: "primary.main",
-      }}
-      control={<Checkbox checked={checked} size="small" color="warning" />}
-      label={m.id}
-      className={`model-checkbox ${m.guild1} ${m.guild2} ${m.id} hide ${
-        guild1.minor ? "minor" : ""
-      }`}
-      style={
-        {
-          "--color1": guild1.shadow ?? guild1.color + "80",
-          "--color2": guild2
-            ? guild2.shadow ?? guild2.color + "80"
-            : "var(--color1)",
-          // backgroundColor: guild1.shadow ?? guild1.color + "80",
-        } as CSSProperties
-      }
-      onChange={() => {
-        setChecked(!checked);
-        DisplayModel(m.id);
-      }}
-    />
-  );
-});
+);
 
-const GameplanCheckBox = forwardRef((props: { g: Gameplan }, ref) => {
-  const [checked, setChecked] = useState(false);
-  const g = props.g;
-  useImperativeHandle(
-    ref,
-    () => ({
-      g: props.g,
-      checked: checked,
-      setChecked: (value: boolean) => {
-        if (checked !== value) {
-          setChecked(value);
+interface ModelCheckBoxRef extends CheckBoxRef {
+  m: GBModelDoc;
+}
+
+const ModelCheckBox = forwardRef<ModelCheckBoxRef, { m: GBModelDoc }>(
+  (props, ref) => {
+    const { gbdb: db } = useData();
+    const [checked, setChecked] = useState(false);
+    useImperativeHandle(
+      ref,
+      () => ({
+        m: props.m,
+        checked: checked,
+        setChecked: (value: boolean) => {
+          if (checked !== value) {
+            setChecked(value);
+            DisplayModel(props.m.id);
+          }
+        },
+      }),
+      [props.m, checked, setChecked]
+    );
+
+    const m = props.m;
+    const [guild1, setGuild1] = useState<GBGuildDoc | null>(null);
+    const [guild2, setGuild2] = useState<GBGuildDoc | null>(null);
+
+    useEffect(() => {
+      let cancled = false;
+      if (!db) {
+        return;
+      }
+      const fetchData = async () => {
+        const [guild1, guild2] = await Promise.all([
+          db.guilds.findOne().where({ name: m.guild1 }).exec(),
+          m.guild2
+            ? db.guilds.findOne().where({ name: m.guild2 }).exec()
+            : null,
+        ]);
+        if (!cancled) {
+          setGuild1(guild1);
+          setGuild2(guild2);
+        }
+      };
+      fetchData();
+      return () => {
+        cancled = true;
+      };
+    }, [db, m]);
+
+    if (!guild1) {
+      return null;
+    }
+    return (
+      <FormControlLabel
+        sx={{
+          border: 1,
+          borderRadius: 1,
+          borderColor: "primary.main",
+        }}
+        control={<Checkbox checked={checked} size="small" color="warning" />}
+        label={m.id}
+        className={`model-checkbox ${m.guild1} ${m.guild2} ${m.id} hide ${
+          guild1.minor ? "minor" : ""
+        }`}
+        style={
+          {
+            "--color1": guild1.shadow ?? guild1.color + "80",
+            "--color2": guild2
+              ? guild2.shadow ?? guild2.color + "80"
+              : "var(--color1)",
+            // backgroundColor: guild1.shadow ?? guild1.color + "80",
+          } as CSSProperties
+        }
+        onChange={() => {
+          setChecked(!checked);
+          DisplayModel(m.id);
+        }}
+      />
+    );
+  }
+);
+
+interface GameplanCheckBoxRef extends CheckBoxRef {
+  g: Gameplan;
+}
+
+const GameplanCheckBox = forwardRef<GameplanCheckBoxRef, { g: Gameplan }>(
+  (props, ref) => {
+    const [checked, setChecked] = useState(false);
+    const g = props.g;
+    useImperativeHandle(
+      ref,
+      () => ({
+        g: props.g,
+        checked: checked,
+        setChecked: (value: boolean) => {
+          if (checked !== value) {
+            setChecked(value);
+            DisplayModel(props.g.title.replace(/[^a-zA-Z0-9]+/g, ""));
+          }
+        },
+      }),
+      [props.g, checked, setChecked]
+    );
+    return (
+      <FormControlLabel
+        sx={{
+          border: 1,
+          borderRadius: 1,
+          borderColor: "primary.main",
+        }}
+        control={<Checkbox checked={checked} size="small" color="warning" />}
+        label={g.title}
+        className={`model-checkbox gameplans ${g.title.replace(
+          /[^a-zA-Z0-9]/g,
+          ""
+        )} hide`}
+        style={
+          {
+            "--color1": "#333333",
+            "--color2": "var(--color1)",
+          } as CSSProperties
+        }
+        onChange={() => {
+          setChecked(!checked);
           DisplayModel(props.g.title.replace(/[^a-zA-Z0-9]+/g, ""));
+        }}
+      />
+    );
+  }
+);
+
+interface RefCardCheckBoxRef extends CheckBoxRef {
+  id: number;
+}
+
+const RefCardCheckBox = forwardRef<RefCardCheckBoxRef, { id: number }>(
+  (props, ref) => {
+    const [checked, setChecked] = useState(false);
+
+    const titles = [
+      "Playbook Results",
+      "Turn Sequence",
+      "Conditions",
+      "Spending Momentum",
+      "Actions",
+    ];
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        id: props.id,
+        checked: checked,
+        setChecked: (value: boolean) => {
+          if (checked !== value) {
+            setChecked(value);
+            DisplayModel(`refcard-${props.id}`);
+          }
+        },
+      }),
+      [props.id, checked, setChecked]
+    );
+    return (
+      <FormControlLabel
+        sx={{
+          border: 1,
+          borderRadius: 1,
+          borderColor: "primary.main",
+        }}
+        control={<Checkbox checked={checked} size="small" color="warning" />}
+        label={titles[props.id]}
+        className={`model-checkbox refcards refcard-${props.id} hide`}
+        style={
+          {
+            "--color1": "#333333",
+            "--color2": "var(--color1)",
+          } as CSSProperties
         }
-      },
-    }),
-    [props.g, checked, setChecked]
-  );
-  return (
-    <FormControlLabel
-      sx={{
-        border: 1,
-        borderRadius: 1,
-        borderColor: "primary.main",
-      }}
-      control={<Checkbox checked={checked} size="small" color="warning" />}
-      label={g.title}
-      className={`model-checkbox gameplans ${g.title.replace(
-        /[^a-zA-Z0-9]/g,
-        ""
-      )} hide`}
-      style={
-        {
-          "--color1": "#333333",
-          "--color2": "var(--color1)",
-        } as CSSProperties
-      }
-      onChange={() => {
-        setChecked(!checked);
-        DisplayModel(props.g.title.replace(/[^a-zA-Z0-9]+/g, ""));
-      }}
-    />
-  );
-});
-
-const RefCardCheckBox = forwardRef((props: { id: number }, ref) => {
-  const [checked, setChecked] = useState(false);
-
-  const titles = [
-    "Playbook Results",
-    "Turn Sequence",
-    "Conditions",
-    "Spending Momentum",
-    "Actions",
-  ];
-
-  useImperativeHandle(
-    ref,
-    () => ({
-      id: props.id,
-      checked: checked,
-      setChecked: (value: boolean) => {
-        if (checked !== value) {
-          setChecked(value);
+        onChange={() => {
+          setChecked(!checked);
           DisplayModel(`refcard-${props.id}`);
-        }
-      },
-    }),
-    [props.id, checked, setChecked]
-  );
-  return (
-    <FormControlLabel
-      sx={{
-        border: 1,
-        borderRadius: 1,
-        borderColor: "primary.main",
-      }}
-      control={<Checkbox checked={checked} size="small" color="warning" />}
-      label={titles[props.id]}
-      className={`model-checkbox refcards refcard-${props.id} hide`}
-      style={
-        {
-          "--color1": "#333333",
-          "--color2": "var(--color1)",
-        } as CSSProperties
-      }
-      onChange={() => {
-        setChecked(!checked);
-        DisplayModel(`refcard-${props.id}`);
-      }}
-    />
-  );
-});
+        }}
+      />
+    );
+  }
+);
 
 const ModelLists = forwardRef<{
-  models: Map<string, any>;
-  guilds: Map<string, any>;
+  models: Map<string, ModelCheckBoxRef>;
+  guilds: Map<string, GuildCheckBoxRef>;
+  gameplans: Map<string, GameplanCheckBoxRef>;
+  refcards: Map<string, RefCardCheckBoxRef>;
 }>((props, ref) => {
   const { gbdb: db, gameplans } = useData();
-  const checkboxes = useRef(new Map());
-  const guilds = useRef(new Map());
-  const gps = useRef(new Map());
-  const refcards = useRef(new Map());
+  const checkboxes = useRef(new Map<string, ModelCheckBoxRef>());
+  const guilds = useRef(new Map<string, GuildCheckBoxRef>());
+  const gps = useRef(new Map<string, GameplanCheckBoxRef>());
+  const refcards = useRef(new Map<string, RefCardCheckBoxRef>());
   useImperativeHandle(
     ref,
     () => ({
@@ -716,7 +763,13 @@ const ModelLists = forwardRef<{
         <GameplanCheckBox
           g={gp}
           key={gp.title}
-          ref={(element) => gps.current.set(gp.title, element)}
+          ref={(element) => {
+            if (element) {
+              gps.current.set(gp.title, element);
+            } else {
+              gps.current.delete(gp.title);
+            }
+          }}
         />
       ))}
       {[
@@ -729,21 +782,39 @@ const ModelLists = forwardRef<{
         <RefCardCheckBox
           id={index}
           key={`refcard-${index}`}
-          ref={(element) => refcards.current.set(title, element)}
+          ref={(element) => {
+            if (element) {
+              refcards.current.set(title, element);
+            } else {
+              refcards.current.delete(title);
+            }
+          }}
         />
       ))}
       {Guilds.map((g) => (
         <GuildCheckBox
           g={g}
           key={g.name}
-          ref={(element) => guilds.current.set(g.name, element)}
+          ref={(element) => {
+            if (element) {
+              guilds.current.set(g.name, element);
+            } else {
+              guilds.current.delete(g.name);
+            }
+          }}
         />
       ))}
       {Models.map((m) => (
         <ModelCheckBox
           m={m}
           key={m.id}
-          ref={(element) => checkboxes.current.set(m.id, element)}
+          ref={(element) => {
+            if (element) {
+              checkboxes.current.set(m.id, element);
+            } else {
+              checkboxes.current.delete(m.id);
+            }
+          }}
         />
       ))}
     </Box>
