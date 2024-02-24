@@ -82,7 +82,7 @@ export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
 export function FlipGuildCard({ guild }: { guild: string | undefined }) {
   const layoutRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1.0);
+  const [scale, setScale] = useState(1);
   useLayoutEffect(() => {
     updateSize();
     window.addEventListener("resize", updateSize);
@@ -115,10 +115,6 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
       <div
         ref={targetRef}
         className="flip-card"
-        style={{
-          width: `${500 * scale}px`,
-          height: `${700 * scale}px`,
-        }}
         onClick={() => {
           targetRef.current?.classList.toggle("flipped");
         }}

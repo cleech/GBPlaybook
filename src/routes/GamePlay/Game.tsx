@@ -25,7 +25,6 @@ import {
 import RosterList, { HealthCounter } from "../../components/RosterList";
 import { FlipCard } from "../../components/FlipCard";
 
-import type { Swiper as SwiperRef } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
@@ -236,9 +235,9 @@ export const GameList = ({
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(true);
 
-  const [cardWidth, setCardWidth] = useState(240);
-  const [cardHeight, setCardHeight] = useState(336);
-  const [slideHeight, setSlideHeight] = useState(336);
+  const [cardWidth, setCardWidth] = useState(500);
+  const [cardHeight, setCardHeight] = useState(700);
+  const [slideHeight, setSlideHeight] = useState(700);
   useLayoutEffect(() => {
     updateSize();
     window.addEventListener("resize", updateSize);

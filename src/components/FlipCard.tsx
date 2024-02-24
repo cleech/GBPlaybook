@@ -16,7 +16,7 @@ export function FlipCard({
 }): JSX.Element {
   const layoutRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1.0);
+  const [scale, setScale] = useState(1);
   useLayoutEffect(() => {
     updateSize();
     window.addEventListener("resize", updateSize);
@@ -49,10 +49,6 @@ export function FlipCard({
       <div
         ref={targetRef}
         className="flip-card"
-        style={{
-          width: `${500 * scale}px`,
-          height: `${700 * scale}px`,
-        }}
         onClick={() => {
           targetRef.current?.classList.toggle("flipped");
         }}
@@ -60,16 +56,7 @@ export function FlipCard({
         <div className="flip-card-inner">
           <div className="flip-card-front">
             <CardFront model={model} style={{ "--scale": scale }} />
-            {controls ? (
-              <div
-              // style={{
-              //   width: "100%",
-              //   height: "100%",
-              // }}
-              >
-                {controls?.({ model, ...controlProps })}
-              </div>
-            ) : null}
+            {controls?.({ model, ...controlProps })}
           </div>
           <div className="flip-card-back">
             <CardBack model={model} style={{ "--scale": scale }} />
