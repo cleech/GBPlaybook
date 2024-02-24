@@ -1,13 +1,13 @@
 import React, { useCallback, useState, useRef, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import {
-  Button,
+  // Button,
   Fab,
   Typography,
   Breadcrumbs,
   IconButton,
-  Snackbar,
-  Alert,
+  // Snackbar,
+  // Alert,
   Box,
   Menu,
   MenuItem,
@@ -28,6 +28,7 @@ import VersionTag from "../../components/VersionTag";
 // import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
 import { GBGuildDoc, GBModel } from "../../models/gbdb";
 
+/*
 const ResumeSnackBar = () => {
   const { resumePossible } = useStore();
   const [showSnack, setShowSnack] = useState(resumePossible);
@@ -50,6 +51,7 @@ const ResumeSnackBar = () => {
     </Snackbar>
   );
 };
+*/
 
 export default function Draft() {
   const store = useStore();
@@ -253,8 +255,6 @@ export default function Draft() {
           //   navigate("/game/draft/play");
           // }
           // } else {
-          store.team1.reset({ name: g1 ?? undefined, roster: team1 });
-          store.team2.reset({ name: g2 ?? undefined, roster: team2 });
           await db?.game_state
             .upsert({
               _id: "Player1",
@@ -301,7 +301,7 @@ export default function Draft() {
         ref={player2}
       />
 
-      <ResumeSnackBar />
+      {/* <ResumeSnackBar /> */}
       <VersionTag />
     </Box>
   );

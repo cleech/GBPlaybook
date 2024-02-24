@@ -7,15 +7,14 @@ import {
   useTheme,
   Breadcrumbs,
   IconButton,
-  Snackbar,
-  Alert,
+  // Snackbar,
+  // Alert,
   Box,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../../components/GuildGrid";
 import GBIcon from "../../components/GBIcon";
 import { useData } from "../../components/DataContext";
-import { useStore } from "../../models/Root";
 
 import Color from "color";
 
@@ -263,6 +262,7 @@ function GameControls(
   ];
 }
 
+/*
 const ResumeSnackBar = () => {
   const { resumePossible } = useStore();
   const [showSnack, setShowSnack] = useState(resumePossible);
@@ -285,6 +285,7 @@ const ResumeSnackBar = () => {
     </Snackbar>
   );
 };
+*/
 
 export default function TeamSelect() {
   return (
@@ -302,7 +303,7 @@ export default function TeamSelect() {
           </IconButton>
         </Breadcrumbs>
       </AppBarContent>
-      <ResumeSnackBar />
+      {/* <ResumeSnackBar /> */}
       <GuildGrid controls={GameControls} />
       <VersionTag />
     </Box>

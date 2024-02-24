@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { Button, IconButton, Snackbar, Alert, Box } from "@mui/material";
+import {
+  // Button,
+  IconButton,
+  // Snackbar,
+  // Alert,
+  Box,
+} from "@mui/material";
 import { useStore } from "../../models/Root";
 
 import { AppBarContent, AppBarContext } from "../../App";
@@ -76,6 +82,7 @@ export default function GamePlay() {
   );
 }
 
+/*
 const ResumeSnackBar = () => {
   const { resumePossible } = useStore();
   const [showSnack, setShowSnack] = useState(resumePossible);
@@ -98,6 +105,7 @@ const ResumeSnackBar = () => {
     </Snackbar>
   );
 };
+*/
 
 export { default as TeamSelect } from "./TeamSelect";
 export { default as Draft } from "./Draft";
