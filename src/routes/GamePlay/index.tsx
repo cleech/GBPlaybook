@@ -1,12 +1,6 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import {
-  // Button,
-  IconButton,
-  // Snackbar,
-  // Alert,
-  Box,
-} from "@mui/material";
+import { IconButton, Box } from "@mui/material";
 import { useStore } from "../../models/Root";
 
 import { AppBarContent, AppBarContext } from "../../App";
@@ -50,7 +44,7 @@ export default function GamePlay() {
   const { setGamePlayRoute } = useStore();
   const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setGamePlayRoute(`${location.pathname}${location.search}`);
   }, [location, setGamePlayRoute]);
 
@@ -81,31 +75,6 @@ export default function GamePlay() {
     </main>
   );
 }
-
-/*
-const ResumeSnackBar = () => {
-  const { resumePossible } = useStore();
-  const [showSnack, setShowSnack] = useState(resumePossible);
-  return (
-    <Snackbar
-      open={showSnack}
-      onClose={() => setShowSnack(false)}
-      autoHideDuration={6000}
-    >
-      <Alert
-        severity="info"
-        action={
-          <Button size="small" href="/game/draft/play">
-            Resume Game
-          </Button>
-        }
-      >
-        There is an existing game that can be resumed.
-      </Alert>
-    </Snackbar>
-  );
-};
-*/
 
 export { default as TeamSelect } from "./TeamSelect";
 export { default as Draft } from "./Draft";

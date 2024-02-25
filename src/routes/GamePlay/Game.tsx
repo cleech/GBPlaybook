@@ -1,4 +1,4 @@
-import React, {
+import {
   useState,
   useRef,
   useLayoutEffect,
@@ -144,7 +144,7 @@ export default function Game() {
   // }, [dc, teams]);
 
   const blocker = useBlocker(
-    React.useCallback<BlockerFunction>(
+    useCallback<BlockerFunction>(
       (args) => {
         if (args.nextLocation.pathname.startsWith("/game")) {
           setShowSnack(true);
@@ -157,11 +157,9 @@ export default function Game() {
   );
 
   /* useBlocker doesn't seem to work unless some state is updated */
-  React.useEffect(() => {
+  useEffect(() => {
     setBlocked(true);
   }, [blocked, setBlocked]);
-
-  console.log('Game screen render');
 
   if (!team1 || !team2) {
     return null;

@@ -1,13 +1,10 @@
-import React, { useCallback, useState, useRef, useEffect } from "react";
+import { useCallback, useState, useRef, useEffect, MouseEvent } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import {
-  // Button,
   Fab,
   Typography,
   Breadcrumbs,
   IconButton,
-  // Snackbar,
-  // Alert,
   Box,
   Menu,
   MenuItem,
@@ -27,31 +24,7 @@ import { AppBarContent } from "../../App";
 import VersionTag from "../../components/VersionTag";
 // import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
 import { GBGuildDoc, GBModel } from "../../models/gbdb";
-
-/*
-const ResumeSnackBar = () => {
-  const { resumePossible } = useStore();
-  const [showSnack, setShowSnack] = useState(resumePossible);
-  return (
-    <Snackbar
-      open={showSnack}
-      onClose={() => setShowSnack(false)}
-      autoHideDuration={6000}
-    >
-      <Alert
-        severity="info"
-        action={
-          <Button size="small" href="/game/draft/play">
-            Resume Game
-          </Button>
-        }
-      >
-        There is an existing game that can be resumed.
-      </Alert>
-    </Snackbar>
-  );
-};
-*/
+import ResumeSnackBar from "./ResumeSnackBar";
 
 export default function Draft() {
   const store = useStore();
@@ -76,7 +49,7 @@ export default function Draft() {
 
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
   const settingsOpen = Boolean(menuAnchor);
-  const settingsClick = (e: React.MouseEvent<HTMLElement>) => {
+  const settingsClick = (e: MouseEvent<HTMLElement>) => {
     setMenuAnchor(e.currentTarget);
   };
   const settingsClose = () => {
@@ -313,8 +286,8 @@ export default function Draft() {
         ref={player2}
       />
 
-      {/* <ResumeSnackBar /> */}
       <VersionTag />
+      <ResumeSnackBar />
     </Box>
   );
 }

@@ -25,6 +25,7 @@ import { useRTC } from "../../services/webrtc";
 import VersionTag from "../../components/VersionTag";
 import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
 import { GBGuildDoc } from "../../models/gbdb";
+import ResumeSnackBar from "./ResumeSnackBar";
 
 function SelectedIcon({ team, size }: { team: string; size: number }) {
   const { gbdb: db } = useData();
@@ -262,31 +263,6 @@ function GameControls(
   ];
 }
 
-/*
-const ResumeSnackBar = () => {
-  const { resumePossible } = useStore();
-  const [showSnack, setShowSnack] = useState(resumePossible);
-  return (
-    <Snackbar
-      open={showSnack}
-      onClose={() => setShowSnack(false)}
-      autoHideDuration={6000}
-    >
-      <Alert
-        severity="info"
-        action={
-          <Button size="small" href="/game/draft/play">
-            Resume Game
-          </Button>
-        }
-      >
-        There is an existing game that can be resumed.
-      </Alert>
-    </Snackbar>
-  );
-};
-*/
-
 export default function TeamSelect() {
   return (
     <Box
@@ -303,9 +279,9 @@ export default function TeamSelect() {
           </IconButton>
         </Breadcrumbs>
       </AppBarContent>
-      {/* <ResumeSnackBar /> */}
       <GuildGrid controls={GameControls} />
       <VersionTag />
+      <ResumeSnackBar />
     </Box>
   );
 }
