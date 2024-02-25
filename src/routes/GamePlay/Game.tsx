@@ -4,7 +4,6 @@ import React, {
   useLayoutEffect,
   useEffect,
   useCallback,
-  useMemo,
 } from "react";
 import { useBlocker, useNavigate } from "react-router-dom";
 import type { BlockerFunction } from "@remix-run/router";
@@ -35,33 +34,18 @@ import { AppBarContent } from "../../App";
 // import { useRTC } from "../../services/webrtc";
 import { FlipGuildCard } from "../../components/GuildCard";
 import { useData } from "../../components/DataContext";
-import { useRxQuery } from "../../components/useRxQuery";
 import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdb";
 import { reSort } from "../../components/reSort";
 import { map } from "rxjs";
 
 export default function Game() {
   const { gbdb: db } = useData();
-  // const store = useStore();
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
-  // const teams = useMemo(
-  //   () => [store.team1, store.team2],
-  //   [store.team1, store.team2]
-  // );
 
-  // do i ever need this to be an array, or can I observe findOne?
-  const team1 = useRxQuery(
-    useCallback((db) => db.game_state.find().where({ _id: "Player1" }), [])
-  );
-  const team2 = useRxQuery(
-    useCallback((db) => db.game_state.find().where({ _id: "Player2" }), [])
-  );
-  const teams = useMemo(() => [team1?.[0], team2?.[0]], [team1, team2]);
-  /*
   const [team1, setTeam1] = useState<GBGameStateDoc>();
   const [team2, setTeam2] = useState<GBGameStateDoc>();
-  */
+
   const [roster1, setRoster1] = useState<GBModelExpanded[]>();
   const [roster2, setRoster2] = useState<GBModelExpanded[]>();
 
@@ -70,44 +54,54 @@ export default function Game() {
   useEffect(() => {
     let cancled = false;
     // wait for db init
-    if (!db || !team1 || !team2) {
-      return;
-    }
-    if (!team1.length || !team2.length) {
-      navigate("/game");
+    if (!db) {
       return;
     }
     const fetchData = async () => {
-      if (!teams[0] || !teams[1]) {
+      const _team1 = await db.game_state
+        .findOne()
+        .where({ _id: "Player1" })
+        .exec();
+      const _team2 = await db.game_state
+        .findOne()
+        .where({ _id: "Player2" })
+        .exec();
+
+      // kick out if there's a problem getting the data
+      if (!_team1 || !_team2) {
+        navigate("/game");
         return;
       }
+
       const _roster1 = await db.models
         .find()
         .where("id")
-        .in(teams[0].roster.map((r) => r.name))
+        .in(_team1.roster.map((r) => r.name))
         .exec();
 
       const roster1 = await Promise.all(_roster1.map((m) => m.expand()));
       reSort(
         roster1,
         "id",
-        teams[0].roster.map((r) => r.name)
+        _team1.roster.map((r) => r.name)
       );
 
       const _roster2 = await db.models
         .find()
         .where("id")
-        .in(teams[1].roster.map((r) => r.name))
+        .in(_team2.roster.map((r) => r.name))
         .exec();
 
       const roster2 = await Promise.all(_roster2.map((m) => m.expand()));
       reSort(
         roster2,
         "id",
-        teams[1].roster.map((r) => r.name)
+        _team2.roster.map((r) => r.name)
       );
 
       if (!cancled) {
+        setTeam1(_team1);
+        setTeam2(_team2);
         setRoster1(roster1);
         setRoster2(roster2);
       }
@@ -116,7 +110,7 @@ export default function Game() {
     return () => {
       cancled = true;
     };
-  }, [db, team1, team2, teams, navigate]);
+  }, [db, navigate]);
 
   const [showSnack, setShowSnack] = useState(false);
   const [blocked, setBlocked] = useState(false);
@@ -167,10 +161,9 @@ export default function Game() {
     setBlocked(true);
   }, [blocked, setBlocked]);
 
-  if (!db || !team1 || !team2) {
-    return null;
-  }
-  if (!teams[0] || !teams[1]) {
+  console.log('Game screen render');
+
+  if (!team1 || !team2) {
     return null;
   }
   if (!roster1 || !roster2) {
@@ -190,7 +183,7 @@ export default function Game() {
         <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
           <IconButton
             color="inherit"
-            href={`/game?p1=${teams[0].guild}&p2=${teams[1].guild}`}
+            href={`/game?p1=${team1.guild}&p2=${team2.guild}`}
             size="small"
           >
             <Home />
@@ -198,7 +191,7 @@ export default function Game() {
           <Link
             underline="hover"
             color="inherit"
-            href={`/game/draft?p1=${teams[0].guild}&p2=${teams[1].guild}`}
+            href={`/game/draft?p1=${team1.guild}&p2=${team2.guild}`}
           >
             Draft
           </Link>
@@ -208,12 +201,12 @@ export default function Game() {
 
       {large ? (
         <>
-          <GameList teams={[teams[0]]} rosters={[roster1]} />
+          <GameList teams={[team1]} rosters={[roster1]} />
           <Divider orientation="vertical" />
-          <GameList teams={[teams[1]]} rosters={[roster2]} />
+          <GameList teams={[team2]} rosters={[roster2]} />
         </>
       ) : (
-        <GameList teams={[teams[0], teams[1]]} rosters={[roster1, roster2]} />
+        <GameList teams={[team1, team2]} rosters={[roster1, roster2]} />
       )}
 
       <Snackbar

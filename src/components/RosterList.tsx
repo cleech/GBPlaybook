@@ -20,7 +20,9 @@ import GBIcon from "./GBIcon";
 // import { useRTC } from "../services/webrtc";
 import { useUpdateAnimation } from "./useUpdateAnimation";
 import { useStore } from "../models/Root";
-import { GBGameStateDoc, GBModelExpanded } from "../models/gbdb";
+import { GBGameStateDoc, GBModelDoc, GBModelExpanded } from "../models/gbdb";
+import { useEffect, useMemo, useState } from "react";
+import { map } from "rxjs";
 
 interface RosterListProps {
   teams: GBGameStateDoc[];
@@ -185,7 +187,21 @@ export function HealthCounter({
     },
   });
 
-  const health = state.roster.find((m) => m.name === model.id)?.health || 0;
+  const _index = state.roster.findIndex((m) => m.name === model.id);
+  const health$ = useMemo(
+    () =>
+      state.get$("roster").pipe(
+        map((r) => {
+          return r[_index].health;
+        })
+      ),
+    [state, _index]
+  );
+  const [health, setHealth] = useState(model.hp);
+  useEffect(() => {
+    let observer = health$.subscribe((newHealth) => setHealth(newHealth));
+    return () => observer.unsubscribe();
+  }, [health$]);
 
   return (
     <div
@@ -235,6 +251,55 @@ export function HealthCounter({
         </ButtonGroup>
       )}
     </div>
+  );
+}
+
+function ScoreCounter(props: { state: GBGameStateDoc }) {
+  const state = props.state;
+  const [score, setScore] = useState(0);
+  useEffect(() => {
+    const observer = state.get$("score").subscribe((s) => setScore(s));
+    return () => observer.unsubscribe();
+  }, [state]);
+  return (
+    <Counter
+      object={state}
+      disabled={state.disabled}
+      label={(_state) => `VP: ${score}`}
+      value={(_state) => score}
+      setValue={(t, v) => {
+        t.incrementalModify((oldValue) => {
+          oldValue.score = v;
+          return oldValue;
+        });
+        // dc?.send(JSON.stringify({ VP: v }));
+      }}
+    />
+  );
+}
+
+function MomentumCounter(props: { state: GBGameStateDoc }) {
+  const state = props.state;
+  const [momentum, setMomentum] = useState(0);
+  useEffect(() => {
+    const observer = state.get$("momentum").subscribe((m) => setMomentum(m));
+    return () => observer.unsubscribe();
+  }, [state]);
+  return (
+    <Counter
+      object={state}
+      disabled={state.disabled}
+      longPressClear={true}
+      label={(_state) => `MOM: ${momentum}`}
+      value={(_state) => momentum}
+      setValue={(t, v) => {
+        t.incrementalModify((oldValue) => {
+          oldValue.momentum = v;
+          return oldValue;
+        });
+        // dc?.send(JSON.stringify({ MOM: v }));
+      }}
+    />
   );
 }
 
@@ -329,33 +394,8 @@ export default function RosterList({
                 <div
                   style={{ display: "flex", flexDirection: "row", gap: "4px" }}
                 >
-                  <Counter
-                    object={team}
-                    disabled={team.disabled}
-                    label={(t) => `VP: ${t.score}`}
-                    value={(t) => t.score}
-                    setValue={(t, v) => {
-                      t.incrementalModify((oldValue) => {
-                        oldValue.score = v;
-                        return oldValue;
-                      });
-                      // dc?.send(JSON.stringify({ VP: v }));
-                    }}
-                  />
-                  <Counter
-                    object={team}
-                    disabled={team.disabled}
-                    longPressClear={true}
-                    label={(t) => `MOM: ${t.momentum}`}
-                    value={(t) => t.momentum}
-                    setValue={(t, v) => {
-                      t.incrementalModify((oldValue) => {
-                        oldValue.momentum = v;
-                        return oldValue;
-                      });
-                      // dc?.send(JSON.stringify({ MOM: v }));
-                    }}
-                  />
+                  <ScoreCounter state={team} />
+                  <MomentumCounter state={team} />
                 </div>
               </ListSubheader>
             </AccordionSummary>
