@@ -32,7 +32,8 @@ const router = createHashRouter(
       <Route
         path="/"
         // FIXME
-        // element={<Navigate to={rootStore.settings.initialScreen} replace />}
+        // element={<Navigate to={settings.initialScreen} replace />}
+        element={<Navigate to="/game" replace />}
       />
       <Route element={<App />}>
         <Route element={<GamePlay />}>

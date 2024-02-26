@@ -10,11 +10,10 @@ import SyncDisabledIcon from "@mui/icons-material/SyncDisabled";
 import Lobby from "../../components/Lobby";
 import OddsCalc from "../../components/Calc";
 import { useRTC } from "../../services/webrtc";
-import { observer } from "mobx-react-lite";
 import { Offline, Online } from "react-detect-offline";
 import { useSettings } from "../../models/settings";
 
-const LoginButton = observer(() => {
+const LoginButton = () => {
   const [showDialog, setShowDialog] = useState(false);
   const { settings } = useSettings();
   const { dc } = useRTC();
@@ -37,7 +36,7 @@ const LoginButton = observer(() => {
       </Offline>
     </>
   ) : null;
-});
+};
 
 export default function GamePlay() {
   const location = useLocation();

@@ -6,7 +6,6 @@ import React, {
   useCallback,
 } from "react";
 
-import { observer } from "mobx-react-lite";
 import { useSettings } from "../models/settings";
 
 import DataFile, { Manifest, Gameplan } from "./DataContext.d";
@@ -80,7 +79,7 @@ async function bulkLoadDB(filename: string, manifest: Manifest, data: any) {
     .catch(console.error);
 }
 
-export const DataProvider = observer(({ children }: DataProviderProps) => {
+export const DataProvider = ({ children }: DataProviderProps) => {
   const [manifest, setManifest] = useState(undefined);
   // const [data, setData] = useState(undefined);
   const [gameplans, setGameplans] = useState(undefined);
@@ -126,7 +125,7 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
       {children}
     </DataContext.Provider>
   );
-});
+};
 
 export const useData = () => {
   return useContext(DataContext);
