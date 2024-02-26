@@ -7,7 +7,7 @@ import React, {
 } from "react";
 
 import { observer } from "mobx-react-lite";
-import { useStore } from "../models/Root";
+import { useSettings } from "../models/settings";
 
 import DataFile, { Manifest, Gameplan } from "./DataContext.d";
 
@@ -30,12 +30,17 @@ interface DataProviderProps {
   children: React.ReactNode;
 }
 
+const gb_meta_local = "gbdata_meta";
+interface GBDataMeta {
+  filename: string;
+  sha256: string;
+}
+
 async function bulkLoadDB(filename: string, manifest: Manifest, data: any) {
   const _sha256 = manifest.datafiles.find(
     (df) => df.filename === filename
   )?.sha256;
-  // local documents don't really have a type
-  const dbSettings: any = await gbdb.getLocal("settings");
+  const dbSettings = await gbdb.getLocal<GBDataMeta>(gb_meta_local);
   if (dbSettings) {
     if (
       dbSettings.get("filename") === filename &&
@@ -69,7 +74,7 @@ async function bulkLoadDB(filename: string, manifest: Manifest, data: any) {
       .then(() => gbdb.character_traits.bulkInsert(data["Character Traits"])),
   ])
     .then(() =>
-      gbdb.upsertLocal("settings", { filename: filename, sha256: _sha256 })
+      gbdb.upsertLocal(gb_meta_local, { filename: filename, sha256: _sha256 })
     )
     // .then(() => console.log("database re-load complete :|"))
     .catch(console.error);
@@ -82,7 +87,7 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
   const [version, setVersion] = useState("");
   const [db, setDB] = useState<GBDatabase>();
 
-  const settings = useStore().settings;
+  const { settings, settingsDoc } = useSettings();
   const filename = settings.dataSet;
 
   // console.log('DataProvider render');
@@ -96,7 +101,7 @@ export const DataProvider = observer(({ children }: DataProviderProps) => {
       filename = settings.dataSet;
     } else {
       filename = manifest.datafiles[0].filename;
-      settings.setDataSet(filename);
+      settingsDoc?.set("dataSet", "filename");
     }
     setVersion(
       manifest.datafiles.find(

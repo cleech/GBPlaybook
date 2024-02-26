@@ -5,7 +5,6 @@ import React, {
   useImperativeHandle,
   useCallback,
 } from "react";
-import { useStore } from "../models/Root";
 import { useData } from "../components/DataContext";
 import cloneDeep from "lodash.clonedeep";
 import { Badge, Card, Checkbox, FormControlLabel } from "@mui/material";
@@ -17,6 +16,7 @@ import { useUpdateAnimation } from "./useUpdateAnimation";
 import { observer } from "mobx-react-lite";
 import { GBGuild, GBModel } from "../models/gbdb";
 import { reSort } from "./reSort";
+import { useSettings } from "../models/settings";
 
 export interface DraftModel extends GBModel {
   selected: boolean;
@@ -151,7 +151,7 @@ export const DraftList = observer(
       style,
     } = props;
     const { gbdb: db } = useData();
-    const { settings } = useStore();
+    const { settings } = useSettings();
     const [ready, setReady] = useState(false);
 
     // captain and mascot get pre-selected for minor guilds
@@ -428,7 +428,7 @@ export const BSDraftList = observer(
       style,
     } = props;
     const { gbdb: db } = useData();
-    const { settings } = useStore();
+    const { settings } = useSettings();
 
     const [masterCount, setMasterCount] = useState(0);
     const [apprenticeCount, setApprenticeCount] = useState(0);

@@ -13,7 +13,6 @@ import {
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useData } from "../../components/DataContext";
 import { DraftList, BSDraftList } from "../../components/Draft";
-import { useStore } from "../../models/Root";
 
 import "./Draft.css";
 
@@ -25,9 +24,10 @@ import VersionTag from "../../components/VersionTag";
 // import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
 import { GBGuildDoc, GBModel } from "../../models/gbdb";
 import ResumeSnackBar from "./ResumeSnackBar";
+import { useSettings } from "../../models/settings";
 
 export default function Draft() {
-  const store = useStore();
+  const { settings, settingsDoc } = useSettings();
   // const [waiting, setWaiting] = useState(false);
   // const [locked, setLocked] = useState(false);
   const navigate = useNavigate();
@@ -168,7 +168,7 @@ export default function Draft() {
             }}
           >
             <Typography>
-              {store.settings.gameSize}v{store.settings.gameSize}
+              {settings.gameSize}v{settings.gameSize}
             </Typography>
           </IconButton>
           <Menu
@@ -179,25 +179,25 @@ export default function Draft() {
           >
             <MenuList dense>
               <MenuItem
-                selected={store.settings.gameSize === 6}
+                selected={settings.gameSize === 6}
                 onClick={() => {
-                  store.settings.setGameSize(6);
+                  settingsDoc?.set("gameSize", 6);
                 }}
               >
                 6v6
               </MenuItem>
               <MenuItem
-                selected={store.settings.gameSize === 4}
+                selected={settings.gameSize === 4}
                 onClick={() => {
-                  store.settings.setGameSize(4);
+                  settingsDoc?.set("gameSize", 4);
                 }}
               >
                 4v4
               </MenuItem>
               <MenuItem
-                selected={store.settings.gameSize === 3}
+                selected={settings.gameSize === 3}
                 onClick={() => {
-                  store.settings.setGameSize(3);
+                  settingsDoc?.set("gameSize", 3);
                 }}
               >
                 3v3
@@ -209,7 +209,7 @@ export default function Draft() {
 
       <DraftList1
         // hacky, but force reset when this setting changes
-        key={`1-${store.settings.gameSize}`}
+        key={`1-${settings.gameSize}`}
         guild={guild1}
         ready={ready1}
         unready={unready1}
@@ -275,7 +275,7 @@ export default function Draft() {
 
       <DraftList2
         // hacky, but force reset when this setting changes
-        key={`2-${store.settings.gameSize}`}
+        key={`2-${settings.gameSize}`}
         guild={guild2}
         ready={ready2}
         unready={unready2}

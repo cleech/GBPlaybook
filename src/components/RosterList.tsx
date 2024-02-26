@@ -19,10 +19,10 @@ import useLongPress from "../components/useLongPress";
 import GBIcon from "./GBIcon";
 // import { useRTC } from "../services/webrtc";
 import { useUpdateAnimation } from "./useUpdateAnimation";
-import { useStore } from "../models/Root";
-import { GBGameStateDoc, GBModelDoc, GBModelExpanded } from "../models/gbdb";
+import { GBGameStateDoc, GBModelExpanded } from "../models/gbdb";
 import { useEffect, useMemo, useState } from "react";
 import { map } from "rxjs";
+import { useSettings } from "../models/settings";
 
 interface RosterListProps {
   teams: GBGameStateDoc[];
@@ -199,7 +199,7 @@ export function HealthCounter({
   );
   const [health, setHealth] = useState(model.hp);
   useEffect(() => {
-    let observer = health$.subscribe((newHealth) => setHealth(newHealth));
+    const observer = health$.subscribe((newHealth) => setHealth(newHealth));
     return () => observer.unsubscribe();
   }, [health$]);
 
@@ -265,8 +265,8 @@ function ScoreCounter(props: { state: GBGameStateDoc }) {
     <Counter
       object={state}
       disabled={state.disabled}
-      label={(_state) => `VP: ${score}`}
-      value={(_state) => score}
+      label={() => `VP: ${score}`}
+      value={() => score}
       setValue={(t, v) => {
         t.incrementalModify((oldValue) => {
           oldValue.score = v;
@@ -290,8 +290,8 @@ function MomentumCounter(props: { state: GBGameStateDoc }) {
       object={state}
       disabled={state.disabled}
       longPressClear={true}
-      label={(_state) => `MOM: ${momentum}`}
-      value={(_state) => momentum}
+      label={() => `MOM: ${momentum}`}
+      value={() => momentum}
       setValue={(t, v) => {
         t.incrementalModify((oldValue) => {
           oldValue.momentum = v;
@@ -310,7 +310,7 @@ export default function RosterList({
   onClick,
 }: RosterListProps) {
   const theme = useTheme();
-  const { settings } = useStore();
+  const { settings } = useSettings();
   // const { dc } = useRTC();
   const indexBases = teams.reduce(
     (acc, team, index) => {

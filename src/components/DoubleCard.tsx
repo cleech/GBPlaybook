@@ -2,11 +2,11 @@ import { useState, useRef, useLayoutEffect, useCallback, JSX } from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 import GBImages from "./GBImages";
-import { useStore } from "../models/Root";
 import { GBModelExpanded } from "../models/gbdb";
+import { useSettings } from "../models/settings";
 
 export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
-  const { settings } = useStore();
+  const { settings } = useSettings();
   const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1.0);
   useLayoutEffect(() => {
@@ -27,7 +27,7 @@ export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
 
   const key = model.id;
   const gbcp =
-    settings.cardPreferences.perferedStyled === "gbcp" &&
+    settings.cardPreferences.preferredStyle === "gbcp" &&
     (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
   const image = gbcp ? GBImages.get(`${key}_full`) ?? undefined : undefined;
 

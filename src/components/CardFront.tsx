@@ -9,9 +9,9 @@ import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
 import { Guild } from "./DataContext.d";
-import { useStore } from "../models/Root";
 import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";
 import { Observable } from "rxjs";
+import { useSettings } from "../models/settings";
 
 interface CardFrontProps {
   model: GBModelExpanded;
@@ -35,7 +35,7 @@ const CardFront = (props: CardFrontProps) => {
   const model = props.model;
   const key = model.id;
 
-  const { settings } = useStore();
+  const { settings } = useSettings();
   const { gbdb: db } = useData();
 
   const [guild1, setGuild1] = useState<GBGuildDoc | null>(null);
@@ -67,7 +67,7 @@ const CardFront = (props: CardFrontProps) => {
   }
 
   const gbcp =
-    settings.cardPreferences.perferedStyled === "gbcp" &&
+    settings.cardPreferences.preferredStyle === "gbcp" &&
     (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
 
   const image = gbcp
@@ -148,7 +148,7 @@ const HealthBoxes = ({
 }) => {
   const [health, setHealth] = useState<number>(model.hp);
   useEffect(() => {
-    let observer = health$?.subscribe((newHealth) => setHealth(newHealth));
+    const observer = health$?.subscribe((newHealth) => setHealth(newHealth));
     return () => observer?.unsubscribe();
   }, [health$]);
 

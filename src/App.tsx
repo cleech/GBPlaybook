@@ -21,7 +21,7 @@ import Divider from "@mui/material/Divider";
 import { Box, Portal, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import { useStore } from "./models/Root";
+import { useSettings } from "./models/settings";
 
 export const AppBarContext = createContext<HTMLElement | null>(null);
 
@@ -121,7 +121,8 @@ const DrawerNavigationButton = (props: {
 const App = () => {
   const [drawer, setDrawer] = useState(false);
   const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
-  const { gamePlayRoute, libraryRoute } = useStore();
+  const { settings } = useSettings();
+  const { gamePlayRoute, libraryRoute } = settings;
 
   return (
     <ThemeProvider theme={darkTheme}>

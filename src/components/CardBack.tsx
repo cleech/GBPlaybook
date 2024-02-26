@@ -9,7 +9,7 @@ import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
 import { GBCardCSS } from "./CardFront";
-import { useStore } from "../models/Root";
+import { useSettings } from "../models/settings";
 import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";
 
 interface CardBackProps {
@@ -24,7 +24,7 @@ const CardBack = (props: CardBackProps) => {
   const model = props.model;
   const key = model.id;
 
-  const { settings } = useStore();
+  const { settings } = useSettings();
   const { gbdb: db } = useData();
 
   const [guild, setGuild1] = useState<GBGuildDoc | null>(null);
@@ -54,7 +54,7 @@ const CardBack = (props: CardBackProps) => {
   }
 
   const gbcp =
-    settings.cardPreferences.perferedStyled === "gbcp" &&
+    settings.cardPreferences.preferredStyle === "gbcp" &&
     (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
 
   const image = gbcp

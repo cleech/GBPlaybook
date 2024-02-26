@@ -39,7 +39,6 @@ import {
   GridIconButton,
   GuildGrid,
 } from "../components/GuildGrid";
-import { useStore } from "../models/Root";
 import { AppBarContent } from "../App";
 import { NavigateNext } from "@mui/icons-material";
 import { DoubleGuildCard, FlipGuildCard } from "../components/GuildCard";
@@ -49,14 +48,21 @@ import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";
 import { reSort } from "../components/reSort";
+import { useSettings } from "../models/settings";
 
 export default function Library() {
   const location = useLocation();
-  const { setLibraryRoute } = useStore();
+  const { settings, settingsDoc } = useSettings();
 
   useEffect(() => {
-    setLibraryRoute(`${location.pathname}${location.search}`);
-  }, [location, setLibraryRoute]);
+    // FIXME: excessive re-renders when we keep changing this
+    const route = `${location.pathname}${location.search}`;
+    if (route !== settings.libraryRoute) {
+      settingsDoc?.incrementalPatch({
+        libraryRoute: `${location.pathname}${location.search}`,
+      });
+    }
+  }, [location, settingsDoc]);
 
   return (
     <main

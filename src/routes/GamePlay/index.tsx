@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { IconButton, Box } from "@mui/material";
-import { useStore } from "../../models/Root";
 
 import { AppBarContent, AppBarContext } from "../../App";
 
@@ -13,10 +12,11 @@ import OddsCalc from "../../components/Calc";
 import { useRTC } from "../../services/webrtc";
 import { observer } from "mobx-react-lite";
 import { Offline, Online } from "react-detect-offline";
+import { useSettings } from "../../models/settings";
 
 const LoginButton = observer(() => {
   const [showDialog, setShowDialog] = useState(false);
-  const { settings } = useStore();
+  const { settings } = useSettings();
   const { dc } = useRTC();
   return settings.networkPlay ? (
     <>
@@ -41,12 +41,18 @@ const LoginButton = observer(() => {
 
 export default function GamePlay() {
   const location = useLocation();
-  const { setGamePlayRoute } = useStore();
+  const { settings, settingsDoc } = useSettings();
   const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
-    setGamePlayRoute(`${location.pathname}${location.search}`);
-  }, [location, setGamePlayRoute]);
+    // FIXME: excessive re-renders when we keep changing this
+    const route = `${location.pathname}${location.search}`;
+    if (route !== settings.gamePlayRoute) {
+      settingsDoc?.incrementalPatch({
+        gamePlayRoute: `${location.pathname}${location.search}`,
+      });
+    }
+  }, [location, settingsDoc]);
 
   return (
     <main
