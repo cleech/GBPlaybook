@@ -8,7 +8,7 @@ import React, {
 
 import { useSettings } from "../models/settings";
 
-import DataFile, { Manifest, Gameplan } from "./DataContext.d";
+import { Manifest, Gameplan } from "./DataContext.d";
 
 import gbdb, { GBDatabase } from "../models/gbdb";
 
@@ -81,15 +81,12 @@ async function bulkLoadDB(filename: string, manifest: Manifest, data: any) {
 
 export const DataProvider = ({ children }: DataProviderProps) => {
   const [manifest, setManifest] = useState(undefined);
-  // const [data, setData] = useState(undefined);
   const [gameplans, setGameplans] = useState(undefined);
   const [version, setVersion] = useState("");
   const [db, setDB] = useState<GBDatabase>();
 
   const { settings, settingsDoc } = useSettings();
   const filename = settings.dataSet;
-
-  // console.log('DataProvider render');
 
   const getData = useCallback(async () => {
     const manifest = await readManifest();
@@ -100,7 +97,7 @@ export const DataProvider = ({ children }: DataProviderProps) => {
       filename = settings.dataSet;
     } else {
       filename = manifest.datafiles[0].filename;
-      settingsDoc?.set("dataSet", "filename");
+      settingsDoc?.incrementalPatch({ dataSet: filename });
     }
     setVersion(
       manifest.datafiles.find(
@@ -110,13 +107,11 @@ export const DataProvider = ({ children }: DataProviderProps) => {
     readFile(filename).then((data) => {
       setDB(undefined);
       bulkLoadDB(filename, manifest, data).then(() => setDB(gbdb));
-      // setData(data);
     });
     setGameplans(await readFile("gameplans.json"));
   }, [settings]);
 
   useEffect(() => {
-    // console.log(`reloading dataSet: ${filename}`);
     getData();
   }, [filename, getData]);
 

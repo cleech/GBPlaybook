@@ -24,16 +24,30 @@ import { CardPrintScreen } from "./routes/print";
 
 import { FirebaseProvider } from "./services/firebase";
 import { RTCProvider } from "./services/webrtc";
-import { SettingsProvider } from "./models/settings";
+import {
+  SettingsDoc,
+  SettingsProvider,
+  defaultSettings,
+} from "./models/settings";
+
+import gbdb from "./models/gbdb";
 
 const router = createHashRouter(
   createRoutesFromElements(
     <>
       <Route
         path="/"
-        // FIXME
-        // element={<Navigate to={settings.initialScreen} replace />}
-        element={<Navigate to="/game" replace />}
+        element={
+          <Navigate
+            to={await gbdb
+              .getLocal<SettingsDoc>("settings")
+              .then((settings) => {
+                const route: string = settings?.get("initialScreen");
+                return route ?? defaultSettings.initialScreen;
+              })}
+            replace
+          />
+        }
       />
       <Route element={<App />}>
         <Route element={<GamePlay />}>
@@ -60,11 +74,11 @@ root.render(
   <React.StrictMode>
     <FirebaseProvider>
       <RTCProvider>
-        <DataProvider>
-          <SettingsProvider>
+        <SettingsProvider>
+          <DataProvider>
             <RouterProvider router={router} />
-          </SettingsProvider>
-        </DataProvider>
+          </DataProvider>
+        </SettingsProvider>
       </RTCProvider>
     </FirebaseProvider>
   </React.StrictMode>

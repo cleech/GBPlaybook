@@ -9,14 +9,14 @@ import {
 import { getRxStorageDexie } from "rxdb/plugins/storage-dexie";
 import { getRxStorageMemory } from "rxdb/plugins/storage-memory";
 import { RxDBDevModePlugin } from "rxdb/plugins/dev-mode";
-import { RxDBUpdatePlugin } from "rxdb/plugins/update";
+// import { RxDBUpdatePlugin } from "rxdb/plugins/update";
 import { RxDBQueryBuilderPlugin } from "rxdb/plugins/query-builder";
 import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
 
 if (import.meta.env.MODE === "development") {
   addRxPlugin(RxDBDevModePlugin);
 }
-addRxPlugin(RxDBUpdatePlugin);
+// addRxPlugin(RxDBUpdatePlugin);
 addRxPlugin(RxDBQueryBuilderPlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
 
@@ -120,7 +120,7 @@ const gbModelDocMethods: GBModelMethods = {
 };
 
 export type GBModelDoc = RxDocument<GBModel, GBModelMethods>;
-export type GBModelCollection = RxCollection<GBModel, GBModelMethods>;
+type GBModelCollection = RxCollection<GBModel, GBModelMethods>;
 
 const gbModelSchema: RxJsonSchema<GBModel> = {
   title: "Guild Ball model",
@@ -216,7 +216,7 @@ export interface GBGuild {
 }
 
 export type GBGuildDoc = RxDocument<GBGuild>;
-export type GBGuildCollection = RxCollection<GBGuild>;
+type GBGuildCollection = RxCollection<GBGuild>;
 
 const gbGuildSchema: RxJsonSchema<GBGuild> = {
   title: "Guild Ball guild",
@@ -243,8 +243,8 @@ interface GBCharacterPlay {
   OPT: boolean;
 }
 
-export type GBCharacterPlayDoc = RxDocument<GBCharacterPlay>;
-export type GBCharacterPlayCollection = RxCollection<GBCharacterPlay>;
+type GBCharacterPlayDoc = RxDocument<GBCharacterPlay>;
+type GBCharacterPlayCollection = RxCollection<GBCharacterPlay>;
 
 const gbCharacterPlaySchema: RxJsonSchema<GBCharacterPlay> = {
   title: "Guild Ball character play",
@@ -268,8 +268,8 @@ interface GBCharacterTrait {
   text: string;
 }
 
-export type GBCharacterTraitDoc = RxDocument<GBCharacterTrait>;
-export type GBCharacterTraitCollection = RxCollection<GBCharacterTrait>;
+type GBCharacterTraitDoc = RxDocument<GBCharacterTrait>;
+type GBCharacterTraitCollection = RxCollection<GBCharacterTrait>;
 
 const gbCharacterTraitSchema: RxJsonSchema<GBCharacterTrait> = {
   title: "Guild Ball character trait",
@@ -294,7 +294,7 @@ export interface GBGameState {
 }
 
 export type GBGameStateDoc = RxDocument<GBGameState>;
-export type GBGameStateCollection = RxCollection<GBGameState>;
+type GBGameStateCollection = RxCollection<GBGameState>;
 
 const gbGameStateSchema: RxJsonSchema<GBGameState> = {
   title: "Guild Ball Game State",
@@ -332,11 +332,11 @@ interface GBDataCollections {
 
 export type GBDatabase = RxDatabase<GBDataCollections>;
 
-const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>({
+export const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>({
   name: "gb_playbook",
   localDocuments: true,
-  // storage: getRxStorageDexie(),
-  storage: getRxStorageMemory(),
+  storage: getRxStorageDexie(),
+  // storage: getRxStorageMemory(),
 });
 
 await gbdb.addCollections({

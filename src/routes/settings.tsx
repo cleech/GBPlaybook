@@ -20,6 +20,8 @@ const Settings = () => {
   const { manifest } = useData();
   const { settings, settingsDoc } = useSettings();
 
+  if (!manifest || !settingsDoc) { return }
+
   return (
     <Box component={"main"} sx={{ p: "1rem" }}>
       <AppBarContent>

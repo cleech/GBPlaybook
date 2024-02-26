@@ -6,9 +6,10 @@ import {
   useEffect,
   useMemo,
 } from "react";
-import { useData } from "../components/DataContext";
 import { RxLocalDocument } from "rxdb";
-import { GBDatabase } from "./gbdb";
+
+// import { useData } from "../components/DataContext";
+import gbdb, { GBDatabase } from "./gbdb";
 
 interface Settings {
   dataSet?: string;
@@ -25,7 +26,8 @@ interface Settings {
   libraryRoute: string;
 }
 
-const defaultSettings: Settings = {
+export const defaultSettings: Settings = {
+  dataSet: "GB-Playbook-4-5.json",
   initialScreen: "/game",
   gameSize: 6,
   networkPlay: false,
@@ -47,8 +49,8 @@ const SettingsContext = createContext<SettingsContextData>({
 });
 
 export const SettingsProvider = (props: PropsWithChildren) => {
-  const { gbdb: db } = useData();
-  const setting$ = useMemo(() => db?.getLocal$<Settings>("settings"), [db]);
+  // const { gbdb: db } = useData();
+  const setting$ = useMemo(() => gbdb?.getLocal$<Settings>("settings"), [gbdb]);
   const [settings, setSettings] = useState<Settings>(defaultSettings);
   const [settingsDoc, setSettingsDoc] = useState<SettingsDoc>();
 
@@ -58,9 +60,9 @@ export const SettingsProvider = (props: PropsWithChildren) => {
     }
     const observer = setting$.subscribe((s) => {
       if (!s) {
-        db?.upsertLocal<Settings>("settings", defaultSettings).catch(
-          console.error
-        );
+        gbdb
+          ?.upsertLocal<Settings>("settings", defaultSettings)
+          .catch(console.error);
         return;
       }
       setSettings(s.toJSON().data);
