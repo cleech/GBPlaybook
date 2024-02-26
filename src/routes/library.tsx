@@ -186,16 +186,6 @@ export function Roster() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedPosition = searchParams.get("m");
-    if (savedPosition) {
-      const index = g?.roster.findIndex((m) => m === savedPosition);
-      if (index) {
-        swiper?.slideTo(index + 1);
-      }
-    }
-  }, [swiper, searchParams, g]);
-
-  useEffect(() => {
     let cancled = false;
     if (!db) {
       return;
@@ -253,6 +243,9 @@ export function Roster() {
       >
         <Swiper
           onSwiper={setSwiper}
+          initialSlide={
+            (g?.roster.findIndex((m) => m === searchParams.get("m")) || 0) + 1
+          }
           onSlideChange={(swiper) => {
             setSearchParams(`m=${g.roster[swiper.activeIndex - 1]}`, {
               replace: true,
@@ -359,16 +352,6 @@ export function GamePlans() {
 
   const { gameplans } = useData();
 
-  useEffect(() => {
-    const savedPosition = searchParams.get("m");
-    if (savedPosition) {
-      const index = Number(savedPosition);
-      if (index) {
-        swiper?.slideTo(index);
-      }
-    }
-  }, [swiper, searchParams]);
-
   if (!gameplans) {
     return null;
   }
@@ -397,6 +380,7 @@ export function GamePlans() {
       >
         <Swiper
           onSwiper={setSwiper}
+          initialSlide={Number(searchParams.get("m")) || 0}
           onSlideChange={(swiper) => {
             setSearchParams(`m=${swiper.activeIndex}`, {
               replace: true,
@@ -470,16 +454,6 @@ export function RefCards() {
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
-  useEffect(() => {
-    const savedPosition = searchParams.get("m");
-    if (savedPosition) {
-      const index = Number(savedPosition);
-      if (index) {
-        swiper?.slideTo(index);
-      }
-    }
-  }, [swiper, searchParams]);
-
   return (
     <>
       <AppBarContent>
@@ -504,6 +478,7 @@ export function RefCards() {
       >
         <Swiper
           onSwiper={setSwiper}
+          initialSlide={Number(searchParams.get("m")) || 0}
           onSlideChange={(swiper) => {
             setSearchParams(`m=${swiper.activeIndex}`, {
               replace: true,
