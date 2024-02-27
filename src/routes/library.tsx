@@ -46,9 +46,10 @@ import VersionTag from "../components/VersionTag";
 import type { Gameplan } from "../components/DataContext.d";
 import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
-import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";
+import { GBGuildDoc } from "../models/gbdb";
 import { reSort } from "../components/reSort";
 import { useSettings } from "../models/settings";
+import { useRxData } from "../components/useRxQuery";
 
 export default function Library() {
   const location = useLocation();
@@ -178,42 +179,28 @@ export function Roster() {
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
-  const { gbdb: db } = useData();
-
-  const [g, setGuild] = useState<GBGuildDoc | null>(null);
-  const [roster, setRoster] = useState<GBModelExpanded[]>();
-
   const navigate = useNavigate();
 
-  useEffect(() => {
-    let cancled = false;
-    if (!db) {
-      return;
-    }
-    const fetchData = async () => {
-      const [g, _roster] = await Promise.all([
-        db.guilds.findOne().where({ name: guild }).exec(),
-        db.models
-          .find()
-          .or([{ guild1: guild }, { guild2: guild }])
-          .exec(),
-      ]);
-      if (!g || !_roster.length) {
-        navigate("/library");
-        return;
-      }
-      reSort(_roster, "id", g.roster);
-      const roster = await Promise.all(_roster.map((m) => m.expand()));
-      if (!cancled) {
-        setGuild(g);
-        setRoster(roster);
-      }
-    };
-    fetchData().catch(console.error);
-    return () => {
-      cancled = true;
-    };
-  }, [db, guild, navigate]);
+  const [g, roster] =
+    useRxData(
+      async (db) => {
+        const [_g, _roster] = await Promise.all([
+          db.guilds.findOne().where({ name: guild }).exec(),
+          db.models
+            .find()
+            .or([{ guild1: guild }, { guild2: guild }])
+            .exec(),
+        ]);
+        if (!_g || !_roster.length) {
+          navigate("/library");
+          return;
+        }
+        reSort(_roster, "id", _g.roster);
+        const __roster = await Promise.all(_roster.map((m) => m.expand()));
+        return [_g, __roster];
+      },
+      [guild, navigate]
+    ) ?? [];
 
   if (!g || !roster) {
     // console.log(g);

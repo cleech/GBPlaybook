@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { RxDocument, RxQuery } from "rxdb";
 import { useData } from "./DataContext";
 import { GBDatabase } from "../models/gbdb";
@@ -20,4 +20,32 @@ export function useRxQuery<T>(
     };
   }, [db, query]);
   return result;
+}
+
+export function useRxData<T>(
+  query: (db: GBDatabase) => Promise<T>,
+  deps?: React.DependencyList
+): // [T | undefined, React.Dispatch<T>]
+T | undefined {
+  const { gbdb: db } = useData();
+  const _query = useCallback(query, deps ?? []);
+  const [data, setData] = useState<T>();
+  useEffect(() => {
+    let cancled = false;
+    if (!db) {
+      return;
+    }
+    const fetchData = async () => {
+      const _data = await _query(db);
+      if (!cancled) {
+        setData(_data);
+      }
+    };
+    fetchData().catch(console.error);
+    return () => {
+      cancled = true;
+    };
+  }, [db, _query, setData]);
+  // return [data, setData];
+  return data;
 }

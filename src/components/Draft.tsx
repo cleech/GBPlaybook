@@ -16,6 +16,7 @@ import { useUpdateAnimation } from "./useUpdateAnimation";
 import { GBGuild, GBModel } from "../models/gbdb";
 import { reSort } from "./reSort";
 import { useSettings } from "../models/settings";
+import { useRxData } from "./useRxQuery";
 
 export interface DraftModel extends GBModel {
   selected: boolean;
@@ -148,28 +149,20 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
     ignoreRules = false,
     style,
   } = props;
-  const { gbdb: db } = useData();
   const { settings } = useSettings();
   const [ready, setReady] = useState(false);
 
   // captain and mascot get pre-selected for minor guilds
   const [captain, setCaptain] = useState(guild.minor ? 1 : 0);
   const [mascot, setMascot] = useState(
-    guild.minor && DraftLimits[settings.gameSize as 3 | 4 | 6].mascot > 0
-      ? 1
-      : 0
+    guild.minor && DraftLimits[settings.gameSize].mascot > 0 ? 1 : 0
   );
   const [squaddieCount, setSquadCount] = useState(0);
 
-  const [roster, setRoster] = useState<Roster>();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!db) {
-        return;
-      }
+  const roster = useRxData(
+    async (db) => {
       const models = await db.models.find().where("id").in(guild.roster).exec();
-      // need to make a deep copy of the roster data
+      // need to make a copy of the roster data
       // and add in UI state for drafting
       const tmpRoster: DraftModel[] = models.map((m) =>
         Object.assign(m.toMutableJSON(), {
@@ -183,7 +176,7 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
         tmpRoster.forEach((m) => {
           if (
             m.captain ||
-            (m.mascot && DraftLimits[settings.gameSize as 3 | 4 | 6].mascot > 0)
+            (m.mascot && DraftLimits[settings.gameSize].mascot > 0)
           ) {
             m.selected = true;
             m.disabled = 1;
@@ -191,17 +184,17 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
         });
       }
       // disable mascots in a 3v3 game
-      if (DraftLimits[settings.gameSize as 3 | 4 | 6].mascot === 0) {
+      if (DraftLimits[settings.gameSize].mascot === 0) {
         tmpRoster.forEach((m) => {
           if (m.mascot) {
             m.disabled = 1;
           }
         });
       }
-      setRoster(tmpRoster);
-    };
-    fetchData().catch(console.error);
-  }, [guild, db, settings.gameSize]);
+      return tmpRoster;
+    },
+    [guild, settings.gameSize]
+  );
 
   function checkCaptains(
     roster: Roster,
@@ -215,7 +208,7 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
       count,
       value,
       (m: DraftModel) => !!m.captain,
-      DraftLimits[settings.gameSize as 3 | 4 | 6].captain
+      DraftLimits[settings.gameSize].captain
     );
   }
 
@@ -231,7 +224,7 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
       count,
       value,
       (m: DraftModel) => !!m.mascot,
-      DraftLimits[settings.gameSize as 3 | 4 | 6].mascot
+      DraftLimits[settings.gameSize].mascot
     );
   }
 
@@ -247,7 +240,7 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
       count,
       value,
       (m: DraftModel) => !(m.captain || m.mascot),
-      DraftLimits[settings.gameSize as 3 | 4 | 6].squaddies
+      DraftLimits[settings.gameSize].squaddies
     );
   }
 
@@ -272,16 +265,15 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
       checkBenched(roster, model, value);
 
       if (
-        (newCaptain === DraftLimits[settings.gameSize as 3 | 4 | 6].captain &&
-          newMascot === DraftLimits[settings.gameSize as 3 | 4 | 6].mascot &&
-          newCount === DraftLimits[settings.gameSize as 3 | 4 | 6].squaddies) ||
+        (newCaptain === DraftLimits[settings.gameSize].captain &&
+          newMascot === DraftLimits[settings.gameSize].mascot &&
+          newCount === DraftLimits[settings.gameSize].squaddies) ||
         ignoreRules
       ) {
         setReady(true);
       } else {
         setReady(false);
       }
-      setRoster(roster);
     },
     [roster, onUpdate, captain, mascot, squaddieCount, ignoreRules]
   );
@@ -412,22 +404,16 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
     disabled = false,
     style,
   } = props;
-  const { gbdb: db } = useData();
   const { settings } = useSettings();
 
   const [masterCount, setMasterCount] = useState(0);
   const [apprenticeCount, setApprenticeCount] = useState(0);
   const [ready, setReady] = useState(false);
 
-  const [roster, setRoster] = useState<Roster>();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!db) {
-        return;
-      }
+  const roster = useRxData(
+    async (db) => {
       const models = await db.models.find().where("id").in(guild.roster).exec();
-      // need to make a deep copy of the roster data
+      // need to make a copy of the roster data
       // and add UI state for drafting
       const tmpRoster: DraftModel[] = models.map((m) =>
         Object.assign(m.toMutableJSON(), {
@@ -436,10 +422,10 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
         })
       );
       reSort(tmpRoster, "id", guild.roster);
-      setRoster(tmpRoster);
-    };
-    fetchData().catch(console.error);
-  }, [guild, db]);
+      return tmpRoster;
+    },
+    [guild]
+  );
 
   function checkMasterCount(
     roster: Roster,
@@ -453,7 +439,7 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
       count,
       value,
       (m: DraftModel) => !!m.captain,
-      BSDraftLimits[settings.gameSize as 3 | 4 | 6].master
+      BSDraftLimits[settings.gameSize].master
     );
   }
 
@@ -469,7 +455,7 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
       count,
       value,
       (m: DraftModel) => !m.captain,
-      BSDraftLimits[settings.gameSize as 3 | 4 | 6].apprentice
+      BSDraftLimits[settings.gameSize].apprentice
     );
   }
 
@@ -501,18 +487,14 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
       checkBenched(roster, model, value);
 
       if (
-        (newMasterCount ===
-          BSDraftLimits[settings.gameSize as 3 | 4 | 6].master &&
-          newApprenticeCount ===
-            BSDraftLimits[settings.gameSize as 3 | 4 | 6].apprentice) ||
+        (newMasterCount === BSDraftLimits[settings.gameSize].master &&
+          newApprenticeCount === BSDraftLimits[settings.gameSize].apprentice) ||
         ignoreRules
       ) {
         setReady(true);
       } else {
         setReady(false);
       }
-
-      setRoster(roster);
     },
     [roster, onUpdate, masterCount, apprenticeCount, ignoreRules]
   );

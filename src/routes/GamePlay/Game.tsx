@@ -33,84 +33,64 @@ import { AppBarContent } from "../../App";
 
 // import { useRTC } from "../../services/webrtc";
 import { FlipGuildCard } from "../../components/GuildCard";
-import { useData } from "../../components/DataContext";
 import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdb";
 import { reSort } from "../../components/reSort";
 import { map } from "rxjs";
+import { useRxData } from "../../components/useRxQuery";
 
 export default function Game() {
-  const { gbdb: db } = useData();
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
 
-  const [team1, setTeam1] = useState<GBGameStateDoc>();
-  const [team2, setTeam2] = useState<GBGameStateDoc>();
-
-  const [roster1, setRoster1] = useState<GBModelExpanded[]>();
-  const [roster2, setRoster2] = useState<GBModelExpanded[]>();
-
   const navigate = useNavigate();
 
-  useEffect(() => {
-    let cancled = false;
-    // wait for db init
-    if (!db) {
-      return;
-    }
-    const fetchData = async () => {
-      const _team1 = await db.game_state
-        .findOne()
-        .where({ _id: "Player1" })
-        .exec();
-      const _team2 = await db.game_state
-        .findOne()
-        .where({ _id: "Player2" })
-        .exec();
+  const [team1, roster1, team2, roster2] =
+    useRxData(
+      async (db) => {
+        const _team1 = await db.game_state
+          .findOne()
+          .where({ _id: "Player1" })
+          .exec();
+        const _team2 = await db.game_state
+          .findOne()
+          .where({ _id: "Player2" })
+          .exec();
 
-      // kick out if there's a problem getting the data
-      if (!_team1 || !_team2) {
-        navigate("/game");
-        return;
-      }
+        // kick out if there's a problem getting the data
+        if (!_team1 || !_team2) {
+          navigate("/game");
+          return;
+        }
 
-      const _roster1 = await db.models
-        .find()
-        .where("id")
-        .in(_team1.roster.map((r) => r.name))
-        .exec();
+        const _roster1 = await db.models
+          .find()
+          .where("id")
+          .in(_team1.roster.map((r) => r.name))
+          .exec();
 
-      const roster1 = await Promise.all(_roster1.map((m) => m.expand()));
-      reSort(
-        roster1,
-        "id",
-        _team1.roster.map((r) => r.name)
-      );
+        const __roster1 = await Promise.all(_roster1.map((m) => m.expand()));
+        reSort(
+          __roster1,
+          "id",
+          _team1.roster.map((r) => r.name)
+        );
 
-      const _roster2 = await db.models
-        .find()
-        .where("id")
-        .in(_team2.roster.map((r) => r.name))
-        .exec();
+        const _roster2 = await db.models
+          .find()
+          .where("id")
+          .in(_team2.roster.map((r) => r.name))
+          .exec();
 
-      const roster2 = await Promise.all(_roster2.map((m) => m.expand()));
-      reSort(
-        roster2,
-        "id",
-        _team2.roster.map((r) => r.name)
-      );
-
-      if (!cancled) {
-        setTeam1(_team1);
-        setTeam2(_team2);
-        setRoster1(roster1);
-        setRoster2(roster2);
-      }
-    };
-    fetchData().catch(console.error);
-    return () => {
-      cancled = true;
-    };
-  }, [db, navigate]);
+        const __roster2 = await Promise.all(_roster2.map((m) => m.expand()));
+        reSort(
+          __roster2,
+          "id",
+          _team2.roster.map((r) => r.name)
+        );
+        return [_team1, __roster1, _team2, __roster2];
+      },
+      [navigate]
+    ) ?? [];
 
   const [showSnack, setShowSnack] = useState(false);
   const [blocked, setBlocked] = useState(false);

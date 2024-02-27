@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import GBImages from "./GBImages";
-import { useData } from "./DataContext";
 
 import GBIcon from "./GBIcon";
 import "./CardBack.css";
@@ -10,7 +9,8 @@ import Color from "color";
 
 import { GBCardCSS } from "./CardFront";
 import { useSettings } from "../models/settings";
-import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";
+import { GBModelExpanded } from "../models/gbdb";
+import { useRxData } from "./useRxQuery";
 
 interface CardBackProps {
   model: GBModelExpanded;
@@ -25,29 +25,11 @@ const CardBack = (props: CardBackProps) => {
   const key = model.id;
 
   const { settings } = useSettings();
-  const { gbdb: db } = useData();
 
-  const [guild, setGuild1] = useState<GBGuildDoc | null>(null);
-
-  useEffect(() => {
-    let isLive = true;
-    if (!db) {
-      return;
-    }
-    const fetchData = async () => {
-      const guild1 = await db.guilds
-        .findOne()
-        .where({ name: model.guild1 })
-        .exec();
-      if (isLive) {
-        setGuild1(guild1);
-      }
-    };
-    fetchData().catch(console.error);
-    return () => {
-      isLive = false;
-    };
-  }, [db, model.guild1]);
+  const guild = useRxData(
+    (db) => db.guilds.findOne().where({ name: model.guild1 }).exec(),
+    [model.guild1]
+  );
 
   if (!guild) {
     return null;

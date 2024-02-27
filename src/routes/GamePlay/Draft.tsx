@@ -25,6 +25,7 @@ import VersionTag from "../../components/VersionTag";
 import { GBGuildDoc, GBModel } from "../../models/gbdb";
 import ResumeSnackBar from "./ResumeSnackBar";
 import { useSettings } from "../../models/settings";
+import { useRxData } from "../../components/useRxQuery";
 
 export default function Draft() {
   const { settings, settingsDoc } = useSettings();
@@ -93,40 +94,28 @@ export default function Draft() {
   // ]);
 
   const { gbdb: db } = useData();
-  const [guild1, setGuild1] = useState<GBGuildDoc | null>(null);
-  const [guild2, setGuild2] = useState<GBGuildDoc | null>(null);
 
-  useEffect(() => {
-    let cancled = false;
-    // kick out if we didn't get guild names in URL
-    if (!g1 || !g2) {
-      navigate("/game");
-      return;
-    }
-    // wait for db init
-    if (!db) {
-      return;
-    }
-    const fetchData = async () => {
-      const [guild1, guild2] = await Promise.all([
-        db.guilds.findOne().where({ name: g1 }).exec(),
-        db.guilds.findOne().where({ name: g2 }).exec(),
-      ]);
-      // kick out if we can't find the guild names passed in the URL
-      if (!guild1 || !guild2) {
-        navigate("/game");
-        return;
-      }
-      if (!cancled) {
-        setGuild1(guild1);
-        setGuild2(guild2);
-      }
-    };
-    fetchData().catch(console.error);
-    return () => {
-      cancled = true;
-    };
-  }, [db, g1, g2, navigate]);
+  const [guild1, guild2] =
+    useRxData(
+      async (db) => {
+        // kick out if we didn't get guild names in URL
+        if (!g1 || !g2) {
+          navigate("/game");
+          return;
+        }
+        const [_guild1, _guild2] = await Promise.all([
+          db.guilds.findOne().where({ name: g1 }).exec(),
+          db.guilds.findOne().where({ name: g2 }).exec(),
+        ]);
+        // kick out if we can't find the guild names passed in the URL
+        if (!_guild1 || !_guild2) {
+          navigate("/game");
+          return;
+        }
+        return [_guild1, _guild2];
+      },
+      [g1, g2, navigate]
+    ) ?? [];
 
   // wait for data load from db
   if (!guild1 || !guild2) {

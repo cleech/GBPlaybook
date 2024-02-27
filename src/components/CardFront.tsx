@@ -1,6 +1,5 @@
 import React, { CSSProperties, useEffect, useState } from "react";
 import GBImages from "./GBImages";
-import { useData } from "./DataContext";
 
 import GBIcon, { PB } from "./GBIcon";
 import "./CardFront.css";
@@ -9,9 +8,10 @@ import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
 import { Guild } from "./DataContext.d";
-import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";
+import { GBModelExpanded } from "../models/gbdb";
 import { Observable } from "rxjs";
 import { useSettings } from "../models/settings";
+import { useRxData } from "./useRxQuery";
 
 interface CardFrontProps {
   model: GBModelExpanded;
@@ -36,31 +36,15 @@ const CardFront = (props: CardFrontProps) => {
   const key = model.id;
 
   const { settings } = useSettings();
-  const { gbdb: db } = useData();
 
-  const [guild1, setGuild1] = useState<GBGuildDoc | null>(null);
-  const [guild2, setGuild2] = useState<GBGuildDoc | null>(null);
-
-  useEffect(() => {
-    let isLive = true;
-    if (!db) {
-      return;
-    }
-    const fetchData = async () => {
-      const [guild1, guild2] = await Promise.all([
+  const [guild1, guild2] = useRxData(
+    (db) =>
+      Promise.all([
         db.guilds.findOne().where({ name: model.guild1 }).exec(),
         db.guilds.findOne().where({ name: model.guild2 }).exec(),
-      ]);
-      if (isLive) {
-        setGuild1(guild1);
-        setGuild2(guild2);
-      }
-    };
-    fetchData().catch(console.error);
-    return () => {
-      isLive = false;
-    };
-  }, [db, model.guild1, model.guild2]);
+      ]),
+    [model.guild1, model.guild2]
+  ) ?? [];
 
   if (!guild1) {
     return null;

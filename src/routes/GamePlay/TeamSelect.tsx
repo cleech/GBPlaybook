@@ -26,27 +26,13 @@ import VersionTag from "../../components/VersionTag";
 import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
 import { GBGuildDoc } from "../../models/gbdb";
 import ResumeSnackBar from "./ResumeSnackBar";
+import { useRxData } from "../../components/useRxQuery";
 
 function SelectedIcon({ team, size }: { team: string; size: number }) {
-  const { gbdb: db } = useData();
-  const [guild, setGuild] = useState<GBGuildDoc | null>(null);
-
-  useEffect(() => {
-    let cancled = false;
-    if (!db) {
-      return;
-    }
-    const fetchData = async () => {
-      const guild = await db.guilds.findOne().where({ name: team }).exec();
-      if (!cancled) {
-        setGuild(guild);
-      }
-    };
-    fetchData().catch(console.error);
-    return () => {
-      cancled = true;
-    };
-  }, [db, team]);
+  const guild = useRxData(
+    (db) => db.guilds.findOne().where({ name: team }).exec(),
+    [team]
+  );
 
   if (!guild) {
     return null;

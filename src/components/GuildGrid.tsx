@@ -1,13 +1,12 @@
-import React, { Suspense, useCallback, useEffect, useState } from "react";
+import React, { Suspense, useCallback } from "react";
 
 import { useDimensionsRef } from "rooks";
 
 import { Button, Typography, Divider } from "@mui/material";
 
-import { useData } from "../components/DataContext";
 import GBIcon from "../components/GBIcon";
 import { GBGuildDoc } from "../models/gbdb";
-import { useRxQuery } from "./useRxQuery";
+import { useRxData, useRxQuery } from "./useRxQuery";
 
 function maxBy<T>(data: Array<T>, by: (v: T) => number) {
   return data.reduce((a, b) => (by(a) >= by(b) ? a : b));
@@ -70,33 +69,22 @@ interface GuildGridProps {
 
 export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
   const [ref, dimensions] = useDimensionsRef();
-  const { gbdb: db } = useData();
-  const [size, setSize] = useState(0);
+
+  const size =
+    useRxData(
+      async (db) => {
+        if (!dimensions) {
+          return;
+        }
+        const count = await db.guilds.count().exec();
+        return itemSize(dimensions, count, 1)?.size ?? 0;
+      },
+      [dimensions]
+    ) ?? 0;
 
   const [controlElement, controlCallback] = controls
     ? controls({ size })
     : [undefined, undefined];
-
-  useEffect(() => {
-    let isLive = true;
-    if (!db || !dimensions) {
-      return;
-    }
-    const fetchData = async () => {
-      const count = await db.guilds.count().exec();
-      if (isLive && dimensions) {
-        setSize(itemSize(dimensions, count, 1)?.size ?? 0);
-      }
-    };
-    fetchData().catch(console.error);
-    return () => {
-      isLive = false;
-    };
-  }, [db, dimensions]);
-
-  if (!db) {
-    return null;
-  }
 
   return (
     <div

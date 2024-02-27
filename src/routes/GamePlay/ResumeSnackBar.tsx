@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Snackbar, Alert, Button } from "@mui/material";
 import { useData } from "../../components/DataContext";
+import { useRxData } from "../../components/useRxQuery";
 
 export const ResumeSnackBar = () => {
   const { gbdb: db } = useData();
+
+  // not using useRxData because setShowSnack is used later
   const [showSnack, setShowSnack] = useState(false);
   useEffect(() => {
-    // wait for db init
     if (!db) {
       return;
     }
@@ -24,6 +26,7 @@ export const ResumeSnackBar = () => {
       cancled = true;
     };
   }, [db]);
+
   return (
     <Snackbar
       open={showSnack}

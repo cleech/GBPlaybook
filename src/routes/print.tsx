@@ -38,6 +38,7 @@ import { Gameplan, Guild } from "../components/DataContext.d";
 import { GameplanFront, ReferenceCardFront } from "../components/Gameplan";
 import { GBGuildDoc, GBModelDoc, GBModelExpanded } from "../models/gbdb";
 import { reSort } from "../components/reSort";
+import { useRxData } from "../components/useRxQuery";
 
 export const CardPrintScreen = () => {
   const { gbdb: db, gameplans } = useData();
@@ -276,20 +277,7 @@ const GuildList = forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => ({ guild }), [guild]);
 
-  const { gbdb: db } = useData();
-
-  const [Guilds, setGuilds] = useState<GBGuildDoc[]>();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!db) {
-        return;
-      }
-      const guilds = await db.guilds.find().exec();
-      setGuilds(guilds);
-    };
-    fetchData().catch(console.error);
-  }, [db]);
+  const Guilds = useRxData((db) => db.guilds.find().exec());
 
   const SelectGuild = useCallback(
     (name: string) => {
@@ -492,7 +480,6 @@ interface ModelCheckBoxRef extends CheckBoxRef {
 
 const ModelCheckBox = forwardRef<ModelCheckBoxRef, { m: GBModelDoc }>(
   (props, ref) => {
-    const { gbdb: db } = useData();
     const [checked, setChecked] = useState(false);
     useImperativeHandle(
       ref,
@@ -510,31 +497,18 @@ const ModelCheckBox = forwardRef<ModelCheckBoxRef, { m: GBModelDoc }>(
     );
 
     const m = props.m;
-    const [guild1, setGuild1] = useState<GBGuildDoc | null>(null);
-    const [guild2, setGuild2] = useState<GBGuildDoc | null>(null);
 
-    useEffect(() => {
-      let cancled = false;
-      if (!db) {
-        return;
-      }
-      const fetchData = async () => {
-        const [guild1, guild2] = await Promise.all([
-          db.guilds.findOne().where({ name: m.guild1 }).exec(),
-          m.guild2
-            ? db.guilds.findOne().where({ name: m.guild2 }).exec()
-            : null,
-        ]);
-        if (!cancled) {
-          setGuild1(guild1);
-          setGuild2(guild2);
-        }
-      };
-      fetchData().catch(console.error);
-      return () => {
-        cancled = true;
-      };
-    }, [db, m]);
+    const [guild1, guild2] =
+      useRxData(
+        async (db) =>
+          Promise.all([
+            db.guilds.findOne().where({ name: m.guild1 }).exec(),
+            m.guild2
+              ? db.guilds.findOne().where({ name: m.guild2 }).exec()
+              : null,
+          ]),
+        [m.guild1, m.guild2]
+      ) ?? [];
 
     if (!guild1) {
       return null;
@@ -823,8 +797,6 @@ const ModelLists = forwardRef<{
 
 const ModelCard = (props: { name: string; guild?: string; id: string }) => {
   const { name, id } = props;
-  const { gbdb: db } = useData();
-
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList) => {
     if (mutationList && mutationList[0]) {
@@ -835,17 +807,13 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
   };
   const [ref] = useMutationObserverRef(callback);
 
-  const [model, setModel] = useState<GBModelExpanded>();
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!db) {
-        return;
-      }
+  const model = useRxData(
+    async (db) => {
       const _model = await db.models.findOne().where({ id: name }).exec();
-      setModel(await _model?.expand());
-    };
-    fetchData().catch(console.error);
-  }, [db, name]);
+      return _model?.expand();
+    },
+    [name]
+  );
 
   if (!model) {
     return null;
