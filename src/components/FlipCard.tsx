@@ -1,4 +1,11 @@
-import { useState, useRef, useLayoutEffect, useCallback, JSX } from "react";
+import React, {
+  useState,
+  useRef,
+  useLayoutEffect,
+  useCallback,
+  JSX,
+  PropsWithChildren,
+} from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 import "./FlipCard.css";
@@ -7,16 +14,13 @@ import { GBModelExpanded } from "../models/gbdb";
 import { Observable } from "rxjs";
 
 export function FlipCard({
+  children,
   model,
   health$,
-  controls,
-  controlProps,
-}: {
+}: PropsWithChildren<{
   model: GBModelExpanded;
   health$?: Observable<number>;
-  controls?: (props: any) => JSX.Element;
-  controlProps?: any;
-}): JSX.Element {
+}>): JSX.Element {
   const layoutRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -63,7 +67,7 @@ export function FlipCard({
               health$={health$}
               style={{ "--scale": scale }}
             />
-            {controls?.({ model, ...controlProps })}
+            {children}
           </div>
           <div className="flip-card-back">
             <CardBack model={model} style={{ "--scale": scale }} />

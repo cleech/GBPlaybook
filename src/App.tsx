@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import "./App.css";
 
 import {
@@ -21,7 +27,8 @@ import Divider from "@mui/material/Divider";
 import { Box, Portal, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import { useSettings } from "./models/settings";
+import { useSettings } from "./hooks/useSettings";
+import { map } from "rxjs";
 
 export const AppBarContext = createContext<HTMLElement | null>(null);
 
@@ -102,7 +109,7 @@ const darkTheme = createTheme({
 
 const DrawerNavigationButton = (props: {
   to: string;
-  onClick?: any;
+  onClick?: () => void;
   children?: React.ReactNode;
 }) => {
   return (
@@ -119,11 +126,8 @@ const DrawerNavigationButton = (props: {
 };
 
 const App = () => {
-  const [drawer, setDrawer] = useState(false);
   const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
-  const { settings } = useSettings();
-  const { gamePlayRoute, libraryRoute } = settings;
-
+  const [drawer, setDrawer] = useState(false);
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -132,176 +136,7 @@ const App = () => {
           ref={(el: HTMLElement) => setContainer(el)}
           onClick={() => setDrawer(true)}
         />
-        <Drawer
-          anchor="right"
-          open={drawer}
-          onClose={() => setDrawer(false)}
-          PaperProps={{ sx: { width: "275px" } }}
-          ModalProps={{ keepMounted: true }}
-        >
-          <List>
-            <ListItem>
-              <img
-                src={new URL("./assets/img/logo.png", import.meta.url).href}
-                style={{ borderRadius: 5.4 }}
-                alt=""
-              />
-              <ListItemText style={{ textAlign: "center" }}>
-                <Typography variant="h6" fontFamily="Comfortaa">
-                  GB Playbook
-                </Typography>
-              </ListItemText>
-            </ListItem>
-            <Divider />
-            <DrawerNavigationButton
-              to={gamePlayRoute}
-              onClick={() => setDrawer(false)}
-            >
-              <ListItemText>Game Play</ListItemText>
-            </DrawerNavigationButton>
-            <DrawerNavigationButton
-              to={libraryRoute}
-              onClick={() => setDrawer(false)}
-            >
-              <ListItemText>Library</ListItemText>
-            </DrawerNavigationButton>
-            <DrawerNavigationButton
-              to={"/print"}
-              onClick={() => setDrawer(false)}
-            >
-              <ListItemText>Card Printer</ListItemText>
-            </DrawerNavigationButton>
-            <DrawerNavigationButton
-              to={"/settings"}
-              onClick={() => setDrawer(false)}
-            >
-              <ListItemText>Settings</ListItemText>
-            </DrawerNavigationButton>
-            <nav
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginLeft: "1em",
-              }}
-            >
-              <ListItem disablePadding>
-                <Link
-                  component="a"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://github.com/cleech/GBPlaybook/blob/pwa/README.md"
-                >
-                  About
-                </Link>
-              </ListItem>
-            </nav>
-          </List>
-
-          <Divider />
-          <List>
-            <ListItem>
-              <ListItemText>Rules Documents:</ListItemText>
-            </ListItem>
-            <nav
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginLeft: "2em",
-              }}
-            >
-              <ListItem disablePadding>
-                <Link
-                  component="a"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="/docs/GB-S4-Rulebook-4.1.pdf"
-                >
-                  Season 4 Core Rulebook
-                </Link>
-              </ListItem>
-              <ListItem disablePadding>
-                <Link
-                  component="a"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="/docs/GB-S4-FAQ-19-12-20.pdf"
-                >
-                  Season 4 FAQ
-                </Link>
-              </ListItem>
-              <ListItem disablePadding>
-                <Link
-                  component="a"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="/docs/GB-S4-RegionalCup-Rules-200128__1.pdf"
-                >
-                  Organized Play Rules
-                </Link>
-              </ListItem>
-            </nav>
-          </List>
-          <Divider />
-          <List>
-            <ListItem>
-              <ListItemText>Community Links:</ListItemText>
-            </ListItem>
-            <nav
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginLeft: "2em",
-              }}
-            >
-              <ListItem disablePadding>
-                <Link
-                  component="a"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://steamforged.com/pages/guild-ball"
-                >
-                  Steamforged Games
-                </Link>
-              </ListItem>
-              <ListItem disablePadding>
-                <Link
-                  component="a"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://discord.gg/fvpFSfm976"
-                >
-                  Guild Ball Community Project
-                </Link>
-              </ListItem>
-              <ListItem disablePadding>
-                <Link
-                  component="a"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="https://www.longshanks.org/systems/guildball/"
-                >
-                  Longshanks
-                </Link>
-              </ListItem>
-            </nav>
-          </List>
-          <Divider />
-          <List style={{ marginTop: "auto" }}>
-            <nav
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginLeft: "1em",
-              }}
-            >
-              <ListItem disablePadding>
-                <Link component="a" href="/privacy.html">
-                  Privacy Policy
-                </Link>
-              </ListItem>
-            </nav>
-          </List>
-        </Drawer>
+        <AppDrawer drawer={drawer} setDrawer={setDrawer} />
         <AppBarContext.Provider value={appBarContainer}>
           <Outlet />
         </AppBarContext.Provider>
@@ -311,3 +146,194 @@ const App = () => {
 };
 
 export default App;
+
+function AppDrawer(props: {
+  drawer: boolean;
+  setDrawer: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  const { drawer, setDrawer } = props;
+  const { setting$ } = useSettings();
+  const [gamePlayRoute, setGamePlayRoute] = useState<string>();
+  const [libraryRoute, setLibraryRoute] = useState<string>();
+  useEffect(() => {
+    const sub1 = setting$
+      ?.pipe(map((s) => s?.toJSON().data.gamePlayRoute))
+      .subscribe((route) => setGamePlayRoute(route));
+    const sub2 = setting$
+      ?.pipe(map((s) => s?.toJSON().data.libraryRoute))
+      .subscribe((route) => setLibraryRoute(route));
+    return () => {
+      sub1?.unsubscribe();
+      sub2?.unsubscribe();
+    };
+  });
+  return (
+    <Drawer
+      anchor="right"
+      open={drawer}
+      onClose={() => setDrawer(false)}
+      PaperProps={{ sx: { width: "275px" } }}
+      ModalProps={{ keepMounted: true }}
+    >
+      <List>
+        <ListItem>
+          <img
+            src={new URL("./assets/img/logo.png", import.meta.url).href}
+            style={{ borderRadius: 5.4 }}
+            alt=""
+          />
+          <ListItemText style={{ textAlign: "center" }}>
+            <Typography variant="h6" fontFamily="Comfortaa">
+              GB Playbook
+            </Typography>
+          </ListItemText>
+        </ListItem>
+        <Divider />
+        <DrawerNavigationButton
+          to={gamePlayRoute ?? "/game"}
+          onClick={() => setDrawer(false)}
+        >
+          <ListItemText>Game Play</ListItemText>
+        </DrawerNavigationButton>
+        <DrawerNavigationButton
+          to={libraryRoute ?? "/library"}
+          onClick={() => setDrawer(false)}
+        >
+          <ListItemText>Library</ListItemText>
+        </DrawerNavigationButton>
+        <DrawerNavigationButton to={"/print"} onClick={() => setDrawer(false)}>
+          <ListItemText>Card Printer</ListItemText>
+        </DrawerNavigationButton>
+        <DrawerNavigationButton
+          to={"/settings"}
+          onClick={() => setDrawer(false)}
+        >
+          <ListItemText>Settings</ListItemText>
+        </DrawerNavigationButton>
+        <nav
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            marginLeft: "1em",
+          }}
+        >
+          <ListItem disablePadding>
+            <Link
+              component="a"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://github.com/cleech/GBPlaybook/blob/pwa/README.md"
+            >
+              About
+            </Link>
+          </ListItem>
+        </nav>
+      </List>
+
+      <Divider />
+      <List>
+        <ListItem>
+          <ListItemText>Rules Documents:</ListItemText>
+        </ListItem>
+        <nav
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            marginLeft: "2em",
+          }}
+        >
+          <ListItem disablePadding>
+            <Link
+              component="a"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="/docs/GB-S4-Rulebook-4.1.pdf"
+            >
+              Season 4 Core Rulebook
+            </Link>
+          </ListItem>
+          <ListItem disablePadding>
+            <Link
+              component="a"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="/docs/GB-S4-FAQ-19-12-20.pdf"
+            >
+              Season 4 FAQ
+            </Link>
+          </ListItem>
+          <ListItem disablePadding>
+            <Link
+              component="a"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="/docs/GB-S4-RegionalCup-Rules-200128__1.pdf"
+            >
+              Organized Play Rules
+            </Link>
+          </ListItem>
+        </nav>
+      </List>
+      <Divider />
+      <List>
+        <ListItem>
+          <ListItemText>Community Links:</ListItemText>
+        </ListItem>
+        <nav
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            marginLeft: "2em",
+          }}
+        >
+          <ListItem disablePadding>
+            <Link
+              component="a"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://steamforged.com/pages/guild-ball"
+            >
+              Steamforged Games
+            </Link>
+          </ListItem>
+          <ListItem disablePadding>
+            <Link
+              component="a"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://discord.gg/fvpFSfm976"
+            >
+              Guild Ball Community Project
+            </Link>
+          </ListItem>
+          <ListItem disablePadding>
+            <Link
+              component="a"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.longshanks.org/systems/guildball/"
+            >
+              Longshanks
+            </Link>
+          </ListItem>
+        </nav>
+      </List>
+      <Divider />
+      <List style={{ marginTop: "auto" }}>
+        <nav
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            marginLeft: "1em",
+          }}
+        >
+          <ListItem disablePadding>
+            <Link component="a" href="/privacy.html">
+              Privacy Policy
+            </Link>
+          </ListItem>
+        </nav>
+      </List>
+    </Drawer>
+  );
+}

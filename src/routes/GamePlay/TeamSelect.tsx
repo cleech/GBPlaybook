@@ -14,7 +14,6 @@ import {
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../../components/GuildGrid";
 import GBIcon from "../../components/GBIcon";
-import { useData } from "../../components/DataContext";
 
 import Color from "color";
 
@@ -23,10 +22,9 @@ import { AppBarContent } from "../../App";
 
 import { useRTC } from "../../services/webrtc";
 import VersionTag from "../../components/VersionTag";
-import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
-import { GBGuildDoc } from "../../models/gbdb";
+import { pulseAnimationKeyFrames } from "../../hooks/useUpdateAnimation";
 import ResumeSnackBar from "./ResumeSnackBar";
-import { useRxData } from "../../components/useRxQuery";
+import { useRxData } from "../../hooks/useRxQuery";
 
 function SelectedIcon({ team, size }: { team: string; size: number }) {
   const guild = useRxData(

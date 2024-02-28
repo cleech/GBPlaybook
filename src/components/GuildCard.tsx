@@ -5,7 +5,7 @@ import {
   CSSProperties,
   useCallback,
 } from "react";
-import GBImages from "./GBImages";
+import GBImages from "../utils/GBImages";
 import "./FlipCard.css";
 
 interface CardCSS extends CSSProperties {

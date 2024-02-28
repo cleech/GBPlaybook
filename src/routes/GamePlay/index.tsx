@@ -11,13 +11,27 @@ import Lobby from "../../components/Lobby";
 import OddsCalc from "../../components/Calc";
 import { useRTC } from "../../services/webrtc";
 import { Offline, Online } from "react-detect-offline";
-import { useSettings } from "../../models/settings";
+import { useSettings } from "../../hooks/useSettings";
+import { FlashOnRounded } from "@mui/icons-material";
+import { map } from "rxjs";
 
 const LoginButton = () => {
   const [showDialog, setShowDialog] = useState(false);
-  const { settings } = useSettings();
+  const { setting$ } = useSettings();
   const { dc } = useRTC();
-  return settings.networkPlay ? (
+
+  const [networkPlay, setNetworkPlay] = useState<boolean>(false);
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.networkPlay))
+      .subscribe((np) => setNetworkPlay(np ?? false));
+
+    return () => {
+      sub?.unsubscribe();
+    };
+  });
+
+  return networkPlay ? (
     <>
       <Lobby open={showDialog} onClose={() => setShowDialog(false)} />
       <Online polling={false}>
@@ -39,19 +53,19 @@ const LoginButton = () => {
 };
 
 export default function GamePlay() {
-  const location = useLocation();
-  const { settings, settingsDoc } = useSettings();
+  // const location = useLocation();
+  // const { settings, settingsDoc } = useSettings();
   const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
 
-  useEffect(() => {
-    // FIXME: excessive re-renders when we keep changing this
-    const route = `${location.pathname}${location.search}`;
-    if (route !== settings.gamePlayRoute) {
-      settingsDoc?.incrementalPatch({
-        gamePlayRoute: `${location.pathname}${location.search}`,
-      });
-    }
-  }, [location, settingsDoc]);
+  // useEffect(() => {
+  //   // FIXME: excessive re-renders when we keep changing this
+  //   const route = `${location.pathname}${location.search}`;
+  //   if (route !== settings.gamePlayRoute) {
+  //     settingsDoc?.incrementalPatch({
+  //       gamePlayRoute: `${location.pathname}${location.search}`,
+  //     });
+  //   }
+  // }, [location, settingsDoc]);
 
   return (
     <main

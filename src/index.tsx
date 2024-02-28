@@ -27,8 +27,8 @@ import { RTCProvider } from "./services/webrtc";
 import {
   SettingsDoc,
   SettingsProvider,
-  defaultSettings,
 } from "./models/settings";
+import { defaultSettings } from "./hooks/useSettings";
 
 import gbdb from "./models/gbdb";
 
@@ -71,7 +71,7 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <FirebaseProvider>
       <RTCProvider>
         <SettingsProvider>
@@ -81,5 +81,5 @@ root.render(
         </SettingsProvider>
       </RTCProvider>
     </FirebaseProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

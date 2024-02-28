@@ -27,10 +27,10 @@ type Playbook = TupleOf<TupleOf<string | null, 7>, 2>;
 export interface GBModel {
   id: string;
   name: string;
-  captain: boolean;
-  mascot: boolean;
-  veteran: boolean;
-  seasoned: boolean;
+  captain?: boolean;
+  mascot?: boolean;
+  veteran?: boolean;
+  seasoned?: boolean;
   hp: number;
   recovery: number;
   jog: number;
@@ -42,7 +42,7 @@ export interface GBModel {
   arm: number;
   inf: number;
   infmax: number;
-  reach: boolean;
+  reach?: boolean;
 
   // used in draft screen
   benched?: string;
@@ -58,7 +58,7 @@ export interface GBModel {
 
   guild1: string;
   guild2?: string;
-  gbcp: boolean;
+  gbcp?: boolean;
 }
 
 interface ParameterizedTrait extends GBCharacterTrait {
@@ -268,7 +268,7 @@ interface GBCharacterTrait {
   text: string;
 }
 
-type GBCharacterTraitDoc = RxDocument<GBCharacterTrait>;
+// type GBCharacterTraitDoc = RxDocument<GBCharacterTrait>;
 type GBCharacterTraitCollection = RxCollection<GBCharacterTrait>;
 
 const gbCharacterTraitSchema: RxJsonSchema<GBCharacterTrait> = {

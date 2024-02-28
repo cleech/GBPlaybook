@@ -9,7 +9,7 @@ function preventDefault(e: Event) {
   }
 }
 
-export function isTouchEvent(e: Event): e is TouchEvent {
+function isTouchEvent(e: Event): e is TouchEvent {
   return e && "touches" in e;
 }
 

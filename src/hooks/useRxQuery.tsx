@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { RxDocument, RxQuery } from "rxdb";
-import { useData } from "./DataContext";
+import { useData } from "./useData";
 import { GBDatabase } from "../models/gbdb";
 
 export function useRxQuery<T>(
@@ -25,8 +25,7 @@ export function useRxQuery<T>(
 export function useRxData<T>(
   query: (db: GBDatabase) => Promise<T>,
   deps?: React.DependencyList
-): // [T | undefined, React.Dispatch<T>]
-T | undefined {
+): T | undefined {
   const { gbdb: db } = useData();
   const _query = useCallback(query, deps ?? []);
   const [data, setData] = useState<T>();

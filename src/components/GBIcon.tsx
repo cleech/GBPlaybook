@@ -39,7 +39,7 @@ interface PBProps {
   style?: React.CSSProperties;
 }
 
-function PB(props: PBProps) {
+export function PB(props: PBProps) {
   const { icon, size, style } = props;
   const i = icon.replace(/</g, "D").replace(/>/g, "P");
 
@@ -54,4 +54,3 @@ function PB(props: PBProps) {
     </svg>
   );
 }
-export { PB };

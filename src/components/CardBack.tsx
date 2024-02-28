@@ -1,5 +1,5 @@
-import React from "react";
-import GBImages from "./GBImages";
+import React, { useEffect, useState } from "react";
+import GBImages from "../utils/GBImages";
 
 import GBIcon from "./GBIcon";
 import "./CardBack.css";
@@ -8,9 +8,10 @@ import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
 import { GBCardCSS } from "./CardFront";
-import { useSettings } from "../models/settings";
+import { useSettings } from "../hooks/useSettings";
 import { GBModelExpanded } from "../models/gbdb";
-import { useRxData } from "./useRxQuery";
+import { useRxData } from "../hooks/useRxQuery";
+import { map } from "rxjs";
 
 interface CardBackProps {
   model: GBModelExpanded;
@@ -24,7 +25,15 @@ const CardBack = (props: CardBackProps) => {
   const model = props.model;
   const key = model.id;
 
-  const { settings } = useSettings();
+  const { setting$ } = useSettings();
+  const [style, setStyle] = useState<"sfg" | "gbcp">();
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.cardPreferences.preferredStyle))
+      .subscribe((style) => setStyle(style));
+
+    return () => sub?.unsubscribe();
+  });
 
   const guild = useRxData(
     (db) => db.guilds.findOne().where({ name: model.guild1 }).exec(),
@@ -36,7 +45,7 @@ const CardBack = (props: CardBackProps) => {
   }
 
   const gbcp =
-    settings.cardPreferences.preferredStyle === "gbcp" &&
+    style === "gbcp" &&
     (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
 
   const image = gbcp

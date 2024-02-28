@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useData } from "./DataContext";
+import { useData } from "./useData";
 import { GBDatabase } from "../models/gbdb";
 
 export function useGBData<T>(

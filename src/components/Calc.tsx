@@ -104,7 +104,7 @@ function Counter(props: CounterProps) {
   );
 }
 
-function OddsCalc() {
+export function OddsCalc() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 

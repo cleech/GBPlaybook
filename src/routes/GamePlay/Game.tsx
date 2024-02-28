@@ -34,9 +34,9 @@ import { AppBarContent } from "../../App";
 // import { useRTC } from "../../services/webrtc";
 import { FlipGuildCard } from "../../components/GuildCard";
 import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdb";
-import { reSort } from "../../components/reSort";
+import { reSort } from "../../utils/reSort";
 import { map } from "rxjs";
-import { useRxData } from "../../components/useRxQuery";
+import { useRxData } from "../../hooks/useRxQuery";
 
 export default function Game() {
   const theme = useTheme();
@@ -320,12 +320,13 @@ export const GameList = ({
                           return r[_index].health;
                         })
                       )}
-                      controls={CardControls}
-                      controlProps={{
-                        state: teams[index],
-                        disabled: t.disabled,
-                      }}
-                    />
+                    >
+                      <CardControls
+                        model={m}
+                        state={teams[index]}
+                        disabled={t.disabled}
+                      />
+                    </FlipCard>
                   );
                 }),
               ])

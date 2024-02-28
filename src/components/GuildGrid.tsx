@@ -6,7 +6,7 @@ import { Button, Typography, Divider } from "@mui/material";
 
 import GBIcon from "../components/GBIcon";
 import { GBGuildDoc } from "../models/gbdb";
-import { useRxData, useRxQuery } from "./useRxQuery";
+import { useRxData, useRxQuery } from "../hooks/useRxQuery";
 
 function maxBy<T>(data: Array<T>, by: (v: T) => number) {
   return data.reduce((a, b) => (by(a) >= by(b) ? a : b));

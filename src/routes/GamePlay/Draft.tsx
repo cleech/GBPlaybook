@@ -11,7 +11,7 @@ import {
   MenuList,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import { useData } from "../../components/DataContext";
+import { useData } from "../../hooks/useData";
 import { DraftList, BSDraftList } from "../../components/Draft";
 
 import "./Draft.css";
@@ -22,16 +22,18 @@ import { AppBarContent } from "../../App";
 // import { useRTC } from "../../services/webrtc";
 import VersionTag from "../../components/VersionTag";
 // import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
-import { GBGuildDoc, GBModel } from "../../models/gbdb";
+import { GBModel } from "../../models/gbdb";
 import ResumeSnackBar from "./ResumeSnackBar";
-import { useSettings } from "../../models/settings";
-import { useRxData } from "../../components/useRxQuery";
+import { SettingsDoc } from "../../models/settings";
+import { useSettings } from "../../hooks/useSettings";
+import { useRxData } from "../../hooks/useRxQuery";
+import { map } from "rxjs";
 
 export default function Draft() {
-  const { settings, settingsDoc } = useSettings();
+  const { setting$ } = useSettings();
+  const navigate = useNavigate();
   // const [waiting, setWaiting] = useState(false);
   // const [locked, setLocked] = useState(false);
-  const navigate = useNavigate();
   // const { dc } = useRTC();
 
   const [team1, setTeam1] = useState<GBModel[] | undefined>();
@@ -48,14 +50,13 @@ export default function Draft() {
   const g1 = searchParams.get("p1");
   const g2 = searchParams.get("p2");
 
-  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
-  const settingsOpen = Boolean(menuAnchor);
-  const settingsClick = (e: MouseEvent<HTMLElement>) => {
-    setMenuAnchor(e.currentTarget);
-  };
-  const settingsClose = () => {
-    setMenuAnchor(null);
-  };
+  const [gameSize, setGameSize] = useState<3 | 4 | 6>();
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.gameSize))
+      .subscribe((gs) => setGameSize(gs));
+    return () => sub?.unsubscribe();
+  }, [setting$]);
 
   // useEffect(() => {
   //   if (!!dc) {
@@ -147,58 +148,13 @@ export default function Draft() {
             <Typography>Draft</Typography>
           </Breadcrumbs>
 
-          <IconButton
-            onClick={settingsClick}
-            color="inherit"
-            size="small"
-            // variant="contained"
-            sx={{
-              backgroundColor: "primary.dark",
-            }}
-          >
-            <Typography>
-              {settings.gameSize}v{settings.gameSize}
-            </Typography>
-          </IconButton>
-          <Menu
-            anchorEl={menuAnchor}
-            open={settingsOpen}
-            onClose={settingsClose}
-            onClick={settingsClose}
-          >
-            <MenuList dense>
-              <MenuItem
-                selected={settings.gameSize === 6}
-                onClick={() => {
-                  settingsDoc?.set("gameSize", 6);
-                }}
-              >
-                6v6
-              </MenuItem>
-              <MenuItem
-                selected={settings.gameSize === 4}
-                onClick={() => {
-                  settingsDoc?.set("gameSize", 4);
-                }}
-              >
-                4v4
-              </MenuItem>
-              <MenuItem
-                selected={settings.gameSize === 3}
-                onClick={() => {
-                  settingsDoc?.set("gameSize", 3);
-                }}
-              >
-                3v3
-              </MenuItem>
-            </MenuList>
-          </Menu>
+          <GameSizeMenu />
         </Box>
       </AppBarContent>
 
       <DraftList1
         // hacky, but force reset when this setting changes
-        key={`1-${settings.gameSize}`}
+        key={`1-${gameSize}`}
         guild={guild1}
         ready={ready1}
         unready={unready1}
@@ -264,7 +220,7 @@ export default function Draft() {
 
       <DraftList2
         // hacky, but force reset when this setting changes
-        key={`2-${settings.gameSize}`}
+        key={`2-${gameSize}`}
         guild={guild2}
         ready={ready2}
         unready={unready2}
@@ -278,5 +234,75 @@ export default function Draft() {
       <VersionTag />
       <ResumeSnackBar />
     </Box>
+  );
+}
+
+function GameSizeMenu() {
+  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
+  const settingsOpen = Boolean(menuAnchor);
+  const settingsClick = (e: MouseEvent<HTMLElement>) => {
+    setMenuAnchor(e.currentTarget);
+  };
+  const settingsClose = () => {
+    setMenuAnchor(null);
+  };
+  const { setting$ } = useSettings();
+  const [settings, setSettings] = useState<SettingsDoc | null>();
+  useEffect(() => {
+    const sub = setting$?.subscribe((s) => setSettings(s));
+    return () => sub?.unsubscribe();
+  }, [setting$]);
+
+  const gameSize = settings?.toJSON().data.gameSize;
+
+  return (
+    <>
+      <IconButton
+        onClick={settingsClick}
+        color="inherit"
+        size="small"
+        // variant="contained"
+        sx={{
+          backgroundColor: "primary.dark",
+        }}
+      >
+        <Typography>
+          {gameSize}v{gameSize}
+        </Typography>
+      </IconButton>
+      <Menu
+        anchorEl={menuAnchor}
+        open={settingsOpen}
+        onClose={settingsClose}
+        onClick={settingsClose}
+      >
+        <MenuList dense>
+          <MenuItem
+            selected={gameSize === 6}
+            onClick={() => {
+              settings?.incrementalPatch({ gameSize: 6 });
+            }}
+          >
+            6v6
+          </MenuItem>
+          <MenuItem
+            selected={gameSize === 4}
+            onClick={() => {
+              settings?.incrementalPatch({ gameSize: 4 });
+            }}
+          >
+            4v4
+          </MenuItem>
+          <MenuItem
+            selected={gameSize === 3}
+            onClick={() => {
+              settings?.incrementalPatch({ gameSize: 3 });
+            }}
+          >
+            3v3
+          </MenuItem>
+        </MenuList>
+      </Menu>
+    </>
   );
 }

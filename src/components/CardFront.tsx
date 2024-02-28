@@ -1,5 +1,5 @@
 import React, { CSSProperties, useEffect, useState } from "react";
-import GBImages from "./GBImages";
+import GBImages from "../utils/GBImages";
 
 import GBIcon, { PB } from "./GBIcon";
 import "./CardFront.css";
@@ -9,9 +9,9 @@ import Color from "color";
 
 import { Guild } from "./DataContext.d";
 import { GBModelExpanded } from "../models/gbdb";
-import { Observable } from "rxjs";
-import { useSettings } from "../models/settings";
-import { useRxData } from "./useRxQuery";
+import { Observable, map } from "rxjs";
+import { useSettings } from "../hooks/useSettings";
+import { useRxData } from "../hooks/useRxQuery";
 
 interface CardFrontProps {
   model: GBModelExpanded;
@@ -35,23 +35,32 @@ const CardFront = (props: CardFrontProps) => {
   const model = props.model;
   const key = model.id;
 
-  const { settings } = useSettings();
+  const { setting$ } = useSettings();
+  const [style, setStyle] = useState<"sfg" | "gbcp">();
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.cardPreferences.preferredStyle))
+      .subscribe((style) => setStyle(style));
 
-  const [guild1, guild2] = useRxData(
-    (db) =>
-      Promise.all([
-        db.guilds.findOne().where({ name: model.guild1 }).exec(),
-        db.guilds.findOne().where({ name: model.guild2 }).exec(),
-      ]),
-    [model.guild1, model.guild2]
-  ) ?? [];
+    return () => sub?.unsubscribe();
+  });
+
+  const [guild1, guild2] =
+    useRxData(
+      (db) =>
+        Promise.all([
+          db.guilds.findOne().where({ name: model.guild1 }).exec(),
+          db.guilds.findOne().where({ name: model.guild2 }).exec(),
+        ]),
+      [model.guild1, model.guild2]
+    ) ?? [];
 
   if (!guild1) {
     return null;
   }
 
   const gbcp =
-    settings.cardPreferences.preferredStyle === "gbcp" &&
+    style === "gbcp" &&
     (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
 
   const image = gbcp

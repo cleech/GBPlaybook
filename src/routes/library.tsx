@@ -30,7 +30,7 @@ import type { Swiper as SwiperRef } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-import { useData } from "../components/DataContext";
+import { useData } from "../hooks/useData";
 import { FlipCard } from "../components/FlipCard";
 import { DoubleCard } from "../components/DoubleCard";
 
@@ -47,24 +47,29 @@ import type { Gameplan } from "../components/DataContext.d";
 import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 import { GBGuildDoc } from "../models/gbdb";
-import { reSort } from "../components/reSort";
-import { useSettings } from "../models/settings";
-import { useRxData } from "../components/useRxQuery";
+import { reSort } from "../utils/reSort";
+import { useSettings } from "../hooks/useSettings";
+import { useRxData } from "../hooks/useRxQuery";
 
 export default function Library() {
-  const location = useLocation();
-  const { settings, settingsDoc } = useSettings();
-
+  // const location = useLocation();
+  /*
+  const { settingsDoc } = useSettings();
   useEffect(() => {
-    // FIXME: excessive re-renders when we keep changing this
-    const route = `${location.pathname}${location.search}`;
-    if (route !== settings.libraryRoute) {
+    // // FIXME: excessive re-renders when we keep changing this
+    // const route = `${location.pathname}${location.search}`;
+    // if (route !== settings.libraryRoute) {
+    //   settingsDoc?.incrementalPatch({
+    //     libraryRoute: `${location.pathname}${location.search}`,
+    //   });
+    // }
+    return () => {
       settingsDoc?.incrementalPatch({
         libraryRoute: `${location.pathname}${location.search}`,
       });
-    }
-  }, [location, settingsDoc]);
-
+    };
+  }, []);
+*/
   return (
     <main
       style={{
@@ -233,11 +238,11 @@ export function Roster() {
           initialSlide={
             (g?.roster.findIndex((m) => m === searchParams.get("m")) || 0) + 1
           }
-          onSlideChange={(swiper) => {
-            setSearchParams(`m=${g.roster[swiper.activeIndex - 1]}`, {
-              replace: true,
-            });
-          }}
+          // onSlideChange={(swiper) => {
+          //   setSearchParams(`m=${g.roster[swiper.activeIndex - 1]}`, {
+          //     replace: true,
+          //   });
+          // }}
           slidesPerView="auto"
           centeredSlides={true}
           spaceBetween={0.25 * 96}
@@ -368,11 +373,11 @@ export function GamePlans() {
         <Swiper
           onSwiper={setSwiper}
           initialSlide={Number(searchParams.get("m")) || 0}
-          onSlideChange={(swiper) => {
-            setSearchParams(`m=${swiper.activeIndex}`, {
-              replace: true,
-            });
-          }}
+          // onSlideChange={(swiper) => {
+          //   setSearchParams(`m=${swiper.activeIndex}`, {
+          //     replace: true,
+          //   });
+          // }}
           slidesPerView="auto"
           centeredSlides={true}
           spaceBetween={0.25 * 96}
@@ -466,11 +471,11 @@ export function RefCards() {
         <Swiper
           onSwiper={setSwiper}
           initialSlide={Number(searchParams.get("m")) || 0}
-          onSlideChange={(swiper) => {
-            setSearchParams(`m=${swiper.activeIndex}`, {
-              replace: true,
-            });
-          }}
+          // onSlideChange={(swiper) => {
+          //   setSearchParams(`m=${swiper.activeIndex}`, {
+          //     replace: true,
+          //   });
+          // }}
           slidesPerView="auto"
           centeredSlides={true}
           spaceBetween={0.25 * 96}

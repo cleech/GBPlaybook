@@ -1,5 +1,5 @@
-import React from "react";
-import { useData } from "../components/DataContext";
+import React, { useEffect, useState } from "react";
+import { useData } from "../hooks/useData";
 import {
   Divider,
   Typography,
@@ -14,13 +14,22 @@ import {
 } from "@mui/material";
 
 import { AppBarContent } from "../App";
-import { useSettings } from "../models/settings";
+import { SettingsDoc } from "../models/settings";
+import { useSettings } from "../hooks/useSettings";
 
 const Settings = () => {
   const { manifest } = useData();
-  const { settings, settingsDoc } = useSettings();
+  const { setting$ } = useSettings();
 
-  if (!manifest || !settingsDoc) { return }
+  const [settingsDoc, setSettingsDoc] = useState<SettingsDoc | null>();
+  useEffect(() => {
+    const sub = setting$?.subscribe((s) => setSettingsDoc(s));
+    return () => sub?.unsubscribe();
+  }, [setting$]);
+
+  if (!manifest || !settingsDoc) {
+    return;
+  }
 
   return (
     <Box component={"main"} sx={{ p: "1rem" }}>
@@ -40,12 +49,12 @@ const Settings = () => {
 
       <FormControl>
         <Select
-          value={settings.dataSet}
+          value={settingsDoc.toJSON().data.dataSet}
           onChange={(event: SelectChangeEvent) => {
             settingsDoc?.incrementalPatch({ dataSet: event.target.value });
           }}
         >
-          {manifest?.datafiles.map((dataSet: any, index: number) => (
+          {manifest?.datafiles.map((dataSet, index: number) => (
             <MenuItem value={dataSet.filename} key={index}>
               {`[${dataSet.version}] ${dataSet.description}`}
             </MenuItem>
@@ -61,7 +70,7 @@ const Settings = () => {
 
       <FormControl>
         <Select
-          value={settings.initialScreen}
+          value={settingsDoc?.toJSON().data.initialScreen}
           onChange={(event: SelectChangeEvent) => {
             settingsDoc?.incrementalPatch({
               initialScreen: event.target.value,
@@ -80,7 +89,7 @@ const Settings = () => {
           control={
             <Switch
               size="small"
-              checked={settings.uiPreferences.displayStatLine}
+              checked={settingsDoc?.toJSON().data.uiPreferences.displayStatLine}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 settingsDoc?.incrementalPatch({
                   uiPreferences: { displayStatLine: event.target.checked },
@@ -100,7 +109,7 @@ const Settings = () => {
 
       <FormControl>
         <Select
-          value={settings.cardPreferences.preferredStyle}
+          value={settingsDoc?.toJSON().data.cardPreferences.preferredStyle}
           onChange={(event: SelectChangeEvent) => {
             settingsDoc?.incrementalPatch({
               cardPreferences: {
@@ -122,7 +131,7 @@ const Settings = () => {
           control={
             <Switch
               size="small"
-              checked={settings.networkPlay}
+              checked={settingsDoc?.toJSON().data.networkPlay}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 settingsDoc?.incrementalPatch({
                   networkPlay: event.target.checked,

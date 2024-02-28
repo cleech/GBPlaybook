@@ -1,16 +1,16 @@
 import React, {
   createContext,
-  useContext,
   useState,
   useEffect,
   useCallback,
 } from "react";
 
-import { useSettings } from "../models/settings";
+import { useSettings } from "../hooks/useSettings";
 
-import { Manifest, Gameplan } from "./DataContext.d";
+import DataFile, { Manifest, Gameplan } from "./DataContext.d";
 
-import gbdb, { GBDatabase } from "../models/gbdb";
+import gbdb, { GBDatabase, GBModel } from "../models/gbdb";
+import { map } from "rxjs";
 
 interface DataContextProps {
   manifest?: Manifest;
@@ -19,7 +19,7 @@ interface DataContextProps {
   gbdb?: GBDatabase;
 }
 
-const DataContext = createContext<DataContextProps>({
+export const DataContext = createContext<DataContextProps>({
   manifest: undefined,
   version: "0",
   gameplans: undefined,
@@ -35,7 +35,11 @@ interface GBDataMeta {
   sha256: string;
 }
 
-async function bulkLoadDB(filename: string, manifest: Manifest, data: any) {
+async function bulkLoadDB(
+  filename: string,
+  manifest: Manifest,
+  data: DataFile
+) {
   const _sha256 = manifest.datafiles.find(
     (df) => df.filename === filename
   )?.sha256;
@@ -60,7 +64,7 @@ async function bulkLoadDB(filename: string, manifest: Manifest, data: any) {
       .find()
       .exec()
       .then((ms) => gbdb.guilds.bulkRemove(ms.map((m) => m.id)))
-      .then(() => gbdb.models.bulkInsert(data.Models)),
+      .then(() => gbdb.models.bulkInsert(data.Models as GBModel[])),
     gbdb.character_plays
       .find()
       .exec()
@@ -85,18 +89,29 @@ export const DataProvider = ({ children }: DataProviderProps) => {
   const [version, setVersion] = useState("");
   const [db, setDB] = useState<GBDatabase>();
 
-  const { settings, settingsDoc } = useSettings();
-  const filename = settings.dataSet;
+  const { setting$ } = useSettings();
+  const [dataSet, setDataSet] = useState<string>();
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.dataSet))
+      .subscribe((ds) => setDataSet(ds));
+
+    return () => {
+      sub?.unsubscribe();
+    };
+  });
+  // const filename = settings.dataSet;
 
   const getData = useCallback(async () => {
     const manifest = await readManifest();
     setManifest(manifest);
     let filename: string;
-    if (settings.dataSet) {
+    if (dataSet) {
       // filename = manifest.datafiles.find((d) => d.filename === settings.dataSet).filename;
-      filename = settings.dataSet;
+      filename = dataSet;
     } else {
       filename = manifest.datafiles[0].filename;
+      const settingsDoc = await db?.getLocal("settings");
       settingsDoc?.incrementalPatch({ dataSet: filename });
     }
     setVersion(
@@ -109,21 +124,17 @@ export const DataProvider = ({ children }: DataProviderProps) => {
       bulkLoadDB(filename, manifest, data).then(() => setDB(gbdb));
     });
     setGameplans(await readFile("gameplans.json"));
-  }, [settings]);
+  }, [db, dataSet]);
 
   useEffect(() => {
     getData();
-  }, [filename, getData]);
+  }, [dataSet, getData]);
 
   return (
     <DataContext.Provider value={{ version, manifest, gameplans, gbdb: db }}>
       {children}
     </DataContext.Provider>
   );
-};
-
-export const useData = () => {
-  return useContext(DataContext);
 };
 
 const readManifest = async () => {

@@ -1,14 +1,32 @@
-import { useState, useRef, useLayoutEffect, useCallback, JSX } from "react";
+import {
+  useState,
+  useRef,
+  useLayoutEffect,
+  useCallback,
+  JSX,
+  useEffect,
+} from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
-import GBImages from "./GBImages";
+import GBImages from "../utils/GBImages";
 import { GBModelExpanded } from "../models/gbdb";
-import { useSettings } from "../models/settings";
+import { useSettings } from "../hooks/useSettings";
+import { map } from "rxjs";
 
 export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
-  const { settings } = useSettings();
+  const { setting$ } = useSettings();
   const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1.0);
+
+  const [style, setStyle] = useState<"sfg" | "gbcp">();
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.cardPreferences.preferredStyle))
+      .subscribe((style) => setStyle(style));
+
+    return () => sub?.unsubscribe();
+  }, [setting$]);
+
   useLayoutEffect(() => {
     updateSize();
     window.addEventListener("resize", updateSize);
@@ -27,7 +45,7 @@ export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
 
   const key = model.id;
   const gbcp =
-    settings.cardPreferences.preferredStyle === "gbcp" &&
+    style === "gbcp" &&
     (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
   const image = gbcp ? GBImages.get(`${key}_full`) ?? undefined : undefined;
 

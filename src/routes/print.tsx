@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import { AppBarContent } from "../App";
-import { useData } from "../components/DataContext";
+import { useData } from "../hooks/useData";
 import "./print.css";
 
 import { useMutationObserverRef } from "rooks";
@@ -33,12 +33,12 @@ import SelectAllIcon from "@mui/icons-material/DoneAll";
 import ClearAllIcon from "@mui/icons-material/RemoveDone";
 import ClearIcon from "@mui/icons-material/Clear";
 import VersionTag from "../components/VersionTag";
-import GBImages from "../components/GBImages";
+import GBImages from "../utils/GBImages";
 import { Gameplan, Guild } from "../components/DataContext.d";
 import { GameplanFront, ReferenceCardFront } from "../components/Gameplan";
-import { GBGuildDoc, GBModelDoc, GBModelExpanded } from "../models/gbdb";
-import { reSort } from "../components/reSort";
-import { useRxData } from "../components/useRxQuery";
+import { GBGuildDoc, GBModelDoc } from "../models/gbdb";
+import { reSort } from "../utils/reSort";
+import { useRxData } from "../hooks/useRxQuery";
 
 export const CardPrintScreen = () => {
   const { gbdb: db, gameplans } = useData();

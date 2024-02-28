@@ -15,14 +15,14 @@ import {
 } from "@mui/material";
 import MinusIcon from "@mui/icons-material/Remove";
 import PlusIcon from "@mui/icons-material/Add";
-import useLongPress from "../components/useLongPress";
+import useLongPress from "../hooks/useLongPress";
 import GBIcon from "./GBIcon";
 // import { useRTC } from "../services/webrtc";
-import { useUpdateAnimation } from "./useUpdateAnimation";
+import { useUpdateAnimation } from "../hooks/useUpdateAnimation";
 import { GBGameStateDoc, GBModelExpanded } from "../models/gbdb";
 import { useEffect, useMemo, useState } from "react";
 import { map } from "rxjs";
-import { useSettings } from "../models/settings";
+import { useSettings } from "../hooks/useSettings";
 
 interface RosterListProps {
   teams: GBGameStateDoc[];
@@ -310,7 +310,16 @@ export default function RosterList({
   onClick,
 }: RosterListProps) {
   const theme = useTheme();
-  const { settings } = useSettings();
+
+  const { setting$ } = useSettings();
+  const [displayStatLine, setStatLine] = useState<boolean>();
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.uiPreferences.displayStatLine))
+      .subscribe((sl) => setStatLine(sl));
+    return () => sub?.unsubscribe();
+  });
+
   // const { dc } = useRTC();
   const indexBases = teams.reduce(
     (acc, team, index) => {
@@ -433,11 +442,7 @@ export default function RosterList({
                   >
                     <ListItemText
                       primary={m.id}
-                      secondary={
-                        settings.uiPreferences.displayStatLine
-                          ? m.statLine
-                          : null
-                      }
+                      secondary={displayStatLine ? m.statLine : null}
                     />
                   </ListItem>
                 ))}

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Snackbar, Alert, Button } from "@mui/material";
-import { useData } from "../../components/DataContext";
-import { useRxData } from "../../components/useRxQuery";
+import { useData } from "../../hooks/useData";
 
 export const ResumeSnackBar = () => {
   const { gbdb: db } = useData();
