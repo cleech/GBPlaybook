@@ -8400,10 +8400,10 @@ vary@^1, vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
-vite-plugin-pwa@^0.18.1:
-  version "0.18.1"
-  resolved "https://registry.yarnpkg.com/vite-plugin-pwa/-/vite-plugin-pwa-0.18.1.tgz#040dfaa47cdf1aae10d47d6b931adb156cacf3e4"
-  integrity sha512-2A3BF52l9F8hCkdPy/VP2C+hA+fmBvzJGynCZc9XS6mHTcMvo9046FKc2NqlnkKwTOGtQEwXLEIduML/+eYtdw==
+vite-plugin-pwa@^0.19.2:
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/vite-plugin-pwa/-/vite-plugin-pwa-0.19.2.tgz#60d91c667b3ed22196a072a00dc0fe4f91603c03"
+  integrity sha512-LSQJFPxCAQYbRuSyc9EbRLRqLpaBA9onIZuQFomfUYjWSgHuQLonahetDlPSC9zsxmkSEhQH8dXZN8yL978h3w==
   dependencies:
     debug "^4.3.4"
     fast-glob "^3.3.2"
