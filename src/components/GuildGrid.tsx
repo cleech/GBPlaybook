@@ -114,48 +114,50 @@ interface GuildGridInnerProps {
   extraIcons?: GridIcon[];
 }
 
-export function GuildGridInner(props: {
-  pickTeam?: (guild: string) => void;
-  size: number;
-  extraIcons?: GridIcon[];
-}) {
-  const { pickTeam, size } = props;
+export const GuildGridInner = React.memo(
+  (props: {
+    pickTeam?: (guild: string) => void;
+    size: number;
+    extraIcons?: GridIcon[];
+  }) => {
+    const { pickTeam, size } = props;
 
-  const guilds = useRxQuery(useCallback((db) => db.guilds.find(), []));
+    const guilds = useRxQuery(useCallback((db) => db.guilds.find(), []));
 
-  if (!guilds) {
-    return null;
+    if (!guilds) {
+      return null;
+    }
+
+    const list: GridIcon[] = (guilds as GBGuildDoc[]).map((g: GBGuildDoc) => ({
+      key: g.name,
+      name: g.name,
+      icon: g.name,
+    }));
+    // list.push(...(props.extraIcons ?? []));
+
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignContent: "flex-start",
+          justifyContent: "space-evenly",
+          // width: "100%",
+          // height: "100%",
+          gap: "10px",
+          padding: "5px",
+          // flexBasis: "100%",
+          // flexShrink: 1,
+        }}
+      >
+        {list.map((g, i) => (
+          <GridIconButton key={i} g={g} pickTeam={pickTeam} size={size} />
+        ))}
+      </div>
+    );
   }
-
-  const list: GridIcon[] = (guilds as GBGuildDoc[]).map((g: GBGuildDoc) => ({
-    key: g.name,
-    name: g.name,
-    icon: g.name,
-  }));
-  // list.push(...(props.extraIcons ?? []));
-
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        alignContent: "flex-start",
-        justifyContent: "space-evenly",
-        // width: "100%",
-        // height: "100%",
-        gap: "10px",
-        padding: "5px",
-        // flexBasis: "100%",
-        // flexShrink: 1,
-      }}
-    >
-      {list.map((g, i) => (
-        <GridIconButton key={i} g={g} pickTeam={pickTeam} size={size} />
-      ))}
-    </div>
-  );
-}
+);
 
 export function GridIconButton(props: {
   g: GridIcon;

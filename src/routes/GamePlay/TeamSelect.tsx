@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import {
   Button,
@@ -93,6 +93,7 @@ function GameControls(props: ControlProps) {
   const theme = useTheme();
   const fabRef = useRef<HTMLButtonElement | null>(null);
 
+  const [lastInput, setLastInput] = useState<string>("");
   const { dc } = useRTC();
 
   useEffect(() => {
@@ -118,38 +119,52 @@ function GameControls(props: ControlProps) {
     };
   }, [dc, waiting, locked, navigate, team1, team2]);
 
-  function pickTeam(name: string) {
-    if (selector === "P1") {
-      const newParams = new URLSearchParams(searchParams);
-      newParams.set("p1", name);
-      newParams.sort();
-      setSearchParams(newParams, { replace: true });
-      if (dc) {
-        dc.send(JSON.stringify({ team: name }));
+  const teamCallback = useCallback(
+    (guild: string) => {
+      setLastInput(guild);
+    },
+    [setLastInput]
+  );
+
+  useEffect(() => {
+    const pickTeam = (name: string) => {
+      if (!name) {
+        return;
       }
-      setTeam1(name);
-      if (!team2 && !dc) {
-        setSelector("P2");
-      } else {
-        setSelector("GO");
+      if (selector === "P1") {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set("p1", name);
+        newParams.sort();
+        setSearchParams(newParams, { replace: true });
+        if (dc) {
+          dc.send(JSON.stringify({ team: name }));
+        }
+        setTeam1(name);
+        if (!team2 && !dc) {
+          setSelector("P2");
+        } else {
+          setSelector("GO");
+        }
+      } else if (selector === "P2") {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set("p2", name);
+        newParams.sort();
+        setSearchParams(newParams, { replace: true });
+        setTeam2(name);
+        if (!team1) {
+          setSelector("P1");
+        } else {
+          setSelector("GO");
+        }
       }
-    } else if (selector === "P2") {
-      const newParams = new URLSearchParams(searchParams);
-      newParams.set("p2", name);
-      newParams.sort();
-      setSearchParams(newParams, { replace: true });
-      setTeam2(name);
-      if (!team1) {
-        setSelector("P1");
-      } else {
-        setSelector("GO");
-      }
-    }
-  }
+    };
+    pickTeam(lastInput);
+    setLastInput("");
+  }, [lastInput, selector, team1, team2, dc]);
 
   return (
     <>
-      <props.Inner size={props.size} pickTeam={pickTeam} />
+      <props.Inner size={props.size} pickTeam={teamCallback} />
       <Divider />
       <div
         style={{

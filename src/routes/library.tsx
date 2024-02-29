@@ -49,7 +49,6 @@ import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 import { GBGuildDoc } from "../models/gbdb";
 import { reSort } from "../utils/reSort";
-// import { useSettings } from "../hooks/useSettings";
 import { useRxData } from "../hooks/useRxQuery";
 import { useSettings } from "../hooks/useSettings";
 import { SettingsDoc } from "../models/settings";
