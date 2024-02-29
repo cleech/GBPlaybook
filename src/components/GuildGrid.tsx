@@ -1,8 +1,8 @@
-import React, { Suspense, useCallback } from "react";
+import React, { ComponentType, useCallback } from "react";
 
 import { useDimensionsRef } from "rooks";
 
-import { Button, Typography, Divider } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 import GBIcon from "../components/GBIcon";
 import { GBGuildDoc } from "../models/gbdb";
@@ -52,6 +52,7 @@ function itemSize(
 
 export interface ControlProps {
   size: number;
+  Inner: ComponentType<GuildGridInnerProps>;
 }
 
 interface GridIcon {
@@ -62,12 +63,19 @@ interface GridIcon {
 }
 
 interface GuildGridProps {
-  pickTeam?: (guild: string) => void;
-  controls?: (props: ControlProps) => [JSX.Element, ((guild: string) => void)?];
-  extraIcons?: GridIcon[];
+  // pickTeam?: (guild: string) => void;
+  // controls?: (props: ControlProps) => [JSX.Element, ((guild: string) => void)?];
+  // sizeUpdate?: (iconSize: number) => void;
+  // extraIcons?: GridIcon[];
+  Controller: ComponentType<ControlProps>;
 }
 
-export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
+export function GuildGrid({
+  Controller,
+}: // pickTeam,
+// sizeUpdate,
+// extraIcons,
+GuildGridProps) {
   const [ref, dimensions] = useDimensionsRef();
 
   const size =
@@ -82,62 +90,40 @@ export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
       [dimensions]
     ) ?? 0;
 
-  const [controlElement, controlCallback] = controls
-    ? controls({ size })
-    : [undefined, undefined];
-
   return (
     <div
       ref={ref}
       style={{
         display: "flex",
         flexDirection: "column",
-        width: "100%",
+        // width: "100%",
         height: "100%",
+        // background: "cadetblue",
+        // alignContent: "flex-start",
+        // justifyContent: "space-between",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignContent: "flex-start",
-          justifyContent: "space-evenly",
-          width: "100%",
-          height: "100%",
-          gap: "10px",
-          padding: "5px",
-        }}
-      >
-        {size > 0 && (
-          <Suspense fallback={<p>Loading ...</p>}>
-            <GuildGridInner
-              dimensions={dimensions}
-              pickTeam={controlCallback ?? pickTeam}
-              // controls={controls}
-              size={size}
-              extraIcons={extraIcons}
-            />
-          </Suspense>
-        )}
-      </div>
-      <Divider />
-      {controlElement ?? null}
+      <Controller size={size} Inner={GuildGridInner} />
     </div>
   );
 }
 
-function GuildGridInner(props: {
-  dimensions: ReturnType<typeof useDimensionsRef>[1];
+interface GuildGridInnerProps {
+  pickTeam?: (guild: string) => void;
+  size: number;
+  extraIcons?: GridIcon[];
+}
+
+export function GuildGridInner(props: {
   pickTeam?: (guild: string) => void;
   size: number;
   extraIcons?: GridIcon[];
 }) {
-  const { dimensions, pickTeam, size } = props;
+  const { pickTeam, size } = props;
 
   const guilds = useRxQuery(useCallback((db) => db.guilds.find(), []));
 
-  if (!dimensions || !guilds) {
+  if (!guilds) {
     return null;
   }
 
@@ -149,11 +135,25 @@ function GuildGridInner(props: {
   // list.push(...(props.extraIcons ?? []));
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignContent: "flex-start",
+        justifyContent: "space-evenly",
+        // width: "100%",
+        // height: "100%",
+        gap: "10px",
+        padding: "5px",
+        // flexBasis: "100%",
+        // flexShrink: 1,
+      }}
+    >
       {list.map((g, i) => (
         <GridIconButton key={i} g={g} pickTeam={pickTeam} size={size} />
       ))}
-    </>
+    </div>
   );
 }
 

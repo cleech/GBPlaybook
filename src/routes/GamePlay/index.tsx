@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { IconButton, Box } from "@mui/material";
+import SyncDisabledIcon from "@mui/icons-material/SyncDisabled";
+import SyncIcon from "@mui/icons-material/Sync";
+import { map } from "rxjs";
 
 import { AppBarContent, AppBarContext } from "../../App";
-
-import SyncIcon from "@mui/icons-material/Sync";
-import SyncDisabledIcon from "@mui/icons-material/SyncDisabled";
-
 import Lobby from "../../components/Lobby";
 import OddsCalc from "../../components/Calc";
 import { useRTC } from "../../services/webrtc";
 import { Offline, Online } from "react-detect-offline";
 import { useSettings } from "../../hooks/useSettings";
-import { FlashOnRounded } from "@mui/icons-material";
-import { map } from "rxjs";
+import { SettingsDoc } from "../../models/settings";
 
 const LoginButton = () => {
   const [showDialog, setShowDialog] = useState(false);
@@ -53,19 +51,23 @@ const LoginButton = () => {
 };
 
 export default function GamePlay() {
-  // const location = useLocation();
-  // const { settings, settingsDoc } = useSettings();
+  const location = useLocation();
+  const { setting$ } = useSettings();
+  const [settingsDoc, setSettingsDoc] = useState<SettingsDoc | null>();
   const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
 
-  // useEffect(() => {
-  //   // FIXME: excessive re-renders when we keep changing this
-  //   const route = `${location.pathname}${location.search}`;
-  //   if (route !== settings.gamePlayRoute) {
-  //     settingsDoc?.incrementalPatch({
-  //       gamePlayRoute: `${location.pathname}${location.search}`,
-  //     });
-  //   }
-  // }, [location, settingsDoc]);
+  useEffect(() => {
+    const sub = setting$?.subscribe((s) => setSettingsDoc(s));
+    return () => sub?.unsubscribe();
+  }, [setting$]);
+
+  useEffect(() => {
+    return () => {
+      settingsDoc?.incrementalPatch({
+        gamePlayRoute: `${location.pathname}${location.search}`,
+      });
+    };
+  }, [location, settingsDoc]);
 
   return (
     <main

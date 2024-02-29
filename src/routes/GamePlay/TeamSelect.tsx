@@ -10,6 +10,7 @@ import {
   // Snackbar,
   // Alert,
   Box,
+  Divider,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../../components/GuildGrid";
@@ -81,9 +82,7 @@ function SelectedIcon({ team, size }: { team: string; size: number }) {
   );
 }
 
-function GameControls(
-  props: ControlProps
-): [JSX.Element, (name: string) => void] {
+function GameControls(props: ControlProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selector, setSelector] = useState("P1");
   const [team1, setTeam1] = useState(searchParams.get("p1") ?? "");
@@ -148,103 +147,107 @@ function GameControls(
     }
   }
 
-  return [
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Button
-        variant="outlined"
-        style={{
-          margin: "5px",
-          minWidth: props.size,
-          maxWidth: props.size,
-          minHeight: props.size,
-          maxHeight: props.size,
-          fontSize: props.size * 0.5,
-          ...(selector === "P1"
-            ? {
-                borderColor: theme.palette.secondary.light,
-                borderRadius: "12px",
-                borderWidth: "4px",
-              }
-            : {
-                borderColor: theme.palette.primary.dark,
-                borderRadius: "12px",
-                borderWidth: "4px",
-              }),
-        }}
-        onClick={() => setSelector("P1")}
-      >
-        {team1 ? <SelectedIcon team={team1} size={props.size} /> : "P1"}
-      </Button>
+  return (
+    <>
+      <props.Inner size={props.size} pickTeam={pickTeam} />
+      <Divider />
       <div
         style={{
-          height: "100%",
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
-          gap: "0.25em",
+          // margin: "5px",
         }}
       >
-        <Typography variant="caption">vs</Typography>
-        <Fab
-          ref={fabRef}
-          color="secondary"
-          disabled={!team1 || !team2}
-          onClick={() => {
-            if (dc) {
-              setWaiting(true);
-              dc.send(JSON.stringify({ navigation: "ready" }));
-              if (locked) {
+        <Button
+          variant="outlined"
+          style={{
+            margin: "5px",
+            minWidth: props.size,
+            maxWidth: props.size,
+            minHeight: props.size,
+            maxHeight: props.size,
+            fontSize: props.size * 0.5,
+            ...(selector === "P1"
+              ? {
+                  borderColor: theme.palette.secondary.light,
+                  borderRadius: "12px",
+                  borderWidth: "4px",
+                }
+              : {
+                  borderColor: theme.palette.primary.dark,
+                  borderRadius: "12px",
+                  borderWidth: "4px",
+                }),
+          }}
+          onClick={() => setSelector("P1")}
+        >
+          {team1 ? <SelectedIcon team={team1} size={props.size} /> : "P1"}
+        </Button>
+        <div
+          style={{
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.25em",
+          }}
+        >
+          <Typography variant="caption">vs</Typography>
+          <Fab
+            ref={fabRef}
+            color="secondary"
+            disabled={!team1 || !team2}
+            onClick={() => {
+              if (dc) {
+                setWaiting(true);
+                dc.send(JSON.stringify({ navigation: "ready" }));
+                if (locked) {
+                  navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
+                }
+              } else {
                 navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
               }
-            } else {
-              navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
-            }
+            }}
+            sx={{ m: "0 15px" }}
+          >
+            <PlayArrowIcon />
+          </Fab>
+          <Typography variant="caption">
+            {waiting ? "(waiting)" : "\u00A0"}
+          </Typography>
+        </div>
+        <Button
+          variant="outlined"
+          style={{
+            margin: "5px",
+            minWidth: props.size,
+            maxWidth: props.size,
+            minHeight: props.size,
+            maxHeight: props.size,
+            fontSize: props.size * 0.5,
+            ...(selector === "P2"
+              ? {
+                  borderColor: theme.palette.secondary.light,
+                  borderRadius: "12px",
+                  borderWidth: "4px",
+                }
+              : {
+                  borderColor: theme.palette.primary.dark,
+                  borderRadius: "12px",
+                  borderWidth: "4px",
+                }),
           }}
-          sx={{ m: "0 15px" }}
+          onClick={() => setSelector("P2")}
+          disabled={!!dc}
         >
-          <PlayArrowIcon />
-        </Fab>
-        <Typography variant="caption">
-          {waiting ? "(waiting)" : "\u00A0"}
-        </Typography>
+          {team2 ? <SelectedIcon team={team2} size={props.size} /> : "P2"}
+        </Button>
       </div>
-      <Button
-        variant="outlined"
-        style={{
-          margin: "5px",
-          minWidth: props.size,
-          maxWidth: props.size,
-          minHeight: props.size,
-          maxHeight: props.size,
-          fontSize: props.size * 0.5,
-          ...(selector === "P2"
-            ? {
-                borderColor: theme.palette.secondary.light,
-                borderRadius: "12px",
-                borderWidth: "4px",
-              }
-            : {
-                borderColor: theme.palette.primary.dark,
-                borderRadius: "12px",
-                borderWidth: "4px",
-              }),
-        }}
-        onClick={() => setSelector("P2")}
-        disabled={!!dc}
-      >
-        {team2 ? <SelectedIcon team={team2} size={props.size} /> : "P2"}
-      </Button>
-    </div>,
-    pickTeam,
-  ];
+    </>
+  );
 }
 
 export default function TeamSelect() {
@@ -263,7 +266,7 @@ export default function TeamSelect() {
           </IconButton>
         </Breadcrumbs>
       </AppBarContent>
-      <GuildGrid controls={GameControls} />
+      <GuildGrid Controller={GameControls} />
       <VersionTag />
       <ResumeSnackBar />
     </Box>

@@ -1,10 +1,10 @@
 import {
   useState,
-  useEffect,
   useRef,
   useLayoutEffect,
   useCallback,
   Suspense,
+  useEffect,
 } from "react";
 
 import {
@@ -24,6 +24,7 @@ import {
   Breadcrumbs,
   Link,
   IconButton,
+  Divider,
 } from "@mui/material";
 
 import type { Swiper as SwiperRef } from "swiper";
@@ -48,28 +49,30 @@ import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 import { GBGuildDoc } from "../models/gbdb";
 import { reSort } from "../utils/reSort";
-import { useSettings } from "../hooks/useSettings";
+// import { useSettings } from "../hooks/useSettings";
 import { useRxData } from "../hooks/useRxQuery";
+import { useSettings } from "../hooks/useSettings";
+import { SettingsDoc } from "../models/settings";
 
 export default function Library() {
-  // const location = useLocation();
-  /*
-  const { settingsDoc } = useSettings();
+  const location = useLocation();
+
+  const { setting$ } = useSettings();
+  const [settingsDoc, setSettingsDoc] = useState<SettingsDoc | null>();
+
   useEffect(() => {
-    // // FIXME: excessive re-renders when we keep changing this
-    // const route = `${location.pathname}${location.search}`;
-    // if (route !== settings.libraryRoute) {
-    //   settingsDoc?.incrementalPatch({
-    //     libraryRoute: `${location.pathname}${location.search}`,
-    //   });
-    // }
+    const sub = setting$?.subscribe((s) => setSettingsDoc(s));
+    return () => sub?.unsubscribe();
+  }, [setting$]);
+
+  useEffect(() => {
     return () => {
       settingsDoc?.incrementalPatch({
         libraryRoute: `${location.pathname}${location.search}`,
       });
     };
-  }, []);
-*/
+  }, [location, settingsDoc]);
+
   return (
     <main
       style={{
@@ -87,7 +90,6 @@ export default function Library() {
 }
 
 export function GuildList() {
-  const navigate = useNavigate();
   return (
     <>
       <AppBarContent>
@@ -96,66 +98,76 @@ export function GuildList() {
         </Breadcrumbs>
       </AppBarContent>
       <GuildGrid
-        pickTeam={(guild) => {
-          navigate(guild);
-        }}
-        controls={ExtraIconsControl}
-        extraIcons={[
-          {
-            key: "gameplans",
-            name: "Gameplans",
-            icon: "GB",
-            style: { color: "#f8f7f4" },
-          },
-          {
-            key: "reference",
-            name: "Rules",
-            icon: "GB",
-            style: { color: "#f8f7f4" },
-          },
-        ]}
+        Controller={ExtraIconsControl}
+        // sizeUpdate={(size) => setSize(size)}
+        // controls={ExtraIconsControl}
+        // extraIcons={[
+        //   {
+        //     key: "gameplans",
+        //     name: "Gameplans",
+        //     icon: "GB",
+        //     style: { color: "#f8f7f4" },
+        //   },
+        //   {
+        //     key: "reference",
+        //     name: "Rules",
+        //     icon: "GB",
+        //     style: { color: "#f8f7f4" },
+        //   },
+        // ]}
       />
       <VersionTag />
     </>
   );
 }
 
-function ExtraIconsControl(
-  props: ControlProps
-): [JSX.Element, ((g: string) => void)?] {
+function ExtraIconsControl(props: ControlProps) {
   const navigate = useNavigate();
-  return [
+  return (
     <div
       style={{
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
+        // width: "100%",
+        height: "100%",
         justifyContent: "space-evenly",
-        margin: "5px",
       }}
     >
-      <GridIconButton
-        g={{
-          key: "gameplans",
-          name: "gameplans",
-          icon: "GB",
-          style: { color: "#f8f7f4" },
+      <props.Inner size={props.size} pickTeam={navigate} />
+      <Divider />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          // flexBasis: '100%',
+          // flexShrink: 1,
+          justifyContent: "space-evenly",
+          margin: "5px",
         }}
-        pickTeam={() => navigate("gameplans")}
-        size={props.size}
-      />
-      <GridIconButton
-        g={{
-          key: "refcards",
-          name: "Rules",
-          icon: "GB",
-          style: { color: "#f8f7f4" },
-        }}
-        pickTeam={() => navigate("refcards")}
-        size={props.size}
-      />
-    </div>,
-    undefined,
-  ];
+      >
+        <GridIconButton
+          g={{
+            key: "gameplans",
+            name: "gameplans",
+            icon: "GB",
+            style: { color: "#f8f7f4" },
+          }}
+          pickTeam={() => navigate("gameplans")}
+          size={props.size}
+        />
+        <GridIconButton
+          g={{
+            key: "refcards",
+            name: "Rules",
+            icon: "GB",
+            style: { color: "#f8f7f4" },
+          }}
+          pickTeam={() => navigate("refcards")}
+          size={props.size}
+        />
+      </div>
+    </div>
+  );
 }
 
 export function Roster() {
@@ -238,11 +250,11 @@ export function Roster() {
           initialSlide={
             (g?.roster.findIndex((m) => m === searchParams.get("m")) || 0) + 1
           }
-          // onSlideChange={(swiper) => {
-          //   setSearchParams(`m=${g.roster[swiper.activeIndex - 1]}`, {
-          //     replace: true,
-          //   });
-          // }}
+          onSlideChange={(swiper) => {
+            setSearchParams(`m=${g.roster[swiper.activeIndex - 1]}`, {
+              replace: true,
+            });
+          }}
           slidesPerView="auto"
           centeredSlides={true}
           spaceBetween={0.25 * 96}
@@ -373,11 +385,11 @@ export function GamePlans() {
         <Swiper
           onSwiper={setSwiper}
           initialSlide={Number(searchParams.get("m")) || 0}
-          // onSlideChange={(swiper) => {
-          //   setSearchParams(`m=${swiper.activeIndex}`, {
-          //     replace: true,
-          //   });
-          // }}
+          onSlideChange={(swiper) => {
+            setSearchParams(`m=${swiper.activeIndex}`, {
+              replace: true,
+            });
+          }}
           slidesPerView="auto"
           centeredSlides={true}
           spaceBetween={0.25 * 96}
@@ -471,11 +483,11 @@ export function RefCards() {
         <Swiper
           onSwiper={setSwiper}
           initialSlide={Number(searchParams.get("m")) || 0}
-          // onSlideChange={(swiper) => {
-          //   setSearchParams(`m=${swiper.activeIndex}`, {
-          //     replace: true,
-          //   });
-          // }}
+          onSlideChange={(swiper) => {
+            setSearchParams(`m=${swiper.activeIndex}`, {
+              replace: true,
+            });
+          }}
           slidesPerView="auto"
           centeredSlides={true}
           spaceBetween={0.25 * 96}
