@@ -1,11 +1,12 @@
-import { defineConfig } from 'vite'
-import { VitePWA } from 'vite-plugin-pwa'
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from "vite";
+import { VitePWA } from "vite-plugin-pwa";
+import react from "@vitejs/plugin-react-swc";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
-    target: ['es2022', 'chrome89', 'firefox89', 'safari15', 'edge89'],
+    target: ["es2022", "chrome89", "firefox89", "safari15", "edge89"],
   },
   esbuild: {
     target: "es2022",
@@ -17,89 +18,90 @@ export default defineConfig({
   },
   plugins: [
     react(),
+    nodePolyfills(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: "autoUpdate",
       workbox: {
         maximumFileSizeToCacheInBytes: 10000000,
         // cache all imports
-        globPatterns: ['**/*'],
+        globPatterns: ["**/*"],
         // cache google fonts
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'CacheFirst',
+            handler: "CacheFirst",
             options: {
-              cacheName: 'google-fonts-cache',
+              cacheName: "google-fonts-cache",
               expiration: {
                 maxEntries: 20,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+                maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
               },
               cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
+                statuses: [0, 200],
+              },
+            },
           },
           {
             urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-            handler: 'CacheFirst',
+            handler: "CacheFirst",
             options: {
-              cacheName: 'gstatic-fonts-cache',
+              cacheName: "gstatic-fonts-cache",
               expiration: {
                 maxEntries: 20,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+                maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
               },
               cacheableResponse: {
-                statuses: [0, 200]
+                statuses: [0, 200],
               },
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       // cache all public folder static assets
-      includeAssets: ['**/*'],
+      includeAssets: ["**/*"],
       manifest: {
-        name: 'Guild Ball Playbook',
-        short_name: 'GB Playbook',
-        description: 'Guild Ball reference and tracking',
+        name: "Guild Ball Playbook",
+        short_name: "GB Playbook",
+        description: "Guild Ball reference and tracking",
         icons: [
           {
-            src: 'pwa-64x64.png',
-            sizes: '64x64',
-            type: 'image/png'
+            src: "pwa-64x64.png",
+            sizes: "64x64",
+            type: "image/png",
           },
           {
-            src: 'pwa-192x192.png',
-            sizes: '192x192',
-            type: 'image/png'
+            src: "pwa-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
           },
           {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any'
+            src: "pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any",
           },
           {
-            src: 'maskable-icon-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable'
-          }
+            src: "maskable-icon-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
+          },
         ],
         display: "standalone",
         // orientation: "any",
         theme_color: "#000000",
-        background_color: "#004508"
+        background_color: "#004508",
       },
       devOptions: {
-        enabled: true
-      }
-    })
+        enabled: true,
+      },
+    }),
   ],
   define: {
-    global: 'globalThis',
-    BUILD_DATE: JSON.stringify(new Date().toISOString())
+    global: "globalThis",
+    BUILD_DATE: JSON.stringify(new Date().toISOString()),
   },
   server: {
-    port: 3000
-  }
-})
+    port: 3000,
+  },
+});

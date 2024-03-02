@@ -12,6 +12,13 @@ import { RxDBDevModePlugin } from "rxdb/plugins/dev-mode";
 // import { RxDBUpdatePlugin } from "rxdb/plugins/update";
 import { RxDBQueryBuilderPlugin } from "rxdb/plugins/query-builder";
 import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
+import { wrappedValidateAjvStorage } from "rxdb/plugins/validate-ajv";
+
+import {
+  replicateWebRTC,
+  getConnectionHandlerSimplePeer,
+  SimplePeer,
+} from "rxdb/plugins/replication-webrtc";
 
 if (import.meta.env.MODE === "development") {
   addRxPlugin(RxDBDevModePlugin);
@@ -254,12 +261,12 @@ const gbCharacterPlaySchema: RxJsonSchema<GBCharacterPlay> = {
   properties: {
     name: { type: "string", maxLength: 64 },
     text: { type: "string" },
-    CST: { type: "string" },
-    RNG: { type: "string" },
+    CST: { type: ["string", "integer"] },
+    RNG: { type: ["string", "integer"] },
     SUS: { type: "boolean", default: false },
     OPT: { type: "boolean", default: false },
   },
-  required: ["text", "CST", "RNG"],
+  required: ["text", "CST", "RNG", "SUS", "OPT"],
 };
 
 interface GBCharacterTrait {
@@ -335,8 +342,10 @@ export type GBDatabase = RxDatabase<GBDataCollections>;
 export const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>({
   name: "gb_playbook",
   localDocuments: true,
-  storage: getRxStorageDexie(),
+  // storage: getRxStorageDexie(),
+  storage: wrappedValidateAjvStorage({ storage: getRxStorageDexie() }),
   // storage: getRxStorageMemory(),
+  // storage: wrappedValidateAjvStorage({ storage: getRxStorageMemory() }),
 });
 
 await gbdb.addCollections({
@@ -351,3 +360,20 @@ await gbdb.addCollections({
 });
 
 export default gbdb;
+
+replicateWebRTC<GBGameState, SimplePeer>({
+  collection: gbdb.game_state,
+  connectionHandlerCreator: getConnectionHandlerSimplePeer({}),
+  topic: 'gbplaybook',
+  pull: {},
+  push: {},  
+}).then(replcationState => {
+  replcationState.error$.subscribe((err: any) => {
+    console.log('replication error:');
+    console.dir(err);
+  });
+  replcationState.peerStates$.subscribe(s => {
+    console.log('new peer states:');
+    console.dir(s);
+  })
+})
