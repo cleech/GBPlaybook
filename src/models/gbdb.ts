@@ -291,6 +291,8 @@ const gbCharacterTraitSchema: RxJsonSchema<GBCharacterTrait> = {
   required: ["text"],
 };
 
+type SetupSteps = "Guilds" | "Draft" | "Game";
+
 export interface GBGameState {
   _id: string;
   guild: string;
@@ -298,6 +300,8 @@ export interface GBGameState {
   momentum: number;
   disabled: boolean;
   roster: { name: string; health: number }[];
+  currentStep: SetupSteps;
+  navigateTo: SetupSteps;
 }
 
 export type GBGameStateDoc = RxDocument<GBGameState>;
@@ -325,8 +329,10 @@ const gbGameStateSchema: RxJsonSchema<GBGameState> = {
         required: ["name", "health"],
       },
     },
+    currentStep: { type: "string", enum: ["Guilds", "Draft", "Game"] },
+    navigateTo: { type: "string", enum: ["Guilds", "Draft", "Game"] },
   },
-  required: ["guild", "roster"],
+  // required: ["guild", "roster"],
 };
 
 interface GBDataCollections {
@@ -342,8 +348,8 @@ export type GBDatabase = RxDatabase<GBDataCollections>;
 export const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>({
   name: "gb_playbook",
   localDocuments: true,
-  // storage: getRxStorageDexie(),
-  storage: wrappedValidateAjvStorage({ storage: getRxStorageDexie() }),
+  storage: getRxStorageDexie(),
+  // storage: wrappedValidateAjvStorage({ storage: getRxStorageDexie() }),
   // storage: getRxStorageMemory(),
   // storage: wrappedValidateAjvStorage({ storage: getRxStorageMemory() }),
 });
@@ -361,19 +367,19 @@ await gbdb.addCollections({
 
 export default gbdb;
 
-replicateWebRTC<GBGameState, SimplePeer>({
-  collection: gbdb.game_state,
-  connectionHandlerCreator: getConnectionHandlerSimplePeer({}),
-  topic: 'gbplaybook',
-  pull: {},
-  push: {},  
-}).then(replcationState => {
-  replcationState.error$.subscribe((err: any) => {
-    console.log('replication error:');
-    console.dir(err);
-  });
-  replcationState.peerStates$.subscribe(s => {
-    console.log('new peer states:');
-    console.dir(s);
-  })
-})
+// replicateWebRTC<GBGameState, SimplePeer>({
+//   collection: gbdb.game_state,
+//   connectionHandlerCreator: getConnectionHandlerSimplePeer({}),
+//   topic: "gbplaybook",
+//   pull: {},
+//   push: {},
+// }).then((replcationState) => {
+//   replcationState.error$.subscribe((err) => {
+//     console.log("replication error:");
+//     console.dir(err);
+//   });
+//   replcationState.peerStates$.subscribe((s) => {
+//     console.log("new peer states:");
+//     console.dir(s);
+//   });
+// });
