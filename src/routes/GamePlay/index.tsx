@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
 // import { IconButton } from "@mui/material";
 import { Box } from "@mui/material";
 // import SyncDisabledIcon from "@mui/icons-material/SyncDisabled";
@@ -11,8 +11,8 @@ import { AppBarContent, AppBarContext } from "../../App";
 import OddsCalc from "../../components/Calc";
 // import { useRTC } from "../../services/webrtc";
 // import { Offline, Online } from "react-detect-offline";
-import { useSettings } from "../../hooks/useSettings";
-import { SettingsDoc } from "../../models/settings";
+// import { useSettings } from "../../hooks/useSettings";
+// import { SettingsDoc } from "../../models/settings";
 
 // const LoginButton = () => {
 //   const [showDialog, setShowDialog] = useState(false);
@@ -52,23 +52,23 @@ import { SettingsDoc } from "../../models/settings";
 // };
 
 export default function GamePlay() {
-  const location = useLocation();
-  const { setting$ } = useSettings();
-  const [settingsDoc, setSettingsDoc] = useState<SettingsDoc | null>();
+  // const location = useLocation();
+  // const { setting$ } = useSettings();
+  // const [settingsDoc, setSettingsDoc] = useState<SettingsDoc | null>();
   const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
 
-  useEffect(() => {
-    const sub = setting$?.subscribe((s) => setSettingsDoc(s));
-    return () => sub?.unsubscribe();
-  }, [setting$]);
+  // useEffect(() => {
+  //   const sub = setting$?.subscribe((s) => setSettingsDoc(s));
+  //   return () => sub?.unsubscribe();
+  // }, [setting$]);
 
-  useEffect(() => {
-    return () => {
-      settingsDoc?.incrementalPatch({
-        gamePlayRoute: `${location.pathname}${location.search}`,
-      });
-    };
-  }, [location, settingsDoc]);
+  // useEffect(() => {
+  //   return () => {
+  //     settingsDoc?.incrementalPatch({
+  //       gamePlayRoute: `${location.pathname}${location.search}`,
+  //     });
+  //   };
+  // }, [location, settingsDoc]);
 
   return (
     <main

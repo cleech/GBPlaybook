@@ -4,7 +4,7 @@ import {
   useLayoutEffect,
   useCallback,
   Suspense,
-  useEffect,
+  // useEffect,
 } from "react";
 
 import {
@@ -12,7 +12,7 @@ import {
   useParams,
   useNavigate,
   useSearchParams,
-  useLocation,
+  // useLocation,
 } from "react-router-dom";
 
 import {
@@ -50,27 +50,27 @@ import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 import { GBGuildDoc } from "../models/gbdb";
 import { reSort } from "../utils/reSort";
 import { useRxData } from "../hooks/useRxQuery";
-import { useSettings } from "../hooks/useSettings";
-import { SettingsDoc } from "../models/settings";
+// import { useSettings } from "../hooks/useSettings";
+// import { SettingsDoc } from "../models/settings";
 
 export default function Library() {
-  const location = useLocation();
+  // const location = useLocation();
 
-  const { setting$ } = useSettings();
-  const [settingsDoc, setSettingsDoc] = useState<SettingsDoc | null>();
+  // const { setting$ } = useSettings();
+  // const [settingsDoc, setSettingsDoc] = useState<SettingsDoc | null>();
 
-  useEffect(() => {
-    const sub = setting$?.subscribe((s) => setSettingsDoc(s));
-    return () => sub?.unsubscribe();
-  }, [setting$]);
+  // useEffect(() => {
+  //   const sub = setting$?.subscribe((s) => setSettingsDoc(s));
+  //   return () => sub?.unsubscribe();
+  // }, [setting$]);
 
-  useEffect(() => {
-    return () => {
-      settingsDoc?.incrementalPatch({
-        libraryRoute: `${location.pathname}${location.search}`,
-      });
-    };
-  }, [location, settingsDoc]);
+  // useEffect(() => {
+  //   return () => {
+  //     settingsDoc?.incrementalPatch({
+  //       libraryRoute: `${location.pathname}${location.search}`,
+  //     });
+  //   };
+  // }, [location, settingsDoc]);
 
   return (
     <main
