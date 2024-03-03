@@ -21,7 +21,6 @@ import Color from "color";
 import { Home, NavigateNext } from "@mui/icons-material";
 import { AppBarContent } from "../../App";
 
-import { useRTC } from "../../services/webrtc";
 import VersionTag from "../../components/VersionTag";
 import { pulseAnimationKeyFrames } from "../../hooks/useUpdateAnimation";
 import ResumeSnackBar from "./ResumeSnackBar";
@@ -88,36 +87,11 @@ function GameControls(props: ControlProps) {
   const [team1, setTeam1] = useState(searchParams.get("p1") ?? "");
   const [team2, setTeam2] = useState(searchParams.get("p2") ?? "");
   const [waiting, setWaiting] = useState(false);
-  const [locked, setLocked] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
   const fabRef = useRef<HTMLButtonElement | null>(null);
 
   const [lastInput, setLastInput] = useState<string>("");
-  const { dc } = useRTC();
-
-  useEffect(() => {
-    if (dc) {
-      dc.onmessage = (ev: MessageEvent<string>) => {
-        const msg = JSON.parse(ev.data);
-        if (msg.team) {
-          setTeam2(msg.team);
-        }
-        if (msg.navigation === "ready") {
-          setLocked(true);
-          fabRef.current?.animate(pulseAnimationKeyFrames, 1000);
-          if (waiting) {
-            navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
-          }
-        }
-      };
-    }
-    return () => {
-      if (dc) {
-        dc.onmessage = null;
-      }
-    };
-  }, [dc, waiting, locked, navigate, team1, team2]);
 
   const teamCallback = useCallback(
     (guild: string) => {
@@ -136,11 +110,8 @@ function GameControls(props: ControlProps) {
         newParams.set("p1", name);
         newParams.sort();
         setSearchParams(newParams, { replace: true });
-        if (dc) {
-          dc.send(JSON.stringify({ team: name }));
-        }
         setTeam1(name);
-        if (!team2 && !dc) {
+        if (!team2) {
           setSelector("P2");
         } else {
           setSelector("GO");
@@ -160,7 +131,7 @@ function GameControls(props: ControlProps) {
     };
     pickTeam(lastInput);
     setLastInput("");
-  }, [lastInput, selector, team1, team2, dc]);
+  }, [lastInput, selector, team1, team2, searchParams, setSearchParams]);
 
   return (
     <>
@@ -216,15 +187,7 @@ function GameControls(props: ControlProps) {
             color="secondary"
             disabled={!team1 || !team2}
             onClick={() => {
-              if (dc) {
-                setWaiting(true);
-                dc.send(JSON.stringify({ navigation: "ready" }));
-                if (locked) {
-                  navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
-                }
-              } else {
-                navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
-              }
+              navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
             }}
             sx={{ m: "0 15px" }}
           >
@@ -256,7 +219,6 @@ function GameControls(props: ControlProps) {
                 }),
           }}
           onClick={() => setSelector("P2")}
-          disabled={!!dc}
         >
           {team2 ? <SelectedIcon team={team2} size={props.size} /> : "P2"}
         </Button>
