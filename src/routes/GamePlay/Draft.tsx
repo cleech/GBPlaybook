@@ -46,9 +46,9 @@ export default function Draft() {
   const player2 = useRef<unknown>();
   const fabRef = useRef<HTMLButtonElement | null>(null);
 
-  const [searchParams] = useSearchParams();
-  const g1 = searchParams.get("p1");
-  const g2 = searchParams.get("p2");
+  // const [searchParams] = useSearchParams();
+  // const g1 = searchParams.get("p1");
+  // const g2 = searchParams.get("p2");
 
   const [gameSize, setGameSize] = useState<3 | 4 | 6>();
   useEffect(() => {
@@ -57,6 +57,22 @@ export default function Draft() {
       .subscribe((gs) => setGameSize(gs));
     return () => sub?.unsubscribe();
   }, [setting$]);
+
+  const g1 = useRxData((db) =>
+    db.game_state
+      .findOne()
+      .where({ _id: "Player1" })
+      .exec()
+      .then((state) => state?.guild)
+  );
+
+  const g2 = useRxData((db) =>
+    db.game_state
+      .findOne()
+      .where({ _id: "Player2" })
+      .exec()
+      .then((state) => state?.guild)
+  );
 
   // useEffect(() => {
   //   if (!!dc) {
@@ -100,10 +116,10 @@ export default function Draft() {
     useRxData(
       async (db) => {
         // kick out if we didn't get guild names in URL
-        if (!g1 || !g2) {
-          navigate("/game");
-          return;
-        }
+        // if (!g1 || !g2) {
+        //   navigate("/game");
+        //   return;
+        // }
         const [_guild1, _guild2] = await Promise.all([
           db.guilds.findOne().where({ name: g1 }).exec(),
           db.guilds.findOne().where({ name: g2 }).exec(),
@@ -158,16 +174,7 @@ export default function Draft() {
         guild={guild1}
         ready={ready1}
         unready={unready1}
-        ignoreRules={false}
         style={{ width: "100%" }}
-        // network play additions
-        // onUpdate={
-        //   dc
-        //     ? (m, v) => {
-        //         dc.send(JSON.stringify({ m: m, selected: v }));
-        //       }
-        //     : undefined
-        // }
       />
 
       {/* <Typography variant="caption">{"\u00A0"}</Typography> */}
@@ -190,7 +197,6 @@ export default function Draft() {
               _id: "Player1",
               guild: guild1.name,
               roster: team1?.map((m) => ({ name: m.id, health: m.hp })) || [],
-              // why don't defaults work?
               score: 0,
               momentum: 0,
               disabled: false,
@@ -201,7 +207,6 @@ export default function Draft() {
               _id: "Player2",
               guild: guild2.name,
               roster: team2?.map((m) => ({ name: m.id, health: m.hp })) || [],
-              // why don't defaults work?
               score: 0,
               momentum: 0,
               disabled: false,
@@ -224,7 +229,6 @@ export default function Draft() {
         guild={guild2}
         ready={ready2}
         unready={unready2}
-        ignoreRules={false}
         style={{ width: "100%" }}
         // network play additions
         // disabled={!!dc}

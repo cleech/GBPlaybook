@@ -348,9 +348,9 @@ export type GBDatabase = RxDatabase<GBDataCollections>;
 export const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>({
   name: "gb_playbook",
   localDocuments: true,
-  // storage: getRxStorageDexie(),
+  storage: getRxStorageDexie(),
   // storage: wrappedValidateAjvStorage({ storage: getRxStorageDexie() }),
-  storage: getRxStorageMemory(),
+  // storage: getRxStorageMemory(),
   // storage: wrappedValidateAjvStorage({ storage: getRxStorageMemory() }),
 });
 

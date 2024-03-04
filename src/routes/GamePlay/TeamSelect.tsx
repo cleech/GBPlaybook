@@ -24,7 +24,8 @@ import { AppBarContent } from "../../App";
 import VersionTag from "../../components/VersionTag";
 import { pulseAnimationKeyFrames } from "../../hooks/useUpdateAnimation";
 import ResumeSnackBar from "./ResumeSnackBar";
-import { useRxData } from "../../hooks/useRxQuery";
+import { useRxData, useRxQuery } from "../../hooks/useRxQuery";
+import { useData } from "../../hooks/useData";
 
 function SelectedIcon({ team, size }: { team: string; size: number }) {
   const guild = useRxData(
@@ -82,10 +83,9 @@ function SelectedIcon({ team, size }: { team: string; size: number }) {
 }
 
 function GameControls(props: ControlProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
   const [selector, setSelector] = useState("P1");
-  const [team1, setTeam1] = useState(searchParams.get("p1") ?? "");
-  const [team2, setTeam2] = useState(searchParams.get("p2") ?? "");
+  const [team1, setTeam1] = useState<string>();
+  const [team2, setTeam2] = useState<string>();
   const [waiting, setWaiting] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
@@ -95,33 +95,57 @@ function GameControls(props: ControlProps) {
 
   const teamCallback = useCallback(
     (guild: string) => {
+      console.log(guild);
       setLastInput(guild);
     },
     [setLastInput]
   );
 
+  const { gbdb: db } = useData();
+
+  const [teamDoc1, teamDoc2] =
+    useRxData(async (db) => {
+      const _team1 = await db.game_state
+        .findOne()
+        .where({ _id: "Player1" })
+        .exec();
+      const _team2 = await db.game_state
+        .findOne()
+        .where({ _id: "Player2" })
+        .exec();
+      return [_team1, _team2];
+    }, []) ?? [];
+
   useEffect(() => {
-    const pickTeam = (name: string) => {
+    const sub1 = teamDoc1?.get$("guild").subscribe((g) => setTeam1(g));
+    const sub2 = teamDoc2?.get$("guild").subscribe((g) => setTeam2(g));
+    return () => {
+      sub1?.unsubscribe();
+      sub2?.unsubscribe();
+    };
+  }, [teamDoc1, teamDoc2]);
+
+  useEffect(() => {
+    const pickTeam = async (name: string) => {
+      console.log(`pickTeam: ${name}`);
       if (!name) {
         return;
       }
       if (selector === "P1") {
-        const newParams = new URLSearchParams(searchParams);
-        newParams.set("p1", name);
-        newParams.sort();
-        setSearchParams(newParams, { replace: true });
-        setTeam1(name);
+        await db?.game_state
+          .upsert({ _id: "Player1", guild: name })
+          .then((doc) => console.dir(doc))
+          .catch(console.error);
         if (!team2) {
           setSelector("P2");
         } else {
           setSelector("GO");
         }
       } else if (selector === "P2") {
-        const newParams = new URLSearchParams(searchParams);
-        newParams.set("p2", name);
-        newParams.sort();
-        setSearchParams(newParams, { replace: true });
-        setTeam2(name);
+        await db?.game_state
+          .upsert({ _id: "Player2", guild: name })
+          .then((doc) => console.dir(doc))
+          .catch(console.error);
         if (!team1) {
           setSelector("P1");
         } else {
@@ -131,7 +155,7 @@ function GameControls(props: ControlProps) {
     };
     pickTeam(lastInput);
     setLastInput("");
-  }, [lastInput, selector, team1, team2, searchParams, setSearchParams]);
+  }, [lastInput]);
 
   return (
     <>
@@ -187,7 +211,7 @@ function GameControls(props: ControlProps) {
             color="secondary"
             disabled={!team1 || !team2}
             onClick={() => {
-              navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
+              navigate(`/game/draft/`);
             }}
             sx={{ m: "0 15px" }}
           >

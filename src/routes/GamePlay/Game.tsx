@@ -207,7 +207,7 @@ export default function Game() {
   );
 }
 
-export const GameList = ({
+const GameList = ({
   teams,
   rosters,
 }: {

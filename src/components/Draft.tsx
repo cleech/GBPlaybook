@@ -15,7 +15,7 @@ import { useUpdateAnimation } from "../hooks/useUpdateAnimation";
 import { GBGuild, GBModel } from "../models/gbdb";
 import { reSort } from "../utils/reSort";
 import { useSettings } from "../hooks/useSettings";
-import { useRxData } from "../hooks/useRxQuery";
+import { useRxData, useRxQuery } from "../hooks/useRxQuery";
 import { map } from "rxjs";
 
 export interface DraftModel extends GBModel {
@@ -76,6 +76,7 @@ function checkBenched(roster: Roster, model: DraftModel, value: boolean) {
 
 interface DraftListItemProps {
   model: DraftModel;
+  // model: string,
   disabled?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -117,8 +118,8 @@ interface DraftListProps {
   ready: (team: GBModel[]) => void;
   unready: () => void;
   onUpdate?: (m: DraftModel, selected: boolean) => void;
-  ignoreRules?: boolean;
   style?: CSSProperties;
+
 }
 
 const DraftLimits = {
@@ -146,7 +147,6 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
     unready,
     onUpdate,
     disabled = false,
-    ignoreRules = false,
     style,
   } = props;
 
@@ -271,17 +271,16 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
       checkBenched(roster, model, value);
 
       if (
-        (newCaptain === DraftLimits[gameSize].captain &&
-          newMascot === DraftLimits[gameSize].mascot &&
-          newCount === DraftLimits[gameSize].squaddies) ||
-        ignoreRules
+        newCaptain === DraftLimits[gameSize].captain &&
+        newMascot === DraftLimits[gameSize].mascot &&
+        newCount === DraftLimits[gameSize].squaddies
       ) {
         setReady(true);
       } else {
         setReady(false);
       }
     },
-    [roster, onUpdate, captain, mascot, squaddieCount, ignoreRules, gameSize]
+    [roster, onUpdate, captain, mascot, squaddieCount, gameSize]
   );
 
   useEffect(() => {
@@ -406,7 +405,6 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
     ready: listReady,
     unready,
     onUpdate,
-    ignoreRules = false,
     disabled = false,
     style,
   } = props;
@@ -501,23 +499,19 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
       checkBenched(roster, model, value);
 
       if (
-        (newMasterCount === BSDraftLimits[gameSize].master &&
-          newApprenticeCount === BSDraftLimits[gameSize].apprentice) ||
-        ignoreRules
+        newMasterCount === BSDraftLimits[gameSize].master &&
+        newApprenticeCount === BSDraftLimits[gameSize].apprentice
       ) {
         setReady(true);
       } else {
         setReady(false);
       }
     },
-    [roster, onUpdate, masterCount, apprenticeCount, ignoreRules, gameSize]
+    [roster, onUpdate, masterCount, apprenticeCount, gameSize]
   );
 
   useEffect(() => {
-    if (!roster) {
-      return;
-    }
-    if (ready) {
+    if (ready && roster) {
       const team = cloneDeep(roster.filter((m: DraftModel) => m.selected));
       listReady?.(team);
     } else {
