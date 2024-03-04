@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  CSSProperties,
-  useImperativeHandle,
-  useCallback,
-} from "react";
+import React, { useState, useEffect, CSSProperties, useCallback } from "react";
 import cloneDeep from "lodash.clonedeep";
 import { Badge, Card, Checkbox, FormControlLabel } from "@mui/material";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
@@ -12,11 +6,11 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import { CheckCircleTwoTone as Check } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useUpdateAnimation } from "../hooks/useUpdateAnimation";
-import { GBGuild, GBModel } from "../models/gbdb";
+import { GBGameStateDoc, GBGuild, GBModel } from "../models/gbdb";
 import { reSort } from "../utils/reSort";
 import { useSettings } from "../hooks/useSettings";
 import { useRxData, useRxQuery } from "../hooks/useRxQuery";
-import { map } from "rxjs";
+import { Observable, map } from "rxjs";
 
 export interface DraftModel extends GBModel {
   selected: boolean;
@@ -67,26 +61,45 @@ function checkVeterans(roster: Roster, model: DraftModel, value: boolean) {
   });
 }
 
-function checkBenched(roster: Roster, model: DraftModel, value: boolean) {
+function checkBenched(
+  roster: Roster,
+  model: DraftModel,
+  value: boolean,
+  update: (model: DraftModel, selected: boolean) => void
+) {
   if (model.dehcneb) {
     const b = roster.find((b) => b.benched && b.name === model.dehcneb);
-    b && (b.selected = value);
+    if (b) {
+      update(b, value);
+    }
   }
 }
 
 interface DraftListItemProps {
   model: DraftModel;
-  // model: string,
   disabled?: boolean;
+  stateDoc: GBGameStateDoc;
+  // selected$: Observable<boolean>;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function DraftListItem({
   model,
   disabled = false,
+  stateDoc,
   onChange,
 }: DraftListItemProps) {
-  const ref = useUpdateAnimation(disabled, [model.selected]);
+  const [selected, setSelected] = useState(model.selected);
+  const selected$ = stateDoc.get$("roster").pipe(
+    map((r: Array<{ name: string; health: number }>) => {
+      return r.map((o) => o.name).includes(model.id);
+    })
+  );
+  useEffect(() => {
+    const observer = selected$.subscribe(setSelected);
+    return () => observer?.unsubscribe();
+  }, [selected$, model]);
+  const ref = useUpdateAnimation(disabled, [selected]);
   return (
     <FormControlLabel
       ref={ref}
@@ -94,7 +107,7 @@ function DraftListItem({
       control={
         <Checkbox
           size="small"
-          checked={model.selected}
+          checked={selected}
           disabled={model.disabled > 0 || disabled}
           onChange={onChange}
           icon={<RadioButtonUncheckedIcon />}
@@ -114,12 +127,11 @@ const StyledBadge = styled(Badge)(() => ({
 
 interface DraftListProps {
   guild: GBGuild;
+  stateDoc: GBGameStateDoc;
   disabled?: boolean;
   ready: (team: GBModel[]) => void;
   unready: () => void;
-  onUpdate?: (m: DraftModel, selected: boolean) => void;
   style?: CSSProperties;
-
 }
 
 const DraftLimits = {
@@ -140,15 +152,8 @@ const DraftLimits = {
   },
 };
 
-export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
-  const {
-    guild,
-    ready: listReady,
-    unready,
-    onUpdate,
-    disabled = false,
-    style,
-  } = props;
+export const DraftList = (props: DraftListProps) => {
+  const { guild, ready: listReady, unready, disabled = false, style } = props;
 
   const { setting$ } = useSettings();
   const [gameSize, setGameSize] = useState<3 | 4 | 6>(6);
@@ -185,6 +190,13 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
         tmpRoster.forEach((m) => {
           if (m.captain || (m.mascot && DraftLimits[gameSize].mascot > 0)) {
             m.selected = true;
+            props.stateDoc
+              .incrementalModify((state) => {
+                const r = state.roster.concat({ name: m.id, health: m.hp });
+                state.roster = r;
+                return state;
+              })
+              .catch(console.error);
             m.disabled = 1;
           }
         });
@@ -255,8 +267,20 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
       if (!roster) {
         return;
       }
-      onUpdate?.(model, value);
+
       model.selected = value;
+      props.stateDoc
+        .incrementalModify((state) => {
+          if (value) {
+            const r = state.roster.concat({ name: model.id, health: model.hp });
+            state.roster = r;
+          } else {
+            const r = state.roster.filter((o) => o.name != model.id);
+            state.roster = r;
+          }
+          return state;
+        })
+        .catch(console.error);
 
       const newCaptain = checkCaptains(roster, model, captain, value);
       setCaptain(newCaptain);
@@ -268,7 +292,22 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
       setSquadCount(newCount);
 
       checkVeterans(roster, model, value);
-      checkBenched(roster, model, value);
+      checkBenched(roster, model, value, (benched, value) => {
+        benched.selected = value;
+        props.stateDoc.incrementalModify((state) => {
+          if (value) {
+            const r = state.roster.concat({
+              name: benched.id,
+              health: benched.hp,
+            });
+            state.roster = r;
+          } else {
+            const r = state.roster.filter((o) => o.name != benched.id);
+            state.roster = r;
+          }
+          return state;
+        });
+      });
 
       if (
         newCaptain === DraftLimits[gameSize].captain &&
@@ -280,7 +319,7 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
         setReady(false);
       }
     },
-    [roster, onUpdate, captain, mascot, squaddieCount, gameSize]
+    [roster, captain, mascot, squaddieCount, gameSize]
   );
 
   useEffect(() => {
@@ -291,26 +330,6 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
       unready?.();
     }
   }, [ready, guild, roster, listReady, unready]);
-
-  const setModel = useCallback(
-    (id: string, value: boolean) => {
-      if (!roster) {
-        return;
-      }
-      const model: DraftModel | undefined = roster.find(
-        (m: DraftModel) => m.id === id
-      );
-      if (model) {
-        onSwitch(model, value);
-      } else {
-        console.log(`failed to find ${id}`);
-      }
-    },
-    // [ready, roster, onSwitch]
-    [roster, onSwitch]
-  );
-
-  useImperativeHandle(ref, () => ({ setModel }), [setModel]);
 
   if (!roster) {
     return null;
@@ -343,6 +362,7 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
             <DraftListItem
               key={m.id}
               model={m}
+              stateDoc={props.stateDoc}
               onChange={() => onSwitch(m, !m.selected)}
               disabled={disabled}
             />
@@ -352,6 +372,7 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
             <DraftListItem
               key={m.id}
               model={m}
+              stateDoc={props.stateDoc}
               onChange={() => onSwitch(m, !m.selected)}
               disabled={disabled}
             />
@@ -363,6 +384,7 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
             <DraftListItem
               key={m.id}
               model={m}
+              stateDoc={props.stateDoc}
               onChange={() => onSwitch(m, !m.selected)}
               disabled={disabled}
             />
@@ -374,6 +396,7 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
             <DraftListItem
               key={m.id}
               model={m}
+              stateDoc={props.stateDoc}
               onChange={() => onSwitch(m, !m.selected)}
               disabled={disabled}
             />
@@ -382,7 +405,7 @@ export const DraftList = React.forwardRef((props: DraftListProps, ref) => {
       </Card>
     </StyledBadge>
   );
-});
+};
 
 const BSDraftLimits = {
   3: {
@@ -399,15 +422,8 @@ const BSDraftLimits = {
   },
 };
 
-export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
-  const {
-    guild,
-    ready: listReady,
-    unready,
-    onUpdate,
-    disabled = false,
-    style,
-  } = props;
+export const BSDraftList = (props: DraftListProps) => {
+  const { guild, ready: listReady, unready, disabled = false, style } = props;
 
   const { setting$ } = useSettings();
   const [gameSize, setGameSize] = useState<3 | 4 | 6>(6);
@@ -476,7 +492,6 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
       if (!roster) {
         return;
       }
-      onUpdate?.(model, value);
       model.selected = value;
 
       const newMasterCount = checkMasterCount(
@@ -496,7 +511,22 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
       setApprenticeCount(newApprenticeCount);
 
       checkVeterans(roster, model, value);
-      checkBenched(roster, model, value);
+      checkBenched(roster, model, value, (benched, value) => {
+        benched.selected = value;
+        props.stateDoc.incrementalModify((state) => {
+          if (value) {
+            const r = state.roster.concat({
+              name: benched.id,
+              health: benched.hp,
+            });
+            state.roster = r;
+          } else {
+            const r = state.roster.filter((o) => o.name != benched.id);
+            state.roster = r;
+          }
+          return state;
+        });
+      });
 
       if (
         newMasterCount === BSDraftLimits[gameSize].master &&
@@ -507,7 +537,7 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
         setReady(false);
       }
     },
-    [roster, onUpdate, masterCount, apprenticeCount, gameSize]
+    [roster, masterCount, apprenticeCount, gameSize]
   );
 
   useEffect(() => {
@@ -518,26 +548,6 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
       unready?.();
     }
   }, [ready, guild, roster, listReady, unready]);
-
-  const setModel = useCallback(
-    (id: string, value: boolean) => {
-      if (!roster) {
-        return;
-      }
-      const model: DraftModel | undefined = roster.find(
-        (m: DraftModel) => m.id === id
-      );
-      if (model) {
-        onSwitch(model, value);
-      } else {
-        console.log(`failed to find ${id}`);
-      }
-    },
-    // [ready, roster, onSwitch]
-    [roster, onSwitch]
-  );
-
-  useImperativeHandle(ref, () => ({ setModel }), [setModel]);
 
   if (!roster) {
     return null;
@@ -569,6 +579,7 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
             <DraftListItem
               key={m.id}
               model={m}
+              stateDoc={props.stateDoc}
               onChange={() => onSwitch(m, !m.selected)}
               disabled={disabled}
             />
@@ -580,6 +591,7 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
             <DraftListItem
               key={m.id}
               model={m}
+              stateDoc={props.stateDoc}
               onChange={() => onSwitch(m, !m.selected)}
               disabled={disabled}
             />
@@ -591,6 +603,7 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
             <DraftListItem
               key={m.id}
               model={m}
+              stateDoc={props.stateDoc}
               onChange={() => onSwitch(m, !m.selected)}
               disabled={disabled}
             />
@@ -599,4 +612,4 @@ export const BSDraftList = React.forwardRef((props: DraftListProps, ref) => {
       </Card>
     </StyledBadge>
   );
-});
+};

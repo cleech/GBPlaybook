@@ -96,13 +96,17 @@ function GameControls(props: ControlProps) {
   const [teamDoc1, teamDoc2] =
     useRxData(async (db) => {
       const _team1 = await db.game_state
-        .findOne()
-        .where({ _id: "Player1" })
-        .exec();
+        // .findOne()
+        // .where({ _id: "Player1" })
+        // .exec();
+        .upsert({ _id: "Player1", roster: [] })
+        .catch(console.error);
       const _team2 = await db.game_state
-        .findOne()
-        .where({ _id: "Player2" })
-        .exec();
+        // .findOne()
+        // .where({ _id: "Player2" })
+        // .exec();
+        .upsert({ _id: "Player2", roster: [] })
+        .catch(console.error);
       return [_team1, _team2];
     }, []) ?? [];
 
@@ -122,20 +126,14 @@ function GameControls(props: ControlProps) {
         return;
       }
       if (selector === "P1") {
-        await db?.game_state
-          .upsert({ _id: "Player1", guild: name })
-          .then((doc) => console.dir(doc))
-          .catch(console.error);
+        await teamDoc1?.incrementalPatch({ guild: name }).catch(console.error);
         if (!team2) {
           setSelector("P2");
         } else {
           setSelector("GO");
         }
       } else if (selector === "P2") {
-        await db?.game_state
-          .upsert({ _id: "Player2", guild: name })
-          .then((doc) => console.dir(doc))
-          .catch(console.error);
+        await teamDoc2?.incrementalPatch({ guild: name }).catch(console.error);
         if (!team1) {
           setSelector("P1");
         } else {
@@ -143,7 +141,7 @@ function GameControls(props: ControlProps) {
         }
       }
     },
-    [db, selector, team1, team2]
+    [selector, team1, team2, teamDoc1, teamDoc2]
   );
 
   useEffect(() => {

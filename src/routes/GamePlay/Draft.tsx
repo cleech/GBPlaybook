@@ -19,7 +19,6 @@ import "./Draft.css";
 import { Home, NavigateNext } from "@mui/icons-material";
 import { AppBarContent } from "../../App";
 
-// import { useRTC } from "../../services/webrtc";
 import VersionTag from "../../components/VersionTag";
 // import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
 import { GBModel } from "../../models/gbdb";
@@ -43,12 +42,7 @@ export default function Draft() {
   const unready1 = useCallback(() => setTeam1(undefined), []);
   const unready2 = useCallback(() => setTeam2(undefined), []);
 
-  const player2 = useRef<unknown>();
   const fabRef = useRef<HTMLButtonElement | null>(null);
-
-  // const [searchParams] = useSearchParams();
-  // const g1 = searchParams.get("p1");
-  // const g2 = searchParams.get("p2");
 
   const [gameSize, setGameSize] = useState<3 | 4 | 6>();
   useEffect(() => {
@@ -58,57 +52,14 @@ export default function Draft() {
     return () => sub?.unsubscribe();
   }, [setting$]);
 
-  const g1 = useRxData((db) =>
-    db.game_state
-      .findOne()
-      .where({ _id: "Player1" })
-      .exec()
-      .then((state) => state?.guild)
+  const player1 = useRxData((db) =>
+    db.game_state.findOne().where({ _id: "Player1" }).exec()
   );
-
-  const g2 = useRxData((db) =>
-    db.game_state
-      .findOne()
-      .where({ _id: "Player2" })
-      .exec()
-      .then((state) => state?.guild)
+  const player2 = useRxData((db) =>
+    db.game_state.findOne().where({ _id: "Player2" }).exec()
   );
-
-  // useEffect(() => {
-  //   if (!!dc) {
-  //     dc.onmessage = (ev: MessageEvent<string>) => {
-  //       const msg = JSON.parse(ev.data);
-  //       if (msg.m) {
-  //         player2.current?.setModel(msg.m.id, msg.selected);
-  //       }
-  //       if (msg.navigation === "ready") {
-  //         setLocked(true);
-  //         fabRef.current?.animate(pulseAnimationKeyFrames, 1000);
-  //         if (waiting) {
-  //           store.team1.reset({ name: g1 ?? undefined, roster: team1 });
-  //           store.team2.reset({ name: g2 ?? undefined, roster: team2 });
-  //           navigate("/game/draft/play");
-  //         }
-  //       }
-  //     };
-  //   }
-  //   return () => {
-  //     if (!!dc) {
-  //       dc.onmessage = null;
-  //     }
-  //   };
-  // }, [
-  //   dc,
-  //   waiting,
-  //   locked,
-  //   g1,
-  //   g2,
-  //   navigate,
-  //   team1,
-  //   team2,
-  //   store.team1,
-  //   store.team2,
-  // ]);
+  const g1 = player1?.guild;
+  const g2 = player2?.guild;
 
   const { gbdb: db } = useData();
 
@@ -116,10 +67,10 @@ export default function Draft() {
     useRxData(
       async (db) => {
         // kick out if we didn't get guild names in URL
-        // if (!g1 || !g2) {
-        //   navigate("/game");
-        //   return;
-        // }
+        if (!g1 || !g2) {
+          //   navigate("/game");
+          return;
+        }
         const [_guild1, _guild2] = await Promise.all([
           db.guilds.findOne().where({ name: g1 }).exec(),
           db.guilds.findOne().where({ name: g2 }).exec(),
@@ -135,7 +86,7 @@ export default function Draft() {
     ) ?? [];
 
   // wait for data load from db
-  if (!guild1 || !guild2) {
+  if (!guild1 || !guild2 || !player1 || !player2) {
     return null;
   }
 
@@ -172,6 +123,7 @@ export default function Draft() {
         // hacky, but force reset when this setting changes
         key={`1-${gameSize}`}
         guild={guild1}
+        stateDoc={player1}
         ready={ready1}
         unready={unready1}
         style={{ width: "100%" }}
@@ -183,15 +135,6 @@ export default function Draft() {
         color="secondary"
         disabled={!team1 || !team2}
         onClick={async () => {
-          // if (dc) {
-          // setWaiting(true);
-          // dc.send(JSON.stringify({ navigation: "ready" }));
-          // if (locked) {
-          //   store.team1.reset({ name: g1 ?? undefined, roster: team1 });
-          //   store.team2.reset({ name: g2 ?? undefined, roster: team2 });
-          //   navigate("/game/draft/play");
-          // }
-          // } else {
           await db?.game_state
             .upsert({
               _id: "Player1",
@@ -213,7 +156,6 @@ export default function Draft() {
             })
             .catch(console.error);
           navigate("/game/draft/play");
-          // }
         }}
         sx={{ m: "10px" }}
       >
@@ -227,12 +169,10 @@ export default function Draft() {
         // hacky, but force reset when this setting changes
         key={`2-${gameSize}`}
         guild={guild2}
+        stateDoc={player2}
         ready={ready2}
         unready={unready2}
         style={{ width: "100%" }}
-        // network play additions
-        // disabled={!!dc}
-        ref={player2}
       />
 
       <VersionTag />
