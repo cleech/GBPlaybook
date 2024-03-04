@@ -28,7 +28,7 @@
     "react": "^18.2.0",
     "react-detect-offline": "^2.4.5",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.0",
+    "react-router-dom": "^6.22.2",
     "react-string-replace": "^1.1.1",
     "reactfire": "^4.2.3",
     "rooks": "^7.14.1",
