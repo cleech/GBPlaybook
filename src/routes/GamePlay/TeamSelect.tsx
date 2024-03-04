@@ -91,16 +91,6 @@ function GameControls(props: ControlProps) {
   const theme = useTheme();
   const fabRef = useRef<HTMLButtonElement | null>(null);
 
-  const [lastInput, setLastInput] = useState<string>("");
-
-  const teamCallback = useCallback(
-    (guild: string) => {
-      console.log(guild);
-      setLastInput(guild);
-    },
-    [setLastInput]
-  );
-
   const { gbdb: db } = useData();
 
   const [teamDoc1, teamDoc2] =
@@ -125,8 +115,8 @@ function GameControls(props: ControlProps) {
     };
   }, [teamDoc1, teamDoc2]);
 
-  useEffect(() => {
-    const pickTeam = async (name: string) => {
+  const pickTeam = useCallback(
+    async (name: string) => {
       console.log(`pickTeam: ${name}`);
       if (!name) {
         return;
@@ -152,102 +142,102 @@ function GameControls(props: ControlProps) {
           setSelector("GO");
         }
       }
-    };
-    pickTeam(lastInput);
-    setLastInput("");
-  }, [lastInput]);
+    },
+    [db, selector, team1, team2]
+  );
+
+  useEffect(() => {
+    const sub = props.update$.subscribe((g) => pickTeam(g));
+    return () => sub.unsubscribe();
+  }, [props.update$, pickTeam]);
 
   return (
-    <>
-      <props.Inner size={props.size} pickTeam={teamCallback} />
-      <Divider />
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        margin: "5px",
+      }}
+    >
+      <Button
+        variant="outlined"
+        style={{
+          margin: "5px",
+          minWidth: props.size,
+          maxWidth: props.size,
+          minHeight: props.size,
+          maxHeight: props.size,
+          fontSize: props.size * 0.5,
+          ...(selector === "P1"
+            ? {
+                borderColor: theme.palette.secondary.light,
+                borderRadius: "12px",
+                borderWidth: "4px",
+              }
+            : {
+                borderColor: theme.palette.primary.dark,
+                borderRadius: "12px",
+                borderWidth: "4px",
+              }),
+        }}
+        onClick={() => setSelector("P1")}
+      >
+        {team1 ? <SelectedIcon team={team1} size={props.size} /> : "P1"}
+      </Button>
       <div
         style={{
+          height: "100%",
           display: "flex",
-          flexDirection: "row",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          // margin: "5px",
+          gap: "0.25em",
         }}
       >
-        <Button
-          variant="outlined"
-          style={{
-            margin: "5px",
-            minWidth: props.size,
-            maxWidth: props.size,
-            minHeight: props.size,
-            maxHeight: props.size,
-            fontSize: props.size * 0.5,
-            ...(selector === "P1"
-              ? {
-                  borderColor: theme.palette.secondary.light,
-                  borderRadius: "12px",
-                  borderWidth: "4px",
-                }
-              : {
-                  borderColor: theme.palette.primary.dark,
-                  borderRadius: "12px",
-                  borderWidth: "4px",
-                }),
+        <Typography variant="caption">vs</Typography>
+        <Fab
+          ref={fabRef}
+          color="secondary"
+          disabled={!team1 || !team2}
+          onClick={() => {
+            navigate(`/game/draft/`);
           }}
-          onClick={() => setSelector("P1")}
+          sx={{ m: "0 15px" }}
         >
-          {team1 ? <SelectedIcon team={team1} size={props.size} /> : "P1"}
-        </Button>
-        <div
-          style={{
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "0.25em",
-          }}
-        >
-          <Typography variant="caption">vs</Typography>
-          <Fab
-            ref={fabRef}
-            color="secondary"
-            disabled={!team1 || !team2}
-            onClick={() => {
-              navigate(`/game/draft/`);
-            }}
-            sx={{ m: "0 15px" }}
-          >
-            <PlayArrowIcon />
-          </Fab>
-          <Typography variant="caption">
-            {waiting ? "(waiting)" : "\u00A0"}
-          </Typography>
-        </div>
-        <Button
-          variant="outlined"
-          style={{
-            margin: "5px",
-            minWidth: props.size,
-            maxWidth: props.size,
-            minHeight: props.size,
-            maxHeight: props.size,
-            fontSize: props.size * 0.5,
-            ...(selector === "P2"
-              ? {
-                  borderColor: theme.palette.secondary.light,
-                  borderRadius: "12px",
-                  borderWidth: "4px",
-                }
-              : {
-                  borderColor: theme.palette.primary.dark,
-                  borderRadius: "12px",
-                  borderWidth: "4px",
-                }),
-          }}
-          onClick={() => setSelector("P2")}
-        >
-          {team2 ? <SelectedIcon team={team2} size={props.size} /> : "P2"}
-        </Button>
+          <PlayArrowIcon />
+        </Fab>
+        <Typography variant="caption">
+          {waiting ? "(waiting)" : "\u00A0"}
+        </Typography>
       </div>
-    </>
+      <Button
+        variant="outlined"
+        style={{
+          margin: "5px",
+          minWidth: props.size,
+          maxWidth: props.size,
+          minHeight: props.size,
+          maxHeight: props.size,
+          fontSize: props.size * 0.5,
+          ...(selector === "P2"
+            ? {
+                borderColor: theme.palette.secondary.light,
+                borderRadius: "12px",
+                borderWidth: "4px",
+              }
+            : {
+                borderColor: theme.palette.primary.dark,
+                borderRadius: "12px",
+                borderWidth: "4px",
+              }),
+        }}
+        onClick={() => setSelector("P2")}
+      >
+        {team2 ? <SelectedIcon team={team2} size={props.size} /> : "P2"}
+      </Button>
+    </div>
   );
 }
 

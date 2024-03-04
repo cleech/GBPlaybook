@@ -1,12 +1,14 @@
-import React, { ComponentType, useCallback } from "react";
+import React, { ComponentType, useCallback, useMemo } from "react";
 
 import { useDimensionsRef } from "rooks";
 
-import { Button, Typography } from "@mui/material";
+import { Button, Divider, Typography } from "@mui/material";
 
 import GBIcon from "../components/GBIcon";
 import { GBGuildDoc } from "../models/gbdb";
 import { useRxData, useRxQuery } from "../hooks/useRxQuery";
+import { NodeEventHandler } from "rxjs/internal/observable/fromEvent";
+import { Observable, fromEventPattern } from "rxjs";
 
 function maxBy<T>(data: Array<T>, by: (v: T) => number) {
   return data.reduce((a, b) => (by(a) >= by(b) ? a : b));
@@ -52,7 +54,8 @@ function itemSize(
 
 export interface ControlProps {
   size: number;
-  Inner: ComponentType<GuildGridInnerProps>;
+  // Inner: ComponentType<GuildGridInnerProps>;
+  update$: Observable<string>;
 }
 
 interface GridIcon {
@@ -90,6 +93,18 @@ GuildGridProps) {
       [dimensions]
     ) ?? 0;
 
+  const observers = useMemo<Set<NodeEventHandler>>(() => new Set(), []);
+  const event$ = fromEventPattern<string>(
+    (handler) => observers.add(handler),
+    (handler) => observers.delete(handler)
+  );
+  const emitEvent = useCallback(
+    (e: string) => {
+      observers.forEach((handler) => handler(e));
+    },
+    [observers]
+  );
+
   return (
     <div
       ref={ref}
@@ -99,22 +114,18 @@ GuildGridProps) {
         // width: "100%",
         height: "100%",
         // background: "cadetblue",
-        // alignContent: "flex-start",
-        // justifyContent: "space-between",
+        alignContent: "flex-start",
+        justifyContent: "space-evenly",
       }}
     >
-      <Controller size={size} Inner={GuildGridInner} />
+      <GuildGridInner size={size} pickTeam={emitEvent} />
+      <Divider />
+      <Controller size={size} update$={event$} />
     </div>
   );
 }
 
-interface GuildGridInnerProps {
-  pickTeam?: (guild: string) => void;
-  size: number;
-  extraIcons?: GridIcon[];
-}
-
-export const GuildGridInner = React.memo(
+const GuildGridInner = React.memo(
   (props: {
     pickTeam?: (guild: string) => void;
     size: number;

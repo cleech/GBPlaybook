@@ -4,6 +4,7 @@ import {
   useLayoutEffect,
   useCallback,
   Suspense,
+  useEffect,
   // useEffect,
 } from "react";
 
@@ -122,49 +123,40 @@ export function GuildList() {
 
 function ExtraIconsControl(props: ControlProps) {
   const navigate = useNavigate();
+  useEffect(() => {
+    const sub = props.update$.subscribe((g) => navigate(g));
+    return () => sub.unsubscribe();
+  }, [navigate, props.update$]);
   return (
     <div
       style={{
         display: "flex",
-        flexDirection: "column",
-        // width: "100%",
-        height: "100%",
+        flexDirection: "row",
+        alignItems: "center",
         justifyContent: "space-evenly",
+        margin: "5px",
       }}
     >
-      <props.Inner size={props.size} pickTeam={navigate} />
-      <Divider />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          // flexBasis: '100%',
-          // flexShrink: 1,
-          justifyContent: "space-evenly",
-          margin: "5px",
+      <GridIconButton
+        g={{
+          key: "gameplans",
+          name: "gameplans",
+          icon: "GB",
+          style: { color: "#f8f7f4" },
         }}
-      >
-        <GridIconButton
-          g={{
-            key: "gameplans",
-            name: "gameplans",
-            icon: "GB",
-            style: { color: "#f8f7f4" },
-          }}
-          pickTeam={() => navigate("gameplans")}
-          size={props.size}
-        />
-        <GridIconButton
-          g={{
-            key: "refcards",
-            name: "Rules",
-            icon: "GB",
-            style: { color: "#f8f7f4" },
-          }}
-          pickTeam={() => navigate("refcards")}
-          size={props.size}
-        />
-      </div>
+        pickTeam={() => navigate("gameplans")}
+        size={props.size}
+      />
+      <GridIconButton
+        g={{
+          key: "refcards",
+          name: "Rules",
+          icon: "GB",
+          style: { color: "#f8f7f4" },
+        }}
+        pickTeam={() => navigate("refcards")}
+        size={props.size}
+      />
     </div>
   );
 }
