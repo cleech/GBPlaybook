@@ -50,7 +50,7 @@
     "firebase-tools": "^13.3.1",
     "gh-pages": "^6.1.1",
     "typescript": "^5.0.2",
-    "vite": "^5.0.12",
+    "vite": "^5.1.4",
     "vite-plugin-pwa": "^0.19.2",
     "workbox-build": "^7.0.0",
     "workbox-window": "^7.0.0"
