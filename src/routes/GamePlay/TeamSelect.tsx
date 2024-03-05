@@ -157,12 +157,12 @@ function GameControls(props: ControlProps) {
         alignItems: "center",
         justifyContent: "center",
         margin: "5px",
+        gap: "5px",
       }}
     >
       <Button
         variant="outlined"
         style={{
-          margin: "5px",
           minWidth: props.size,
           maxWidth: props.size,
           minHeight: props.size,
@@ -213,7 +213,6 @@ function GameControls(props: ControlProps) {
       <Button
         variant="outlined"
         style={{
-          margin: "5px",
           minWidth: props.size,
           maxWidth: props.size,
           minHeight: props.size,

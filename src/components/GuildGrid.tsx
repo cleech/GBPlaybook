@@ -160,6 +160,7 @@ const GuildGridInner = React.memo(
           padding: "5px",
           // flexBasis: "100%",
           // flexShrink: 1,
+          overflow: "clip",
         }}
       >
         {list.map((g, i) => (
