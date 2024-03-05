@@ -367,19 +367,22 @@ await gbdb.addCollections({
 
 export default gbdb;
 
-// replicateWebRTC<GBGameState, SimplePeer>({
-//   collection: gbdb.game_state,
-//   connectionHandlerCreator: getConnectionHandlerSimplePeer({}),
-//   topic: "gbplaybook",
-//   pull: {},
-//   push: {},
-// }).then((replcationState) => {
-//   replcationState.error$.subscribe((err) => {
-//     console.log("replication error:");
-//     console.dir(err);
-//   });
-//   replcationState.peerStates$.subscribe((s) => {
-//     console.log("new peer states:");
-//     console.dir(s);
-//   });
-// });
+export function gbdbBeginReplication() {
+  return replicateWebRTC<GBGameState, SimplePeer>({
+    collection: gbdb.game_state,
+    connectionHandlerCreator: getConnectionHandlerSimplePeer({}),
+    topic: "gbplaybook",
+    pull: {},
+    push: {},
+  }).then((replcationState) => {
+    replcationState.error$.subscribe((err) => {
+      console.log("replication error:");
+      console.dir(err);
+    });
+    replcationState.peerStates$.subscribe((s) => {
+      console.log("new peer states:");
+      console.dir(s);
+    });
+    return replcationState;
+  });
+}

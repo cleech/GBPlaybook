@@ -1,4 +1,10 @@
-import React, { useState, useEffect, CSSProperties, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  CSSProperties,
+  useCallback,
+  useRef,
+} from "react";
 import cloneDeep from "lodash.clonedeep";
 import { Badge, Card, Checkbox, FormControlLabel } from "@mui/material";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
@@ -10,7 +16,7 @@ import { GBGameStateDoc, GBGuild, GBModel } from "../models/gbdb";
 import { reSort } from "../utils/reSort";
 import { useSettings } from "../hooks/useSettings";
 import { useRxData, useRxQuery } from "../hooks/useRxQuery";
-import { Observable, map } from "rxjs";
+import { Observable, count, map } from "rxjs";
 
 export interface DraftModel extends GBModel {
   selected: boolean;
@@ -79,26 +85,30 @@ interface DraftListItemProps {
   model: DraftModel;
   disabled?: boolean;
   stateDoc: GBGameStateDoc;
-  // selected$: Observable<boolean>;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  updateCounts: (m: DraftModel, v: boolean) => void;
 }
 
 function DraftListItem({
   model,
   disabled = false,
   stateDoc,
-  onChange,
+  updateCounts,
 }: DraftListItemProps) {
   const [selected, setSelected] = useState(model.selected);
-  const selected$ = stateDoc.get$("roster").pipe(
-    map((r: Array<{ name: string; health: number }>) => {
-      return r.map((o) => o.name).includes(model.id);
-    })
-  );
   useEffect(() => {
-    const observer = selected$.subscribe(setSelected);
+    const selected$ = stateDoc.get$("roster").pipe(
+      map((r: Array<{ name: string; health: number }>) => {
+        return r.map((o) => o.name).includes(model.id);
+      })
+    );
+    const observer = selected$.subscribe((v) => {
+      setSelected(v);
+      if (v !== model.selected && !model.benched) {
+        updateCounts(model, v);
+      }
+    });
     return () => observer?.unsubscribe();
-  }, [selected$, model]);
+  }, [stateDoc, model, updateCounts]);
   const ref = useUpdateAnimation(disabled, [selected]);
   return (
     <FormControlLabel
@@ -109,7 +119,24 @@ function DraftListItem({
           size="small"
           checked={selected}
           disabled={model.disabled > 0 || disabled}
-          onChange={onChange}
+          onChange={(e) => {
+            const value = e.target.checked;
+            stateDoc
+              .incrementalModify((state) => {
+                if (value) {
+                  const r = state.roster.concat({
+                    name: model.id,
+                    health: model.hp,
+                  });
+                  state.roster = r;
+                } else {
+                  const r = state.roster.filter((o) => o.name != model.id);
+                  state.roster = r;
+                }
+                return state;
+              })
+              .catch(console.error);
+          }}
           icon={<RadioButtonUncheckedIcon />}
           checkedIcon={<RadioButtonCheckedIcon />}
         />
@@ -164,14 +191,13 @@ export const DraftList = (props: DraftListProps) => {
     return () => sub?.unsubscribe();
   }, [setting$]);
 
-  const [ready, setReady] = useState(false);
+  // putting these behind a ref avoids stale captures in the callback
+  // when db updates cause multiple callback runs in one update cycle
+  const counters = useRef({ captain: 0, mascot: 0, squaddieCount: 0 });
+  // but then we need to trigger a render, so use a fake state counter for that
+  const [, setUpdate] = useState(0);
 
-  // captain and mascot get pre-selected for minor guilds
-  const [captain, setCaptain] = useState(guild.minor ? 1 : 0);
-  const [mascot, setMascot] = useState(
-    guild.minor && DraftLimits[gameSize].mascot > 0 ? 1 : 0
-  );
-  const [squaddieCount, setSquadCount] = useState(0);
+  const [ready, setReady] = useState(false);
 
   const roster = useRxData(
     async (db) => {
@@ -189,7 +215,6 @@ export const DraftList = (props: DraftListProps) => {
       if (guild.minor) {
         tmpRoster.forEach((m) => {
           if (m.captain || (m.mascot && DraftLimits[gameSize].mascot > 0)) {
-            m.selected = true;
             props.stateDoc
               .incrementalModify((state) => {
                 const r = state.roster.concat({ name: m.id, health: m.hp });
@@ -269,27 +294,30 @@ export const DraftList = (props: DraftListProps) => {
       }
 
       model.selected = value;
-      props.stateDoc
-        .incrementalModify((state) => {
-          if (value) {
-            const r = state.roster.concat({ name: model.id, health: model.hp });
-            state.roster = r;
-          } else {
-            const r = state.roster.filter((o) => o.name != model.id);
-            state.roster = r;
-          }
-          return state;
-        })
-        .catch(console.error);
 
-      const newCaptain = checkCaptains(roster, model, captain, value);
-      setCaptain(newCaptain);
+      const newCaptain = checkCaptains(
+        roster,
+        model,
+        counters.current.captain,
+        value
+      );
+      counters.current.captain = newCaptain;
 
-      const newMascot = checkMascots(roster, model, mascot, value);
-      setMascot(newMascot);
+      const newMascot = checkMascots(
+        roster,
+        model,
+        counters.current.mascot,
+        value
+      );
+      counters.current.mascot = newMascot;
 
-      const newCount = checkSquaddieCount(roster, model, squaddieCount, value);
-      setSquadCount(newCount);
+      const newCount = checkSquaddieCount(
+        roster,
+        model,
+        counters.current.squaddieCount,
+        value
+      );
+      counters.current.squaddieCount = newCount;
 
       checkVeterans(roster, model, value);
       checkBenched(roster, model, value, (benched, value) => {
@@ -318,8 +346,10 @@ export const DraftList = (props: DraftListProps) => {
       } else {
         setReady(false);
       }
+
+      setUpdate((old) => old + 1);
     },
-    [roster, captain, mascot, squaddieCount, gameSize]
+    [props.stateDoc, roster, gameSize]
   );
 
   useEffect(() => {
@@ -363,7 +393,7 @@ export const DraftList = (props: DraftListProps) => {
               key={m.id}
               model={m}
               stateDoc={props.stateDoc}
-              onChange={() => onSwitch(m, !m.selected)}
+              updateCounts={onSwitch}
               disabled={disabled}
             />
           ))}
@@ -373,7 +403,7 @@ export const DraftList = (props: DraftListProps) => {
               key={m.id}
               model={m}
               stateDoc={props.stateDoc}
-              onChange={() => onSwitch(m, !m.selected)}
+              updateCounts={onSwitch}
               disabled={disabled}
             />
           ))}
@@ -385,7 +415,7 @@ export const DraftList = (props: DraftListProps) => {
               key={m.id}
               model={m}
               stateDoc={props.stateDoc}
-              onChange={() => onSwitch(m, !m.selected)}
+              updateCounts={onSwitch}
               disabled={disabled}
             />
           ))}
@@ -397,7 +427,7 @@ export const DraftList = (props: DraftListProps) => {
               key={m.id}
               model={m}
               stateDoc={props.stateDoc}
-              onChange={() => onSwitch(m, !m.selected)}
+              updateCounts={onSwitch}
               disabled={disabled}
             />
           ))}
@@ -434,8 +464,9 @@ export const BSDraftList = (props: DraftListProps) => {
     return () => sub?.unsubscribe();
   }, [setting$]);
 
-  const [masterCount, setMasterCount] = useState(0);
-  const [apprenticeCount, setApprenticeCount] = useState(0);
+  const counters = useRef({ masterCount: 0, apprenticeCount: 0 });
+  const [, setUpdate] = useState(0);
+
   const [ready, setReady] = useState(false);
 
   const roster = useRxData(
@@ -492,23 +523,24 @@ export const BSDraftList = (props: DraftListProps) => {
       if (!roster) {
         return;
       }
+
       model.selected = value;
 
       const newMasterCount = checkMasterCount(
         roster,
         model,
-        masterCount,
+        counters.current.masterCount,
         value
       );
-      setMasterCount(newMasterCount);
+      counters.current.masterCount = newMasterCount;
 
       const newApprenticeCount = checkApprenticeCount(
         roster,
         model,
-        apprenticeCount,
+        counters.current.apprenticeCount,
         value
       );
-      setApprenticeCount(newApprenticeCount);
+      counters.current.apprenticeCount = newApprenticeCount;
 
       checkVeterans(roster, model, value);
       checkBenched(roster, model, value, (benched, value) => {
@@ -536,8 +568,10 @@ export const BSDraftList = (props: DraftListProps) => {
       } else {
         setReady(false);
       }
+
+      setUpdate((old) => old + 1);
     },
-    [roster, masterCount, apprenticeCount, gameSize]
+    [props.stateDoc, roster, gameSize]
   );
 
   useEffect(() => {
@@ -580,7 +614,7 @@ export const BSDraftList = (props: DraftListProps) => {
               key={m.id}
               model={m}
               stateDoc={props.stateDoc}
-              onChange={() => onSwitch(m, !m.selected)}
+              updateCounts={onSwitch}
               disabled={disabled}
             />
           ))}
@@ -592,7 +626,7 @@ export const BSDraftList = (props: DraftListProps) => {
               key={m.id}
               model={m}
               stateDoc={props.stateDoc}
-              onChange={() => onSwitch(m, !m.selected)}
+              updateCounts={onSwitch}
               disabled={disabled}
             />
           ))}
@@ -604,7 +638,7 @@ export const BSDraftList = (props: DraftListProps) => {
               key={m.id}
               model={m}
               stateDoc={props.stateDoc}
-              onChange={() => onSwitch(m, !m.selected)}
+              updateCounts={onSwitch}
               disabled={disabled}
             />
           ))}
