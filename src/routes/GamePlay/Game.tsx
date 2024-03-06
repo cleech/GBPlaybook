@@ -37,6 +37,8 @@ import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdb";
 import { reSort } from "../../utils/reSort";
 import { map } from "rxjs";
 import { useRxData } from "../../hooks/useRxQuery";
+import { useNetworkState } from "../../components/onlineSetup";
+import { useGameState } from ".";
 
 export default function Game() {
   const theme = useTheme();
@@ -44,84 +46,51 @@ export default function Game() {
 
   const navigate = useNavigate();
 
-  const [team1, roster1, team2, roster2] =
+  const { active: networkActive, netDoc } = useNetworkState();
+
+  const { gameState1: team1, gameState2: team2 } = useGameState();
+
+  const [roster1, roster2] =
     useRxData(
       async (db) => {
-        const _team1 = await db.game_state
-          .findOne()
-          .where({ _id: "Player1" })
-          .exec();
-        const _team2 = await db.game_state
-          .findOne()
-          .where({ _id: "Player2" })
-          .exec();
-
         // kick out if there's a problem getting the data
-        if (!_team1 || !_team2) {
-          navigate("/game");
+        if (!team1 || !team2) {
+          // navigate("/game");
           return;
         }
 
         const _roster1 = await db.models
           .find()
           .where("id")
-          .in(_team1.roster.map((r) => r.name))
+          .in(team1.roster.map((r) => r.name))
           .exec();
 
         const __roster1 = await Promise.all(_roster1.map((m) => m.expand()));
         reSort(
           __roster1,
           "id",
-          _team1.roster.map((r) => r.name)
+          team1.roster.map((r) => r.name)
         );
 
         const _roster2 = await db.models
           .find()
           .where("id")
-          .in(_team2.roster.map((r) => r.name))
+          .in(team2.roster.map((r) => r.name))
           .exec();
 
         const __roster2 = await Promise.all(_roster2.map((m) => m.expand()));
         reSort(
           __roster2,
           "id",
-          _team2.roster.map((r) => r.name)
+          team2.roster.map((r) => r.name)
         );
-        return [_team1, __roster1, _team2, __roster2];
+        return [__roster1, __roster2];
       },
       [navigate]
     ) ?? [];
 
   const [showSnack, setShowSnack] = useState(false);
   const [blocked, setBlocked] = useState(false);
-
-  // const { dc } = useRTC();
-  // if (dc) {
-  //   teams[1].disable(true);
-  // }
-
-  // useEffect(() => {
-  //   if (!!dc) {
-  //     dc.onmessage = (ev: MessageEvent<string>) => {
-  //       const msg = JSON.parse(ev.data);
-  //       if (msg.model && msg.health !== undefined) {
-  //         const m = teams[1].roster.find((m) => m.id === msg.model);
-  //         m?.setHealth(msg.health);
-  //       }
-  //       if (msg.VP !== undefined) {
-  //         teams[1].setScore(msg.VP);
-  //       }
-  //       if (msg.MOM !== undefined) {
-  //         teams[1].setMomentum(msg.MOM);
-  //       }
-  //     };
-  //   }
-  //   return () => {
-  //     if (!!dc) {
-  //       dc.onmessage = null;
-  //     }
-  //   };
-  // }, [dc, teams]);
 
   const blocker = useBlocker(
     useCallback<BlockerFunction>(
@@ -179,12 +148,20 @@ export default function Game() {
 
       {large ? (
         <>
-          <GameList teams={[team1]} rosters={[roster1]} />
+          <GameList teams={[team1]} rosters={[roster1]} disabled={[false]} />
           <Divider orientation="vertical" />
-          <GameList teams={[team2]} rosters={[roster2]} />
+          <GameList
+            teams={[team2]}
+            rosters={[roster2]}
+            disabled={[networkActive]}
+          />
         </>
       ) : (
-        <GameList teams={[team1, team2]} rosters={[roster1, roster2]} />
+        <GameList
+          teams={[team1, team2]}
+          rosters={[roster1, roster2]}
+          disabled={[false, networkActive]}
+        />
       )}
 
       <Snackbar
@@ -210,9 +187,11 @@ export default function Game() {
 const GameList = ({
   teams,
   rosters,
+  disabled,
 }: {
   teams: GBGameStateDoc[];
   rosters: GBModelExpanded[][];
+  disabled: boolean[];
 }) => {
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
@@ -249,6 +228,7 @@ const GameList = ({
       }}
     >
       <RosterList
+        disabled={disabled}
         teams={teams}
         rosters={rosters}
         expanded={expanded}
@@ -324,7 +304,7 @@ const GameList = ({
                       <CardControls
                         model={m}
                         state={teams[index]}
-                        disabled={t.disabled}
+                        disabled={disabled[index]}
                       />
                     </FlipCard>
                   );
@@ -359,7 +339,7 @@ function CardControls({
 }: {
   state: GBGameStateDoc;
   model: GBModelExpanded;
-  disabled?: boolean;
+  disabled: boolean;
 }) {
   return (
     <Paper

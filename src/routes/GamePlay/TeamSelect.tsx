@@ -24,8 +24,11 @@ import { AppBarContent } from "../../App";
 import VersionTag from "../../components/VersionTag";
 import { pulseAnimationKeyFrames } from "../../hooks/useUpdateAnimation";
 import ResumeSnackBar from "./ResumeSnackBar";
-import { useRxData, useRxQuery } from "../../hooks/useRxQuery";
+import { useRxData, useRxQuery, useRxQueryFirst } from "../../hooks/useRxQuery";
 import { useData } from "../../hooks/useData";
+
+import { NetworkGame, useNetworkState } from "../../components/onlineSetup";
+import { useGameState } from ".";
 
 function SelectedIcon({ team, size }: { team: string; size: number }) {
   const guild = useRxData(
@@ -93,22 +96,53 @@ function GameControls(props: ControlProps) {
 
   const { gbdb: db } = useData();
 
-  const [teamDoc1, teamDoc2] =
-    useRxData(async (db) => {
-      const _team1 = await db.game_state
-        // .findOne()
-        // .where({ _id: "Player1" })
-        // .exec();
-        .upsert({ _id: "Player1", roster: [] })
-        .catch(console.error);
-      const _team2 = await db.game_state
-        // .findOne()
-        // .where({ _id: "Player2" })
-        // .exec();
-        .upsert({ _id: "Player2", roster: [] })
-        .catch(console.error);
-      return [_team1, _team2];
-    }, []) ?? [];
+  const { active: networkActive, netDoc } = useNetworkState();
+
+  // let player1 = "Player1";
+  // let player2 = "Player2";
+  // if (networkActive) {
+  //   player1 = netDoc?.get("uid");
+  //   player2 = netDoc?.get("oid");
+  // }
+
+  // const teamDoc1 = useRxData(
+  //   async (db) =>
+  //     await db.game_state
+  //       // .findOne()
+  //       // .where({ _id: "Player1" })
+  //       // .exec();
+  //       .upsert({ _id: player1, roster: [] })
+  //       .catch(console.error),
+  //   [player1]
+  // );
+
+  // useEffect(() => {
+  //   if (!networkActive) {
+  //     db?.game_state.upsert({ _id: player2, roster: [] }).catch(console.error);
+  //   }
+  // }, [player2, networkActive, db]);
+
+  // if (!networkActive) {
+  //   const teamDoc2 = useRxData(
+  //     async (db) =>
+  //       await db.game_state
+  //         // .findOne()
+  //         // .where({ _id: "Player2" })
+  //         // .exec();
+  //         .upsert({ _id: player2, roster: [] })
+  //         .catch(console.error),
+  //     [player2]
+  //   );
+  // } else {
+  // const teamDoc2 = useRxQueryFirst((db) =>
+  // db.game_state.findOne().where({ _id: player2 })
+  // );
+  // }
+
+  const {
+    gameState1: teamDoc1,
+    gameState2: teamDoc2,
+  } = useGameState();
 
   useEffect(() => {
     const sub1 = teamDoc1?.get$("guild").subscribe((g) => setTeam1(g));
@@ -121,19 +155,22 @@ function GameControls(props: ControlProps) {
 
   const pickTeam = useCallback(
     async (name: string) => {
-      console.log(`pickTeam: ${name}`);
       if (!name) {
         return;
       }
       if (selector === "P1") {
-        await teamDoc1?.incrementalPatch({ guild: name }).catch(console.error);
-        if (!team2) {
+        await teamDoc1
+          ?.incrementalPatch({ guild: name, roster: [] })
+          .catch(console.error);
+        if (!team2 && !networkActive) {
           setSelector("P2");
         } else {
           setSelector("GO");
         }
       } else if (selector === "P2") {
-        await teamDoc2?.incrementalPatch({ guild: name }).catch(console.error);
+        await teamDoc2
+          ?.incrementalPatch({ guild: name, roster: [] })
+          .catch(console.error);
         if (!team1) {
           setSelector("P1");
         } else {
@@ -141,7 +178,7 @@ function GameControls(props: ControlProps) {
         }
       }
     },
-    [selector, team1, team2, teamDoc1, teamDoc2]
+    [selector, team1, team2, teamDoc1, teamDoc2, networkActive]
   );
 
   useEffect(() => {
@@ -212,6 +249,7 @@ function GameControls(props: ControlProps) {
       </div>
       <Button
         variant="outlined"
+        disabled={networkActive}
         style={{
           minWidth: props.size,
           maxWidth: props.size,
@@ -248,15 +286,25 @@ export default function TeamSelect() {
       }}
     >
       <AppBarContent>
-        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-          <IconButton size="small" disabled>
-            <Home sx={{ color: "text.secondary" }} />
-          </IconButton>
-        </Breadcrumbs>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            justifyContent: "space-between",
+          }}
+        >
+          <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+            <IconButton size="small" disabled>
+              <Home sx={{ color: "text.secondary" }} />
+            </IconButton>
+          </Breadcrumbs>
+          <NetworkGame />
+        </div>
       </AppBarContent>
       <GuildGrid Controller={GameControls} />
       <VersionTag />
-      <ResumeSnackBar />
+      {/* <ResumeSnackBar /> */}
     </Box>
   );
 }

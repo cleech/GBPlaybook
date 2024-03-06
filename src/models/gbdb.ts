@@ -298,7 +298,6 @@ export interface GBGameState {
   guild: string;
   score: number;
   momentum: number;
-  disabled: boolean;
   roster: { name: string; health: number }[];
   currentStep: SetupSteps;
   navigateTo: SetupSteps;
@@ -317,7 +316,6 @@ const gbGameStateSchema: RxJsonSchema<GBGameState> = {
     guild: { type: "string", ref: "guilds" },
     score: { type: "integer", minimum: 0, default: 0 },
     momentum: { type: "integer", minimum: 0, default: 0 },
-    disabled: { type: "boolean", default: false },
     roster: {
       type: "array",
       items: {
@@ -362,16 +360,16 @@ await gbdb.addCollections({
   },
   character_plays: { schema: gbCharacterPlaySchema },
   character_traits: { schema: gbCharacterTraitSchema },
-  game_state: { schema: gbGameStateSchema },
+  game_state: { schema: gbGameStateSchema, localDocuments: true },
 });
 
 export default gbdb;
 
-export function gbdbBeginReplication() {
+export function gbdbBeginReplication(topic: string) {
   return replicateWebRTC<GBGameState, SimplePeer>({
     collection: gbdb.game_state,
     connectionHandlerCreator: getConnectionHandlerSimplePeer({}),
-    topic: "gbplaybook",
+    topic,
     pull: {},
     push: {},
   }).then((replcationState) => {

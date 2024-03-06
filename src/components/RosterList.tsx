@@ -29,6 +29,7 @@ interface RosterListProps {
   rosters: GBModelExpanded[][];
   expanded: boolean;
   onClick: (index: number, expand: boolean) => void;
+  disabled: boolean[];
 }
 
 interface CounterProps<T> {
@@ -36,7 +37,7 @@ interface CounterProps<T> {
   label: (o: T) => string;
   value: (o: T) => number;
   setValue: (o: T, v: number) => void;
-  disabled?: boolean;
+  disabled: boolean;
   longPressClear?: boolean;
 }
 
@@ -254,7 +255,7 @@ export function HealthCounter({
   );
 }
 
-function ScoreCounter(props: { state: GBGameStateDoc }) {
+function ScoreCounter(props: { state: GBGameStateDoc; disabled: boolean }) {
   const state = props.state;
   const [score, setScore] = useState(0);
   useEffect(() => {
@@ -264,7 +265,7 @@ function ScoreCounter(props: { state: GBGameStateDoc }) {
   return (
     <Counter
       object={state}
-      disabled={state.disabled}
+      disabled={props.disabled}
       label={() => `VP: ${score}`}
       value={() => score}
       setValue={(t, v) => {
@@ -278,7 +279,7 @@ function ScoreCounter(props: { state: GBGameStateDoc }) {
   );
 }
 
-function MomentumCounter(props: { state: GBGameStateDoc }) {
+function MomentumCounter(props: { state: GBGameStateDoc; disabled: boolean }) {
   const state = props.state;
   const [momentum, setMomentum] = useState(0);
   useEffect(() => {
@@ -288,7 +289,7 @@ function MomentumCounter(props: { state: GBGameStateDoc }) {
   return (
     <Counter
       object={state}
-      disabled={state.disabled}
+      disabled={props.disabled}
       longPressClear={true}
       label={() => `MOM: ${momentum}`}
       value={() => momentum}
@@ -308,6 +309,7 @@ export default function RosterList({
   rosters,
   expanded,
   onClick,
+  disabled,
 }: RosterListProps) {
   const theme = useTheme();
 
@@ -403,8 +405,8 @@ export default function RosterList({
                 <div
                   style={{ display: "flex", flexDirection: "row", gap: "4px" }}
                 >
-                  <ScoreCounter state={team} />
-                  <MomentumCounter state={team} />
+                  <ScoreCounter state={team} disabled={disabled[index]} />
+                  <MomentumCounter state={team} disabled={disabled[index]} />
                 </div>
               </ListSubheader>
             </AccordionSummary>
@@ -426,18 +428,18 @@ export default function RosterList({
                   },
                 }}
               >
-                {rosters[index].map((m: GBModelExpanded, index: number) => (
+                {rosters[index].map((m: GBModelExpanded, _index: number) => (
                   <ListItem
                     key={m.id}
                     secondaryAction={
                       <HealthCounter
                         state={team}
                         model={m}
-                        disabled={team.disabled}
+                        disabled={disabled[index]}
                       />
                     }
                     onClick={() => {
-                      onClick(indexBase + index, false);
+                      onClick(indexBase + _index, false);
                     }}
                   >
                     <ListItemText

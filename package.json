@@ -29,7 +29,8 @@
     "rooks": "^7.14.1",
     "rxdb": "^15.8.1",
     "rxjs": "^7.8.1",
-    "swiper": "^11.0.7"
+    "swiper": "^11.0.7",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/color": "^3.0.4",

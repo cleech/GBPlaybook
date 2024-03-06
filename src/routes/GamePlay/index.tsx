@@ -1,55 +1,16 @@
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
-// import { IconButton } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Outlet, useOutletContext } from "react-router-dom";
 import { Box } from "@mui/material";
-// import SyncDisabledIcon from "@mui/icons-material/SyncDisabled";
-// import SyncIcon from "@mui/icons-material/Sync";
-// import { map } from "rxjs";
 
 import { AppBarContent, AppBarContext } from "../../App";
-// import Lobby from "../../components/Lobby";
 import OddsCalc from "../../components/Calc";
-// import { useRTC } from "../../services/webrtc";
-// import { Offline, Online } from "react-detect-offline";
+import { useNetworkState } from "../../components/onlineSetup";
+import { useRxData } from "../../hooks/useRxQuery";
+import { useData } from "../../hooks/useData";
+import { GBGameStateDoc } from "../../models/gbdb";
+import { RxLocalDocument } from "rxdb";
 // import { useSettings } from "../../hooks/useSettings";
 // import { SettingsDoc } from "../../models/settings";
-
-// const LoginButton = () => {
-//   const [showDialog, setShowDialog] = useState(false);
-//   const { setting$ } = useSettings();
-//   const { dc } = useRTC();
-
-//   const [networkPlay, setNetworkPlay] = useState<boolean>(false);
-//   useEffect(() => {
-//     const sub = setting$
-//       ?.pipe(map((s) => s?.toJSON().data.networkPlay))
-//       .subscribe((np) => setNetworkPlay(np ?? false));
-
-//     return () => {
-//       sub?.unsubscribe();
-//     };
-//   });
-
-//   return networkPlay ? (
-//     <>
-//       <Lobby open={showDialog} onClose={() => setShowDialog(false)} />
-//       <Online polling={false}>
-//         <IconButton
-//           size="small"
-//           onClick={() => setShowDialog(true)}
-//           disabled={!!dc}
-//         >
-//           <SyncIcon color={dc ? "success" : "inherit"} />
-//         </IconButton>
-//       </Online>
-//       <Offline polling={false}>
-//         <IconButton size="small" disabled>
-//           <SyncDisabledIcon />
-//         </IconButton>
-//       </Offline>
-//     </>
-//   ) : null;
-// };
 
 export default function GamePlay() {
   // const location = useLocation();
@@ -70,6 +31,71 @@ export default function GamePlay() {
   //   };
   // }, [location, settingsDoc]);
 
+  const { gbdb: db } = useData();
+
+  const { active: networkActive, netDoc } = useNetworkState();
+  const player1: string = networkActive ? netDoc?.get("uid") : "Player1";
+  const player2: string = networkActive ? netDoc?.get("oid") : "Player2";
+
+  // console.log(`network is ${networkActive}`);
+
+  // const [refresh, setRefresh] = useState(0);
+
+  // const team1 = useRxData(
+  //   (db) => db.game_state.findOne(player1).exec(),
+  //   [player1, refresh]
+  // );
+  // const team2 = useRxData(
+  //   (db) => db.game_state.findOne(player2).exec(),
+  //   [player2, refresh, networkActive]
+  // );
+
+  const [team1, setTeam1] = useState<GBGameStateDoc | null>();
+  useEffect(() => {
+    const doc$ = db?.game_state.findOne(player1).$;
+    const sub = doc$?.subscribe((doc) => {
+      setTeam1(doc);
+    });
+    return () => sub?.unsubscribe();
+  }, [db, player1]);
+
+  const [team2, setTeam2] = useState<GBGameStateDoc | null>();
+  useEffect(() => {
+    const doc$ = db?.game_state.findOne(player2).$;
+    const sub = doc$?.subscribe((doc) => {
+      setTeam2(doc);
+    });
+    return () => sub?.unsubscribe();
+  }, [db, player2]);
+
+  useEffect(() => {
+    if (!db) {
+      return;
+    }
+    const populate = async () => {
+      if (team1 === null) {
+        await db?.game_state.upsert({ _id: player1, roster: [] });
+      }
+    };
+    populate();
+  }, [db, team1, player1]);
+
+  useEffect(() => {
+    if (!db) {
+      return;
+    }
+    const populate = async () => {
+      if (team2 === null && !networkActive) {
+        await db?.game_state.upsert({ _id: player2, roster: [] });
+      }
+    };
+    populate();
+  }, [db, team2, player2, networkActive]);
+
+  // if (!team1 || !team2) {
+  //   return null;
+  // }
+
   return (
     <main
       style={{
@@ -89,13 +115,31 @@ export default function GamePlay() {
           }}
         />
         <OddsCalc />
-        {/* <LoginButton /> */}
       </AppBarContent>
       <AppBarContext.Provider value={appBarContainer}>
-        <Outlet />
+        <Outlet
+          context={
+            {
+              // player1,
+              gameState1: team1,
+              // player2,
+              gameState2: team2,
+            } as GameContextType
+          }
+        />
       </AppBarContext.Provider>
     </main>
   );
+}
+
+type GameContextType = {
+  // player1: string;
+  gameState1: GBGameStateDoc;
+  // player2: string;
+  gameState2: GBGameStateDoc;
+};
+export function useGameState() {
+  return useOutletContext<GameContextType>();
 }
 
 export { default as TeamSelect } from "./TeamSelect";

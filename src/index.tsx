@@ -23,7 +23,7 @@ import { DataProvider } from "./components/DataContext";
 import { CardPrintScreen } from "./routes/print";
 
 import { FirebaseProvider } from "./services/firebase";
-import { RTCProvider } from "./services/webrtc";
+
 import {
   SettingsDoc,
   SettingsProvider,
@@ -73,13 +73,11 @@ const root = ReactDOM.createRoot(
 root.render(
   // <React.StrictMode>
     <FirebaseProvider>
-      <RTCProvider>
         <SettingsProvider>
           <DataProvider>
             <RouterProvider router={router} />
           </DataProvider>
         </SettingsProvider>
-      </RTCProvider>
     </FirebaseProvider>
   // </React.StrictMode>
 );
