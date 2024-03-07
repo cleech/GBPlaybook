@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import { RxDocument, RxQuery } from "rxdb";
 import { useData } from "./useData";
 import { GBDatabase } from "../models/gbdb";
-import { first } from "rxjs";
 
 export function useRxQuery<T>(
   query: (db: GBDatabase) => RxQuery<T>
@@ -16,27 +15,6 @@ export function useRxQuery<T>(
     const sub = query(db).$.subscribe((result) => {
       setResult(result);
     });
-    return () => {
-      sub.unsubscribe();
-    };
-  }, [db, query]);
-  return result;
-}
-
-export function useRxQueryFirst<T>(
-  query: (db: GBDatabase) => RxQuery<T>
-): RxDocument<T> | undefined {
-  const { gbdb: db } = useData();
-  const [result, setResult] = useState<RxDocument<T>>();
-  useEffect(() => {
-    if (!db || !query) {
-      return;
-    }
-    const sub = query(db)
-      .$.pipe(first((x) => Boolean(x)))
-      .subscribe((result) => {
-        setResult(result);
-      });
     return () => {
       sub.unsubscribe();
     };

@@ -7,12 +7,11 @@ import {
   addRxPlugin,
 } from "rxdb";
 import { getRxStorageDexie } from "rxdb/plugins/storage-dexie";
-import { getRxStorageMemory } from "rxdb/plugins/storage-memory";
+// import { getRxStorageMemory } from "rxdb/plugins/storage-memory";
+// import { wrappedValidateAjvStorage } from "rxdb/plugins/validate-ajv";
 import { RxDBDevModePlugin } from "rxdb/plugins/dev-mode";
-// import { RxDBUpdatePlugin } from "rxdb/plugins/update";
 import { RxDBQueryBuilderPlugin } from "rxdb/plugins/query-builder";
 import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
-import { wrappedValidateAjvStorage } from "rxdb/plugins/validate-ajv";
 
 import {
   replicateWebRTC,
@@ -23,7 +22,6 @@ import {
 if (import.meta.env.MODE === "development") {
   addRxPlugin(RxDBDevModePlugin);
 }
-// addRxPlugin(RxDBUpdatePlugin);
 addRxPlugin(RxDBQueryBuilderPlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
 

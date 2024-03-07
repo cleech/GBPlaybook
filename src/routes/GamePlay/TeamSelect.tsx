@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Fab,
@@ -7,10 +7,7 @@ import {
   useTheme,
   Breadcrumbs,
   IconButton,
-  // Snackbar,
-  // Alert,
   Box,
-  Divider,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../../components/GuildGrid";
@@ -22,13 +19,13 @@ import { Home, NavigateNext } from "@mui/icons-material";
 import { AppBarContent } from "../../App";
 
 import VersionTag from "../../components/VersionTag";
-import { pulseAnimationKeyFrames } from "../../hooks/useUpdateAnimation";
-import ResumeSnackBar from "./ResumeSnackBar";
-import { useRxData, useRxQuery, useRxQueryFirst } from "../../hooks/useRxQuery";
-import { useData } from "../../hooks/useData";
+// import { pulseAnimationKeyFrames } from "../../hooks/useUpdateAnimation";
+// import ResumeSnackBar from "./ResumeSnackBar";
+import { useRxData } from "../../hooks/useRxQuery";
 
 import { NetworkGame, useNetworkState } from "../../components/onlineSetup";
-import { useGameState } from ".";
+import { useGameState } from "../../hooks/useGameState";
+import { GBGameStateDoc } from "../../models/gbdb";
 
 function SelectedIcon({ team, size }: { team: string; size: number }) {
   const guild = useRxData(
@@ -94,64 +91,33 @@ function GameControls(props: ControlProps) {
   const theme = useTheme();
   const fabRef = useRef<HTMLButtonElement | null>(null);
 
-  const { gbdb: db } = useData();
+  const { active: networkActive } = useNetworkState();
 
-  const { active: networkActive, netDoc } = useNetworkState();
+  const { gameState1$, gameState2$ } = useGameState();
 
-  // let player1 = "Player1";
-  // let player2 = "Player2";
-  // if (networkActive) {
-  //   player1 = netDoc?.get("uid");
-  //   player2 = netDoc?.get("oid");
-  // }
+  const [teamDoc1, setGameState1] = useState<GBGameStateDoc | null>();
+  useEffect(() => {
+    const sub = gameState1$?.subscribe((doc) => {
+      setGameState1(doc);
+    });
+    return () => sub?.unsubscribe();
+  }, [gameState1$]);
 
-  // const teamDoc1 = useRxData(
-  //   async (db) =>
-  //     await db.game_state
-  //       // .findOne()
-  //       // .where({ _id: "Player1" })
-  //       // .exec();
-  //       .upsert({ _id: player1, roster: [] })
-  //       .catch(console.error),
-  //   [player1]
-  // );
-
-  // useEffect(() => {
-  //   if (!networkActive) {
-  //     db?.game_state.upsert({ _id: player2, roster: [] }).catch(console.error);
-  //   }
-  // }, [player2, networkActive, db]);
-
-  // if (!networkActive) {
-  //   const teamDoc2 = useRxData(
-  //     async (db) =>
-  //       await db.game_state
-  //         // .findOne()
-  //         // .where({ _id: "Player2" })
-  //         // .exec();
-  //         .upsert({ _id: player2, roster: [] })
-  //         .catch(console.error),
-  //     [player2]
-  //   );
-  // } else {
-  // const teamDoc2 = useRxQueryFirst((db) =>
-  // db.game_state.findOne().where({ _id: player2 })
-  // );
-  // }
-
-  const {
-    gameState1: teamDoc1,
-    gameState2: teamDoc2,
-  } = useGameState();
+  const [teamDoc2, setGameState2] = useState<GBGameStateDoc | null>();
+  useEffect(() => {
+    const sub = gameState2$?.subscribe((doc) => setGameState2(doc));
+    return () => sub?.unsubscribe();
+  }, [gameState2$]);
 
   useEffect(() => {
     const sub1 = teamDoc1?.get$("guild").subscribe((g) => setTeam1(g));
+    return () => sub1?.unsubscribe();
+  }, [teamDoc1]);
+
+  useEffect(() => {
     const sub2 = teamDoc2?.get$("guild").subscribe((g) => setTeam2(g));
-    return () => {
-      sub1?.unsubscribe();
-      sub2?.unsubscribe();
-    };
-  }, [teamDoc1, teamDoc2]);
+    return () => sub2?.unsubscribe();
+  }, [teamDoc2]);
 
   const pickTeam = useCallback(
     async (name: string) => {

@@ -1,5 +1,5 @@
 import { useCallback, useState, useRef, useEffect, MouseEvent } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Fab,
   Typography,
@@ -11,7 +11,6 @@ import {
   MenuList,
 } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import { useData } from "../../hooks/useData";
 import { DraftList, BSDraftList } from "../../components/Draft";
 
 import "./Draft.css";
@@ -21,14 +20,14 @@ import { AppBarContent } from "../../App";
 
 import VersionTag from "../../components/VersionTag";
 // import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
-import { GBModel } from "../../models/gbdb";
-import ResumeSnackBar from "./ResumeSnackBar";
+import { GBGameStateDoc, GBModel } from "../../models/gbdb";
+// import ResumeSnackBar from "./ResumeSnackBar";
 import { SettingsDoc } from "../../models/settings";
 import { useSettings } from "../../hooks/useSettings";
 import { useRxData } from "../../hooks/useRxQuery";
-import { map } from "rxjs";
+import { firstValueFrom, map } from "rxjs";
 import { useNetworkState } from "../../components/onlineSetup";
-import { useGameState } from ".";
+import { useGameState } from "../../hooks/useGameState";
 
 export default function Draft() {
   return (
@@ -62,7 +61,6 @@ function DraftInner() {
   const navigate = useNavigate();
   // const [waiting, setWaiting] = useState(false);
   // const [locked, setLocked] = useState(false);
-  // const { dc } = useRTC();
 
   const [team1, setTeam1] = useState<GBModel[] | undefined>();
   const [team2, setTeam2] = useState<GBModel[] | undefined>();
@@ -81,24 +79,45 @@ function DraftInner() {
     return () => sub?.unsubscribe();
   }, [setting$]);
 
-  const { active: networkActive, netDoc } = useNetworkState();
+  const { active: networkActive } = useNetworkState();
 
-  // let _player1 = "Player1";
-  // let _player2 = "Player2";
-  // if (networkActive) {
-  //   _player1 = netDoc?.get("uid");
-  //   _player2 = netDoc?.get("oid");
-  // }
+  const { gameState1$, gameState2$ } = useGameState();
 
-  // const player1 = useRxData((db) =>
-  //   db.game_state.findOne().where({ _id: _player1 }).exec()
-  // );
-  // const player2 = useRxData((db) =>
-  //   db.game_state.findOne().where({ _id: _player2 }).exec()
-  // );
-  const { gameState1: player1, gameState2: player2 } = useGameState();
+  const [player1, setPlayer1] = useState<GBGameStateDoc | null>();
+  useEffect(() => {
+    if (!gameState1$) {
+      return;
+    }
+    let canceled = false;
+    const snapshot = async () => {
+      const doc = await firstValueFrom(gameState1$);
+      if (!canceled) {
+        setPlayer1(doc);
+      }
+    };
+    snapshot();
+    return () => {
+      canceled = true;
+    };
+  }, [gameState1$]);
 
-  const { gbdb: db } = useData();
+  const [player2, setPlayer2] = useState<GBGameStateDoc | null>();
+  useEffect(() => {
+    if (!gameState2$) {
+      return;
+    }
+    let canceled = false;
+    const snapshot = async () => {
+      const doc = await firstValueFrom(gameState2$);
+      if (!canceled) {
+        setPlayer2(doc);
+      }
+    };
+    snapshot();
+    return () => {
+      canceled = true;
+    };
+  }, [gameState2$]);
 
   const [guild1, guild2] =
     useRxData(
@@ -126,11 +145,6 @@ function DraftInner() {
 
   // wait for data load from db
   if (!guild1 || !guild2 || !player1 || !player2) {
-    // console.log("missing something");
-    // console.log(`guild1: ${guild1}`);
-    // console.log(`guild2: ${guild2}`);
-    // console.log(`player1: ${player1?.guild}`);
-    // console.log(`player2: ${player2?.guild}`);
     return null;
   }
 
@@ -155,31 +169,17 @@ function DraftInner() {
         color="secondary"
         disabled={!team1 || !team2}
         onClick={async () => {
-          // await db?.game_state
-          //   .upsert({
-          //     _id: "Player1",
-          //     guild: guild1.name,
-          //     roster: team1?.map((m) => ({ name: m.id, health: m.hp })) || [],
-          //     score: 0,
-          //     momentum: 0,
-          //   })
-          //   .catch(console.error);
           await player1
-            .patch({
+            .incrementalPatch({
+              score: 0,
+              momentum: 0,
               roster: team1?.map((m) => ({ name: m.id, health: m.hp })) || [],
             })
             .catch(console.error);
-          // await db?.game_state
-          //   .upsert({
-          //     _id: "Player2",
-          //     guild: guild2.name,
-          //     roster: team2?.map((m) => ({ name: m.id, health: m.hp })) || [],
-          //     score: 0,
-          //     momentum: 0,
-          //   })
-          //   .catch(console.error);
           await player2
-            .patch({
+            .incrementalPatch({
+              score: 0,
+              momentum: 0,
               roster: team2?.map((m) => ({ name: m.id, health: m.hp })) || [],
             })
             .catch(console.error);

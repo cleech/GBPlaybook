@@ -63,7 +63,6 @@ async function leaveNetworkGame(db: GBDatabase) {
 }
 
 export function useNetworkState() {
-  // return replicationState !== undefined;
   const { gbdb: db } = useData();
   const [active, setActive] = useState(false);
   const [state, setState] = useState<RxLocalDocument<NetworkLocalState>>();

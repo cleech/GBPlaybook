@@ -5,7 +5,6 @@ import {
   useCallback,
   Suspense,
   useEffect,
-  // useEffect,
 } from "react";
 
 import {
@@ -25,7 +24,6 @@ import {
   Breadcrumbs,
   Link,
   IconButton,
-  Divider,
 } from "@mui/material";
 
 import type { Swiper as SwiperRef } from "swiper";

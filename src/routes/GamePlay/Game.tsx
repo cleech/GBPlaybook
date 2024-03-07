@@ -34,10 +34,10 @@ import { AppBarContent } from "../../App";
 import { FlipGuildCard } from "../../components/GuildCard";
 import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdb";
 import { reSort } from "../../utils/reSort";
-import { map } from "rxjs";
+import { firstValueFrom, map } from "rxjs";
 import { useRxData } from "../../hooks/useRxQuery";
 import { useNetworkState } from "../../components/onlineSetup";
-import { useGameState } from ".";
+import { useGameState } from "../../hooks/useGameState";
 
 export default function Game() {
   const [showSnack, setShowSnack] = useState(false);
@@ -111,7 +111,44 @@ function GameInner() {
   const navigate = useNavigate();
 
   const { active: networkActive } = useNetworkState();
-  const { gameState1: team1, gameState2: team2 } = useGameState();
+
+  const { gameState1$, gameState2$ } = useGameState();
+
+  const [team1, setGameState1] = useState<GBGameStateDoc | null>();
+  useEffect(() => {
+    if (!gameState1$) {
+      return;
+    }
+    let canceled = false;
+    const snapshot = async () => {
+      const doc = await firstValueFrom(gameState1$);
+      if (!canceled) {
+        setGameState1(doc);
+      }
+    };
+    snapshot();
+    return () => {
+      canceled = true;
+    };
+  }, [gameState1$]);
+
+  const [team2, setGameState2] = useState<GBGameStateDoc | null>();
+  useEffect(() => {
+    if (!gameState2$) {
+      return;
+    }
+    let cancled = false;
+    const snapshot = async () => {
+      const doc = await firstValueFrom(gameState2$);
+      if (!cancled) {
+        setGameState2(doc);
+      }
+    };
+    snapshot();
+    return () => {
+      cancled = true;
+    };
+  }, [gameState2$]);
 
   const [roster1, roster2] =
     useRxData(

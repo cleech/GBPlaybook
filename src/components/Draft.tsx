@@ -15,8 +15,8 @@ import { useUpdateAnimation } from "../hooks/useUpdateAnimation";
 import { GBGameStateDoc, GBGuild, GBModel } from "../models/gbdb";
 import { reSort } from "../utils/reSort";
 import { useSettings } from "../hooks/useSettings";
-import { useRxData, useRxQuery } from "../hooks/useRxQuery";
-import { Observable, count, map } from "rxjs";
+import { useRxData } from "../hooks/useRxQuery";
+import { map } from "rxjs";
 
 export interface DraftModel extends GBModel {
   selected: boolean;

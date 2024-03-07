@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { Outlet, useOutletContext } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
 
 import { AppBarContent, AppBarContext } from "../../App";
 import OddsCalc from "../../components/Calc";
 import { useNetworkState } from "../../components/onlineSetup";
-import { useRxData } from "../../hooks/useRxQuery";
 import { useData } from "../../hooks/useData";
 import { GBGameStateDoc } from "../../models/gbdb";
-import { RxLocalDocument } from "rxdb";
+import { Observable, firstValueFrom } from "rxjs";
+import { GameContextType } from "../../hooks/useGameState";
 // import { useSettings } from "../../hooks/useSettings";
 // import { SettingsDoc } from "../../models/settings";
 
@@ -17,11 +17,6 @@ export default function GamePlay() {
   // const { setting$ } = useSettings();
   // const [settingsDoc, setSettingsDoc] = useState<SettingsDoc | null>();
   const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
-
-  // useEffect(() => {
-  //   const sub = setting$?.subscribe((s) => setSettingsDoc(s));
-  //   return () => sub?.unsubscribe();
-  // }, [setting$]);
 
   // useEffect(() => {
   //   return () => {
@@ -37,35 +32,16 @@ export default function GamePlay() {
   const player1: string = networkActive ? netDoc?.get("uid") : "Player1";
   const player2: string = networkActive ? netDoc?.get("oid") : "Player2";
 
-  // console.log(`network is ${networkActive}`);
-
-  // const [refresh, setRefresh] = useState(0);
-
-  // const team1 = useRxData(
-  //   (db) => db.game_state.findOne(player1).exec(),
-  //   [player1, refresh]
-  // );
-  // const team2 = useRxData(
-  //   (db) => db.game_state.findOne(player2).exec(),
-  //   [player2, refresh, networkActive]
-  // );
-
-  const [team1, setTeam1] = useState<GBGameStateDoc | null>();
+  const [team1, setTeam1] = useState<Observable<GBGameStateDoc | null>>();
   useEffect(() => {
     const doc$ = db?.game_state.findOne(player1).$;
-    const sub = doc$?.subscribe((doc) => {
-      setTeam1(doc);
-    });
-    return () => sub?.unsubscribe();
+    setTeam1(doc$);
   }, [db, player1]);
 
-  const [team2, setTeam2] = useState<GBGameStateDoc | null>();
+  const [team2, setTeam2] = useState<Observable<GBGameStateDoc | null>>();
   useEffect(() => {
     const doc$ = db?.game_state.findOne(player2).$;
-    const sub = doc$?.subscribe((doc) => {
-      setTeam2(doc);
-    });
-    return () => sub?.unsubscribe();
+    setTeam2(doc$);
   }, [db, player2]);
 
   useEffect(() => {
@@ -73,7 +49,11 @@ export default function GamePlay() {
       return;
     }
     const populate = async () => {
-      if (team1 === null) {
+      if (!team1) {
+        return;
+      }
+      const _team1 = await firstValueFrom(team1);
+      if (_team1 === null) {
         await db?.game_state.upsert({ _id: player1, roster: [] });
       }
     };
@@ -85,16 +65,16 @@ export default function GamePlay() {
       return;
     }
     const populate = async () => {
-      if (team2 === null && !networkActive) {
+      if (!team2) {
+        return;
+      }
+      const _team2 = await firstValueFrom(team2);
+      if (_team2 === null && !networkActive) {
         await db?.game_state.upsert({ _id: player2, roster: [] });
       }
     };
     populate();
   }, [db, team2, player2, networkActive]);
-
-  // if (!team1 || !team2) {
-  //   return null;
-  // }
 
   return (
     <main
@@ -120,26 +100,14 @@ export default function GamePlay() {
         <Outlet
           context={
             {
-              // player1,
-              gameState1: team1,
-              // player2,
-              gameState2: team2,
+              gameState1$: team1,
+              gameState2$: team2,
             } as GameContextType
           }
         />
       </AppBarContext.Provider>
     </main>
   );
-}
-
-type GameContextType = {
-  // player1: string;
-  gameState1: GBGameStateDoc;
-  // player2: string;
-  gameState2: GBGameStateDoc;
-};
-export function useGameState() {
-  return useOutletContext<GameContextType>();
 }
 
 export { default as TeamSelect } from "./TeamSelect";
