@@ -18,7 +18,10 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    nodePolyfills(),
+    nodePolyfills({
+      include: [],
+      globals: { Buffer: false, global: true, process: true },
+    }),
     VitePWA({
       registerType: "autoUpdate",
       workbox: {
@@ -98,7 +101,6 @@ export default defineConfig({
     }),
   ],
   define: {
-    global: "globalThis",
     BUILD_DATE: JSON.stringify(new Date().toISOString()),
   },
   server: {
