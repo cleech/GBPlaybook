@@ -5,6 +5,7 @@ import {
   useCallback,
   Suspense,
   useEffect,
+  MutableRefObject,
 } from "react";
 
 import {
@@ -12,7 +13,8 @@ import {
   useParams,
   useNavigate,
   useSearchParams,
-  // useLocation,
+  useLocation,
+  useOutletContext,
 } from "react-router-dom";
 
 import {
@@ -49,27 +51,27 @@ import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 import { GBGuildDoc } from "../models/gbdb";
 import { reSort } from "../utils/reSort";
 import { useRxData } from "../hooks/useRxQuery";
-// import { useSettings } from "../hooks/useSettings";
-// import { SettingsDoc } from "../models/settings";
+import { useSettings } from "../hooks/useSettings";
+import { firstValueFrom } from "rxjs";
 
 export default function Library() {
-  // const location = useLocation();
+  const location = useLocation();
+  const { setting$ } = useSettings();
+  const [searchParams] = useSearchParams();
+  const slideRef = useRef(searchParams.get("m"));
 
-  // const { setting$ } = useSettings();
-  // const [settingsDoc, setSettingsDoc] = useState<SettingsDoc | null>();
-
-  // useEffect(() => {
-  //   const sub = setting$?.subscribe((s) => setSettingsDoc(s));
-  //   return () => sub?.unsubscribe();
-  // }, [setting$]);
-
-  // useEffect(() => {
-  //   return () => {
-  //     settingsDoc?.incrementalPatch({
-  //       libraryRoute: `${location.pathname}${location.search}`,
-  //     });
-  //   };
-  // }, [location, settingsDoc]);
+  useEffect(() => {
+    if (!setting$) return;
+    return () => {
+      firstValueFrom(setting$)
+        .then((settingsDoc) =>
+          settingsDoc?.incrementalPatch({
+            libraryRoute: `${location.pathname}?m=${slideRef.current}`,
+          })
+        )
+        .catch(console.error);
+    };
+  }, [location, setting$]);
 
   return (
     <main
@@ -81,13 +83,19 @@ export default function Library() {
       }}
     >
       <Suspense fallback={<p>Loading ...</p>}>
-        <Outlet />
+        <Outlet context={{ slideRef }} />
       </Suspense>
     </main>
   );
 }
 
 export function GuildList() {
+  const { slideRef } = useOutletContext<{
+    slideRef: MutableRefObject<number>;
+  }>();
+
+  slideRef.current = 0;
+
   return (
     <>
       <AppBarContent>
@@ -97,8 +105,6 @@ export function GuildList() {
       </AppBarContent>
       <GuildGrid
         Controller={ExtraIconsControl}
-        // sizeUpdate={(size) => setSize(size)}
-        // controls={ExtraIconsControl}
         // extraIcons={[
         //   {
         //     key: "gameplans",
@@ -161,8 +167,6 @@ function ExtraIconsControl(props: ControlProps) {
 
 export function Roster() {
   const { guild } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
-
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -186,6 +190,9 @@ export function Roster() {
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
   const navigate = useNavigate();
+  const { slideRef } = useOutletContext<{
+    slideRef: MutableRefObject<number>;
+  }>();
 
   const [g, roster] =
     useRxData(
@@ -236,13 +243,9 @@ export function Roster() {
       >
         <Swiper
           onSwiper={setSwiper}
-          initialSlide={
-            (g?.roster.findIndex((m) => m === searchParams.get("m")) || 0) + 1
-          }
+          initialSlide={slideRef.current}
           onSlideChange={(swiper) => {
-            setSearchParams(`m=${g.roster[swiper.activeIndex - 1]}`, {
-              replace: true,
-            });
+            slideRef.current = swiper.activeIndex;
           }}
           slidesPerView="auto"
           centeredSlides={true}
@@ -319,8 +322,6 @@ export function Roster() {
 }
 
 export function GamePlans() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
   // const large = useMediaQuery(theme.breakpoints.up("sm"));
   const large = false;
 
@@ -342,6 +343,10 @@ export function GamePlans() {
   });
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
+
+  const { slideRef } = useOutletContext<{
+    slideRef: MutableRefObject<number>;
+  }>();
 
   const { gameplans } = useData();
 
@@ -373,11 +378,9 @@ export function GamePlans() {
       >
         <Swiper
           onSwiper={setSwiper}
-          initialSlide={Number(searchParams.get("m")) || 0}
+          initialSlide={slideRef.current}
           onSlideChange={(swiper) => {
-            setSearchParams(`m=${swiper.activeIndex}`, {
-              replace: true,
-            });
+            slideRef.current = swiper.activeIndex;
           }}
           slidesPerView="auto"
           centeredSlides={true}
@@ -423,8 +426,6 @@ export function GamePlans() {
 }
 
 export function RefCards() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
   // const large = useMediaQuery(theme.breakpoints.up("sm"));
   const large = false;
 
@@ -446,6 +447,10 @@ export function RefCards() {
   });
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
+
+  const { slideRef } = useOutletContext<{
+    slideRef: MutableRefObject<number>;
+  }>();
 
   return (
     <>
@@ -471,11 +476,9 @@ export function RefCards() {
       >
         <Swiper
           onSwiper={setSwiper}
-          initialSlide={Number(searchParams.get("m")) || 0}
+          initialSlide={slideRef.current}
           onSlideChange={(swiper) => {
-            setSearchParams(`m=${swiper.activeIndex}`, {
-              replace: true,
-            });
+            slideRef.current = swiper.activeIndex;
           }}
           slidesPerView="auto"
           centeredSlides={true}
