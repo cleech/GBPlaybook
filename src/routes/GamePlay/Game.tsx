@@ -31,7 +31,6 @@ import "swiper/css";
 import { Home, NavigateNext } from "@mui/icons-material";
 import { AppBarContent } from "../../App";
 
-// import { useRTC } from "../../services/webrtc";
 import { FlipGuildCard } from "../../components/GuildCard";
 import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdb";
 import { reSort } from "../../utils/reSort";
@@ -41,13 +40,77 @@ import { useNetworkState } from "../../components/onlineSetup";
 import { useGameState } from ".";
 
 export default function Game() {
+  const [showSnack, setShowSnack] = useState(false);
+  const [blocked, setBlocked] = useState(false);
+
+  const blocker = useBlocker(
+    useCallback<BlockerFunction>(
+      (args) => {
+        if (args.nextLocation.pathname.startsWith("/game")) {
+          setShowSnack(true);
+          return true;
+        }
+        return false;
+      },
+      [setShowSnack]
+    )
+  );
+
+  /* useBlocker doesn't seem to work unless some state is updated */
+  useEffect(() => {
+    setBlocked(true);
+  }, [blocked, setBlocked]);
+
+  return (
+    <Box
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "row",
+      }}
+    >
+      <AppBarContent>
+        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+          <IconButton color="inherit" href={`/game`} size="small">
+            <Home />
+          </IconButton>
+          <Link underline="hover" color="inherit" href={`/game/draft`}>
+            Draft
+          </Link>
+          <Typography>Play</Typography>
+        </Breadcrumbs>
+      </AppBarContent>
+
+      <GameInner />
+
+      <Snackbar
+        open={showSnack}
+        onClose={() => setShowSnack(false)}
+        autoHideDuration={5000}
+      >
+        <Alert
+          severity="warning"
+          action={
+            <Button size="small" onClick={blocker.proceed}>
+              Exit Game
+            </Button>
+          }
+        >
+          Making changes to the team selections will reset the game state.
+        </Alert>
+      </Snackbar>
+    </Box>
+  );
+}
+
+function GameInner() {
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
 
   const navigate = useNavigate();
 
-  const { active: networkActive, netDoc } = useNetworkState();
-
+  const { active: networkActive } = useNetworkState();
   const { gameState1: team1, gameState2: team2 } = useGameState();
 
   const [roster1, roster2] =
@@ -86,29 +149,8 @@ export default function Game() {
         );
         return [__roster1, __roster2];
       },
-      [navigate]
+      [navigate, team1, team2]
     ) ?? [];
-
-  const [showSnack, setShowSnack] = useState(false);
-  const [blocked, setBlocked] = useState(false);
-
-  const blocker = useBlocker(
-    useCallback<BlockerFunction>(
-      (args) => {
-        if (args.nextLocation.pathname.startsWith("/game")) {
-          setShowSnack(true);
-          return true;
-        }
-        return false;
-      },
-      [setShowSnack]
-    )
-  );
-
-  /* useBlocker doesn't seem to work unless some state is updated */
-  useEffect(() => {
-    setBlocked(true);
-  }, [blocked, setBlocked]);
 
   if (!team1 || !team2) {
     return null;
@@ -117,70 +159,22 @@ export default function Game() {
     return null;
   }
 
-  return (
-    <Box
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "row",
-      }}
-    >
-      <AppBarContent>
-        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-          <IconButton
-            color="inherit"
-            href={`/game?p1=${team1.guild}&p2=${team2.guild}`}
-            size="small"
-          >
-            <Home />
-          </IconButton>
-          <Link
-            underline="hover"
-            color="inherit"
-            href={`/game/draft?p1=${team1.guild}&p2=${team2.guild}`}
-          >
-            Draft
-          </Link>
-          <Typography>Play</Typography>
-        </Breadcrumbs>
-      </AppBarContent>
-
-      {large ? (
-        <>
-          <GameList teams={[team1]} rosters={[roster1]} disabled={[false]} />
-          <Divider orientation="vertical" />
-          <GameList
-            teams={[team2]}
-            rosters={[roster2]}
-            disabled={[networkActive]}
-          />
-        </>
-      ) : (
-        <GameList
-          teams={[team1, team2]}
-          rosters={[roster1, roster2]}
-          disabled={[false, networkActive]}
-        />
-      )}
-
-      <Snackbar
-        open={showSnack}
-        onClose={() => setShowSnack(false)}
-        autoHideDuration={5000}
-      >
-        <Alert
-          severity="warning"
-          action={
-            <Button size="small" onClick={blocker.proceed}>
-              Exit Game
-            </Button>
-          }
-        >
-          Making changes to the team selections will reset the game state.
-        </Alert>
-      </Snackbar>
-    </Box>
+  return large ? (
+    <>
+      <GameList teams={[team1]} rosters={[roster1]} disabled={[false]} />
+      <Divider orientation="vertical" />
+      <GameList
+        teams={[team2]}
+        rosters={[roster2]}
+        disabled={[networkActive]}
+      />
+    </>
+  ) : (
+    <GameList
+      teams={[team1, team2]}
+      rosters={[roster1, roster2]}
+      disabled={[false, networkActive]}
+    />
   );
 }
 
