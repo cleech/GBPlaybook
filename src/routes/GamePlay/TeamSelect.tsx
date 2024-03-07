@@ -97,14 +97,16 @@ function GameControls(props: ControlProps) {
 
   const [teamDoc1, setGameState1] = useState<GBGameStateDoc | null>();
   useEffect(() => {
-    const sub = gameState1$?.subscribe((doc) => {
-      setGameState1(doc);
-    });
+    setTeam1(undefined);
+    setSelector("P1");
+    const sub = gameState1$?.subscribe((doc) => setGameState1(doc));
     return () => sub?.unsubscribe();
   }, [gameState1$]);
 
   const [teamDoc2, setGameState2] = useState<GBGameStateDoc | null>();
   useEffect(() => {
+    setTeam2(undefined);
+    setSelector("P1");
     const sub = gameState2$?.subscribe((doc) => setGameState2(doc));
     return () => sub?.unsubscribe();
   }, [gameState2$]);

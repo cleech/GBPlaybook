@@ -27,7 +27,16 @@ interface NetworkLocalState {
   gid: string;
 }
 
+async function clearGameStateCollection(db: GBDatabase) {
+  await db.game_state
+    .find()
+    .exec()
+    .then((docs) => db.game_state.bulkRemove(docs.map((d) => d._id)))
+    .catch(console.error);
+}
+
 async function startNetworkGame(db: GBDatabase) {
+  await clearGameStateCollection(db);
   await db.game_state
     .insertLocal("network", {
       uid: player1_uuid,
@@ -39,6 +48,7 @@ async function startNetworkGame(db: GBDatabase) {
 }
 
 async function joinNetworkGame(db: GBDatabase) {
+  await clearGameStateCollection(db);
   await db.game_state
     .insertLocal("network", {
       uid: player2_uuid,
@@ -56,10 +66,11 @@ async function reconnectNetwork(db: GBDatabase) {
 }
 
 async function leaveNetworkGame(db: GBDatabase) {
-  const doc = await db.game_state.getLocal("network");
-  await doc?.remove();
   await replicationState?.cancel();
   replicationState = undefined;
+  await clearGameStateCollection(db);
+  const doc = await db.game_state.getLocal("network");
+  await doc?.remove();
 }
 
 export function useNetworkState() {
