@@ -366,7 +366,9 @@ export default gbdb;
 export function gbdbBeginReplication(topic: string) {
   return replicateWebRTC<GBGameState, SimplePeer>({
     collection: gbdb.game_state,
-    connectionHandlerCreator: getConnectionHandlerSimplePeer({}),
+    connectionHandlerCreator: getConnectionHandlerSimplePeer({
+      signalingServerUrl: 'ws://192.168.1.122:8081',
+    }),
     topic,
     pull: {},
     push: {},

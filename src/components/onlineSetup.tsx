@@ -35,8 +35,21 @@ async function clearGameStateCollection(db: GBDatabase) {
     .catch(console.error);
 }
 
-async function startNetworkGame(db: GBDatabase) {
+// only allow one async update to the replicatiopn state at a time
+let replicationStateChangeInProgress = false;
+function repStateFn(fn: (db: GBDatabase) => Promise<void>) {
+  return async (db: GBDatabase) => {
+    if (replicationStateChangeInProgress) return;
+    replicationStateChangeInProgress = true;
+    await fn(db);
+    replicationStateChangeInProgress = false;
+  };
+}
+
+const startNetworkGame = repStateFn(async (db: GBDatabase) => {
   await clearGameStateCollection(db);
+  console.log(`# starting new network game`);
+  replicationState = await gbdbBeginReplication(game_uuid);
   await db.game_state
     .insertLocal("network", {
       uid: player1_uuid,
@@ -44,11 +57,12 @@ async function startNetworkGame(db: GBDatabase) {
       gid: game_uuid,
     })
     .catch(console.error);
-  replicationState = await gbdbBeginReplication(game_uuid);
-}
+});
 
-async function joinNetworkGame(db: GBDatabase) {
+const joinNetworkGame = repStateFn(async (db: GBDatabase) => {
   await clearGameStateCollection(db);
+  console.log(`# joining a network game`);
+  replicationState = await gbdbBeginReplication(game_uuid);
   await db.game_state
     .insertLocal("network", {
       uid: player2_uuid,
@@ -56,22 +70,25 @@ async function joinNetworkGame(db: GBDatabase) {
       gid: game_uuid,
     })
     .catch(console.error);
-  replicationState = await gbdbBeginReplication(game_uuid);
-}
+});
 
-async function reconnectNetwork(db: GBDatabase) {
+const reconnectNetwork = repStateFn(async (db: GBDatabase) => {
   const doc = await db.game_state.getLocal("network");
   const gid = doc?.get("gid");
-  replicationState = await gbdbBeginReplication(gid);
-}
+  if (gid && replicationState === undefined) {
+    console.log(`# reconnecting to a network game`);
+    replicationState = await gbdbBeginReplication(gid);
+  }
+});
 
-async function leaveNetworkGame(db: GBDatabase) {
+const leaveNetworkGame = repStateFn(async (db: GBDatabase) => {
+  console.log(`# leaving a network game`);
   await replicationState?.cancel();
   replicationState = undefined;
   await clearGameStateCollection(db);
   const doc = await db.game_state.getLocal("network");
   await doc?.remove();
-}
+});
 
 export function useNetworkState() {
   const { gbdb: db } = useData();
