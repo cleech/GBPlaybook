@@ -22,8 +22,6 @@ import Settings from "./routes/settings";
 import { DataProvider } from "./components/DataContext";
 import { CardPrintScreen } from "./routes/print";
 
-import { FirebaseProvider } from "./services/firebase";
-
 import {
   SettingsDoc,
   SettingsProvider,
@@ -72,12 +70,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   // <React.StrictMode>
-    <FirebaseProvider>
         <SettingsProvider>
           <DataProvider>
             <RouterProvider router={router} />
           </DataProvider>
         </SettingsProvider>
-    </FirebaseProvider>
   // </React.StrictMode>
 );
