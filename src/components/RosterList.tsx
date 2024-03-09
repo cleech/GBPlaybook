@@ -17,7 +17,6 @@ import MinusIcon from "@mui/icons-material/Remove";
 import PlusIcon from "@mui/icons-material/Add";
 import useLongPress from "../hooks/useLongPress";
 import GBIcon from "./GBIcon";
-// import { useRTC } from "../services/webrtc";
 import { useUpdateAnimation } from "../hooks/useUpdateAnimation";
 import { GBGameStateDoc, GBModelExpanded } from "../models/gbdb";
 import { useEffect, useMemo, useState } from "react";
@@ -144,7 +143,6 @@ export function HealthCounter({
   disabled?: boolean;
   stacked?: boolean;
 }) {
-  // const { dc } = useRTC();
   const longPressDown = useLongPress({
     onLongPress: () => {
       state.incrementalModify((oldState) => {
@@ -152,7 +150,6 @@ export function HealthCounter({
         oldState.roster[m].health = 0;
         return oldState;
       });
-      // dc?.send(JSON.stringify({ model: model.id, health: 0 }));
     },
     onClick: () => {
       state.incrementalModify((oldState) => {
@@ -162,7 +159,6 @@ export function HealthCounter({
         }
         return oldState;
       });
-      // dc?.send(JSON.stringify({ model: model.id, health: h }));
     },
   });
   const longPressUp = useLongPress({
@@ -174,7 +170,6 @@ export function HealthCounter({
         }
         return oldState;
       });
-      // dc?.send(JSON.stringify({ model: model.id, health: model.recovery }));
     },
     onClick: () => {
       state.incrementalModify((oldState) => {
@@ -184,7 +179,6 @@ export function HealthCounter({
         }
         return oldState;
       });
-      // dc?.send(JSON.stringify({ model: model.id, health: h }));
     },
   });
 
@@ -322,7 +316,6 @@ export default function RosterList({
     return () => sub?.unsubscribe();
   });
 
-  // const { dc } = useRTC();
   const indexBases = teams.reduce(
     (acc, team, index) => {
       return [...acc, acc[index] + team.roster.length + 1];

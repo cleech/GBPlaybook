@@ -36,7 +36,7 @@ import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdb";
 import { reSort } from "../../utils/reSort";
 import { firstValueFrom, map } from "rxjs";
 import { useRxData } from "../../hooks/useRxQuery";
-import { useNetworkState } from "../../components/onlineSetup";
+import { NetworkStatus, useNetworkState } from "../../components/onlineSetup";
 import { useGameState } from "../../hooks/useGameState";
 
 export default function Game() {
@@ -71,15 +71,25 @@ export default function Game() {
       }}
     >
       <AppBarContent>
-        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-          <IconButton color="inherit" href={`/game`} size="small">
-            <Home />
-          </IconButton>
-          <Link underline="hover" color="inherit" href={`/game/draft`}>
-            Draft
-          </Link>
-          <Typography>Play</Typography>
-        </Breadcrumbs>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+            <IconButton color="inherit" href={`/game`} size="small">
+              <Home />
+            </IconButton>
+            <Link underline="hover" color="inherit" href={`/game/draft`}>
+              Draft
+            </Link>
+            <Typography>Play</Typography>
+          </Breadcrumbs>
+          <NetworkStatus />
+        </Box>
       </AppBarContent>
 
       <GameInner />

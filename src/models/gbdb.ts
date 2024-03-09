@@ -363,11 +363,11 @@ await gbdb.addCollections({
 
 export default gbdb;
 
-export function gbdbBeginReplication(topic: string) {
+export function gbdbBeginReplication(url: string, topic: string) {
   return replicateWebRTC<GBGameState, SimplePeer>({
     collection: gbdb.game_state,
     connectionHandlerCreator: getConnectionHandlerSimplePeer({
-      signalingServerUrl: 'ws://192.168.1.122:8081',
+      signalingServerUrl: url,
     }),
     topic,
     pull: {},

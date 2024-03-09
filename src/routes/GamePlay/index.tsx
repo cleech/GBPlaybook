@@ -10,12 +10,10 @@ import { GBGameStateDoc } from "../../models/gbdb";
 import { Observable, firstValueFrom } from "rxjs";
 import { GameContextType } from "../../hooks/useGameState";
 import { useSettings } from "../../hooks/useSettings";
-// import { SettingsDoc } from "../../models/settings";
 
 export default function GamePlay() {
   const location = useLocation();
   const { setting$ } = useSettings();
-  // const [settingsDoc, setSettingsDoc] = useState<SettingsDoc | null>();
   const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -37,49 +35,55 @@ export default function GamePlay() {
   const player1: string = networkActive ? netDoc?.get("uid") : "Player1";
   const player2: string = networkActive ? netDoc?.get("oid") : "Player2";
 
+  // Make sure there is a game state document available
+  // Create an empty one if there isn't
   const [team1, setTeam1] = useState<Observable<GBGameStateDoc | null>>();
   useEffect(() => {
     const doc$ = db?.game_state.findOne(player1).$;
     setTeam1(doc$);
+    if (!doc$) {
+      return;
+    }
+    let cancel = false;
+    const populate = async () => {
+      if (cancel) {
+        return;
+      }
+      const _team1 = await firstValueFrom(doc$);
+      if (_team1 === null) {
+        await db?.game_state.upsert({ _id: player1, roster: [] });
+      }
+    };
+    populate().catch(console.error);
+    return () => {
+      cancel = true;
+    };
   }, [db, player1]);
 
   const [team2, setTeam2] = useState<Observable<GBGameStateDoc | null>>();
   useEffect(() => {
     const doc$ = db?.game_state.findOne(player2).$;
     setTeam2(doc$);
-  }, [db, player2]);
-
-  useEffect(() => {
-    if (!db) {
+    if (!doc$) {
       return;
     }
+    let cancel = false;
     const populate = async () => {
-      if (!team1) {
+      if (cancel) {
         return;
       }
-      const _team1 = await firstValueFrom(team1);
-      if (_team1 === null) {
-        await db?.game_state.upsert({ _id: player1, roster: [] });
-      }
-    };
-    populate();
-  }, [db, team1, player1]);
-
-  useEffect(() => {
-    if (!db) {
-      return;
-    }
-    const populate = async () => {
-      if (!team2) {
-        return;
-      }
-      const _team2 = await firstValueFrom(team2);
+      const _team2 = await firstValueFrom(doc$);
+      // Don't create a document for the remote side of a network game
+      // Wait for replication to bring it over
       if (_team2 === null && !networkActive) {
         await db?.game_state.upsert({ _id: player2, roster: [] });
       }
     };
-    populate();
-  }, [db, team2, player2, networkActive]);
+    populate().catch(console.error);
+    return () => {
+      cancel = true;
+    };
+  }, [db, player2, networkActive]);
 
   return (
     <main

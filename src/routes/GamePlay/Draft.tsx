@@ -26,7 +26,7 @@ import { SettingsDoc } from "../../models/settings";
 import { useSettings } from "../../hooks/useSettings";
 import { useRxData } from "../../hooks/useRxQuery";
 import { firstValueFrom, map } from "rxjs";
-import { useNetworkState } from "../../components/onlineSetup";
+import { NetworkStatus, useNetworkState } from "../../components/onlineSetup";
 import { useGameState } from "../../hooks/useGameState";
 
 export default function Draft() {
@@ -47,7 +47,10 @@ export default function Draft() {
             </IconButton>
             <Typography>Draft</Typography>
           </Breadcrumbs>
-          <GameSizeMenu />
+          <div>
+            <GameSizeMenu />
+            <NetworkStatus />
+          </div>
         </Box>
       </AppBarContent>
       <DraftInner />
