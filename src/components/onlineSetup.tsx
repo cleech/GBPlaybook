@@ -18,9 +18,9 @@ import {
 import { RxLocalDocument } from "rxdb";
 import * as uuid from "uuid";
 
-const signalingServerUrl = import.meta.env.DEV
-  ? import.meta.env.VITE_SIGNALING_URL ?? "ws://localhost:8081"
-  : "wss://gbplaybook.onrender.com";
+const signalingServerUrl =
+  import.meta.env.VITE_SIGNALING_URL ??
+  "wss://gbplaybook-webrtc-server.onrender.com";
 
 // for testing before the handshake protocol is done
 // uuid.v4()
