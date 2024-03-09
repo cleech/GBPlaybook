@@ -1,15 +1,12 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Button,
-  Fab,
   Typography,
   useTheme,
   Breadcrumbs,
   IconButton,
   Box,
 } from "@mui/material";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../../components/GuildGrid";
 import GBIcon from "../../components/GBIcon";
 
@@ -26,6 +23,7 @@ import { useRxData } from "../../hooks/useRxQuery";
 import { NetworkGame, useNetworkState } from "../../components/onlineSetup";
 import { useGameState } from "../../hooks/useGameState";
 import { GBGameStateDoc } from "../../models/gbdb";
+import { NavigateFab } from "./NavigateFab";
 
 function SelectedIcon({ team, size }: { team: string; size: number }) {
   const guild = useRxData(
@@ -87,9 +85,7 @@ function GameControls(props: ControlProps) {
   const [team1, setTeam1] = useState<string>();
   const [team2, setTeam2] = useState<string>();
   const [waiting, setWaiting] = useState(false);
-  const navigate = useNavigate();
   const theme = useTheme();
-  const fabRef = useRef<HTMLButtonElement | null>(null);
 
   const { active: networkActive } = useNetworkState();
 
@@ -200,17 +196,12 @@ function GameControls(props: ControlProps) {
         }}
       >
         <Typography variant="caption">vs</Typography>
-        <Fab
-          ref={fabRef}
-          color="secondary"
+        <NavigateFab
+          dest="Draft"
           disabled={!team1 || !team2}
-          onClick={() => {
-            navigate(`/game/draft/`);
-          }}
+          onAction={() => setWaiting(true)}
           sx={{ m: "0 15px" }}
-        >
-          <PlayArrowIcon />
-        </Fab>
+        />
         <Typography variant="caption">
           {waiting ? "(waiting)" : "\u00A0"}
         </Typography>

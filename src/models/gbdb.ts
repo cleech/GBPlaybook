@@ -9,8 +9,10 @@ import {
 import { getRxStorageDexie } from "rxdb/plugins/storage-dexie";
 // import { getRxStorageMemory } from "rxdb/plugins/storage-memory";
 // import { wrappedValidateAjvStorage } from "rxdb/plugins/validate-ajv";
+import { RxDBCleanupPlugin } from "rxdb/plugins/cleanup";
 import { RxDBDevModePlugin } from "rxdb/plugins/dev-mode";
 import { RxDBQueryBuilderPlugin } from "rxdb/plugins/query-builder";
+import { RxDBLeaderElectionPlugin } from "rxdb/plugins/leader-election";
 import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
 
 import {
@@ -22,7 +24,9 @@ import {
 if (import.meta.env.MODE === "development") {
   addRxPlugin(RxDBDevModePlugin);
 }
+addRxPlugin(RxDBCleanupPlugin);
 addRxPlugin(RxDBQueryBuilderPlugin);
+addRxPlugin(RxDBLeaderElectionPlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
 
 type TupleOf<T, N extends number> = [T, ...T[]] & { length: N };
@@ -289,7 +293,7 @@ const gbCharacterTraitSchema: RxJsonSchema<GBCharacterTrait> = {
   required: ["text"],
 };
 
-type SetupSteps = "Guilds" | "Draft" | "Game";
+export type GBSetupSteps = "Guilds" | "Draft" | "Game";
 
 export interface GBGameState {
   _id: string;
@@ -297,8 +301,8 @@ export interface GBGameState {
   score: number;
   momentum: number;
   roster: { name: string; health: number }[];
-  currentStep: SetupSteps;
-  navigateTo: SetupSteps;
+  currentStep: GBSetupSteps;
+  navigateTo: GBSetupSteps;
 }
 
 export type GBGameStateDoc = RxDocument<GBGameState>;

@@ -1,7 +1,6 @@
-import { useCallback, useState, useRef, useEffect, MouseEvent } from "react";
+import { useCallback, useState, useEffect, MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  Fab,
   Typography,
   Breadcrumbs,
   IconButton,
@@ -10,7 +9,6 @@ import {
   MenuItem,
   MenuList,
 } from "@mui/material";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { DraftList, BSDraftList } from "../../components/Draft";
 
 import "./Draft.css";
@@ -28,6 +26,7 @@ import { useRxData } from "../../hooks/useRxQuery";
 import { firstValueFrom, map } from "rxjs";
 import { NetworkStatus, useNetworkState } from "../../components/onlineSetup";
 import { useGameState } from "../../hooks/useGameState";
+import { NavigateFab } from "./NavigateFab";
 
 export default function Draft() {
   return (
@@ -72,8 +71,6 @@ function DraftInner() {
   const unready1 = useCallback(() => setTeam1(undefined), []);
   const unready2 = useCallback(() => setTeam2(undefined), []);
 
-  const fabRef = useRef<HTMLButtonElement | null>(null);
-
   const [gameSize, setGameSize] = useState<3 | 4 | 6>();
   useEffect(() => {
     const sub = setting$
@@ -95,6 +92,9 @@ function DraftInner() {
     const snapshot = async () => {
       const doc = await firstValueFrom(gameState1$);
       if (!canceled) {
+        if (doc) {
+          doc.incrementalPatch({ currentStep: "Draft" });
+        }
         setPlayer1(doc);
       }
     };
@@ -113,6 +113,9 @@ function DraftInner() {
     const snapshot = async () => {
       const doc = await firstValueFrom(gameState2$);
       if (!canceled) {
+        if (doc) {
+          doc.incrementalPatch({ currentStep: "Draft" });
+        }
         setPlayer2(doc);
       }
     };
@@ -167,31 +170,29 @@ function DraftInner() {
       />
 
       {/* <Typography variant="caption">{"\u00A0"}</Typography> */}
-      <Fab
-        ref={fabRef}
-        color="secondary"
+      <NavigateFab
+        dest="Game"
         disabled={!team1 || !team2}
-        onClick={async () => {
-          await player1
+        onAction={() => {
+          player1
             .incrementalPatch({
               score: 0,
               momentum: 0,
               roster: team1?.map((m) => ({ name: m.id, health: m.hp })) || [],
             })
             .catch(console.error);
-          await player2
-            .incrementalPatch({
-              score: 0,
-              momentum: 0,
-              roster: team2?.map((m) => ({ name: m.id, health: m.hp })) || [],
-            })
-            .catch(console.error);
-          navigate("/game/draft/play");
+          if (!networkActive) {
+            player2
+              .incrementalPatch({
+                score: 0,
+                momentum: 0,
+                roster: team2?.map((m) => ({ name: m.id, health: m.hp })) || [],
+              })
+              .catch(console.error);
+          }
         }}
         sx={{ m: "10px" }}
-      >
-        <PlayArrowIcon />
-      </Fab>
+      />
       {/* <Typography variant="caption">
         {waiting ? "(waiting)" : "\u00A0"}
       </Typography> */}

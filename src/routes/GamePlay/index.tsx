@@ -6,10 +6,21 @@ import { AppBarContent, AppBarContext } from "../../App";
 import OddsCalc from "../../components/Calc";
 import { useNetworkState } from "../../components/onlineSetup";
 import { useData } from "../../hooks/useData";
-import { GBGameStateDoc } from "../../models/gbdb";
+import { GBGameStateDoc, GBSetupSteps } from "../../models/gbdb";
 import { Observable, firstValueFrom } from "rxjs";
 import { GameContextType } from "../../hooks/useGameState";
 import { useSettings } from "../../hooks/useSettings";
+
+export function stepToNav(step: GBSetupSteps) {
+  switch (step) {
+    case "Guilds":
+      return "/game";
+    case "Draft":
+      return "/game/draft";
+    case "Game":
+      return "/game/draft/play";
+  }
+}
 
 export default function GamePlay() {
   const location = useLocation();
@@ -51,7 +62,11 @@ export default function GamePlay() {
       }
       const _team1 = await firstValueFrom(doc$);
       if (_team1 === null) {
-        await db?.game_state.upsert({ _id: player1, roster: [] });
+        await db?.game_state.upsert({
+          _id: player1,
+          roster: [],
+          // currentStep: "Guilds",
+        });
       }
     };
     populate().catch(console.error);
@@ -76,7 +91,11 @@ export default function GamePlay() {
       // Don't create a document for the remote side of a network game
       // Wait for replication to bring it over
       if (_team2 === null && !networkActive) {
-        await db?.game_state.upsert({ _id: player2, roster: [] });
+        await db?.game_state.upsert({
+          _id: player2,
+          roster: [],
+          // currentStep: "Guilds",
+        });
       }
     };
     populate().catch(console.error);
