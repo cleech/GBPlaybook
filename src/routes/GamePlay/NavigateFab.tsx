@@ -4,9 +4,9 @@ import { Fab, SxProps } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GBSetupSteps } from "../../models/gbdb";
 import { firstValueFrom, map } from "rxjs";
-import { useNetworkState } from "../../components/onlineSetup";
+import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
-import { stepToNav } from ".";
+import { stepToNav } from "./utils";
 
 interface NavigateFabProps {
   disabled: boolean;

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -15,30 +15,22 @@ import {
   RxWebRTCReplicationPool,
   SimplePeer,
 } from "rxdb/plugins/replication-webrtc";
-import { RxLocalDocument } from "rxdb";
 import * as uuid from "uuid";
+import {
+  HandshakeInitMessage,
+  HandshakeMessage,
+  HandshakeIDs,
+  HandshakeJoinMessage,
+} from "./netHandshake";
+import { useNetworkState } from "../hooks/useNetworkState";
 
 const signalingServerUrl =
   import.meta.env.VITE_SIGNALING_URL ??
   "wss://gbplaybook-webrtc-server.onrender.com";
 
-// for testing before the handshake protocol is done
-// uuid.v4()
-// const player1_uuid = "c1ea2dfa-552a-4d7a-9fa5-eb30656db83b";
-// uuid.v4()
-// const player2_uuid = "458fbbc6-2a5f-4054-a592-160c42cb1dc5";
-// uuid.v4({random: uuid.parse(p1).map((a,i) => a ^ uuid.parse(p2)[i])})
-// const game_uuid = "8465963c-7f75-4d2e-ba37-fd3c27a6a5fe";
-
 let replicationState:
   | RxWebRTCReplicationPool<GBGameState, SimplePeer>
   | undefined = undefined;
-
-interface NetworkLocalState {
-  uid: string;
-  oid: string;
-  gid: string;
-}
 
 async function clearGameStateCollection(db: GBDatabase) {
   await db.game_state
@@ -118,30 +110,6 @@ const leaveNetworkGame = repStateFn(async (db: GBDatabase) => {
   const doc = await db.game_state.getLocal("network");
   await doc?.remove();
 });
-
-export function useNetworkState() {
-  const { gbdb: db } = useData();
-  const [active, setActive] = useState(false);
-  const [state, setState] = useState<RxLocalDocument<NetworkLocalState>>();
-
-  const network$ = useMemo(() => db?.game_state.getLocal$("network"), [db]);
-  useEffect(() => {
-    if (!network$) {
-      return;
-    }
-    const sub = network$.subscribe((doc) => {
-      if (doc && !doc.deleted) {
-        setState(doc);
-        setActive(true);
-      } else {
-        setState(undefined);
-        setActive(false);
-      }
-    });
-    return () => sub.unsubscribe();
-  }, [network$]);
-  return { active: active, netDoc: state };
-}
 
 // reconnect requires eith NetworkStatus or NetworkGame to be mounted
 
@@ -224,36 +192,6 @@ export function NetworkGame() {
       </Dialog>
     </>
   );
-}
-
-export type HandshakeInitMessage = {
-  type: "handshake-begin";
-};
-export type HandshakeResponseMessage = {
-  type: "handshake-response";
-  yourId: string;
-  code: number;
-};
-export type HandshakeJoinMessage = {
-  type: "handshake-join";
-  code: number;
-};
-export type HandshakeCompleteMessage = {
-  type: "handshake-complete";
-  yourId: string;
-  otherId: string;
-};
-
-export type HandshakeMessage =
-  | HandshakeInitMessage
-  | HandshakeResponseMessage
-  | HandshakeJoinMessage
-  | HandshakeCompleteMessage;
-
-interface HandshakeIDs {
-  uid: string;
-  oid: string;
-  gid: string;
 }
 
 let handshakeSocket: WebSocket | undefined;

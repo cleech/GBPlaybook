@@ -20,7 +20,8 @@ import VersionTag from "../../components/VersionTag";
 // import ResumeSnackBar from "./ResumeSnackBar";
 import { useRxData } from "../../hooks/useRxQuery";
 
-import { NetworkGame, useNetworkState } from "../../components/onlineSetup";
+import { NetworkGame } from "../../components/onlineSetup";
+import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
 import { GBGameStateDoc } from "../../models/gbdb";
 import { NavigateFab } from "./NavigateFab";

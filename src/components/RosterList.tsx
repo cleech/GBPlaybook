@@ -267,7 +267,6 @@ function ScoreCounter(props: { state: GBGameStateDoc; disabled: boolean }) {
           oldValue.score = v;
           return oldValue;
         });
-        // dc?.send(JSON.stringify({ VP: v }));
       }}
     />
   );
@@ -292,7 +291,6 @@ function MomentumCounter(props: { state: GBGameStateDoc; disabled: boolean }) {
           oldValue.momentum = v;
           return oldValue;
         });
-        // dc?.send(JSON.stringify({ MOM: v }));
       }}
     />
   );

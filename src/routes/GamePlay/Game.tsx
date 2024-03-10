@@ -36,7 +36,8 @@ import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdb";
 import { reSort } from "../../utils/reSort";
 import { firstValueFrom, map } from "rxjs";
 import { useRxData } from "../../hooks/useRxQuery";
-import { NetworkStatus, useNetworkState } from "../../components/onlineSetup";
+import { NetworkStatus } from "../../components/onlineSetup";
+import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
 
 export default function Game() {

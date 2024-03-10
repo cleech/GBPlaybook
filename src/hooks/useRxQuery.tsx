@@ -27,6 +27,7 @@ export function useRxData<T>(
   deps?: React.DependencyList
 ): T | undefined {
   const { gbdb: db } = useData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const _query = useCallback(query, deps ?? []);
   const [data, setData] = useState<T>();
   useEffect(() => {
@@ -45,6 +46,5 @@ export function useRxData<T>(
       cancled = true;
     };
   }, [db, _query, setData]);
-  // return [data, setData];
   return data;
 }

@@ -24,7 +24,8 @@ import { SettingsDoc } from "../../models/settings";
 import { useSettings } from "../../hooks/useSettings";
 import { useRxData } from "../../hooks/useRxQuery";
 import { firstValueFrom, map } from "rxjs";
-import { NetworkStatus, useNetworkState } from "../../components/onlineSetup";
+import { NetworkStatus } from "../../components/onlineSetup";
+import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
 import { NavigateFab } from "./NavigateFab";
 

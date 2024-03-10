@@ -4,23 +4,12 @@ import { Box } from "@mui/material";
 
 import { AppBarContent, AppBarContext } from "../../App";
 import OddsCalc from "../../components/Calc";
-import { useNetworkState } from "../../components/onlineSetup";
+import { useNetworkState } from "../../hooks/useNetworkState";
 import { useData } from "../../hooks/useData";
-import { GBGameStateDoc, GBSetupSteps } from "../../models/gbdb";
+import { GBGameStateDoc } from "../../models/gbdb";
 import { Observable, firstValueFrom } from "rxjs";
 import { GameContextType } from "../../hooks/useGameState";
 import { useSettings } from "../../hooks/useSettings";
-
-export function stepToNav(step: GBSetupSteps) {
-  switch (step) {
-    case "Guilds":
-      return "/game";
-    case "Draft":
-      return "/game/draft";
-    case "Game":
-      return "/game/draft/play";
-  }
-}
 
 export default function GamePlay() {
   const location = useLocation();

@@ -66,6 +66,7 @@ export default function Library() {
       firstValueFrom(setting$)
         .then((settingsDoc) =>
           settingsDoc?.incrementalPatch({
+            // eslint-disable-next-line react-hooks/exhaustive-deps
             libraryRoute: `${location.pathname}?m=${slideRef.current}`,
           })
         )
