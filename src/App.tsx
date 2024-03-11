@@ -318,22 +318,6 @@ function AppDrawer(props: {
           </ListItem>
         </nav>
       </List>
-      <Divider />
-      <List style={{ marginTop: "auto" }}>
-        <nav
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            marginLeft: "1em",
-          }}
-        >
-          <ListItem disablePadding>
-            <Link component="a" href="/privacy.html">
-              Privacy Policy
-            </Link>
-          </ListItem>
-        </nav>
-      </List>
     </Drawer>
   );
 }
