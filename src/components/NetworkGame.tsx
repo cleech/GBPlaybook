@@ -25,6 +25,8 @@ import {
 } from "./netHandshake";
 import { useNetworkState } from "../hooks/useNetworkState";
 import { useNavigate } from "react-router-dom";
+import { useSettings } from "../hooks/useSettings";
+import { map } from "rxjs";
 
 const signalingServerUrl =
   import.meta.env.VITE_SIGNALING_URL ??
@@ -127,6 +129,17 @@ export function NetworkGame({ allowNew = false }: { allowNew?: boolean }) {
   const [dialogOpen, setDialog] = useState(false);
   const { active } = useNetworkState();
 
+  const { setting$ } = useSettings();
+  const [networkEnabled, setNetworkEnabled] = useState(false);
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.networkPlay))
+      .subscribe((n) => setNetworkEnabled(!!n));
+    return () => {
+      sub?.unsubscribe();
+    };
+  }, [setting$]);
+
   // how to get peer count when replicationState is global and can be undefined?
   // where else can I store it?  What doesn't get unmountsed?
   // Top level to the entire App?
@@ -169,7 +182,7 @@ export function NetworkGame({ allowNew = false }: { allowNew?: boolean }) {
       <IconButton
         size="small"
         color={color}
-        disabled={!allowNew && !active}
+        disabled={!networkEnabled || (!allowNew && !active)}
         onClick={() => setDialog(true)}
       >
         <Sync />
