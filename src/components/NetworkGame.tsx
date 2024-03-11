@@ -24,6 +24,7 @@ import {
   HandshakeJoinMessage,
 } from "./netHandshake";
 import { useNetworkState } from "../hooks/useNetworkState";
+import { useNavigate } from "react-router-dom";
 
 const signalingServerUrl =
   import.meta.env.VITE_SIGNALING_URL ??
@@ -126,18 +127,48 @@ export function NetworkGame({ allowNew = false }: { allowNew?: boolean }) {
   const [dialogOpen, setDialog] = useState(false);
   const { active } = useNetworkState();
 
+  // how to get peer count when replicationState is global and can be undefined?
+  // where else can I store it?  What doesn't get unmountsed?
+  // Top level to the entire App?
+  //
+  // const [peers, setPeers] = useState(0);
+  // useEffect(() => {
+  //   if (!replicationState) return;
+  //   let canceled = false;
+  //   firstValueFrom(replicationState.peerStates$).then((peers) => {
+  //     if (!canceled) {
+  //       setPeers(peers.size);
+  //     }
+  //   });
+  //   return () => {
+  //     canceled = true;
+  //   };
+  // }, []);
+
   useEffect(() => {
     if (db && active && !replicationState) {
       reconnectNetwork(db);
     }
   }, [db, active]);
 
+  const [color, setColor] = useState<
+    "default" | "success" | "warning" | "error"
+  >("default");
+  useEffect(() => {
+    // console.log(`active: ${active} peers: ${peers}`);
+    // setColor(!active ? "default" : peers > 0 ? "success" : "error");
+    setColor(!active ? "default" : "success");
+  }, [
+    active,
+    // , peers
+  ]);
   if (!db) return;
 
   return (
     <>
       <IconButton
         size="small"
+        color={color}
         disabled={!allowNew && !active}
         onClick={() => setDialog(true)}
       >
@@ -267,6 +298,7 @@ const StepJoin = (props: StepperProps) => {
 const StepReady = (props: StepperProps) => {
   const { setActiveStep } = props;
   const { gbdb: db } = useData();
+  const navigate = useNavigate();
   if (!db) return;
 
   return (
@@ -274,7 +306,12 @@ const StepReady = (props: StepperProps) => {
       <Typography variant="h6">Network Game in Progress</Typography>
       <Button
         variant="contained"
-        onClick={() => leaveNetworkGame(db).then(() => setActiveStep("New"))}
+        onClick={() =>
+          leaveNetworkGame(db)
+            .then(() => setActiveStep("New"))
+            // FIXME DISABLE BLOCKER and navigate to "/game"
+            .then(() => navigate("/"))
+        }
       >
         Leave Game
       </Button>

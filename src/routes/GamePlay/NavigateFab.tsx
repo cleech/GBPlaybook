@@ -68,8 +68,8 @@ export function NavigateFab(props: NavigateFabProps) {
 
   // animate when the other side is waiting
   useEffect(() => {
-    setAnimate(dest2 ? true : false);
-  }, [dest2]);
+    setAnimate(dest2 === dest ? true : false);
+  }, [dest, dest2]);
 
   return (
     <Fab
