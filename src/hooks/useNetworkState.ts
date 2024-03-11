@@ -10,7 +10,7 @@ interface NetworkLocalState {
 
 export function useNetworkState() {
   const { gbdb: db } = useData();
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState<boolean>();
   const [state, setState] = useState<RxLocalDocument<NetworkLocalState>>();
 
   const network$ = useMemo(() => db?.game_state.getLocal$("network"), [db]);

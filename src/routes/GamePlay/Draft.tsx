@@ -24,12 +24,13 @@ import { SettingsDoc } from "../../models/settings";
 import { useSettings } from "../../hooks/useSettings";
 import { useRxData } from "../../hooks/useRxQuery";
 import { firstValueFrom, map } from "rxjs";
-import { NetworkStatus } from "../../components/onlineSetup";
+import { NetworkGame } from "../../components/NetworkGame";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
 import { NavigateFab } from "./NavigateFab";
 
 export default function Draft() {
+  const { active: networkActive } = useNetworkState();
   return (
     <Box className="DraftScreen">
       <AppBarContent>
@@ -42,14 +43,19 @@ export default function Draft() {
           }}
         >
           <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-            <IconButton color="inherit" href={`/game`} size="small">
+            <IconButton
+              color="inherit"
+              href={`/game`}
+              size="small"
+              disabled={networkActive}
+            >
               <Home />
             </IconButton>
             <Typography>Draft</Typography>
           </Breadcrumbs>
           <div>
             <GameSizeMenu />
-            <NetworkStatus />
+            <NetworkGame />
           </div>
         </Box>
       </AppBarContent>
@@ -93,9 +99,6 @@ function DraftInner() {
     const snapshot = async () => {
       const doc = await firstValueFrom(gameState1$);
       if (!canceled) {
-        if (doc) {
-          doc.incrementalPatch({ currentStep: "Draft" });
-        }
         setPlayer1(doc);
       }
     };
@@ -114,9 +117,6 @@ function DraftInner() {
     const snapshot = async () => {
       const doc = await firstValueFrom(gameState2$);
       if (!canceled) {
-        if (doc) {
-          doc.incrementalPatch({ currentStep: "Draft" });
-        }
         setPlayer2(doc);
       }
     };

@@ -20,7 +20,7 @@ import VersionTag from "../../components/VersionTag";
 // import ResumeSnackBar from "./ResumeSnackBar";
 import { useRxData } from "../../hooks/useRxQuery";
 
-import { NetworkGame } from "../../components/onlineSetup";
+import { NetworkGame } from "../../components/NetworkGame";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
 import { GBGameStateDoc } from "../../models/gbdb";
@@ -259,7 +259,7 @@ export default function TeamSelect() {
               <Home sx={{ color: "text.secondary" }} />
             </IconButton>
           </Breadcrumbs>
-          <NetworkGame />
+          <NetworkGame allowNew={true} />
         </div>
       </AppBarContent>
       <GuildGrid Controller={GameControls} />

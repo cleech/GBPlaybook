@@ -8,6 +8,9 @@ import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
 import { stepToNav } from "./utils";
 
+import "./NavigateFab.css";
+import "./wacky.css";
+
 interface NavigateFabProps {
   disabled: boolean;
   dest: GBSetupSteps;
@@ -20,6 +23,7 @@ export function NavigateFab(props: NavigateFabProps) {
   const { active: networkActive } = useNetworkState();
   const [dest1, setDest1] = useState<GBSetupSteps>();
   const [dest2, setDest2] = useState<GBSetupSteps>();
+  const [animate, setAnimate] = useState(false);
 
   const { dest, onAction, ...otherProps } = props;
 
@@ -37,16 +41,19 @@ export function NavigateFab(props: NavigateFabProps) {
   }, [gameState1$, gameState2$]);
 
   useEffect(() => {
-    if (dest1 == dest && dest2 === dest) {
-      firstValueFrom(gameState1$).then((doc) => {
+    const doit = async () => {
+      await firstValueFrom(gameState1$).then((doc) => {
         doc?.incrementalPatch({ navigateTo: undefined }).catch(console.error);
       });
       if (!networkActive) {
-        firstValueFrom(gameState2$).then((doc) => {
+        await firstValueFrom(gameState2$).then((doc) => {
           doc?.incrementalPatch({ navigateTo: undefined }).catch(console.error);
         });
       }
       navigate(stepToNav(dest));
+    };
+    if (dest1 == dest && dest2 === dest) {
+      doit();
     }
   }, [
     gameState1$,
@@ -59,8 +66,14 @@ export function NavigateFab(props: NavigateFabProps) {
     onAction,
   ]);
 
+  // animate when the other side is waiting
+  useEffect(() => {
+    setAnimate(dest2 ? true : false);
+  }, [dest2]);
+
   return (
     <Fab
+      className={animate ? "fabAnimate" : undefined}
       {...otherProps}
       color="secondary"
       onClick={() => {
@@ -75,7 +88,7 @@ export function NavigateFab(props: NavigateFabProps) {
         }
       }}
     >
-      <PlayArrowIcon />
+      <PlayArrowIcon fontSize="large" sx={{ zIndex: 10 }} />
     </Fab>
   );
 }

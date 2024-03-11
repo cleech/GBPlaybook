@@ -54,7 +54,6 @@ export default function GamePlay() {
         await db?.game_state.upsert({
           _id: player1,
           roster: [],
-          // currentStep: "Guilds",
         });
       }
     };
@@ -83,7 +82,6 @@ export default function GamePlay() {
         await db?.game_state.upsert({
           _id: player2,
           roster: [],
-          // currentStep: "Guilds",
         });
       }
     };

@@ -5,7 +5,7 @@ import {
   useEffect,
   useCallback,
 } from "react";
-import { useBlocker, useNavigate } from "react-router-dom";
+import { useBlocker } from "react-router-dom";
 import type { BlockerFunction } from "@remix-run/router";
 import {
   Button,
@@ -36,7 +36,7 @@ import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdb";
 import { reSort } from "../../utils/reSort";
 import { firstValueFrom, map } from "rxjs";
 import { useRxData } from "../../hooks/useRxQuery";
-import { NetworkStatus } from "../../components/onlineSetup";
+import { NetworkGame } from "../../components/NetworkGame";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
 
@@ -62,6 +62,8 @@ export default function Game() {
     setBlocked(true);
   }, [blocked, setBlocked]);
 
+  const { active: networkActive } = useNetworkState();
+
   return (
     <Box
       style={{
@@ -81,15 +83,24 @@ export default function Game() {
           }}
         >
           <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-            <IconButton color="inherit" href={`/game`} size="small">
+            <IconButton
+              color="inherit"
+              href={`/game`}
+              size="small"
+              disabled={networkActive}
+            >
               <Home />
             </IconButton>
-            <Link underline="hover" color="inherit" href={`/game/draft`}>
-              Draft
-            </Link>
+            {networkActive ? (
+              <Typography>Draft</Typography>
+            ) : (
+              <Link underline="hover" color="inherit" href={`/game/draft`}>
+                Draft
+              </Link>
+            )}
             <Typography>Play</Typography>
           </Breadcrumbs>
-          <NetworkStatus />
+          <NetworkGame />
         </Box>
       </AppBarContent>
 
@@ -119,7 +130,7 @@ function GameInner() {
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { active: networkActive } = useNetworkState();
 
@@ -197,7 +208,7 @@ function GameInner() {
         );
         return [__roster1, __roster2];
       },
-      [navigate, team1, team2]
+      [team1, team2 /*, navigate */]
     ) ?? [];
 
   if (!team1 || !team2) {
@@ -214,14 +225,14 @@ function GameInner() {
       <GameList
         teams={[team2]}
         rosters={[roster2]}
-        disabled={[networkActive]}
+        disabled={[Boolean(networkActive)]}
       />
     </>
   ) : (
     <GameList
       teams={[team1, team2]}
       rosters={[roster1, roster2]}
-      disabled={[false, networkActive]}
+      disabled={[false, Boolean(networkActive)]}
     />
   );
 }
