@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { useData } from "./DataContext";
+import { useData } from "../hooks/useData";
 
 const VersionTag = () => {
   const { version } = useData();

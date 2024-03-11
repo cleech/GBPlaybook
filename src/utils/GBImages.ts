@@ -408,9 +408,9 @@ const GBImages: Map<string, string> = new Map([
     "Colossus_front",
     new URL("../assets/cards/Engineers/GB-S4-Engineers-20-03-14.jpg", import.meta.url).href,
   ],
-  ["vHarrietTheHat_back", Engineers_back],
+  ["vHarriet_back", Engineers_back],
   [
-    "vHarrietTheHat_front",
+    "vHarriet_front",
     new URL("../assets/cards/Engineers/GB-S4-Engineers-20-03-16.jpg", import.meta.url).href,
   ],
   ["Hoist_back", Engineers_back],
@@ -937,9 +937,9 @@ const GBImages: Map<string, string> = new Map([
   ],
   ["Grace_back", Order_back],
   ["Grace_front", new URL("../assets/cards/Order/GB-S4-Order-19-08-12.jpg", import.meta.url).href],
-  ["HarryTheHat_back", Order_back],
+  ["Harry_back", Order_back],
   [
-    "HarryTheHat_front",
+    "Harry_front",
     new URL("../assets/cards/Order/GB-S4-Order-19-08-14.jpg", import.meta.url).href,
   ],
   ["Mist_back", Order_back],

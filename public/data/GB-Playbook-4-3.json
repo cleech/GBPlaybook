@@ -118,7 +118,7 @@
         "Mainspring",
         "Mother",
         "Colossus",
-        "vHarrietTheHat",
+        "vHarriet",
         "Hoist",
         "Locus",
         "Nomad",
@@ -308,7 +308,7 @@
         "Benediction",
         "vFangtooth",
         "Grace",
-        "HarryTheHat",
+        "Harry",
         "Mist",
         "sSpigot"
       ]
@@ -366,7 +366,7 @@
         "Snakeskin",
         "Benediction",
         "Grace",
-        "HarryTheHat",
+        "Harry",
         "Mist"
       ]
     }
@@ -3882,7 +3882,7 @@
       ]
     },
     {
-      "id": "vHarrietTheHat",
+      "id": "vHarriet",
       "name": "Harriet ‘the Hat’",
       "guild1": "Engineers",
       "captain": false,
@@ -10445,7 +10445,7 @@
       ]
     },
     {
-      "id": "HarryTheHat",
+      "id": "Harry",
       "name": "Harry ‘the Hat’",
       "guild1": "Order",
       "guild2": "Union",
@@ -12982,26 +12982,6 @@
       "text": "Target enemy model suffers a 6\" push directly towards this model.",
       "CST": "CP2",
       "RNG": 6,
-      "SUS": false,
-      "OPT": false
-    },
-    {
-      "SUS": false,
-      "OPT": false
-    },
-    {
-      "SUS": false,
-      "OPT": false
-    },
-    {
-      "SUS": false,
-      "OPT": false
-    },
-    {
-      "SUS": false,
-      "OPT": false
-    },
-    {
       "SUS": false,
       "OPT": false
     }

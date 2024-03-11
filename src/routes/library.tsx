@@ -1,9 +1,11 @@
-import React, {
+import {
   useState,
-  useEffect,
   useRef,
   useLayoutEffect,
   useCallback,
+  Suspense,
+  useEffect,
+  MutableRefObject,
 } from "react";
 
 import {
@@ -12,6 +14,7 @@ import {
   useNavigate,
   useSearchParams,
   useLocation,
+  useOutletContext,
 } from "react-router-dom";
 
 import {
@@ -23,14 +26,13 @@ import {
   Breadcrumbs,
   Link,
   IconButton,
-  Button,
 } from "@mui/material";
 
 import type { Swiper as SwiperRef } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-import { useData } from "../components/DataContext";
+import { useData } from "../hooks/useData";
 import { FlipCard } from "../components/FlipCard";
 import { DoubleCard } from "../components/DoubleCard";
 
@@ -39,22 +41,38 @@ import {
   GridIconButton,
   GuildGrid,
 } from "../components/GuildGrid";
-import { useStore, IGBPlayer } from "../models/Root";
 import { AppBarContent } from "../App";
 import { NavigateNext } from "@mui/icons-material";
 import { DoubleGuildCard, FlipGuildCard } from "../components/GuildCard";
 import VersionTag from "../components/VersionTag";
-import type { Guild, Gameplan } from "../components/DataContext.d";
+import type { Gameplan } from "../components/DataContext.d";
 import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
+import { GBGuildDoc } from "../models/gbdb";
+import { reSort } from "../utils/reSort";
+import { useRxData } from "../hooks/useRxQuery";
+import { useSettings } from "../hooks/useSettings";
+import { firstValueFrom } from "rxjs";
 
 export default function Library() {
   const location = useLocation();
-  const { setLibraryRoute } = useStore();
+  const { setting$ } = useSettings();
+  const [searchParams] = useSearchParams();
+  const slideRef = useRef(searchParams.get("m"));
 
   useEffect(() => {
-    setLibraryRoute(`${location.pathname}${location.search}`);
-  }, [location, setLibraryRoute]);
+    if (!setting$) return;
+    return () => {
+      firstValueFrom(setting$)
+        .then((settingsDoc) =>
+          settingsDoc?.incrementalPatch({
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+            libraryRoute: `${location.pathname}?m=${slideRef.current}`,
+          })
+        )
+        .catch(console.error);
+    };
+  }, [location, setting$]);
 
   return (
     <main
@@ -65,13 +83,20 @@ export default function Library() {
         height: "100%",
       }}
     >
-      <Outlet />
+      <Suspense fallback={<p>Loading ...</p>}>
+        <Outlet context={{ slideRef }} />
+      </Suspense>
     </main>
   );
 }
 
 export function GuildList() {
-  const navigate = useNavigate();
+  const { slideRef } = useOutletContext<{
+    slideRef: MutableRefObject<number>;
+  }>();
+
+  slideRef.current = 0;
+
   return (
     <>
       <AppBarContent>
@@ -80,39 +105,39 @@ export function GuildList() {
         </Breadcrumbs>
       </AppBarContent>
       <GuildGrid
-        pickTeam={(guild) => {
-          navigate(guild);
-        }}
-        controls={extraIconsControl}
-        extraIcons={[
-          {
-            key: "gameplans",
-            name: "Gameplans",
-            icon: "GB",
-            style: { color: "#f8f7f4" },
-          },
-          {
-            key: "reference",
-            name: "Rules",
-            icon: "GB",
-            style: { color: "#f8f7f4" },
-          },
-        ]}
+        Controller={ExtraIconsControl}
+        // extraIcons={[
+        //   {
+        //     key: "gameplans",
+        //     name: "Gameplans",
+        //     icon: "GB",
+        //     style: { color: "#f8f7f4" },
+        //   },
+        //   {
+        //     key: "reference",
+        //     name: "Rules",
+        //     icon: "GB",
+        //     style: { color: "#f8f7f4" },
+        //   },
+        // ]}
       />
       <VersionTag />
     </>
   );
 }
 
-function extraIconsControl(
-  props: ControlProps
-): [JSX.Element, ((g: string) => void)?] {
+function ExtraIconsControl(props: ControlProps) {
   const navigate = useNavigate();
-  return [
+  useEffect(() => {
+    const sub = props.update$.subscribe((g) => navigate(g));
+    return () => sub.unsubscribe();
+  }, [navigate, props.update$]);
+  return (
     <div
       style={{
         display: "flex",
         flexDirection: "row",
+        alignItems: "center",
         justifyContent: "space-evenly",
         margin: "5px",
       }}
@@ -137,15 +162,12 @@ function extraIconsControl(
         pickTeam={() => navigate("refcards")}
         size={props.size}
       />
-    </div>,
-    undefined,
-  ];
+    </div>
+  );
 }
 
 export function Roster() {
   const { guild } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
-
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -154,11 +176,11 @@ export function Roster() {
   const [cardHeight, setCardHeight] = useState(700);
 
   const updateSize = useCallback(() => {
-    let width = ref.current?.getBoundingClientRect().width ?? 0;
-    let height = ref.current?.getBoundingClientRect().height ?? 0;
+    const width = ref.current?.getBoundingClientRect().width ?? 0;
+    const height = ref.current?.getBoundingClientRect().height ?? 0;
     setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
     setCardHeight(Math.min(height, (width * 7) / 5) - 12);
-  }, []);
+  }, [large]);
 
   useLayoutEffect(() => {
     updateSize();
@@ -168,26 +190,38 @@ export function Roster() {
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
-  const { data } = useData();
+  const navigate = useNavigate();
+  const { slideRef } = useOutletContext<{
+    slideRef: MutableRefObject<number>;
+  }>();
 
-  useEffect(() => {
-    const savedPosition = searchParams.get("m");
-    if (savedPosition && data) {
-      const g = data.Guilds.find((g: Guild) => g.name === guild);
-      const index = g?.roster.findIndex((m: any) => m === savedPosition);
-      if (index) {
-        swiper?.slideTo(index + 1);
-      }
-    }
-  }, [swiper, searchParams, data, guild]);
+  const [g, roster] =
+    useRxData(
+      async (db) => {
+        const [_g, _roster] = await Promise.all([
+          db.guilds.findOne().where({ name: guild }).exec(),
+          db.models
+            .find()
+            .or([{ guild1: guild }, { guild2: guild }])
+            .exec(),
+        ]);
+        if (!_g || !_roster.length) {
+          navigate("/library");
+          return;
+        }
+        reSort(_roster, "id", _g.roster);
+        const __roster = await Promise.all(_roster.map((m) => m.expand()));
+        return [_g, __roster];
+      },
+      [guild, navigate]
+    ) ?? [];
 
-  if (!data) {
+  if (!g || !roster) {
+    // console.log(g);
+    // console.log(roster);
     return null;
   }
-  const g = data.Guilds.find((g: any) => g.name === guild);
-  if (!g) {
-    return null;
-  }
+
   return (
     <>
       <AppBarContent>
@@ -210,10 +244,9 @@ export function Roster() {
       >
         <Swiper
           onSwiper={setSwiper}
+          initialSlide={slideRef.current}
           onSlideChange={(swiper) => {
-            setSearchParams(`m=${g.roster[swiper.activeIndex - 1]}`, {
-              replace: true,
-            });
+            slideRef.current = swiper.activeIndex;
           }}
           slidesPerView="auto"
           centeredSlides={true}
@@ -250,11 +283,7 @@ export function Roster() {
             </div>
           </SwiperSlide>
 
-          {g.roster.map((m: string, index: number) => {
-            const model = data.Models.find((m2: any) => m2.id === m);
-            if (!model) {
-              return null;
-            }
+          {roster.map((model) => {
             // if (GBImages[`${model.id}_gbcp_front`]) {
             //   model.gbcp = true;
             // }
@@ -278,9 +307,9 @@ export function Roster() {
                   }}
                 >
                   {large ? (
-                    <DoubleCard model={model as any} controls={undefined} />
+                    <DoubleCard model={model} />
                   ) : (
-                    <FlipCard model={model as any} controls={undefined} />
+                    <FlipCard model={model} />
                   )}
                 </div>
               </SwiperSlide>
@@ -294,9 +323,6 @@ export function Roster() {
 }
 
 export function GamePlans() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const theme = useTheme();
   // const large = useMediaQuery(theme.breakpoints.up("sm"));
   const large = false;
 
@@ -305,11 +331,11 @@ export function GamePlans() {
   const [cardHeight, setCardHeight] = useState(700);
 
   const updateSize = useCallback(() => {
-    let width = ref.current?.getBoundingClientRect().width ?? 0;
-    let height = ref.current?.getBoundingClientRect().height ?? 0;
+    const width = ref.current?.getBoundingClientRect().width ?? 0;
+    const height = ref.current?.getBoundingClientRect().height ?? 0;
     setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
     setCardHeight(Math.min(height, (width * 7) / 5) - 12);
-  }, []);
+  }, [large]);
 
   useLayoutEffect(() => {
     updateSize();
@@ -319,19 +345,13 @@ export function GamePlans() {
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
-  const { data, gameplans } = useData();
+  const { slideRef } = useOutletContext<{
+    slideRef: MutableRefObject<number>;
+  }>();
 
-  useEffect(() => {
-    const savedPosition = searchParams.get("m");
-    if (savedPosition) {
-      const index = Number(savedPosition);
-      if (index) {
-        swiper?.slideTo(index);
-      }
-    }
-  }, [swiper, searchParams]);
+  const { gameplans } = useData();
 
-  if (!gameplans || !data) {
+  if (!gameplans) {
     return null;
   }
 
@@ -359,10 +379,9 @@ export function GamePlans() {
       >
         <Swiper
           onSwiper={setSwiper}
+          initialSlide={slideRef.current}
           onSlideChange={(swiper) => {
-            setSearchParams(`m=${swiper.activeIndex}`, {
-              replace: true,
-            });
+            slideRef.current = swiper.activeIndex;
           }}
           slidesPerView="auto"
           centeredSlides={true}
@@ -408,9 +427,6 @@ export function GamePlans() {
 }
 
 export function RefCards() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const theme = useTheme();
   // const large = useMediaQuery(theme.breakpoints.up("sm"));
   const large = false;
 
@@ -419,11 +435,11 @@ export function RefCards() {
   const [cardHeight, setCardHeight] = useState(700);
 
   const updateSize = useCallback(() => {
-    let width = ref.current?.getBoundingClientRect().width ?? 0;
-    let height = ref.current?.getBoundingClientRect().height ?? 0;
+    const width = ref.current?.getBoundingClientRect().width ?? 0;
+    const height = ref.current?.getBoundingClientRect().height ?? 0;
     setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
     setCardHeight(Math.min(height, (width * 7) / 5) - 12);
-  }, []);
+  }, [large]);
 
   useLayoutEffect(() => {
     updateSize();
@@ -433,21 +449,9 @@ export function RefCards() {
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
-  const { data, gameplans } = useData();
-
-  useEffect(() => {
-    const savedPosition = searchParams.get("m");
-    if (savedPosition) {
-      const index = Number(savedPosition);
-      if (index) {
-        swiper?.slideTo(index);
-      }
-    }
-  }, [swiper, searchParams]);
-
-  if (!gameplans || !data) {
-    return null;
-  }
+  const { slideRef } = useOutletContext<{
+    slideRef: MutableRefObject<number>;
+  }>();
 
   return (
     <>
@@ -473,10 +477,9 @@ export function RefCards() {
       >
         <Swiper
           onSwiper={setSwiper}
+          initialSlide={slideRef.current}
           onSlideChange={(swiper) => {
-            setSearchParams(`m=${swiper.activeIndex}`, {
-              replace: true,
-            });
+            slideRef.current = swiper.activeIndex;
           }}
           slidesPerView="auto"
           centeredSlides={true}
@@ -523,13 +526,9 @@ export function RefCards() {
   );
 }
 
-function SwiperButtons(props: { guild: Guild; swiper: SwiperRef | null }) {
-  const { data } = useData();
+function SwiperButtons(props: { guild: GBGuildDoc; swiper: SwiperRef | null }) {
   const { guild, swiper } = props;
   const roster = guild.roster;
-  if (!data) {
-    return null;
-  }
   return (
     <div
       style={{
@@ -554,27 +553,34 @@ function SwiperButtons(props: { guild: Guild; swiper: SwiperRef | null }) {
             swiper?.slideTo(0);
           }}
         >
-          <GBIcon
-            icon={guild.name}
-            className="dark"
-            fontSize="32px"
-            style={{
-              backgroundColor: "black",
-              borderRadius: "50%",
-            }}
-          />
+          <span>
+            <div
+              style={{
+                width: "32px",
+                height: "32px",
+                backgroundColor: "black",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "visible",
+              }}
+            >
+              <GBIcon
+                icon={guild.name}
+                className="dark"
+                fontSize="32px"
+                style={{ flexShrink: 0 }}
+              />
+            </div>
+          </span>
         </IconButton>
         {roster.map((m, index) => {
-          const model = data.Models.find((m2: any) => m2.id === m);
-          if (!model) {
-            return null;
-          }
           return (
             <Chip
               color="primary"
-              key={model.id}
-              // label={model.displayName}
-              label={model.id}
+              key={index}
+              label={m}
               onClick={() => {
                 swiper?.slideTo(index + 1);
               }}

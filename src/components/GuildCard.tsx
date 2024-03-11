@@ -1,12 +1,11 @@
-import React, {
+import {
   useState,
   useRef,
   useLayoutEffect,
   CSSProperties,
   useCallback,
 } from "react";
-// import { useData } from "./DataContext";
-import GBImages from "./GBImages";
+import GBImages from "../utils/GBImages";
 import "./FlipCard.css";
 
 interface CardCSS extends CSSProperties {
@@ -25,21 +24,12 @@ export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
     if (!targetRef.current) {
       return;
     }
-    let { width, height } = targetRef.current.getBoundingClientRect();
-    let vertScale = width / 1000;
-    let horiScale = height / 700;
-    let newScale = Math.min(vertScale, horiScale, 1);
+    const { width, height } = targetRef.current.getBoundingClientRect();
+    const vertScale = width / 1000;
+    const horiScale = height / 700;
+    const newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
   }, []);
-
-  // const { data } = useData();
-  // if (!data) {
-  //   return null;
-  // }
-  // const model = data.Models.find((m) => m.id === name);
-  // if (GBImages[`${model.id}_gbcp_front`]) {
-  //   model.gbcp = true;
-  // }
 
   return (
     <div
@@ -58,7 +48,6 @@ export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
         style={{
           width: `${1000 * scale}px`,
           height: `${700 * scale}px`,
-          // aspectRatio: 10 / 7,
           display: "flex",
           flexDirection: "row",
         }}
@@ -93,7 +82,7 @@ export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
 export function FlipGuildCard({ guild }: { guild: string | undefined }) {
   const layoutRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1.0);
+  const [scale, setScale] = useState(1);
   useLayoutEffect(() => {
     updateSize();
     window.addEventListener("resize", updateSize);
@@ -103,10 +92,10 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
     if (!layoutRef.current) {
       return;
     }
-    let { width, height } = layoutRef.current.getBoundingClientRect();
-    let vertScale = width / 500;
-    let horiScale = height / 700;
-    let newScale = Math.min(vertScale, horiScale, 1);
+    const { width, height } = layoutRef.current.getBoundingClientRect();
+    const vertScale = width / 500;
+    const horiScale = height / 700;
+    const newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
   }, []);
 
@@ -126,35 +115,33 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
       <div
         ref={targetRef}
         className="flip-card"
-        style={{
-          width: `${500 * scale}px`,
-          height: `${700 * scale}px`,
-          // aspectRatio: 5 / 7,
-          // display: "flex",
-        }}
         onClick={() => {
           targetRef.current?.classList.toggle("flipped");
         }}
       >
         <div className="flip-card-inner">
-          <div
-            className="flip-card-front card-front"
-            style={
-              {
-                backgroundImage: `url(${GBImages.get(`${guild}_front`)})`,
-                "--scale": scale,
-              } as CardCSS
-            }
-          />
-          <div
-            className="flip-card-back card-back"
-            style={
-              {
-                backgroundImage: `url(${GBImages.get(`${guild}_back`)})`,
-                "--scale": scale,
-              } as CardCSS
-            }
-          />
+          <div className="flip-card-front">
+            <div
+              className="card-front"
+              style={
+                {
+                  backgroundImage: `url(${GBImages.get(`${guild}_front`)})`,
+                  "--scale": scale,
+                } as CardCSS
+              }
+            />
+          </div>
+          <div className="flip-card-back">
+            <div
+              className="card-back"
+              style={
+                {
+                  backgroundImage: `url(${GBImages.get(`${guild}_back`)})`,
+                  "--scale": scale,
+                } as CardCSS
+              }
+            />
+          </div>
         </div>
       </div>
     </div>

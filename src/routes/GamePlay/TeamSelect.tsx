@@ -1,45 +1,37 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Button,
-  Fab,
   Typography,
   useTheme,
   Breadcrumbs,
   IconButton,
-  Snackbar,
-  Alert,
   Box,
 } from "@mui/material";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { GuildGrid, ControlProps } from "../../components/GuildGrid";
 import GBIcon from "../../components/GBIcon";
-import { useData } from "../../components/DataContext";
-import { useStore } from "../../models/Root";
 
 import Color from "color";
 
 import { Home, NavigateNext } from "@mui/icons-material";
 import { AppBarContent } from "../../App";
 
-import { useRTC } from "../../services/webrtc";
 import VersionTag from "../../components/VersionTag";
-import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
+// import { pulseAnimationKeyFrames } from "../../hooks/useUpdateAnimation";
+// import ResumeSnackBar from "./ResumeSnackBar";
+import { useRxData } from "../../hooks/useRxQuery";
 
-function SelectedIcon({
-  team,
-  size,
-  focused,
-}: {
-  team: string;
-  size: number;
-  focused: boolean;
-}) {
-  const { data } = useData();
-  if (!data) {
-    return null;
-  }
-  const guild = data.Guilds.find((g: any) => g.name === team);
+import { NetworkGame } from "../../components/NetworkGame";
+import { useNetworkState } from "../../hooks/useNetworkState";
+import { useGameState } from "../../hooks/useGameState";
+import { GBGameStateDoc } from "../../models/gbdb";
+import { NavigateFab } from "./NavigateFab";
+
+function SelectedIcon({ team, size }: { team: string; size: number }) {
+  const guild = useRxData(
+    (db) => db.guilds.findOne().where({ name: team }).exec(),
+    [team]
+  );
+
   if (!guild) {
     return null;
   }
@@ -89,86 +81,90 @@ function SelectedIcon({
   );
 }
 
-function GameControls(
-  props: ControlProps
-): [JSX.Element, (name: string) => void] {
-  const [searchParams, setSearchParams] = useSearchParams();
+function GameControls(props: ControlProps) {
   const [selector, setSelector] = useState("P1");
-  const [team1, setTeam1] = useState(searchParams.get("p1") ?? "");
-  const [team2, setTeam2] = useState(searchParams.get("p2") ?? "");
+  const [team1, setTeam1] = useState<string>();
+  const [team2, setTeam2] = useState<string>();
   const [waiting, setWaiting] = useState(false);
-  const [locked, setLocked] = useState(false);
-  const navigate = useNavigate();
   const theme = useTheme();
-  const fabRef = useRef<HTMLButtonElement | null>(null);
 
-  const { dc } = useRTC();
+  const { active: networkActive } = useNetworkState();
+
+  const { gameState1$, gameState2$ } = useGameState();
+
+  const [teamDoc1, setGameState1] = useState<GBGameStateDoc | null>();
+  useEffect(() => {
+    setTeam1(undefined);
+    setSelector("P1");
+    const sub = gameState1$?.subscribe((doc) => setGameState1(doc));
+    return () => sub?.unsubscribe();
+  }, [gameState1$]);
+
+  const [teamDoc2, setGameState2] = useState<GBGameStateDoc | null>();
+  useEffect(() => {
+    setTeam2(undefined);
+    setSelector("P1");
+    const sub = gameState2$?.subscribe((doc) => setGameState2(doc));
+    return () => sub?.unsubscribe();
+  }, [gameState2$]);
 
   useEffect(() => {
-    if (!!dc) {
-      dc.onmessage = (ev: MessageEvent<string>) => {
-        const msg = JSON.parse(ev.data);
-        if (msg.team) {
-          setTeam2(msg.team);
-        }
-        if (msg.navigation === "ready") {
-          setLocked(true);
-          fabRef.current?.animate(pulseAnimationKeyFrames, 1000);
-          if (waiting) {
-            navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
-          }
-        }
-      };
-    }
-    return () => {
-      if (!!dc) {
-        dc.onmessage = null;
-      }
-    };
-  }, [dc, waiting, locked, navigate, team1, team2]);
+    const sub1 = teamDoc1?.get$("guild").subscribe((g) => setTeam1(g));
+    return () => sub1?.unsubscribe();
+  }, [teamDoc1]);
 
-  function pickTeam(name: string) {
-    if (selector === "P1") {
-      let newParams = new URLSearchParams(searchParams);
-      newParams.set("p1", name);
-      newParams.sort();
-      setSearchParams(newParams, { replace: true });
-      if (!!dc) {
-        dc.send(JSON.stringify({ team: name }));
-      }
-      setTeam1(name);
-      if (!team2 && !dc) {
-        setSelector("P2");
-      } else {
-        setSelector("GO");
-      }
-    } else if (selector === "P2") {
-      let newParams = new URLSearchParams(searchParams);
-      newParams.set("p2", name);
-      newParams.sort();
-      setSearchParams(newParams, { replace: true });
-      setTeam2(name);
-      if (!team1) {
-        setSelector("P1");
-      } else {
-        setSelector("GO");
-      }
-    }
-  }
+  useEffect(() => {
+    const sub2 = teamDoc2?.get$("guild").subscribe((g) => setTeam2(g));
+    return () => sub2?.unsubscribe();
+  }, [teamDoc2]);
 
-  return [
+  const pickTeam = useCallback(
+    async (name: string) => {
+      if (!name) {
+        return;
+      }
+      if (selector === "P1") {
+        await teamDoc1
+          ?.incrementalPatch({ guild: name, roster: [] })
+          .catch(console.error);
+        if (!team2 && !networkActive) {
+          setSelector("P2");
+        } else {
+          setSelector("GO");
+        }
+      } else if (selector === "P2") {
+        await teamDoc2
+          ?.incrementalPatch({ guild: name, roster: [] })
+          .catch(console.error);
+        if (!team1) {
+          setSelector("P1");
+        } else {
+          setSelector("GO");
+        }
+      }
+    },
+    [selector, team1, team2, teamDoc1, teamDoc2, networkActive]
+  );
+
+  useEffect(() => {
+    const sub = props.update$.subscribe((g) => pickTeam(g));
+    return () => sub.unsubscribe();
+  }, [props.update$, pickTeam]);
+
+  return (
     <div
       style={{
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
+        margin: "5px",
+        gap: "5px",
       }}
     >
       <Button
         variant="outlined"
         style={{
-          margin: "5px",
           minWidth: props.size,
           maxWidth: props.size,
           minHeight: props.size,
@@ -188,15 +184,7 @@ function GameControls(
         }}
         onClick={() => setSelector("P1")}
       >
-        {team1 ? (
-          <SelectedIcon
-            team={team1}
-            size={props.size}
-            focused={selector === "P1"}
-          />
-        ) : (
-          "P1"
-        )}
+        {team1 ? <SelectedIcon team={team1} size={props.size} /> : "P1"}
       </Button>
       <div
         style={{
@@ -209,33 +197,20 @@ function GameControls(
         }}
       >
         <Typography variant="caption">vs</Typography>
-        <Fab
-          ref={fabRef}
-          color="secondary"
+        <NavigateFab
+          dest="Draft"
           disabled={!team1 || !team2}
-          onClick={() => {
-            if (dc) {
-              setWaiting(true);
-              dc.send(JSON.stringify({ navigation: "ready" }));
-              if (locked) {
-                navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
-              }
-            } else {
-              navigate(`/game/draft/?p1=${team1}&p2=${team2}`);
-            }
-          }}
+          onAction={() => setWaiting(true)}
           sx={{ m: "0 15px" }}
-        >
-          <PlayArrowIcon />
-        </Fab>
+        />
         <Typography variant="caption">
           {waiting ? "(waiting)" : "\u00A0"}
         </Typography>
       </div>
       <Button
         variant="outlined"
+        disabled={networkActive}
         style={{
-          margin: "5px",
           minWidth: props.size,
           maxWidth: props.size,
           minHeight: props.size,
@@ -254,45 +229,12 @@ function GameControls(
               }),
         }}
         onClick={() => setSelector("P2")}
-        disabled={!!dc}
       >
-        {team2 ? (
-          <SelectedIcon
-            team={team2}
-            size={props.size}
-            focused={selector === "P2"}
-          />
-        ) : (
-          "P2"
-        )}
+        {team2 ? <SelectedIcon team={team2} size={props.size} /> : "P2"}
       </Button>
-    </div>,
-    pickTeam,
-  ];
-}
-
-const ResumeSnackBar = () => {
-  const { resumePossible } = useStore();
-  const [showSnack, setShowSnack] = useState(resumePossible);
-  return (
-    <Snackbar
-      open={showSnack}
-      onClose={() => setShowSnack(false)}
-      autoHideDuration={6000}
-    >
-      <Alert
-        severity="info"
-        action={
-          <Button size="small" href="/game/draft/play">
-            Resume Game
-          </Button>
-        }
-      >
-        There is an existing game that can be resumed.
-      </Alert>
-    </Snackbar>
+    </div>
   );
-};
+}
 
 export default function TeamSelect() {
   return (
@@ -304,15 +246,25 @@ export default function TeamSelect() {
       }}
     >
       <AppBarContent>
-        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-          <IconButton size="small" disabled>
-            <Home sx={{ color: "text.secondary" }} />
-          </IconButton>
-        </Breadcrumbs>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            justifyContent: "space-between",
+          }}
+        >
+          <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+            <IconButton size="small" disabled>
+              <Home sx={{ color: "text.secondary" }} />
+            </IconButton>
+          </Breadcrumbs>
+          <NetworkGame allowNew={true} />
+        </div>
       </AppBarContent>
-      <ResumeSnackBar />
-      <GuildGrid controls={GameControls} />
+      <GuildGrid Controller={GameControls} />
       <VersionTag />
+      {/* <ResumeSnackBar /> */}
     </Box>
   );
 }

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-// import { Link, Outlet, useParams } from "react-router-dom";
+import React, { ComponentType, useCallback, useMemo } from "react";
 
 import { useDimensionsRef } from "rooks";
-// import _ from "lodash";
 
-import { Button, Typography, Divider } from "@mui/material";
+import { Button, Divider, Typography } from "@mui/material";
 
-import { useData } from "../components/DataContext";
 import GBIcon from "../components/GBIcon";
-import { Guild } from "./DataContext.d";
+import { GBGuildDoc } from "../models/gbdb";
+import { useRxData, useRxQuery } from "../hooks/useRxQuery";
+import { NodeEventHandler } from "rxjs/internal/observable/fromEvent";
+import { Observable, fromEventPattern } from "rxjs";
 
-function maxBy(data: Array<any>, by: (v: any) => number) {
+function maxBy<T>(data: Array<T>, by: (v: T) => number) {
   return data.reduce((a, b) => (by(a) >= by(b) ? a : b));
 }
 
@@ -54,6 +54,8 @@ function itemSize(
 
 export interface ControlProps {
   size: number;
+  // Inner: ComponentType<GuildGridInnerProps>;
+  update$: Observable<string>;
 }
 
 interface GridIcon {
@@ -64,28 +66,44 @@ interface GridIcon {
 }
 
 interface GuildGridProps {
-  pickTeam?: (guild: string) => void;
-  controls?: (props: ControlProps) => [JSX.Element, ((guild: string) => void)?];
-  extraIcons?: GridIcon[];
+  // pickTeam?: (guild: string) => void;
+  // controls?: (props: ControlProps) => [JSX.Element, ((guild: string) => void)?];
+  // sizeUpdate?: (iconSize: number) => void;
+  // extraIcons?: GridIcon[];
+  Controller: ComponentType<ControlProps>;
 }
 
-export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
+export function GuildGrid({
+  Controller,
+}: // pickTeam,
+// sizeUpdate,
+// extraIcons,
+GuildGridProps) {
   const [ref, dimensions] = useDimensionsRef();
-  const { data } = useData();
-  const [size, setSize] = useState(0);
 
-  const [controlElement, controlCallback] = controls
-    ? controls({ size })
-    : [undefined, undefined];
+  const size =
+    useRxData(
+      async (db) => {
+        if (!dimensions) {
+          return;
+        }
+        const count = await db.guilds.count().exec();
+        return itemSize(dimensions, count, 1)?.size ?? 0;
+      },
+      [dimensions]
+    ) ?? 0;
 
-  useEffect(() => {
-    if (data && dimensions)
-      setSize(itemSize(dimensions, data.Guilds.length ?? 0, 1)?.size ?? 0);
-  }, [data, dimensions]);
-
-  if (!data) {
-    return null;
-  }
+  const observers = useMemo<Set<NodeEventHandler>>(() => new Set(), []);
+  const event$ = fromEventPattern<string>(
+    (handler) => observers.add(handler),
+    (handler) => observers.delete(handler)
+  );
+  const emitEvent = useCallback(
+    (e: string) => {
+      observers.forEach((handler) => handler(e));
+    },
+    [observers]
+  );
 
   return (
     <div
@@ -93,10 +111,42 @@ export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
       style={{
         display: "flex",
         flexDirection: "column",
-        width: "100%",
+        // width: "100%",
         height: "100%",
+        // background: "cadetblue",
+        alignContent: "flex-start",
+        justifyContent: "space-evenly",
       }}
     >
+      <GuildGridInner size={size} pickTeam={emitEvent} />
+      <Divider />
+      <Controller size={size} update$={event$} />
+    </div>
+  );
+}
+
+const GuildGridInner = React.memo(
+  (props: {
+    pickTeam?: (guild: string) => void;
+    size: number;
+    extraIcons?: GridIcon[];
+  }) => {
+    const { pickTeam, size } = props;
+
+    const guilds = useRxQuery(useCallback((db) => db.guilds.find(), []));
+
+    if (!guilds) {
+      return null;
+    }
+
+    const list: GridIcon[] = (guilds as GBGuildDoc[]).map((g: GBGuildDoc) => ({
+      key: g.name,
+      name: g.name,
+      icon: g.name,
+    }));
+    // list.push(...(props.extraIcons ?? []));
+
+    return (
       <div
         style={{
           display: "flex",
@@ -104,53 +154,26 @@ export function GuildGrid({ pickTeam, controls, extraIcons }: GuildGridProps) {
           flexWrap: "wrap",
           alignContent: "flex-start",
           justifyContent: "space-evenly",
-          width: "100%",
-          height: "100%",
+          // width: "100%",
+          // height: "100%",
           gap: "10px",
           padding: "5px",
+          // flexBasis: "100%",
+          // flexShrink: 1,
+          overflow: "clip",
         }}
       >
-        {size > 0 && (
-          <GuildGridInner
-            dimensions={dimensions}
-            pickTeam={controlCallback ?? pickTeam}
-            controls={controls}
-            size={size}
-            extraIcons={extraIcons}
-          />
-        )}
+        {list.map((g, i) => (
+          <GridIconButton key={i} g={g} pickTeam={pickTeam} size={size} />
+        ))}
       </div>
-      <Divider />
-      {controlElement ?? null}
-    </div>
-  );
-}
-
-function GuildGridInner({ dimensions, pickTeam, size, extraIcons }: any) {
-  const { data } = useData();
-  if (!data || !dimensions) {
-    return null;
+    );
   }
-
-  const list: GridIcon[] = data.Guilds.map((g: Guild) => ({
-    key: g.name,
-    name: g.name,
-    icon: g.name,
-  }));
-  // list.push(...(extraIcons ?? []));
-
-  return (
-    <>
-      {list.map((g, i) => (
-        <GridIconButton key={i} g={g} pickTeam={pickTeam} size={size} />
-      ))}
-    </>
-  );
-}
+);
 
 export function GridIconButton(props: {
   g: GridIcon;
-  pickTeam: (guild: string) => void;
+  pickTeam?: (guild: string) => void;
   size: number;
 }) {
   const { g, pickTeam, size } = props;
@@ -158,9 +181,7 @@ export function GridIconButton(props: {
     <Button
       key={g.key}
       variant="outlined"
-      onClick={() => {
-        pickTeam && pickTeam(g.key);
-      }}
+      onClick={() => pickTeam?.(g.key)}
       style={{
         display: "flex",
         flexDirection: "column",

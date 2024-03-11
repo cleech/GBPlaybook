@@ -1,7 +1,5 @@
-import React from "react";
-// import { useState, useRef, useLayoutEffect } from "react";
-import GBImages from "./GBImages";
-import { useData } from "./DataContext";
+import React, { useEffect, useState } from "react";
+import GBImages from "../utils/GBImages";
 
 import GBIcon from "./GBIcon";
 import "./CardBack.css";
@@ -10,11 +8,13 @@ import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
 import { GBCardCSS } from "./CardFront";
-import { IGBPlayer, JGBPlayer, useStore } from "../models/Root";
-type model = IGBPlayer | JGBPlayer;
+import { useSettings } from "../hooks/useSettings";
+import { GBModelExpanded } from "../models/gbdb";
+import { useRxData } from "../hooks/useRxQuery";
+import { map } from "rxjs";
 
 interface CardBackProps {
-  model: model;
+  model: GBModelExpanded;
   style: GBCardCSS;
   guild?: string;
   className?: string;
@@ -25,33 +25,36 @@ const CardBack = (props: CardBackProps) => {
   const model = props.model;
   const key = model.id;
 
-  const { settings } = useStore();
-  const { data } = useData();
-  if (!data) {
-    return null;
-  }
+  const { setting$ } = useSettings();
+  const [style, setStyle] = useState<"sfg" | "gbcp">();
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.cardPreferences.preferredStyle))
+      .subscribe((style) => setStyle(style));
 
-  const guild = data.Guilds.find(
-    (g) => g.name === (props.guild ?? model.guild1)
+    return () => sub?.unsubscribe();
+  });
+
+  const guild = useRxData(
+    (db) => db.guilds.findOne().where({ name: model.guild1 }).exec(),
+    [model.guild1]
   );
+
   if (!guild) {
     return null;
   }
 
   const gbcp =
-    (settings.cardPreferences.perferedStyled === "gbcp" && (
-      GBImages.has(`${key}_gbcp_front`) ||
-      GBImages.has(`${key}_full`)
-    ));
+    style === "gbcp" &&
+    (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
 
-  const image =
-    gbcp ?
-      (GBImages.get(`${key}_full`) ??
-        GBImages.get(`${key}_gbcp_back`) ??
-        GBImages.get(`${key}_back`)) :
-      (GBImages.get(`${key}_back`) ??
-        GBImages.get(`${key}_full`) ??
-        GBImages.get(`${key}_gbcp_back`));
+  const image = gbcp
+    ? GBImages.get(`${key}_full`) ??
+      GBImages.get(`${key}_gbcp_back`) ??
+      GBImages.get(`${key}_back`)
+    : GBImages.get(`${key}_back`) ??
+      GBImages.get(`${key}_full`) ??
+      GBImages.get(`${key}_gbcp_back`);
 
   return (
     <div
@@ -118,37 +121,26 @@ function CTName({ text }: { text: string }) {
   );
 }
 
-const CharacterTraits = ({ model }: { model: model }) => {
-  const { data } = useData();
-  if (!data) {
-    return null;
-  }
-  const Traits = data["Character Traits"];
-  return (
-    <div>
-      <div className="header dropcap">
-        <span>Character </span>
-        <span>Traits</span>
-      </div>
-      {model.character_traits?.map((key, index) => {
-        const ct = Traits.find((ct) => ct.name === key.replace(/ \[.*\]/, ""));
-        if (!ct) {
-          return null;
-        }
-        return (
-          <div className="character-trait" key={`${key}-${index}`}>
-            <div className={`trait ${ct.active && "active"}`}>
-              <CTName text={key} />
-            </div>
-            <span className="text">{textIconReplace(ct.text)}</span>
-          </div>
-        );
-      })}
+const CharacterTraits = ({ model }: { model: GBModelExpanded }) => (
+  <div>
+    <div className="header dropcap">
+      <span>Character </span>
+      <span>Traits</span>
     </div>
-  );
-};
+    {model.character_traits.map((ct, index) => (
+      <div className="character-trait" key={`${ct.name}-${index}`}>
+        <div className={`trait ${ct.active && "active"}`}>
+          <CTName
+            text={ct.name.concat(ct.parameter ? ` [${ct.parameter}]` : "")}
+          />
+        </div>
+        <span className="text">{textIconReplace(ct.text)}</span>
+      </div>
+    ))}
+  </div>
+);
 
-const Heroic = ({ model }: { model: model }) => {
+const Heroic = ({ model }: { model: GBModelExpanded }) => {
   if (!model.heroic) {
     return null;
   }
@@ -168,7 +160,7 @@ const Heroic = ({ model }: { model: model }) => {
   );
 };
 
-const Legendary = ({ model }: { model: model }) => {
+const Legendary = ({ model }: { model: GBModelExpanded }) => {
   if (!model.legendary) {
     return null;
   }

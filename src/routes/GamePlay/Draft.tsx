@@ -1,132 +1,157 @@
-import React, { useCallback, useState, useRef, useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useCallback, useState, useEffect, MouseEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  Button,
-  Fab,
   Typography,
-  Link,
   Breadcrumbs,
   IconButton,
-  Snackbar,
-  Alert,
   Box,
   Menu,
   MenuItem,
   MenuList,
-  Avatar,
 } from "@mui/material";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SettingsIcon from "@mui/icons-material/Settings";
-import { useData } from "../../components/DataContext";
-import { roster, DraftList, BSDraftList } from "../../components/Draft";
-import { useStore } from "../../models/Root";
+import { DraftList, BSDraftList } from "../../components/Draft";
 
 import "./Draft.css";
 
 import { Home, NavigateNext } from "@mui/icons-material";
 import { AppBarContent } from "../../App";
 
-import { useRTC } from "../../services/webrtc";
 import VersionTag from "../../components/VersionTag";
-import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
-
-const ResumeSnackBar = () => {
-  const { resumePossible } = useStore();
-  const [showSnack, setShowSnack] = useState(resumePossible);
-  return (
-    <Snackbar
-      open={showSnack}
-      onClose={() => setShowSnack(false)}
-      autoHideDuration={6000}
-    >
-      <Alert
-        severity="info"
-        action={
-          <Button size="small" href="/game/draft/play">
-            Resume Game
-          </Button>
-        }
-      >
-        There is an existing game that can be resumed.
-      </Alert>
-    </Snackbar>
-  );
-};
+// import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
+import { GBGameStateDoc, GBModel } from "../../models/gbdb";
+// import ResumeSnackBar from "./ResumeSnackBar";
+import { SettingsDoc } from "../../models/settings";
+import { useSettings } from "../../hooks/useSettings";
+import { useRxData } from "../../hooks/useRxQuery";
+import { firstValueFrom, map } from "rxjs";
+import { NetworkGame } from "../../components/NetworkGame";
+import { useNetworkState } from "../../hooks/useNetworkState";
+import { useGameState } from "../../hooks/useGameState";
+import { NavigateFab } from "./NavigateFab";
 
 export default function Draft() {
-  const store = useStore();
-  const [waiting, setWaiting] = useState(false);
-  const [locked, setLocked] = useState(false);
-  const navigate = useNavigate();
-  const { dc } = useRTC();
+  const { active: networkActive } = useNetworkState();
+  return (
+    <Box className="DraftScreen">
+      <AppBarContent>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+            <IconButton
+              color="inherit"
+              href={`/game`}
+              size="small"
+              disabled={networkActive}
+            >
+              <Home />
+            </IconButton>
+            <Typography>Draft</Typography>
+          </Breadcrumbs>
+          <div>
+            <GameSizeMenu />
+            <NetworkGame />
+          </div>
+        </Box>
+      </AppBarContent>
+      <DraftInner />
+      <VersionTag />
+    </Box>
+  );
+}
 
-  const [team1, setTeam1] = useState<roster | undefined>(undefined);
-  const [team2, setTeam2] = useState<roster | undefined>(undefined);
-  const ready1 = useCallback((team: roster) => setTeam1(team), []);
-  const ready2 = useCallback((team: roster) => setTeam2(team), []);
+function DraftInner() {
+  const { setting$ } = useSettings();
+  const navigate = useNavigate();
+  // const [waiting, setWaiting] = useState(false);
+  // const [locked, setLocked] = useState(false);
+
+  const [team1, setTeam1] = useState<GBModel[] | undefined>();
+  const [team2, setTeam2] = useState<GBModel[] | undefined>();
+  const ready1 = useCallback((team: GBModel[]) => setTeam1(team), []);
+  const ready2 = useCallback((team: GBModel[]) => setTeam2(team), []);
   const unready1 = useCallback(() => setTeam1(undefined), []);
   const unready2 = useCallback(() => setTeam2(undefined), []);
 
-  const player2 = useRef<any>();
-  const fabRef = useRef<HTMLButtonElement | null>(null);
-
-  const [searchParams] = useSearchParams();
-  const g1 = searchParams.get("p1");
-  const g2 = searchParams.get("p2");
-
-  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
-  const settingsOpen = Boolean(menuAnchor);
-  const settingsClick = (e: React.MouseEvent<HTMLElement>) => {
-    setMenuAnchor(e.currentTarget);
-  }
-  const settingsClose = () => {
-    setMenuAnchor(null);
-  }
-
+  const [gameSize, setGameSize] = useState<3 | 4 | 6>();
   useEffect(() => {
-    if (!!dc) {
-      dc.onmessage = (ev: MessageEvent<string>) => {
-        const msg = JSON.parse(ev.data);
-        if (msg.m) {
-          player2.current?.setModel(msg.m.id, msg.selected);
-        }
-        if (msg.navigation === "ready") {
-          setLocked(true);
-          fabRef.current?.animate(pulseAnimationKeyFrames, 1000);
-          if (waiting) {
-            store.team1.reset({ name: g1 ?? undefined, roster: team1 });
-            store.team2.reset({ name: g2 ?? undefined, roster: team2 });
-            navigate("/game/draft/play");
-          }
-        }
-      };
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.gameSize))
+      .subscribe((gs) => setGameSize(gs));
+    return () => sub?.unsubscribe();
+  }, [setting$]);
+
+  const { active: networkActive } = useNetworkState();
+
+  const { gameState1$, gameState2$ } = useGameState();
+
+  const [player1, setPlayer1] = useState<GBGameStateDoc | null>();
+  useEffect(() => {
+    if (!gameState1$) {
+      return;
     }
-    return () => {
-      if (!!dc) {
-        dc.onmessage = null;
+    let canceled = false;
+    const snapshot = async () => {
+      const doc = await firstValueFrom(gameState1$);
+      if (!canceled) {
+        setPlayer1(doc);
       }
     };
-  }, [
-    dc,
-    waiting,
-    locked,
-    g1,
-    g2,
-    navigate,
-    team1,
-    team2,
-    store.team1,
-    store.team2,
-  ]);
+    snapshot();
+    return () => {
+      canceled = true;
+    };
+  }, [gameState1$]);
 
-  const { data } = useData();
-  if (!data) {
-    return null;
-  }
-  const guild1 = data.Guilds.find((g: any) => g.name === g1);
-  const guild2 = data.Guilds.find((g: any) => g.name === g2);
-  /* FIXME, error message and kick back a screen ? */
-  if (!guild1 || !guild2) {
+  const [player2, setPlayer2] = useState<GBGameStateDoc | null>();
+  useEffect(() => {
+    if (!gameState2$) {
+      return;
+    }
+    let canceled = false;
+    const snapshot = async () => {
+      const doc = await firstValueFrom(gameState2$);
+      if (!canceled) {
+        setPlayer2(doc);
+      }
+    };
+    snapshot();
+    return () => {
+      canceled = true;
+    };
+  }, [gameState2$]);
+
+  const [guild1, guild2] =
+    useRxData(
+      async (db) => {
+        const g1 = player1?.guild;
+        const g2 = player2?.guild;
+        // kick out if we didn't get guild names in URL
+        if (!g1 || !g2) {
+          //   navigate("/game");
+          return;
+        }
+        const [_guild1, _guild2] = await Promise.all([
+          db.guilds.findOne().where({ name: g1 }).exec(),
+          db.guilds.findOne().where({ name: g2 }).exec(),
+        ]);
+        // kick out if we can't find the guild names passed in the URL
+        if (!_guild1 || !_guild2) {
+          navigate("/game");
+          return;
+        }
+        return [_guild1, _guild2];
+      },
+      [player1, player2, navigate]
+    ) ?? [];
+
+  // wait for data load from db
+  if (!guild1 || !guild2 || !player1 || !player2) {
     return null;
   }
 
@@ -134,122 +159,127 @@ export default function Draft() {
   const DraftList2 = guild2.name === "Blacksmiths" ? BSDraftList : DraftList;
 
   return (
-    <Box className="DraftScreen">
-      <AppBarContent>
-        <Box sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}>
-          <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-            <IconButton
-              color="inherit"
-              href={`/game?p1=${g1}&p2=${g2}`}
-              size="small"
-            >
-              <Home />
-            </IconButton>
-            <Typography>Draft</Typography>
-          </Breadcrumbs>
-
-          <IconButton
-            onClick={settingsClick}
-            color="inherit"
-            size="small"
-            // variant="contained"
-            sx= {{
-              backgroundColor: "primary.dark",
-            }}
-          >
-            <Typography>
-              {store.settings.gameSize}
-              v
-              {store.settings.gameSize}
-            </Typography>
-          </IconButton>
-          <Menu
-            anchorEl={menuAnchor}
-            open={settingsOpen}
-            onClose={settingsClose}
-            onClick={settingsClose}
-          >
-            <MenuList dense>
-              <MenuItem selected={store.settings.gameSize === 6}
-                onClick={() => { store.settings.setGameSize(6) }}
-              >6v6</MenuItem>
-              <MenuItem selected={store.settings.gameSize === 4}
-                onClick={() => { store.settings.setGameSize(4) }}
-              >4v4</MenuItem>
-              <MenuItem selected={store.settings.gameSize === 3}
-                onClick={() => { store.settings.setGameSize(3) }}
-              >3v3</MenuItem>
-            </MenuList>
-          </Menu>
-        </Box>
-      </AppBarContent>
-
+    <>
       <DraftList1
         // hacky, but force reset when this setting changes
-        key={`1-${store.settings.gameSize}`}
+        key={`1-${gameSize}`}
         guild={guild1}
+        stateDoc={player1}
         ready={ready1}
         unready={unready1}
-        ignoreRules={false}
         style={{ width: "100%" }}
-        // network play additions
-        onUpdate={
-          dc
-            ? (m, v) => {
-              dc.send(JSON.stringify({ m: m, selected: v }));
-            }
-            : undefined
-        }
       />
 
-      <Typography variant="caption">{"\u00A0"}</Typography>
-      <Fab
-        ref={fabRef}
-        color="secondary"
+      {/* <Typography variant="caption">{"\u00A0"}</Typography> */}
+      <NavigateFab
+        dest="Game"
         disabled={!team1 || !team2}
-        onClick={() => {
-          if (dc) {
-            setWaiting(true);
-            dc.send(JSON.stringify({ navigation: "ready" }));
-            if (locked) {
-              store.team1.reset({ name: g1 ?? undefined, roster: team1 });
-              store.team2.reset({ name: g2 ?? undefined, roster: team2 });
-              navigate("/game/draft/play");
-            }
-          } else {
-            store.team1.reset({ name: g1 ?? undefined, roster: team1 });
-            store.team2.reset({ name: g2 ?? undefined, roster: team2 });
-            navigate("/game/draft/play");
+        onAction={() => {
+          player1
+            .incrementalPatch({
+              score: 0,
+              momentum: 0,
+              roster: team1?.map((m) => ({ name: m.id, health: m.hp })) || [],
+            })
+            .catch(console.error);
+          if (!networkActive) {
+            player2
+              .incrementalPatch({
+                score: 0,
+                momentum: 0,
+                roster: team2?.map((m) => ({ name: m.id, health: m.hp })) || [],
+              })
+              .catch(console.error);
           }
         }}
         sx={{ m: "10px" }}
-      >
-        <PlayArrowIcon />
-      </Fab>
-      <Typography variant="caption">
+      />
+      {/* <Typography variant="caption">
         {waiting ? "(waiting)" : "\u00A0"}
-      </Typography>
+      </Typography> */}
 
       <DraftList2
         // hacky, but force reset when this setting changes
-        key={`2-${store.settings.gameSize}`}
+        key={`2-${gameSize}`}
         guild={guild2}
+        stateDoc={player2}
         ready={ready2}
         unready={unready2}
-        ignoreRules={false}
         style={{ width: "100%" }}
-        // network play additions
-        disabled={!!dc}
-        ref={player2}
+        disabled={networkActive}
       />
 
-      <ResumeSnackBar />
-      <VersionTag />
-    </Box>
+      {/* <ResumeSnackBar /> */}
+    </>
+  );
+}
+
+function GameSizeMenu() {
+  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
+  const settingsOpen = Boolean(menuAnchor);
+  const settingsClick = (e: MouseEvent<HTMLElement>) => {
+    setMenuAnchor(e.currentTarget);
+  };
+  const settingsClose = () => {
+    setMenuAnchor(null);
+  };
+  const { setting$ } = useSettings();
+  const [settings, setSettings] = useState<SettingsDoc | null>();
+  useEffect(() => {
+    const sub = setting$?.subscribe((s) => setSettings(s));
+    return () => sub?.unsubscribe();
+  }, [setting$]);
+
+  const gameSize = settings?.toJSON().data.gameSize;
+
+  return (
+    <>
+      <IconButton
+        onClick={settingsClick}
+        color="inherit"
+        size="small"
+        // variant="contained"
+        sx={{
+          backgroundColor: "primary.dark",
+        }}
+      >
+        <Typography>
+          {gameSize}v{gameSize}
+        </Typography>
+      </IconButton>
+      <Menu
+        anchorEl={menuAnchor}
+        open={settingsOpen}
+        onClose={settingsClose}
+        onClick={settingsClose}
+      >
+        <MenuList dense>
+          <MenuItem
+            selected={gameSize === 6}
+            onClick={() => {
+              settings?.incrementalPatch({ gameSize: 6 });
+            }}
+          >
+            6v6
+          </MenuItem>
+          <MenuItem
+            selected={gameSize === 4}
+            onClick={() => {
+              settings?.incrementalPatch({ gameSize: 4 });
+            }}
+          >
+            4v4
+          </MenuItem>
+          <MenuItem
+            selected={gameSize === 3}
+            onClick={() => {
+              settings?.incrementalPatch({ gameSize: 3 });
+            }}
+          >
+            3v3
+          </MenuItem>
+        </MenuList>
+      </Menu>
+    </>
   );
 }

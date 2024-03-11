@@ -3,28 +3,24 @@ import reactStringReplace from "react-string-replace";
 import { PB } from "./GBIcon";
 
 export const textIconReplace = (text: string | Array<string>) => {
-  let replacedtext = reactStringReplace(
-    text,
-    /\(◉(.*?)\)/g,
-    (match, index, offset) => (
-      <React.Fragment key={`i-a-${index}`}>
-        (◉
-        <span
-          style={{
-            fontStyle: "italic",
-          }}
-        >
-          {match}
-        </span>
-        )
-      </React.Fragment>
-    )
-  );
+  let replacedtext = reactStringReplace(text, /\(◉(.*?)\)/g, (match, index) => (
+    <React.Fragment key={`i-a-${index}`}>
+      (◉
+      <span
+        style={{
+          fontStyle: "italic",
+        }}
+      >
+        {match}
+      </span>
+      )
+    </React.Fragment>
+  ));
 
   replacedtext = reactStringReplace(
     replacedtext,
     /\(([^◉].*?)\)/g,
-    (match, index, offset) => (
+    (match, index) => (
       <React.Fragment key={`i-${index}`}>
         (
         <span
@@ -42,7 +38,7 @@ export const textIconReplace = (text: string | Array<string>) => {
   replacedtext = reactStringReplace(
     replacedtext,
     /([<>TKDGB]+) playbook result/,
-    (match, index, offset) => {
+    (match, index) => {
       return (
         <React.Fragment key={`pb-${index}`}>
           <span
@@ -96,7 +92,7 @@ export const textIconReplace = (text: string | Array<string>) => {
   replacedtext = reactStringReplace(
     replacedtext,
     /\b([A-Z]+)\b/g,
-    (match, index, offset) => (
+    (match, index) => (
       <span
         key={`tla-${index}`}
         style={{

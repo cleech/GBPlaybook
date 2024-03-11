@@ -1,54 +1,52 @@
-import React, { useState, useRef, useLayoutEffect, useCallback } from "react";
+import {
+  useState,
+  useRef,
+  useLayoutEffect,
+  useCallback,
+  JSX,
+  useEffect,
+} from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
-import { model } from "./FlipCard";
-import GBImages from "./GBImages";
-import { useStore } from "../models/Root";
+import GBImages from "../utils/GBImages";
+import { GBModelExpanded } from "../models/gbdb";
+import { useSettings } from "../hooks/useSettings";
+import { map } from "rxjs";
 
-export function DoubleCard({
-  model,
-  controls,
-  controlProps,
-}: {
-  model: model;
-  controls: any;
-  controlProps?: any;
-}): JSX.Element {
-  const { settings } = useStore();
+export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
+  const { setting$ } = useSettings();
   const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1.0);
+
+  const [style, setStyle] = useState<"sfg" | "gbcp">();
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.cardPreferences.preferredStyle))
+      .subscribe((style) => setStyle(style));
+
+    return () => sub?.unsubscribe();
+  }, [setting$]);
+
   useLayoutEffect(() => {
     updateSize();
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   });
-  const updateSize = useCallback(() =>
-  {
+  const updateSize = useCallback(() => {
     if (!targetRef.current) {
       return;
     }
-    let { width, height } = targetRef.current.getBoundingClientRect();
-    let vertScale = width / 1000;
-    let horiScale = height / 700;
-    let newScale = Math.min(vertScale, horiScale, 1);
+    const { width, height } = targetRef.current.getBoundingClientRect();
+    const vertScale = width / 1000;
+    const horiScale = height / 700;
+    const newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
   }, []);
 
-  // const { data } = useData();
-  // if (!data) {
-  //   return null;
-  // }
-  // const model = data.Models.find((m) => m.id === name);
-  // if (GBImages[`${model.id}_gbcp_front`]) {
-  //   model.gbcp = true;
-  // }
-
   const key = model.id;
   const gbcp =
-    (settings.cardPreferences.perferedStyled === "gbcp" && (
-      GBImages.has(`${key}_gbcp_front`) ||
-      GBImages.has(`${key}_full`)
-    ));
+    style === "gbcp" &&
+    (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
   const image = gbcp ? GBImages.get(`${key}_full`) ?? undefined : undefined;
 
   return (
@@ -100,23 +98,6 @@ export function DoubleCard({
             borderBottomLeftRadius: 0,
           }}
         />
-        {controls ? (
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              // position: "absolute",
-              // top: "0px",
-              // left: "0px",
-              // width: "500px",
-              // height: "700px",
-              // transform: `scale(${scale})`,
-              // transformOrigin: "top left",
-            }}
-          >
-            {controls?.({ model, ...controlProps })}
-          </div>
-        ) : null}
       </div>
     </div>
   );

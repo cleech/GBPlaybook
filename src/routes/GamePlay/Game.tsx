@@ -1,9 +1,8 @@
-import React, {
+import {
   useState,
   useRef,
   useLayoutEffect,
   useEffect,
-  useMemo,
   useCallback,
 } from "react";
 import { useBlocker } from "react-router-dom";
@@ -23,62 +22,30 @@ import {
   Alert,
   Box,
 } from "@mui/material";
-import { model } from "../../components/Draft";
-import { useStore, IGBTeam } from "../../models/Root";
 import RosterList, { HealthCounter } from "../../components/RosterList";
 import { FlipCard } from "../../components/FlipCard";
 
-import type { Swiper as SwiperRef } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 import { Home, NavigateNext } from "@mui/icons-material";
 import { AppBarContent } from "../../App";
 
-import { useRTC } from "../../services/webrtc";
 import { FlipGuildCard } from "../../components/GuildCard";
+import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdb";
+import { reSort } from "../../utils/reSort";
+import { firstValueFrom, map } from "rxjs";
+import { useRxData } from "../../hooks/useRxQuery";
+import { NetworkGame } from "../../components/NetworkGame";
+import { useNetworkState } from "../../hooks/useNetworkState";
+import { useGameState } from "../../hooks/useGameState";
 
 export default function Game() {
-  const store = useStore();
-  const theme = useTheme();
-  const large = useMediaQuery(theme.breakpoints.up("sm"));
-  const teams = useMemo(
-    () => [store.team1, store.team2],
-    [store.team1, store.team2]
-  );
   const [showSnack, setShowSnack] = useState(false);
   const [blocked, setBlocked] = useState(false);
 
-  const { dc } = useRTC();
-  if (dc) {
-    teams[1].disable(true);
-  }
-
-  useEffect(() => {
-    if (!!dc) {
-      dc.onmessage = (ev: MessageEvent<string>) => {
-        const msg = JSON.parse(ev.data);
-        if (msg.model && msg.health !== undefined) {
-          const m = teams[1].roster.find((m) => m.id === msg.model);
-          m?.setHealth(msg.health);
-        }
-        if (msg.VP !== undefined) {
-          teams[1].setScore(msg.VP);
-        }
-        if (msg.MOM !== undefined) {
-          teams[1].setMomentum(msg.MOM);
-        }
-      };
-    }
-    return () => {
-      if (!!dc) {
-        dc.onmessage = null;
-      }
-    };
-  }, [dc, teams]);
-
-  let blocker = useBlocker(
-    React.useCallback<BlockerFunction>(
+  const blocker = useBlocker(
+    useCallback<BlockerFunction>(
       (args) => {
         if (args.nextLocation.pathname.startsWith("/game")) {
           setShowSnack(true);
@@ -91,9 +58,11 @@ export default function Game() {
   );
 
   /* useBlocker doesn't seem to work unless some state is updated */
-  React.useEffect(() => {
+  useEffect(() => {
     setBlocked(true);
   }, [blocked, setBlocked]);
+
+  const { active: networkActive } = useNetworkState();
 
   return (
     <Box
@@ -105,34 +74,37 @@ export default function Game() {
       }}
     >
       <AppBarContent>
-        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-          <IconButton
-            color="inherit"
-            href={`/game?p1=${teams[0].name}&p2=${teams[1].name}`}
-            size="small"
-          >
-            <Home />
-          </IconButton>
-          <Link
-            underline="hover"
-            color="inherit"
-            href={`/game/draft?p1=${teams[0].name}&p2=${teams[1].name}`}
-          >
-            Draft
-          </Link>
-          <Typography>Play</Typography>
-        </Breadcrumbs>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+            <IconButton
+              color="inherit"
+              href={`/game`}
+              size="small"
+              disabled={networkActive}
+            >
+              <Home />
+            </IconButton>
+            {networkActive ? (
+              <Typography>Draft</Typography>
+            ) : (
+              <Link underline="hover" color="inherit" href={`/game/draft`}>
+                Draft
+              </Link>
+            )}
+            <Typography>Play</Typography>
+          </Breadcrumbs>
+          <NetworkGame />
+        </Box>
       </AppBarContent>
 
-      {large ? (
-        <>
-          <GameList teams={[teams[0]]} />
-          <Divider orientation="vertical" />
-          <GameList teams={[teams[1]]} />
-        </>
-      ) : (
-        <GameList teams={teams} />
-      )}
+      <GameInner />
 
       <Snackbar
         open={showSnack}
@@ -154,7 +126,126 @@ export default function Game() {
   );
 }
 
-export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
+function GameInner() {
+  const theme = useTheme();
+  const large = useMediaQuery(theme.breakpoints.up("sm"));
+
+  // const navigate = useNavigate();
+
+  const { active: networkActive } = useNetworkState();
+
+  const { gameState1$, gameState2$ } = useGameState();
+
+  const [team1, setGameState1] = useState<GBGameStateDoc | null>();
+  useEffect(() => {
+    if (!gameState1$) {
+      return;
+    }
+    let canceled = false;
+    const snapshot = async () => {
+      const doc = await firstValueFrom(gameState1$);
+      if (!canceled) {
+        setGameState1(doc);
+      }
+    };
+    snapshot();
+    return () => {
+      canceled = true;
+    };
+  }, [gameState1$]);
+
+  const [team2, setGameState2] = useState<GBGameStateDoc | null>();
+  useEffect(() => {
+    if (!gameState2$) {
+      return;
+    }
+    let cancled = false;
+    const snapshot = async () => {
+      const doc = await firstValueFrom(gameState2$);
+      if (!cancled) {
+        setGameState2(doc);
+      }
+    };
+    snapshot();
+    return () => {
+      cancled = true;
+    };
+  }, [gameState2$]);
+
+  const [roster1, roster2] =
+    useRxData(
+      async (db) => {
+        // kick out if there's a problem getting the data
+        if (!team1 || !team2) {
+          // navigate("/game");
+          return;
+        }
+
+        const _roster1 = await db.models
+          .find()
+          .where("id")
+          .in(team1.roster.map((r) => r.name))
+          .exec();
+
+        const __roster1 = await Promise.all(_roster1.map((m) => m.expand()));
+        reSort(
+          __roster1,
+          "id",
+          team1.roster.map((r) => r.name)
+        );
+
+        const _roster2 = await db.models
+          .find()
+          .where("id")
+          .in(team2.roster.map((r) => r.name))
+          .exec();
+
+        const __roster2 = await Promise.all(_roster2.map((m) => m.expand()));
+        reSort(
+          __roster2,
+          "id",
+          team2.roster.map((r) => r.name)
+        );
+        return [__roster1, __roster2];
+      },
+      [team1, team2 /*, navigate */]
+    ) ?? [];
+
+  if (!team1 || !team2) {
+    return null;
+  }
+  if (!roster1 || !roster2) {
+    return null;
+  }
+
+  return large ? (
+    <>
+      <GameList teams={[team1]} rosters={[roster1]} disabled={[false]} />
+      <Divider orientation="vertical" />
+      <GameList
+        teams={[team2]}
+        rosters={[roster2]}
+        disabled={[Boolean(networkActive)]}
+      />
+    </>
+  ) : (
+    <GameList
+      teams={[team1, team2]}
+      rosters={[roster1, roster2]}
+      disabled={[false, Boolean(networkActive)]}
+    />
+  );
+}
+
+const GameList = ({
+  teams,
+  rosters,
+  disabled,
+}: {
+  teams: GBGameStateDoc[];
+  rosters: GBModelExpanded[][];
+  disabled: boolean[];
+}) => {
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
   const sizeRef = useRef<HTMLDivElement>(null);
@@ -162,11 +253,9 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(true);
 
-  const [swiper, setSwiper] = useState<SwiperRef | null>(null);
-
-  const [cardWidth, setCardWidth] = useState(240);
-  const [cardHeight, setCardHeight] = useState(336);
-  const [slideHeight, setSlideHeight] = useState(336);
+  const [cardWidth, setCardWidth] = useState(500);
+  const [cardHeight, setCardHeight] = useState(700);
+  const [slideHeight, setSlideHeight] = useState(700);
   useLayoutEffect(() => {
     updateSize();
     window.addEventListener("resize", updateSize);
@@ -174,13 +263,13 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
   });
 
   const updateSize = useCallback(() => {
-    let width = sizeRef.current?.getBoundingClientRect().width ?? 0;
-    let height = sizeRef.current?.getBoundingClientRect().height ?? 0;
-    let barHeight = large ? 56 : 112;
+    const width = sizeRef.current?.getBoundingClientRect().width ?? 0;
+    const height = sizeRef.current?.getBoundingClientRect().height ?? 0;
+    const barHeight = large ? 56 : 112;
     setCardWidth(Math.min(width - 12, ((height - barHeight) * 5) / 7 - 12));
     setCardHeight(Math.min(height - barHeight - 12, (width * 7) / 5 - 12));
     setSlideHeight(height - barHeight);
-  }, []);
+  }, [large]);
 
   return (
     <div
@@ -192,11 +281,12 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
       }}
     >
       <RosterList
+        disabled={disabled}
         teams={teams}
+        rosters={rosters}
         expanded={expanded}
         onClick={(i, expandList) => {
           setIndex(i);
-          // swiper?.slideTo(index, 0, false);
           setExpanded(expandList);
           setOpen(!expandList);
         }}
@@ -236,7 +326,6 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
           }}
         >
           <Swiper
-            onSwiper={setSwiper}
             initialSlide={index}
             direction="vertical"
             centeredSlides
@@ -251,17 +340,28 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
             }}
           >
             {teams
-              .map((t) => [
+              .map((t, index) => [
                 // Guild Rules Card
-                () => <FlipGuildCard guild={t.name} />,
+                () => <FlipGuildCard guild={t.guild} />,
                 // Model Cards
-                t.roster.map((m) => () => (
-                  <FlipCard
-                    model={m}
-                    controls={CardControls}
-                    controlProps={{ disabled: t.disabled }}
-                  />
-                )),
+                rosters[index].map((m, _index) => () => {
+                  return (
+                    <FlipCard
+                      model={m}
+                      health$={t.get$("roster").pipe(
+                        map((r) => {
+                          return r[_index].health;
+                        })
+                      )}
+                    >
+                      <CardControls
+                        model={m}
+                        state={teams[index]}
+                        disabled={disabled[index]}
+                      />
+                    </FlipCard>
+                  );
+                }),
               ])
               .flat(2)
               .map((component, index) => (
@@ -286,11 +386,13 @@ export const GameList = ({ teams }: { teams: [...IGBTeam[]] }) => {
 };
 
 function CardControls({
+  state,
   model,
   disabled = false,
 }: {
-  model: model;
-  disabled?: boolean;
+  state: GBGameStateDoc;
+  model: GBModelExpanded;
+  disabled: boolean;
 }) {
   return (
     <Paper
@@ -304,7 +406,7 @@ function CardControls({
         // transformOrigin: "bottom right",
       }}
     >
-      <HealthCounter model={model} disabled={disabled} stacked />
+      <HealthCounter state={state} model={model} disabled={disabled} stacked />
     </Paper>
   );
 }

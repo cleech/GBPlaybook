@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -16,59 +15,56 @@ import {
 } from "@mui/material";
 import MinusIcon from "@mui/icons-material/Remove";
 import PlusIcon from "@mui/icons-material/Add";
-import { observer } from "mobx-react-lite";
-import { IGBPlayer, IGBTeam } from "../models/Root";
-import useLongPress from "../components/useLongPress";
+import useLongPress from "../hooks/useLongPress";
 import GBIcon from "./GBIcon";
-import { useRTC } from "../services/webrtc";
-import { useUpdateAnimation } from "./useUpdateAnimation";
-import { useStore } from "../models/Root";
-
-type model = IGBPlayer;
-type team = IGBTeam;
+import { useUpdateAnimation } from "../hooks/useUpdateAnimation";
+import { GBGameStateDoc, GBModelExpanded } from "../models/gbdb";
+import { useEffect, useMemo, useState } from "react";
+import { map } from "rxjs";
+import { useSettings } from "../hooks/useSettings";
 
 interface RosterListProps {
-  teams: team[];
+  teams: GBGameStateDoc[];
+  rosters: GBModelExpanded[][];
   expanded: boolean;
-  onClick: (
-    // event: React.MouseEvent<HTMLElement>,
-    // model: model,
-    index: number,
-    expand: boolean
-  ) => void;
+  onClick: (index: number, expand: boolean) => void;
+  disabled: boolean[];
 }
 
-interface CounterProps {
-  object: any;
-  label: (o: any) => string;
-  value: (o: any) => number;
-  setValue: (o: any, v: number) => void;
-  disabled?: boolean;
+interface CounterProps<T> {
+  object: T;
+  label: (o: T) => string;
+  value: (o: T) => number;
+  setValue: (o: T, v: number) => void;
+  disabled: boolean;
   longPressClear?: boolean;
 }
 
-const CounterLabel = observer(
-  (props: { disabled: boolean; object: any; label: (o: any) => string }) => {
-    const { disabled, object, label } = props;
-    const ref = useUpdateAnimation(disabled, [label(object)]);
-    return (
-      <Typography ref={ref} sx={{ width: "100%", textAlign: "center" }}>
-        {label(object)}
-      </Typography>
-    );
-  }
-);
+function CounterLabel<T>(props: {
+  disabled: boolean;
+  object: T;
+  label: (o: T) => string;
+}) {
+  const { disabled, object, label } = props;
+  const newLabel = label(object);
+  const ref = useUpdateAnimation(disabled, [newLabel]);
+  return (
+    <Typography ref={ref} sx={{ width: "100%", textAlign: "center" }}>
+      {newLabel}
+    </Typography>
+  );
+}
 
-const Counter = ({
+function Counter<T>({
   object,
   label,
   value,
   setValue,
   disabled = false,
   longPressClear = false,
-}: CounterProps) => {
+}: CounterProps<T>) {
   const longPressDown = useLongPress({
-    onLongPress: (e) => {
+    onLongPress: () => {
       setValue(object, 0);
     },
     onClick: (e) => {
@@ -116,64 +112,91 @@ const Counter = ({
       </ButtonGroup>
     </div>
   );
+}
+
+const HealthCounterLabel = (props: {
+  health: number;
+  model: GBModelExpanded;
+  disabled: boolean;
+}) => {
+  const { model, disabled } = props;
+  const ref = useUpdateAnimation<HTMLButtonElement>(disabled, [props.health]);
+  return (
+    <Button ref={ref} disabled size="small">
+      <Typography variant="body2" color="text.primary">
+        {`${String(props.health).padStart(2, "0")} / ${String(
+          model.hp
+        ).padStart(2, "0")}`}
+      </Typography>
+    </Button>
+  );
 };
 
-const HealthCounterLabel = observer(
-  (props: { model: model; disabled: boolean }) => {
-    const { model, disabled } = props;
-    const ref = useUpdateAnimation(disabled, [model.health]);
-    return (
-      <Button ref={ref} disabled size="small">
-        <Typography variant="body2" color="text.primary">
-          {`${String(model.health).padStart(2, "0")} / ${String(
-            model.hp
-          ).padStart(2, "0")}`}
-        </Typography>
-      </Button>
-    );
-  }
-);
-
 export function HealthCounter({
+  state,
   model,
   disabled = false,
   stacked = false,
 }: {
-  model: model;
+  state: GBGameStateDoc;
+  model: GBModelExpanded;
   disabled?: boolean;
   stacked?: boolean;
 }) {
-  const { dc } = useRTC();
   const longPressDown = useLongPress({
-    onLongPress: (e) => {
-      model.setHealth(0);
-      dc?.send(JSON.stringify({ model: model.id, health: 0 }));
+    onLongPress: () => {
+      state.incrementalModify((oldState) => {
+        const m = oldState.roster.findIndex((_m) => _m.name === model.id);
+        oldState.roster[m].health = 0;
+        return oldState;
+      });
     },
-    onClick: (e) => {
-      /* this is dumb, fix the type? */
-      /* we never put counters on raw data, right? */
-      if ((model.health ?? 0) > 0) {
-        let h = (model.health ?? 0) - 1;
-        model.setHealth(h);
-        dc?.send(JSON.stringify({ model: model.id, health: h }));
-      }
+    onClick: () => {
+      state.incrementalModify((oldState) => {
+        const m = oldState.roster.findIndex((_m) => _m.name === model.id);
+        if (oldState.roster[m].health > 0) {
+          oldState.roster[m].health -= 1;
+        }
+        return oldState;
+      });
     },
   });
   const longPressUp = useLongPress({
-    onLongPress: (e) => {
-      if ((model.health ?? 0) < model.recovery) {
-        model.setHealth(model.recovery);
-        dc?.send(JSON.stringify({ model: model.id, health: model.recovery }));
-      }
+    onLongPress: () => {
+      state.incrementalModify((oldState) => {
+        const m = oldState.roster.findIndex((_m) => _m.name === model.id);
+        if (oldState.roster[m].health < model.recovery) {
+          oldState.roster[m].health = model.recovery;
+        }
+        return oldState;
+      });
     },
-    onClick: (e) => {
-      if ((model.health ?? 0) < model.hp) {
-        let h = (model.health ?? 0) + 1;
-        model.setHealth(h);
-        dc?.send(JSON.stringify({ model: model.id, health: h }));
-      }
+    onClick: () => {
+      state.incrementalModify((oldState) => {
+        const m = oldState.roster.findIndex((_m) => _m.name === model.id);
+        if (oldState.roster[m].health < model.hp) {
+          oldState.roster[m].health += 1;
+        }
+        return oldState;
+      });
     },
   });
+
+  const _index = state.roster.findIndex((m) => m.name === model.id);
+  const health$ = useMemo(
+    () =>
+      state.get$("roster").pipe(
+        map((r) => {
+          return r[_index].health;
+        })
+      ),
+    [state, _index]
+  );
+  const [health, setHealth] = useState(model.hp);
+  useEffect(() => {
+    const observer = health$.subscribe((newHealth) => setHealth(newHealth));
+    return () => observer.unsubscribe();
+  }, [health$]);
 
   return (
     <div
@@ -186,7 +209,11 @@ export function HealthCounter({
     >
       {stacked ? (
         <>
-          <HealthCounterLabel model={model} disabled={disabled} />
+          <HealthCounterLabel
+            health={health}
+            model={model}
+            disabled={disabled}
+          />
           <ButtonGroup
             size="small"
             variant="contained"
@@ -208,7 +235,11 @@ export function HealthCounter({
           <Button {...longPressDown} onClick={(e) => e.stopPropagation()}>
             <MinusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
           </Button>
-          <HealthCounterLabel model={model} disabled={disabled} />
+          <HealthCounterLabel
+            health={health}
+            model={model}
+            disabled={disabled}
+          />
           <Button {...longPressUp} onClick={(e) => e.stopPropagation()}>
             <PlusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
           </Button>
@@ -218,14 +249,71 @@ export function HealthCounter({
   );
 }
 
+function ScoreCounter(props: { state: GBGameStateDoc; disabled: boolean }) {
+  const state = props.state;
+  const [score, setScore] = useState(0);
+  useEffect(() => {
+    const observer = state.get$("score").subscribe((s) => setScore(s));
+    return () => observer.unsubscribe();
+  }, [state]);
+  return (
+    <Counter
+      object={state}
+      disabled={props.disabled}
+      label={() => `VP: ${score}`}
+      value={() => score}
+      setValue={(t, v) => {
+        t.incrementalModify((oldValue) => {
+          oldValue.score = v;
+          return oldValue;
+        });
+      }}
+    />
+  );
+}
+
+function MomentumCounter(props: { state: GBGameStateDoc; disabled: boolean }) {
+  const state = props.state;
+  const [momentum, setMomentum] = useState(0);
+  useEffect(() => {
+    const observer = state.get$("momentum").subscribe((m) => setMomentum(m));
+    return () => observer.unsubscribe();
+  }, [state]);
+  return (
+    <Counter
+      object={state}
+      disabled={props.disabled}
+      longPressClear={true}
+      label={() => `MOM: ${momentum}`}
+      value={() => momentum}
+      setValue={(t, v) => {
+        t.incrementalModify((oldValue) => {
+          oldValue.momentum = v;
+          return oldValue;
+        });
+      }}
+    />
+  );
+}
+
 export default function RosterList({
   teams,
+  rosters,
   expanded,
   onClick,
+  disabled,
 }: RosterListProps) {
   const theme = useTheme();
-  const { settings } = useStore();
-  const { dc } = useRTC();
+
+  const { setting$ } = useSettings();
+  const [displayStatLine, setStatLine] = useState<boolean>();
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.uiPreferences.displayStatLine))
+      .subscribe((sl) => setStatLine(sl));
+    return () => sub?.unsubscribe();
+  });
+
   const indexBases = teams.reduce(
     (acc, team, index) => {
       return [...acc, acc[index] + team.roster.length + 1];
@@ -287,7 +375,7 @@ export default function RosterList({
                     }}
                   >
                     <GBIcon
-                      icon={team.name}
+                      icon={team.guild}
                       // fontSize={36}
                       style={{
                         color: theme.palette.text.secondary,
@@ -299,8 +387,8 @@ export default function RosterList({
                   </div>
                 </ListItemIcon>
                 <ListItemText
-                  primary={team.name}
-                  secondary={`${team.roster.reduce(
+                  primary={team.guild}
+                  secondary={`${rosters[index].reduce(
                     (acc, m) => acc + (m._inf ?? m.inf),
                     0
                   )} INF`}
@@ -308,27 +396,8 @@ export default function RosterList({
                 <div
                   style={{ display: "flex", flexDirection: "row", gap: "4px" }}
                 >
-                  <Counter
-                    object={team}
-                    disabled={team.disabled}
-                    label={(t) => `VP: ${t.score}`}
-                    value={(t) => t.score}
-                    setValue={(t, v) => {
-                      t.setScore(v);
-                      dc?.send(JSON.stringify({ VP: v }));
-                    }}
-                  />
-                  <Counter
-                    object={team}
-                    disabled={team.disabled}
-                    longPressClear={true}
-                    label={(t) => `MOM: ${t.momentum}`}
-                    value={(t) => t.momentum}
-                    setValue={(t, v) => {
-                      t.setMomentum(v);
-                      dc?.send(JSON.stringify({ MOM: v }));
-                    }}
-                  />
+                  <ScoreCounter state={team} disabled={disabled[index]} />
+                  <MomentumCounter state={team} disabled={disabled[index]} />
                 </div>
               </ListSubheader>
             </AccordionSummary>
@@ -350,23 +419,23 @@ export default function RosterList({
                   },
                 }}
               >
-                {team.roster.map((m: model, index: number) => (
+                {rosters[index].map((m: GBModelExpanded, _index: number) => (
                   <ListItem
                     key={m.id}
                     secondaryAction={
-                      <HealthCounter model={m} disabled={team.disabled} />
+                      <HealthCounter
+                        state={team}
+                        model={m}
+                        disabled={disabled[index]}
+                      />
                     }
-                    onClick={(e) => {
-                      onClick(indexBase + index, false);
+                    onClick={() => {
+                      onClick(indexBase + _index, false);
                     }}
                   >
                     <ListItemText
-                      primary={m.displayName}
-                      secondary={
-                        settings.uiPreferences.displayStatLine
-                          ? m.statLine
-                          : null
-                      }
+                      primary={m.id}
+                      secondary={displayStatLine ? m.statLine : null}
                     />
                   </ListItem>
                 ))}

@@ -2,39 +2,39 @@ import React, {
   useState,
   useEffect,
   CSSProperties,
-  useImperativeHandle,
   useCallback,
+  useRef,
 } from "react";
-import { IGBPlayer, useStore } from "../models/Root";
-import { useData } from "../components/DataContext";
 import cloneDeep from "lodash.clonedeep";
 import { Badge, Card, Checkbox, FormControlLabel } from "@mui/material";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import { CheckCircleTwoTone as Check } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
-import { useUpdateAnimation } from "./useUpdateAnimation";
-import { observer } from "mobx-react-lite";
+import { useUpdateAnimation } from "../hooks/useUpdateAnimation";
+import { GBGameStateDoc, GBGuild, GBModel } from "../models/gbdb";
+import { reSort } from "../utils/reSort";
+import { useSettings } from "../hooks/useSettings";
+import { useRxData } from "../hooks/useRxQuery";
+import { map } from "rxjs";
 
-// import { Guild } from './DataContext.d';
-
-export interface model extends IGBPlayer {
+export interface DraftModel extends GBModel {
   selected: boolean;
   disabled: number;
 }
-export type roster = model[];
-type condition = (m: model) => boolean;
+export type Roster = DraftModel[];
+type condition = (m: DraftModel) => boolean;
 
 // enforce a limit of how many models can be selected that match a given condition
 function checkCount(
-  roster: roster,
-  model: model,
+  roster: Roster,
+  model: DraftModel,
   oldCount: number,
   value: boolean,
   condition: condition,
   limit: number
 ) {
-  var newCount = oldCount;
+  let newCount = oldCount;
   if (condition(model)) {
     newCount += value ? 1 : -1;
     if (newCount === limit) {
@@ -54,7 +54,7 @@ function checkCount(
   return newCount;
 }
 
-function checkVeterans(roster: roster, model: model, value: boolean) {
+function checkVeterans(roster: Roster, model: DraftModel, value: boolean) {
   roster.forEach((m) => {
     if (m !== model && m.name === model.name) {
       m.disabled += value ? 1 : -1;
@@ -67,37 +67,76 @@ function checkVeterans(roster: roster, model: model, value: boolean) {
   });
 }
 
-function checkBenched(roster: roster, model: model, value: boolean) {
+function checkBenched(
+  roster: Roster,
+  model: DraftModel,
+  value: boolean,
+  update: (model: DraftModel, selected: boolean) => void
+) {
   if (model.dehcneb) {
-    let b = roster.find((b) => b.benched && b.name === model.dehcneb);
-    b && (b.selected = value);
+    const b = roster.find((b) => b.benched && b.name === model.dehcneb);
+    if (b) {
+      update(b, value);
+    }
   }
 }
 
 interface DraftListItemProps {
-  model: model;
+  model: DraftModel;
   disabled?: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  stateDoc: GBGameStateDoc;
+  updateCounts: (m: DraftModel, v: boolean) => void;
 }
 
 function DraftListItem({
   model,
   disabled = false,
-  onChange,
+  stateDoc,
+  updateCounts,
 }: DraftListItemProps) {
-  const ref = useUpdateAnimation(disabled, [model.selected]);
+  const [selected, setSelected] = useState(model.selected);
+  useEffect(() => {
+    const selected$ = stateDoc.get$("roster").pipe(
+      map((r: Array<{ name: string; health: number }>) => {
+        return r.map((o) => o.name).includes(model.id);
+      })
+    );
+    const observer = selected$.subscribe((v) => {
+      setSelected(v);
+      if (v !== model.selected && !model.benched) {
+        updateCounts(model, v);
+      }
+    });
+    return () => observer?.unsubscribe();
+  }, [stateDoc, model, updateCounts]);
+  const ref = useUpdateAnimation(disabled, [selected]);
   return (
     <FormControlLabel
       ref={ref}
-      label={
-        (model.veteran ? "v" : "") + (model.seasoned ? "s" : "") + model.name
-      }
+      label={model.id}
       control={
         <Checkbox
           size="small"
-          checked={model.selected}
+          checked={selected}
           disabled={model.disabled > 0 || disabled}
-          onChange={onChange}
+          onChange={(e) => {
+            const value = e.target.checked;
+            stateDoc
+              .incrementalModify((state) => {
+                if (value) {
+                  const r = state.roster.concat({
+                    name: model.id,
+                    health: model.hp,
+                  });
+                  state.roster = r;
+                } else {
+                  const r = state.roster.filter((o) => o.name != model.id);
+                  state.roster = r;
+                }
+                return state;
+              })
+              .catch(console.error);
+          }}
           icon={<RadioButtonUncheckedIcon />}
           checkedIcon={<RadioButtonCheckedIcon />}
         />
@@ -106,7 +145,7 @@ function DraftListItem({
   );
 }
 
-const StyledBadge = styled(Badge)(({ theme }) => ({
+const StyledBadge = styled(Badge)(() => ({
   "& .MuiBadge-badge": {
     right: "2em",
     top: "2em",
@@ -114,12 +153,11 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 interface DraftListProps {
-  guild: any;
+  guild: GBGuild;
+  stateDoc: GBGameStateDoc;
   disabled?: boolean;
-  ready: (team: roster) => void;
+  ready: (team: GBModel[]) => void;
   unready: () => void;
-  onUpdate?: (m: model, selected: boolean) => void;
-  ignoreRules?: boolean;
   style?: CSSProperties;
 }
 
@@ -138,141 +176,198 @@ const DraftLimits = {
     captain: 1,
     mascot: 1,
     squaddies: 4,
-  }
+  },
 };
 
-export const DraftList = observer(React.forwardRef((props: DraftListProps, ref) => {
-  const {
-    guild,
-    ready: listReady,
-    unready,
-    onUpdate,
-    disabled = false,
-    ignoreRules = false,
-    style,
-  } = props;
-  const { data } = useData();
-  const Models = data?.Models;
+export const DraftList = (props: DraftListProps) => {
+  const { guild, ready: listReady, unready, disabled = false, style } = props;
 
-  const { settings } = useStore();
-  let [ready, setReady] = useState(false);
+  const { setting$ } = useSettings();
+  const [gameSize, setGameSize] = useState<3 | 4 | 6>(6);
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.gameSize))
+      .subscribe((gs) => setGameSize(gs ?? 6));
+    return () => sub?.unsubscribe();
+  }, [setting$]);
 
-  // captain and mascot get pre-selected for minor guilds
-  let [captain, setCaptain] = useState(guild.minor ? 1 : 0);
-  let [mascot, setMascot] = useState((guild.minor && DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot > 0) ? 1 : 0);
-  let [squaddieCount, setSquadCount] = useState(0);
+  // putting these behind a ref avoids stale captures in the callback
+  // when db updates cause multiple callback runs in one update cycle
+  const counters = useRef({ captain: 0, mascot: 0, squaddieCount: 0 });
+  // but then we need to trigger a render, so use a fake state counter for that
+  const [, setUpdate] = useState(0);
 
-  let [roster, setRoster] = useState<roster>(() => {
-    // need to make a deep copy of the roster data
-    let tmpRoster = cloneDeep(
-      // Models.filter((m) => guild.roster.includes(m.id)),
-      guild.roster.map((name: string) => Models?.find((m) => m.id === name))
-    );
-    // and add UI state
-    tmpRoster.forEach((m: model) => {
-      Object.assign(m, { selected: false, disabled: m.benched ? 1 : 0 });
-    });
-    // pre-select captain and mascot for minor guilds
-    if (guild.minor) {
-      tmpRoster.forEach((m: model) => {
-        if (m.captain ||
-          (m.mascot && DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot > 0)) {
-          m.selected = true;
-          m.disabled = 1;
-        }
-      });
-    }
-    // disable mascots in a 3v3 game
-    if (DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot === 0) {
-      tmpRoster.forEach((m: model) => {
-        if (m.mascot) { m.disabled = 1; }
-      })
-    }
-    return tmpRoster;
-  });
+  const [ready, setReady] = useState(false);
 
-
-  function checkCaptains(roster: roster, model: model, count: number, value: boolean) {
-    return checkCount(roster, model, count, value,
-      (m: model) => m.captain,
-      DraftLimits[settings.gameSize as (3 | 4 | 6)].captain
-    );
-  }
-
-  function checkMascots(roster: roster, model: model, count: number, value: boolean) {
-    return checkCount(roster, model, count, value,
-      (m: model) => m.mascot,
-      DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot);
-  }
-
-  function checkSquaddieCount(roster: roster, model: model, count: number, value: boolean) {
-    return checkCount(roster, model, count, value,
-      (m: model) => !(m.captain || m.mascot),
-      DraftLimits[settings.gameSize as (3 | 4 | 6)].squaddies
-    );
-  }
+  const roster = useRxData(
+    async (db) => {
+      const models = await db.models.find().where("id").in(guild.roster).exec();
+      // need to make a copy of the roster data
+      // and add in UI state for drafting
+      const tmpRoster: DraftModel[] = models.map((m) =>
+        Object.assign(m.toMutableJSON(), {
+          selected: false,
+          disabled: m.benched ? 1 : 0,
+        })
+      );
+      reSort(tmpRoster, "id", guild.roster);
+      // pre-select captain and mascot for minor guilds
+      if (guild.minor) {
+        tmpRoster.forEach((m) => {
+          if (m.captain || (m.mascot && DraftLimits[gameSize].mascot > 0)) {
+            props.stateDoc
+              .incrementalModify((state) => {
+                const r = state.roster.concat({ name: m.id, health: m.hp });
+                state.roster = r;
+                return state;
+              })
+              .catch(console.error);
+            m.disabled = 1;
+          }
+        });
+      }
+      // disable mascots in a 3v3 game
+      if (DraftLimits[gameSize].mascot === 0) {
+        tmpRoster.forEach((m) => {
+          if (m.mascot) {
+            m.disabled = 1;
+          }
+        });
+      }
+      return tmpRoster;
+    },
+    [guild, gameSize]
+  );
 
   const onSwitch = useCallback(
-    (model: model, value: boolean) => {
-      onUpdate?.(model, value);
+    (model: DraftModel, value: boolean) => {
+      function checkCaptains(
+        roster: Roster,
+        model: DraftModel,
+        count: number,
+        value: boolean
+      ) {
+        return checkCount(
+          roster,
+          model,
+          count,
+          value,
+          (m: DraftModel) => !!m.captain,
+          DraftLimits[gameSize].captain
+        );
+      }
+
+      function checkMascots(
+        roster: Roster,
+        model: DraftModel,
+        count: number,
+        value: boolean
+      ) {
+        return checkCount(
+          roster,
+          model,
+          count,
+          value,
+          (m: DraftModel) => !!m.mascot,
+          DraftLimits[gameSize].mascot
+        );
+      }
+
+      function checkSquaddieCount(
+        roster: Roster,
+        model: DraftModel,
+        count: number,
+        value: boolean
+      ) {
+        return checkCount(
+          roster,
+          model,
+          count,
+          value,
+          (m: DraftModel) => !(m.captain || m.mascot),
+          DraftLimits[gameSize].squaddies
+        );
+      }
+
+      if (!roster) {
+        return;
+      }
+
       model.selected = value;
 
-      let newCaptain = checkCaptains(roster, model, captain, value);
-      setCaptain(newCaptain);
+      const newCaptain = checkCaptains(
+        roster,
+        model,
+        counters.current.captain,
+        value
+      );
+      counters.current.captain = newCaptain;
 
-      let newMascot = checkMascots(roster, model, mascot, value);
-      setMascot(newMascot);
+      const newMascot = checkMascots(
+        roster,
+        model,
+        counters.current.mascot,
+        value
+      );
+      counters.current.mascot = newMascot;
 
-      let newCount = checkSquaddieCount(roster, model, squaddieCount, value);
-      setSquadCount(newCount);
+      const newCount = checkSquaddieCount(
+        roster,
+        model,
+        counters.current.squaddieCount,
+        value
+      );
+      counters.current.squaddieCount = newCount;
 
       checkVeterans(roster, model, value);
-      checkBenched(roster, model, value);
+      checkBenched(roster, model, value, (benched, value) => {
+        benched.selected = value;
+        props.stateDoc.incrementalModify((state) => {
+          if (value) {
+            const r = state.roster.concat({
+              name: benched.id,
+              health: benched.hp,
+            });
+            state.roster = r;
+          } else {
+            const r = state.roster.filter((o) => o.name != benched.id);
+            state.roster = r;
+          }
+          return state;
+        });
+      });
 
-      if ((newCaptain === DraftLimits[settings.gameSize as (3 | 4 | 6)].captain &&
-        newMascot === DraftLimits[settings.gameSize as (3 | 4 | 6)].mascot &&
-        newCount === DraftLimits[settings.gameSize as (3 | 4 | 6)].squaddies) || ignoreRules) {
+      if (
+        newCaptain === DraftLimits[gameSize].captain &&
+        newMascot === DraftLimits[gameSize].mascot &&
+        newCount === DraftLimits[gameSize].squaddies
+      ) {
         setReady(true);
       } else {
         setReady(false);
       }
-      setRoster(roster);
+
+      setUpdate((old) => old + 1);
     },
-    [roster, onUpdate, captain, mascot, squaddieCount, ignoreRules]
+    [props.stateDoc, roster, gameSize]
   );
 
   useEffect(() => {
-    if (ready) {
-      let team = cloneDeep(guild);
-      team.roster = cloneDeep(roster.filter((m: model) => m.selected));
-      listReady?.(team.roster);
+    if (ready && roster) {
+      const team = cloneDeep(roster.filter((m: DraftModel) => m.selected));
+      listReady?.(team);
     } else {
       unready?.();
     }
   }, [ready, guild, roster, listReady, unready]);
 
-  const setModel = useCallback(
-    (id: string, value: boolean) => {
-      const model: model | undefined = roster.find((m: model) => m.id === id);
-      if (model) {
-        onSwitch(model, value);
-      } else {
-        console.log(`failed to find ${id}`);
-      }
-    },
-    // [ready, roster, onSwitch]
-    [roster, onSwitch]
-  );
-
-  useImperativeHandle(ref, () => ({ setModel }), [setModel]);
-
-  if (!data) {
+  if (!roster) {
     return null;
   }
 
-  let captains = roster.filter((m: model) => m.captain);
-  let mascots = roster.filter((m: model) => m.mascot && !m.captain);
-  let squaddies = roster.filter((m: model) => !m.captain && !m.mascot);
+  const captains = roster.filter((m: DraftModel) => m.captain);
+  const mascots = roster.filter((m: DraftModel) => m.mascot && !m.captain);
+  const squaddies = roster.filter((m: DraftModel) => !m.captain && !m.mascot);
 
   return (
     <StyledBadge
@@ -293,42 +388,46 @@ export const DraftList = observer(React.forwardRef((props: DraftListProps, ref) 
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
           <span>Captains :</span>
-          {captains.map((m: model) => (
+          {captains.map((m: DraftModel) => (
             <DraftListItem
               key={m.id}
               model={m}
-              onChange={(e) => onSwitch(m, !m.selected)}
+              stateDoc={props.stateDoc}
+              updateCounts={onSwitch}
               disabled={disabled}
             />
           ))}
           <span>Mascots :</span>
-          {mascots.map((m: model) => (
+          {mascots.map((m: DraftModel) => (
             <DraftListItem
               key={m.id}
               model={m}
-              onChange={(e) => onSwitch(m, !m.selected)}
+              stateDoc={props.stateDoc}
+              updateCounts={onSwitch}
               disabled={disabled}
             />
           ))}
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <span>Squaddies :</span>
-          {squaddies.slice(0, squaddies.length / 2).map((m: model) => (
+          {squaddies.slice(0, squaddies.length / 2).map((m: DraftModel) => (
             <DraftListItem
               key={m.id}
               model={m}
-              onChange={(e) => onSwitch(m, !m.selected)}
+              stateDoc={props.stateDoc}
+              updateCounts={onSwitch}
               disabled={disabled}
             />
           ))}
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <span>&nbsp;</span>
-          {squaddies.slice(squaddies.length / 2).map((m: model) => (
+          {squaddies.slice(squaddies.length / 2).map((m: DraftModel) => (
             <DraftListItem
               key={m.id}
               model={m}
-              onChange={(e) => onSwitch(m, !m.selected)}
+              stateDoc={props.stateDoc}
+              updateCounts={onSwitch}
               disabled={disabled}
             />
           ))}
@@ -336,7 +435,7 @@ export const DraftList = observer(React.forwardRef((props: DraftListProps, ref) 
       </Card>
     </StyledBadge>
   );
-}));
+};
 
 const BSDraftLimits = {
   3: {
@@ -350,125 +449,146 @@ const BSDraftLimits = {
   6: {
     master: 3,
     apprentice: 3,
-  }
+  },
 };
 
-export const BSDraftList = observer(React.forwardRef((props: DraftListProps, ref) => {
-  const {
-    guild,
-    ready: listReady,
-    unready,
-    onUpdate,
-    ignoreRules = false,
-    disabled = false,
-    style,
-  } = props;
-  const { data } = useData();
-  const Models = data?.Models;
+export const BSDraftList = (props: DraftListProps) => {
+  const { guild, ready: listReady, unready, disabled = false, style } = props;
 
-  const { settings } = useStore();
+  const { setting$ } = useSettings();
+  const [gameSize, setGameSize] = useState<3 | 4 | 6>(6);
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.gameSize))
+      .subscribe((gs) => setGameSize(gs ?? 6));
+    return () => sub?.unsubscribe();
+  }, [setting$]);
 
-  let [masterCount, setMasterCount] = useState(0);
-  let [apprenticeCount, setApprenticeCount] = useState(0);
-  let [ready, setReady] = useState(false);
+  const counters = useRef({ masterCount: 0, apprenticeCount: 0 });
+  const [, setUpdate] = useState(0);
 
-  let [roster, setRoster] = useState(() => {
-    // need to make a deep copy of the roster data
-    let tmpRoster = cloneDeep(
-      // Models.filter((m) => guild.roster.includes(m.id)),
-      guild.roster.map((name: string) => Models?.find((m) => m.id === name))
-    );
-    // and add UI state
-    tmpRoster.forEach((m: model) => {
-      Object.assign(m, { selected: false, disabled: m.benched ? 1 : 0 });
-    });
-    return tmpRoster;
-  });
+  const [ready, setReady] = useState(false);
 
-  function checkMasterCount(
-    roster: roster,
-    model: model,
-    count: number,
-    value: boolean
-  ) {
-    return checkCount(roster, model, count, value,
-      (m: model) => m.captain,
-      BSDraftLimits[settings.gameSize as (3 | 4 | 6)].master);
-  }
-
-  function checkApprenticeCount(
-    roster: roster,
-    model: model,
-    count: number,
-    value: boolean
-  ) {
-    return checkCount(roster, model, count, value,
-      (m: model) => !m.captain,
-      BSDraftLimits[settings.gameSize as (3 | 4 | 6)].apprentice);
-  }
+  const roster = useRxData(
+    async (db) => {
+      const models = await db.models.find().where("id").in(guild.roster).exec();
+      // need to make a copy of the roster data
+      // and add UI state for drafting
+      const tmpRoster: DraftModel[] = models.map((m) =>
+        Object.assign(m.toMutableJSON(), {
+          selected: false,
+          disabled: m.benched ? 1 : 0,
+        })
+      );
+      reSort(tmpRoster, "id", guild.roster);
+      return tmpRoster;
+    },
+    [guild]
+  );
 
   const onSwitch = useCallback(
-    (model: model, value: boolean) => {
-      onUpdate?.(model, value);
+    (model: DraftModel, value: boolean) => {
+      function checkMasterCount(
+        roster: Roster,
+        model: DraftModel,
+        count: number,
+        value: boolean
+      ) {
+        return checkCount(
+          roster,
+          model,
+          count,
+          value,
+          (m: DraftModel) => !!m.captain,
+          BSDraftLimits[gameSize].master
+        );
+      }
+
+      function checkApprenticeCount(
+        roster: Roster,
+        model: DraftModel,
+        count: number,
+        value: boolean
+      ) {
+        return checkCount(
+          roster,
+          model,
+          count,
+          value,
+          (m: DraftModel) => !m.captain,
+          BSDraftLimits[gameSize].apprentice
+        );
+      }
+
+      if (!roster) {
+        return;
+      }
+
       model.selected = value;
 
-      let newMasterCount = checkMasterCount(roster, model, masterCount, value);
-      setMasterCount(newMasterCount);
-
-      let newApprenticeCount = checkApprenticeCount(
+      const newMasterCount = checkMasterCount(
         roster,
         model,
-        apprenticeCount,
+        counters.current.masterCount,
         value
       );
-      setApprenticeCount(newApprenticeCount);
+      counters.current.masterCount = newMasterCount;
+
+      const newApprenticeCount = checkApprenticeCount(
+        roster,
+        model,
+        counters.current.apprenticeCount,
+        value
+      );
+      counters.current.apprenticeCount = newApprenticeCount;
 
       checkVeterans(roster, model, value);
-      checkBenched(roster, model, value);
+      checkBenched(roster, model, value, (benched, value) => {
+        benched.selected = value;
+        props.stateDoc.incrementalModify((state) => {
+          if (value) {
+            const r = state.roster.concat({
+              name: benched.id,
+              health: benched.hp,
+            });
+            state.roster = r;
+          } else {
+            const r = state.roster.filter((o) => o.name != benched.id);
+            state.roster = r;
+          }
+          return state;
+        });
+      });
 
-      if ((newMasterCount === BSDraftLimits[settings.gameSize as (3 | 4 | 6)].master &&
-        newApprenticeCount === BSDraftLimits[settings.gameSize as (3 | 4 | 6)].apprentice) || ignoreRules) {
+      if (
+        newMasterCount === BSDraftLimits[gameSize].master &&
+        newApprenticeCount === BSDraftLimits[gameSize].apprentice
+      ) {
         setReady(true);
       } else {
         setReady(false);
       }
 
-      setRoster(roster);
+      setUpdate((old) => old + 1);
     },
-    [roster, onUpdate, masterCount, apprenticeCount, ignoreRules]
+    [props.stateDoc, roster, gameSize]
   );
 
   useEffect(() => {
-    if (ready) {
-      let team = cloneDeep(guild);
-      team.roster = cloneDeep(roster.filter((m: model) => m.selected));
-      listReady?.(team.roster);
+    if (ready && roster) {
+      const team = cloneDeep(roster.filter((m: DraftModel) => m.selected));
+      listReady?.(team);
     } else {
       unready?.();
     }
   }, [ready, guild, roster, listReady, unready]);
 
-  const setModel = useCallback(
-    (id: string, value: boolean) => {
-      const model: model | undefined = roster.find((m: model) => m.id === id);
-      if (model) {
-        onSwitch(model, value);
-      } else {
-        console.log(`failed to find ${id}`);
-      }
-    },
-    // [ready, roster, onSwitch]
-    [roster, onSwitch]
-  );
-
-  useImperativeHandle(ref, () => ({ setModel }), [setModel]);
-
-  if (!data) {
+  if (!roster) {
     return null;
   }
 
-  let masters = roster.filter((m: model) => m.captain);
-  let apprentices = roster.filter((m: model) => !m.captain);
+  const masters = roster.filter((m: DraftModel) => m.captain);
+  const apprentices = roster.filter((m: DraftModel) => !m.captain);
 
   return (
     <StyledBadge
@@ -489,33 +609,36 @@ export const BSDraftList = observer(React.forwardRef((props: DraftListProps, ref
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
           <span>Masters :</span>
-          {masters.map((m: model) => (
+          {masters.map((m: DraftModel) => (
             <DraftListItem
               key={m.id}
               model={m}
-              onChange={(e) => onSwitch(m, !m.selected)}
+              stateDoc={props.stateDoc}
+              updateCounts={onSwitch}
               disabled={disabled}
             />
           ))}
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <span>Apprentices :</span>
-          {apprentices.slice(0, apprentices.length / 2).map((m: model) => (
+          {apprentices.slice(0, apprentices.length / 2).map((m: DraftModel) => (
             <DraftListItem
               key={m.id}
               model={m}
-              onChange={(e) => onSwitch(m, !m.selected)}
+              stateDoc={props.stateDoc}
+              updateCounts={onSwitch}
               disabled={disabled}
             />
           ))}
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <span>&nbsp;</span>
-          {apprentices.slice(apprentices.length / 2).map((m: model) => (
+          {apprentices.slice(apprentices.length / 2).map((m: DraftModel) => (
             <DraftListItem
               key={m.id}
               model={m}
-              onChange={(e) => onSwitch(m, !m.selected)}
+              stateDoc={props.stateDoc}
+              updateCounts={onSwitch}
               disabled={disabled}
             />
           ))}
@@ -523,4 +646,4 @@ export const BSDraftList = observer(React.forwardRef((props: DraftListProps, ref
       </Card>
     </StyledBadge>
   );
-}));
+};
