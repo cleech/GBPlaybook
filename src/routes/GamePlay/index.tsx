@@ -18,15 +18,13 @@ export default function GamePlay() {
 
   useEffect(() => {
     if (!setting$) return;
-    return () => {
-      firstValueFrom(setting$)
-        .then((settingsDoc) =>
-          settingsDoc?.incrementalPatch({
-            gamePlayRoute: `${location.pathname}${location.search}`,
-          })
-        )
-        .catch(console.error);
-    };
+    firstValueFrom(setting$)
+      .then((settingsDoc) =>
+        settingsDoc?.incrementalPatch({
+          gamePlayRoute: `${location.pathname}${location.search}`,
+        })
+      )
+      .catch(console.error);
   }, [location, setting$]);
 
   const { gbdb: db } = useData();

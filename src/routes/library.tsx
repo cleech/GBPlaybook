@@ -62,6 +62,13 @@ export default function Library() {
 
   useEffect(() => {
     if (!setting$) return;
+    firstValueFrom(setting$)
+      .then((settingsDoc) =>
+        settingsDoc?.incrementalPatch({
+          libraryRoute: `${location.pathname}?m=${slideRef.current}`,
+        })
+      )
+      .catch(console.error);
     return () => {
       firstValueFrom(setting$)
         .then((settingsDoc) =>

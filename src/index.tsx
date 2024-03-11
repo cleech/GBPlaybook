@@ -22,10 +22,7 @@ import Settings from "./routes/settings";
 import { DataProvider } from "./components/DataContext";
 import { CardPrintScreen } from "./routes/print";
 
-import {
-  SettingsDoc,
-  SettingsProvider,
-} from "./models/settings";
+import { SettingsDoc, SettingsProvider } from "./models/settings";
 import { defaultSettings } from "./hooks/useSettings";
 
 import gbdb from "./models/gbdb";
@@ -40,8 +37,16 @@ const router = createHashRouter(
             to={await gbdb
               .getLocal<SettingsDoc>("settings")
               .then((settings) => {
-                const route: string = settings?.get("initialScreen");
-                return route ?? defaultSettings.initialScreen;
+                const route: string =
+                  settings?.get("initialScreen") ??
+                  defaultSettings.initialScreen;
+                if (route === "/game") {
+                  return settings?.get("gamePlayRoute") ?? route;
+                }
+                if (route === "/library") {
+                  return settings?.get("libraryRoute") ?? route;
+                }
+                return route;
               })}
             replace
           />
@@ -70,10 +75,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   // <React.StrictMode>
-        <SettingsProvider>
-          <DataProvider>
-            <RouterProvider router={router} />
-          </DataProvider>
-        </SettingsProvider>
+  <SettingsProvider>
+    <DataProvider>
+      <RouterProvider router={router} />
+    </DataProvider>
+  </SettingsProvider>
   // </React.StrictMode>
 );
