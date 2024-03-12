@@ -26,7 +26,7 @@ import {
 import { useNetworkState } from "../hooks/useNetworkState";
 import { useNavigate } from "react-router-dom";
 import { useSettings } from "../hooks/useSettings";
-import { map } from "rxjs";
+import { firstValueFrom, map } from "rxjs";
 
 const signalingServerUrl =
   import.meta.env.VITE_SIGNALING_URL ??
@@ -312,6 +312,7 @@ const StepReady = (props: StepperProps) => {
   const { setActiveStep } = props;
   const { gbdb: db } = useData();
   const navigate = useNavigate();
+  const { setting$ } = useSettings();
   if (!db) return;
 
   return (
@@ -322,8 +323,14 @@ const StepReady = (props: StepperProps) => {
         onClick={() =>
           leaveNetworkGame(db)
             .then(() => setActiveStep("New"))
-            // FIXME DISABLE BLOCKER and navigate to "/game"
-            .then(() => navigate("/"))
+            // FIXME disabled blocker and navigate to "/game" ?
+            .then(async () => {
+              setting$ &&
+                (await firstValueFrom(setting$).then((s) =>
+                  s?.incrementalPatch({ gamePlayRoute: undefined })
+                ));
+              navigate("/");
+            })
         }
       >
         Leave Game
