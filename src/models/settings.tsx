@@ -17,6 +17,8 @@ export interface Settings {
   };
   gamePlayRoute: string;
   libraryRoute: string;
+  // auto switch on new major release
+  mostRecentErrata?: string;
 }
 
 export type SettingsDoc = RxLocalDocument<GBDatabase, Settings>;

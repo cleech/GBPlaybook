@@ -27,6 +27,9 @@ import { defaultSettings } from "./hooks/useSettings";
 
 import gbdb from "./models/gbdb";
 
+import { registerSW } from "virtual:pwa-register";
+registerSW({ immediate: true });
+
 const router = createHashRouter(
   createRoutesFromElements(
     <>

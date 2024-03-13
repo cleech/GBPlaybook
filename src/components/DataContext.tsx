@@ -5,7 +5,6 @@ import { useSettings } from "../hooks/useSettings";
 import DataFile, { Manifest, Gameplan } from "./DataContext.d";
 
 import gbdb, { GBDatabase, GBModel } from "../models/gbdb";
-import { map } from "rxjs";
 
 interface DataContextProps {
   manifest?: Manifest;
@@ -125,49 +124,69 @@ export const DataProvider = ({ children }: DataProviderProps) => {
   const [db, setDB] = useState<GBDatabase>();
 
   const { setting$ } = useSettings();
-  const [dataSet, setDataSet] = useState<string>();
+  const [dataSet, setDataSet] = useState<string | null>();
+  const [lastSeenErrata, setMostRecent] = useState<string | null>();
+  const [loadFile, setLoadFile] = useState<string | null>();
 
   useEffect(() => {
-    const sub = setting$
-      ?.pipe(map((s) => s?.toJSON().data.dataSet))
-      .subscribe((ds) => setDataSet(ds));
+    const sub = setting$?.subscribe((s) => {
+      const { dataSet, mostRecentErrata } = s?.toJSON().data ?? {};
+      setDataSet(dataSet ?? null);
+      setMostRecent(mostRecentErrata ?? null);
+    });
     return () => {
       sub?.unsubscribe();
     };
   }, [setting$]);
 
   useEffect(() => {
+    if (dataSet === undefined || lastSeenErrata === undefined) return;
     let canceled = false;
     const getDataSet = async () => {
       const manifest = await readManifest();
       if (canceled) return;
       setManifest(manifest);
+
+      const manifestZero = manifest.datafiles[0].filename;
       let filename: string;
-      if (dataSet) {
-        // filename = manifest.datafiles.find((d) => d.filename === settings.dataSet).filename;
+      if (dataSet && lastSeenErrata === manifestZero) {
         filename = dataSet;
       } else {
-        filename = manifest.datafiles[0].filename;
+        filename = manifestZero;
         const settingsDoc = await gbdb?.getLocal("settings");
         if (canceled) return;
-        settingsDoc?.incrementalPatch({ dataSet: filename });
+        settingsDoc?.incrementalPatch({
+          dataSet: filename,
+          mostRecentErrata: manifestZero,
+        });
       }
+      setLoadFile(filename);
       const newVersion = manifest.datafiles.find(
         (d: (typeof manifest.datafiles)[0]) => d.filename === filename
       ).version;
       setVersion(newVersion);
+    };
+    getDataSet();
+    return () => {
+      canceled = true;
+    };
+  }, [dataSet, lastSeenErrata]);
 
-      const dataFile = await readFile(filename);
+  useEffect(() => {
+    if (!loadFile || !manifest) return;
+    let canceled = false;
+    const getDataSet = async () => {
+      const dataFile = await readFile(loadFile);
       if (canceled) return;
       setDB(undefined);
-      await bulkLoadDB(filename, manifest, dataFile).then(() => setDB(gbdb));
+      await bulkLoadDB(loadFile, manifest, dataFile).then(() => setDB(gbdb));
       setGameplans(await readFile("gameplans.json"));
     };
     getDataSet();
     return () => {
       canceled = true;
     };
-  }, [dataSet]);
+  }, [loadFile, manifest]);
 
   return (
     <DataContext.Provider value={{ version, manifest, gameplans, gbdb: db }}>
