@@ -36,8 +36,8 @@ let replicationState:
   | RxWebRTCReplicationPool<GBGameState, SimplePeer>
   | undefined = undefined;
 
-async function clearGameStateCollection(db: GBDatabase) {
-  await db.game_state
+function clearGameStateCollection(db: GBDatabase) {
+ return db.game_state
     .find()
     .exec()
     .then((docs) => db.game_state.bulkRemove(docs.map((d) => d._id)))
