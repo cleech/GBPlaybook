@@ -123,7 +123,7 @@ const Settings = () => {
         </Select>
       </FormControl>
 
-      <Divider sx={{ my: 2 }} />
+      {/* <Divider sx={{ my: 2 }} />
 
       <Typography>Experimental Features:</Typography>
       <FormControl>
@@ -141,7 +141,7 @@ const Settings = () => {
           }
           label="Online Play"
         />
-      </FormControl>
+      </FormControl> */}
     </Box>
   );
 };
