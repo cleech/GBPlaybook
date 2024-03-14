@@ -13573,7 +13573,7 @@
     },
     {
       "name": "Pig Stickin'",
-      "text": "Target enemy model suffers 2 DMG and a 2\" push directly towards this model.",
+      "text": "Target enemy model suffers 2 DMG and a 4\" push directly towards this model.",
       "CST": "CP",
       "RNG": 6,
       "SUS": false,
