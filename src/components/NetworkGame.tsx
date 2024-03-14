@@ -6,6 +6,7 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -37,7 +38,7 @@ let replicationState:
   | undefined = undefined;
 
 function clearGameStateCollection(db: GBDatabase) {
- return db.game_state
+  return db.game_state
     .find()
     .exec()
     .then((docs) => db.game_state.bulkRemove(docs.map((d) => d._id)))
@@ -190,7 +191,12 @@ export function NetworkGame({ allowNew = false }: { allowNew?: boolean }) {
       <Dialog open={dialogOpen} onClose={() => setDialog(false)}>
         <DialogTitle>Network Game Setup</DialogTitle>
         <DialogContent>
-          <NetworkStepper allowNew={allowNew} />
+          <NetworkStepper
+            allowNew={allowNew}
+            close={() => {
+              setDialog(false);
+            }}
+          />
         </DialogContent>
       </Dialog>
     </>
@@ -201,6 +207,7 @@ type HandshakeSteps = "New" | "Start" | "Join" | "Ready" | "Block";
 
 interface StepperProps {
   setActiveStep: (step: HandshakeSteps) => void;
+  close?: () => void;
 }
 
 const StepNew = (props: StepperProps) => {
@@ -316,26 +323,37 @@ const StepReady = (props: StepperProps) => {
   if (!db) return;
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: "1em" }}>
-      <Typography variant="h6">Network Game in Progress</Typography>
-      <Button
-        variant="contained"
-        onClick={() =>
-          leaveNetworkGame(db)
-            .then(() => setActiveStep("New"))
-            // FIXME disabled blocker and navigate to "/game" ?
-            .then(async () => {
-              setting$ &&
-                (await firstValueFrom(setting$).then((s) =>
-                  s?.incrementalPatch({ gamePlayRoute: undefined })
-                ));
-              navigate("/");
-            })
-        }
-      >
-        Leave Game
-      </Button>
-    </Box>
+    <Stack spacing={2} alignItems="center">
+      <Typography variant="h6">Connected</Typography>
+      <Stack direction="row" spacing={2}>
+        <Button
+          variant="contained"
+          onClick={() =>
+            leaveNetworkGame(db)
+              .then(() => setActiveStep("New"))
+              // FIXME disabled blocker and navigate to "/game" ?
+              .then(async () => {
+                setting$ &&
+                  (await firstValueFrom(setting$).then((s) =>
+                    s?.incrementalPatch({ gamePlayRoute: undefined })
+                  ));
+                navigate("/");
+              })
+          }
+        >
+          Leave Game
+        </Button>
+        <Button
+          color="success"
+          variant="contained"
+          onClick={() => {
+            props.close?.();
+          }}
+        >
+          Continue
+        </Button>
+      </Stack>
+    </Stack>
   );
 };
 
@@ -347,7 +365,13 @@ const StepBlock = () => {
   );
 };
 
-function NetworkStepper({ allowNew = false }: { allowNew: boolean }) {
+function NetworkStepper({
+  allowNew = false,
+  close,
+}: {
+  allowNew: boolean;
+  close: () => void;
+}) {
   const { active } = useNetworkState();
   const [activeStep, setActiveStep] = useState<HandshakeSteps>(
     allowNew ? "New" : "Block"
@@ -370,7 +394,9 @@ function NetworkStepper({ allowNew = false }: { allowNew: boolean }) {
       {activeStep === "New" && <StepNew setActiveStep={setActiveStep} />}
       {activeStep === "Start" && <StepStart setActiveStep={setActiveStep} />}
       {activeStep === "Join" && <StepJoin setActiveStep={setActiveStep} />}
-      {activeStep === "Ready" && <StepReady setActiveStep={setActiveStep} />}
+      {activeStep === "Ready" && (
+        <StepReady setActiveStep={setActiveStep} close={close} />
+      )}
       {activeStep === "Block" && <StepBlock />}
     </Box>
   );
