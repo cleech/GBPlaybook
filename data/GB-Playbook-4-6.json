@@ -4111,7 +4111,7 @@
         [
           "1",
           null,
-          "T,>;M",
+          "T,>",
           null,
           null,
           null,
@@ -6679,7 +6679,8 @@
       "reach": false,
       "gbcp": false,
       "character_plays": [
-        "Where'd They Go?"
+        "Where'd They Go?",
+        "Feral Instincts"
       ],
       "character_traits": [
         "Ambush",
@@ -9593,7 +9594,7 @@
           "T,<;M",
           "><;M",
           "2;M",
-          "<<;M",
+          "T,<<;M",
           null,
           null,
           null
@@ -12149,15 +12150,15 @@
     },
     {
       "name": "Shield Throw",
-      "text": "If target enemy model is in possession of the ball, it loses possession of the ball.\nThen perform a circular scatter with the template centred on that model.",
-      "CST": "2,CP",
+      "text": "If target enemy model is in possession of the ball, it loses possession of the ball. Then perform a circular scatter with the template centred on that model.",
+      "CST": "1,CP",
       "RNG": 6,
       "SUS": false,
-      "OPT": true
+      "OPT": false
     },
     {
       "name": "Howl",
-      "text": "If target enemy model is in possession of the ball, it loses possession of the ball.\nThen perform a circular scatter with the template centred on that model.",
+      "text": "If target enemy model is in possession of the ball, it loses possession of the ball. Then perform a circular scatter with the template centred on that model.",
       "CST": "1,CP",
       "RNG": 6,
       "SUS": false,
@@ -14895,7 +14896,7 @@
     {
       "name": "Herding",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 3\" and remove it from the pitch. If it does, choose an enemy model within 3\". The chosen enemy model suffers a 2\" push."
+      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove it from the pitch. If it does, choose an enemy model within 3\". The chosen enemy model suffers a 3\" push."
     },
     {
       "name": "Littermates",
