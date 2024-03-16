@@ -54,8 +54,7 @@ An APK for side-loading is also available on
 - Profile Card Library
 - Profile Card Printing    
 - Multiple Errata Levels Supported
-  - Steamforged Guild Ball 4.3
-  - Guild Ball Community Project erratas 4.4 and 4.5
+  - Including the latest 4.6 update!
 
 ## Contact
 You can contact the author through the GitHub
