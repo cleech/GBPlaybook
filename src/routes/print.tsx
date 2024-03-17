@@ -12,6 +12,7 @@ import {
   ButtonGroup,
   FormControlLabel,
   Menu,
+  Stack,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -46,6 +47,8 @@ import { Settings } from "@mui/icons-material";
 const PrintSettings = (props: {
   withBleed: boolean;
   setBleed: (b: boolean) => void;
+  doubleCard: boolean;
+  setDouble: (b: boolean) => void;
 }) => {
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
   const settingsOpen = Boolean(menuAnchor);
@@ -58,14 +61,21 @@ const PrintSettings = (props: {
 
   const [paged, setPaged] = useState(true);
 
-  const { withBleed, setBleed } = props;
+  const { doubleCard, setDouble, withBleed, setBleed } = props;
   useEffect(() => {
+    const size = doubleCard
+      ? withBleed
+        ? "5.24in 3.74in"
+        : "5in 3.5in"
+      : withBleed
+      ? "2.74in 3.74in"
+      : "2.5in 3.5in";
     const style = document.createElement("style");
     if (!paged) {
       style.innerHTML = `
       @media print {
         @page {        
-          size: ${withBleed ? "5.24in 3.74in" : "5in 3.5in"};
+          size: ${size};
           margin: 0;
         }
         .Cards > .card {
@@ -78,7 +88,7 @@ const PrintSettings = (props: {
     return () => {
       document.head.removeChild(style);
     };
-  }, [withBleed, paged]);
+  }, [doubleCard, withBleed, paged]);
 
   return (
     <>
@@ -99,32 +109,34 @@ const PrintSettings = (props: {
         }}
         open={settingsOpen}
         onClose={settingsClose}
-        onClick={settingsClose}
+        // onClick={settingsClose}
       >
-        <MenuItem>
+        <Stack margin={2}>
           <FormControlLabel
-            label="Full Page"
+            label="Double Wide Cards"
             control={
               <Checkbox
-                checked={paged}
-                onChange={() => {
-                  setPaged(!paged);
-                }}
+                checked={doubleCard}
+                onChange={() => setDouble(!doubleCard)}
               />
             }
           />
           <FormControlLabel
-            label="Print Bleed"
+            label="With Print Bleed"
             control={
               <Checkbox
                 checked={withBleed}
-                onChange={() => {
-                  setBleed(!withBleed);
-                }}
+                onChange={() => setBleed(!withBleed)}
               />
             }
           />
-        </MenuItem>
+          <FormControlLabel
+            label="Set Page to Card Size"
+            control={
+              <Checkbox checked={!paged} onChange={() => setPaged(!paged)} />
+            }
+          />
+        </Stack>
       </Menu>
     </>
   );
@@ -143,6 +155,7 @@ export const CardPrintScreen = () => {
   const [Guilds, setGuilds] = useState<string[]>();
   const [Models, setModels] = useState<string[]>();
 
+  const [doubleCard, setDouble] = useState(true);
   const [withBleed, setBleed] = useState(false);
 
   useEffect(() => {
@@ -217,7 +230,12 @@ export const CardPrintScreen = () => {
         >
           <Typography>Card Printer</Typography>
           <Box>
-            <PrintSettings withBleed={withBleed} setBleed={setBleed} />
+            <PrintSettings
+              withBleed={withBleed}
+              setBleed={setBleed}
+              doubleCard={doubleCard}
+              setDouble={setDouble}
+            />
             <Tooltip title="Print" arrow>
               <IconButton
                 size="small"
@@ -347,10 +365,21 @@ export const CardPrintScreen = () => {
 
       <Box className="Cards">
         {Guilds.map((g) => (
-          <GuildCard name={g} key={g} bleed={withBleed} />
+          <GuildCard
+            name={g}
+            key={g}
+            bleed={withBleed}
+            doubleCard={doubleCard}
+          />
         ))}
         {Models.map((m) => (
-          <ModelCard name={m} id={m} key={m} bleed={withBleed} />
+          <ModelCard
+            name={m}
+            id={m}
+            key={m}
+            bleed={withBleed}
+            doubleCard={doubleCard}
+          />
         ))}
         {gameplans?.map((gp: Gameplan, index) => (
           <GameplanPrintCard
@@ -521,8 +550,9 @@ const ListItemBanner = ({
 );
 
 const DisplayModel = (name: string) => {
-  const card = document.querySelector(`.card#${name}`);
-  card?.classList.toggle("hide");
+  document
+    .querySelectorAll(`.card#${name}`)
+    .forEach((card) => card?.classList.toggle("hide"));
 };
 
 interface CheckBoxRef {
@@ -903,8 +933,9 @@ const ModelCard = (props: {
   guild?: string;
   id: string;
   bleed: boolean;
+  doubleCard: boolean;
 }) => {
-  const { name, id, bleed } = props;
+  const { name, id, bleed, doubleCard } = props;
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList) => {
     if (mutationList && mutationList[0]) {
@@ -932,9 +963,10 @@ const ModelCard = (props: {
   //   }
 
   const width = bleed ? "5.24in" : "5in";
+  const singleWidth = bleed ? "2.74in" : "2.5in";
   const height = bleed ? "3.74in" : "3.5in";
 
-  return (
+  return doubleCard ? (
     <div
       ref={ref}
       className={`card ${!inView ? "hide" : null}`}
@@ -977,11 +1009,74 @@ const ModelCard = (props: {
         </>
       )}
     </div>
+  ) : (
+    <>
+      <div
+        ref={ref}
+        className={`card ${!inView ? "hide" : null}`}
+        id={id}
+        style={{
+          position: "relative",
+          width: singleWidth,
+          height: height,
+          display: "inline-flex",
+          flexDirection: "row",
+          gap: 0,
+        }}
+      >
+        {inView && (
+          <CardFront
+            className={`card-front ${bleed ? "bleed" : null}`}
+            model={model}
+            style={
+              {
+                width: singleWidth,
+                borderRadius: 0,
+                "--scale": "calc(2.5 * 96 / 500)",
+                // "--scale": "calc((7/3) * 96 / 500)",
+              } as GBCardCSS
+            }
+          />
+        )}
+      </div>
+      <div
+        ref={ref}
+        className={`card ${!inView ? "hide" : null}`}
+        id={id}
+        style={{
+          position: "relative",
+          width: singleWidth,
+          height: height,
+          display: "inline-flex",
+          flexDirection: "row",
+          gap: 0,
+        }}
+      >
+        {inView && (
+          <CardBack
+            className={`card-back ${bleed ? "bleed" : null}`}
+            model={model}
+            style={
+              {
+                width: singleWidth,
+                borderRadius: 0,
+                "--scale": "calc(2.5 * (96 / 500))",
+                // "--scale": "calc((7/3) * 96 / 500)",
+              } as GBCardCSS
+            }
+          />
+        )}
+      </div>
+    </>
   );
 };
 
-const GuildCard = (props: { name: string; bleed: boolean }) => {
-  const { name, bleed } = props;
+const GuildCard = (props: {
+  name: string;
+  bleed: boolean;
+  doubleCard: boolean;
+}) => {
+  const { name, bleed, doubleCard } = props;
 
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList) => {
@@ -995,8 +1090,9 @@ const GuildCard = (props: { name: string; bleed: boolean }) => {
 
   const width = bleed ? "5.24in" : "5in";
   const height = bleed ? "3.74in" : "3.5in";
+  const singleWidth = bleed ? "2.74in" : "2.5in";
 
-  return (
+  return doubleCard ? (
     <div
       ref={ref}
       className={`card ${!inView ? "hide" : null}`}
@@ -1037,6 +1133,65 @@ const GuildCard = (props: { name: string; bleed: boolean }) => {
         </>
       )}
     </div>
+  ) : (
+    <>
+      <div
+        ref={ref}
+        className={`card ${!inView ? "hide" : null}`}
+        id={name}
+        style={{
+          position: "relative",
+          width: singleWidth,
+          height: height,
+          display: "inline-flex",
+          flexDirection: "row",
+          gap: 0,
+        }}
+      >
+        {inView && (
+          <>
+            <div
+              className={`card-front ${bleed ? "bleed" : null}`}
+              style={
+                {
+                  backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
+                  width: singleWidth,
+                  borderRadius: 0,
+                } as GBCardCSS
+              }
+            />
+          </>
+        )}
+      </div>
+      <div
+        ref={ref}
+        className={`card ${!inView ? "hide" : null}`}
+        id={name}
+        style={{
+          position: "relative",
+          width: singleWidth,
+          height: height,
+          display: "inline-flex",
+          flexDirection: "row",
+          gap: 0,
+        }}
+      >
+        {inView && (
+          <>
+            <div
+              className={`card-back ${bleed ? "bleed" : null}`}
+              style={
+                {
+                  backgroundImage: `url(${GBImages.get(`${name}_back`)})`,
+                  width: singleWidth,
+                  borderRadius: 0,
+                } as GBCardCSS
+              }
+            />
+          </>
+        )}
+      </div>
+    </>
   );
 };
 
