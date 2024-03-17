@@ -48,6 +48,13 @@ div.card-back.gbcp {
 
 div.card-back.gbcp.bleed {
   /* no print bleed on these */
+  background-position: center center;
+  background-size: calc(100% - 25px) calc(100% - 25px);
+  background-color: var(--mom-color, var(--team-color));
+}
+
+div.card-back.gbcp.bleed.double {
+  /* no print bleed on these */
   background-position: left;
   background-size: calc(100% - 12.5px) calc(100% - 25px);
   background-color: var(--mom-color, var(--team-color));
