@@ -20,6 +20,7 @@ const image = new URL(
 
 export const GameplanFront = (props: {
   gameplan: Gameplan;
+  bleed?: boolean;
   style?: CardCSS;
 }) => {
   const gameplan = props.gameplan;
@@ -27,8 +28,10 @@ export const GameplanFront = (props: {
 
   return (
     <div
-      className="card-front"
+      className={`card-front ${props.bleed ? "bleed" : null}`}
       style={{
+        width: "100%",
+        height: "100%",
         backgroundImage: `url(${image})`,
         ...props.style,
       }}
@@ -202,6 +205,7 @@ export const GameplanCard = (props: { gameplan: Gameplan }) => (
 
 export const ReferenceCardFront = (props: {
   index: number;
+  bleed?: boolean;
   style?: CardCSS;
 }) => {
   const image = new URL(
@@ -210,8 +214,10 @@ export const ReferenceCardFront = (props: {
   ).href;
   return (
     <div
-      className="card-front"
+      className={`card-front ${props.bleed ? "bleed" : null}`}
       style={{
+        width: "100%",
+        height: "100%",
         backgroundImage: `url(${image})`,
         ...props.style,
       }}
