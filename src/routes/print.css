@@ -1,11 +1,5 @@
-/* .App,
-.Main {
-  text-align: center;
-} */
-
 .controls {
   display: flex;
-  /* flex-direction: row; */
   flex-direction: column;
   /* background-color: #282c34; */
   /* color: white; */
@@ -101,12 +95,14 @@
 
 @media print {
   @page {
-    size: auto;
-    margin: 0.25in;
+  size: auto;
+  margin: 0.25in;
+  /* size: 5.24in 3.74in; */
+  /* margin: 0; */
   }
 
   .no-print {
-    display: none;
+    display: none !important;
   }
 
   header {
@@ -122,8 +118,9 @@
     break-inside: avoid;
     page-break-inside: avoid;
     margin: 0.0625in;
+    /* margin: 0; */
     /* box-sizing: border-box; */
-    /* border: none; */
+    border: none;
   }
 
   .MuiTooltip-popper {
