@@ -6,6 +6,7 @@
   overflow: hidden;
   --line-width: 1px;
   image-rendering: crisp-edges;
+  /* This makes background images print */
   -webkit-print-color-adjust: exact;
   color-adjust: exact;
   print-color-adjust: exact;
@@ -43,15 +44,9 @@ div.card-front {
   justify-content: center;
 }
 
-div.card-front.gbcp {
-  /* no print bleed on these */
-  background-size: auto 100%;
-  background-position: left;
-}
-
 /* scalable overlay */
 
-.card-front > .overlay {
+div.card-front > .overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -59,6 +54,33 @@ div.card-front.gbcp {
   height: 700px;
   transform-origin: top left;
   transform: scale(var(--scale));
+  /* outline: 1px solid red; */
+}
+
+div.card-front.bleed {
+  background-size: auto 100%;
+}
+
+div.card-front.bleed.double {
+  background-position: left;
+}
+
+div.card-front.bleed > .overlay {
+  top: calc(25px * var(--scale));
+  left: calc(25px * var(--scale));
+}
+
+div.card-front.gbcp {
+  /* no print bleed on these */
+  background-position: right;
+  background-size: 100% 100%;
+}
+
+div.card-front.gbcp.bleed {
+  /* no print bleed on these */
+  background-position: right;
+  background-size: calc(100% - 12.5px) calc(100% - 25px);
+  background-color: var(--mom-color, var(--team-color));
 }
 
 /* top box positioning and layout */

@@ -6,10 +6,12 @@ import {
   forwardRef,
   CSSProperties,
   useEffect,
+  MouseEvent,
 } from "react";
 import {
   ButtonGroup,
   FormControlLabel,
+  Menu,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -39,6 +41,94 @@ import { GameplanFront, ReferenceCardFront } from "../components/Gameplan";
 import { GBGuildDoc, GBModelDoc } from "../models/gbdb";
 import { reSort } from "../utils/reSort";
 import { useRxData } from "../hooks/useRxQuery";
+import { Settings } from "@mui/icons-material";
+
+const PrintSettings = (props: {
+  withBleed: boolean;
+  setBleed: (b: boolean) => void;
+}) => {
+  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
+  const settingsOpen = Boolean(menuAnchor);
+  const settingsClick = (e: MouseEvent<HTMLElement>) => {
+    setMenuAnchor(e.currentTarget);
+  };
+  const settingsClose = () => {
+    setMenuAnchor(null);
+  };
+
+  const [paged, setPaged] = useState(true);
+
+  const { withBleed, setBleed } = props;
+  useEffect(() => {
+    const style = document.createElement("style");
+    if (!paged) {
+      style.innerHTML = `
+      @media print {
+        @page {        
+          size: ${withBleed ? "5.24in 3.74in" : "5in 3.5in"};
+          margin: 0;
+        }
+        .Cards > .card {
+          margin: 0;
+        }
+      }
+      `;
+    }
+    document.head.appendChild(style);
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, [withBleed, paged]);
+
+  return (
+    <>
+      <Tooltip title="Print Settings" arrow>
+        <IconButton size="small" onClick={settingsClick}>
+          <Settings />
+        </IconButton>
+      </Tooltip>
+      <Menu
+        anchorEl={menuAnchor}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        open={settingsOpen}
+        onClose={settingsClose}
+        onClick={settingsClose}
+      >
+        <MenuItem>
+          <FormControlLabel
+            label="Full Page"
+            control={
+              <Checkbox
+                checked={paged}
+                onChange={() => {
+                  setPaged(!paged);
+                }}
+              />
+            }
+          />
+          <FormControlLabel
+            label="Print Bleed"
+            control={
+              <Checkbox
+                checked={withBleed}
+                onChange={() => {
+                  setBleed(!withBleed);
+                }}
+              />
+            }
+          />
+        </MenuItem>
+      </Menu>
+    </>
+  );
+};
 
 export const CardPrintScreen = () => {
   const { gbdb: db, gameplans } = useData();
@@ -52,6 +142,8 @@ export const CardPrintScreen = () => {
 
   const [Guilds, setGuilds] = useState<string[]>();
   const [Models, setModels] = useState<string[]>();
+
+  const [withBleed, setBleed] = useState(false);
 
   useEffect(() => {
     if (!db) {
@@ -124,16 +216,19 @@ export const CardPrintScreen = () => {
           }}
         >
           <Typography>Card Printer</Typography>
-          <Tooltip title="Print" arrow>
-            <IconButton
-              size="small"
-              onClick={() => {
-                window.print();
-              }}
-            >
-              <PrintIcon />
-            </IconButton>
-          </Tooltip>
+          <Box>
+            <PrintSettings withBleed={withBleed} setBleed={setBleed} />
+            <Tooltip title="Print" arrow>
+              <IconButton
+                size="small"
+                onClick={() => {
+                  window.print();
+                }}
+              >
+                <PrintIcon />
+              </IconButton>
+            </Tooltip>
+          </Box>
         </Box>
       </AppBarContent>
 
@@ -252,16 +347,24 @@ export const CardPrintScreen = () => {
 
       <Box className="Cards">
         {Guilds.map((g) => (
-          <GuildCard name={g} key={g} />
+          <GuildCard name={g} key={g} bleed={withBleed} />
         ))}
         {Models.map((m) => (
-          <ModelCard name={m} id={m} key={m} />
+          <ModelCard name={m} id={m} key={m} bleed={withBleed} />
         ))}
         {gameplans?.map((gp: Gameplan, index) => (
-          <GameplanPrintCard gameplan={gp} key={`gameplan-${index}`} />
+          <GameplanPrintCard
+            gameplan={gp}
+            key={`gameplan-${index}`}
+            bleed={withBleed}
+          />
         ))}
         {gameplans?.map((gp: Gameplan, index) => (
-          <RefcardPrintCard index={index} key={`refcard-${index}`} />
+          <RefcardPrintCard
+            index={index}
+            key={`refcard-${index}`}
+            bleed={withBleed}
+          />
         ))}
       </Box>
     </Box>
@@ -795,8 +898,13 @@ const ModelLists = forwardRef<{
   );
 });
 
-const ModelCard = (props: { name: string; guild?: string; id: string }) => {
-  const { name, id } = props;
+const ModelCard = (props: {
+  name: string;
+  guild?: string;
+  id: string;
+  bleed: boolean;
+}) => {
+  const { name, id, bleed } = props;
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList) => {
     if (mutationList && mutationList[0]) {
@@ -823,6 +931,9 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
   //     model.gbcp = true;
   //   }
 
+  const width = bleed ? "5.24in" : "5in";
+  const height = bleed ? "3.74in" : "3.5in";
+
   return (
     <div
       ref={ref}
@@ -830,8 +941,8 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
       id={id}
       style={{
         position: "relative",
-        width: "5in",
-        height: "3.5in",
+        width: width,
+        height: height,
         display: "inline-flex",
         flexDirection: "row",
         gap: 0,
@@ -840,22 +951,26 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
       {inView && (
         <>
           <CardFront
+            className={`card-front double ${bleed ? "bleed" : null}`}
             model={model}
             style={
               {
-                width: "2.5in",
+                width: width,
                 borderRadius: 0,
                 "--scale": "calc(2.5 * 96 / 500)",
+                // "--scale": "calc((7/3) * 96 / 500)",
               } as GBCardCSS
             }
           />
           <CardBack
+            className={`card-back double ${bleed ? "bleed" : null}`}
             model={model}
             style={
               {
-                width: "2.5in",
+                width: width,
                 borderRadius: 0,
-                "--scale": "calc(2.5 * 96 / 500)",
+                "--scale": "calc(2.5 * (96 / 500))",
+                // "--scale": "calc((7/3) * 96 / 500)",
               } as GBCardCSS
             }
           />
@@ -865,8 +980,8 @@ const ModelCard = (props: { name: string; guild?: string; id: string }) => {
   );
 };
 
-const GuildCard = (props: { name: string }) => {
-  const { name } = props;
+const GuildCard = (props: { name: string; bleed: boolean }) => {
+  const { name, bleed } = props;
 
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList) => {
@@ -877,6 +992,9 @@ const GuildCard = (props: { name: string }) => {
     }
   };
   const [ref] = useMutationObserverRef(callback);
+
+  const width = bleed ? "5.24in" : "5in";
+  const height = bleed ? "3.74in" : "3.5in";
 
   return (
     <div
@@ -885,8 +1003,8 @@ const GuildCard = (props: { name: string }) => {
       id={name}
       style={{
         position: "relative",
-        width: "5in",
-        height: "3.5in",
+        width: width,
+        height: height,
         display: "inline-flex",
         flexDirection: "row",
         gap: 0,
@@ -895,22 +1013,22 @@ const GuildCard = (props: { name: string }) => {
       {inView && (
         <>
           <div
-            className="card-front"
+            className={`card-front double ${bleed ? "bleed" : null}`}
             style={
               {
                 backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
-                width: "2.5in",
+                width: width,
                 borderRadius: 0,
                 // "--scale": "calc(2.5 * 96 / 500)",
               } as GBCardCSS
             }
           />
           <div
-            className="card-back"
+            className={`card-back double ${bleed ? "bleed" : null}`}
             style={
               {
                 backgroundImage: `url(${GBImages.get(`${name}_back`)})`,
-                width: "2.5in",
+                width: width,
                 borderRadius: 0,
                 // "--scale": "calc(2.5 * 96 / 500)",
               } as GBCardCSS
@@ -922,8 +1040,8 @@ const GuildCard = (props: { name: string }) => {
   );
 };
 
-const GameplanPrintCard = (props: { gameplan: Gameplan }) => {
-  const { gameplan } = props;
+const GameplanPrintCard = (props: { gameplan: Gameplan; bleed: boolean }) => {
+  const { gameplan, bleed } = props;
 
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList) => {
@@ -934,6 +1052,9 @@ const GameplanPrintCard = (props: { gameplan: Gameplan }) => {
     }
   };
   const [ref] = useMutationObserverRef(callback);
+
+  const width = bleed ? "2.74in" : "2.5in";
+  const height = bleed ? "3.74in" : "3.5in";
 
   return (
     <div
@@ -942,8 +1063,8 @@ const GameplanPrintCard = (props: { gameplan: Gameplan }) => {
       id={gameplan.title.replace(/[^A-Za-z0-9]+/g, "")}
       style={{
         position: "relative",
-        width: "2.5in",
-        height: "3.5in",
+        width: width,
+        height: height,
         display: "inline-flex",
         flexDirection: "row",
         gap: 0,
@@ -951,25 +1072,30 @@ const GameplanPrintCard = (props: { gameplan: Gameplan }) => {
     >
       {inView && (
         <div
-          className="card-front"
+          className={`card-front ${bleed ? "bleed" : null}`}
           style={
             {
               // backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
-              width: "2.5in",
+              height: height,
+              width: width,
               borderRadius: 0,
               "--scale": "calc(2.5 * 96 / 500)",
             } as GBCardCSS
           }
         >
-          <GameplanFront gameplan={gameplan} style={{ borderRadius: 0 }} />
+          <GameplanFront
+            gameplan={gameplan}
+            style={{ borderRadius: 0 }}
+            bleed={bleed}
+          />
         </div>
       )}
     </div>
   );
 };
 
-const RefcardPrintCard = (props: { index: number }) => {
-  const { index } = props;
+const RefcardPrintCard = (props: { index: number; bleed: boolean }) => {
+  const { index, bleed } = props;
 
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList) => {
@@ -981,6 +1107,9 @@ const RefcardPrintCard = (props: { index: number }) => {
   };
   const [ref] = useMutationObserverRef(callback);
 
+  const width = bleed ? "2.74in" : "2.5in";
+  const height = bleed ? "3.74in" : "3.5in";
+
   return (
     <div
       ref={ref}
@@ -988,27 +1117,30 @@ const RefcardPrintCard = (props: { index: number }) => {
       id={`refcard-${index}`}
       style={{
         position: "relative",
-        width: "2.5in",
-        height: "3.5in",
+        width: width,
+        height: height,
         display: "inline-flex",
         flexDirection: "row",
         gap: 0,
       }}
     >
       {inView && (
-        <div
-          className="card-front"
-          style={
-            {
-              // backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
-              width: "2.5in",
-              borderRadius: 0,
-              "--scale": "calc(2.5 * 96 / 500)",
-            } as GBCardCSS
-          }
-        >
-          <ReferenceCardFront index={index + 1} style={{ borderRadius: 0 }} />
-        </div>
+        // <div
+        //   className="card-front"
+        //   style={
+        //     {
+        //       // backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
+        //       borderRadius: 0,
+        //       "--scale": "calc(2.5 * 96 / 500)",
+        //     } as GBCardCSS
+        //   }
+        // >
+        <ReferenceCardFront
+          index={index + 1}
+          style={{ borderRadius: 0 }}
+          bleed={bleed}
+        />
+        // </div>
       )}
     </div>
   );

@@ -14,21 +14,44 @@ div.card-back {
   justify-content: center;
 }
 
-div.card-back.gbcp {
+/* scalable overlay */
+
+div.card-back .overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 500px;
+  height: 700px;
+  transform-origin: top right;
+  transform: scale(var(--scale));
+  /* outline: 1px solid red; */
+}
+
+div.card-back.bleed {
   background-size: auto 100%;
+}
+
+div.card-back.bleed.double {
   background-position: right;
 }
 
-/* scalable overlay */
+div.card-back.bleed > .overlay {
+  top: calc(25px * var(--scale));
+  right: calc(25px * var(--scale));
+}
 
-.card-back .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 500px;
-  height: 700px;
-  transform-origin: top left;
-  transform: scale(var(--scale));
+div.card-back.gbcp {
+  /* no print bleed on these */
+  background-position: left;
+  background-size: 100% 100%;
+}
+
+div.card-back.gbcp.bleed {
+  /* no print bleed on these */
+  background-position: left;
+  background-size: calc(100% - 12.5px) calc(100% - 25px);
+  background-color: var(--mom-color, var(--team-color));
+  /* background-color: var(--mom-color, var(--team-color)); */
 }
 
 .card-back .container {
