@@ -333,14 +333,15 @@ const StepReady = (props: StepperProps) => {
           onClick={() =>
             leaveNetworkGame(db)
               .then(() => setActiveStep("New"))
-              // FIXME disabled blocker and navigate to "/game" ?
-              .then(async () => {
-                setting$ &&
-                  (await firstValueFrom(setting$).then((s) =>
-                    s?.incrementalPatch({ gamePlayRoute: undefined })
-                  ));
-                navigate("/");
+              .then(() => {
+                return setting$ && firstValueFrom(setting$);
               })
+              // FIXME disabled blocker and navigate to "/game" ?
+              .then((s) => s?.incrementalPatch({ gamePlayRoute: undefined }))
+              .then(() => {
+                navigate("/", {});
+              })
+              .catch(console.error)
           }
         >
           Leave Game
