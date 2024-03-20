@@ -212,19 +212,22 @@ export const DraftList = (props: DraftListProps) => {
       );
       reSort(tmpRoster, "id", guild.roster);
       // pre-select captain and mascot for minor guilds
-      if (guild.minor) {
+      if (!disabled && guild.minor) {
+        const selected: Set<string> = new Set(
+          props.stateDoc.get("roster").map((m: unknown) => JSON.stringify(m))
+        );
         tmpRoster.forEach((m) => {
           if (m.captain || (m.mascot && DraftLimits[gameSize].mascot > 0)) {
-            props.stateDoc
-              .incrementalModify((state) => {
-                const r = state.roster.concat({ name: m.id, health: m.hp });
-                state.roster = r;
-                return state;
-              })
-              .catch(console.error);
+            selected.add(JSON.stringify({ name: m.id, health: m.hp }));
             m.disabled = 1;
           }
         });
+        props.stateDoc
+          .incrementalModify((state) => {
+            state.roster = Array.from(selected).map((s) => JSON.parse(s));
+            return state;
+          })
+          .catch(console.error);
       }
       // disable mascots in a 3v3 game
       if (DraftLimits[gameSize].mascot === 0) {
@@ -321,6 +324,9 @@ export const DraftList = (props: DraftListProps) => {
 
       checkVeterans(roster, model, value);
       checkBenched(roster, model, value, (benched, value) => {
+        if (disabled) {
+          return;
+        }
         benched.selected = value;
         props.stateDoc.incrementalModify((state) => {
           if (value) {
@@ -349,7 +355,7 @@ export const DraftList = (props: DraftListProps) => {
 
       setUpdate((old) => old + 1);
     },
-    [props.stateDoc, roster, gameSize]
+    [props.stateDoc, roster, gameSize, disabled]
   );
 
   useEffect(() => {
@@ -544,6 +550,9 @@ export const BSDraftList = (props: DraftListProps) => {
 
       checkVeterans(roster, model, value);
       checkBenched(roster, model, value, (benched, value) => {
+        if (disabled) {
+          return;
+        }
         benched.selected = value;
         props.stateDoc.incrementalModify((state) => {
           if (value) {
@@ -571,7 +580,7 @@ export const BSDraftList = (props: DraftListProps) => {
 
       setUpdate((old) => old + 1);
     },
-    [props.stateDoc, roster, gameSize]
+    [props.stateDoc, roster, gameSize, disabled]
   );
 
   useEffect(() => {
