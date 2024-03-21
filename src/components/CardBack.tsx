@@ -122,22 +122,25 @@ function CTName({ text }: { text: string }) {
 }
 
 const CharacterTraits = ({ model }: { model: GBModelExpanded }) => (
-  <div>
+  <>
     <div className="header dropcap">
       <span>Character </span>
       <span>Traits</span>
     </div>
     {model.character_traits.map((ct, index) => (
-      <div className="character-trait" key={`${ct.name}-${index}`}>
-        <div className={`trait ${ct.active && "active"}`}>
-          <CTName
-            text={ct.name.concat(ct.parameter ? ` [${ct.parameter}]` : "")}
-          />
+      <>
+        <div className="character-trait" key={`${ct.name}-${index}`}>
+          <div className={`trait ${ct.active && "active"}`}>
+            <CTName
+              text={ct.name.concat(ct.parameter ? ` [${ct.parameter}]` : "")}
+            />
+          </div>
+          <span className="text">{textIconReplace(ct.text)}</span>
         </div>
-        <span className="text">{textIconReplace(ct.text)}</span>
-      </div>
+        <div style={{ flexGrow: 1, maxHeight: "1em" }} />
+      </>
     ))}
-  </div>
+  </>
 );
 
 const Heroic = ({ model }: { model: GBModelExpanded }) => {
@@ -147,7 +150,7 @@ const Heroic = ({ model }: { model: GBModelExpanded }) => {
   const name = model.heroic.split("\n", 1)[0];
   const text = model.heroic.split("\n").slice(1).join("\n");
   return (
-    <div>
+    <>
       <div className="header dropcap">
         <span>Heroic </span>
         <span>Play</span>
@@ -156,7 +159,8 @@ const Heroic = ({ model }: { model: GBModelExpanded }) => {
         <CTName text={name} />
         <span>{textIconReplace(text)}</span>
       </div>
-    </div>
+      <div style={{ flexGrow: 1, maxHeight: "1em" }} />
+    </>
   );
 };
 
@@ -167,7 +171,7 @@ const Legendary = ({ model }: { model: GBModelExpanded }) => {
   const name = model.legendary.split("\n", 1)[0];
   const text = model.legendary.split("\n").slice(1).join("\n");
   return (
-    <div>
+    <>
       <div className="header dropcap">
         <span>Legendary </span>
         <span>Play</span>
@@ -176,7 +180,8 @@ const Legendary = ({ model }: { model: GBModelExpanded }) => {
         <CTName text={name} />
         <span>{textIconReplace(text)}</span>
       </div>
-    </div>
+      <div style={{ flexGrow: 1, maxHeight: "1em" }} />
+    </>
   );
 };
 
