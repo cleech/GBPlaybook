@@ -453,12 +453,25 @@ div.card-front.gbcp.bleed.double {
 
 /* quirks, card specific fixes, etc. */
 
-/* smoke has too much text */
+/* Smoke has too much text */
 
-.Smoke .character-plays .Infuse.text {
-  letter-spacing: -1.1px;
-  word-spacing: -1.1px;
+.Smoke .character-plays .text {
+  /* letter-spacing: -1.1px;
+  word-spacing: -1.1px; */
+  font-size: 20px;
+  line-height: 21px;
 }
+
+/* Skatha was close, and the french translation pushed it over */
+
+.Skatha .character-plays .text {
+  /* letter-spacing: -1.1px;
+  word-spacing: -1.1px; */
+  font-size: 20px;
+  line-height: 21px;
+}
+
+/* 'The Hat' has a crazy long name */
 
 .Harry.card-front .name-plate-right > .name {
   font-size: 36px;

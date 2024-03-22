@@ -282,5 +282,7 @@ div.card-back.gbcp.bleed.double {
 
 /* Nightlight has too much back of card text */
 .Nightlight .character-trait .text {
-  word-spacing: -1px;
+  /* word-spacing: -1px; */
+  font-size: 20px;
+  line-height: 20px;
 }
