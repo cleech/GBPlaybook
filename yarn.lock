@@ -6374,10 +6374,10 @@ vite-plugin-node-polyfills@^0.21.0:
     "@rollup/plugin-inject" "^5.0.5"
     node-stdlib-browser "^1.2.0"
 
-vite-plugin-pwa@^0.19.5:
-  version "0.19.5"
-  resolved "https://registry.yarnpkg.com/vite-plugin-pwa/-/vite-plugin-pwa-0.19.5.tgz#50692c46abc74d161cdd18c5cf8d21e5ce68563e"
-  integrity sha512-3xJEc2Gmq6SBf730UAV1N2/MqOm+MiyvaLToSTglg+pH9b9qm666yPVxrBBlcOhGoJJWjJpu+Z9tROKek2CODg==
+vite-plugin-pwa@^0.19.7:
+  version "0.19.7"
+  resolved "https://registry.yarnpkg.com/vite-plugin-pwa/-/vite-plugin-pwa-0.19.7.tgz#db8e36399a9d508d1deec0d415669c85f26e9df1"
+  integrity sha512-18TECxoGPQE7tVZzKxbf5Icrl5688n1JGMPSgGotTsh89vLDxevY7ICfD3CFVfonZXh8ckuyJXg0NXE5+FAl2A==
   dependencies:
     debug "^4.3.4"
     fast-glob "^3.3.2"
