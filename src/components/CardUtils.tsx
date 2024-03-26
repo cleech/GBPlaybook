@@ -37,7 +37,7 @@ export const textIconReplace = (text: string | Array<string>) => {
 
   replacedtext = reactStringReplace(
     replacedtext,
-    /([<>TKDGB]+) playbook result/,
+    /{([<>TKDGB]+)}/,
     (match, index) => {
       return (
         <React.Fragment key={`pb-${index}`}>
@@ -83,7 +83,6 @@ export const textIconReplace = (text: string | Array<string>) => {
               />
             </div>
           </span>
-          {" playbook result"}
         </React.Fragment>
       );
     }
