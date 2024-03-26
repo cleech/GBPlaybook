@@ -1,40 +1,40 @@
 {
-  "timestamp": "2024-03-22T19:16:38Z",
+  "timestamp": "2024-03-26T16:47:30Z",
   "datafiles": [
     {
       "version": "4.6",
       "description": "Steamforged Guild Ball 4.6",
       "filename": "GB-Playbook-4-6.json",
-      "sha256": "3b3200c01bc5100679fc6cd025cabc026fab1308ba6ff986e11a2b2467187090",
-      "timestamp": "2024-03-15T16:27:40Z"
-    },
-    {
-      "version": "4.6 (fr)",
-      "description": "Steamforged Guild Ball 4.6 (fr)",
-      "filename": "GB-Playbook-4-6.fr.json",
-      "sha256": "3b3200c01bc5100679fc6cd025cabc026fab1308ba6ff986e11a2b2467187090",
-      "timestamp": "2024-03-15T16:27:40Z"
+      "sha256": "2f3c68715c4ac98bbed6d88d4cde01124d53548948e6671b533f786a7847b82e",
+      "timestamp": "2024-03-26T16:42:40Z",
+      "translations": {
+        "fr": {
+          "filename": "GB-Playbook-4-6.fr.json",
+          "sha256": "b3e261c0e878dd6b251dd81c5df516e83cf2f0323cc2f8e7a950e644233498b2",
+          "timestamp": "2024-03-26T16:42:40Z"
+        }
+      }
     },
     {
       "version": "4.5",
       "description": "Guild Ball Community Project 4.5",
       "filename": "GB-Playbook-4-5.json",
-      "sha256": "52754d699d7cf076b2c32cefb6e1c6dd84295546eb617015309e44453773d3de",
-      "timestamp": "2024-02-19T23:41:04Z"
+      "sha256": "f0c070fb10fa1774bbf3b6d1561faa6de1fb7485cd5bb3670b79cd0bb079e5c3",
+      "timestamp": "2024-03-26T16:42:40Z"
     },
     {
       "version": "4.4",
       "description": "Guild Ball Community Project 4.4",
       "filename": "GB-Playbook-4-4.json",
-      "sha256": "70fa66db7dfb5f178c334f556de057356a938e3da0f20e9ac680ee574dbfd3ea",
-      "timestamp": "2024-02-19T23:41:05Z"
+      "sha256": "5000d8e15e61ab6a04ecb3db6870859dc61768bcad9ffacb93eafb388bdffd23",
+      "timestamp": "2024-03-26T16:42:40Z"
     },
     {
       "version": "4.3",
       "description": "Steamforged Guild Ball 4.3",
       "filename": "GB-Playbook-4-3.json",
-      "sha256": "f226f02fabf5617119a3611b37e29909e87139cb4b356f45da41ee026e5f3126",
-      "timestamp": "2024-02-19T23:41:06Z"
+      "sha256": "6a010e3faf8126fe75afefed8cb643b89453ec3c74b9ac86dc0f59aef380cd72",
+      "timestamp": "2024-03-26T16:42:40Z"
     }
   ]
 }
