@@ -128,7 +128,7 @@ const CharacterTraits = ({ model }: { model: GBModelExpanded }) => (
       <span>Traits</span>
     </div>
     {model.character_traits.map((ct, index) => (
-      <>
+      <React.Fragment key={`ct-${index}`}>
         <div className="character-trait" key={`${ct.name}-${index}`}>
           <div className={`trait ${ct.active && "active"}`}>
             <CTName
@@ -138,7 +138,7 @@ const CharacterTraits = ({ model }: { model: GBModelExpanded }) => (
           <span className="text">{textIconReplace(ct.text)}</span>
         </div>
         <div style={{ flexGrow: 1, maxHeight: "1em" }} />
-      </>
+      </React.Fragment>
     ))}
   </>
 );

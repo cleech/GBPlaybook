@@ -5,7 +5,8 @@ import { Settings } from "../models/settings";
 export const useSettings = () => useContext(SettingsContext);
 
 export const defaultSettings: Settings = {
-  dataSet: "GB-Playbook-4-5.json",
+  dataSet: "GB-Playbook-4-6.json",
+  language: "auto",
   initialScreen: "/game",
   gameSize: 6,
   networkPlay: false,

@@ -5,6 +5,7 @@ import { useSettings } from "../hooks/useSettings";
 import DataFile, { Manifest, Gameplan } from "./DataContext.d";
 
 import gbdb, { GBDatabase, GBModel } from "../models/gbdb";
+import i18n from "../utils/i18next";
 
 interface DataContextProps {
   manifest?: Manifest;
@@ -127,11 +128,17 @@ export const DataProvider = ({ children }: DataProviderProps) => {
   const [dataSet, setDataSet] = useState<string | null>();
   const [lastSeenErrata, setMostRecent] = useState<string | null>();
   const [loadFile, setLoadFile] = useState<string | null>();
+  const [language, setLang] = useState<string | null>();
 
   useEffect(() => {
     const sub = setting$?.subscribe((s) => {
-      const { dataSet, mostRecentErrata } = s?.toJSON().data ?? {};
+      const { dataSet, language, mostRecentErrata } = s?.toJSON().data ?? {};
       setDataSet(dataSet ?? null);
+      if (language == "auto") {
+        setLang(i18n.resolvedLanguage ?? null);
+      } else {
+        setLang(language ?? null);
+      }
       setMostRecent(mostRecentErrata ?? null);
     });
     return () => {
@@ -160,17 +167,25 @@ export const DataProvider = ({ children }: DataProviderProps) => {
           mostRecentErrata: manifestZero,
         });
       }
-      setLoadFile(filename);
-      const newVersion = manifest.datafiles.find(
+
+      const manifestEntry = manifest.datafiles.find(
         (d: (typeof manifest.datafiles)[0]) => d.filename === filename
-      ).version;
+      );
+      const newVersion = manifestEntry.version;
       setVersion(newVersion);
+
+      // check for translated data set
+      if (language && manifestEntry.translations?.[language]) {
+        console.log(`using translated data set (${language})`);
+        filename = manifestEntry.translations[language].filename;
+      }
+      setLoadFile(filename);
     };
     getDataSet();
     return () => {
       canceled = true;
     };
-  }, [dataSet, lastSeenErrata]);
+  }, [dataSet, language, lastSeenErrata]);
 
   useEffect(() => {
     if (!loadFile || !manifest) return;

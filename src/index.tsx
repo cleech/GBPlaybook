@@ -30,6 +30,8 @@ import gbdb from "./models/gbdb";
 import { registerSW } from "virtual:pwa-register";
 registerSW({ immediate: true });
 
+import "./utils/i18next";
+
 const router = createHashRouter(
   createRoutesFromElements(
     <>

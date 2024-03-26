@@ -6,6 +6,7 @@ import { defaultSettings } from "../hooks/useSettings";
 
 export interface Settings {
   dataSet?: string;
+  language?: string;
   initialScreen: string;
   gameSize: 3 | 4 | 6;
   networkPlay: boolean;

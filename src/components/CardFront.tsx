@@ -9,7 +9,7 @@ import Color from "color";
 
 import { Guild } from "./DataContext.d";
 import { GBModelExpanded } from "../models/gbdb";
-import { Observable, map } from "rxjs";
+import { Observable } from "rxjs";
 import { useSettings } from "../hooks/useSettings";
 import { useRxData } from "../hooks/useRxQuery";
 
@@ -37,10 +37,16 @@ const CardFront = (props: CardFrontProps) => {
 
   const { setting$ } = useSettings();
   const [style, setStyle] = useState<"sfg" | "gbcp">();
+  const [lang, setLang] = useState<string | null>();
+
   useEffect(() => {
     const sub = setting$
-      ?.pipe(map((s) => s?.toJSON().data.cardPreferences.preferredStyle))
-      .subscribe((style) => setStyle(style));
+      // ?.pipe(map((s) => s?.toJSON().data.cardPreferences.preferredStyle))
+      // .subscribe((style) => setStyle(style));
+      ?.subscribe((s) => {
+        setStyle(s?.toJSON().data.cardPreferences.preferredStyle);
+        setLang(s?.toJSON().data.language);
+      });
 
     return () => sub?.unsubscribe();
   });
@@ -73,7 +79,7 @@ const CardFront = (props: CardFrontProps) => {
 
   return (
     <div
-      className={`card-front ${key} ${gbcp && "gbcp"} ${props.className}`}
+      className={`card-front ${key} lang-${lang} ${gbcp && "gbcp"} ${props.className}`}
       style={{
         "--team-color": guild1.color,
         /* not the best way to do this */

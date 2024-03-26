@@ -456,15 +456,15 @@ div.card-front.gbcp.bleed.double {
 /* Smoke has too much text */
 
 .Smoke .character-plays .text {
-  /* letter-spacing: -1.1px;
-  word-spacing: -1.1px; */
+  /* letter-spacing: -1.1px; */
+  /* word-spacing: -1.1px; */
   font-size: 20px;
   line-height: 21px;
 }
 
 /* Skatha was close, and the french translation pushed it over */
 
-.Skatha .character-plays .text {
+.Skatha.lang-fr .character-plays .text {
   /* letter-spacing: -1.1px;
   word-spacing: -1.1px; */
   font-size: 20px;

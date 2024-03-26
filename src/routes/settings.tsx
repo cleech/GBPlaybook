@@ -16,10 +16,14 @@ import {
 import { AppBarContent } from "../App";
 import { SettingsDoc } from "../models/settings";
 import { useSettings } from "../hooks/useSettings";
+import { useTranslation } from "react-i18next";
+import ISO6391 from "iso-639-1";
 
 const Settings = () => {
   const { manifest } = useData();
   const { setting$ } = useSettings();
+  const { i18n } = useTranslation();
+  const lng = i18n.resolvedLanguage;
 
   const [settingsDoc, setSettingsDoc] = useState<SettingsDoc | null>();
   useEffect(() => {
@@ -45,7 +49,7 @@ const Settings = () => {
 
       <Divider sx={{ my: 2 }} />
 
-      <Typography>Season and Erratra Version:</Typography>
+      <Typography>Season and Errata Version:</Typography>
 
       <FormControl>
         <Select
@@ -59,6 +63,38 @@ const Settings = () => {
               {`[${dataSet.version}] ${dataSet.description}`}
             </MenuItem>
           ))}
+        </Select>
+      </FormControl>
+
+      <p />
+
+      <Typography>Language Preference</Typography>
+      <Typography variant="subtitle2">
+        (available languages vary by Season and Errata setting)
+      </Typography>
+      <FormControl>
+        <Select
+          value={settingsDoc.toJSON().data.language ?? "auto"}
+          onChange={(event: SelectChangeEvent) => {
+            settingsDoc?.incrementalPatch({ language: event.target.value });
+          }}
+        >
+          <MenuItem value="auto" key="auto">
+            {`Automatic Detection (${ISO6391.getNativeName(lng ?? "en")})`}
+          </MenuItem>
+          {["en"]
+            .concat(
+              Object.keys(
+                manifest.datafiles.find(
+                  (d) => d.filename === settingsDoc.toJSON().data.dataSet
+                )?.translations ?? {}
+              )
+            )
+            .map((lang, index: number) => (
+              <MenuItem value={lang} key={index}>
+                {`${ISO6391.getNativeName(lang)}`}
+              </MenuItem>
+            ))}
         </Select>
       </FormControl>
 
