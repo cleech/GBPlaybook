@@ -6,14 +6,14 @@
       "description": "Steamforged Guild Ball 4.6",
       "filename": "GB-Playbook-4-6.json",
       "sha256": "3b3200c01bc5100679fc6cd025cabc026fab1308ba6ff986e11a2b2467187090",
-      "timestamp": "2024-03-15T16:27:40Z"
-    },
-    {
-      "version": "4.6 (fr)",
-      "description": "Steamforged Guild Ball 4.6 (fr)",
-      "filename": "GB-Playbook-4-6.fr.json",
-      "sha256": "3b3200c01bc5100679fc6cd025cabc026fab1308ba6ff986e11a2b2467187090",
-      "timestamp": "2024-03-15T16:27:40Z"
+      "timestamp": "2024-03-15T16:27:40Z",
+      "translations": {
+        "fr": {
+          "filename": "GB-Playbook-4-6.fr.json",
+          "sha256": "3b3200c01bc5100679fc6cd025cabc026fab1308ba6ff986e11a2b2467187090",
+          "timestamp": "2024-03-15T16:27:40Z"
+        }
+      }
     },
     {
       "version": "4.5",

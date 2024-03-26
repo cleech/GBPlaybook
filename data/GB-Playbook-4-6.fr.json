@@ -8419,7 +8419,7 @@
       "character_traits": [
         "Shadow Like"
       ],
-      "legendary": "Strike from the Shadows [6\" Pulse]\nChoisis un effet:\n• Friendly models within this pulse gain +1 DEF.\n• Friendly models within this pulse make a 2\" dodge.",
+      "legendary": "Strike from the Shadows [6\" Pulse]\nChoisis un effet:\n• Friendly models within ce pulse gagnent +1 DEF.\n• Friendly models within ce pulse peuvent faire un dodge de 2\".",
       "types": "Sultarish, Human, Male,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -12350,7 +12350,7 @@
     },
     {
       "name": "Sleight of Hand",
-      "text": "Le friendly model ciblé peut enlever une des conditions dont elle souffre actuellement.",
+      "text": "Le friendly model ciblé peut retirer n'importe quelles conditions dont elle souffre actuellement.",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -13174,7 +13174,7 @@
     },
     {
       "name": "Puppet Master",
-      "text": "Le modèle ennemi peut faire un jog, une pass ou déclarer une attaque sans dépenser d'influence. Le modèle ciblé est considéré comme un friendly model durant cette action.",
+      "text": "Le modèle ennemi peut faire un jog, une pass ou une attaque sans dépenser d'influence. Le modèle ciblé est un friendly model durant l'action.",
       "CST": 4,
       "RNG": 8,
       "SUS": false,
@@ -13294,7 +13294,7 @@
     },
     {
       "name": "Shutout",
-      "text": "Si le modèle ennemi ciblé ne s'est pas encore activé ce tour, il devra être le dernier modèle ennemi à s'activer.",
+      "text": "Si le modèle ennemi ciblé ne s'est pas encore activé ce tour, il devra être le dernier ennemi à s'activer.",
       "CST": 1,
       "RNG": 8,
       "SUS": true,
@@ -13302,7 +13302,7 @@
     },
     {
       "name": "Tucked",
-      "text": "Si le modèle ennemi ciblé ne s'est pas encore activé ce tour, il devra être le prochain modèle ennemi à s'activer.",
+      "text": "Si le modèle ennemi ciblé ne s'est pas encore activé ce tour, il devra être le prochain ennemi à s'activer.",
       "CST": 1,
       "RNG": 8,
       "SUS": true,
@@ -15041,7 +15041,7 @@
     {
       "name": "Flash Point",
       "active": false,
-      "text": "Une fois par tour, pendant l'activation de ce modèle, vous pouvez supprimer Burning de ce modèle. Si vous le faites, les modèles ennemis dans ce pulse qui souffrent burning subissent -1 TAC et -1\"/-1\" MOV pour le reste du tour."
+      "text": "Une fois par tour, pendant l'activation de ce modèle, vous pouvez supprimer Burning de ce modèle. Si vous le faites, les modèles ennemis dans ce pulse subissent  -1\"/-1\" MOV pour le reste du tour."
     },
     {
       "name": "Natural Baller",
