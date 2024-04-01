@@ -367,11 +367,34 @@ await gbdb.addCollections({
 
 export default gbdb;
 
+const iceConfig = {
+  iceServers: [
+    {
+      urls: [
+        "stun:stun.l.google.com:19302",
+        "stun:global.stun.twilio.com:3478",
+        // "stun:stun.relay.metered.ca:80",
+      ],
+    },
+    {
+      urls: [
+        "turn:standard.relay.metered.ca:80",
+        "turn:standard.relay.metered.ca:80?transport=tcp",
+        "turn:standard.relay.metered.ca:443",
+        "turns:standard.relay.metered.ca:443?transport=tcp",
+      ],
+      username: import.meta.env.VITE_METERED_USERNAME,
+      credential: import.meta.env.VITE_METERED_PASSWORD,
+    },
+  ],
+};
+
 export function gbdbBeginReplication(url: string, topic: string) {
   return replicateWebRTC<GBGameState, SimplePeer>({
     collection: gbdb.game_state,
     connectionHandlerCreator: getConnectionHandlerSimplePeer({
       signalingServerUrl: url,
+      config: iceConfig,
     }),
     topic,
     pull: {},
