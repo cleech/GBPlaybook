@@ -1,5 +1,5 @@
 {
-  "timestamp": "2024-03-26T16:47:30Z",
+  "timestamp": "2024-04-03T16:52:13Z",
   "datafiles": [
     {
       "version": "4.6",
@@ -10,8 +10,8 @@
       "translations": {
         "fr": {
           "filename": "GB-Playbook-4-6.fr.json",
-          "sha256": "b3e261c0e878dd6b251dd81c5df516e83cf2f0323cc2f8e7a950e644233498b2",
-          "timestamp": "2024-03-26T16:42:40Z"
+          "sha256": "318bdd2bc6bddac761f66bdbb3ca825e0ceab464f2bc2ddbfe74be73a027a4d3",
+          "timestamp": "2024-04-03T15:54:16Z"
         }
       }
     },
