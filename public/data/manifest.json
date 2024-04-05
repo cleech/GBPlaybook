@@ -1,12 +1,12 @@
 {
-  "timestamp": "2024-04-03T16:52:13Z",
+  "timestamp": "2024-04-05T22:30:54Z",
   "datafiles": [
     {
       "version": "4.6",
       "description": "Steamforged Guild Ball 4.6",
       "filename": "GB-Playbook-4-6.json",
-      "sha256": "2f3c68715c4ac98bbed6d88d4cde01124d53548948e6671b533f786a7847b82e",
-      "timestamp": "2024-03-26T16:42:40Z",
+      "sha256": "f7de5fde0579dc3e06241abbf299b5c1b02ca647ed92ebb82cc7e08d27ea1703",
+      "timestamp": "2024-04-05T22:15:40Z",
       "translations": {
         "fr": {
           "filename": "GB-Playbook-4-6.fr.json",
