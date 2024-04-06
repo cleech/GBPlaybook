@@ -9593,7 +9593,7 @@
         [
           "T,<;M",
           "><;M",
-          "2;M",
+          "2",
           "T,<<;M",
           null,
           null,
@@ -13351,7 +13351,7 @@
     {
       "name": "With Aplomb",
       "text": "The next time this model scores a goal, the friendly team gains +1 VP.",
-      "CST": "CP2",
+      "CST": "CP",
       "RNG": "S",
       "SUS": true,
       "OPT": true
@@ -13586,14 +13586,6 @@
       "CST": "2,CP",
       "RNG": 7,
       "SUS": false,
-      "OPT": true
-    },
-    {
-      "name": "With Aplomb",
-      "text": "The next time this model scores a goal, the friendly team gains +1 VP.",
-      "CST": "CP",
-      "RNG": "S",
-      "SUS": true,
       "OPT": true
     }
   ],
