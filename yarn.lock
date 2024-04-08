@@ -928,10 +928,10 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@babel/runtime@7.24.1", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.23.2", "@babel/runtime@^7.23.9", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
-  version "7.24.1"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.1.tgz#431f9a794d173b53720e69a6464abc6f0e2a5c57"
-  integrity sha512-+BIznRzyqBf+2wCTxcKE3wDjfGeCoVE61KSHGpkzqrLi8qxqFwBeUFyId2cxkTmm55fzDGnm0+yCxaxygrLUnQ==
+"@babel/runtime@7.24.4":
+  version "7.24.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.4.tgz#de795accd698007a66ba44add6cc86542aff1edd"
+  integrity sha512-dkxf7+hn8mFBwKjs9bvBlArzLVxVbS8usaPUDd5p2a9JCL9tB8OaOVN1isD4+Xyk4ns89/xeOmbQvgdK7IIVdA==
   dependencies:
     regenerator-runtime "^0.14.0"
 
@@ -941,6 +941,13 @@
   integrity sha512-64AF1xY3OAkFHqOb9s4jpgk1Mm5vDZ4L3acHvAml+53nO1XbXLuDodsVpO4OIUsmemlUHMxNdYMNJmsvOwLrvQ==
   dependencies:
     regenerator-runtime "^0.13.4"
+
+"@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.23.2", "@babel/runtime@^7.23.9", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
+  version "7.24.1"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.1.tgz#431f9a794d173b53720e69a6464abc6f0e2a5c57"
+  integrity sha512-+BIznRzyqBf+2wCTxcKE3wDjfGeCoVE61KSHGpkzqrLi8qxqFwBeUFyId2cxkTmm55fzDGnm0+yCxaxygrLUnQ==
+  dependencies:
+    regenerator-runtime "^0.14.0"
 
 "@babel/template@^7.22.15":
   version "7.22.15"
@@ -5632,11 +5639,12 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-"rxdb@https://github.com/cleech/rxdb#df157824e1c068bf20440ca2ea91d3a04d577e75":
-  version "15.16.0"
-  resolved "https://github.com/cleech/rxdb#df157824e1c068bf20440ca2ea91d3a04d577e75"
+rxdb@^15.17.0:
+  version "15.17.0"
+  resolved "https://registry.yarnpkg.com/rxdb/-/rxdb-15.17.0.tgz#2adc006dc842583928b6c63f120dcade06d2e74e"
+  integrity sha512-jdvu2XgMsxAgP8Jk+CBqhfHkiTFDmDmawG0M2kkdHGgcq6tLuYDVfBVyeKhSZoNE+0ZXEj8HOhoEjopafxSa3A==
   dependencies:
-    "@babel/runtime" "7.24.1"
+    "@babel/runtime" "7.24.4"
     "@types/clone" "2.1.4"
     "@types/cors" "2.8.17"
     "@types/express" "4.17.21"
