@@ -247,7 +247,7 @@ function AppDrawer(props: {
               component="a"
               target="_blank"
               rel="noopener noreferrer"
-              href="/docs/GB-S4-Rulebook-4.1.pdf"
+              href="https://docs.guildball.app/GB-S4-Rulebook-4.1.pdf"
             >
               Season 4 Core Rulebook
             </Link>
@@ -257,7 +257,7 @@ function AppDrawer(props: {
               component="a"
               target="_blank"
               rel="noopener noreferrer"
-              href="/docs/GB-S4-FAQ-19-12-20.pdf"
+              href="https://docs.guildball.app/GB-S4-FAQ-19-12-20.pdf"
             >
               Season 4 FAQ
             </Link>
@@ -267,7 +267,7 @@ function AppDrawer(props: {
               component="a"
               target="_blank"
               rel="noopener noreferrer"
-              href="/docs/GB-S4-RegionalCup-Rules-200128__1.pdf"
+              href="https://docs.guildball.app/GB-S4-RegionalCup-Rules-200128__1.pdf"
             >
               Organized Play Rules
             </Link>

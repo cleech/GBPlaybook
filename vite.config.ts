@@ -28,8 +28,23 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 10000000,
         // cache all imports
         globPatterns: ["**/*"],
-        // cache google fonts
         runtimeCaching: [
+	// cache docs from docs.guildball.app
+          {
+            urlPattern: /^https:\/\/docs\.guildball\.app\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "guildball-docs",
+              expiration: {
+                maxEntries: 20,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        // cache google fonts
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: "CacheFirst",
