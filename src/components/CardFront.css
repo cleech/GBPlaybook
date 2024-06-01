@@ -10,6 +10,9 @@
   -webkit-print-color-adjust: exact;
   color-adjust: exact;
   print-color-adjust: exact;
+  /*
+  --rainbow: linear-gradient(-90deg,#adfbda 0,#35c3ff 30%,#fda399 50%,#76d880 70%,#ebf38b 90%,#adfbda 100%);
+  */
 }
 
 @-moz-document url-prefix() {
@@ -511,4 +514,21 @@ div.card-front.gbcp.bleed.double {
 
 .Lucky .guild-icon {
   content: url("../assets/lucky.svg");
+}
+
+/* rainbow playbooks */
+.card-front .playbook-result.momentus {
+  --rainbow: repeating-linear-gradient(60deg,
+  #adfbda calc((0 - var(--col)) * 100%),
+  #35c3ff calc((7/5 - var(--col)) * 100%),
+  #fda399 calc((14/5 - var(--col)) * 100%),
+  #76d880 calc((21/5 - var(--col)) * 100%),
+  #ebf38b calc((28/5 - var(--col)) * 100%),
+  #adfbda calc((7 - var(--col)) * 100%)
+  );
+  background-image: var(--rainbow) !important;
+  border-color: black !important;
+}
+.card-front .playbook-result.momentus svg {
+  fill: black !important;
 }
