@@ -526,7 +526,7 @@ div.card-front.gbcp.bleed.double {
 
 /* rainbow playbooks */
 
-.card-front .playbook-result.momentus {
+.card-front:not(.nofun) .playbook-result.momentus {
   --rainbow: repeating-linear-gradient(60deg,
   #adfbda calc((0 - var(--col)) * 100%),
   #35c3ff calc((7/5 - var(--col)) * 100%),
@@ -538,6 +538,6 @@ div.card-front.gbcp.bleed.double {
   background-image: var(--rainbow) !important;
   border-color: black !important;
 }
-.card-front .playbook-result.momentus svg {
+.card-front:not(.nofun) .playbook-result.momentus svg {
   fill: black !important;
 }

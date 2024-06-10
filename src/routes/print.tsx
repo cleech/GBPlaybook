@@ -49,6 +49,8 @@ const PrintSettings = (props: {
   setBleed: (b: boolean) => void;
   doubleCard: boolean;
   setDouble: (b: boolean) => void;
+  noFun: boolean;
+  setNoFun: (b: boolean) => void;
 }) => {
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
   const settingsOpen = Boolean(menuAnchor);
@@ -61,7 +63,7 @@ const PrintSettings = (props: {
 
   const [paged, setPaged] = useState(true);
 
-  const { doubleCard, setDouble, withBleed, setBleed } = props;
+  const { doubleCard, setDouble, withBleed, setBleed, noFun, setNoFun } = props;
   useEffect(() => {
     const size = doubleCard
       ? withBleed
@@ -136,6 +138,12 @@ const PrintSettings = (props: {
               <Checkbox checked={!paged} onChange={() => setPaged(!paged)} />
             }
           />
+          <FormControlLabel
+            label="Ignore Special Themes"
+            control={
+              <Checkbox checked={noFun} onChange={() => setNoFun(!noFun)} />
+            }
+          />
         </Stack>
       </Menu>
     </>
@@ -156,7 +164,10 @@ export const CardPrintScreen = () => {
   const [Models, setModels] = useState<string[]>();
 
   const [doubleCard, setDouble] = useState(true);
+
   const [withBleed, setBleed] = useState(false);
+
+  const [noFun, setNoFun] = useState(false);
 
   useEffect(() => {
     if (!db) {
@@ -235,6 +246,8 @@ export const CardPrintScreen = () => {
               setBleed={setBleed}
               doubleCard={doubleCard}
               setDouble={setDouble}
+              noFun={noFun}
+              setNoFun={setNoFun}
             />
             <Tooltip title="Print" arrow>
               <IconButton
@@ -378,6 +391,7 @@ export const CardPrintScreen = () => {
             id={m}
             key={m}
             bleed={withBleed}
+            noFun={noFun}
             doubleCard={doubleCard}
           />
         ))}
@@ -934,8 +948,9 @@ const ModelCard = (props: {
   id: string;
   bleed: boolean;
   doubleCard: boolean;
+  noFun: boolean;
 }) => {
-  const { name, id, bleed, doubleCard } = props;
+  const { name, id, bleed, doubleCard, noFun } = props;
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList) => {
     if (mutationList && mutationList[0]) {
@@ -969,7 +984,7 @@ const ModelCard = (props: {
   return doubleCard ? (
     <div
       ref={ref}
-      className={`card ${!inView ? "hide" : null}`}
+      className={`card ${!inView ? "hide" : ""}`}
       id={id}
       style={{
         position: "relative",
@@ -983,7 +998,7 @@ const ModelCard = (props: {
       {inView && (
         <>
           <CardFront
-            className={`card-front double ${bleed ? "bleed" : null}`}
+            className={`card-front double ${bleed ? "bleed" : ""} ${noFun ? "nofun" : ""}`}
             model={model}
             style={
               {
@@ -995,7 +1010,7 @@ const ModelCard = (props: {
             }
           />
           <CardBack
-            className={`card-back double ${bleed ? "bleed" : null}`}
+            className={`card-back print double ${bleed ? "bleed" : ""} ${noFun ? "noFun" : ""}`}
             model={model}
             style={
               {
@@ -1013,7 +1028,7 @@ const ModelCard = (props: {
     <>
       <div
         ref={ref}
-        className={`card ${!inView ? "hide" : null}`}
+        className={`card ${!inView ? "hide" : ""}`}
         id={id}
         style={{
           position: "relative",
@@ -1026,7 +1041,7 @@ const ModelCard = (props: {
       >
         {inView && (
           <CardFront
-            className={`card-front ${bleed ? "bleed" : null}`}
+            className={`card-front print ${bleed ? "bleed" : ""} ${noFun ? "nofun" : ""}`}
             model={model}
             style={
               {
@@ -1041,7 +1056,7 @@ const ModelCard = (props: {
       </div>
       <div
         ref={ref}
-        className={`card ${!inView ? "hide" : null}`}
+        className={`card ${!inView ? "hide" : ""}`}
         id={id}
         style={{
           position: "relative",
@@ -1054,7 +1069,7 @@ const ModelCard = (props: {
       >
         {inView && (
           <CardBack
-            className={`card-back ${bleed ? "bleed" : null}`}
+            className={`card-back print ${bleed ? "bleed" : ""} ${noFun ? "nofun" : ""}`}
             model={model}
             style={
               {
@@ -1095,7 +1110,7 @@ const GuildCard = (props: {
   return doubleCard ? (
     <div
       ref={ref}
-      className={`card ${!inView ? "hide" : null}`}
+      className={`card ${!inView ? "hide" : ""}`}
       id={name}
       style={{
         position: "relative",
@@ -1109,7 +1124,7 @@ const GuildCard = (props: {
       {inView && (
         <>
           <div
-            className={`card-front double ${bleed ? "bleed" : null}`}
+            className={`card-front double ${bleed ? "bleed" : ""}`}
             style={
               {
                 backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
@@ -1120,7 +1135,7 @@ const GuildCard = (props: {
             }
           />
           <div
-            className={`card-back double ${bleed ? "bleed" : null}`}
+            className={`card-back double ${bleed ? "bleed" : ""}`}
             style={
               {
                 backgroundImage: `url(${GBImages.get(`${name}_back`)})`,
@@ -1137,7 +1152,7 @@ const GuildCard = (props: {
     <>
       <div
         ref={ref}
-        className={`card ${!inView ? "hide" : null}`}
+        className={`card ${!inView ? "hide" : ""}`}
         id={name}
         style={{
           position: "relative",
@@ -1151,7 +1166,7 @@ const GuildCard = (props: {
         {inView && (
           <>
             <div
-              className={`card-front ${bleed ? "bleed" : null}`}
+              className={`card-front ${bleed ? "bleed" : ""}`}
               style={
                 {
                   backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
@@ -1165,7 +1180,7 @@ const GuildCard = (props: {
       </div>
       <div
         ref={ref}
-        className={`card ${!inView ? "hide" : null}`}
+        className={`card ${!inView ? "hide" : ""}`}
         id={name}
         style={{
           position: "relative",
@@ -1179,7 +1194,7 @@ const GuildCard = (props: {
         {inView && (
           <>
             <div
-              className={`card-back ${bleed ? "bleed" : null}`}
+              className={`card-back ${bleed ? "bleed" : ""}`}
               style={
                 {
                   backgroundImage: `url(${GBImages.get(`${name}_back`)})`,
@@ -1214,7 +1229,7 @@ const GameplanPrintCard = (props: { gameplan: Gameplan; bleed: boolean }) => {
   return (
     <div
       ref={ref}
-      className={`card ${!inView ? "hide" : null}`}
+      className={`card ${!inView ? "hide" : ""}`}
       id={gameplan.title.replace(/[^A-Za-z0-9]+/g, "")}
       style={{
         position: "relative",
@@ -1227,7 +1242,7 @@ const GameplanPrintCard = (props: { gameplan: Gameplan; bleed: boolean }) => {
     >
       {inView && (
         <div
-          className={`card-front ${bleed ? "bleed" : null}`}
+          className={`card-front ${bleed ? "bleed" : ""}`}
           style={
             {
               // backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
@@ -1268,7 +1283,7 @@ const RefcardPrintCard = (props: { index: number; bleed: boolean }) => {
   return (
     <div
       ref={ref}
-      className={`card ${!inView ? "hide" : null}`}
+      className={`card ${!inView ? "hide" : ""}`}
       id={`refcard-${index}`}
       style={{
         position: "relative",

@@ -85,9 +85,9 @@ const darkTheme = createTheme({
       styleOverrides: {
         body: {
           background:
-	  /*
+  /*
             "linear-gradient(20deg, black, #121a22, #1d506f, #121a22, black)",
-	    */
+    */
             "linear-gradient(120deg, black, #221a22, #5f405f, #221a22, black)",
         },
         "@media print": {
