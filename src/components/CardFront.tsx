@@ -287,7 +287,7 @@ const CharacterPlays = ({
         <span>
           <BooleanIcon test={cp.OPT} />
         </span>
-        <div className={`text ${cp.name}`}>{textIconReplace(cp.text)}</div>
+        <div className={`text`}>{textIconReplace(cp.text)}</div>
       </React.Fragment>
     ))}
   </div>

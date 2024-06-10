@@ -516,7 +516,16 @@ div.card-front.gbcp.bleed.double {
   content: url("../assets/lucky.svg");
 }
 
+/* Flea's "Like We Practised" is really long with the mascot names */
+
+.Flea.gbcp .character-plays div.name:nth-of-type(3) > span:nth-child(2)::before {
+	color: 'red';
+	content: "\a";
+	white-space: pre;
+}
+
 /* rainbow playbooks */
+
 .card-front .playbook-result.momentus {
   --rainbow: repeating-linear-gradient(60deg,
   #adfbda calc((0 - var(--col)) * 100%),
