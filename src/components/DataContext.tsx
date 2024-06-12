@@ -34,7 +34,6 @@ export interface GBDataMeta {
 let reloadInProgress = false;
 
 async function bulkLoadDB(
-  version: number,
   filename: string,
   manifest: Manifest,
   data: DataFile
@@ -46,12 +45,13 @@ async function bulkLoadDB(
   console.log(`loading ${filename}`);
   reloadInProgress = true;
   try {
-    const _sha256 = manifest.datafiles.find(
-      (df) => df.filename === filename
-    )?.sha256;
+    const me = manifest.datafiles.find((df) => df.filename === filename);
+    const _sha256 = me?.sha256;
+    const _version = me?.version;
     const dbSettings = await gbdb.getLocal<GBDataMeta>(gb_meta_local);
     if (dbSettings) {
       if (
+        dbSettings.get("version") === _version &&
         dbSettings.get("filename") === filename &&
         dbSettings.get("sha256") === _sha256
       ) {
@@ -112,7 +112,7 @@ async function bulkLoadDB(
     ])
       .then(() =>
         gbdb.upsertLocal(gb_meta_local, {
-          version: version,
+          version: _version,
           filename: filename,
           sha256: _sha256,
         })
@@ -200,9 +200,7 @@ export const DataProvider = ({ children }: DataProviderProps) => {
       const dataFile = await readFile(loadFile);
       if (canceled) return;
       setDB(undefined);
-      await bulkLoadDB(version, loadFile, manifest, dataFile).then(() =>
-        setDB(gbdb)
-      );
+      await bulkLoadDB(loadFile, manifest, dataFile).then(() => setDB(gbdb));
       setGameplans(await readFile("gameplans.json"));
     };
     getDataSet();
