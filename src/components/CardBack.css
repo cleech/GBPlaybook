@@ -231,10 +231,14 @@ div.card-back.gbcp.bleed.double {
 .card-back .footer .tags {
   font-family: "Crimson Text", serif;
   font-weight: 400;
-  font-size: 21px;
+  font-size: 20px;
   line-height: 20px;
   text-align: left;
   white-space: pre-wrap;
+}
+
+.card-back.gbcp .footer .tags {
+  font-size: 18px;
 }
 
 .card-back .footer .right {

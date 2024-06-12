@@ -32,6 +32,8 @@ addRxPlugin(RxDBLocalDocumentsPlugin);
 type TupleOf<T, N extends number> = [T, ...T[]] & { length: N };
 type Playbook = TupleOf<TupleOf<string | null, 7>, 2>;
 
+import { GBDataMeta } from "../components/DataContext";
+
 // Model as it loads from the JSON dataset
 export interface GBModel {
   id: string;
@@ -80,6 +82,7 @@ export interface GBModelExpanded
   extends Omit<GBModel, "character_plays" | "character_traits"> {
   character_plays: GBCharacterPlay[];
   character_traits: ParameterizedTrait[];
+  version: number;
   statLine: string;
   _inf?: number;
 }
@@ -103,6 +106,7 @@ function populate_character_traits(doc: GBModelDoc) {
 
 const gbModelDocMethods: GBModelMethods = {
   expand: async function (this: GBModelDoc): Promise<GBModelExpanded> {
+    const dbSettings = await gbdb.getLocal<GBDataMeta>("gbdata_meta");
     const [character_plays, character_traits]: [
       GBCharacterPlay[],
       ParameterizedTrait[]
@@ -123,6 +127,8 @@ const gbModelDocMethods: GBModelMethods = {
       }/${this.kickdist}" | ${this.def}+ | ${this.arm} | ${this.inf}/${
         this.infmax
       } | ${this.reach ? 2 : 1}"`,
+      // get errata level from db metadata
+      version: dbSettings?.get("version"),
     });
     return model;
   },

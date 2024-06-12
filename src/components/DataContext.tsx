@@ -9,14 +9,14 @@ import i18n from "../utils/i18next";
 
 interface DataContextProps {
   manifest?: Manifest;
-  version: string;
+  version: number;
   gameplans?: Gameplan[];
   gbdb?: GBDatabase;
 }
 
 export const DataContext = createContext<DataContextProps>({
   manifest: undefined,
-  version: "0",
+  version: 0,
   gameplans: undefined,
 });
 
@@ -25,7 +25,8 @@ interface DataProviderProps {
 }
 
 const gb_meta_local = "gbdata_meta";
-interface GBDataMeta {
+export interface GBDataMeta {
+  version: number;
   filename: string;
   sha256: string;
 }
@@ -33,6 +34,7 @@ interface GBDataMeta {
 let reloadInProgress = false;
 
 async function bulkLoadDB(
+  version: number,
   filename: string,
   manifest: Manifest,
   data: DataFile
@@ -109,7 +111,11 @@ async function bulkLoadDB(
         .catch(console.error),
     ])
       .then(() =>
-        gbdb.upsertLocal(gb_meta_local, { filename: filename, sha256: _sha256 })
+        gbdb.upsertLocal(gb_meta_local, {
+          version: version,
+          filename: filename,
+          sha256: _sha256,
+        })
       )
       .then(() => console.log("database re-load complete :|"))
       .catch(console.error);
@@ -121,7 +127,7 @@ async function bulkLoadDB(
 export const DataProvider = ({ children }: DataProviderProps) => {
   const [manifest, setManifest] = useState(undefined);
   const [gameplans, setGameplans] = useState(undefined);
-  const [version, setVersion] = useState("");
+  const [version, setVersion] = useState(0);
   const [db, setDB] = useState<GBDatabase>();
 
   const { setting$ } = useSettings();
@@ -194,14 +200,16 @@ export const DataProvider = ({ children }: DataProviderProps) => {
       const dataFile = await readFile(loadFile);
       if (canceled) return;
       setDB(undefined);
-      await bulkLoadDB(loadFile, manifest, dataFile).then(() => setDB(gbdb));
+      await bulkLoadDB(version, loadFile, manifest, dataFile).then(() =>
+        setDB(gbdb)
+      );
       setGameplans(await readFile("gameplans.json"));
     };
     getDataSet();
     return () => {
       canceled = true;
     };
-  }, [loadFile, manifest]);
+  }, [version, loadFile, manifest]);
 
   return (
     <DataContext.Provider value={{ version, manifest, gameplans, gbdb: db }}>

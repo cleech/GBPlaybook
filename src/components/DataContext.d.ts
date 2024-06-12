@@ -63,7 +63,7 @@ export interface CTrait {
 export interface Manifest {
   timestamp: string;
   datafiles: {
-    version: string;
+    version: number;
     description: string;
     filename: string;
     sha256: string;

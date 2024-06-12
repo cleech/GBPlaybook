@@ -93,6 +93,24 @@ const CardBack = (props: CardBackProps) => {
           <div className="right">
             <div className="icons">
               <FooterIcon icon={gbcp ? "gbcp" : "GB"} />
+              <div className="icon wrapper">
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    border: "2px solid black",
+                    borderRadius: "50%",
+                    display: "flex",
+                    placeContent: "center",
+                    alignItems: "center",
+                    fontFamily: "Crimson Text",
+                    fontSize: "26px",
+                    fontWeight: "800",
+                  }}
+                >
+                  {model.version}
+                </div>
+              </div>
               {model.guild2 && <FooterIcon icon={model.guild2} />}
               <FooterIcon icon={model.guild1} />
             </div>
