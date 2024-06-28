@@ -138,12 +138,12 @@ const PrintSettings = (props: {
               <Checkbox checked={!paged} onChange={() => setPaged(!paged)} />
             }
           />
-          <FormControlLabel
+          {/* <FormControlLabel
             label="Ignore Special Themes"
             control={
               <Checkbox checked={noFun} onChange={() => setNoFun(!noFun)} />
             }
-          />
+          /> */}
         </Stack>
       </Menu>
     </>
@@ -998,7 +998,9 @@ const ModelCard = (props: {
       {inView && (
         <>
           <CardFront
-            className={`card-front double ${bleed ? "bleed" : ""} ${noFun ? "nofun" : ""}`}
+            className={`card-front double ${bleed ? "bleed" : ""} ${
+              noFun ? "nofun" : ""
+            }`}
             model={model}
             style={
               {
@@ -1010,7 +1012,9 @@ const ModelCard = (props: {
             }
           />
           <CardBack
-            className={`card-back print double ${bleed ? "bleed" : ""} ${noFun ? "noFun" : ""}`}
+            className={`card-back print double ${bleed ? "bleed" : ""} ${
+              noFun ? "noFun" : ""
+            }`}
             model={model}
             style={
               {
@@ -1041,7 +1045,9 @@ const ModelCard = (props: {
       >
         {inView && (
           <CardFront
-            className={`card-front print ${bleed ? "bleed" : ""} ${noFun ? "nofun" : ""}`}
+            className={`card-front print ${bleed ? "bleed" : ""} ${
+              noFun ? "nofun" : ""
+            }`}
             model={model}
             style={
               {
@@ -1069,7 +1075,9 @@ const ModelCard = (props: {
       >
         {inView && (
           <CardBack
-            className={`card-back print ${bleed ? "bleed" : ""} ${noFun ? "nofun" : ""}`}
+            className={`card-back print ${bleed ? "bleed" : ""} ${
+              noFun ? "nofun" : ""
+            }`}
             model={model}
             style={
               {
