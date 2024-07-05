@@ -30,7 +30,7 @@
     "react-router-dom": "^6.24.0",
     "react-string-replace": "^1.1.1",
     "rooks": "^7.14.1",
-    "rxdb": "^15.24.0",
+    "rxdb": "^15.26.0",
     "rxjs": "^7.8.1",
     "swiper": "^11.1.4",
     "uuid": "^10.0.0"
