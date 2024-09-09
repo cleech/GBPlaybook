@@ -2563,10 +2563,10 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
-"@vite-pwa/assets-generator@0.2.4":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@vite-pwa/assets-generator/-/assets-generator-0.2.4.tgz#ffd5dee762f6e98eaff9938fd52591cb04d8dbc7"
-  integrity sha512-DXyPLPR/IpbZPSpo1amZEPghY/ziIwpTUKNaz0v1xG+ELzCXmrVQhVzEMqr2JLSqRxjc+UzKfGJA/YdUuaao3w==
+"@vite-pwa/assets-generator@0.2.6":
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/@vite-pwa/assets-generator/-/assets-generator-0.2.6.tgz#e8c8e47765f4af8724af9fed310a32a4584cc455"
+  integrity sha512-kK44dXltvoubEo5B+6tCGjUrOWOE1+dA4DForbFpO1rKy2wSkAVGrs8tyfN6DzTig89/QKyV8XYodgmaKyrYng==
   dependencies:
     cac "^6.7.14"
     colorette "^2.0.20"
