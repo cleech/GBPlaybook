@@ -56,8 +56,12 @@ export default function useLongPress<T>(
       e: React.MouseEvent<T> | React.TouchEvent<T>,
       shouldTriggerClick = true
     ) => {
-      timeout.current && clearTimeout(timeout.current);
-      shouldTriggerClick && !longPressTriggered && onClick?.(e);
+      if (timeout.current) {
+        clearTimeout(timeout.current);
+      }
+      if (shouldTriggerClick && !longPressTriggered) {
+        onClick?.(e);
+      }
 
       setLongPressTriggered(false);
 

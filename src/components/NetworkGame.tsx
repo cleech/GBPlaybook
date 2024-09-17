@@ -275,8 +275,6 @@ const StepJoin = (props: StepperProps) => {
   const [waiting, setWaiting] = useState(false);
   if (!db) return;
 
-  console.log;
-
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "1em" }}>
       <TextField
