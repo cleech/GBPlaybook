@@ -45,9 +45,25 @@ async function bulkLoadDB(
   console.log(`loading ${filename}`);
   reloadInProgress = true;
   try {
+    let _sha256 = undefined;
+    let _version = undefined;
     const me = manifest.datafiles.find((df) => df.filename === filename);
-    const _sha256 = me?.sha256;
-    const _version = me?.version;
+    if (me) {
+      _sha256 = me.sha256;
+      _version = me.version;
+    } else {
+      console.log("looking for translation entry");
+      for (const rev of manifest.datafiles) {
+        const tr = Object.values(rev.translations).find(
+          (df) => df.filename === filename
+        );
+        if (tr) {
+          _sha256 = tr.sha256;
+          _version = rev.version;
+          break;
+        }
+      }
+    }
     const dbSettings = await gbdb.getLocal<GBDataMeta>(gb_meta_local);
     if (dbSettings) {
       if (
