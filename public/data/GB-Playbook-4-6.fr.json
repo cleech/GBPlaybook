@@ -6052,7 +6052,7 @@
         "Light Footed",
         "Nature's Chill"
       ],
-      "legendary": "Winter's Night [6\" Aura]\nQuand un modèle allié dans cette aura réussit une attaque, le modèle allié peut ajouter un résultat < supplémentaire dans son playbook.",
+      "legendary": "Winter's Night [6\" Aura]\nQuand un modèle allié dans cette aura réussit une attaque, le modèle allié peut ajouter un résultat {<} supplémentaire dans son playbook.",
       "types": "Erskirii, Human, Female,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -12262,7 +12262,7 @@
     },
     {
       "name": "Whisky Chaser",
-      "text": "Le modèle allié ciblé pourra ajouter un résultat KD supplémentaire sur sa prochaine attaque réussie.",
+      "text": "Le modèle allié ciblé pourra ajouter un résultat {KD} supplémentaire sur sa prochaine attaque réussie.",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12926,7 +12926,7 @@
     },
     {
       "name": "Blessing of the Moon Goddess",
-      "text": "La prochaine fois que le modèle allié ciblé réussit une attaque, le modèle allié peut ajouter un résultat << suplémentaire à son playbook.",
+      "text": "La prochaine fois que le modèle allié ciblé réussit une attaque, le modèle allié peut ajouter un résultat {<<} suplémentaire à son playbook.",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13593,7 +13593,7 @@
     {
       "name": "Fulmination",
       "active": false,
-      "text": "Une fois par tour pendant l'activation de ce modèle, il peut supprimer la condition burning ou poison d'un autre modèle à 4\". Si c'est le cas, pour le reste du tour, lorsque ce modèle réussit une attaque, il peut ajouter un résultat supplémentaire < à son playbook."
+      "text": "Une fois par tour pendant l'activation de ce modèle, il peut supprimer la condition burning ou poison d'un autre modèle à 4\". Si c'est le cas, pour le reste du tour, lorsque ce modèle réussit une attaque, il peut ajouter un résultat supplémentaire {<} à son playbook."
     },
     {
       "name": "Midas Touch",
@@ -13708,7 +13708,7 @@
     {
       "name": "Deadeye",
       "active": false,
-      "text": "Lorsque ce modèle réussit une attaque, il peut ajouter un résultat supplémentaire GB à son playbook."
+      "text": "Lorsque ce modèle réussit une attaque, il peut ajouter un résultat supplémentaire {GB} à son playbook."
     },
     {
       "name": "Elusive",
@@ -14077,7 +14077,7 @@
     {
       "name": "Magic Touch",
       "active": false,
-      "text": "Lorsque ce modèle réussit une attaque, il peut ajouter un résultat T supplémentaire à son playbook."
+      "text": "Lorsque ce modèle réussit une attaque, il peut ajouter un résultat {T} supplémentaire à son playbook."
     },
     {
       "name": "Hooked",
@@ -14537,7 +14537,7 @@
     {
       "name": "Unorthodox",
       "active": false,
-      "text": "Lorsque ce modèle réussit une attaque contre un modèle ennemi souffrant de la condition snared, il peut ajouter un résultat supplémentaire  << à son playbook."
+      "text": "Lorsque ce modèle réussit une attaque contre un modèle ennemi souffrant de la condition snared, il peut ajouter un résultat supplémentaire {<<} à son playbook."
     },
     {
       "name": "Mirage",
@@ -14962,7 +14962,7 @@
     {
       "name": "Thuggery",
       "active": false,
-      "text": "Tant que ce modèle est à 1\" du modèle allié nommé, ce modèle gagne +1 DMG aux résultats dégâts du playbook et peut ajouter le résultat KD à chaque attaque réussie qu'il effectue."
+      "text": "Tant que ce modèle est à 1\" du modèle allié nommé, ce modèle gagne +1 DMG aux résultats dégâts du playbook et peut ajouter le résultat {KD} à chaque attaque réussie qu'il effectue."
     },
     {
       "name": "Pick Up",
