@@ -16,7 +16,7 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.0.0",
-    "@mui/material": "^6.0.0",
+    "@mui/material": "^6.1.2",
     "color": "^4.2.3",
     "i18next": "^23.15.1",
     "i18next-browser-languagedetector": "^8.0.0",
