@@ -1909,11 +1909,6 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@remix-run/router@1.20.0":
-  version "1.20.0"
-  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.20.0.tgz#03554155b45d8b529adf635b2f6ad1165d70d8b4"
-  integrity sha512-mUnk8rPJBI9loFDZ+YzPGdeniYK+FTmRD1TMCz7ev2SNIozyKKpnGgsxO34u6Z4z/t0ITuu7voi/AshfsGsgFg==
-
 "@rollup/plugin-babel@^5.2.0":
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-babel/-/plugin-babel-5.3.1.tgz#04bc0608f4aa4b2e4b1aebf284344d0f68fda283"
@@ -2192,6 +2187,11 @@
   integrity sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==
   dependencies:
     "@types/node" "*"
+
+"@types/cookie@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@types/cookie/-/cookie-0.6.0.tgz#eac397f28bf1d6ae0ae081363eca2f425bedf0d5"
+  integrity sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==
 
 "@types/cors@2.8.17":
   version "2.8.17"
@@ -2951,6 +2951,11 @@ convert-source-map@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-2.0.0.tgz#4b560f649fc4e918dd0ab75cf4961e8bc882d82a"
   integrity sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==
+
+cookie@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/cookie/-/cookie-1.0.2.tgz#27360701532116bd3f1f9416929d176afe1e4610"
+  integrity sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==
 
 core-js-compat@^3.31.0, core-js-compat@^3.36.1:
   version "3.37.1"
@@ -5060,20 +5065,22 @@ react-is@^18.3.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.3.1.tgz#e83557dc12eae63a99e003a46388b1dcbb44db7e"
   integrity sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==
 
-react-router-dom@^6.27.0:
-  version "6.27.0"
-  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.27.0.tgz#8d7972a425fd75f91c1e1ff67e47240c5752dc3f"
-  integrity sha512-+bvtFWMC0DgAFrfKXKG9Fc+BcXWRUO1aJIihbB79xaeq0v5UzfvnM5houGUm1Y461WVRcgAQ+Clh5rdb1eCx4g==
+react-router-dom@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-7.0.1.tgz#b1438100800313e1b4c48da0c5fdb498f81c7f96"
+  integrity sha512-duBzwAAiIabhFPZfDjcYpJ+f08TMbPMETgq254GWne2NW1ZwRHhZLj7tpSp8KGb7JvZzlLcjGUnqLxpZQVEPng==
   dependencies:
-    "@remix-run/router" "1.20.0"
-    react-router "6.27.0"
+    react-router "7.0.1"
 
-react-router@6.27.0:
-  version "6.27.0"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.27.0.tgz#db292474926c814c996c0ff3ef0162d1f9f60ed4"
-  integrity sha512-YA+HGZXz4jaAkVoYBE98VQl+nVzI+cVI2Oj/06F5ZM+0u3TgedN9Y9kmMRo2mnkSK2nCpNQn0DVob4HCsY/WLw==
+react-router@7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-7.0.1.tgz#a171e35a5c6463f76b23353c4ce57b53c8b7b1b9"
+  integrity sha512-WVAhv9oWCNsja5AkK6KLpXJDSJCQizOIyOd4vvB/+eHGbYx5vkhcmcmwWjQ9yqkRClogi+xjEg9fNEOd5EX/tw==
   dependencies:
-    "@remix-run/router" "1.20.0"
+    "@types/cookie" "^0.6.0"
+    cookie "^1.0.1"
+    set-cookie-parser "^2.6.0"
+    turbo-stream "2.4.0"
 
 react-string-replace@^1.1.1:
   version "1.1.1"
@@ -5374,6 +5381,11 @@ serialize-javascript@^6.0.1:
   integrity sha512-Saa1xPByTTq2gdeFZYLLo+RFE35NHZkAbqZeWNd3BpzppeVisAqpDjcp8dyf6uIvEqJRd46jemmyA4iFIeVk8g==
   dependencies:
     randombytes "^2.1.0"
+
+set-cookie-parser@^2.6.0:
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/set-cookie-parser/-/set-cookie-parser-2.7.1.tgz#3016f150072202dfbe90fadee053573cc89d2943"
+  integrity sha512-IOc8uWeOZgnb3ptbCURJWNjWUPcO3ZnTTdzsurqERrP6nPyv+paC55vJM0LpOlT2ne+Ix+9+CRG1MNLlyZ4GjQ==
 
 set-function-length@^1.2.1:
   version "1.2.2"
@@ -5750,6 +5762,11 @@ tty-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/tty-browserify/-/tty-browserify-0.0.1.tgz#3f05251ee17904dfd0677546670db9651682b811"
   integrity sha512-C3TaO7K81YvjCgQH9Q1S3R3P3BtN3RIM8n+OvX4il1K1zgE8ZhI0op7kClgkxtutIE8hQrcrHBXvIheqKUUCxw==
+
+turbo-stream@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/turbo-stream/-/turbo-stream-2.4.0.tgz#1e4fca6725e90fa14ac4adb782f2d3759a5695f0"
+  integrity sha512-FHncC10WpBd2eOmGwpmQsWLDoK4cqsA/UT/GqNoaKOQnT8uzhtCbg3EoUDMvqpOSAI0S26mr0rkjzbOO6S3v1g==
 
 tweetnacl@1.0.3:
   version "1.0.3"
