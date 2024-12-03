@@ -36,7 +36,7 @@
     "uuid": "^11.0.3"
   },
   "devDependencies": {
-    "@types/color": "^3.0.4",
+    "@types/color": "^4.2.0",
     "@types/lodash.clonedeep": "^4.5.7",
     "@types/react": "^18.3.12",
     "@types/react-detect-offline": "^2.4.1",
