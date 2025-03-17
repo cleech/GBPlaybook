@@ -54,7 +54,7 @@ An APK for side-loading is also available on
 - Profile Card Library
 - Profile Card Printing    
 - Multiple Errata Levels Supported
-  - Including the latest 4.6 update!
+  - Including the latest 4.7 update!
 
 ## Contact
 You can contact the author through the GitHub
