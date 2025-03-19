@@ -111,8 +111,8 @@ const CardBack = (props: CardBackProps) => {
                   {model.version}
                 </div>
               </div>
-              {model.guild2 && <FooterIcon icon={model.guild2} />}
               <FooterIcon icon={model.guild1} />
+              {model.guild2 && <FooterIcon icon={model.guild2} />}
             </div>
             <div className="base-size">{`Size ${model.base} mm`}</div>
           </div>
