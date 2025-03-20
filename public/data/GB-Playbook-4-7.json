@@ -14632,7 +14632,7 @@
     {
       "name": "Last Light",
       "active": true,
-      "text": "Once per turn during this model’s activation, choose a friendly model within 6\". The chosen model may spend MP instead of influence to pay the CST of its next character play."
+      "text": "Once per turn during this model's activation, choose a friendly model within 6\". The chosen model may spend MP instead of influence to pay the CST of a character play once this turn."
     },
     {
       "name": "Lunar Eclipse",
