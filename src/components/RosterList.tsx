@@ -122,7 +122,9 @@ const HealthCounterLabel = (props: {
   const { model, disabled } = props;
   const ref = useUpdateAnimation<HTMLButtonElement>(disabled, [props.health]);
   return (
-    <Button ref={ref} disabled size="small">
+    <Button ref={ref} disabled size="small"
+      style={{backgroundColor: "rgba(0, 0, 0, 0.2)"}}
+    >
       <Typography variant="body2" color="text.primary">
         {`${String(props.health).padStart(2, "0")} / ${String(
           model.hp

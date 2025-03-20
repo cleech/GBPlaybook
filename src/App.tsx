@@ -71,7 +71,8 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: "#3d708f",
+      // main: "#4e91ba",
+      main: "#ba9d4e",
     },
     secondary: {
       main: "#ffb300",
@@ -85,10 +86,9 @@ const darkTheme = createTheme({
       styleOverrides: {
         body: {
           background:
-  /*
-            "linear-gradient(20deg, black, #121a22, #1d506f, #121a22, black)",
-    */
-            "linear-gradient(120deg, black, #221a22, #5f405f, #221a22, black)",
+            // "linear-gradient(20deg, black, #121a22, #1d506f, #121a22, black)",
+            // "linear-gradient(120deg, black, #221a22, #5f405f, #221a22, black)",
+            "linear-gradient(45deg, black, #5a1616, #734930, #5a1616, black)",
         },
         "@media print": {
           body: {
@@ -96,6 +96,11 @@ const darkTheme = createTheme({
           },
         },
       },
+    },
+    MuiTypography: {
+      defaultProps: {
+        sx: {textShadow: "1px 1px 2px black"},
+      }
     },
     MuiLink: {
       defaultProps: {

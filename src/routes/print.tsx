@@ -608,7 +608,7 @@ const GuildCheckBox = forwardRef<GuildCheckBoxRef, { g: Guild }>(
         className={`model-checkbox ${g.name} hide ${g.minor ? "minor" : ""}`}
         style={
           {
-            "--color1": g.shadow ?? g.color + "80",
+            "--color1": g.shadow ?? g.color + "aa",
             "--color2": "var(--color1)",
           } as CSSProperties
         }
@@ -674,11 +674,10 @@ const ModelCheckBox = forwardRef<ModelCheckBoxRef, { m: GBModelDoc }>(
         }`}
         style={
           {
-            "--color1": guild1.shadow ?? guild1.color + "80",
+            "--color1": guild1.shadow ?? guild1.color + "aa",
             "--color2": guild2
-              ? guild2.shadow ?? guild2.color + "80"
+              ? guild2.shadow ?? guild2.color + "aa"
               : "var(--color1)",
-            // backgroundColor: guild1.shadow ?? guild1.color + "80",
           } as CSSProperties
         }
         onChange={() => {
