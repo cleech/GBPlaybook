@@ -11,7 +11,7 @@ export const defaultSettings: Settings = {
   gameSize: 6,
   networkPlay: false,
   uiPreferences: { displayStatLine: false },
-  cardPreferences: { preferredStyle: "gbcp" },
+  cardPreferences: { preferredStyle: "sfg" },
   gamePlayRoute: "/game",
   libraryRoute: "/library",
 };
