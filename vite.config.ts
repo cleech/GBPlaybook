@@ -116,7 +116,7 @@ export default defineConfig({
     }),
   ],
   define: {
-    BUILD_DATE: JSON.stringify(new Date().toISOString()),
+    BUILD_DATE: JSON.stringify(new Date().toDateString()),
   },
   server: {
     port: 3000,
