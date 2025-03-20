@@ -117,6 +117,22 @@ const CardBack = (props: CardBackProps) => {
             <div className="base-size">{`Size ${model.base} mm`}</div>
           </div>
         </div>
+          <div
+            style={{
+              fontFamily: "serif",
+              fontSize: "10pt",
+              position: "absolute",
+              width: "100%",
+              textAlign: "center",
+              bottom: "1.5em",
+              letterSpacing: 0,
+              wordSpacing: 0,
+              color: "white",
+              display: gbcp && "none" || "block",
+            }}
+          >
+            ™ & © Steamforged Games LTD 2025
+          </div>
       </div>
     </div>
   );
