@@ -6788,7 +6788,7 @@
       "def": 3,
       "arm": 2,
       "inf": 4,
-      "infmax": 4,
+      "infmax": 6,
       "base": 30,
       "reach": false,
       "gbcp": false,
