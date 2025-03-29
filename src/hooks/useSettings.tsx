@@ -1,6 +1,5 @@
 import { useContext } from "react";
-import { SettingsContext } from "../models/settings";
-import { Settings } from "../models/settings";
+import { Settings, SettingsContext } from "../models/settings";
 
 export const useSettings = () => useContext(SettingsContext);
 
@@ -11,7 +10,10 @@ export const defaultSettings: Settings = {
   gameSize: 6,
   networkPlay: false,
   uiPreferences: { displayStatLine: false },
-  cardPreferences: { preferredStyle: "sfg" },
+  cardPreferences: {
+    preferredStyle: "sfg",
+    improveReadability: false,
+  },
   gamePlayRoute: "/game",
   libraryRoute: "/library",
 };

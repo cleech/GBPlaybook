@@ -17,7 +17,39 @@ import { AppBarContent } from "../App";
 import { SettingsDoc } from "../models/settings";
 import { useSettings } from "../hooks/useSettings";
 import { useTranslation } from "react-i18next";
+import { Observable } from "rxjs";
 import ISO6391 from "iso-639-1";
+
+const SettingsSwitch = ({ value$, onChange, label }:
+  {
+    value$: Observable<boolean>,
+    onChange: (checked: boolean) => void
+    label: string | undefined
+  }) => {
+
+  const [value, setValue] = useState<boolean>(false);
+  useEffect(() => {
+    const observer = value$.subscribe((v) => setValue(v));
+    return () => observer?.unsubscribe();
+  }, [value$]);
+
+  return (
+    <FormControl>
+      <FormControlLabel
+        control={
+          <Switch
+            size="small"
+            checked={value}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChange(event.target.checked);
+            }}
+          />
+        }
+        label={label}
+      />
+    </FormControl>
+  );
+}
 
 const Settings = () => {
   const { manifest } = useData();
@@ -119,23 +151,21 @@ const Settings = () => {
       </FormControl>
 
       <p />
+      <SettingsSwitch
+        value$={settingsDoc.get$("uiPreferences.displayStatLine")}
+        label="Stat Line in Game Roster List"
+        onChange={(checked) => settingsDoc?.incrementalPatch(
+          { uiPreferences: { displayStatLine: checked } }
+        )} />
 
-      <FormControl>
-        <FormControlLabel
-          control={
-            <Switch
-              size="small"
-              checked={settingsDoc?.toJSON().data.uiPreferences.displayStatLine}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                settingsDoc?.incrementalPatch({
-                  uiPreferences: { displayStatLine: event.target.checked },
-                });
-              }}
-            />
-          }
-          label="Stat Line in Game Roster List"
-        />
-      </FormControl>
+      <p />
+      <SettingsSwitch
+        value$={settingsDoc.get$("cardPreferences.improveReadability")}
+        label="Remove guild logo from card back to improve legibility"
+        onChange={(checked) => settingsDoc?.incrementalModify((doc) => {
+          doc.cardPreferences.improveReadability = checked;
+          return doc;
+        })} />
 
       <p />
       <Typography>Prefered Card Layout:</Typography>
@@ -147,10 +177,9 @@ const Settings = () => {
         <Select
           value={settingsDoc?.toJSON().data.cardPreferences.preferredStyle}
           onChange={(event: SelectChangeEvent) => {
-            settingsDoc?.incrementalPatch({
-              cardPreferences: {
-                preferredStyle: event.target.value as "sfg" | "gbcp",
-              },
+            settingsDoc?.incrementalModify((s) => {
+              s.cardPreferences.preferredStyle = event.target.value as "sfg" | "gbcp";
+              return s;
             });
           }}
         >
@@ -158,26 +187,6 @@ const Settings = () => {
           <MenuItem value="gbcp">Community</MenuItem>
         </Select>
       </FormControl>
-
-      {/* <Divider sx={{ my: 2 }} />
-
-      <Typography>Experimental Features:</Typography>
-      <FormControl>
-        <FormControlLabel
-          control={
-            <Switch
-              size="small"
-              checked={settingsDoc?.toJSON().data.networkPlay}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                settingsDoc?.incrementalPatch({
-                  networkPlay: event.target.checked,
-                });
-              }}
-            />
-          }
-          label="Online Play"
-        />
-      </FormControl> */}
     </Box>
   );
 };

@@ -15,6 +15,7 @@ export interface Settings {
   };
   cardPreferences: {
     preferredStyle: "sfg" | "gbcp";
+    improveReadability: boolean;
   };
   gamePlayRoute: string;
   libraryRoute: string;

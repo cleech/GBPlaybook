@@ -27,10 +27,17 @@ const CardBack = (props: CardBackProps) => {
 
   const { setting$ } = useSettings();
   const [style, setStyle] = useState<"sfg" | "gbcp">();
+  const [readable, setReadable] = useState<boolean>(false);
+
   useEffect(() => {
     const sub = setting$
-      ?.pipe(map((s) => s?.toJSON().data.cardPreferences.preferredStyle))
-      .subscribe((style) => setStyle(style));
+      ?.pipe(map((s) => s?.toJSON().data))
+      .subscribe((pref) => {
+        if (pref) {
+          setStyle(pref.cardPreferences.preferredStyle);
+          setReadable(pref.cardPreferences.improveReadability);
+        }
+      });
 
     return () => sub?.unsubscribe();
   });
@@ -56,6 +63,9 @@ const CardBack = (props: CardBackProps) => {
       GBImages.get(`${key}_full`) ??
       GBImages.get(`${key}_gbcp_back`);
 
+  const clean_back = !gbcp && readable && new URL("../assets/cards/clean_back.png", import.meta.url).href;
+  const background = props.noBackground ? undefined : `url(${clean_back}),` + `url(${image})`;
+
   return (
     <div
       className={`card-back ${key} ${gbcp && "gbcp"} ${props.className}`}
@@ -68,7 +78,7 @@ const CardBack = (props: CardBackProps) => {
         ),
         "--mom-color": guild.shadow,
         "--mom-border-color": guild.darkColor,
-        backgroundImage: props.noBackground ? undefined : `url(${image})`,
+        backgroundImage: background,
         ...props.style,
       }}
     >

@@ -7,8 +7,7 @@ import {
   addRxPlugin,
 } from "rxdb";
 import { getRxStorageDexie } from "rxdb/plugins/storage-dexie";
-// import { getRxStorageMemory } from "rxdb/plugins/storage-memory";
-// import { wrappedValidateAjvStorage } from "rxdb/plugins/validate-ajv";
+import { wrappedValidateAjvStorage } from "rxdb/plugins/validate-ajv";
 import { RxDBCleanupPlugin } from "rxdb/plugins/cleanup";
 import { RxDBDevModePlugin } from "rxdb/plugins/dev-mode";
 import { RxDBQueryBuilderPlugin } from "rxdb/plugins/query-builder";
@@ -351,14 +350,19 @@ interface GBDataCollections {
 
 export type GBDatabase = RxDatabase<GBDataCollections>;
 
-export const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>({
-  name: "gb_playbook",
-  localDocuments: true,
-  storage: getRxStorageDexie(),
-  // storage: wrappedValidateAjvStorage({ storage: getRxStorageDexie() }),
-  // storage: getRxStorageMemory(),
-  // storage: wrappedValidateAjvStorage({ storage: getRxStorageMemory() }),
-});
+export const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>(
+  (import.meta.env.MODE === "development") ?
+    {
+      name: "gb_playbook",
+      localDocuments: true,
+      storage: wrappedValidateAjvStorage({ storage: getRxStorageDexie() }),
+      ignoreDuplicate: true,
+    } :
+    {
+      name: "gb_playbook",
+      localDocuments: true,
+      storage: getRxStorageDexie(),
+    });
 
 await gbdb.addCollections({
   guilds: { schema: gbGuildSchema },
