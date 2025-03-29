@@ -1,8 +1,9 @@
-import { createContext, PropsWithChildren, useEffect, useMemo } from "react";
+import { PropsWithChildren, useEffect, useMemo } from "react";
 import { RxLocalDocument } from "rxdb";
 import gbdb, { GBDatabase } from "./gbdb";
 import { Observable } from "rxjs";
 import { defaultSettings } from "../hooks/useSettings";
+import { SettingsContext } from "../utils/contexts";
 
 export interface Settings {
   dataSet?: string;
@@ -25,15 +26,11 @@ export interface Settings {
 
 export type SettingsDoc = RxLocalDocument<GBDatabase, Settings>;
 
-interface SettingsContextData {
+export interface SettingsContextData {
   setting$?: Observable<SettingsDoc | null>;
   // settings: Settings;
   // settingsDoc?: SettingsDoc;
 }
-
-export const SettingsContext = createContext<SettingsContextData>({
-  // settings: defaultSettings,
-});
 
 export const SettingsProvider = (props: PropsWithChildren) => {
   const setting$ = useMemo(() => gbdb.getLocal$<Settings>("settings"), []);

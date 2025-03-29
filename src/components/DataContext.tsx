@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useSettings } from "../hooks/useSettings";
 
@@ -6,19 +6,14 @@ import DataFile, { Manifest, Gameplan } from "./DataContext.d";
 
 import gbdb, { GBDatabase, GBModel } from "../models/gbdb";
 import i18n from "../utils/i18next";
+import { DataContext } from "../utils/contexts";
 
-interface DataContextProps {
+export interface DataContextProps {
   manifest?: Manifest;
   version: number;
   gameplans?: Gameplan[];
   gbdb?: GBDatabase;
 }
-
-export const DataContext = createContext<DataContextProps>({
-  manifest: undefined,
-  version: 0,
-  gameplans: undefined,
-});
 
 interface DataProviderProps {
   children: React.ReactNode;

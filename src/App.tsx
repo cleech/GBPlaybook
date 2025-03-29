@@ -1,5 +1,4 @@
 import React, {
-  createContext,
   ReactNode,
   useContext,
   useEffect,
@@ -29,8 +28,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { useSettings } from "./hooks/useSettings";
 import { map } from "rxjs";
-
-export const AppBarContext = createContext<HTMLElement | null>(null);
+import { AppBarContext } from "./utils/contexts";
 
 export const AppBarContent = (props: { children?: ReactNode }) => {
   const containerRef = useContext(AppBarContext);

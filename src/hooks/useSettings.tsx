@@ -1,5 +1,6 @@
 import { useContext } from "react";
-import { Settings, SettingsContext } from "../models/settings";
+import { Settings } from "../models/settings";
+import { SettingsContext } from "../utils/contexts";
 
 export const useSettings = () => useContext(SettingsContext);
 
