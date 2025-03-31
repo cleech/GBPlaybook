@@ -6,13 +6,14 @@ import {
   createRxDatabase,
   addRxPlugin,
 } from "rxdb";
+import { RxDBDevModePlugin } from "rxdb/plugins/dev-mode";
+import { RxDBCleanupPlugin } from "rxdb/plugins/cleanup";
 import { getRxStorageDexie } from "rxdb/plugins/storage-dexie";
 import { wrappedValidateAjvStorage } from "rxdb/plugins/validate-ajv";
-import { RxDBCleanupPlugin } from "rxdb/plugins/cleanup";
-import { RxDBDevModePlugin } from "rxdb/plugins/dev-mode";
 import { RxDBQueryBuilderPlugin } from "rxdb/plugins/query-builder";
 import { RxDBLeaderElectionPlugin } from "rxdb/plugins/leader-election";
 import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
+import { RxDBMigrationSchemaPlugin } from "rxdb/plugins/migration-schema";
 
 import {
   replicateWebRTC,
@@ -27,6 +28,7 @@ addRxPlugin(RxDBCleanupPlugin);
 addRxPlugin(RxDBQueryBuilderPlugin);
 addRxPlugin(RxDBLeaderElectionPlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
+addRxPlugin(RxDBMigrationSchemaPlugin);
 
 type TupleOf<T, N extends number> = [T, ...T[]] & { length: N };
 type Playbook = TupleOf<TupleOf<string | null, 7>, 2>;
@@ -138,7 +140,7 @@ type GBModelCollection = RxCollection<GBModel, GBModelMethods>;
 
 const gbModelSchema: RxJsonSchema<GBModel> = {
   title: "Guild Ball model",
-  version: 0,
+  version: 1,
   primaryKey: "id",
   type: "object",
   properties: {
@@ -217,7 +219,7 @@ const gbModelSchema: RxJsonSchema<GBModel> = {
     "base",
     "guild1",
   ],
-  indexes: ["guild1", "guild2"],
+  indexes: ["guild1"],
 };
 
 export interface GBGuild {
@@ -262,14 +264,14 @@ type GBCharacterPlayCollection = RxCollection<GBCharacterPlay>;
 
 const gbCharacterPlaySchema: RxJsonSchema<GBCharacterPlay> = {
   title: "Guild Ball character play",
-  version: 0,
+  version: 1,
   primaryKey: "name",
   type: "object",
   properties: {
     name: { type: "string", maxLength: 64 },
     text: { type: "string" },
-    CST: { type: ["string", "integer"] },
-    RNG: { type: ["string", "integer"] },
+    CST: { anyOf: [{ type: "string" }, { type: "integer" }] },
+    RNG: { anyOf: [{ type: "string" }, { type: "integer" }] },
     SUS: { type: "boolean", default: false },
     OPT: { type: "boolean", default: false },
   },
@@ -351,26 +353,34 @@ interface GBDataCollections {
 export type GBDatabase = RxDatabase<GBDataCollections>;
 
 export const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>(
-  (import.meta.env.MODE === "development") ?
-    {
-      name: "gb_playbook",
-      localDocuments: true,
-      storage: wrappedValidateAjvStorage({ storage: getRxStorageDexie() }),
-      ignoreDuplicate: true,
-    } :
-    {
-      name: "gb_playbook",
-      localDocuments: true,
-      storage: getRxStorageDexie(),
-    });
+  import.meta.env.MODE === "development"
+    ? {
+        name: "gb_playbook",
+        localDocuments: true,
+        storage: wrappedValidateAjvStorage({ storage: getRxStorageDexie() }),
+      }
+    : {
+        name: "gb_playbook",
+        localDocuments: true,
+        storage: getRxStorageDexie(),
+      }
+);
 
 await gbdb.addCollections({
   guilds: { schema: gbGuildSchema },
   models: {
     schema: gbModelSchema,
     methods: gbModelDocMethods,
+    migrationStrategies: {
+      1: (doc) => doc,
+    },
   },
-  character_plays: { schema: gbCharacterPlaySchema },
+  character_plays: {
+    schema: gbCharacterPlaySchema,
+    migrationStrategies: {
+      1: (doc) => doc,
+    },
+  },
   character_traits: { schema: gbCharacterTraitSchema },
   game_state: { schema: gbGameStateSchema, localDocuments: true },
 });
