@@ -343,6 +343,7 @@ export default function RosterList({
             elevation={0}
           >
             <AccordionSummary
+              component="div"
               sx={{
                 position: "sticky",
                 top: 0,
