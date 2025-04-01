@@ -6,7 +6,7 @@ import {
   useCallback,
 } from "react";
 import { useBlocker } from "react-router-dom";
-import type { BlockerFunction } from "@remix-run/router";
+import type { BlockerFunction } from "react-router";
 import {
   Button,
   Divider,

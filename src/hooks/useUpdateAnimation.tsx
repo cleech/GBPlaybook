@@ -4,7 +4,7 @@ import { useDidUpdate } from "rooks";
 export const useUpdateAnimation = <T extends HTMLElement>(
   animate: boolean,
   deps?: unknown[]
-): React.RefObject<T> => {
+): React.RefObject<T | null> => {
   const ref = React.useRef<T>(null);
   useDidUpdate(() => {
     if (animate) {

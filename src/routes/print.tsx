@@ -158,7 +158,7 @@ export const CardPrintScreen = () => {
     gameplans: Map<string, GameplanCheckBoxRef>;
     refcards: Map<string, RefCardCheckBoxRef>;
   }>(null);
-  const list = useRef<GuildListRef>();
+  const list = useRef<GuildListRef>(null);
 
   const [Guilds, setGuilds] = useState<string[]>();
   const [Models, setModels] = useState<string[]>();
