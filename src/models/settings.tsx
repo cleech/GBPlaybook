@@ -2,8 +2,8 @@ import { PropsWithChildren, useEffect, useMemo } from "react";
 import { RxLocalDocument } from "rxdb";
 import gbdb, { GBDatabase } from "./gbdb";
 import { Observable } from "rxjs";
-import { defaultSettings } from "../hooks/useSettings";
 import { SettingsContext } from "../utils/contexts";
+import { defaultSettings } from "./defaultSettings";
 
 export interface Settings {
   dataSet?: string;

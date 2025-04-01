@@ -23,7 +23,7 @@ import { DataProvider } from "./components/DataContext";
 import { CardPrintScreen } from "./routes/print";
 
 import { SettingsDoc, SettingsProvider } from "./models/settings";
-import { defaultSettings } from "./hooks/useSettings";
+import { defaultSettings } from "./models/defaultSettings";
 
 import gbdb from "./models/gbdb";
 
