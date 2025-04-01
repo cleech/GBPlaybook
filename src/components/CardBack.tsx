@@ -57,14 +57,15 @@ const CardBack = (props: CardBackProps) => {
 
   const image = gbcp
     ? GBImages.get(`${key}_full`) ??
-      GBImages.get(`${key}_gbcp_back`) ??
-      GBImages.get(`${key}_back`)
+    GBImages.get(`${key}_gbcp_back`) ??
+    GBImages.get(`${key}_back`)
     : GBImages.get(`${key}_back`) ??
-      GBImages.get(`${key}_full`) ??
-      GBImages.get(`${key}_gbcp_back`);
+    GBImages.get(`${key}_full`) ??
+    GBImages.get(`${key}_gbcp_back`);
 
-  const clean_back = !gbcp && readable && new URL("../assets/cards/clean_back.png", import.meta.url).href;
-  const background = props.noBackground ? undefined : `url(${clean_back}),` + `url(${image})`;
+  const clean_back = new URL("../assets/cards/clean_back.png", import.meta.url).href;
+  const background = props.noBackground ? undefined :
+    ((!gbcp && readable) ? `url(${clean_back}), url(${image})` : `url(${image})`);
 
   return (
     <div
@@ -127,22 +128,22 @@ const CardBack = (props: CardBackProps) => {
             <div className="base-size">{`Size ${model.base} mm`}</div>
           </div>
         </div>
-          <div
-            style={{
-              fontFamily: "serif",
-              fontSize: "10pt",
-              position: "absolute",
-              width: "100%",
-              textAlign: "center",
-              bottom: "1.5em",
-              letterSpacing: 0,
-              wordSpacing: 0,
-              color: "white",
-              display: gbcp && "none" || "block",
-            }}
-          >
-            ™ & © Steamforged Games LTD 2025
-          </div>
+        <div
+          style={{
+            fontFamily: "serif",
+            fontSize: "10pt",
+            position: "absolute",
+            width: "100%",
+            textAlign: "center",
+            bottom: "1.5em",
+            letterSpacing: 0,
+            wordSpacing: 0,
+            color: "white",
+            display: gbcp && "none" || "block",
+          }}
+        >
+          ™ & © Steamforged Games LTD 2025
+        </div>
       </div>
     </div>
   );
