@@ -5,7 +5,7 @@ import {
   useCallback,
   Suspense,
   useEffect,
-  MutableRefObject,
+  RefObject,
 } from "react";
 
 import {
@@ -99,7 +99,7 @@ export default function Library() {
 
 export function GuildList() {
   const { slideRef } = useOutletContext<{
-    slideRef: MutableRefObject<number>;
+    slideRef: RefObject<number>;
   }>();
 
   slideRef.current = 0;
@@ -199,7 +199,7 @@ export function Roster() {
 
   const navigate = useNavigate();
   const { slideRef } = useOutletContext<{
-    slideRef: MutableRefObject<number>;
+    slideRef: RefObject<number>;
   }>();
 
   const [g, roster] =
@@ -353,7 +353,7 @@ export function GamePlans() {
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
   const { slideRef } = useOutletContext<{
-    slideRef: MutableRefObject<number>;
+    slideRef: RefObject<number>;
   }>();
 
   const { gameplans } = useData();
@@ -457,7 +457,7 @@ export function RefCards() {
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
   const { slideRef } = useOutletContext<{
-    slideRef: MutableRefObject<number>;
+    slideRef: RefObject<number>;
   }>();
 
   return (

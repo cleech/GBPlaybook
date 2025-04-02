@@ -35,14 +35,11 @@ export const AppBarContent = (props: { children?: ReactNode }) => {
   return <Portal container={containerRef}>{props.children}</Portal>;
 };
 
-const MyAppBar = React.forwardRef<
-  HTMLElement,
-  { onClick: React.MouseEventHandler }
->((props, ref) => (
+const MyAppBar = (props: { onClick: React.MouseEventHandler, ref: React.Ref<HTMLElement> }) => (
   <AppBar position="static" className="no-print">
     <Toolbar variant="dense">
       <Box
-        ref={ref}
+        ref={props.ref}
         sx={{
           display: "flex",
           flexDirection: "row",
@@ -54,16 +51,15 @@ const MyAppBar = React.forwardRef<
       </IconButton>
     </Toolbar>
   </AppBar>
-));
+);
 
-const LinkBehavior = React.forwardRef<
-  HTMLAnchorElement,
-  Omit<RouterLinkProps, "to"> & { href: RouterLinkProps["to"] }
->((props, ref) => {
+const LinkBehavior = (
+  props: Omit<RouterLinkProps, "to"> & { href: RouterLinkProps["to"], ref: React.Ref<HTMLAnchorElement> }
+) => {
   const { href, ...other } = props;
   // Map href (MUI) -> to (react-router)
-  return <RouterLink ref={ref} to={href} {...other} role={undefined} />;
-});
+  return <RouterLink to={href} {...other} role={undefined} />;
+};
 
 const darkTheme = createTheme({
   palette: {
@@ -97,7 +93,7 @@ const darkTheme = createTheme({
     },
     MuiTypography: {
       defaultProps: {
-        sx: {textShadow: "1px 1px 2px black"},
+        sx: { textShadow: "1px 1px 2px black" },
       }
     },
     MuiLink: {
