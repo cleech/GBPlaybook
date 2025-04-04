@@ -40,7 +40,7 @@
     "@types/lodash.clonedeep": "^4.5.7",
     "@types/react": "^19.0.12",
     "@types/react-detect-offline": "^2.4.1",
-    "@types/react-dom": "^19.0.4",
+    "@types/react-dom": "^19.1.1",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.24.0",
     "eslint-plugin-react-hooks": "^5.2.0",
