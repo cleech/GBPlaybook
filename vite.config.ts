@@ -1,19 +1,19 @@
-import { defineConfig } from "vite";
-import { VitePWA } from "vite-plugin-pwa";
-import react from "@vitejs/plugin-react-swc";
-import { nodePolyfills } from "vite-plugin-node-polyfills";
+import { VitePWA } from 'vite-plugin-pwa';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
-    target: ["es2022", "chrome89", "firefox89", "safari15", "edge89"],
+    target: ['es2022', 'chrome89', 'firefox89', 'safari15', 'edge89'],
   },
   esbuild: {
-    target: "es2022",
+    target: 'es2022',
   },
   optimizeDeps: {
     esbuildOptions: {
-      target: "es2022",
+      target: 'es2022',
     },
   },
   plugins: [
@@ -23,18 +23,18 @@ export default defineConfig({
       globals: { Buffer: false, global: true, process: true },
     }),
     VitePWA({
-      registerType: "autoUpdate",
+      registerType: 'autoUpdate',
       workbox: {
         maximumFileSizeToCacheInBytes: 10000000,
         // cache all imports
-        globPatterns: ["**/*"],
+        globPatterns: ['**/*'],
         runtimeCaching: [
-	// cache docs from docs.guildball.app
+          // cache docs from docs.guildball.app
           {
             urlPattern: /^https:\/\/docs\.guildball\.app\/.*/i,
-            handler: "CacheFirst",
+            handler: 'CacheFirst',
             options: {
-              cacheName: "guildball-docs",
+              cacheName: 'guildball-docs',
               expiration: {
                 maxEntries: 20,
                 maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
@@ -44,12 +44,12 @@ export default defineConfig({
               },
             },
           },
-        // cache google fonts
+          // cache google fonts
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: "CacheFirst",
+            handler: 'CacheFirst',
             options: {
-              cacheName: "google-fonts-cache",
+              cacheName: 'google-fonts-cache',
               expiration: {
                 maxEntries: 20,
                 maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
@@ -61,9 +61,9 @@ export default defineConfig({
           },
           {
             urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
-            handler: "CacheFirst",
+            handler: 'CacheFirst',
             options: {
-              cacheName: "gstatic-fonts-cache",
+              cacheName: 'gstatic-fonts-cache',
               expiration: {
                 maxEntries: 20,
                 maxAgeSeconds: 60 * 60 * 24 * 365, // <== 365 days
@@ -76,39 +76,39 @@ export default defineConfig({
         ],
       },
       // cache all public folder static assets
-      includeAssets: ["**/*"],
+      includeAssets: ['**/*'],
       manifest: {
-        name: "Guild Ball Playbook",
-        short_name: "GB Playbook",
-        description: "Guild Ball reference and tracking",
+        name: 'Guild Ball Playbook',
+        short_name: 'GB Playbook',
+        description: 'Guild Ball reference and tracking',
         icons: [
           {
-            src: "pwa-64x64.png",
-            sizes: "64x64",
-            type: "image/png",
+            src: 'pwa-64x64.png',
+            sizes: '64x64',
+            type: 'image/png',
           },
           {
-            src: "pwa-192x192.png",
-            sizes: "192x192",
-            type: "image/png",
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
           },
           {
-            src: "pwa-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "any",
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any',
           },
           {
-            src: "maskable-icon-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "maskable",
+            src: 'maskable-icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
           },
         ],
-        display: "standalone",
-        // orientation: "any",
-        theme_color: "#000000",
-        background_color: "#004508",
+        display: 'standalone',
+        // orientation: 'any',
+        theme_color: '#000000',
+        background_color: '#004508',
       },
       devOptions: {
         enabled: true,
