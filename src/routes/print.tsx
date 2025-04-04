@@ -62,7 +62,8 @@ const PrintSettings = (props: {
 
   const [paged, setPaged] = useState(true);
 
-  const { doubleCard, setDouble, withBleed, setBleed, noFun, setNoFun } = props;
+  // const { doubleCard, setDouble, withBleed, setBleed, noFun, setNoFun } = props;
+  const { doubleCard, setDouble, withBleed, setBleed } = props;
   useEffect(() => {
     const size = doubleCard
       ? withBleed
@@ -401,7 +402,7 @@ export const CardPrintScreen = () => {
             bleed={withBleed}
           />
         ))}
-        {gameplans?.map((gp: Gameplan, index) => (
+        {gameplans?.map((_: Gameplan, index) => (
           <RefcardPrintCard
             index={index}
             key={`refcard-${index}`}
