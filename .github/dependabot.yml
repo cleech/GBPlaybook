@@ -10,3 +10,31 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+    groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"      
+          - "react-router"
+          - "react-router-dom"
+      mui:
+        patterns:
+          - "@mui/*"
+          - "@emotion/*"
+      rxdb:
+        patterns:
+          - "rxdb"
+          - "rxjs"
+      i18next:
+        patterns:
+          - "i18next*"
+          - "react-i18next"
+          - "iso-639-1"
+      prod-deps:
+        dependency-type: "production"
+      dev-deps:
+        dependency-type: "development"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+        
