@@ -1301,11 +1301,11 @@ const RefcardPrintCard = (props: { index: number; bleed: boolean }) => {
         //     } as GBCardCSS
         //   }
         // >
-        <ReferenceCardFront
+        (<ReferenceCardFront
           index={index + 1}
           style={{ borderRadius: 0 }}
           bleed={bleed}
-        />
+        />)
         // </div>
       )}
     </div>

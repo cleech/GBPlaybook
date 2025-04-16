@@ -309,7 +309,7 @@ const GameList = ({
             setOpen(false);
             setExpanded(true);
           }}
-          componentsProps={{
+          slotProps={{
             root: {
               style: {
                 position: "absolute",

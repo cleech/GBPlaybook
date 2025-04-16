@@ -282,8 +282,10 @@ const StepJoin = (props: StepperProps) => {
         label="game join code"
         variant="outlined"
         disabled={waiting}
-        inputProps={{ pattern: "[0-9]*", inputMode: "numeric" }}
         onChange={(ev) => setCode(Number(ev.target.value))}
+        slotProps={{
+          htmlInput: { pattern: "[0-9]*", inputMode: "numeric" }
+        }}
       />
       <Button
         variant="contained"

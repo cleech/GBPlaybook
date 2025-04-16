@@ -174,8 +174,10 @@ function AppDrawer(props: {
       anchor="right"
       open={drawer}
       onClose={() => setDrawer(false)}
-      PaperProps={{ sx: { width: "275px" } }}
       ModalProps={{ keepMounted: true }}
+      slotProps={{
+        paper: { sx: { width: "275px" } }
+      }}
     >
       <List>
         <ListItem>
@@ -231,7 +233,6 @@ function AppDrawer(props: {
           </ListItem>
         </nav>
       </List>
-
       <Divider />
       <List>
         <ListItem>
