@@ -28,7 +28,7 @@
     "react-i18next": "^15.4.1",
     "react-router-dom": "^7.4.1",
     "react-string-replace": "^1.1.1",
-    "rooks": "^8.0.0",
+    "rooks": "^8.0.1",
     "rxdb": "^15.39.0",
     "rxjs": "^7.8.2",
     "swiper": "^11.2.6",
