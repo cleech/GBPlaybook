@@ -34,7 +34,7 @@ updates:
         dependency-type: "production"
       dev-deps:
         dependency-type: "development"
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
-        
+    # ignore:
+    #  - dependency-name: "*"
+    #    update-types: ["version-update:semver-major"]
+
