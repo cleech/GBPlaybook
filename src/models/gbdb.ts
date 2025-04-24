@@ -409,8 +409,8 @@ const iceConfig = {
   ],
 };
 
-export function gbdbBeginReplication(url: string, topic: string) {
-  return replicateWebRTC<GBGameState, SimplePeer>({
+export async function gbdbBeginReplication(url: string, topic: string) {
+  const replcationState = await replicateWebRTC<GBGameState, SimplePeer>({
     collection: gbdb.game_state,
     connectionHandlerCreator: getConnectionHandlerSimplePeer({
       signalingServerUrl: url,
@@ -419,15 +419,14 @@ export function gbdbBeginReplication(url: string, topic: string) {
     topic,
     pull: {},
     push: {},
-  }).then((replcationState) => {
-    replcationState.error$.subscribe((err) => {
-      console.log("replication error:");
-      console.dir(err);
-    });
-    replcationState.peerStates$.subscribe((s) => {
-      console.log("new peer states:");
-      console.dir(s);
-    });
-    return replcationState;
   });
+  replcationState.error$.subscribe((err) => {
+    console.log("replication error:");
+    console.dir(err);
+  });
+  replcationState.peerStates$.subscribe((s) => {
+    console.log("new peer states:");
+    console.dir(s);
+  });
+  return replcationState;
 }
