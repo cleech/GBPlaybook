@@ -68,7 +68,7 @@ const Settings = () => {
   }
 
   return (
-    <Box component={"main"} sx={{ p: "1rem" }}>
+    <Box component={"main"} sx={{ p: "1rem", overflow: "auto" }}>
       <AppBarContent>
         <Breadcrumbs>
           <Typography>Settings</Typography>
