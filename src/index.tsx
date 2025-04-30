@@ -4,8 +4,6 @@ import App from "./App";
 
 import {
   createHashRouter,
-  createRoutesFromElements,
-  Route,
   RouterProvider,
   Navigate,
 } from "react-router-dom";
@@ -32,47 +30,53 @@ registerSW({ immediate: true });
 import "./utils/i18next";
 
 const router = createHashRouter(
-  createRoutesFromElements(
-    <>
-      <Route
-        path="/"
-        element={
-          <Navigate
-            to={await gbdb
-              .getLocal<SettingsDoc>("settings")
-              .then((settings) => {
-                const route: string =
-                  settings?.get("initialScreen") ??
-                  defaultSettings.initialScreen;
-                if (route === "/game") {
-                  return settings?.get("gamePlayRoute") ?? route;
-                }
-                if (route === "/library") {
-                  return settings?.get("libraryRoute") ?? route;
-                }
-                return route;
-              })}
-            replace
-          />
-        }
-      />
-      <Route element={<App />}>
-        <Route element={<GamePlay />}>
-          <Route path="game" element={<TeamSelect />} />
-          <Route path="game/draft" element={<Draft />} />
-          <Route path="game/draft/play" element={<Game />} />
-        </Route>
-        <Route path="library" element={<Library />}>
-          <Route index element={<GuildList />} />
-          <Route path="gameplans" element={<GamePlans />} />
-          <Route path="refcards" element={<RefCards />} />
-          <Route path=":guild" element={<Roster />} />
-        </Route>
-        <Route path="print" element={<CardPrintScreen />} />
-        <Route path="settings" element={<Settings />} />
-      </Route>
-    </>
-  )
+  [
+    {
+      path: "/",
+      element:
+        <Navigate
+          to={await gbdb
+            .getLocal<SettingsDoc>("settings")
+            .then((settings) => {
+              const route: string =
+                settings?.get("initialScreen") ??
+                defaultSettings.initialScreen;
+              if (route === "/game") {
+                return settings?.get("gamePlayRoute") ?? route;
+              }
+              if (route === "/library") {
+                return settings?.get("libraryRoute") ?? route;
+              }
+              return route;
+            })}
+          replace
+        />
+    },
+    {
+      element: <App />,
+      children: [
+        {
+          element: <GamePlay />,
+          children: [
+            { path: "game", element: <TeamSelect /> },
+            { path: "game/draft", element: <Draft /> },
+            { path: "game/draft/play", element: <Game /> },
+          ]
+        },
+        {
+          path: "library", element: <Library />,
+          children: [
+            { index: true, element: <GuildList /> },
+            { path: "gameplans", element: <GamePlans /> },
+            { path: "refcards", element: <RefCards /> },
+            { path: ":guild", element: <Roster /> },
+          ]
+        },
+        { path: "print", element: <CardPrintScreen /> },
+        { path: "settings", element: <Settings /> },
+      ]
+    },
+  ]
 );
 const root = createRoot(
   document.getElementById("root") as HTMLElement
