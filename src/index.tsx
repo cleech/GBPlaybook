@@ -9,17 +9,17 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-import GamePlay, { TeamSelect, Draft, Game } from "./routes/GamePlay";
+import GamePlay, { TeamSelect, Draft, Game } from "./pages/GamePlay";
 import Library, {
   GamePlans,
   GuildList,
   RefCards,
   Roster,
-} from "./routes/library";
-import Settings from "./routes/settings";
+} from "./pages/library";
+import Settings from "./pages/settings";
 
 import { DataProvider } from "./components/DataContext";
-import { CardPrintScreen } from "./routes/print";
+import { CardPrintScreen } from "./pages/print";
 
 import { SettingsDoc, SettingsProvider } from "./models/settings";
 import { defaultSettings } from "./models/defaultSettings";
