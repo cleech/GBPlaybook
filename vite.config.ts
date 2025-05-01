@@ -1,6 +1,6 @@
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { reactRouter } from "@react-router/dev/vite"
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 // https://vitejs.dev/config/
@@ -17,7 +17,7 @@ export default defineConfig({
     },
   },
   plugins: [
-    react(),
+    reactRouter(),
     nodePolyfills({
       include: [],
       globals: { Buffer: false, global: true, process: true },
