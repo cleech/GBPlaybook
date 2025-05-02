@@ -13,7 +13,7 @@ import GBIcon from "../../components/GBIcon";
 import Color from "color";
 
 import { Home, NavigateNext } from "@mui/icons-material";
-import { AppBarContent } from "../../App";
+import { AppBarContent } from "../App";
 
 import VersionTag from "../../components/VersionTag";
 // import { pulseAnimationKeyFrames } from "../../hooks/useUpdateAnimation";

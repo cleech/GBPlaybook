@@ -4,7 +4,6 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import "./App.css";
 
 import {
   Outlet,
@@ -26,9 +25,9 @@ import Divider from "@mui/material/Divider";
 import { Box, Portal, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import { useSettings } from "./hooks/useSettings";
+import { useSettings } from "../hooks/useSettings";
 import { map } from "rxjs";
-import { AppBarContext } from "./utils/contexts";
+import { AppBarContext } from "../utils/contexts";
 
 export const AppBarContent = (props: { children?: ReactNode }) => {
   const containerRef = useContext(AppBarContext);
@@ -133,7 +132,13 @@ const App = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <div className="App">
+      <Box
+        sx={{
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <MyAppBar
           ref={(el: HTMLElement) => setContainer(el)}
           onClick={() => setDrawer(true)}
@@ -142,7 +147,7 @@ const App = () => {
         <AppBarContext.Provider value={appBarContainer}>
           <Outlet />
         </AppBarContext.Provider>
-      </div>
+      </Box>
     </ThemeProvider>
   );
 };

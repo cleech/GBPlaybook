@@ -15,7 +15,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { AppBarContent } from "../App";
+import { AppBarContent } from "./App";
 import { useData } from "../hooks/useData";
 import "./print.css";
 

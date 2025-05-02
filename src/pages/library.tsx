@@ -41,7 +41,7 @@ import {
   GridIconButton,
   GuildGrid,
 } from "../components/GuildGrid";
-import { AppBarContent } from "../App";
+import { AppBarContent } from "./App";
 import { NavigateNext } from "@mui/icons-material";
 import { DoubleGuildCard, FlipGuildCard } from "../components/GuildCard";
 import VersionTag from "../components/VersionTag";
