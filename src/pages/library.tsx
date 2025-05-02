@@ -15,6 +15,7 @@ import {
   useSearchParams,
   useLocation,
   useOutletContext,
+  useLoaderData,
 } from "react-router-dom";
 
 import {
@@ -102,6 +103,8 @@ export function GuildList() {
     slideRef: RefObject<number>;
   }>();
 
+  const guilds = useLoaderData() as GBGuildDoc[];
+
   slideRef.current = 0;
 
   return (
@@ -127,7 +130,9 @@ export function GuildList() {
         //     style: { color: "#f8f7f4" },
         //   },
         // ]}
-      />
+      >
+        {guilds}
+      </GuildGrid>
       <VersionTag />
     </>
   );

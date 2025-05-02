@@ -16,7 +16,6 @@ import { map } from "rxjs";
 interface CardBackProps {
   model: GBModelExpanded;
   style: GBCardCSS;
-  guild?: string;
   className?: string;
   noBackground?: boolean;
 }

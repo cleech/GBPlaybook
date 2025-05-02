@@ -23,8 +23,9 @@ import { useRxData } from "../../hooks/useRxQuery";
 import { NetworkGame } from "../../components/NetworkGame";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
-import { GBGameStateDoc } from "../../models/gbdb";
+import { GBGameStateDoc, GBGuildDoc } from "../../models/gbdb";
 import { NavigateFab } from "./NavigateFab";
+import { useLoaderData } from "react-router-dom";
 
 function SelectedIcon({ team, size }: { team: string; size: number }) {
   const guild = useRxData(
@@ -237,6 +238,7 @@ function GameControls(props: ControlProps) {
 }
 
 export default function TeamSelect() {
+  const guilds = useLoaderData<GBGuildDoc[]>();
   return (
     <Box
       sx={{
@@ -262,7 +264,9 @@ export default function TeamSelect() {
           <NetworkGame allowNew={true} />
         </div>
       </AppBarContent>
-      <GuildGrid Controller={GameControls} />
+      <GuildGrid Controller={GameControls}>
+        {guilds}
+      </GuildGrid>
       <VersionTag />
       {/* <ResumeSnackBar /> */}
     </Box>

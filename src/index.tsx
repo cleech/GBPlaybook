@@ -64,7 +64,15 @@ const router = createHashRouter(
         {
           element: <GamePlay />,
           children: [
-            { path: "game", element: <TeamSelect /> },
+            {
+              path: "game",
+              element: <TeamSelect />,
+              loader: async () => {
+                console.log("Loading guilds: GamePlay");
+                const db = getGBDatabase();
+                return await db.guilds.find().exec();
+              }
+            },
             { path: "game/draft", element: <Draft /> },
             { path: "game/draft/play", element: <Game /> },
           ]
@@ -72,7 +80,15 @@ const router = createHashRouter(
         {
           path: "library", element: <Library />,
           children: [
-            { index: true, element: <GuildList /> },
+            {
+              index: true,
+              element: <GuildList />,
+              loader: async () => {
+                console.log("Loading guilds: Library");
+                const db = getGBDatabase();
+                return await db.guilds.find().exec();
+              }
+            },
             { path: "gameplans", element: <GamePlans /> },
             { path: "refcards", element: <RefCards /> },
             { path: ":guild", element: <Roster /> },
