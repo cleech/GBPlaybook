@@ -93,11 +93,12 @@ type GBModelMethods = {
 };
 
 function populate_character_traits(doc: GBModelDoc) {
+  const db = getGBDatabase();
   return Promise.all(
-    doc.character_traits
+    (doc.character_traits || []) // Add safety check for potentially undefined traits
       .map((s) => s.split(/[[\]]/))
       .map(async ([name, param]) => {
-        const ct = await gbdb.character_traits.findOne(name.trim()).exec();
+        const ct = await db.character_traits.findOne(name.trim()).exec();
         return Object.assign({}, ct?.toMutableJSON(), {
           parameter: param?.trim(),
         });
@@ -107,13 +108,14 @@ function populate_character_traits(doc: GBModelDoc) {
 
 const gbModelDocMethods: GBModelMethods = {
   expand: async function (this: GBModelDoc): Promise<GBModelExpanded> {
-    const dbSettings = await gbdb.getLocal<GBDataMeta>("gbdata_meta");
+    const db = getGBDatabase();
+    const dbSettings = await db.getLocal<GBDataMeta>("gbdata_meta");
     const [character_plays, character_traits]: [
       GBCharacterPlay[],
       ParameterizedTrait[]
     ] = await Promise.all([
-      this.populate("character_plays").then((cps) =>
-        cps.map((cp: GBCharacterPlayDoc) => cp.toMutableJSON())
+      this.populate("character_plays").then(
+        (cps) => (cps || []).map((cp: GBCharacterPlayDoc) => cp.toMutableJSON()) // Add safety check
       ),
       populate_character_traits(this),
     ]);
@@ -352,40 +354,58 @@ interface GBDataCollections {
 
 export type GBDatabase = RxDatabase<GBDataCollections>;
 
-export const gbdb: GBDatabase = await createRxDatabase<GBDataCollections>(
-  import.meta.env.MODE === "development"
-    ? {
-        name: "gb_playbook",
-        localDocuments: true,
-        storage: wrappedValidateAjvStorage({ storage: getRxStorageDexie() }),
-      }
-    : {
-        name: "gb_playbook",
-        localDocuments: true,
-        storage: getRxStorageDexie(),
-      }
-);
+// Declare gbdb at the module level, but initialize later
+let gbdb: GBDatabase | null = null;
 
-await gbdb.addCollections({
-  guilds: { schema: gbGuildSchema },
-  models: {
-    schema: gbModelSchema,
-    methods: gbModelDocMethods,
-    migrationStrategies: {
-      1: (doc) => doc,
-    },
-  },
-  character_plays: {
-    schema: gbCharacterPlaySchema,
-    migrationStrategies: {
-      1: (doc) => doc,
-    },
-  },
-  character_traits: { schema: gbCharacterTraitSchema },
-  game_state: { schema: gbGameStateSchema, localDocuments: true },
-});
+export async function initGBDatabase(): Promise<GBDatabase> {
+  if (gbdb) {
+    return gbdb;
+  }
 
-export default gbdb;
+  console.log("Initializing GBDatabase...");
+
+  const db = await createRxDatabase<GBDataCollections>(
+    import.meta.env.MODE === "development"
+      ? {
+          name: "gb_playbook",
+          localDocuments: true,
+          storage: wrappedValidateAjvStorage({ storage: getRxStorageDexie() }),
+        }
+      : {
+          name: "gb_playbook",
+          localDocuments: true,
+          storage: getRxStorageDexie(),
+        }
+  );
+
+  await db.addCollections({
+    guilds: { schema: gbGuildSchema },
+    models: {
+      schema: gbModelSchema,
+      methods: gbModelDocMethods,
+      migrationStrategies: { 1: (doc) => doc },
+    },
+    character_plays: {
+      schema: gbCharacterPlaySchema,
+      migrationStrategies: { 1: (doc) => doc },
+    },
+    character_traits: { schema: gbCharacterTraitSchema },
+    game_state: { schema: gbGameStateSchema, localDocuments: true },
+  });
+
+  gbdb = db;
+  return gbdb;
+}
+
+// Optional: Add a getter for safer access
+export function getGBDatabase(): GBDatabase {
+  if (!gbdb) {
+    throw new Error(
+      "GBDatabase has not been initialized. Call initGBDatabase() first."
+    );
+  }
+  return gbdb;
+}
 
 const iceConfig = {
   iceServers: [
@@ -410,8 +430,9 @@ const iceConfig = {
 };
 
 export async function gbdbBeginReplication(url: string, topic: string) {
+  const db = getGBDatabase(); // Use the getter to ensure DB is initialized
   const replcationState = await replicateWebRTC<GBGameState, SimplePeer>({
-    collection: gbdb.game_state,
+    collection: db.game_state,
     connectionHandlerCreator: getConnectionHandlerSimplePeer({
       signalingServerUrl: url,
       config: iceConfig,

@@ -1,3 +1,4 @@
+// import React from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -6,6 +7,7 @@ import {
   createHashRouter,
   RouterProvider,
   Navigate,
+  useLoaderData,
 } from "react-router-dom";
 import GamePlay, { TeamSelect, Draft, Game } from "./pages/GamePlay";
 import Library, {
@@ -16,45 +18,49 @@ import Library, {
 } from "./pages/library";
 import Settings from "./pages/settings";
 
-import { DataProvider } from "./components/DataContext";
 import { CardPrintScreen } from "./pages/print";
 
 import { SettingsDoc, SettingsProvider } from "./models/settings";
 import { defaultSettings } from "./models/defaultSettings";
 
-import gbdb from "./models/gbdb";
+import { getGBDatabase, initGBDatabase } from "./models/gbdb";
 
 import { registerSW } from "virtual:pwa-register";
 registerSW({ immediate: true });
 
 import "./utils/i18next";
+import { DataProvider } from "./components/DataContext";
+
+await initGBDatabase();
 
 const router = createHashRouter(
   [
     {
-      path: "/",
-      element:
-        <Navigate
-          to={await gbdb
-            .getLocal<SettingsDoc>("settings")
-            .then((settings) => {
-              const route: string =
-                settings?.get("initialScreen") ??
-                defaultSettings.initialScreen;
-              if (route === "/game") {
-                return settings?.get("gamePlayRoute") ?? route;
-              }
-              if (route === "/library") {
-                return settings?.get("libraryRoute") ?? route;
-              }
-              return route;
-            })}
-          replace
-        />
-    },
-    {
       element: <App />,
       children: [
+        {
+          path: "/",
+          loader: async () => {
+            const gbdb = getGBDatabase();
+            const settings = await gbdb.getLocal<SettingsDoc>("settings");
+            const initialScreen: string =
+              settings?.get("initialScreen") ?? defaultSettings.initialScreen;
+
+            let targetRoute = initialScreen;
+
+            if (initialScreen === "/game") {
+              targetRoute = settings?.get("gamePlayRoute") ?? initialScreen;
+            } else if (initialScreen === "/library") {
+              targetRoute = settings?.get("libraryRoute") ?? initialScreen;
+            }
+            return targetRoute;
+          },
+          Component: () => {
+            const target = useLoaderData();
+            return <Navigate to={target} replace />
+          },
+          hydrateFallbackElement: <div>Loading ...</div>,
+        },
         {
           element: <GamePlay />,
           children: [
@@ -75,9 +81,10 @@ const router = createHashRouter(
         { path: "print", element: <CardPrintScreen /> },
         { path: "settings", element: <Settings /> },
       ]
-    },
+    }
   ]
 );
+
 const root = createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -88,5 +95,5 @@ root.render(
       <RouterProvider router={router} />
     </DataProvider>
   </SettingsProvider>
-  // </React.StrictMode>
+  // </React.StrictMode >
 );

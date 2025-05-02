@@ -36,7 +36,7 @@ import ClearAllIcon from "@mui/icons-material/RemoveDone";
 import ClearIcon from "@mui/icons-material/Clear";
 import VersionTag from "../components/VersionTag";
 import GBImages from "../utils/GBImages";
-import { Gameplan, Guild } from "../components/DataContext";
+import { Gameplan, Guild } from "../components/DataContext.d";
 import { GameplanFront, ReferenceCardFront } from "../components/Gameplan";
 import { GBGuildDoc, GBModelDoc } from "../models/gbdb";
 import { reSort } from "../utils/reSort";
