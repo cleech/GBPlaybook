@@ -30,6 +30,7 @@ registerSW({ immediate: true });
 
 import "./utils/i18next";
 import { DataProvider } from "./components/DataContext";
+import { reSort } from "./utils/reSort";
 
 await initGBDatabase();
 
@@ -68,7 +69,6 @@ const router = createHashRouter(
               path: "game",
               element: <TeamSelect />,
               loader: async () => {
-                console.log("Loading guilds: GamePlay");
                 const db = getGBDatabase();
                 return await db.guilds.find().exec();
               }
@@ -84,14 +84,26 @@ const router = createHashRouter(
               index: true,
               element: <GuildList />,
               loader: async () => {
-                console.log("Loading guilds: Library");
                 const db = getGBDatabase();
                 return await db.guilds.find().exec();
               }
             },
             { path: "gameplans", element: <GamePlans /> },
             { path: "refcards", element: <RefCards /> },
-            { path: ":guild", element: <Roster /> },
+            {
+              path: ":guild",
+              element: <Roster />,
+              loader: async ({ params }) => {
+                const db = getGBDatabase();
+                const [guild, _roster] = await Promise.all([
+                  db.guilds.findOne().where({ name: params.guild }).exec(),
+                  db.models.find().or([{ guild1: params.guild }, { guild2: params.guild }]).exec(),
+                ]);
+                reSort(_roster, "id", guild ? guild.roster : []);
+                const roster = await Promise.all(_roster.map((m) => m.expand()));
+                return { guild, roster };
+              }
+            },
           ]
         },
         { path: "print", element: <CardPrintScreen /> },

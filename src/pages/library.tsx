@@ -10,7 +10,6 @@ import {
 
 import {
   Outlet,
-  useParams,
   useNavigate,
   useSearchParams,
   useLocation,
@@ -49,9 +48,7 @@ import VersionTag from "../components/VersionTag";
 import type { Gameplan } from "../components/DataContext.d";
 import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
-import { GBGuildDoc } from "../models/gbdb";
-import { reSort } from "../utils/reSort";
-import { useRxData } from "../hooks/useRxQuery";
+import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";
 import { useSettings } from "../hooks/useSettings";
 import { firstValueFrom } from "rxjs";
 
@@ -114,23 +111,7 @@ export function GuildList() {
           <Typography>Library</Typography>
         </Breadcrumbs>
       </AppBarContent>
-      <GuildGrid
-        Controller={ExtraIconsControl}
-        // extraIcons={[
-        //   {
-        //     key: "gameplans",
-        //     name: "Gameplans",
-        //     icon: "GB",
-        //     style: { color: "#f8f7f4" },
-        //   },
-        //   {
-        //     key: "reference",
-        //     name: "Rules",
-        //     icon: "GB",
-        //     style: { color: "#f8f7f4" },
-        //   },
-        // ]}
-      >
+      <GuildGrid Controller={ExtraIconsControl}>
         {guilds}
       </GuildGrid>
       <VersionTag />
@@ -179,7 +160,7 @@ function ExtraIconsControl(props: ControlProps) {
 }
 
 export function Roster() {
-  const { guild } = useParams();
+  const { guild: g, roster } = useLoaderData() as { guild: GBGuildDoc; roster: GBModelExpanded[] };
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -202,37 +183,9 @@ export function Roster() {
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
 
-  const navigate = useNavigate();
   const { slideRef } = useOutletContext<{
     slideRef: RefObject<number>;
   }>();
-
-  const [g, roster] =
-    useRxData(
-      async (db) => {
-        const [_g, _roster] = await Promise.all([
-          db.guilds.findOne().where({ name: guild }).exec(),
-          db.models
-            .find()
-            .or([{ guild1: guild }, { guild2: guild }])
-            .exec(),
-        ]);
-        if (!_g || !_roster.length) {
-          navigate("/library");
-          return;
-        }
-        reSort(_roster, "id", _g.roster);
-        const __roster = await Promise.all(_roster.map((m) => m.expand()));
-        return [_g, __roster];
-      },
-      [guild, navigate]
-    ) ?? [];
-
-  if (!g || !roster) {
-    // console.log(g);
-    // console.log(roster);
-    return null;
-  }
 
   return (
     <>
