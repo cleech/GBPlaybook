@@ -154,6 +154,123 @@ const App = () => {
 
 export default App;
 
+interface NavItem {
+  type: "nav";
+  text: string;
+  to: string | ((props: { gamePlayRoute?: string; libraryRoute?: string; }) => string | undefined); // Allow function for dynamic routes
+  defaultTo: string;
+}
+
+interface ExternalLinkItem {
+  type: "external";
+  text: string;
+  href: string;
+}
+
+interface AboutLinkItem {
+  type: "about";
+  text: string;
+  href: string;
+}
+
+type DrawerItem = NavItem | ExternalLinkItem | AboutLinkItem;
+
+const mainNavItems: DrawerItem[] = [
+  { type: "nav", text: "Game Play", to: (props) => props.gamePlayRoute, defaultTo: "/game" },
+  { type: "nav", text: "Library", to: (props) => props.libraryRoute, defaultTo: "/library" },
+  { type: "nav", text: "Card Printer", to: "/print", defaultTo: "/print" },
+  { type: "nav", text: "Settings", to: "/settings", defaultTo: "/settings" },
+  { type: "about", text: "About", href: "https://github.com/cleech/GBPlaybook/blob/pwa/README.md" },
+];
+
+const rulesLinks: ExternalLinkItem[] = [
+  { type: "external", text: "Season 4 Core Rulebook", href: "https://docs.guildball.app/GB-S4-Rulebook-4.1.pdf" },
+  { type: "external", text: "Season 4 FAQ", href: "https://docs.guildball.app/GB-S4-FAQ-19-12-20.pdf" },
+  { type: "external", text: "Organized Play Rules", href: "https://docs.guildball.app/GB-S4-RegionalCup-Rules-200128__1.pdf" },
+];
+
+const communityLinks: ExternalLinkItem[] = [
+  { type: "external", text: "Steamforged Games", href: "https://steamforged.com/pages/guild-ball" },
+  { type: "external", text: "Guild Ball Community Project", href: "https://discord.gg/fvpFSfm976" },
+  { type: "external", text: "Longshanks", href: "https://www.longshanks.org/systems/guildball/" },
+];
+
+
+// Helper to resolve dynamic routes
+const resolveRoute = (to: NavItem['to'], props: { gamePlayRoute?: string; libraryRoute?: string; }): string | undefined => typeof to === 'function' ? to(props) : to;
+
+function AppDrawerContent(props: {
+  setDrawer: React.Dispatch<React.SetStateAction<boolean>>;
+  gamePlayRoute?: string;
+  libraryRoute?: string;
+}) {
+  const { setDrawer } = props;
+  return (
+    <>
+      <List>
+        <ListItem>
+          <img
+            src={new URL("./assets/img/logo.png", import.meta.url).href}
+            style={{ borderRadius: 5.4 }}
+            alt=""
+          />
+          <ListItemText style={{ textAlign: "center" }}>
+            <Typography variant="h6" fontFamily="Comfortaa">
+              GB Playbook
+            </Typography>
+          </ListItemText>
+        </ListItem>
+        <Divider />
+        {mainNavItems.map((item, index) => {
+          if (item.type === "nav") {
+            const route = resolveRoute(item.to, props) ?? item.defaultTo;
+            return (
+              <DrawerNavigationButton
+                key={index}
+                to={route}
+                onClick={() => setDrawer(false)}
+              >
+                <ListItemText>{item.text}</ListItemText>
+              </DrawerNavigationButton>
+            );
+          }
+          if (item.type === "about") {
+            return (
+              <ListItem key={index} disablePadding sx={{ ml: "1em" }}>
+                {/* Using ListItemButton for consistent hover/focus styles */}
+                <ListItemButton
+                  component="a"
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{ py: 0.5 }} // Adjust padding as needed
+                >
+                  <ListItemText primary={item.text} sx={{ m: 0 }} />
+                </ListItemButton>
+              </ListItem>
+            );
+          }
+          return null; // Should not happen with defined types
+        })}
+      </List>
+      <Divider />
+      <List>
+        <ListItem>
+          <ListItemText>Rules Documents:</ListItemText>
+        </ListItem>
+        <LinkList items={rulesLinks} />
+      </List>
+      <Divider />
+      <List>
+        <ListItem>
+          <ListItemText>Community Links:</ListItemText>
+        </ListItem>
+        <LinkList items={communityLinks} />
+      </List>
+    </>
+  );
+}
+
 function AppDrawer(props: {
   drawer: boolean;
   setDrawer: React.Dispatch<React.SetStateAction<boolean>>;
@@ -184,148 +301,32 @@ function AppDrawer(props: {
         paper: { sx: { width: "275px" } }
       }}
     >
-      <List>
-        <ListItem>
-          <img
-            src={new URL("./assets/img/logo.png", import.meta.url).href}
-            style={{ borderRadius: 5.4 }}
-            alt=""
-          />
-          <ListItemText style={{ textAlign: "center" }}>
-            <Typography variant="h6" fontFamily="Comfortaa">
-              GB Playbook
-            </Typography>
-          </ListItemText>
-        </ListItem>
-        <Divider />
-        <DrawerNavigationButton
-          to={gamePlayRoute ?? "/game"}
-          onClick={() => setDrawer(false)}
-        >
-          <ListItemText>Game Play</ListItemText>
-        </DrawerNavigationButton>
-        <DrawerNavigationButton
-          to={libraryRoute ?? "/library"}
-          onClick={() => setDrawer(false)}
-        >
-          <ListItemText>Library</ListItemText>
-        </DrawerNavigationButton>
-        <DrawerNavigationButton to={"/print"} onClick={() => setDrawer(false)}>
-          <ListItemText>Card Printer</ListItemText>
-        </DrawerNavigationButton>
-        <DrawerNavigationButton
-          to={"/settings"}
-          onClick={() => setDrawer(false)}
-        >
-          <ListItemText>Settings</ListItemText>
-        </DrawerNavigationButton>
-        <nav
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            marginLeft: "1em",
-          }}
-        >
-          <ListItem disablePadding>
-            <Link
-              component="a"
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://github.com/cleech/GBPlaybook/blob/pwa/README.md"
-            >
-              About
-            </Link>
-          </ListItem>
-        </nav>
-      </List>
-      <Divider />
-      <List>
-        <ListItem>
-          <ListItemText>Rules Documents:</ListItemText>
-        </ListItem>
-        <nav
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            marginLeft: "2em",
-          }}
-        >
-          <ListItem disablePadding>
-            <Link
-              component="a"
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://docs.guildball.app/GB-S4-Rulebook-4.1.pdf"
-            >
-              Season 4 Core Rulebook
-            </Link>
-          </ListItem>
-          <ListItem disablePadding>
-            <Link
-              component="a"
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://docs.guildball.app/GB-S4-FAQ-19-12-20.pdf"
-            >
-              Season 4 FAQ
-            </Link>
-          </ListItem>
-          <ListItem disablePadding>
-            <Link
-              component="a"
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://docs.guildball.app/GB-S4-RegionalCup-Rules-200128__1.pdf"
-            >
-              Organized Play Rules
-            </Link>
-          </ListItem>
-        </nav>
-      </List>
-      <Divider />
-      <List>
-        <ListItem>
-          <ListItemText>Community Links:</ListItemText>
-        </ListItem>
-        <nav
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            marginLeft: "2em",
-          }}
-        >
-          <ListItem disablePadding>
-            <Link
-              component="a"
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://steamforged.com/pages/guild-ball"
-            >
-              Steamforged Games
-            </Link>
-          </ListItem>
-          <ListItem disablePadding>
-            <Link
-              component="a"
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://discord.gg/fvpFSfm976"
-            >
-              Guild Ball Community Project
-            </Link>
-          </ListItem>
-          <ListItem disablePadding>
-            <Link
-              component="a"
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.longshanks.org/systems/guildball/"
-            >
-              Longshanks
-            </Link>
-          </ListItem>
-        </nav>
-      </List>
+      <AppDrawerContent
+        setDrawer={setDrawer}
+        gamePlayRoute={gamePlayRoute}
+        libraryRoute={libraryRoute}
+      />
     </Drawer>
+  );
+}
+
+// Generic component to render lists of external links
+function LinkList({ items }: { items: ExternalLinkItem[] }) {
+  return (
+    <nav
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        marginLeft: "2em",
+      }}
+    >
+      {items.map((item, index) => (
+        <ListItem key={index} disablePadding>
+          <Link component="a" target="_blank" rel="noopener noreferrer" href={item.href}>
+            {item.text}
+          </Link>
+        </ListItem>
+      ))}
+    </nav>
   );
 }
