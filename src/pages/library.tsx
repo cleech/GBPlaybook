@@ -187,6 +187,10 @@ export function Roster() {
     slideRef: RefObject<number>;
   }>();
 
+  const [activeSlideIndex, setActiveSlideIndex] = useState(
+    slideRef.current ?? 0
+  );
+
   return (
     <>
       <AppBarContent>
@@ -197,7 +201,11 @@ export function Roster() {
           <Typography>{g.name}</Typography>
         </Breadcrumbs>
       </AppBarContent>
-      <SwiperButtons guild={g} swiper={swiper} />
+      <SwiperButtons
+        guild={g}
+        swiper={swiper}
+        activeIndex={activeSlideIndex}
+      />
       <Box
         ref={ref}
         sx={{
@@ -212,6 +220,7 @@ export function Roster() {
           initialSlide={slideRef.current}
           onSlideChange={(swiper) => {
             slideRef.current = swiper.activeIndex;
+            setActiveSlideIndex(swiper.activeIndex);
           }}
           slidesPerView="auto"
           centeredSlides={true}
@@ -314,6 +323,10 @@ export function GamePlans() {
     slideRef: RefObject<number>;
   }>();
 
+  const [activeSlideIndex, setActiveSlideIndex] = useState(
+    slideRef.current ?? 0
+  );
+
   const { gameplans } = useData();
 
   if (!gameplans) {
@@ -337,6 +350,7 @@ export function GamePlans() {
           key: index,
           label: g.title,
         }))}
+        activeIndex={activeSlideIndex}
       />
 
       <Box
@@ -353,6 +367,7 @@ export function GamePlans() {
           initialSlide={slideRef.current}
           onSlideChange={(swiper) => {
             slideRef.current = swiper.activeIndex;
+            setActiveSlideIndex(swiper.activeIndex);
           }}
           slidesPerView="auto"
           centeredSlides={true}
@@ -424,6 +439,10 @@ export function RefCards() {
     slideRef: RefObject<number>;
   }>();
 
+  const [activeSlideIndex, setActiveSlideIndex] = useState(
+    slideRef.current ?? 0
+  );
+
   return (
     <>
       <AppBarContent>
@@ -444,6 +463,7 @@ export function RefCards() {
           "Spending Momentum",
           "Actions",
         ].map((title, index) => ({ key: index, label: title }))}
+        activeIndex={activeSlideIndex}
       />
 
       <Box
@@ -460,6 +480,7 @@ export function RefCards() {
           initialSlide={slideRef.current}
           onSlideChange={(swiper) => {
             slideRef.current = swiper.activeIndex;
+            setActiveSlideIndex(swiper.activeIndex);
           }}
           slidesPerView="auto"
           centeredSlides={true}
@@ -515,6 +536,7 @@ interface SwiperChipNavigationProps {
   swiper: SwiperRef | null;
   items: ChipItem[];
   slideOffset?: number;
+  activeIndex?: number;
   leadingIcon?: React.ReactNode;
   className?: string;
 }
@@ -523,6 +545,7 @@ function SwiperChipNavigation({
   swiper,
   items,
   leadingIcon,
+  activeIndex,
   className,
   slideOffset = 0,
 }: SwiperChipNavigationProps) {
@@ -546,28 +569,40 @@ function SwiperChipNavigation({
         }}
       >
         {leadingIcon}
-        {items.map((item, index) => (
-          <Chip
-            color="primary"
-            key={item.key}
-            label={item.label}
-            onClick={() => swiper?.slideTo(index + slideOffset)}
-          />
-        ))}
+        {items.map((item, index) => {
+          const isActive = index + slideOffset === activeIndex;
+          return (
+            <Chip
+              color="primary"
+              key={item.key}
+              label={item.label}
+              variant={isActive ? "filled" : "outlined"} // Change variant based on active state
+              onClick={() => swiper?.slideTo(index + slideOffset)}
+            />
+          )
+        })}
       </Box>
       <div style={{ flex: "1 1" }} />
     </div>
   );
 }
 
-function SwiperButtons(props: { guild: GBGuildDoc; swiper: SwiperRef | null }) {
-  const { guild, swiper } = props;
+function SwiperButtons(props: {
+  guild: GBGuildDoc;
+  swiper: SwiperRef | null;
+  activeIndex: number;
+}) {
+  const { guild, swiper, activeIndex } = props;
+  // const theme = useTheme();
   const roster = guild.roster;
 
   const items: ChipItem[] = roster.map((m, index) => ({
     key: index,
     label: m,
   }));
+
+  // Determine if the leading icon (slide 0) is active
+  // const isLeadingIconActive = activeIndex === 0;
 
   const leadingIcon = (
     <IconButton
@@ -584,6 +619,8 @@ function SwiperButtons(props: { guild: GBGuildDoc; swiper: SwiperRef | null }) {
           alignItems: "center",
           justifyContent: "center",
           overflow: "visible",
+          // Add visual indication if active
+          // border: isLeadingIconActive ? `2px solid ${theme.palette.primary.main}` : '2px solid transparent',
         }}
       >
         <GBIcon icon={guild.name} className="dark" fontSize="32px" style={{ flexShrink: 0 }} />
@@ -596,6 +633,7 @@ function SwiperButtons(props: { guild: GBGuildDoc; swiper: SwiperRef | null }) {
       swiper={swiper}
       items={items}
       slideOffset={1}
+      activeIndex={activeIndex}
       leadingIcon={leadingIcon}
     />
   );
