@@ -100,8 +100,7 @@ export function GuildList() {
     slideRef: RefObject<number>;
   }>();
 
-  const guilds = useLoaderData() as GBGuildDoc[];
-
+  const guilds = useLoaderData<GBGuildDoc[]>();
   slideRef.current = 0;
 
   return (
@@ -159,53 +158,50 @@ function ExtraIconsControl(props: ControlProps) {
   );
 }
 
-export function Roster() {
-  const { guild: g, roster } = useLoaderData() as { guild: GBGuildDoc; roster: GBModelExpanded[] };
-  const theme = useTheme();
-  const large = useMediaQuery(theme.breakpoints.up("sm"));
+interface SwiperLayoutProps {
+  breadcrumbs: React.ReactNode;
+  navigation: (swiper: SwiperRef | null) => React.ReactNode;
+  slides: React.ReactNode[];
+  largeLayout?: boolean;
+}
+
+function SwiperLayout({
+  breadcrumbs,
+  navigation,
+  slides,
+  largeLayout = false,
+}: SwiperLayoutProps) {
 
   const ref = useRef<HTMLDivElement>(null);
-  const [cardWidth, setCardWidth] = useState(large ? 1000 : 500);
-  const [cardHeight, setCardHeight] = useState(700);
+  // const [cardWidth, setCardWidth] = useState(largeLayout ? 1000 : 500);
+  // const [cardHeight, setCardHeight] = useState(700);
+  const [cardWidth, setCardWidth] = useState(0);
+  const [cardHeight, setCardHeight] = useState(0);
 
   const updateSize = useCallback(() => {
-    const width = ref.current?.getBoundingClientRect().width ?? 0;
-    const height = ref.current?.getBoundingClientRect().height ?? 0;
-    setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
-    setCardHeight(Math.min(height, (width * 7) / 5) - 12);
-  }, [large]);
+    const containerWidth = ref.current?.getBoundingClientRect().width ?? 0;
+    const containerHeight = ref.current?.getBoundingClientRect().height ?? 0;
+    const aspectRatioMultiplier = largeLayout ? 10 : 5;
+    const calculatedWidth = Math.min(containerWidth, (containerHeight * aspectRatioMultiplier) / 7) - 12;
+    const calculatedHeight = Math.min(containerHeight, (containerWidth * 7) / aspectRatioMultiplier) - 12;
+    // const calculatedHeight = Math.min(containerHeight, (containerWidth * 7) / 5) - 12;
+    setCardWidth(calculatedWidth);
+    setCardHeight(calculatedHeight);
+  }, [largeLayout]);
 
   useLayoutEffect(() => {
     updateSize();
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
-  });
+  }, [updateSize]);
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
-
-  const { slideRef } = useOutletContext<{
-    slideRef: RefObject<number>;
-  }>();
-
-  const [activeSlideIndex, setActiveSlideIndex] = useState(
-    slideRef.current ?? 0
-  );
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
   return (
     <>
-      <AppBarContent>
-        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-          <Link underline="hover" color="inherit" href={"/library"}>
-            Library
-          </Link>
-          <Typography>{g.name}</Typography>
-        </Breadcrumbs>
-      </AppBarContent>
-      <SwiperButtons
-        guild={g}
-        swiper={swiper}
-        activeIndex={activeSlideIndex}
-      />
+      <AppBarContent>{breadcrumbs}</AppBarContent>
+      {navigation(swiper)}
       <Box
         ref={ref}
         sx={{
@@ -213,195 +209,42 @@ export function Roster() {
           position: "relative",
           display: "flex",
           alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <Swiper
           onSwiper={setSwiper}
-          initialSlide={slideRef.current}
-          onSlideChange={(swiper) => {
-            slideRef.current = swiper.activeIndex;
-            setActiveSlideIndex(swiper.activeIndex);
+          // initialSlide={initialSlideIndex}
+          onSlideChange={(swiperInstance) => {
+            setActiveSlideIndex(swiperInstance.activeIndex);
           }}
           slidesPerView="auto"
           centeredSlides={true}
           spaceBetween={0.25 * 96}
           style={{
-            // height: "100%",
-            // width: "100%",
-            height: cardHeight,
+            height: '100%',
+            // height: cardHeight,
+            overflow: 'visible',
           }}
         >
-          <SwiperSlide
-            key={g.name}
-            style={{
-              width: cardWidth,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <div
+          {slides.map((slideContent, index) => (
+            <SwiperSlide
+              key={index}
               style={{
+                width: cardWidth,
+                // height: cardHeight,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+              <div style={{
                 height: cardHeight,
                 width: cardWidth,
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {large ? (
-                <DoubleGuildCard guild={g.name} />
-              ) : (
-                <FlipGuildCard guild={g.name} />
-              )}
-            </div>
-          </SwiperSlide>
-
-          {roster.map((model) => {
-            // if (GBImages[`${model.id}_gbcp_front`]) {
-            //   model.gbcp = true;
-            // }
-            return (
-              <SwiperSlide
-                key={model.id}
-                style={{
-                  width: cardWidth,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div
-                  style={{
-                    height: cardHeight,
-                    width: cardWidth,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {large ? (
-                    <DoubleCard model={model} />
-                  ) : (
-                    <FlipCard model={model} />
-                  )}
-                </div>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-        <VersionTag />
-      </Box>
-    </>
-  );
-}
-
-export function GamePlans() {
-  // const large = useMediaQuery(theme.breakpoints.up("sm"));
-  const large = false;
-
-  const ref = useRef<HTMLDivElement>(null);
-  const [cardWidth, setCardWidth] = useState(large ? 1000 : 500);
-  const [cardHeight, setCardHeight] = useState(700);
-
-  const updateSize = useCallback(() => {
-    const width = ref.current?.getBoundingClientRect().width ?? 0;
-    const height = ref.current?.getBoundingClientRect().height ?? 0;
-    setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
-    setCardHeight(Math.min(height, (width * 7) / 5) - 12);
-  }, [large]);
-
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
-
-  const [swiper, setSwiper] = useState<SwiperRef | null>(null);
-
-  const { slideRef } = useOutletContext<{
-    slideRef: RefObject<number>;
-  }>();
-
-  const [activeSlideIndex, setActiveSlideIndex] = useState(
-    slideRef.current ?? 0
-  );
-
-  const { gameplans } = useData();
-
-  if (!gameplans) {
-    return null;
-  }
-
-  return (
-    <>
-      <AppBarContent>
-        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-          <Link underline="hover" color="inherit" href={"/library"}>
-            Library
-          </Link>
-          <Typography>Gameplan Cards</Typography>
-        </Breadcrumbs>
-      </AppBarContent>
-
-      <SwiperChipNavigation
-        swiper={swiper}
-        items={gameplans.map((g, index) => ({
-          key: index,
-          label: g.title,
-        }))}
-        activeIndex={activeSlideIndex}
-      />
-
-      <Box
-        ref={ref}
-        sx={{
-          height: "100%",
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Swiper
-          onSwiper={setSwiper}
-          initialSlide={slideRef.current}
-          onSlideChange={(swiper) => {
-            slideRef.current = swiper.activeIndex;
-            setActiveSlideIndex(swiper.activeIndex);
-          }}
-          slidesPerView="auto"
-          centeredSlides={true}
-          spaceBetween={0.25 * 96}
-          style={{
-            // height: "100%",
-            // width: "100%",
-            // width: cardWidth,
-            height: cardHeight,
-            // aspectRatio: 5 / 7,
-          }}
-        >
-          {gameplans.map((gameplan: Gameplan, index: number) => (
-            <SwiperSlide
-              key={`gameplan-${index}`}
-              style={{
-                // width: "auto",
-                width: cardWidth,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <div
-                style={{
-                  height: cardHeight,
-                  width: cardWidth,
-                  // aspectRatio: 5 / 7,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <GameplanCard gameplan={gameplan} />
+                justifyContent: "center"
+              }}>
+                {slideContent}
               </div>
             </SwiperSlide>
           ))}
@@ -412,118 +255,134 @@ export function GamePlans() {
   );
 }
 
-export function RefCards() {
-  // const large = useMediaQuery(theme.breakpoints.up("sm"));
-  const large = false;
+export function Roster() {
+  const { guild: g, roster } = useLoaderData() as { guild: GBGuildDoc; roster: GBModelExpanded[] };
+  const theme = useTheme();
+  const large = useMediaQuery(theme.breakpoints.up("sm"));
 
-  const ref = useRef<HTMLDivElement>(null);
-  const [cardWidth, setCardWidth] = useState(large ? 1000 : 500);
-  const [cardHeight, setCardHeight] = useState(700);
-
-  const updateSize = useCallback(() => {
-    const width = ref.current?.getBoundingClientRect().width ?? 0;
-    const height = ref.current?.getBoundingClientRect().height ?? 0;
-    setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
-    setCardHeight(Math.min(height, (width * 7) / 5) - 12);
-  }, [large]);
-
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
-
-  const [swiper, setSwiper] = useState<SwiperRef | null>(null);
-
-  const { slideRef } = useOutletContext<{
-    slideRef: RefObject<number>;
-  }>();
-
-  const [activeSlideIndex, setActiveSlideIndex] = useState(
-    slideRef.current ?? 0
+  // Define breadcrumbs
+  const breadcrumbs = (
+    <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+      <Link underline="hover" color="inherit" href={"/library"}>
+        Library
+      </Link>
+      <Typography>{g.name}</Typography>
+    </Breadcrumbs>
   );
 
+  // Define navigation render prop
+  const navigation = (swiper: SwiperRef | null) => (
+    <SwiperButtons
+      guild={g}
+      swiper={swiper}
+      activeIndex={swiper?.activeIndex ?? 0}
+    />
+  );
+
+  // Define slides
+  const slides = [
+    // Guild Card Slide
+    large ? <DoubleGuildCard guild={g.name} /> : <FlipGuildCard guild={g.name} />,
+    // Roster Card Slides
+    ...roster.map((model) =>
+      large ? <DoubleCard model={model} /> : <FlipCard model={model} />
+    ),
+  ];
+
   return (
-    <>
-      <AppBarContent>
-        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-          <Link underline="hover" color="inherit" href={"/library"}>
-            Library
-          </Link>
-          <Typography>Rules Reference Cards</Typography>
-        </Breadcrumbs>
-      </AppBarContent>
+    <SwiperLayout
+      breadcrumbs={breadcrumbs}
+      navigation={navigation}
+      slides={slides}
+      largeLayout={large}
+    />
+  );
+}
 
-      <SwiperChipNavigation
-        swiper={swiper}
-        items={[
-          "Playbook Results",
-          "Turn Sequence",
-          "Conditions",
-          "Spending Momentum",
-          "Actions",
-        ].map((title, index) => ({ key: index, label: title }))}
-        activeIndex={activeSlideIndex}
-      />
+export function GamePlans() {
+  // const large = useMediaQuery(theme.breakpoints.up("sm"));
+  const largeLayout = false; // Gameplans always use small layout
+  const { gameplans } = useData();
 
-      <Box
-        ref={ref}
-        sx={{
-          height: "100%",
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Swiper
-          onSwiper={setSwiper}
-          initialSlide={slideRef.current}
-          onSlideChange={(swiper) => {
-            slideRef.current = swiper.activeIndex;
-            setActiveSlideIndex(swiper.activeIndex);
-          }}
-          slidesPerView="auto"
-          centeredSlides={true}
-          spaceBetween={0.25 * 96}
-          style={{
-            // height: "100%",
-            // width: "100%",
-            // width: cardWidth,
-            height: cardHeight,
-            // aspectRatio: 5 / 7,
-          }}
-        >
-          {[...Array(5).keys()]
-            .map((i) => i + 1)
-            .map((i) => (
-              <SwiperSlide
-                key={`ref-${i}`}
-                style={{
-                  // width: "auto",
-                  width: cardWidth,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div
-                  style={{
-                    height: cardHeight,
-                    width: cardWidth,
-                    // aspectRatio: 5 / 7,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <ReferenceCard index={i} />
-                </div>
-              </SwiperSlide>
-            ))}
-        </Swiper>
-        <VersionTag />
-      </Box>
-    </>
+  if (!gameplans) {
+    return null;
+  }
+
+  // Define breadcrumbs
+  const breadcrumbs = (
+    <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+      <Link underline="hover" color="inherit" href={"/library"}>
+        Library
+      </Link>
+      <Typography>Gameplan Cards</Typography>
+    </Breadcrumbs>
+  );
+
+  // Define navigation render prop
+  const navigation = (swiper: SwiperRef | null) => (
+    <SwiperChipNavigation // Correctly call SwiperChipNavigation as a component
+      swiper={swiper}
+      items={gameplans.map((g, index) => ({
+        key: index,
+        label: g.title,
+      }))}
+      activeIndex={swiper?.activeIndex} // Get activeIndex from swiper
+    />
+  ); // End of navigation function body
+
+  // Define slides
+  const slides = gameplans.map((gameplan: Gameplan) => (
+    <GameplanCard gameplan={gameplan} />
+  ));
+
+  return (
+    <SwiperLayout
+      breadcrumbs={breadcrumbs}
+      navigation={navigation}
+      slides={slides}
+      largeLayout={largeLayout}
+    />
+  );
+}
+
+export function RefCards() {
+  // const large = useMediaQuery(theme.breakpoints.up("sm"));
+  const largeLayout = false; // RefCards always use small layout
+
+  const breadcrumbs = (
+    <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+      <Link underline="hover" color="inherit" href={"/library"}>
+        Library
+      </Link>
+      <Typography>Rules Reference Cards</Typography>
+    </Breadcrumbs>
+  );
+
+  const navigation = (swiper: SwiperRef | null) => (
+    <SwiperChipNavigation
+      swiper={swiper}
+      items={[
+        "Playbook Results",
+        "Turn Sequence",
+        "Conditions",
+        "Spending Momentum",
+        "Actions",
+      ].map((title, index) => ({ key: index, label: title }))}
+      activeIndex={swiper?.activeIndex}
+    />
+  );
+
+  const slides = [...Array(5).keys()]
+    .map((i) => i + 1)
+    .map((i) => <ReferenceCard index={i} />);
+
+  return (
+    <SwiperLayout
+      breadcrumbs={breadcrumbs}
+      navigation={navigation}
+      slides={slides}
+      largeLayout={largeLayout}
+    />
   );
 }
 
@@ -594,6 +453,7 @@ function SwiperButtons(props: {
 }) {
   const { guild, swiper, activeIndex } = props;
   // const theme = useTheme();
+  // const isLeadingIconActive = activeIndex === 0;
   const roster = guild.roster;
 
   const items: ChipItem[] = roster.map((m, index) => ({
@@ -601,8 +461,6 @@ function SwiperButtons(props: {
     label: m,
   }));
 
-  // Determine if the leading icon (slide 0) is active
-  // const isLeadingIconActive = activeIndex === 0;
 
   const leadingIcon = (
     <IconButton
