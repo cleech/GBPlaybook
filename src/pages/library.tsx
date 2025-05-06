@@ -331,7 +331,13 @@ export function GamePlans() {
         </Breadcrumbs>
       </AppBarContent>
 
-      <GameplanButtons swiper={swiper} />
+      <SwiperChipNavigation
+        swiper={swiper}
+        items={gameplans.map((g, index) => ({
+          key: index,
+          label: g.title,
+        }))}
+      />
 
       <Box
         ref={ref}
@@ -429,7 +435,16 @@ export function RefCards() {
         </Breadcrumbs>
       </AppBarContent>
 
-      <RefCardButtons swiper={swiper} />
+      <SwiperChipNavigation
+        swiper={swiper}
+        items={[
+          "Playbook Results",
+          "Turn Sequence",
+          "Conditions",
+          "Spending Momentum",
+          "Actions",
+        ].map((title, index) => ({ key: index, label: title }))}
+      />
 
       <Box
         ref={ref}
@@ -491,161 +506,97 @@ export function RefCards() {
   );
 }
 
+interface ChipItem {
+  key: string | number;
+  label: string;
+}
+
+interface SwiperChipNavigationProps {
+  swiper: SwiperRef | null;
+  items: ChipItem[];
+  slideOffset?: number;
+  leadingIcon?: React.ReactNode;
+  className?: string;
+}
+
+function SwiperChipNavigation({
+  swiper,
+  items,
+  leadingIcon,
+  className,
+  slideOffset = 0,
+}: SwiperChipNavigationProps) {
+  return (
+    <div
+      className={className}
+      style={{
+        display: "flex",
+        flexDirection: "row",
+      }}
+    >
+      <div style={{ flex: "1 1" }} />
+      <Box
+        sx={{
+          display: "flex",
+          flex: "1 1 500px",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "5px",
+          my: 1, // Added margin for consistent spacing
+        }}
+      >
+        {leadingIcon}
+        {items.map((item, index) => (
+          <Chip
+            color="primary"
+            key={item.key}
+            label={item.label}
+            onClick={() => swiper?.slideTo(index + slideOffset)}
+          />
+        ))}
+      </Box>
+      <div style={{ flex: "1 1" }} />
+    </div>
+  );
+}
+
 function SwiperButtons(props: { guild: GBGuildDoc; swiper: SwiperRef | null }) {
   const { guild, swiper } = props;
   const roster = guild.roster;
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-      }}
-    >
-      <div style={{ flex: "1 1" }} />
-      <Box
-        sx={{
-          display: "flex",
-          flex: "1 1 500px",
-          // width: "100%",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "5px",
-        }}
-      >
-        <IconButton
-          sx={{ padding: 0 }}
-          onClick={() => {
-            swiper?.slideTo(0);
-          }}
-        >
-          <span>
-            <div
-              style={{
-                width: "32px",
-                height: "32px",
-                backgroundColor: "black",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                overflow: "visible",
-              }}
-            >
-              <GBIcon
-                icon={guild.name}
-                className="dark"
-                fontSize="32px"
-                style={{ flexShrink: 0 }}
-              />
-            </div>
-          </span>
-        </IconButton>
-        {roster.map((m, index) => {
-          return (
-            <Chip
-              color="primary"
-              key={index}
-              label={m}
-              onClick={() => {
-                swiper?.slideTo(index + 1);
-              }}
-            />
-          );
-        })}
-      </Box>
-      <div style={{ flex: "1 1" }} />
-    </div>
-  );
-}
 
-function GameplanButtons(props: { swiper: SwiperRef | null }) {
-  const { gameplans } = useData();
-  const { swiper } = props;
-  if (!gameplans) {
-    return null;
-  }
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-      }}
-    >
-      <div style={{ flex: "1 1" }} />
-      <Box
-        sx={{
-          display: "flex",
-          flex: "1 1 500px",
-          // width: "100%",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "5px",
-        }}
-      >
-        {gameplans.map((g, index) => {
-          return (
-            <Chip
-              color="primary"
-              key={index}
-              // label={model.displayName}
-              label={g.title}
-              onClick={() => {
-                swiper?.slideTo(index);
-              }}
-            />
-          );
-        })}
-      </Box>
-      <div style={{ flex: "1 1" }} />
-    </div>
-  );
-}
+  const items: ChipItem[] = roster.map((m, index) => ({
+    key: index,
+    label: m,
+  }));
 
-function RefCardButtons(props: { swiper: SwiperRef | null }) {
-  const { gameplans } = useData();
-  const { swiper } = props;
-  if (!gameplans) {
-    return null;
-  }
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-      }}
+  const leadingIcon = (
+    <IconButton
+      sx={{ padding: 0, mr: 0.5 }} // Added margin
+      onClick={() => swiper?.slideTo(0)}
     >
-      <div style={{ flex: "1 1" }} />
-      <Box
-        sx={{
+      <div
+        style={{
+          width: "32px",
+          height: "32px",
+          backgroundColor: "black",
+          borderRadius: "50%",
           display: "flex",
-          flex: "1 1 500px",
-          // width: "100%",
-          flexWrap: "wrap",
+          alignItems: "center",
           justifyContent: "center",
-          gap: "5px",
+          overflow: "visible",
         }}
       >
-        {[
-          "Playbook Results",
-          "Turn Sequence",
-          "Conditions",
-          "Spending Momentum",
-          "Actions",
-        ].map((title, index) => {
-          return (
-            <Chip
-              color="primary"
-              key={index}
-              // label={model.displayName}
-              label={title}
-              onClick={() => {
-                swiper?.slideTo(index);
-              }}
-            />
-          );
-        })}
-      </Box>
-      <div style={{ flex: "1 1" }} />
-    </div>
+        <GBIcon icon={guild.name} className="dark" fontSize="32px" style={{ flexShrink: 0 }} />
+      </div>
+    </IconButton>
+  );
+
+  return (
+    <SwiperChipNavigation
+      swiper={swiper}
+      items={items}
+      slideOffset={1}
+      leadingIcon={leadingIcon}
+    />
   );
 }
