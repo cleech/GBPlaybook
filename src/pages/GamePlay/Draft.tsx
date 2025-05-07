@@ -14,7 +14,7 @@ import { DraftList, BSDraftList } from "../../components/Draft";
 import "./Draft.css";
 
 import { Home, NavigateNext } from "@mui/icons-material";
-import { AppBarContent } from "../../App";
+import { AppBarContent } from "../App";
 
 import VersionTag from "../../components/VersionTag";
 // import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";

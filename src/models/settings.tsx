@@ -1,6 +1,6 @@
 import { PropsWithChildren, useEffect, useMemo } from "react";
 import { RxLocalDocument } from "rxdb";
-import gbdb, { GBDatabase } from "./gbdb";
+import { GBDatabase, getGBDatabase } from "./gbdb";
 import { Observable } from "rxjs";
 import { SettingsContext } from "../utils/contexts";
 import { defaultSettings } from "./defaultSettings";
@@ -33,7 +33,8 @@ export interface SettingsContextData {
 }
 
 export const SettingsProvider = (props: PropsWithChildren) => {
-  const setting$ = useMemo(() => gbdb.getLocal$<Settings>("settings"), []);
+  const gbdb = getGBDatabase();
+  const setting$ = useMemo(() => gbdb.getLocal$<Settings>("settings"), [gbdb]);
 
   useEffect(() => {
     if (!setting$) {
@@ -48,7 +49,7 @@ export const SettingsProvider = (props: PropsWithChildren) => {
       }
     });
     return () => sub.unsubscribe();
-  }, [setting$]);
+  }, [gbdb, setting$]);
 
   return (
     <SettingsContext.Provider value={{ setting$ }}>

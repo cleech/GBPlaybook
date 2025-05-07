@@ -13,7 +13,7 @@ import GBIcon from "../../components/GBIcon";
 import Color from "color";
 
 import { Home, NavigateNext } from "@mui/icons-material";
-import { AppBarContent } from "../../App";
+import { AppBarContent } from "../App";
 
 import VersionTag from "../../components/VersionTag";
 // import { pulseAnimationKeyFrames } from "../../hooks/useUpdateAnimation";
@@ -23,8 +23,9 @@ import { useRxData } from "../../hooks/useRxQuery";
 import { NetworkGame } from "../../components/NetworkGame";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
-import { GBGameStateDoc } from "../../models/gbdb";
+import { GBGameStateDoc, GBGuildDoc } from "../../models/gbdb";
 import { NavigateFab } from "./NavigateFab";
+import { useLoaderData } from "react-router-dom";
 
 function SelectedIcon({ team, size }: { team: string; size: number }) {
   const guild = useRxData(
@@ -172,15 +173,15 @@ function GameControls(props: ControlProps) {
           fontSize: props.size * 0.5,
           ...(selector === "P1"
             ? {
-                borderColor: theme.palette.secondary.light,
-                borderRadius: "12px",
-                borderWidth: "4px",
-              }
+              borderColor: theme.palette.secondary.light,
+              borderRadius: "12px",
+              borderWidth: "4px",
+            }
             : {
-                borderColor: theme.palette.primary.dark,
-                borderRadius: "12px",
-                borderWidth: "4px",
-              }),
+              borderColor: theme.palette.primary.dark,
+              borderRadius: "12px",
+              borderWidth: "4px",
+            }),
         }}
         onClick={() => setSelector("P1")}
       >
@@ -218,15 +219,15 @@ function GameControls(props: ControlProps) {
           fontSize: props.size * 0.5,
           ...(selector === "P2"
             ? {
-                borderColor: theme.palette.secondary.light,
-                borderRadius: "12px",
-                borderWidth: "4px",
-              }
+              borderColor: theme.palette.secondary.light,
+              borderRadius: "12px",
+              borderWidth: "4px",
+            }
             : {
-                borderColor: theme.palette.primary.dark,
-                borderRadius: "12px",
-                borderWidth: "4px",
-              }),
+              borderColor: theme.palette.primary.dark,
+              borderRadius: "12px",
+              borderWidth: "4px",
+            }),
         }}
         onClick={() => setSelector("P2")}
       >
@@ -237,6 +238,7 @@ function GameControls(props: ControlProps) {
 }
 
 export default function TeamSelect() {
+  const guilds = useLoaderData<GBGuildDoc[]>();
   return (
     <Box
       sx={{
@@ -262,7 +264,7 @@ export default function TeamSelect() {
           <NetworkGame allowNew={true} />
         </div>
       </AppBarContent>
-      <GuildGrid Controller={GameControls} />
+      <GuildGrid guilds={guilds} Controller={GameControls} />
       <VersionTag />
       {/* <ResumeSnackBar /> */}
     </Box>

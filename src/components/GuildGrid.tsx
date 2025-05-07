@@ -1,4 +1,4 @@
-import React, { ComponentType, useCallback, useMemo } from "react";
+import React, { ComponentType, useCallback, useEffect, useMemo } from "react";
 
 import { useDimensionsRef } from "rooks";
 
@@ -6,8 +6,6 @@ import { Button, Divider, Typography } from "@mui/material";
 
 import GBIcon from "../components/GBIcon";
 import { GBGuildDoc } from "../models/gbdb";
-import { useRxData, useRxQuery } from "../hooks/useRxQuery";
-import { NodeEventHandler } from "rxjs/internal/observable/fromEvent";
 import { Observable, fromEventPattern } from "rxjs";
 
 function maxBy<T>(data: Array<T>, by: (v: T) => number) {
@@ -19,7 +17,7 @@ function itemSize(
   count: number,
   extra: number = 0
 ) {
-  if (!width || !height) {
+  if (!width || !height || count <= 0) {
     return undefined;
   }
 
@@ -66,34 +64,28 @@ interface GridIcon {
 }
 
 interface GuildGridProps {
-  // pickTeam?: (guild: string) => void;
-  // controls?: (props: ControlProps) => [JSX.Element, ((guild: string) => void)?];
-  // sizeUpdate?: (iconSize: number) => void;
-  // extraIcons?: GridIcon[];
+  guilds: GBGuildDoc[];
   Controller: ComponentType<ControlProps>;
 }
 
 export function GuildGrid({
+  guilds,
   Controller,
-}: // pickTeam,
-// sizeUpdate,
-// extraIcons,
-GuildGridProps) {
+}:
+  GuildGridProps) {
   const [ref, dimensions] = useDimensionsRef();
+  const [size, setSize] = React.useState<number>(0);
 
-  const size =
-    useRxData(
-      async (db) => {
-        if (!dimensions) {
-          return;
-        }
-        const count = await db.guilds.count().exec();
-        return itemSize(dimensions, count, 1)?.size ?? 0;
-      },
-      [dimensions]
-    ) ?? 0;
+  useEffect(() => {
+    if (!dimensions) {
+      return;
+    }
+    const count = guilds?.length ?? 0;
+    const size = itemSize(dimensions, count, 1)?.size ?? 0;
+    setSize(size);
+  }, [dimensions, guilds]);
 
-  const observers = useMemo<Set<NodeEventHandler>>(() => new Set(), []);
+  const observers = useMemo<Set<(e: string) => void>>(() => new Set(), []);
   const event$ = fromEventPattern<string>(
     (handler) => observers.add(handler),
     (handler) => observers.delete(handler)
@@ -118,7 +110,7 @@ GuildGridProps) {
         justifyContent: "space-evenly",
       }}
     >
-      <GuildGridInner size={size} pickTeam={emitEvent} />
+      <GuildGridInner guilds={guilds} size={size} pickTeam={emitEvent} />
       <Divider />
       <Controller size={size} update$={event$} />
     </div>
@@ -127,13 +119,11 @@ GuildGridProps) {
 
 const GuildGridInner = React.memo(
   (props: {
+    guilds?: GBGuildDoc[];
     pickTeam?: (guild: string) => void;
     size: number;
-    extraIcons?: GridIcon[];
   }) => {
-    const { pickTeam, size } = props;
-
-    const guilds = useRxQuery(useCallback((db) => db.guilds.find(), []));
+    const { pickTeam, size, guilds } = props;
 
     if (!guilds) {
       return null;
@@ -144,7 +134,6 @@ const GuildGridInner = React.memo(
       name: g.name,
       icon: g.name,
     }));
-    // list.push(...(props.extraIcons ?? []));
 
     return (
       <div
@@ -163,8 +152,8 @@ const GuildGridInner = React.memo(
           overflow: "clip",
         }}
       >
-        {list.map((g, i) => (
-          <GridIconButton key={i} g={g} pickTeam={pickTeam} size={size} />
+        {list.map((g) => (
+          <GridIconButton key={g.key} g={g} pickTeam={pickTeam} size={size} />
         ))}
       </div>
     );

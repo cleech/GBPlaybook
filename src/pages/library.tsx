@@ -1,4 +1,4 @@
-import {
+import React, {
   useState,
   useRef,
   useLayoutEffect,
@@ -6,15 +6,16 @@ import {
   Suspense,
   useEffect,
   RefObject,
+  useMemo,
 } from "react";
 
 import {
   Outlet,
-  useParams,
   useNavigate,
   useSearchParams,
   useLocation,
   useOutletContext,
+  useLoaderData,
 } from "react-router-dom";
 
 import {
@@ -41,16 +42,14 @@ import {
   GridIconButton,
   GuildGrid,
 } from "../components/GuildGrid";
-import { AppBarContent } from "../App";
+import { AppBarContent } from "./App";
 import { NavigateNext } from "@mui/icons-material";
 import { DoubleGuildCard, FlipGuildCard } from "../components/GuildCard";
 import VersionTag from "../components/VersionTag";
-import type { Gameplan } from "../components/DataContext";
+import type { Gameplan } from "../components/DataContext.d";
 import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
-import { GBGuildDoc } from "../models/gbdb";
-import { reSort } from "../utils/reSort";
-import { useRxData } from "../hooks/useRxQuery";
+import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";
 import { useSettings } from "../hooks/useSettings";
 import { firstValueFrom } from "rxjs";
 
@@ -58,27 +57,23 @@ export default function Library() {
   const location = useLocation();
   const { setting$ } = useSettings();
   const [searchParams] = useSearchParams();
-  const slideRef = useRef(searchParams.get("m"));
+  const slideRef = useRef<number>(
+    Number.parseInt(searchParams.get("m") ?? "0") || 0
+  );
 
   useEffect(() => {
     if (!setting$) return;
-    firstValueFrom(setting$)
-      .then((settingsDoc) =>
-        settingsDoc?.incrementalPatch({
-          libraryRoute: `${location.pathname}?m=${slideRef.current}`,
-        })
-      )
-      .catch(console.error);
-    return () => {
+    const patchRoute = () => {
       firstValueFrom(setting$)
         .then((settingsDoc) =>
           settingsDoc?.incrementalPatch({
-            // eslint-disable-next-line react-hooks/exhaustive-deps
             libraryRoute: `${location.pathname}?m=${slideRef.current}`,
           })
         )
         .catch(console.error);
     };
+    patchRoute();
+    return patchRoute
   }, [location, setting$]);
 
   return (
@@ -102,6 +97,7 @@ export function GuildList() {
     slideRef: RefObject<number>;
   }>();
 
+  const guilds = useLoaderData<GBGuildDoc[]>();
   slideRef.current = 0;
 
   return (
@@ -111,23 +107,7 @@ export function GuildList() {
           <Typography>Library</Typography>
         </Breadcrumbs>
       </AppBarContent>
-      <GuildGrid
-        Controller={ExtraIconsControl}
-        // extraIcons={[
-        //   {
-        //     key: "gameplans",
-        //     name: "Gameplans",
-        //     icon: "GB",
-        //     style: { color: "#f8f7f4" },
-        //   },
-        //   {
-        //     key: "reference",
-        //     name: "Rules",
-        //     icon: "GB",
-        //     style: { color: "#f8f7f4" },
-        //   },
-        // ]}
-      />
+      <GuildGrid guilds={guilds} Controller={ExtraIconsControl} />
       <VersionTag />
     </>
   );
@@ -173,61 +153,124 @@ function ExtraIconsControl(props: ControlProps) {
   );
 }
 
-export function Roster() {
-  const { guild } = useParams();
-  const theme = useTheme();
-  const large = useMediaQuery(theme.breakpoints.up("sm"));
+interface SwiperLayoutProps {
+  navigation: (swiper: SwiperRef | null) => React.ReactNode;
+  slides: React.ReactNode[];
+  largeLayout?: boolean;
+}
+
+function SwiperLayout({
+  navigation,
+  slides,
+  largeLayout = false,
+}: SwiperLayoutProps) {
 
   const ref = useRef<HTMLDivElement>(null);
-  const [cardWidth, setCardWidth] = useState(large ? 1000 : 500);
-  const [cardHeight, setCardHeight] = useState(700);
+  const [cardWidth, setCardWidth] = useState(0);
+  const [cardHeight, setCardHeight] = useState(0);
 
   const updateSize = useCallback(() => {
-    const width = ref.current?.getBoundingClientRect().width ?? 0;
-    const height = ref.current?.getBoundingClientRect().height ?? 0;
-    setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
-    setCardHeight(Math.min(height, (width * 7) / 5) - 12);
-  }, [large]);
+    const containerWidth = ref.current?.getBoundingClientRect().width ?? (largeLayout ? 1000 : 500);
+    const containerHeight = ref.current?.getBoundingClientRect().height ?? 700;
+    const aspectRatioMultiplier = largeLayout ? 10 : 5;
+    const calculatedWidth = Math.min(containerWidth, (containerHeight * aspectRatioMultiplier) / 7) - 12;
+    const calculatedHeight = Math.min(containerHeight, (containerWidth * 7) / aspectRatioMultiplier) - 12;
+    setCardWidth(calculatedWidth);
+    setCardHeight(calculatedHeight);
+  }, [largeLayout]);
 
   useLayoutEffect(() => {
     updateSize();
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
-  });
+  }, [updateSize]);
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
+  // I don't like this, it's just triggering a re-render which then also renders the buttons
+  const [, setActiveSlideIndex] = useState(0);
 
-  const navigate = useNavigate();
-  const { slideRef } = useOutletContext<{
-    slideRef: RefObject<number>;
-  }>();
+  const { slideRef } = useOutletContext<{ slideRef: RefObject<number> }>();
 
-  const [g, roster] =
-    useRxData(
-      async (db) => {
-        const [_g, _roster] = await Promise.all([
-          db.guilds.findOne().where({ name: guild }).exec(),
-          db.models
-            .find()
-            .or([{ guild1: guild }, { guild2: guild }])
-            .exec(),
-        ]);
-        if (!_g || !_roster.length) {
-          navigate("/library");
-          return;
-        }
-        reSort(_roster, "id", _g.roster);
-        const __roster = await Promise.all(_roster.map((m) => m.expand()));
-        return [_g, __roster];
-      },
-      [guild, navigate]
-    ) ?? [];
+  return (
+    <>
+      {navigation(swiper)}
+      <Box
+        ref={ref}
+        sx={{
+          height: "100%",
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Swiper
+          onSwiper={setSwiper}
+          initialSlide={slideRef.current ?? 0}
+          onSlideChange={(swiperInstance) => {
+            slideRef.current = swiperInstance.activeIndex;
+            setActiveSlideIndex(swiperInstance.activeIndex);
+          }}
+          slidesPerView="auto"
+          centeredSlides={true}
+          spaceBetween={0.25 * 96}
+          style={{
+            height: '100%',
+            // height: cardHeight,
+            overflow: 'visible',
+          }}
+        >
+          {slides.map((slideContent, index) => (
+            <SwiperSlide
+              key={index}
+              style={{
+                width: cardWidth,
+                // height: cardHeight,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+              <div style={{
+                height: cardHeight,
+                width: cardWidth,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}>
+                {slideContent}
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <VersionTag />
+      </Box>
+    </>
+  );
+}
 
-  if (!g || !roster) {
-    // console.log(g);
-    // console.log(roster);
-    return null;
-  }
+export function Roster() {
+  const { guild: g, roster } = useLoaderData() as { guild: GBGuildDoc; roster: GBModelExpanded[] };
+  const theme = useTheme();
+  const large = useMediaQuery(theme.breakpoints.up("sm"));
+
+  // Define navigation render prop
+  const navigation = (swiper: SwiperRef | null) => (
+    <SwiperButtons
+      guild={g}
+      swiper={swiper}
+      activeIndex={swiper?.activeIndex ?? 0}
+    />
+  );
+
+  // Define slides
+  const slides = [
+    // Guild Card Slide
+    large ? <DoubleGuildCard key={g.name} guild={g.name} /> : <FlipGuildCard key={g.name} guild={g.name} />,
+    // Roster Card Slides
+    ...roster.map((model) =>
+      large ? <DoubleCard key={model.id} model={model} /> : <FlipCard key={model.id} model={model} />
+    ),
+  ];
 
   return (
     <>
@@ -239,128 +282,41 @@ export function Roster() {
           <Typography>{g.name}</Typography>
         </Breadcrumbs>
       </AppBarContent>
-      <SwiperButtons guild={g} swiper={swiper} />
-      <Box
-        ref={ref}
-        sx={{
-          height: "100%",
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Swiper
-          onSwiper={setSwiper}
-          initialSlide={slideRef.current}
-          onSlideChange={(swiper) => {
-            slideRef.current = swiper.activeIndex;
-          }}
-          slidesPerView="auto"
-          centeredSlides={true}
-          spaceBetween={0.25 * 96}
-          style={{
-            // height: "100%",
-            // width: "100%",
-            height: cardHeight,
-          }}
-        >
-          <SwiperSlide
-            key={g.name}
-            style={{
-              width: cardWidth,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <div
-              style={{
-                height: cardHeight,
-                width: cardWidth,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {large ? (
-                <DoubleGuildCard guild={g.name} />
-              ) : (
-                <FlipGuildCard guild={g.name} />
-              )}
-            </div>
-          </SwiperSlide>
 
-          {roster.map((model) => {
-            // if (GBImages[`${model.id}_gbcp_front`]) {
-            //   model.gbcp = true;
-            // }
-            return (
-              <SwiperSlide
-                key={model.id}
-                style={{
-                  width: cardWidth,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div
-                  style={{
-                    height: cardHeight,
-                    width: cardWidth,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {large ? (
-                    <DoubleCard model={model} />
-                  ) : (
-                    <FlipCard model={model} />
-                  )}
-                </div>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-        <VersionTag />
-      </Box>
+      <SwiperLayout
+        navigation={navigation}
+        slides={slides}
+        largeLayout={large}
+      />
     </>
   );
 }
 
 export function GamePlans() {
   // const large = useMediaQuery(theme.breakpoints.up("sm"));
-  const large = false;
-
-  const ref = useRef<HTMLDivElement>(null);
-  const [cardWidth, setCardWidth] = useState(large ? 1000 : 500);
-  const [cardHeight, setCardHeight] = useState(700);
-
-  const updateSize = useCallback(() => {
-    const width = ref.current?.getBoundingClientRect().width ?? 0;
-    const height = ref.current?.getBoundingClientRect().height ?? 0;
-    setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
-    setCardHeight(Math.min(height, (width * 7) / 5) - 12);
-  }, [large]);
-
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
-
-  const [swiper, setSwiper] = useState<SwiperRef | null>(null);
-
-  const { slideRef } = useOutletContext<{
-    slideRef: RefObject<number>;
-  }>();
-
+  const largeLayout = false; // Gameplans always use small layout
   const { gameplans } = useData();
 
   if (!gameplans) {
     return null;
   }
+
+  // Define navigation render prop
+  const navigation = (swiper: SwiperRef | null) => (
+    <SwiperChipNavigation // Correctly call SwiperChipNavigation as a component
+      swiper={swiper}
+      items={gameplans.map((g, index) => ({
+        key: index,
+        label: g.title,
+      }))}
+      activeIndex={swiper?.activeIndex} // Get activeIndex from swiper
+    />
+  ); // End of navigation function body
+
+  // Define slides
+  const slides = gameplans.map((gameplan: Gameplan) => (
+    <GameplanCard key={gameplan.title} gameplan={gameplan} />
+  ));
 
   return (
     <>
@@ -373,92 +329,36 @@ export function GamePlans() {
         </Breadcrumbs>
       </AppBarContent>
 
-      <GameplanButtons swiper={swiper} />
-
-      <Box
-        ref={ref}
-        sx={{
-          height: "100%",
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Swiper
-          onSwiper={setSwiper}
-          initialSlide={slideRef.current}
-          onSlideChange={(swiper) => {
-            slideRef.current = swiper.activeIndex;
-          }}
-          slidesPerView="auto"
-          centeredSlides={true}
-          spaceBetween={0.25 * 96}
-          style={{
-            // height: "100%",
-            // width: "100%",
-            // width: cardWidth,
-            height: cardHeight,
-            // aspectRatio: 5 / 7,
-          }}
-        >
-          {gameplans.map((gameplan: Gameplan, index: number) => (
-            <SwiperSlide
-              key={`gameplan-${index}`}
-              style={{
-                // width: "auto",
-                width: cardWidth,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <div
-                style={{
-                  height: cardHeight,
-                  width: cardWidth,
-                  // aspectRatio: 5 / 7,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <GameplanCard gameplan={gameplan} />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        <VersionTag />
-      </Box>
+      <SwiperLayout
+        navigation={navigation}
+        slides={slides}
+        largeLayout={largeLayout}
+      />
     </>
   );
 }
 
 export function RefCards() {
   // const large = useMediaQuery(theme.breakpoints.up("sm"));
-  const large = false;
+  const largeLayout = false; // RefCards always use small layout
 
-  const ref = useRef<HTMLDivElement>(null);
-  const [cardWidth, setCardWidth] = useState(large ? 1000 : 500);
-  const [cardHeight, setCardHeight] = useState(700);
+  const navigation = (swiper: SwiperRef | null) => (
+    <SwiperChipNavigation
+      swiper={swiper}
+      items={[
+        "Playbook Results",
+        "Turn Sequence",
+        "Conditions",
+        "Spending Momentum",
+        "Actions",
+      ].map((title, index) => ({ key: index, label: title }))}
+      activeIndex={swiper?.activeIndex}
+    />
+  );
 
-  const updateSize = useCallback(() => {
-    const width = ref.current?.getBoundingClientRect().width ?? 0;
-    const height = ref.current?.getBoundingClientRect().height ?? 0;
-    setCardWidth(Math.min(width, (height * (large ? 10 : 5)) / 7) - 12);
-    setCardHeight(Math.min(height, (width * 7) / 5) - 12);
-  }, [large]);
-
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
-
-  const [swiper, setSwiper] = useState<SwiperRef | null>(null);
-
-  const { slideRef } = useOutletContext<{
-    slideRef: RefObject<number>;
-  }>();
+  const slides = [...Array(5).keys()]
+    .map((i) => i + 1)
+    .map((i) => <ReferenceCard key={i} index={i} />);
 
   return (
     <>
@@ -471,223 +371,126 @@ export function RefCards() {
         </Breadcrumbs>
       </AppBarContent>
 
-      <RefCardButtons swiper={swiper} />
-
-      <Box
-        ref={ref}
-        sx={{
-          height: "100%",
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Swiper
-          onSwiper={setSwiper}
-          initialSlide={slideRef.current}
-          onSlideChange={(swiper) => {
-            slideRef.current = swiper.activeIndex;
-          }}
-          slidesPerView="auto"
-          centeredSlides={true}
-          spaceBetween={0.25 * 96}
-          style={{
-            // height: "100%",
-            // width: "100%",
-            // width: cardWidth,
-            height: cardHeight,
-            // aspectRatio: 5 / 7,
-          }}
-        >
-          {[...Array(5).keys()]
-            .map((i) => i + 1)
-            .map((i) => (
-              <SwiperSlide
-                key={`ref-${i}`}
-                style={{
-                  // width: "auto",
-                  width: cardWidth,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <div
-                  style={{
-                    height: cardHeight,
-                    width: cardWidth,
-                    // aspectRatio: 5 / 7,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <ReferenceCard index={i} />
-                </div>
-              </SwiperSlide>
-            ))}
-        </Swiper>
-        <VersionTag />
-      </Box>
+      <SwiperLayout
+        navigation={navigation}
+        slides={slides}
+        largeLayout={largeLayout}
+      />
     </>
   );
 }
 
-function SwiperButtons(props: { guild: GBGuildDoc; swiper: SwiperRef | null }) {
-  const { guild, swiper } = props;
+interface ChipItem {
+  key: string | number;
+  label: string;
+}
+
+interface SwiperChipNavigationProps {
+  swiper: SwiperRef | null;
+  items: ChipItem[];
+  slideOffset?: number;
+  activeIndex?: number;
+  leadingIcon?: React.ReactNode;
+  className?: string;
+}
+
+function SwiperChipNavigation({
+  swiper,
+  items,
+  leadingIcon,
+  activeIndex,
+  className,
+  slideOffset = 0,
+}: SwiperChipNavigationProps) {
+  const theme = useTheme();
+  return (
+    <div
+      className={className}
+      style={{
+        display: "flex",
+        flexDirection: "row",
+      }}
+    >
+      <div style={{ flex: "1 1" }} />
+      <Box
+        sx={{
+          display: "flex",
+          flex: "1 1 500px",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "5px",
+          my: 1, // Added margin for consistent spacing
+        }}
+      >
+        {leadingIcon}
+        {items.map((item, index) => {
+          const isActive = index + slideOffset === activeIndex;
+          return (
+            <Chip
+              color="primary"
+              key={item.key}
+              label={item.label}
+              // variant={isActive ? "filled" : "outlined"} // Change variant based on active state
+              clickable={false}
+              onClick={() => swiper?.slideTo(index + slideOffset)}
+              sx={{
+                filter: isActive ? `drop-shadow(0 0 5px ${theme.palette.warning.main})` : "none",
+              }}
+            />
+          )
+        })}
+      </Box>
+      <div style={{ flex: "1 1" }} />
+    </div>
+  );
+}
+
+function SwiperButtons(props: {
+  guild: GBGuildDoc;
+  swiper: SwiperRef | null;
+  activeIndex: number;
+}) {
+  const { guild, swiper, activeIndex } = props;
+  const isLeadingIconActive = activeIndex === 0;
   const roster = guild.roster;
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-      }}
-    >
-      <div style={{ flex: "1 1" }} />
-      <Box
-        sx={{
-          display: "flex",
-          flex: "1 1 500px",
-          // width: "100%",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "5px",
-        }}
-      >
-        <IconButton
-          sx={{ padding: 0 }}
-          onClick={() => {
-            swiper?.slideTo(0);
-          }}
-        >
-          <span>
-            <div
-              style={{
-                width: "32px",
-                height: "32px",
-                backgroundColor: "black",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                overflow: "visible",
-              }}
-            >
-              <GBIcon
-                icon={guild.name}
-                className="dark"
-                fontSize="32px"
-                style={{ flexShrink: 0 }}
-              />
-            </div>
-          </span>
-        </IconButton>
-        {roster.map((m, index) => {
-          return (
-            <Chip
-              color="primary"
-              key={index}
-              label={m}
-              onClick={() => {
-                swiper?.slideTo(index + 1);
-              }}
-            />
-          );
-        })}
-      </Box>
-      <div style={{ flex: "1 1" }} />
-    </div>
-  );
-}
 
-function GameplanButtons(props: { swiper: SwiperRef | null }) {
-  const { gameplans } = useData();
-  const { swiper } = props;
-  if (!gameplans) {
-    return null;
-  }
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-      }}
-    >
-      <div style={{ flex: "1 1" }} />
-      <Box
-        sx={{
-          display: "flex",
-          flex: "1 1 500px",
-          // width: "100%",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "5px",
-        }}
-      >
-        {gameplans.map((g, index) => {
-          return (
-            <Chip
-              color="primary"
-              key={index}
-              // label={model.displayName}
-              label={g.title}
-              onClick={() => {
-                swiper?.slideTo(index);
-              }}
-            />
-          );
-        })}
-      </Box>
-      <div style={{ flex: "1 1" }} />
-    </div>
+  const items: ChipItem[] = useMemo(
+    () => roster.map((m, index) => ({ key: index, label: m, })),
+    [roster]
   );
-}
 
-function RefCardButtons(props: { swiper: SwiperRef | null }) {
-  const { gameplans } = useData();
-  const { swiper } = props;
-  if (!gameplans) {
-    return null;
-  }
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-      }}
+  const leadingIcon = (
+    <IconButton
+      sx={{ padding: 0, mr: 0 }}
+      onClick={() => swiper?.slideTo(0)}
     >
-      <div style={{ flex: "1 1" }} />
-      <Box
-        sx={{
+      <div
+        style={{
+          width: "32px",
+          height: "32px",
+          backgroundColor: "black",
+          borderRadius: "50%",
           display: "flex",
-          flex: "1 1 500px",
-          // width: "100%",
-          flexWrap: "wrap",
+          alignItems: "center",
           justifyContent: "center",
-          gap: "5px",
+          overflow: "visible",
+          // Add visual indication if active
+          // border: isLeadingIconActive ? `2px solid ${theme.palette.primary.main}` : '2px solid transparent',
+          filter: isLeadingIconActive ? 'drop-shadow(0 0 5px gold)' : 'none',
         }}
       >
-        {[
-          "Playbook Results",
-          "Turn Sequence",
-          "Conditions",
-          "Spending Momentum",
-          "Actions",
-        ].map((title, index) => {
-          return (
-            <Chip
-              color="primary"
-              key={index}
-              // label={model.displayName}
-              label={title}
-              onClick={() => {
-                swiper?.slideTo(index);
-              }}
-            />
-          );
-        })}
-      </Box>
-      <div style={{ flex: "1 1" }} />
-    </div>
+        <GBIcon icon={guild.name} className="dark" fontSize="32px" style={{ flexShrink: 0 }} />
+      </div>
+    </IconButton>
+  );
+
+  return (
+    <SwiperChipNavigation
+      swiper={swiper}
+      items={items}
+      slideOffset={1}
+      activeIndex={activeIndex}
+      leadingIcon={leadingIcon}
+    />
   );
 }

@@ -4,7 +4,7 @@ import { useSettings } from "../hooks/useSettings";
 
 import DataFile, { Manifest, Gameplan } from "./DataContext.d";
 
-import gbdb, { GBDatabase, GBModel } from "../models/gbdb";
+import { GBDatabase, GBModel, getGBDatabase } from "../models/gbdb";
 import i18n from "../utils/i18next";
 import { DataContext } from "../utils/contexts";
 
@@ -37,6 +37,7 @@ async function bulkLoadDB(
     console.error("concurent reloads");
     return;
   }
+  const gbdb = getGBDatabase();
   console.log(`loading ${filename}`);
   reloadInProgress = true;
   try {
@@ -177,7 +178,8 @@ export const DataProvider = ({ children }: DataProviderProps) => {
         filename = dataSet;
       } else {
         filename = manifestZero;
-        const settingsDoc = await gbdb?.getLocal("settings");
+        const gbdb = getGBDatabase();
+        const settingsDoc = await gbdb.getLocal("settings");
         if (canceled) return;
         settingsDoc?.incrementalPatch({
           dataSet: filename,
@@ -211,6 +213,7 @@ export const DataProvider = ({ children }: DataProviderProps) => {
       const dataFile = await readFile(loadFile);
       if (canceled) return;
       setDB(undefined);
+      const gbdb = getGBDatabase();
       await bulkLoadDB(loadFile, manifest, dataFile).then(() => setDB(gbdb));
       setGameplans(await readFile("gameplans.json"));
     };

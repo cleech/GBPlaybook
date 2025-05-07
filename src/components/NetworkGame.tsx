@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { Sync } from "@mui/icons-material";
 import { useData } from "../hooks/useData";
-import { GBDatabase, GBGameState, gbdbBeginReplication } from "../models/gbdb";
+import { GBDatabase, GBGameState, gbdbBeginReplication, gbdbStopReplication, peerConnected$ } from "../models/gbdb";
 import {
   RxWebRTCReplicationPool,
   SimplePeer,
@@ -27,7 +27,6 @@ import {
 import { useNetworkState } from "../hooks/useNetworkState";
 import { useNavigate } from "react-router-dom";
 import { useSettings } from "../hooks/useSettings";
-// import { firstValueFrom, map } from "rxjs";
 import { firstValueFrom } from "rxjs";
 
 const signalingServerUrl =
@@ -111,8 +110,7 @@ const reconnectNetwork = repStateFn(async (db: GBDatabase) => {
 
 const leaveNetworkGame = repStateFn(async (db: GBDatabase) => {
   console.log(`# leaving a network game`);
-  await replicationState
-    ?.cancel()
+  await gbdbStopReplication()
     .catch(console.error)
     .finally(() => {
       replicationState = undefined;
@@ -131,52 +129,32 @@ export function NetworkGame({ allowNew = false }: { allowNew?: boolean }) {
   const [dialogOpen, setDialog] = useState(false);
   const { active } = useNetworkState();
 
-  // const { setting$ } = useSettings();
-  // const [networkEnabled, setNetworkEnabled] = useState(false);
-  // useEffect(() => {
-  //   const sub = setting$
-  //     ?.pipe(map((s) => s?.toJSON().data.networkPlay))
-  //     .subscribe((n) => setNetworkEnabled(!!n));
-  //   return () => {
-  //     sub?.unsubscribe();
-  //   };
-  // }, [setting$]);
-
-  // how to get peer count when replicationState is global and can be undefined?
-  // where else can I store it?  What doesn't get unmountsed?
-  // Top level to the entire App?
-  //
-  // const [peers, setPeers] = useState(0);
-  // useEffect(() => {
-  //   if (!replicationState) return;
-  //   let canceled = false;
-  //   firstValueFrom(replicationState.peerStates$).then((peers) => {
-  //     if (!canceled) {
-  //       setPeers(peers.size);
-  //     }
-  //   });
-  //   return () => {
-  //     canceled = true;
-  //   };
-  // }, []);
-
   useEffect(() => {
     if (db && active && !replicationState) {
       reconnectNetwork(db);
     }
   }, [db, active]);
 
+  const [peerConnected, setPeerConnected] = useState(false);
+  useEffect(() => {
+    const observer = peerConnected$.subscribe((connected) => setPeerConnected(connected));
+    return () => observer?.unsubscribe();
+  }, []);
+
   const [color, setColor] = useState<
     "default" | "success" | "warning" | "error"
   >("default");
+
   useEffect(() => {
-    // console.log(`active: ${active} peers: ${peers}`);
-    // setColor(!active ? "default" : peers > 0 ? "success" : "error");
-    setColor(!active ? "default" : "success");
-  }, [
-    active,
-    // , peers
-  ]);
+    if (!active) {
+      setColor("default")
+    } else if (!peerConnected) {
+      setColor("warning")
+    } else {
+      setColor("success")
+    };
+  }, [active, peerConnected]);
+
   if (!db) return;
 
   return (
@@ -298,6 +276,7 @@ const StepJoin = (props: StepperProps) => {
             .catch((error) => {
               console.error(error);
               setActiveStep("New");
+              setWaiting(false);
             });
         }}
       >
@@ -322,11 +301,24 @@ const StepReady = (props: StepperProps) => {
   const { gbdb: db } = useData();
   const navigate = useNavigate();
   const { setting$ } = useSettings();
+
+  const [peerConnected, setPeerConnected] = useState(false);
+  useEffect(() => {
+    const observer = peerConnected$.subscribe((connected) => setPeerConnected(connected));
+    return () => observer?.unsubscribe();
+  }, []);
+
   if (!db) return;
 
   return (
     <Stack spacing={2} alignItems="center">
-      <Typography variant="h6">Connected</Typography>
+      {peerConnected ? (
+        <Typography variant="h6">Connected</Typography>
+      ) : (
+        <Typography variant="subtitle1" color="warning">
+          Waiting on Opponent Connection
+        </Typography>
+      )}
       <Stack direction="row" spacing={2}>
         <Button
           variant="contained"

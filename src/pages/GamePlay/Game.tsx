@@ -29,7 +29,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
 import { Home, NavigateNext } from "@mui/icons-material";
-import { AppBarContent } from "../../App";
+import { AppBarContent } from "../App";
 
 import { FlipGuildCard } from "../../components/GuildCard";
 import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdb";

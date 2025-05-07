@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { Box } from "@mui/material";
 
-import { AppBarContent } from "../../App";
+import { AppBarContent } from "../App";
 import { AppBarContext } from "../../utils/contexts";
 import OddsCalc from "../../components/Calc";
 import { useNetworkState } from "../../hooks/useNetworkState";

@@ -13,7 +13,7 @@ import {
   Box,
 } from "@mui/material";
 
-import { AppBarContent } from "../App";
+import { AppBarContent } from "./App";
 import { SettingsDoc } from "../models/settings";
 import { useSettings } from "../hooks/useSettings";
 import { useTranslation } from "react-i18next";
