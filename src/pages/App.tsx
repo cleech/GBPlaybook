@@ -290,7 +290,7 @@ function AppDrawer(props: {
       sub1?.unsubscribe();
       sub2?.unsubscribe();
     };
-  });
+  }, [setting$]);
   return (
     <Drawer
       anchor="right"
