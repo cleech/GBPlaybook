@@ -357,47 +357,52 @@ interface GBDataCollections {
 
 export type GBDatabase = RxDatabase<GBDataCollections>;
 
-// Declare gbdb at the module level, but initialize later
 let gbdb: GBDatabase | null = null;
+let gbdbInitPromise: Promise<GBDatabase> | null = null;
 
 export async function initGBDatabase(): Promise<GBDatabase> {
-  if (gbdb) {
+  if (gbdb) return gbdb;
+  if (gbdbInitPromise) return gbdbInitPromise;
+
+  gbdbInitPromise = (async () => {
+    console.log("Initializing GBDatabase...");
+
+    const db = await createRxDatabase<GBDataCollections>(
+      import.meta.env.MODE === "development"
+        ? {
+            name: "gb_playbook",
+            localDocuments: true,
+            storage: wrappedValidateAjvStorage({
+              storage: getRxStorageDexie(),
+            }),
+          }
+        : {
+            name: "gb_playbook",
+            localDocuments: true,
+            storage: getRxStorageDexie(),
+          }
+    );
+
+    await db.addCollections({
+      guilds: { schema: gbGuildSchema },
+      models: {
+        schema: gbModelSchema,
+        methods: gbModelDocMethods,
+        migrationStrategies: { 1: (doc) => doc },
+      },
+      character_plays: {
+        schema: gbCharacterPlaySchema,
+        migrationStrategies: { 1: (doc) => doc },
+      },
+      character_traits: { schema: gbCharacterTraitSchema },
+      game_state: { schema: gbGameStateSchema, localDocuments: true },
+    });
+
+    gbdb = db;
     return gbdb;
-  }
+  })();
 
-  console.log("Initializing GBDatabase...");
-
-  const db = await createRxDatabase<GBDataCollections>(
-    import.meta.env.MODE === "development"
-      ? {
-          name: "gb_playbook",
-          localDocuments: true,
-          storage: wrappedValidateAjvStorage({ storage: getRxStorageDexie() }),
-        }
-      : {
-          name: "gb_playbook",
-          localDocuments: true,
-          storage: getRxStorageDexie(),
-        }
-  );
-
-  await db.addCollections({
-    guilds: { schema: gbGuildSchema },
-    models: {
-      schema: gbModelSchema,
-      methods: gbModelDocMethods,
-      migrationStrategies: { 1: (doc) => doc },
-    },
-    character_plays: {
-      schema: gbCharacterPlaySchema,
-      migrationStrategies: { 1: (doc) => doc },
-    },
-    character_traits: { schema: gbCharacterTraitSchema },
-    game_state: { schema: gbGameStateSchema, localDocuments: true },
-  });
-
-  gbdb = db;
-  return gbdb;
+  return gbdbInitPromise;
 }
 
 // Optional: Add a getter for safer access
