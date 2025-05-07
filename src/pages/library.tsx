@@ -434,7 +434,7 @@ function SwiperChipNavigation({
               clickable={false}
               onClick={() => swiper?.slideTo(index + slideOffset)}
               sx={{
-                filter: isActive ? `drop-shadow(0 0 5px ${theme.palette.warning.main})` : "none",
+                boxShadow: isActive ? `0 0 10px ${theme.palette.warning.main}` : "none",
               }}
             />
           )
@@ -451,6 +451,7 @@ function SwiperButtons(props: {
   activeIndex: number;
 }) {
   const { guild, swiper, activeIndex } = props;
+  const theme = useTheme();
   const isLeadingIconActive = activeIndex === 0;
   const roster = guild.roster;
 
@@ -475,8 +476,7 @@ function SwiperButtons(props: {
           justifyContent: "center",
           overflow: "visible",
           // Add visual indication if active
-          // border: isLeadingIconActive ? `2px solid ${theme.palette.primary.main}` : '2px solid transparent',
-          filter: isLeadingIconActive ? 'drop-shadow(0 0 5px gold)' : 'none',
+          boxShadow: isLeadingIconActive ? `0 0 10px ${theme.palette.warning.main}` : "none",
         }}
       >
         <GBIcon icon={guild.name} className="dark" fontSize="32px" style={{ flexShrink: 0 }} />
