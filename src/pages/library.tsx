@@ -159,32 +159,27 @@ function ExtraIconsControl(props: ControlProps) {
 }
 
 interface SwiperLayoutProps {
-  breadcrumbs: React.ReactNode;
   navigation: (swiper: SwiperRef | null) => React.ReactNode;
   slides: React.ReactNode[];
   largeLayout?: boolean;
 }
 
 function SwiperLayout({
-  breadcrumbs,
   navigation,
   slides,
   largeLayout = false,
 }: SwiperLayoutProps) {
 
   const ref = useRef<HTMLDivElement>(null);
-  // const [cardWidth, setCardWidth] = useState(largeLayout ? 1000 : 500);
-  // const [cardHeight, setCardHeight] = useState(700);
   const [cardWidth, setCardWidth] = useState(0);
   const [cardHeight, setCardHeight] = useState(0);
 
   const updateSize = useCallback(() => {
-    const containerWidth = ref.current?.getBoundingClientRect().width ?? 0;
-    const containerHeight = ref.current?.getBoundingClientRect().height ?? 0;
+    const containerWidth = ref.current?.getBoundingClientRect().width ?? (largeLayout ? 1000 : 500);
+    const containerHeight = ref.current?.getBoundingClientRect().height ?? 700;
     const aspectRatioMultiplier = largeLayout ? 10 : 5;
     const calculatedWidth = Math.min(containerWidth, (containerHeight * aspectRatioMultiplier) / 7) - 12;
     const calculatedHeight = Math.min(containerHeight, (containerWidth * 7) / aspectRatioMultiplier) - 12;
-    // const calculatedHeight = Math.min(containerHeight, (containerWidth * 7) / 5) - 12;
     setCardWidth(calculatedWidth);
     setCardHeight(calculatedHeight);
   }, [largeLayout]);
@@ -196,11 +191,13 @@ function SwiperLayout({
   }, [updateSize]);
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  // I don't like this, it's just triggering a re-render which then also renders the buttons
+  const [, setActiveSlideIndex] = useState(0);
+
+  const { slideRef } = useOutletContext<{ slideRef: RefObject<number> }>();
 
   return (
     <>
-      <AppBarContent>{breadcrumbs}</AppBarContent>
       {navigation(swiper)}
       <Box
         ref={ref}
@@ -214,8 +211,9 @@ function SwiperLayout({
       >
         <Swiper
           onSwiper={setSwiper}
-          // initialSlide={initialSlideIndex}
+          initialSlide={slideRef.current ?? 0}
           onSlideChange={(swiperInstance) => {
+            slideRef.current = swiperInstance.activeIndex;
             setActiveSlideIndex(swiperInstance.activeIndex);
           }}
           slidesPerView="auto"
@@ -260,16 +258,6 @@ export function Roster() {
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
 
-  // Define breadcrumbs
-  const breadcrumbs = (
-    <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-      <Link underline="hover" color="inherit" href={"/library"}>
-        Library
-      </Link>
-      <Typography>{g.name}</Typography>
-    </Breadcrumbs>
-  );
-
   // Define navigation render prop
   const navigation = (swiper: SwiperRef | null) => (
     <SwiperButtons
@@ -290,12 +278,22 @@ export function Roster() {
   ];
 
   return (
-    <SwiperLayout
-      breadcrumbs={breadcrumbs}
-      navigation={navigation}
-      slides={slides}
-      largeLayout={large}
-    />
+    <>
+      <AppBarContent>
+        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+          <Link underline="hover" color="inherit" href={"/library"}>
+            Library
+          </Link>
+          <Typography>{g.name}</Typography>
+        </Breadcrumbs>
+      </AppBarContent>
+
+      <SwiperLayout
+        navigation={navigation}
+        slides={slides}
+        largeLayout={large}
+      />
+    </>
   );
 }
 
@@ -307,16 +305,6 @@ export function GamePlans() {
   if (!gameplans) {
     return null;
   }
-
-  // Define breadcrumbs
-  const breadcrumbs = (
-    <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-      <Link underline="hover" color="inherit" href={"/library"}>
-        Library
-      </Link>
-      <Typography>Gameplan Cards</Typography>
-    </Breadcrumbs>
-  );
 
   // Define navigation render prop
   const navigation = (swiper: SwiperRef | null) => (
@@ -336,27 +324,28 @@ export function GamePlans() {
   ));
 
   return (
-    <SwiperLayout
-      breadcrumbs={breadcrumbs}
-      navigation={navigation}
-      slides={slides}
-      largeLayout={largeLayout}
-    />
+    <>
+      <AppBarContent>
+        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+          <Link underline="hover" color="inherit" href={"/library"}>
+            Library
+          </Link>
+          <Typography>Gameplan Cards</Typography>
+        </Breadcrumbs>
+      </AppBarContent>
+
+      <SwiperLayout
+        navigation={navigation}
+        slides={slides}
+        largeLayout={largeLayout}
+      />
+    </>
   );
 }
 
 export function RefCards() {
   // const large = useMediaQuery(theme.breakpoints.up("sm"));
   const largeLayout = false; // RefCards always use small layout
-
-  const breadcrumbs = (
-    <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-      <Link underline="hover" color="inherit" href={"/library"}>
-        Library
-      </Link>
-      <Typography>Rules Reference Cards</Typography>
-    </Breadcrumbs>
-  );
 
   const navigation = (swiper: SwiperRef | null) => (
     <SwiperChipNavigation
@@ -377,12 +366,22 @@ export function RefCards() {
     .map((i) => <ReferenceCard index={i} />);
 
   return (
-    <SwiperLayout
-      breadcrumbs={breadcrumbs}
-      navigation={navigation}
-      slides={slides}
-      largeLayout={largeLayout}
-    />
+    <>
+      <AppBarContent>
+        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+          <Link underline="hover" color="inherit" href={"/library"}>
+            Library
+          </Link>
+          <Typography>Rules Reference Cards</Typography>
+        </Breadcrumbs>
+      </AppBarContent>
+
+      <SwiperLayout
+        navigation={navigation}
+        slides={slides}
+        largeLayout={largeLayout}
+      />
+    </>
   );
 }
 
@@ -408,6 +407,7 @@ function SwiperChipNavigation({
   className,
   slideOffset = 0,
 }: SwiperChipNavigationProps) {
+  const theme = useTheme();
   return (
     <div
       className={className}
@@ -435,8 +435,12 @@ function SwiperChipNavigation({
               color="primary"
               key={item.key}
               label={item.label}
-              variant={isActive ? "filled" : "outlined"} // Change variant based on active state
+              // variant={isActive ? "filled" : "outlined"} // Change variant based on active state
+              clickable={false}
               onClick={() => swiper?.slideTo(index + slideOffset)}
+              sx={{
+                filter: isActive ? `drop-shadow(0 0 5px ${theme.palette.warning.main})` : "none",
+              }}
             />
           )
         })}
@@ -452,8 +456,7 @@ function SwiperButtons(props: {
   activeIndex: number;
 }) {
   const { guild, swiper, activeIndex } = props;
-  // const theme = useTheme();
-  // const isLeadingIconActive = activeIndex === 0;
+  const isLeadingIconActive = activeIndex === 0;
   const roster = guild.roster;
 
   const items: ChipItem[] = roster.map((m, index) => ({
@@ -461,10 +464,9 @@ function SwiperButtons(props: {
     label: m,
   }));
 
-
   const leadingIcon = (
     <IconButton
-      sx={{ padding: 0, mr: 0.5 }} // Added margin
+      sx={{ padding: 0, mr: 0 }}
       onClick={() => swiper?.slideTo(0)}
     >
       <div
@@ -479,6 +481,7 @@ function SwiperButtons(props: {
           overflow: "visible",
           // Add visual indication if active
           // border: isLeadingIconActive ? `2px solid ${theme.palette.primary.main}` : '2px solid transparent',
+          filter: isLeadingIconActive ? 'drop-shadow(0 0 5px gold)' : 'none',
         }}
       >
         <GBIcon icon={guild.name} className="dark" fontSize="32px" style={{ flexShrink: 0 }} />
