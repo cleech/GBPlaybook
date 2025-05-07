@@ -6,7 +6,6 @@ import { Button, Divider, Typography } from "@mui/material";
 
 import GBIcon from "../components/GBIcon";
 import { GBGuildDoc } from "../models/gbdb";
-import { NodeEventHandler } from "rxjs/internal/observable/fromEvent";
 import { Observable, fromEventPattern } from "rxjs";
 
 function maxBy<T>(data: Array<T>, by: (v: T) => number) {
@@ -86,7 +85,7 @@ export function GuildGrid({
     setSize(size);
   }, [dimensions, children]);
 
-  const observers = useMemo<Set<NodeEventHandler>>(() => new Set(), []);
+  const observers = useMemo<Set<(e: string) => void>>(() => new Set(), []);
   const event$ = fromEventPattern<string>(
     (handler) => observers.add(handler),
     (handler) => observers.delete(handler)
