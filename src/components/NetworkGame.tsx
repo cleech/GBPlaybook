@@ -276,6 +276,7 @@ const StepJoin = (props: StepperProps) => {
             .catch((error) => {
               console.error(error);
               setActiveStep("New");
+              setWaiting(false);
             });
         }}
       >

@@ -320,8 +320,8 @@ function LinkList({ items }: { items: ExternalLinkItem[] }) {
         marginLeft: "2em",
       }}
     >
-      {items.map((item, index) => (
-        <ListItem key={index} disablePadding>
+      {items.map((item) => (
+        <ListItem key={item.href} disablePadding>
           <Link component="a" target="_blank" rel="noopener noreferrer" href={item.href}>
             {item.text}
           </Link>

@@ -57,7 +57,7 @@ const router = createHashRouter(
             return targetRoute;
           },
           Component: () => {
-            const target = useLoaderData();
+            const target = useLoaderData<string>();
             return <Navigate to={target} replace />
           },
           hydrateFallbackElement: <div>Loading ...</div>,

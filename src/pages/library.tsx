@@ -1,4 +1,4 @@
-import {
+import React, {
   useState,
   useRef,
   useLayoutEffect,
@@ -6,6 +6,7 @@ import {
   Suspense,
   useEffect,
   RefObject,
+  useMemo,
 } from "react";
 
 import {
@@ -56,27 +57,23 @@ export default function Library() {
   const location = useLocation();
   const { setting$ } = useSettings();
   const [searchParams] = useSearchParams();
-  const slideRef = useRef(searchParams.get("m"));
+  const slideRef = useRef<number>(
+    Number.parseInt(searchParams.get("m") ?? "0") || 0
+  );
 
   useEffect(() => {
     if (!setting$) return;
-    firstValueFrom(setting$)
-      .then((settingsDoc) =>
-        settingsDoc?.incrementalPatch({
-          libraryRoute: `${location.pathname}?m=${slideRef.current}`,
-        })
-      )
-      .catch(console.error);
-    return () => {
+    const patchRoute = () => {
       firstValueFrom(setting$)
         .then((settingsDoc) =>
           settingsDoc?.incrementalPatch({
-            // eslint-disable-next-line react-hooks/exhaustive-deps
             libraryRoute: `${location.pathname}?m=${slideRef.current}`,
           })
         )
         .catch(console.error);
     };
+    patchRoute();
+    return patchRoute
   }, [location, setting$]);
 
   return (
@@ -110,9 +107,7 @@ export function GuildList() {
           <Typography>Library</Typography>
         </Breadcrumbs>
       </AppBarContent>
-      <GuildGrid Controller={ExtraIconsControl}>
-        {guilds}
-      </GuildGrid>
+      <GuildGrid guilds={guilds} Controller={ExtraIconsControl} />
       <VersionTag />
     </>
   );
@@ -270,10 +265,10 @@ export function Roster() {
   // Define slides
   const slides = [
     // Guild Card Slide
-    large ? <DoubleGuildCard guild={g.name} /> : <FlipGuildCard guild={g.name} />,
+    large ? <DoubleGuildCard key={g.name} guild={g.name} /> : <FlipGuildCard key={g.name} guild={g.name} />,
     // Roster Card Slides
     ...roster.map((model) =>
-      large ? <DoubleCard model={model} /> : <FlipCard model={model} />
+      large ? <DoubleCard key={model.id} model={model} /> : <FlipCard key={model.id} model={model} />
     ),
   ];
 
@@ -320,7 +315,7 @@ export function GamePlans() {
 
   // Define slides
   const slides = gameplans.map((gameplan: Gameplan) => (
-    <GameplanCard gameplan={gameplan} />
+    <GameplanCard key={gameplan.title} gameplan={gameplan} />
   ));
 
   return (
@@ -363,7 +358,7 @@ export function RefCards() {
 
   const slides = [...Array(5).keys()]
     .map((i) => i + 1)
-    .map((i) => <ReferenceCard index={i} />);
+    .map((i) => <ReferenceCard key={i} index={i} />);
 
   return (
     <>
@@ -459,10 +454,10 @@ function SwiperButtons(props: {
   const isLeadingIconActive = activeIndex === 0;
   const roster = guild.roster;
 
-  const items: ChipItem[] = roster.map((m, index) => ({
-    key: index,
-    label: m,
-  }));
+  const items: ChipItem[] = useMemo(
+    () => roster.map((m, index) => ({ key: index, label: m, })),
+    [roster]
+  );
 
   const leadingIcon = (
     <IconButton

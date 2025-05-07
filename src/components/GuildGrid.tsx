@@ -17,7 +17,7 @@ function itemSize(
   count: number,
   extra: number = 0
 ) {
-  if (!width || !height) {
+  if (!width || !height || count <= 0) {
     return undefined;
   }
 
@@ -64,13 +64,13 @@ interface GridIcon {
 }
 
 interface GuildGridProps {
+  guilds: GBGuildDoc[];
   Controller: ComponentType<ControlProps>;
-  children?: GBGuildDoc[];
 }
 
 export function GuildGrid({
+  guilds,
   Controller,
-  children,
 }:
   GuildGridProps) {
   const [ref, dimensions] = useDimensionsRef();
@@ -80,10 +80,10 @@ export function GuildGrid({
     if (!dimensions) {
       return;
     }
-    const count = children?.length ?? 0;
+    const count = guilds?.length ?? 0;
     const size = itemSize(dimensions, count, 1)?.size ?? 0;
     setSize(size);
-  }, [dimensions, children]);
+  }, [dimensions, guilds]);
 
   const observers = useMemo<Set<(e: string) => void>>(() => new Set(), []);
   const event$ = fromEventPattern<string>(
@@ -110,9 +110,7 @@ export function GuildGrid({
         justifyContent: "space-evenly",
       }}
     >
-      <GuildGridInner size={size} pickTeam={emitEvent}>
-        {children}
-      </GuildGridInner>
+      <GuildGridInner guilds={guilds} size={size} pickTeam={emitEvent} />
       <Divider />
       <Controller size={size} update$={event$} />
     </div>
@@ -121,11 +119,11 @@ export function GuildGrid({
 
 const GuildGridInner = React.memo(
   (props: {
+    guilds?: GBGuildDoc[];
     pickTeam?: (guild: string) => void;
     size: number;
-    children?: GBGuildDoc[];
   }) => {
-    const { pickTeam, size, children: guilds } = props;
+    const { pickTeam, size, guilds } = props;
 
     if (!guilds) {
       return null;
@@ -154,8 +152,8 @@ const GuildGridInner = React.memo(
           overflow: "clip",
         }}
       >
-        {list.map((g, i) => (
-          <GridIconButton key={i} g={g} pickTeam={pickTeam} size={size} />
+        {list.map((g) => (
+          <GridIconButton key={g.key} g={g} pickTeam={pickTeam} size={size} />
         ))}
       </div>
     );

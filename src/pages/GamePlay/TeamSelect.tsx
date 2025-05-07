@@ -173,15 +173,15 @@ function GameControls(props: ControlProps) {
           fontSize: props.size * 0.5,
           ...(selector === "P1"
             ? {
-                borderColor: theme.palette.secondary.light,
-                borderRadius: "12px",
-                borderWidth: "4px",
-              }
+              borderColor: theme.palette.secondary.light,
+              borderRadius: "12px",
+              borderWidth: "4px",
+            }
             : {
-                borderColor: theme.palette.primary.dark,
-                borderRadius: "12px",
-                borderWidth: "4px",
-              }),
+              borderColor: theme.palette.primary.dark,
+              borderRadius: "12px",
+              borderWidth: "4px",
+            }),
         }}
         onClick={() => setSelector("P1")}
       >
@@ -219,15 +219,15 @@ function GameControls(props: ControlProps) {
           fontSize: props.size * 0.5,
           ...(selector === "P2"
             ? {
-                borderColor: theme.palette.secondary.light,
-                borderRadius: "12px",
-                borderWidth: "4px",
-              }
+              borderColor: theme.palette.secondary.light,
+              borderRadius: "12px",
+              borderWidth: "4px",
+            }
             : {
-                borderColor: theme.palette.primary.dark,
-                borderRadius: "12px",
-                borderWidth: "4px",
-              }),
+              borderColor: theme.palette.primary.dark,
+              borderRadius: "12px",
+              borderWidth: "4px",
+            }),
         }}
         onClick={() => setSelector("P2")}
       >
@@ -264,9 +264,7 @@ export default function TeamSelect() {
           <NetworkGame allowNew={true} />
         </div>
       </AppBarContent>
-      <GuildGrid Controller={GameControls}>
-        {guilds}
-      </GuildGrid>
+      <GuildGrid guilds={guilds} Controller={GameControls} />
       <VersionTag />
       {/* <ResumeSnackBar /> */}
     </Box>
