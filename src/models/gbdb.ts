@@ -19,7 +19,10 @@ import {
   replicateWebRTC,
   getConnectionHandlerSimplePeer,
   SimplePeer,
+  RxWebRTCReplicationPool,
 } from "rxdb/plugins/replication-webrtc";
+
+import { BehaviorSubject, map as rxjsMap, Subscription } from "rxjs";
 
 if (import.meta.env.MODE === "development") {
   addRxPlugin(RxDBDevModePlugin);
@@ -429,9 +432,21 @@ const iceConfig = {
   ],
 };
 
+export const peerConnected$ = new BehaviorSubject<boolean>(false);
+
+let replicationPool: RxWebRTCReplicationPool<GBGameState, SimplePeer> | null =
+  null;
+let replicationSubscriptions: Subscription[] = [];
+
 export async function gbdbBeginReplication(url: string, topic: string) {
   const db = getGBDatabase(); // Use the getter to ensure DB is initialized
-  const replcationState = await replicateWebRTC<GBGameState, SimplePeer>({
+
+  if (replicationPool) {
+    console.warn("Replication already active");
+    return replicationPool;
+  }
+
+  replicationPool = await replicateWebRTC<GBGameState, SimplePeer>({
     collection: db.game_state,
     connectionHandlerCreator: getConnectionHandlerSimplePeer({
       signalingServerUrl: url,
@@ -441,13 +456,38 @@ export async function gbdbBeginReplication(url: string, topic: string) {
     pull: {},
     push: {},
   });
-  replcationState.error$.subscribe((err) => {
-    console.log("replication error:");
-    console.dir(err);
-  });
-  replcationState.peerStates$.subscribe((s) => {
-    console.log("new peer states:");
-    console.dir(s);
-  });
-  return replcationState;
+
+  replicationSubscriptions.push(
+    replicationPool.error$.subscribe((err) => {
+      console.log("replication error:");
+      console.dir(err);
+    })
+  );
+
+  replicationSubscriptions.push(
+    replicationPool.peerStates$
+      .pipe(
+        rxjsMap((peers) => {
+          return Array.from(peers.values()).reduce(
+            (connected, state) => connected || state.peer.connected,
+            false
+          );
+        })
+      )
+      .subscribe((connected: boolean) => {
+        peerConnected$.next(connected);
+      })
+  );
+
+  return replicationPool;
+}
+
+export async function gbdbStopReplication() {
+  if (replicationPool) {
+    await replicationPool.cancel();
+    replicationPool = null;
+  }
+  replicationSubscriptions.forEach((sub) => sub.unsubscribe());
+  replicationSubscriptions = [];
+  peerConnected$.next(false);
 }
