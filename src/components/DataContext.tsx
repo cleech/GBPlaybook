@@ -37,7 +37,7 @@ async function bulkLoadDB(
     console.error("concurent reloads");
     return;
   }
-  const gbdb = getGBDatabase();
+  const gbdb = await getGBDatabase();
   console.log(`loading ${filename}`);
   reloadInProgress = true;
   try {
@@ -178,7 +178,7 @@ export const DataProvider = ({ children }: DataProviderProps) => {
         filename = dataSet;
       } else {
         filename = manifestZero;
-        const gbdb = getGBDatabase();
+        const gbdb = await getGBDatabase();
         const settingsDoc = await gbdb.getLocal("settings");
         if (canceled) return;
         settingsDoc?.incrementalPatch({
@@ -213,7 +213,7 @@ export const DataProvider = ({ children }: DataProviderProps) => {
       const dataFile = await readFile(loadFile);
       if (canceled) return;
       setDB(undefined);
-      const gbdb = getGBDatabase();
+      const gbdb = await getGBDatabase();
       await bulkLoadDB(loadFile, manifest, dataFile).then(() => setDB(gbdb));
       setGameplans(await readFile("gameplans.json"));
     };
