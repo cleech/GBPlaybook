@@ -95,8 +95,8 @@ type GBModelMethods = {
   expand: () => Promise<GBModelExpanded>;
 };
 
-function populate_character_traits(doc: GBModelDoc) {
-  const db = getGBDatabase();
+async function populate_character_traits(doc: GBModelDoc) {
+  const db = await getGBDatabase();
   return Promise.all(
     (doc.character_traits || []) // Add safety check for potentially undefined traits
       .map((s) => s.split(/[[\]]/))
@@ -111,7 +111,7 @@ function populate_character_traits(doc: GBModelDoc) {
 
 const gbModelDocMethods: GBModelMethods = {
   expand: async function (this: GBModelDoc): Promise<GBModelExpanded> {
-    const db = getGBDatabase();
+    const db = await getGBDatabase();
     const dbSettings = await db.getLocal<GBDataMeta>("gbdata_meta");
     const [character_plays, character_traits]: [
       GBCharacterPlay[],
@@ -360,7 +360,7 @@ export type GBDatabase = RxDatabase<GBDataCollections>;
 let gbdb: GBDatabase | null = null;
 let gbdbInitPromise: Promise<GBDatabase> | null = null;
 
-export async function initGBDatabase(): Promise<GBDatabase> {
+export async function getGBDatabase(): Promise<GBDatabase> {
   if (gbdb) return gbdb;
   if (gbdbInitPromise) return gbdbInitPromise;
 
@@ -405,16 +405,6 @@ export async function initGBDatabase(): Promise<GBDatabase> {
   return gbdbInitPromise;
 }
 
-// Optional: Add a getter for safer access
-export function getGBDatabase(): GBDatabase {
-  if (!gbdb) {
-    throw new Error(
-      "GBDatabase has not been initialized. Call initGBDatabase() first."
-    );
-  }
-  return gbdb;
-}
-
 const iceConfig = {
   iceServers: [
     {
@@ -444,7 +434,7 @@ let replicationPool: RxWebRTCReplicationPool<GBGameState, SimplePeer> | null =
 let replicationSubscriptions: Subscription[] = [];
 
 export async function gbdbBeginReplication(url: string, topic: string) {
-  const db = getGBDatabase(); // Use the getter to ensure DB is initialized
+  const db = await getGBDatabase();
 
   if (replicationPool) {
     console.warn("Replication already active");

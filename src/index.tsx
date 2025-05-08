@@ -23,7 +23,7 @@ import { CardPrintScreen } from "./pages/print";
 import { SettingsDoc, SettingsProvider } from "./models/settings";
 import { defaultSettings } from "./models/defaultSettings";
 
-import { getGBDatabase, initGBDatabase } from "./models/gbdb";
+import { getGBDatabase } from "./models/gbdb";
 
 import { registerSW } from "virtual:pwa-register";
 registerSW({ immediate: true });
@@ -31,8 +31,6 @@ registerSW({ immediate: true });
 import "./utils/i18next";
 import { DataProvider } from "./components/DataContext";
 import { reSort } from "./utils/reSort";
-
-await initGBDatabase();
 
 const router = createHashRouter(
   [
@@ -42,7 +40,7 @@ const router = createHashRouter(
         {
           path: "/",
           loader: async () => {
-            const gbdb = getGBDatabase();
+            const gbdb = await getGBDatabase();
             const settings = await gbdb.getLocal<SettingsDoc>("settings");
             const initialScreen: string =
               settings?.get("initialScreen") ?? defaultSettings.initialScreen;
@@ -69,7 +67,7 @@ const router = createHashRouter(
               path: "game",
               element: <TeamSelect />,
               loader: async () => {
-                const db = getGBDatabase();
+                const db = await getGBDatabase();
                 return await db.guilds.find().exec();
               }
             },
@@ -84,7 +82,7 @@ const router = createHashRouter(
               index: true,
               element: <GuildList />,
               loader: async () => {
-                const db = getGBDatabase();
+                const db = await getGBDatabase();
                 return await db.guilds.find().exec();
               }
             },
@@ -94,7 +92,7 @@ const router = createHashRouter(
               path: ":guild",
               element: <Roster />,
               loader: async ({ params }) => {
-                const db = getGBDatabase();
+                const db = await getGBDatabase();
                 const [guild, _roster] = await Promise.all([
                   db.guilds.findOne().where({ name: params.guild }).exec(),
                   db.models.find().or([{ guild1: params.guild }, { guild2: params.guild }]).exec(),
