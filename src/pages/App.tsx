@@ -28,6 +28,8 @@ import { CssBaseline } from "@mui/material";
 import { useSettings } from "../hooks/useSettings";
 import { map } from "rxjs";
 import { AppBarContext } from "../utils/contexts";
+import { SettingsProvider } from "../models/settings";
+import { DataProvider } from "../components/DataContext";
 
 export const AppBarContent = (props: { children?: ReactNode }) => {
   const containerRef = useContext(AppBarContext);
@@ -143,10 +145,14 @@ const App = () => {
           ref={(el: HTMLElement) => setContainer(el)}
           onClick={() => setDrawer(true)}
         />
-        <AppDrawer drawer={drawer} setDrawer={setDrawer} />
-        <AppBarContext.Provider value={appBarContainer}>
-          <Outlet />
-        </AppBarContext.Provider>
+            <AppDrawer drawer={drawer} setDrawer={setDrawer} />
+        <SettingsProvider>
+          <DataProvider>
+            <AppBarContext.Provider value={appBarContainer}>
+              <Outlet />
+            </AppBarContext.Provider>
+          </DataProvider>
+        </SettingsProvider>
       </Box>
     </ThemeProvider>
   );

@@ -20,7 +20,7 @@ import Settings from "./pages/settings";
 
 import { CardPrintScreen } from "./pages/print";
 
-import { SettingsDoc, SettingsProvider } from "./models/settings";
+import { SettingsDoc } from "./models/settings";
 import { defaultSettings } from "./models/defaultSettings";
 
 import { getGBDatabase } from "./models/gbdb";
@@ -29,7 +29,6 @@ import { registerSW } from "virtual:pwa-register";
 registerSW({ immediate: true });
 
 import "./utils/i18next";
-import { DataProvider } from "./components/DataContext";
 import { reSort } from "./utils/reSort";
 
 const router = createHashRouter(
@@ -58,7 +57,7 @@ const router = createHashRouter(
             const target = useLoaderData<string>();
             return <Navigate to={target} replace />
           },
-          hydrateFallbackElement: <div>Loading ...</div>,
+          // hydrateFallbackElement: <div>Loading ...</div>,
         },
         {
           element: <GamePlay />,
@@ -69,7 +68,8 @@ const router = createHashRouter(
               loader: async () => {
                 const db = await getGBDatabase();
                 return await db.guilds.find().exec();
-              }
+              },
+              // hydrateFallbackElement: <div>Loading ...</div>,
             },
             { path: "game/draft", element: <Draft /> },
             { path: "game/draft/play", element: <Game /> },
@@ -84,7 +84,8 @@ const router = createHashRouter(
               loader: async () => {
                 const db = await getGBDatabase();
                 return await db.guilds.find().exec();
-              }
+              },
+              // hydrateFallbackElement: <div>Loading ...</div>,
             },
             { path: "gameplans", element: <GamePlans /> },
             { path: "refcards", element: <RefCards /> },
@@ -100,7 +101,8 @@ const router = createHashRouter(
                 reSort(_roster, "id", guild ? guild.roster : []);
                 const roster = await Promise.all(_roster.map((m) => m.expand()));
                 return { guild, roster };
-              }
+              },
+              // hydrateFallbackElement: <div>Loading ...</div>,
             },
           ]
         },
@@ -116,10 +118,6 @@ const root = createRoot(
 );
 root.render(
   // <React.StrictMode>
-  <SettingsProvider>
-    <DataProvider>
-      <RouterProvider router={router} />
-    </DataProvider>
-  </SettingsProvider>
+  <RouterProvider router={router} />
   // </React.StrictMode >
 );
