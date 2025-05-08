@@ -210,7 +210,7 @@ function AppDrawerContent(props: {
       <List>
         <ListItem>
           <img
-            src={new URL("./assets/img/logo.png", import.meta.url).href}
+            src={new URL("../assets/img/logo.png", import.meta.url).href}
             style={{ borderRadius: 5.4 }}
             alt=""
           />
