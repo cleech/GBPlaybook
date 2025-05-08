@@ -1,7 +1,7 @@
 // import React from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./pages/App";
+import App, { AppContent } from "./pages/App";
 
 import {
   createHashRouter,
@@ -32,9 +32,17 @@ import "./utils/i18next";
 import { reSort } from "./utils/reSort";
 
 const router = createHashRouter(
-  [
-    {
-      element: <App />,
+  [{
+    element: <App />,
+    children: [{
+      element: <AppContent />,
+      loader: async () => {
+        await getGBDatabase();
+        // const delay = new Promise((resolve) => { setTimeout(resolve, 3000); });
+        // await delay;
+        return;
+      },
+      hydrateFallbackElement: <div>Loading ...</div>,
       children: [
         {
           path: "/",
@@ -109,8 +117,8 @@ const router = createHashRouter(
         { path: "print", element: <CardPrintScreen /> },
         { path: "settings", element: <Settings /> },
       ]
-    }
-  ]
+    }]
+  }]
 );
 
 const root = createRoot(

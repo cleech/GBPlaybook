@@ -10,6 +10,8 @@ import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
   NavLink,
+  useOutlet,
+  useOutletContext,
 } from "react-router-dom";
 import Link, { LinkProps } from "@mui/material/Link";
 import AppBar from "@mui/material/AppBar";
@@ -145,18 +147,25 @@ const App = () => {
           ref={(el: HTMLElement) => setContainer(el)}
           onClick={() => setDrawer(true)}
         />
-            <AppDrawer drawer={drawer} setDrawer={setDrawer} />
-        <SettingsProvider>
-          <DataProvider>
-            <AppBarContext.Provider value={appBarContainer}>
-              <Outlet />
-            </AppBarContext.Provider>
-          </DataProvider>
-        </SettingsProvider>
+        <AppBarContext.Provider value={appBarContainer}>
+          <Outlet context={{ drawer, setDrawer }} />
+        </AppBarContext.Provider>
       </Box>
     </ThemeProvider>
   );
 };
+
+export const AppContent = () => {
+  const { drawer, setDrawer } = useOutletContext<{ drawer: boolean; setDrawer: React.Dispatch<React.SetStateAction<boolean>> }>();
+  return (
+    <SettingsProvider>
+      <AppDrawer drawer={drawer} setDrawer={setDrawer} />
+      <DataProvider>
+        <Outlet />
+      </DataProvider>
+    </SettingsProvider>
+  )
+}
 
 export default App;
 
