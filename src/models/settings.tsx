@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useMemo } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { RxLocalDocument } from "rxdb";
 import { GBDatabase, getGBDatabase } from "./gbdb";
 import { Observable } from "rxjs";
@@ -28,13 +28,25 @@ export type SettingsDoc = RxLocalDocument<GBDatabase, Settings>;
 
 export interface SettingsContextData {
   setting$?: Observable<SettingsDoc | null>;
-  // settings: Settings;
-  // settingsDoc?: SettingsDoc;
 }
 
 export const SettingsProvider = (props: PropsWithChildren) => {
-  const gbdb = getGBDatabase();
-  const setting$ = useMemo(() => gbdb.getLocal$<Settings>("settings"), [gbdb]);
+  const [setting$, setSetting$] = useState<Observable<SettingsDoc | null> | undefined>();
+  const [gbdb, setGBDB] = useState<GBDatabase | undefined>();
+
+  useEffect(() => {
+    const getDB = async () => {
+      const db = await getGBDatabase();
+      setGBDB(db);
+      const setting$ = db.getLocal$<Settings>("settings");
+      setSetting$(setting$);
+    };
+    getDB();
+    return () => {
+      setGBDB(undefined);
+      setSetting$(undefined);
+    };
+  }, []);
 
   useEffect(() => {
     if (!setting$) {
