@@ -10,8 +10,8 @@ import {
   Link as RouterLink,
   LinkProps as RouterLinkProps,
   NavLink,
-  useOutlet,
   useOutletContext,
+  useLoaderData,
 } from "react-router-dom";
 import Link, { LinkProps } from "@mui/material/Link";
 import AppBar from "@mui/material/AppBar";
@@ -27,10 +27,9 @@ import Divider from "@mui/material/Divider";
 import { Box, Portal, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import { useSettings } from "../hooks/useSettings";
-import { map } from "rxjs";
+import { map, Observable } from "rxjs";
 import { AppBarContext } from "../utils/contexts";
-import { SettingsProvider } from "../models/settings";
+import { SettingsDoc } from "../models/settings";
 import { DataProvider } from "../components/DataContext";
 
 export const AppBarContent = (props: { children?: ReactNode }) => {
@@ -158,12 +157,12 @@ const App = () => {
 export const AppContent = () => {
   const { drawer, setDrawer } = useOutletContext<{ drawer: boolean; setDrawer: React.Dispatch<React.SetStateAction<boolean>> }>();
   return (
-    <SettingsProvider>
+    <>
       <AppDrawer drawer={drawer} setDrawer={setDrawer} />
       <DataProvider>
         <Outlet />
       </DataProvider>
-    </SettingsProvider>
+    </>
   )
 }
 
@@ -291,10 +290,11 @@ function AppDrawer(props: {
   setDrawer: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const { drawer, setDrawer } = props;
-  const { setting$ } = useSettings();
+  const setting$ = useLoaderData<Observable<SettingsDoc | null>>();
   const [gamePlayRoute, setGamePlayRoute] = useState<string>();
   const [libraryRoute, setLibraryRoute] = useState<string>();
   useEffect(() => {
+    if (!setting$) return;
     const sub1 = setting$
       ?.pipe(map((s) => s?.toJSON().data.gamePlayRoute))
       .subscribe((route) => setGamePlayRoute(route));

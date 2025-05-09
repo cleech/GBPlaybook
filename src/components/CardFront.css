@@ -8,7 +8,6 @@
   image-rendering: crisp-edges;
   /* This makes background images print */
   -webkit-print-color-adjust: exact;
-  color-adjust: exact;
   print-color-adjust: exact;
   /*
   --rainbow: linear-gradient(-90deg,#adfbda 0,#35c3ff 30%,#fda399 50%,#76d880 70%,#ebf38b 90%,#adfbda 100%);
@@ -448,10 +447,6 @@ div.card-front.gbcp.bleed.double {
 .card-front .health-box.damaged {
   color: black;
   background-color: darkred;
-}
-
-.card-front.gbcp .health-box svg {
-  /* FIXME, bigger icons, move sizes JS -> CSS*/
 }
 
 /* quirks, card specific fixes, etc. */

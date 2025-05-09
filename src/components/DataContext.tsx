@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import { useSettings } from "../hooks/useSettings";
-
 import DataFile, { Manifest, Gameplan } from "./DataContext.d";
 
 import { GBDatabase, GBModel, getGBDatabase } from "../models/gbdb";
 import i18n from "../utils/i18next";
 import { DataContext } from "../utils/contexts";
+import { getSettings } from "../models/settings";
+import { Subscription } from "rxjs";
 
 export interface DataContextProps {
   manifest?: Manifest;
@@ -142,33 +142,34 @@ export const DataProvider = ({ children }: DataProviderProps) => {
   const [version, setVersion] = useState(0);
   const [db, setDB] = useState<GBDatabase>();
 
-  const { setting$ } = useSettings();
   const [dataSet, setDataSet] = useState<string | null>();
   const [lastSeenErrata, setMostRecent] = useState<string | null>();
   const [loadFile, setLoadFile] = useState<string | null>();
   const [language, setLang] = useState<string | null>();
 
   useEffect(() => {
-    const sub = setting$?.subscribe((s) => {
-      const { dataSet, language, mostRecentErrata } = s?.toJSON().data ?? {};
-      setDataSet(dataSet ?? null);
-      if (language == "auto") {
-        setLang(i18n.resolvedLanguage ?? null);
-      } else {
-        setLang(language ?? null);
-      }
-      setMostRecent(mostRecentErrata ?? null);
-    });
-    return () => {
-      sub?.unsubscribe();
-    };
-  }, [setting$]);
+    let sub: Subscription | undefined;
+    (async () => {
+      const setting$ = await getSettings();
+      sub = setting$?.subscribe((s) => {
+        const { dataSet, language, mostRecentErrata } = s?.toJSON().data ?? {};
+        setDataSet(dataSet ?? null);
+        if (language == "auto") {
+          setLang(i18n.resolvedLanguage ?? null);
+        } else {
+          setLang(language ?? null);
+        }
+        setMostRecent(mostRecentErrata ?? null);
+      });
+    })();
+    return () => sub?.unsubscribe();
+  }, []);
 
   useEffect(() => {
     if (dataSet === undefined || lastSeenErrata === undefined) return;
     let canceled = false;
     const getDataSet = async () => {
-      const manifest = await readManifest();
+      const manifest = await readFile('manifest.json');
       if (canceled) return;
       setManifest(manifest);
 
@@ -230,26 +231,17 @@ export const DataProvider = ({ children }: DataProviderProps) => {
   );
 };
 
-const readManifest = async () => {
-  const manifest = await fetch("data/manifest.json", {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  }).then(function (response) {
-    return response.json();
-  });
-  return manifest;
-};
-
 const readFile = async (filename: string) => {
   const result = await fetch(`data/${filename}`, {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-  }).then(function (response) {
+  }).then((response) => {
     return response.json();
+  }).catch((err) => {
+    console.error(err);
+    throw new Error(`Unable to fetch ${filename}`);
   });
   return result;
 };

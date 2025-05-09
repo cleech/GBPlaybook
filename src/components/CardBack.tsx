@@ -8,10 +8,10 @@ import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
 import { GBCardCSS } from "./CardFront";
-import { useSettings } from "../hooks/useSettings";
 import { GBModelExpanded } from "../models/gbdb";
 import { useRxData } from "../hooks/useRxQuery";
-import { map } from "rxjs";
+import { Subscription } from "rxjs";
+import { getSettings } from "../models/settings";
 
 interface CardBackProps {
   model: GBModelExpanded;
@@ -24,22 +24,20 @@ const CardBack = (props: CardBackProps) => {
   const model = props.model;
   const key = model.id;
 
-  const { setting$ } = useSettings();
-  const [style, setStyle] = useState<"sfg" | "gbcp">();
+  const [cardStyle, setStyle] = useState<"sfg" | "gbcp">("sfg");
   const [readable, setReadable] = useState<boolean>(false);
 
   useEffect(() => {
-    const sub = setting$
-      ?.pipe(map((s) => s?.toJSON().data))
-      .subscribe((pref) => {
-        if (pref) {
-          setStyle(pref.cardPreferences.preferredStyle);
-          setReadable(pref.cardPreferences.improveReadability);
-        }
+    let sub: Subscription | undefined;
+    (async () => {
+      const setting$ = await getSettings();
+      sub = setting$.subscribe((s) => {
+        setStyle(s?.toJSON().data.cardPreferences.preferredStyle || "sfg");
+        setReadable(s?.toJSON().data.cardPreferences.improveReadability || false);
       });
-
+    })();
     return () => sub?.unsubscribe();
-  });
+  }, []);
 
   const guild = useRxData(
     (db) => db.guilds.findOne().where({ name: model.guild1 }).exec(),
@@ -51,7 +49,7 @@ const CardBack = (props: CardBackProps) => {
   }
 
   const gbcp =
-    style === "gbcp" &&
+    cardStyle === "gbcp" &&
     (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
 
   const image = gbcp

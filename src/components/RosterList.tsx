@@ -20,8 +20,9 @@ import GBIcon from "./GBIcon";
 import { useUpdateAnimation } from "../hooks/useUpdateAnimation";
 import { GBGameStateDoc, GBModelExpanded } from "../models/gbdb";
 import { useEffect, useMemo, useState } from "react";
-import { map } from "rxjs";
-import { useSettings } from "../hooks/useSettings";
+import { map, Observable } from "rxjs";
+import { useLoaderData } from "react-router-dom";
+import { SettingsDoc } from "../models/settings";
 
 interface RosterListProps {
   teams: GBGameStateDoc[];
@@ -123,7 +124,7 @@ const HealthCounterLabel = (props: {
   const ref = useUpdateAnimation<HTMLButtonElement>(disabled, [props.health]);
   return (
     <Button ref={ref} disabled size="small"
-      style={{backgroundColor: "rgba(0, 0, 0, 0.2)"}}
+      style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
     >
       <Typography variant="body2" color="text.primary">
         {`${String(props.health).padStart(2, "0")} / ${String(
@@ -306,8 +307,7 @@ export default function RosterList({
   disabled,
 }: RosterListProps) {
   const theme = useTheme();
-
-  const { setting$ } = useSettings();
+  const setting$ = useLoaderData<Observable<SettingsDoc | null>>();
   const [displayStatLine, setStatLine] = useState<boolean>();
   useEffect(() => {
     const sub = setting$
