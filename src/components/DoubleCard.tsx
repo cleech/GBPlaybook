@@ -10,22 +10,25 @@ import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 import GBImages from "../utils/GBImages";
 import { GBModelExpanded } from "../models/gbdb";
-import { useSettings } from "../hooks/useSettings";
-import { map } from "rxjs";
+import { Subscription } from "rxjs";
+import { getSettings } from "../models/settings";
 
 export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
-  const { setting$ } = useSettings();
   const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1.0);
 
-  const [style, setStyle] = useState<"sfg" | "gbcp">();
-  useEffect(() => {
-    const sub = setting$
-      ?.pipe(map((s) => s?.toJSON().data.cardPreferences.preferredStyle))
-      .subscribe((style) => setStyle(style));
+  const [cardStyle, setStyle] = useState<"sfg" | "gbcp">("sfg");
 
+  useEffect(() => {
+    let sub: Subscription | undefined;
+    (async () => {
+      const setting$ = await getSettings();
+      sub = setting$.subscribe((s) => {
+        setStyle(s?.toJSON().data.cardPreferences.preferredStyle || "sfg");
+      });
+    })();
     return () => sub?.unsubscribe();
-  }, [setting$]);
+  }, []);
 
   useLayoutEffect(() => {
     updateSize();
@@ -45,7 +48,7 @@ export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
 
   const key = model.id;
   const gbcp =
-    style === "gbcp" &&
+    cardStyle === "gbcp" &&
     (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
   const image = gbcp ? GBImages.get(`${key}_full`) ?? undefined : undefined;
 
@@ -71,12 +74,12 @@ export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
           flexDirection: "row",
           ...(image
             ? {
-                backgroundImage: `url(${image})`,
-                backgroundSize: "100%",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center center",
-                borderRadius: `${25 * scale}px`,
-              }
+              backgroundImage: `url(${image})`,
+              backgroundSize: "100%",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center center",
+              borderRadius: `${25 * scale}px`,
+            }
             : {}),
         }}
       >

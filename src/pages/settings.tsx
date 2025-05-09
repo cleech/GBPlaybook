@@ -15,10 +15,10 @@ import {
 
 import { AppBarContent } from "./App";
 import { SettingsDoc } from "../models/settings";
-import { useSettings } from "../hooks/useSettings";
 import { useTranslation } from "react-i18next";
 import { Observable } from "rxjs";
 import ISO6391 from "iso-639-1";
+import { useRouteLoaderData } from "react-router-dom";
 
 const SettingsSwitch = ({ value$, onChange, label }:
   {
@@ -53,7 +53,7 @@ const SettingsSwitch = ({ value$, onChange, label }:
 
 const Settings = () => {
   const { manifest } = useData();
-  const { setting$ } = useSettings();
+  const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
   const { i18n } = useTranslation();
   const lng = i18n.resolvedLanguage;
 

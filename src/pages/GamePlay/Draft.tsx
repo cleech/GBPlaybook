@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect, MouseEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import {
   Typography,
   Breadcrumbs,
@@ -21,9 +21,8 @@ import VersionTag from "../../components/VersionTag";
 import { GBGameStateDoc, GBModel } from "../../models/gbdb";
 // import ResumeSnackBar from "./ResumeSnackBar";
 import { SettingsDoc } from "../../models/settings";
-import { useSettings } from "../../hooks/useSettings";
 import { useRxData } from "../../hooks/useRxQuery";
-import { firstValueFrom, map } from "rxjs";
+import { firstValueFrom, map, Observable } from "rxjs";
 import { NetworkGame } from "../../components/NetworkGame";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
@@ -66,7 +65,7 @@ export default function Draft() {
 }
 
 function DraftInner() {
-  const { setting$ } = useSettings();
+  const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
   const navigate = useNavigate();
   // const [waiting, setWaiting] = useState(false);
   // const [locked, setLocked] = useState(false);
@@ -223,7 +222,7 @@ function GameSizeMenu() {
   const settingsClose = () => {
     setMenuAnchor(null);
   };
-  const { setting$ } = useSettings();
+  const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
   const [settings, setSettings] = useState<SettingsDoc | null>();
   useEffect(() => {
     const sub = setting$?.subscribe((s) => setSettings(s));

@@ -14,9 +14,10 @@ import { styled } from "@mui/material/styles";
 import { useUpdateAnimation } from "../hooks/useUpdateAnimation";
 import { GBGameStateDoc, GBGuild, GBModel } from "../models/gbdb";
 import { reSort } from "../utils/reSort";
-import { useSettings } from "../hooks/useSettings";
 import { useRxData } from "../hooks/useRxQuery";
-import { map } from "rxjs";
+import { map, Observable } from "rxjs";
+import { useLoaderData } from "react-router-dom";
+import { SettingsDoc } from "../models/settings";
 
 export interface DraftModel extends GBModel {
   selected: boolean;
@@ -182,7 +183,7 @@ const DraftLimits = {
 export const DraftList = (props: DraftListProps) => {
   const { guild, ready: listReady, unready, disabled = false, style } = props;
 
-  const { setting$ } = useSettings();
+  const setting$ = useLoaderData<Observable<SettingsDoc | null>>();
   const [gameSize, setGameSize] = useState<3 | 4 | 6>(6);
   useEffect(() => {
     const sub = setting$
@@ -461,7 +462,7 @@ const BSDraftLimits = {
 export const BSDraftList = (props: DraftListProps) => {
   const { guild, ready: listReady, unready, disabled = false, style } = props;
 
-  const { setting$ } = useSettings();
+  const setting$ = useLoaderData<Observable<SettingsDoc | null>>();
   const [gameSize, setGameSize] = useState<3 | 4 | 6>(6);
   useEffect(() => {
     const sub = setting$

@@ -20,7 +20,7 @@ import Settings from "./pages/settings";
 
 import { CardPrintScreen } from "./pages/print";
 
-import { SettingsDoc } from "./models/settings";
+import { getSettings, SettingsDoc } from "./models/settings";
 import { defaultSettings } from "./models/defaultSettings";
 
 import { getGBDatabase } from "./models/gbdb";
@@ -36,11 +36,9 @@ const router = createHashRouter(
     element: <App />,
     children: [{
       element: <AppContent />,
+      id: "settings",
       loader: async () => {
-        await getGBDatabase();
-        // const delay = new Promise((resolve) => { setTimeout(resolve, 3000); });
-        // await delay;
-        return;
+        return await getSettings();
       },
       hydrateFallbackElement: <div>Loading ...</div>,
       children: [
@@ -65,7 +63,6 @@ const router = createHashRouter(
             const target = useLoaderData<string>();
             return <Navigate to={target} replace />
           },
-          // hydrateFallbackElement: <div>Loading ...</div>,
         },
         {
           element: <GamePlay />,
@@ -77,14 +74,14 @@ const router = createHashRouter(
                 const db = await getGBDatabase();
                 return await db.guilds.find().exec();
               },
-              // hydrateFallbackElement: <div>Loading ...</div>,
             },
-            { path: "game/draft", element: <Draft /> },
-            { path: "game/draft/play", element: <Game /> },
+            { path: "game/draft", element: <Draft />, },
+            { path: "game/draft/play", element: <Game />, },
           ]
         },
         {
-          path: "library", element: <Library />,
+          path: "library",
+          element: <Library />,
           children: [
             {
               index: true,
@@ -93,7 +90,6 @@ const router = createHashRouter(
                 const db = await getGBDatabase();
                 return await db.guilds.find().exec();
               },
-              // hydrateFallbackElement: <div>Loading ...</div>,
             },
             { path: "gameplans", element: <GamePlans /> },
             { path: "refcards", element: <RefCards /> },
@@ -110,12 +106,11 @@ const router = createHashRouter(
                 const roster = await Promise.all(_roster.map((m) => m.expand()));
                 return { guild, roster };
               },
-              // hydrateFallbackElement: <div>Loading ...</div>,
             },
           ]
         },
         { path: "print", element: <CardPrintScreen /> },
-        { path: "settings", element: <Settings /> },
+        { path: "settings", element: <Settings /> }
       ]
     }]
   }]
