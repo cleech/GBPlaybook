@@ -16,6 +16,7 @@ import {
   useLocation,
   useOutletContext,
   useLoaderData,
+  useRouteLoaderData,
 } from "react-router-dom";
 
 import {
@@ -50,12 +51,12 @@ import type { Gameplan } from "../components/DataContext.d";
 import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";
-import { useSettings } from "../hooks/useSettings";
-import { firstValueFrom } from "rxjs";
+import { firstValueFrom, Observable } from "rxjs";
+import { SettingsDoc } from "../models/settings";
 
 export default function Library() {
   const location = useLocation();
-  const { setting$ } = useSettings();
+  const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
   const [searchParams] = useSearchParams();
   const slideRef = useRef<number>(
     Number.parseInt(searchParams.get("m") ?? "0") || 0
@@ -249,7 +250,7 @@ function SwiperLayout({
 }
 
 export function Roster() {
-  const { guild: g, roster } = useLoaderData() as { guild: GBGuildDoc; roster: GBModelExpanded[] };
+  const { guild: g, roster } = useLoaderData<{ guild: GBGuildDoc; roster: GBModelExpanded[] }>();
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
 

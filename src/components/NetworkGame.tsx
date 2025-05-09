@@ -25,8 +25,7 @@ import {
   HandshakeJoinMessage,
 } from "./netHandshake";
 import { useNetworkState } from "../hooks/useNetworkState";
-import { useNavigate } from "react-router-dom";
-import { useSettings } from "../hooks/useSettings";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { firstValueFrom } from "rxjs";
 
 const signalingServerUrl =
@@ -300,7 +299,7 @@ const StepReady = (props: StepperProps) => {
   const { setActiveStep } = props;
   const { gbdb: db } = useData();
   const navigate = useNavigate();
-  const { setting$ } = useSettings();
+  const setting$ = useLoaderData();
 
   const [peerConnected, setPeerConnected] = useState(false);
   useEffect(() => {

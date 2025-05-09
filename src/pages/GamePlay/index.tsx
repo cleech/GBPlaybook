@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useRouteLoaderData } from "react-router-dom";
 import { Box } from "@mui/material";
 
 import { AppBarContent } from "../App";
@@ -10,11 +10,11 @@ import { useData } from "../../hooks/useData";
 import { GBGameStateDoc } from "../../models/gbdb";
 import { Observable, firstValueFrom } from "rxjs";
 import { GameContextType } from "../../hooks/useGameState";
-import { useSettings } from "../../hooks/useSettings";
+import { SettingsDoc } from "../../models/settings";
 
 export default function GamePlay() {
   const location = useLocation();
-  const { setting$ } = useSettings();
+  const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
   const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {

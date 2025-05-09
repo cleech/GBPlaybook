@@ -1,8 +1,6 @@
-import { PropsWithChildren, useEffect, useState } from "react";
 import { RxLocalDocument } from "rxdb";
 import { GBDatabase, getGBDatabase } from "./gbdb";
 import { Observable } from "rxjs";
-import { SettingsContext } from "../utils/contexts";
 import { defaultSettings } from "./defaultSettings";
 
 export interface Settings {
@@ -26,46 +24,14 @@ export interface Settings {
 
 export type SettingsDoc = RxLocalDocument<GBDatabase, Settings>;
 
-export interface SettingsContextData {
-  setting$?: Observable<SettingsDoc | null>;
+let settingsInitPromise: Promise<Observable<SettingsDoc | null>> | undefined = undefined;
+
+export async function getSettings(): Promise<Observable<SettingsDoc | null>> {
+  if (settingsInitPromise) return settingsInitPromise;
+  settingsInitPromise = (async () => {
+    const db = await getGBDatabase();
+    db.insertLocal("settings", defaultSettings).catch(() => { });
+    return db.getLocal$<Settings>("settings");
+  })();
+  return settingsInitPromise;
 }
-
-export const SettingsProvider = (props: PropsWithChildren) => {
-  const [setting$, setSetting$] = useState<Observable<SettingsDoc | null> | undefined>();
-  const [gbdb, setGBDB] = useState<GBDatabase | undefined>();
-
-  useEffect(() => {
-    const getDB = async () => {
-      const db = await getGBDatabase();
-      setGBDB(db);
-      const setting$ = db.getLocal$<Settings>("settings");
-      setSetting$(setting$);
-    };
-    getDB();
-    return () => {
-      setGBDB(undefined);
-      setSetting$(undefined);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!setting$) {
-      return;
-    }
-    const sub = setting$.subscribe((s) => {
-      if (!s) {
-        gbdb
-          ?.upsertLocal<Settings>("settings", defaultSettings)
-          .catch(console.error);
-        return;
-      }
-    });
-    return () => sub.unsubscribe();
-  }, [gbdb, setting$]);
-
-  return (
-    <SettingsContext.Provider value={{ setting$ }}>
-      {props.children}
-    </SettingsContext.Provider>
-  );
-};

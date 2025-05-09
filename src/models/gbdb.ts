@@ -98,8 +98,8 @@ type GBModelMethods = {
 async function populate_character_traits(doc: GBModelDoc) {
   const db = await getGBDatabase();
   return Promise.all(
-    (doc.character_traits || []) // Add safety check for potentially undefined traits
-      .map((s) => s.split(/[[\]]/))
+    (doc.character_traits ?? [])
+      .map((s) => s.split(/\[|\]/).filter(Boolean))
       .map(async ([name, param]) => {
         const ct = await db.character_traits.findOne(name.trim()).exec();
         return Object.assign({}, ct?.toMutableJSON(), {
@@ -110,7 +110,7 @@ async function populate_character_traits(doc: GBModelDoc) {
 }
 
 const gbModelDocMethods: GBModelMethods = {
-  expand: async function (this: GBModelDoc): Promise<GBModelExpanded> {
+  expand: async function(this: GBModelDoc): Promise<GBModelExpanded> {
     const db = await getGBDatabase();
     const dbSettings = await db.getLocal<GBDataMeta>("gbdata_meta");
     const [character_plays, character_traits]: [
@@ -128,11 +128,9 @@ const gbModelDocMethods: GBModelMethods = {
       // dont let Some/Pneuma count twice for the INF pool
       _inf: this.id === "Pneuma" ? 0 : undefined,
       // mini-statline display
-      statLine: `${this.jog}"/${this.sprint}" | ${this.tac} | ${
-        this.kickdice
-      }/${this.kickdist}" | ${this.def}+ | ${this.arm} | ${this.inf}/${
-        this.infmax
-      } | ${this.reach ? 2 : 1}"`,
+      statLine: `${this.jog}"/${this.sprint}" | ${this.tac} | ${this.kickdice
+        }/${this.kickdist}" | ${this.def}+ | ${this.arm} | ${this.inf}/${this.infmax
+        } | ${this.reach ? 2 : 1}"`,
       // get errata level from db metadata
       version: dbSettings?.get("version"),
     });
@@ -357,11 +355,9 @@ interface GBDataCollections {
 
 export type GBDatabase = RxDatabase<GBDataCollections>;
 
-let gbdb: GBDatabase | null = null;
-let gbdbInitPromise: Promise<GBDatabase> | null = null;
+let gbdbInitPromise: Promise<GBDatabase> | undefined = undefined;
 
 export async function getGBDatabase(): Promise<GBDatabase> {
-  if (gbdb) return gbdb;
   if (gbdbInitPromise) return gbdbInitPromise;
 
   gbdbInitPromise = (async () => {
@@ -370,17 +366,17 @@ export async function getGBDatabase(): Promise<GBDatabase> {
     const db = await createRxDatabase<GBDataCollections>(
       import.meta.env.MODE === "development"
         ? {
-            name: "gb_playbook",
-            localDocuments: true,
-            storage: wrappedValidateAjvStorage({
-              storage: getRxStorageDexie(),
-            }),
-          }
-        : {
-            name: "gb_playbook",
-            localDocuments: true,
+          name: "gb_playbook",
+          localDocuments: true,
+          storage: wrappedValidateAjvStorage({
             storage: getRxStorageDexie(),
-          }
+          }),
+        }
+        : {
+          name: "gb_playbook",
+          localDocuments: true,
+          storage: getRxStorageDexie(),
+        }
     );
 
     await db.addCollections({
@@ -398,9 +394,11 @@ export async function getGBDatabase(): Promise<GBDatabase> {
       game_state: { schema: gbGameStateSchema, localDocuments: true },
     });
 
-    gbdb = db;
-    return gbdb;
-  })();
+    return db;
+  })().catch((err) => {
+    gbdbInitPromise = undefined;
+    throw err;
+  });
 
   return gbdbInitPromise;
 }

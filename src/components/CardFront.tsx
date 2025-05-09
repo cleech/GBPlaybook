@@ -9,9 +9,9 @@ import Color from "color";
 
 import { Guild } from "./DataContext.d";
 import { GBModelExpanded } from "../models/gbdb";
-import { Observable } from "rxjs";
-import { useSettings } from "../hooks/useSettings";
+import { Observable, Subscription } from "rxjs";
 import { useRxData } from "../hooks/useRxQuery";
+import { getSettings } from "../models/settings";
 
 interface CardFrontProps {
   model: GBModelExpanded;
@@ -35,21 +35,20 @@ const CardFront = (props: CardFrontProps) => {
   const model = props.model;
   const key = model.id;
 
-  const { setting$ } = useSettings();
-  const [style, setStyle] = useState<"sfg" | "gbcp">();
-  const [lang, setLang] = useState<string | null>();
+  const [cardStyle, setStyle] = useState<"sfg" | "gbcp">("sfg");
+  const [lang, setLang] = useState<string>("auto");
 
   useEffect(() => {
-    const sub = setting$
-      // ?.pipe(map((s) => s?.toJSON().data.cardPreferences.preferredStyle))
-      // .subscribe((style) => setStyle(style));
-      ?.subscribe((s) => {
-        setStyle(s?.toJSON().data.cardPreferences.preferredStyle);
-        setLang(s?.toJSON().data.language);
+    let sub: Subscription | undefined;
+    (async () => {
+      const setting$ = await getSettings();
+      sub = setting$.subscribe((s) => {
+        setStyle(s?.toJSON().data.cardPreferences.preferredStyle || "sfg");
+        setLang(s?.toJSON().data.language || "auto");
       });
-
+    })();
     return () => sub?.unsubscribe();
-  });
+  }, []);
 
   const [guild1, guild2] =
     useRxData(
@@ -66,16 +65,16 @@ const CardFront = (props: CardFrontProps) => {
   }
 
   const gbcp =
-    style === "gbcp" &&
+    cardStyle === "gbcp" &&
     (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
 
   const image = gbcp
     ? GBImages.get(`${key}_full`) ??
-      GBImages.get(`${key}_gbcp_front`) ??
-      GBImages.get(`${key}_front`)
+    GBImages.get(`${key}_gbcp_front`) ??
+    GBImages.get(`${key}_front`)
     : GBImages.get(`${key}_front`) ??
-      GBImages.get(`${key}_full`) ??
-      GBImages.get(`${key}_gbcp_front`);
+    GBImages.get(`${key}_full`) ??
+    GBImages.get(`${key}_gbcp_front`);
 
   return (
     <div
@@ -182,9 +181,8 @@ const Playbook = ({
         const [pb, mom] = pbm ? pbm.split(";") : [null, null];
         return (
           <div
-            className={`playbook-result ${!pb ? "spacer" : ""} ${
-              mom ? "momentus" : ""
-            }`}
+            className={`playbook-result ${!pb ? "spacer" : ""} ${mom ? "momentus" : ""
+              }`}
             key={index * 7 + col}
             style={
               {
@@ -200,11 +198,11 @@ const Playbook = ({
           >
             {pb
               ? pb.split(",").map((p, index) => {
-                  p = gbcp
-                    ? p.replace(/^CP$/, "CP-gbcp").replace(/^CP2$/, "CP2-gbcp")
-                    : p;
-                  return <PB icon={p} key={index} />;
-                })
+                p = gbcp
+                  ? p.replace(/^CP$/, "CP-gbcp").replace(/^CP2$/, "CP2-gbcp")
+                  : p;
+                return <PB icon={p} key={index} />;
+              })
               : null}
           </div>
         );
