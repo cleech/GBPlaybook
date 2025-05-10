@@ -26,21 +26,22 @@ export interface GBDataMeta {
   sha256: string;
 }
 
-let reloadInProgress = false;
+let currentBulkLoadDBPromise: Promise<void> | null = null;
 
 async function bulkLoadDB(
   filename: string,
   manifest: Manifest,
   data: DataFile
-) {
-  if (reloadInProgress) {
-    console.error("concurent reloads");
-    return;
+): Promise<void> {
+  if (currentBulkLoadDBPromise) {
+    console.log(`bulkLoadDB already in progress for ${filename}, returning existing promise.`);
+    return currentBulkLoadDBPromise;
   }
-  const gbdb = await getGBDatabase();
-  console.log(`loading ${filename}`);
-  reloadInProgress = true;
-  try {
+
+  console.log(`Starting new bulkLoadDB operation for ${filename}`);
+  const operationPromise = (async () => {
+    const gbdb = await getGBDatabase();
+    console.log(`loading ${filename}`);
     let _sha256 = undefined;
     let _version = undefined;
     const me = manifest.datafiles.find((df) => df.filename === filename);
@@ -50,7 +51,7 @@ async function bulkLoadDB(
     } else {
       console.log("looking for translation entry");
       for (const rev of manifest.datafiles) {
-        const tr = Object.values(rev.translations).find(
+        const tr = rev.translations && Object.values(rev.translations).find(
           (df) => df.filename === filename
         );
         if (tr) {
@@ -80,10 +81,12 @@ async function bulkLoadDB(
         .then(() => gbdb.guilds.bulkInsert(data.Guilds))
         .then((results) => {
           if (results.error.length !== 0) {
-            throw "error loading Guilds";
+            const error = new Error("Error loading Guilds: " + JSON.stringify(results.error));
+            console.error(error);
+            throw error;
           }
         })
-        .catch(console.error),
+        .catch(err => { console.error("Guilds loading failed:", err); throw err; }),
       gbdb.models
         .find()
         .exec()
@@ -91,10 +94,12 @@ async function bulkLoadDB(
         .then(() => gbdb.models.bulkInsert(data.Models as GBModel[]))
         .then((results) => {
           if (results.error.length !== 0) {
-            throw "error loading Models";
+            const error = new Error("Error loading Models: " + JSON.stringify(results.error));
+            console.error(error);
+            throw error;
           }
         })
-        .catch(console.error),
+        .catch(err => { console.error("Models loading failed:", err); throw err; }),
       gbdb.character_plays
         .find()
         .exec()
@@ -104,10 +109,12 @@ async function bulkLoadDB(
         .then(() => gbdb.character_plays.bulkInsert(data["Character Plays"]))
         .then((results) => {
           if (results.error.length !== 0) {
-            throw "error loading Character Plays";
+            const error = new Error("Error loading Character Plays: " + JSON.stringify(results.error));
+            console.error(error);
+            throw error;
           }
         })
-        .catch(console.error),
+        .catch(err => { console.error("Character Plays loading failed:", err); throw err; }),
       gbdb.character_traits
         .find()
         .exec()
@@ -117,10 +124,12 @@ async function bulkLoadDB(
         .then(() => gbdb.character_traits.bulkInsert(data["Character Traits"]))
         .then((results) => {
           if (results.error.length !== 0) {
-            throw "error loading Character Traits";
+            const error = new Error("Error loading Character Traits: " + JSON.stringify(results.error));
+            console.error(error);
+            throw error;
           }
         })
-        .catch(console.error),
+        .catch(err => { console.error("Character Traits loading failed:", err); throw err; }),
     ])
       .then(() =>
         gbdb.upsertLocal(gb_meta_local, {
@@ -129,11 +138,17 @@ async function bulkLoadDB(
           sha256: _sha256,
         })
       )
-      .then(() => console.log("database re-load complete :|"))
-      .catch(console.error);
-  } finally {
-    reloadInProgress = false;
-  }
+      .then(() => console.log("database re-load complete :|"));
+  })();
+
+  currentBulkLoadDBPromise = operationPromise;
+
+  return currentBulkLoadDBPromise.finally(() => {
+    if (currentBulkLoadDBPromise === operationPromise) {
+      console.log(`bulkLoadDB operation for ${filename} finished. Clearing promise.`);
+      currentBulkLoadDBPromise = null;
+    }
+  });
 }
 
 export const DataProvider = ({ children }: DataProviderProps) => {
