@@ -30,6 +30,7 @@ registerSW({ immediate: true });
 
 import "./utils/i18next";
 import { reSort } from "./utils/reSort";
+import { initializeAppData } from "./components/DataContext";
 
 const router = createHashRouter(
   [{
@@ -71,7 +72,7 @@ const router = createHashRouter(
               path: "game",
               element: <TeamSelect />,
               loader: async () => {
-                const db = await getGBDatabase();
+                const { gbdb: db } = await initializeAppData();
                 return await db.guilds.find().exec();
               },
             },
@@ -87,7 +88,7 @@ const router = createHashRouter(
               index: true,
               element: <GuildList />,
               loader: async () => {
-                const db = await getGBDatabase();
+                const { gbdb: db } = await initializeAppData();
                 return await db.guilds.find().exec();
               },
             },
@@ -97,7 +98,7 @@ const router = createHashRouter(
               path: ":guild",
               element: <Roster />,
               loader: async ({ params }) => {
-                const db = await getGBDatabase();
+                const { gbdb: db } = await initializeAppData();
                 const [guild, _roster] = await Promise.all([
                   db.guilds.findOne().where({ name: params.guild }).exec(),
                   db.models.find().or([{ guild1: params.guild }, { guild2: params.guild }]).exec(),
