@@ -5,8 +5,8 @@ import DataFile, { Manifest, Gameplan } from "./DataContext.d";
 import { GBDatabase, GBModel, getGBDatabase } from "../models/gbdb";
 import i18n from "../utils/i18next";
 import { DataContext } from "../utils/contexts";
-import { getSettings } from "../models/settings";
-import { Subscription } from "rxjs";
+import { SettingsDoc, getSettings } from "../models/settings";
+import { Observable, firstValueFrom } from "rxjs";
 
 export interface DataContextProps {
   manifest?: Manifest;
@@ -151,96 +151,131 @@ async function bulkLoadDB(
   });
 }
 
-export const DataProvider = ({ children }: DataProviderProps) => {
-  const [manifest, setManifest] = useState(undefined);
-  const [gameplans, setGameplans] = useState(undefined);
-  const [version, setVersion] = useState(0);
-  const [db, setDB] = useState<GBDatabase>();
+let currentInitializationPromise: Promise<DataContextProps & { gbdb: GBDatabase }> | null = null;
 
-  const [dataSet, setDataSet] = useState<string | null>();
-  const [lastSeenErrata, setMostRecent] = useState<string | null>();
-  const [loadFile, setLoadFile] = useState<string | null>();
-  const [language, setLang] = useState<string | null>();
+export async function initializeAppData(): Promise<DataContextProps & { gbdb: GBDatabase }> {
+  if (currentInitializationPromise) {
+    console.log("Application data initialization already in progress, returning existing promise.");
+    return currentInitializationPromise;
+  }
 
-  useEffect(() => {
-    let sub: Subscription | undefined;
-    (async () => {
-      const setting$ = await getSettings();
-      sub = setting$?.subscribe((s) => {
-        const { dataSet, language, mostRecentErrata } = s?.toJSON().data ?? {};
-        setDataSet(dataSet ?? null);
-        if (language == "auto") {
-          setLang(i18n.resolvedLanguage ?? null);
-        } else {
-          setLang(language ?? null);
-        }
-        setMostRecent(mostRecentErrata ?? null);
-      });
-    })();
-    return () => sub?.unsubscribe();
-  }, []);
+  const initializationWork = async (): Promise<DataContextProps & { gbdb: GBDatabase }> => {
+    console.log("Starting application data initialization.");
 
-  useEffect(() => {
-    if (dataSet === undefined || lastSeenErrata === undefined) return;
-    let canceled = false;
-    const getDataSet = async () => {
-      const manifest = await readFile('manifest.json');
-      if (canceled) return;
-      setManifest(manifest);
+    const settingsObservable: Observable<SettingsDoc | null> | undefined = await getSettings();
+    const settingsDoc = settingsObservable ? await firstValueFrom(settingsObservable) : null;
+    const currentSettings = settingsDoc?.toJSON().data;
 
-      const manifestZero = manifest.datafiles[0].filename;
-      let filename: string;
-      if (dataSet && lastSeenErrata === manifestZero) {
-        filename = dataSet;
-      } else {
-        filename = manifestZero;
-        const gbdb = await getGBDatabase();
-        const settingsDoc = await gbdb.getLocal("settings");
-        if (canceled) return;
-        settingsDoc?.incrementalPatch({
-          dataSet: filename,
-          mostRecentErrata: manifestZero,
+    const { dataSet, language: settingLanguage, mostRecentErrata } = currentSettings ?? {};
+
+    const resolvedLang = i18n.resolvedLanguage;
+    const effectiveLanguage = settingLanguage === "auto" || !settingLanguage ? resolvedLang : settingLanguage;
+
+    const manifest: Manifest = await readFile('manifest.json');
+
+    const manifestZeroFilename = manifest.datafiles[0].filename;
+    let filenameToLoad: string;
+
+    if (dataSet && mostRecentErrata === manifestZeroFilename) {
+      filenameToLoad = dataSet;
+    } else {
+      filenameToLoad = manifestZeroFilename;
+      const gbdbInstanceForSettings = await getGBDatabase();
+      const localSettingsDoc = await gbdbInstanceForSettings.getLocal("settings");
+      if (localSettingsDoc) {
+        await localSettingsDoc.incrementalPatch({
+          dataSet: filenameToLoad,
+          mostRecentErrata: manifestZeroFilename,
         });
+        console.log("Settings updated with latest dataSet and mostRecentErrata.");
+      } else {
+        console.warn("Settings document not found locally, cannot update dataSet/mostRecentErrata automatically.");
       }
+    }
 
-      const manifestEntry = manifest.datafiles.find(
-        (d: (typeof manifest.datafiles)[0]) => d.filename === filename
-      );
-      const newVersion = manifestEntry.version;
-      setVersion(newVersion);
+    const manifestEntry = manifest.datafiles.find(
+      (d) => d.filename === filenameToLoad
+    );
 
-      // check for translated data set
-      if (language && manifestEntry.translations?.[language]) {
-        console.log(`using translated data set (${language})`);
-        filename = manifestEntry.translations[language].filename;
-      }
-      setLoadFile(filename);
-    };
-    getDataSet();
-    return () => {
-      canceled = true;
-    };
-  }, [dataSet, language, lastSeenErrata]);
+    if (!manifestEntry) {
+      throw new Error(`Manifest entry not found for filename: ${filenameToLoad}`);
+    }
+    const version = manifestEntry.version;
+
+    let finalFilenameToLoad = filenameToLoad;
+    if (effectiveLanguage && manifestEntry.translations?.[effectiveLanguage]) {
+      console.log(`Using translated data set (${effectiveLanguage})`);
+      finalFilenameToLoad = manifestEntry.translations[effectiveLanguage].filename;
+    }
+
+    const dataFile = await readFile(finalFilenameToLoad);
+    const gbdb = await getGBDatabase();
+    await bulkLoadDB(finalFilenameToLoad, manifest, dataFile);
+
+    const gameplans: Gameplan[] = await readFile("gameplans.json");
+
+    console.log("Application data initialization complete.");
+    return { manifest, version, gameplans, gbdb };
+  };
+
+  currentInitializationPromise = initializationWork();
+  const promiseToReturn = currentInitializationPromise;
+
+  promiseToReturn.finally(() => {
+    if (currentInitializationPromise === promiseToReturn) {
+      currentInitializationPromise = null;
+      console.log("Cleared currentInitializationPromise after initialization.");
+    }
+  }).catch(() => {
+    // Ensure clearance on error too, if not already cleared by finally
+    if (currentInitializationPromise === promiseToReturn) {
+      currentInitializationPromise = null;
+      console.log("Cleared currentInitializationPromise after an error during initialization.");
+    }
+  });
+
+  return promiseToReturn;
+}
+
+export const DataProvider = ({ children }: DataProviderProps) => {
+  const [dataContextValue, setDataContextValue] = useState<DataContextProps>({
+    manifest: undefined,
+    version: 0,
+    gameplans: undefined,
+    gbdb: undefined,
+  });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!loadFile || !manifest) return;
     let canceled = false;
-    const getDataSet = async () => {
-      const dataFile = await readFile(loadFile);
-      if (canceled) return;
-      setDB(undefined);
-      const gbdb = await getGBDatabase();
-      await bulkLoadDB(loadFile, manifest, dataFile).then(() => setDB(gbdb));
-      setGameplans(await readFile("gameplans.json"));
+    const loadAppData = async () => {
+      setIsLoading(true);
+      try {
+        const initializedData = await initializeAppData();
+        if (!canceled) {
+          setDataContextValue(initializedData);
+        }
+      } catch (error) {
+        console.error("Failed to initialize application data in DataProvider:", error);
+      } finally {
+        if (!canceled) {
+          setIsLoading(false);
+        }
+      }
     };
-    getDataSet();
+    loadAppData();
     return () => {
       canceled = true;
     };
-  }, [version, loadFile, manifest]);
+  }, []); // Run once on mount
+
+  if (isLoading) {
+    // You might want to render a loading spinner or null here
+    return <div>Loading application data...</div>;
+  }
 
   return (
-    <DataContext.Provider value={{ version, manifest, gameplans, gbdb: db }}>
+    <DataContext.Provider value={dataContextValue}>
       {children}
     </DataContext.Provider>
   );
