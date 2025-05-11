@@ -250,16 +250,16 @@ function AppDrawerContent(props: {
           }
           if (item.type === "about") {
             return (
-              <ListItem key={index} disablePadding sx={{ ml: "1em" }}>
+              <ListItem key={index} disablePadding>
                 {/* Using ListItemButton for consistent hover/focus styles */}
                 <ListItemButton
                   component="a"
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  sx={{ py: 0.5 }} // Adjust padding as needed
+                  // sx={{ py: 0.5 }} // Adjust padding as needed
                 >
-                  <ListItemText primary={item.text} sx={{ m: 0 }} />
+                  <ListItemText primary={item.text} />
                 </ListItemButton>
               </ListItem>
             );
