@@ -14085,11 +14085,6 @@
       "text": "Au début de l'activation de ce modèle, retirez toutes les conditions dont il souffre. Ce modèle récupère 2 HP."
     },
     {
-      "name": "Raise the Stakes",
-      "active": true,
-      "text": "Une fois par tour, durant l'activation de ce modèle, il peut faire un dode de 4\". Une fois que ce dodge est résolu, le joueur adverse peut choisir un de ces modèles pour faire un dodge de 4\"."
-    },
-    {
       "name": "Stack the Deck",
       "active": false,
       "text": "Une fois par tour, au début de l'activation de ce modèle, si l'équipe adverse a l'initiative, ce modèle gagne 1 influence."
@@ -14333,11 +14328,6 @@
       "name": "Feathered Friends",
       "active": false,
       "text": "Tant qu'il se trouve dans une AOE Harrier alliée, ce modèle gagne +1 TAC et cover."
-    },
-    {
-      "name": "Updraft",
-      "active": false,
-      "text": "Une fois par tour, lorsqu'il advance  à travers une AOE Harrier, ce modèle peut gagner +2\"/+2\" de MOV pour la durée de l'avance."
     },
     {
       "name": "Hawk Eye",
@@ -15110,24 +15100,9 @@
       "text": "Retirer la condition Burning de ce modèle. Si vous le faites, les modèles ennemis dans ce pulse subissent -1\"/-1\" MOV."
     },
     {
-      "name": "Natural Baller",
-      "active": true,
-      "text": "Une fois par tour, lorsque ce modèle gagne la possession d'un ballon, il peut immédiatement recevoir 1 influence."
-    },
-    {
-      "name": "Dread Captain",
-      "active": true,
-      "text": "Une fois par tour, lorsque ce modèle effectue une attaque vous pouvez relancer jusqu'à 2 dés."
-    },
-    {
       "name": "Who's a Good Boy",
       "active": true,
       "text": "Une fois par tour, lorsqu'un modèle allié nommé est ciblé avec un character play, ce modèle peut utiliser le character play sans dépenser d'influence."
-    },
-    {
-      "name": "Bait And Switch",
-      "active": true,
-      "text": "Lorsque ce modèle marque un but, s'il n'utilise pas Run the Length, les modèles ennemis situés dans ce pulse souffrent soit de la condition snared, soit de la condition Bleed."
     },
     {
       "name": "Prodigy",
