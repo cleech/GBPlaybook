@@ -76,7 +76,7 @@ export interface GBModel {
   gbcp?: boolean;
 }
 
-interface ParameterizedTrait extends GBCharacterTrait {
+export interface ParameterizedTrait extends GBCharacterTrait {
   parameter?: string;
 }
 
@@ -143,7 +143,7 @@ const gbModelDocMethods: GBModelMethods = {
 export type GBModelDoc = RxDocument<GBModel, GBModelMethods>;
 type GBModelCollection = RxCollection<GBModel, GBModelMethods>;
 
-const gbModelSchema: RxJsonSchema<GBModel> = {
+export const gbModelSchema: RxJsonSchema<GBModel> = {
   title: "Guild Ball model",
   version: 1,
   primaryKey: "id",
@@ -239,7 +239,7 @@ export interface GBGuild {
 export type GBGuildDoc = RxDocument<GBGuild>;
 type GBGuildCollection = RxCollection<GBGuild>;
 
-const gbGuildSchema: RxJsonSchema<GBGuild> = {
+export const gbGuildSchema: RxJsonSchema<GBGuild> = {
   title: "Guild Ball guild",
   version: 0,
   primaryKey: "name",
@@ -255,7 +255,7 @@ const gbGuildSchema: RxJsonSchema<GBGuild> = {
   required: ["color", "roster"],
 };
 
-interface GBCharacterPlay {
+export interface GBCharacterPlay {
   name: string;
   text: string;
   CST: string;
@@ -264,10 +264,10 @@ interface GBCharacterPlay {
   OPT: boolean;
 }
 
-type GBCharacterPlayDoc = RxDocument<GBCharacterPlay>;
+export type GBCharacterPlayDoc = RxDocument<GBCharacterPlay>;
 type GBCharacterPlayCollection = RxCollection<GBCharacterPlay>;
 
-const gbCharacterPlaySchema: RxJsonSchema<GBCharacterPlay> = {
+export const gbCharacterPlaySchema: RxJsonSchema<GBCharacterPlay> = {
   title: "Guild Ball character play",
   version: 1,
   primaryKey: "name",
@@ -292,7 +292,7 @@ interface GBCharacterTrait {
 // type GBCharacterTraitDoc = RxDocument<GBCharacterTrait>;
 type GBCharacterTraitCollection = RxCollection<GBCharacterTrait>;
 
-const gbCharacterTraitSchema: RxJsonSchema<GBCharacterTrait> = {
+export const gbCharacterTraitSchema: RxJsonSchema<GBCharacterTrait> = {
   title: "Guild Ball character trait",
   version: 0,
   primaryKey: "name",
@@ -347,7 +347,7 @@ const gbGameStateSchema: RxJsonSchema<GBGameState> = {
   // required: ["guild", "roster"],
 };
 
-interface GBDataCollections {
+export interface GBDataCollections {
   guilds: GBGuildCollection;
   models: GBModelCollection;
   character_plays: GBCharacterPlayCollection;
