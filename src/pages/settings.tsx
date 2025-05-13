@@ -19,6 +19,8 @@ import { useTranslation } from "react-i18next";
 import { Observable } from "rxjs";
 import ISO6391 from "iso-639-1";
 import { useRouteLoaderData } from "react-router-dom";
+import { initializeAppData } from "../components/DataContext";
+import { defaultSettings } from "../models/defaultSettings";
 
 const SettingsSwitch = ({ value$, onChange, label }:
   {
@@ -86,8 +88,17 @@ const Settings = () => {
       <FormControl>
         <Select
           value={settingsDoc.toJSON().data.dataSet}
-          onChange={(event: SelectChangeEvent) => {
-            settingsDoc?.incrementalPatch({ dataSet: event.target.value });
+          onChange={async (event: SelectChangeEvent) => {
+            const newDataSet = event.target.value;
+            if (settingsDoc) {
+              await settingsDoc.incrementalModify((doc) => {
+                doc.dataSet = newDataSet;
+                doc.gamePlayRoute = defaultSettings.gamePlayRoute;
+                doc.libraryRoute = defaultSettings.libraryRoute;
+                return doc;
+              });
+              await initializeAppData();
+            }
           }}
         >
           {manifest?.datafiles.map((dataSet, index: number) => (
@@ -107,8 +118,17 @@ const Settings = () => {
       <FormControl>
         <Select
           value={settingsDoc.toJSON().data.language ?? "auto"}
-          onChange={(event: SelectChangeEvent) => {
-            settingsDoc?.incrementalPatch({ language: event.target.value });
+          onChange={async (event: SelectChangeEvent) => {
+            const newLanguage = event.target.value;
+            if (settingsDoc) {
+              await settingsDoc.incrementalModify((doc) => {
+                doc.language = newLanguage;
+                doc.gamePlayRoute = defaultSettings.gamePlayRoute;
+                doc.libraryRoute = defaultSettings.libraryRoute;
+                return doc;
+              });
+              await initializeAppData();
+            }
           }}
         >
           <MenuItem value="auto" key="auto">
