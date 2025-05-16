@@ -1,12 +1,9 @@
 #!/usr/bin/env bun
 
-import { DataFile } from "../src/components/DataTypes";
 import fs from "node:fs";
 import crypto from "node:crypto";
 
-import { GBModel } from "../src/models/gbdb";
-
-import { Manifest } from "../src/components/DataTypes";
+import { DataFile, Manifest } from "../src/components/DataTypes";
 
 import db from "./gbdb";
 
@@ -69,7 +66,7 @@ for (const fileEntry of files) {
   try {
     await Promise.all([
       db.guilds.bulkInsert(data.Guilds),
-      db.models.bulkInsert(data.Models as GBModel[]),
+      db.models.bulkInsert(data.Models),
       db.character_plays.bulkInsert(data["Character Plays"]),
       db.character_traits.bulkInsert(data["Character Traits"]),
       db.upsertLocal("gbdata_meta", fileEntry),
@@ -109,7 +106,7 @@ for (const fileEntry of files) {
   const unusedCP: string[] = [];
   for (const cp of await db.character_plays.find().exec()) {
     let count = 0;
-    for (const m of models) {
+    for (const m of models || []) {
       if (m.character_plays.includes(cp.name)) {
         count += 1;
       }
@@ -129,7 +126,7 @@ for (const fileEntry of files) {
   const unusedCT: string[] = [];
   for (const ct of await db.character_traits.find().exec()) {
     let count = 0;
-    for (const m of mxps) {
+    for (const m of mxps || []) {
       if (m.character_traits.some((t) => t.name === ct.name)) {
         count += 1;
       }

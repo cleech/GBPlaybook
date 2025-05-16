@@ -33,58 +33,23 @@ addRxPlugin(RxDBLeaderElectionPlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
 addRxPlugin(RxDBMigrationSchemaPlugin);
 
-type TupleOf<T, N extends number> = [T, ...T[]] & { length: N };
-type Playbook = TupleOf<TupleOf<string | null, 7>, 2>;
+import type {
+  Model,
+  Guild,
+  CharacterPlay,
+  CharacterTrait,
+  GBDataMeta,
+} from "../components/DataTypes";
 
-import { GBDataMeta } from "../components/DataContext";
-
-// Model as it loads from the JSON dataset
-export interface GBModel {
-  id: string;
-  name: string;
-  captain?: boolean;
-  mascot?: boolean;
-  veteran?: boolean;
-  seasoned?: boolean;
-  hp: number;
-  recovery: number;
-  jog: number;
-  sprint: number;
-  tac: number;
-  kickdice: number;
-  kickdist: number;
-  def: number;
-  arm: number;
-  inf: number;
-  infmax: number;
-  reach?: boolean;
-
-  // used in draft screen
-  benched?: string;
-  dehcneb?: string;
-
-  playbook: Playbook;
-  character_plays: string[];
-  character_traits: string[];
-  heroic?: string;
-  legendary?: string;
-  types: string;
-  base: 30 | 40 | 50;
-
-  guild1: string;
-  guild2?: string;
-  gbcp?: boolean;
-}
-
-export interface ParameterizedTrait extends GBCharacterTrait {
+export interface ParameterizedTrait extends CharacterTrait {
   parameter?: string;
 }
 
 // Expanded Model, with plays and traits populated
 // Also adds in additional runtime values
 export interface GBModelExpanded
-  extends Omit<GBModel, "character_plays" | "character_traits"> {
-  character_plays: GBCharacterPlay[];
+  extends Omit<Model, "character_plays" | "character_traits"> {
+  character_plays: CharacterPlay[];
   character_traits: ParameterizedTrait[];
   version: number;
   statLine: string;
@@ -114,7 +79,7 @@ const gbModelDocMethods: GBModelMethods = {
     const db = this.collection.database;
     const dbSettings = await db.getLocal<GBDataMeta>("gbdata_meta");
     const [character_plays, character_traits]: [
-      GBCharacterPlay[],
+      CharacterPlay[],
       ParameterizedTrait[]
     ] = await Promise.all([
       this.populate("character_plays").then(
@@ -140,10 +105,10 @@ const gbModelDocMethods: GBModelMethods = {
   },
 };
 
-export type GBModelDoc = RxDocument<GBModel, GBModelMethods>;
-type GBModelCollection = RxCollection<GBModel, GBModelMethods>;
+export type GBModelDoc = RxDocument<Model, GBModelMethods>;
+type GBModelCollection = RxCollection<Model, GBModelMethods>;
 
-export const gbModelSchema: RxJsonSchema<GBModel> = {
+export const gbModelSchema: RxJsonSchema<Model> = {
   title: "Guild Ball model",
   version: 1,
   primaryKey: "id",
@@ -227,19 +192,10 @@ export const gbModelSchema: RxJsonSchema<GBModel> = {
   indexes: ["guild1"],
 };
 
-export interface GBGuild {
-  name: string;
-  minor: boolean;
-  color: string;
-  shadow?: string;
-  darkColor?: string;
-  roster: string[];
-}
+export type GBGuildDoc = RxDocument<Guild>;
+type GBGuildCollection = RxCollection<Guild>;
 
-export type GBGuildDoc = RxDocument<GBGuild>;
-type GBGuildCollection = RxCollection<GBGuild>;
-
-export const gbGuildSchema: RxJsonSchema<GBGuild> = {
+export const gbGuildSchema: RxJsonSchema<Guild> = {
   title: "Guild Ball guild",
   version: 0,
   primaryKey: "name",
@@ -255,19 +211,10 @@ export const gbGuildSchema: RxJsonSchema<GBGuild> = {
   required: ["color", "roster"],
 };
 
-export interface GBCharacterPlay {
-  name: string;
-  text: string;
-  CST: string;
-  RNG: string;
-  SUS: boolean;
-  OPT: boolean;
-}
+export type GBCharacterPlayDoc = RxDocument<CharacterPlay>;
+type GBCharacterPlayCollection = RxCollection<CharacterPlay>;
 
-export type GBCharacterPlayDoc = RxDocument<GBCharacterPlay>;
-type GBCharacterPlayCollection = RxCollection<GBCharacterPlay>;
-
-export const gbCharacterPlaySchema: RxJsonSchema<GBCharacterPlay> = {
+export const gbCharacterPlaySchema: RxJsonSchema<CharacterPlay> = {
   title: "Guild Ball character play",
   version: 1,
   primaryKey: "name",
@@ -283,16 +230,9 @@ export const gbCharacterPlaySchema: RxJsonSchema<GBCharacterPlay> = {
   required: ["text", "CST", "RNG", "SUS", "OPT"],
 };
 
-interface GBCharacterTrait {
-  name: string;
-  active?: boolean;
-  text: string;
-}
+type GBCharacterTraitCollection = RxCollection<CharacterTrait>;
 
-// type GBCharacterTraitDoc = RxDocument<GBCharacterTrait>;
-type GBCharacterTraitCollection = RxCollection<GBCharacterTrait>;
-
-export const gbCharacterTraitSchema: RxJsonSchema<GBCharacterTrait> = {
+export const gbCharacterTraitSchema: RxJsonSchema<CharacterTrait> = {
   title: "Guild Ball character trait",
   version: 0,
   primaryKey: "name",

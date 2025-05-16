@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 
-import type { DataFile } from "../src/components/DataContext";
+import type { DataFile } from "../src/components/DataTypes";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -17,15 +17,13 @@ const version = versionMatch
   ? Number(`${versionMatch[1]}.${versionMatch[2]}`)
   : 0;
 
-import { GBModel } from "../src/models/gbdb";
-
 import db from "./gbdb";
 
 const data = JSON.parse(fs.readFileSync(dataFile, "utf8")) as DataFile;
 
 await Promise.all([
   db.guilds.bulkInsert(data.Guilds),
-  db.models.bulkInsert(data.Models as GBModel[]),
+  db.models.bulkInsert(data.Models),
   db.character_plays.bulkInsert(data["Character Plays"]),
   db.character_traits.bulkInsert(data["Character Traits"]),
   db.upsertLocal("gbdata_meta", {

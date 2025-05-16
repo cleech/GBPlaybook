@@ -12,14 +12,15 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import { CheckCircleTwoTone as Check } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import { useUpdateAnimation } from "../hooks/useUpdateAnimation";
-import { GBGameStateDoc, GBGuild, GBModel } from "../models/gbdb";
+import { GBGameStateDoc } from "../models/gbdb";
+import { Model, Guild } from "../components/DataTypes";
 import { reSort } from "../utils/reSort";
 import { useRxData } from "../hooks/useRxQuery";
 import { map, Observable } from "rxjs";
 import { useLoaderData } from "react-router-dom";
 import { SettingsDoc } from "../models/settings";
 
-export interface DraftModel extends GBModel {
+export interface DraftModel extends Model {
   selected: boolean;
   disabled: number;
 }
@@ -154,10 +155,10 @@ const StyledBadge = styled(Badge)(() => ({
 }));
 
 interface DraftListProps {
-  guild: GBGuild;
+  guild: Guild;
   stateDoc: GBGameStateDoc;
   disabled?: boolean;
-  ready: (team: GBModel[]) => void;
+  ready: (team: Model[]) => void;
   unready: () => void;
   style?: CSSProperties;
 }

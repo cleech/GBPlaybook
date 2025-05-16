@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import { DataFile, Manifest, Gameplan } from "./DataTypes";
+import { DataFile, Manifest, Gameplan, GBDataMeta } from "./DataTypes";
 
-import { GBDatabase, GBModel, getGBDatabase } from "../models/gbdb";
+import { GBDatabase, getGBDatabase } from "../models/gbdb";
 import i18n from "../utils/i18next";
 import { DataContext } from "../utils/contexts";
 import { SettingsDoc, getSettings } from "../models/settings";
@@ -20,11 +20,6 @@ interface DataProviderProps {
 }
 
 const gb_meta_local = "gbdata_meta";
-export interface GBDataMeta {
-  version: number;
-  filename: string;
-  sha256: string;
-}
 
 let currentBulkLoadDBPromise: Promise<void> | null = null;
 
@@ -91,7 +86,7 @@ async function bulkLoadDB(
         .find()
         .exec()
         .then((ms) => gbdb.models.bulkRemove(ms.map((m) => m.id)))
-        .then(() => gbdb.models.bulkInsert(data.Models as GBModel[]))
+        .then(() => gbdb.models.bulkInsert(data.Models))
         .then((results) => {
           if (results.error.length !== 0) {
             const error = new Error("Error loading Models: " + JSON.stringify(results.error));
