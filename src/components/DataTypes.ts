@@ -1,18 +1,21 @@
 export interface DataFile {
   Guilds: Guild[];
   Models: Model[];
-  "Character Plays": CPlay[];
-  "Character Traits": CTrait[];
+  "Character Plays": CharacterPlay[];
+  "Character Traits": CharacterTrait[];
 }
 
 export interface Guild {
   name: string;
   minor: boolean;
   color: string;
-  darkColor?: string;
   shadow?: string;
+  darkColor?: string;
   roster: string[];
 }
+
+type TupleOf<T, N extends number> = [T, ...T[]] & { length: N };
+type Playbook = TupleOf<TupleOf<string | null, 7>, 2>;
 
 export interface Model {
   id: string;
@@ -36,16 +39,19 @@ export interface Model {
   infmax: number;
   base: 30 | 40 | 50;
   reach?: boolean;
-  gbcp?: boolean;
   character_plays: string[];
   character_traits: string[];
   heroic?: string;
   legendary?: string;
   types: string;
-  playbook: (string | null)[][];
+  playbook: Playbook;
+  //
+  gbcp?: boolean;
+  benched?: string;
+  dehcneb?: string;
 }
 
-export interface CPlay {
+export interface CharacterPlay {
   name: string;
   text: string;
   CST: string;
@@ -54,9 +60,9 @@ export interface CPlay {
   OPT: boolean;
 }
 
-export interface CTrait {
+export interface CharacterTrait {
   name: string;
-  active: boolean;
+  active?: boolean;
   text: string;
 }
 
@@ -76,6 +82,12 @@ export interface Manifest {
       };
     };
   }[];
+}
+
+export interface GBDataMeta {
+  version: number;
+  filename: string;
+  sha256: string;
 }
 
 export interface Gameplan {

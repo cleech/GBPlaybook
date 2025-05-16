@@ -18,7 +18,8 @@ import { AppBarContent } from "../App";
 
 import VersionTag from "../../components/VersionTag";
 // import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
-import { GBGameStateDoc, GBModel } from "../../models/gbdb";
+import { GBGameStateDoc } from "../../models/gbdb";
+import { Model } from "../../components/DataTypes";
 // import ResumeSnackBar from "./ResumeSnackBar";
 import { SettingsDoc } from "../../models/settings";
 import { useRxData } from "../../hooks/useRxQuery";
@@ -70,10 +71,10 @@ function DraftInner() {
   // const [waiting, setWaiting] = useState(false);
   // const [locked, setLocked] = useState(false);
 
-  const [team1, setTeam1] = useState<GBModel[] | undefined>();
-  const [team2, setTeam2] = useState<GBModel[] | undefined>();
-  const ready1 = useCallback((team: GBModel[]) => setTeam1(team), []);
-  const ready2 = useCallback((team: GBModel[]) => setTeam2(team), []);
+  const [team1, setTeam1] = useState<Model[] | undefined>();
+  const [team2, setTeam2] = useState<Model[] | undefined>();
+  const ready1 = useCallback((team: Model[]) => setTeam1(team), []);
+  const ready2 = useCallback((team: Model[]) => setTeam2(team), []);
   const unready1 = useCallback(() => setTeam1(undefined), []);
   const unready2 = useCallback(() => setTeam2(undefined), []);
 

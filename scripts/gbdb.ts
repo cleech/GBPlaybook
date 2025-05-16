@@ -11,10 +11,11 @@ RXDBDisableDevWarnings();
 addRxPlugin(RxDBDevModePlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
 
+import { CharacterPlay } from "../src/components/DataTypes";
+
 import {
   GBModelExpanded,
   GBModelDoc,
-  GBCharacterPlay,
   GBCharacterPlayDoc,
   ParameterizedTrait,
   GBDatabase,
@@ -25,7 +26,7 @@ import {
   gbCharacterTraitSchema,
 } from "../src/models/gbdb";
 
-import { GBDataMeta } from "../src/components/DataContext";
+import { GBDataMeta } from "../src/components/DataTypes";
 
 const db: GBDatabase = await createRxDatabase<GBDataCollections>({
   name: "gb_playbook",
@@ -53,12 +54,12 @@ async function populate_character_traits(doc: GBModelDoc) {
   );
 }
 
-export const gbModelDocMethods: GBModelMethods = {
+const gbModelDocMethods: GBModelMethods = {
   expand: async function (this: GBModelDoc): Promise<GBModelExpanded> {
     const db = this.collection.database;
     const dbSettings = await db.getLocal<GBDataMeta>("gbdata_meta");
     const [character_plays, character_traits]: [
-      GBCharacterPlay[],
+      CharacterPlay[],
       ParameterizedTrait[]
     ] = await Promise.all([
       this.populate("character_plays").then(
