@@ -7,7 +7,7 @@ import {
   ReactNode,
 } from "react";
 
-import { Gameplan } from "./DataContext.d";
+import { Gameplan } from "./DataTypes";
 
 interface CardCSS extends CSSProperties {
   "--scale"?: number | string;

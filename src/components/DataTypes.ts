@@ -1,4 +1,4 @@
-export default interface DataFile {
+export interface DataFile {
   Guilds: Guild[];
   Models: Model[];
   "Character Plays": CPlay[];

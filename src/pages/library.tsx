@@ -47,7 +47,7 @@ import { AppBarContent } from "./App";
 import { NavigateNext } from "@mui/icons-material";
 import { DoubleGuildCard, FlipGuildCard } from "../components/GuildCard";
 import VersionTag from "../components/VersionTag";
-import type { Gameplan } from "../components/DataContext.d";
+import type { Gameplan } from "../components/DataTypes";
 import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";

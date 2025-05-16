@@ -7,7 +7,7 @@ import "./CardFront.css";
 import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
-import { Guild } from "./DataContext.d";
+import { Guild } from "./DataTypes";
 import { GBModelExpanded } from "../models/gbdb";
 import { Observable, Subscription } from "rxjs";
 import { useRxData } from "../hooks/useRxQuery";

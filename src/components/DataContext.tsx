@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import DataFile, { Manifest, Gameplan } from "./DataContext.d";
+import { DataFile, Manifest, Gameplan } from "./DataTypes";
 
 import { GBDatabase, GBModel, getGBDatabase } from "../models/gbdb";
 import i18n from "../utils/i18next";

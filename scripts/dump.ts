@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 
-import DataFile from "../src/components/DataContext.d";
+import type { DataFile } from "../src/components/DataContext";
 import fs from "node:fs";
 import path from "node:path";
 

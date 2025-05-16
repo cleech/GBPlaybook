@@ -1,12 +1,12 @@
 #!/usr/bin/env bun
 
-import DataFile from "../src/components/DataContext.d";
+import { DataFile } from "../src/components/DataTypes";
 import fs from "node:fs";
 import crypto from "node:crypto";
 
 import { GBModel } from "../src/models/gbdb";
 
-import { Manifest } from "../src/components/DataContext.d";
+import { Manifest } from "../src/components/DataTypes";
 
 import db from "./gbdb";
 
