@@ -6,6 +6,7 @@ import {
   RxDBDevModePlugin,
   disableWarnings as RXDBDisableDevWarnings,
 } from "rxdb/plugins/dev-mode";
+import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
 
 import DataFile from "../src/components/DataContext.d";
 import fs from "node:fs";
@@ -13,6 +14,7 @@ import crypto from "node:crypto";
 
 RXDBDisableDevWarnings();
 addRxPlugin(RxDBDevModePlugin);
+addRxPlugin(RxDBLocalDocumentsPlugin);
 
 import {
   GBModel,
@@ -30,9 +32,11 @@ import {
 } from "../src/models/gbdb";
 
 import { Manifest } from "../src/components/DataContext.d";
+import { GBDataMeta } from "../src/components/DataContext";
 
 export const db: GBDatabase = await createRxDatabase<GBDataCollections>({
   name: "gb_playbook",
+  localDocuments: true,
   storage: wrappedValidateAjvStorage({ storage: getRxStorageMemory() }),
 });
 
@@ -40,9 +44,8 @@ type GBModelMethods = {
   expand: () => Promise<GBModelExpanded>;
 };
 
-let currentFileVersionForExpand: number;
-
 async function populate_character_traits(doc: GBModelDoc) {
+  const db = doc.collection.database;
   return Promise.all(
     (doc.character_traits ?? [])
       .map((s) => s.split(/\[|\]/).filter(Boolean))
@@ -57,6 +60,8 @@ async function populate_character_traits(doc: GBModelDoc) {
 
 export const gbModelDocMethods: GBModelMethods = {
   expand: async function (this: GBModelDoc): Promise<GBModelExpanded> {
+    const db = this.collection.database;
+    const dbSettings = await db.getLocal<GBDataMeta>("gbdata_meta");
     const [character_plays, character_traits]: [
       GBCharacterPlay[],
       ParameterizedTrait[]
@@ -78,7 +83,7 @@ export const gbModelDocMethods: GBModelMethods = {
         this.infmax
       } | ${this.reach ? 2 : 1}"`,
       // get errata level from db metadata
-      version: currentFileVersionForExpand,
+      version: dbSettings?.get("version"),
     });
     return model;
   },
@@ -130,10 +135,9 @@ function printTest(label: string, ok: boolean) {
 
 for (const fileEntry of files) {
   const dataFile = fileEntry.filename;
-  currentFileVersionForExpand = fileEntry.version;
 
   console.log(`\n\n--- Processing: ${dataFile} ---`);
-  console.log(`# Season: ${currentFileVersionForExpand}`);
+  console.log(`# Season: ${fileEntry.version}`);
 
   // Clear data from previous file
   await db.guilds.find().remove();
@@ -161,6 +165,7 @@ for (const fileEntry of files) {
       db.models.bulkInsert(data.Models as GBModel[]),
       db.character_plays.bulkInsert(data["Character Plays"]),
       db.character_traits.bulkInsert(data["Character Traits"]),
+      db.upsertLocal("gbdata_meta", fileEntry),
     ]);
   } catch (err) {
     schemaErr = err;
