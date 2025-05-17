@@ -5,7 +5,8 @@ import crypto from "node:crypto";
 
 import { DataFile, Manifest } from "../src/components/DataTypes";
 
-import db from "./gbdb";
+import db, { PartialError } from "./gbdb";
+import { GBModelExpanded } from "../src/models/gbdbTypes";
 
 const dataDir = __dirname + "/../public/data/";
 
@@ -78,6 +79,7 @@ for (const fileEntry of files) {
   printTest(`# Loading with schema validation`, schemaOk);
   if (!schemaOk) {
     console.error(schemaErr);
+    // move on to the next file
     continue;
   }
 
@@ -87,9 +89,23 @@ for (const fileEntry of files) {
   const mxps = (
     await Promise.all(
       models.map((m) =>
-        m.expand().catch((err: Error) => {
-          console.log(`${m.id}: ${err.message}`);
+        m.expand().catch((err) => {
+          console.log(`\t${m.id}: ${err.message}`);
+          if (err instanceof Error) {
+            if (err.cause instanceof AggregateError) {
+              err.cause.errors.forEach((err) => {
+                if (err instanceof Error) {
+                  console.log(`\t\t${err.message}`);
+                }
+              });
+            } else if (err.cause instanceof Error) {
+              console.log(`\t\t${err.cause.message}`);
+            }
+          }
           expansionOk = false;
+          if (err instanceof PartialError) {
+            return err.partialResult as GBModelExpanded;
+          }
         })
       )
     )
