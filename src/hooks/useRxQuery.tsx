@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { RxDocument, RxQuery } from "rxdb";
 import { useData } from "./useData";
-import { GBDatabase } from "../models/gbdb";
+import { GBDatabase } from "../models/gbdbTypes";
 
 export function useRxQuery<T>(
   query: (db: GBDatabase) => RxQuery<T>

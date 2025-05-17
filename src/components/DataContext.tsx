@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { DataFile, Manifest, Gameplan, GBDataMeta } from "./DataTypes";
 
-import { GBDatabase, getGBDatabase } from "../models/gbdb";
+import { GBDatabase } from "../models/gbdbTypes";
+import { getGBDatabase } from "../models/gbdb";
 import i18n from "../utils/i18next";
 import { DataContext } from "../utils/contexts";
 import { SettingsDoc, getSettings } from "../models/settings";

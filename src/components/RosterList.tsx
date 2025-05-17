@@ -18,7 +18,7 @@ import PlusIcon from "@mui/icons-material/Add";
 import useLongPress from "../hooks/useLongPress";
 import GBIcon from "./GBIcon";
 import { useUpdateAnimation } from "../hooks/useUpdateAnimation";
-import { GBGameStateDoc, GBModelExpanded } from "../models/gbdb";
+import { GBGameStateDoc, GBModelExpanded } from "../models/gbdbTypes";
 import { useEffect, useMemo, useState } from "react";
 import { map, Observable } from "rxjs";
 import { useLoaderData } from "react-router-dom";

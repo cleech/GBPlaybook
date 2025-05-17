@@ -32,7 +32,7 @@ import { Home, NavigateNext } from "@mui/icons-material";
 import { AppBarContent } from "../App";
 
 import { FlipGuildCard } from "../../components/GuildCard";
-import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdb";
+import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdbTypes";
 import { reSort } from "../../utils/reSort";
 import { firstValueFrom, map } from "rxjs";
 import { useRxData } from "../../hooks/useRxQuery";

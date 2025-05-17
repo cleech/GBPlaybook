@@ -18,7 +18,7 @@ import { AppBarContent } from "../App";
 
 import VersionTag from "../../components/VersionTag";
 // import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
-import { GBGameStateDoc } from "../../models/gbdb";
+import { GBGameStateDoc } from "../../models/gbdbTypes";
 import { Model } from "../../components/DataTypes";
 // import ResumeSnackBar from "./ResumeSnackBar";
 import { SettingsDoc } from "../../models/settings";

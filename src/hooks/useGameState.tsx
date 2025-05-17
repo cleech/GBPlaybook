@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom";
-import { GBGameStateDoc } from "../models/gbdb";
+import { GBGameStateDoc } from "../models/gbdbTypes";
 import { Observable } from "rxjs";
 
 export type GameContextType = {

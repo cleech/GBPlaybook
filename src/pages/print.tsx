@@ -38,7 +38,7 @@ import VersionTag from "../components/VersionTag";
 import GBImages from "../utils/GBImages";
 import { Gameplan, Guild } from "../components/DataTypes";
 import { GameplanFront, ReferenceCardFront } from "../components/Gameplan";
-import { GBGuildDoc, GBModelDoc } from "../models/gbdb";
+import { GBGuildDoc, GBModelDoc } from "../models/gbdbTypes";
 import { reSort } from "../utils/reSort";
 import { useRxData } from "../hooks/useRxQuery";
 import { Settings } from "@mui/icons-material";

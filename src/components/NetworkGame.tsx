@@ -12,7 +12,8 @@ import {
 } from "@mui/material";
 import { Sync } from "@mui/icons-material";
 import { useData } from "../hooks/useData";
-import { GBDatabase, GBGameState, gbdbBeginReplication, gbdbStopReplication, peerConnected$ } from "../models/gbdb";
+import { GBDatabase, GBGameState, } from "../models/gbdbTypes";
+import { gbdbBeginReplication, gbdbStopReplication, peerConnected$ } from "../models/gbdb";
 import {
   RxWebRTCReplicationPool,
   SimplePeer,

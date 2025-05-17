@@ -9,7 +9,7 @@ import {
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 import GBImages from "../utils/GBImages";
-import { GBModelExpanded } from "../models/gbdb";
+import { GBModelExpanded } from "../models/gbdbTypes";
 import { Subscription } from "rxjs";
 import { getSettings } from "../models/settings";
 

@@ -1,5 +1,6 @@
 import { RxLocalDocument } from "rxdb";
-import { GBDatabase, getGBDatabase } from "./gbdb";
+import { GBDatabase } from "./gbdbTypes";
+import { getGBDatabase } from "./gbdb";
 import { Observable } from "rxjs";
 import { defaultSettings } from "./defaultSettings";
 
