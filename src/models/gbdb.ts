@@ -51,7 +51,7 @@ async function populate_character_traits(doc: GBModelDoc) {
       .map((s) => s.split(/\[|\]/).filter(Boolean))
       .map(async ([name, param]) => {
         const ct = await db.character_traits.findOne(name.trim()).exec();
-        return Object.assign({}, ct?.toMutableJSON(), {
+        return Object.assign({}, ct?.toJSON(), {
           parameter: param?.trim(),
         });
       })
@@ -66,12 +66,12 @@ const gbModelDocMethods: GBModelMethods = {
       CharacterPlay[],
       ParameterizedTrait[]
     ] = await Promise.all([
-      this.populate("character_plays").then(
-        (cps) => (cps || []).map((cp: GBCharacterPlayDoc) => cp.toMutableJSON()) // Add safety check
+      this.populate("character_plays").then((cps: GBCharacterPlayDoc[]) =>
+        cps.map((cp) => cp.toJSON())
       ),
       populate_character_traits(this),
     ]);
-    const model: GBModelExpanded = Object.assign({}, this.toMutableJSON(), {
+    const model: GBModelExpanded = Object.assign(this.toMutableJSON(), {
       character_plays: character_plays,
       character_traits: character_traits,
       // dont let Some/Pneuma count twice for the INF pool

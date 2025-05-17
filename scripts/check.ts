@@ -78,29 +78,23 @@ for (const fileEntry of files) {
   printTest(`# Loading with schema validation`, schemaOk);
   if (!schemaOk) {
     console.error(schemaErr);
+    continue;
   }
 
   // Play and trait expansion
   let expansionOk = true;
-  let expansionErr;
-  let models, mxps;
-  try {
-    models = await db.models.find().exec();
-    mxps = await Promise.all(
+  const models = await db.models.find().exec();
+  const mxps = (
+    await Promise.all(
       models.map((m) =>
-        m.expand().catch((err) => {
-          throw err;
+        m.expand().catch((err: Error) => {
+          console.log(`${m.id}: ${err.message}`);
+          expansionOk = false;
         })
       )
-    );
-  } catch (err) {
-    expansionOk = false;
-    expansionErr = err;
-  }
+    )
+  ).filter((m) => m !== undefined);
   printTest("# Testing play and trait expansion", expansionOk);
-  if (!expansionOk) {
-    console.error(expansionErr);
-  }
 
   // Unused Character Plays
   const unusedCP: string[] = [];

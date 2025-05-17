@@ -151,6 +151,7 @@ export const gbCharacterPlaySchema: RxJsonSchema<CharacterPlay> = {
   required: ["text", "CST", "RNG", "SUS", "OPT"],
 };
 
+export type GBCharacterTraitDoc = RxDocument<CharacterTrait>;
 type GBCharacterTraitCollection = RxCollection<CharacterTrait>;
 
 export const gbCharacterTraitSchema: RxJsonSchema<CharacterTrait> = {

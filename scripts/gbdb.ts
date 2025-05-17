@@ -19,6 +19,7 @@ import {
   GBModelExpanded,
   GBModelDoc,
   GBCharacterPlayDoc,
+  GBCharacterTraitDoc,
   ParameterizedTrait,
   GBDatabase,
   GBDataCollections,
@@ -42,17 +43,47 @@ type GBModelMethods = {
   expand: () => Promise<GBModelExpanded>;
 };
 
-async function populate_character_traits(doc: GBModelDoc) {
+async function populate_character_plays(
+  doc: GBModelDoc
+): Promise<CharacterPlay[]> {
+  const characterPlays: (GBCharacterPlayDoc | null)[] = await doc.populate(
+    "character_plays"
+  );
+  const cps = characterPlays.filter((cp) => cp !== null);
+  const foundPlays = cps.map((cp) => cp.name);
+  const missing = doc.character_plays.filter(
+    (play) => !foundPlays.includes(play)
+  );
+  if (missing.length) {
+    throw Error(`unknown plays: ${missing}`);
+  }
+  return cps.map((cp) => cp.toJSON());
+}
+
+async function populate_character_traits(
+  doc: GBModelDoc
+): Promise<ParameterizedTrait[]> {
+  const traits: string[] = [];
+  const params: (string | undefined)[] = [];
+  for (const s of doc.character_traits) {
+    const [trait, param] = s.split(/\[|\]/);
+    traits.push(trait.trim());
+    params.push(param?.trim());
+  }
   const db = doc.collection.database;
-  return Promise.all(
-    (doc.character_traits ?? [])
-      .map((s) => s.split(/\[|\]/).filter(Boolean))
-      .map(async ([name, param]) => {
-        const ct = await db.character_traits.findOne(name.trim()).exec();
-        return Object.assign({}, ct?.toMutableJSON(), {
-          parameter: param?.trim(),
-        });
-      })
+  const characterTraits: (GBCharacterTraitDoc | null)[] = await Promise.all(
+    traits.map((name) => db.character_traits.findOne(name).exec())
+  );
+  const cts = characterTraits.filter((ct) => ct !== null);
+  const foundTraits = cts.map((ct) => ct.name);
+  const missing = traits.filter((trait) => !foundTraits.includes(trait));
+  if (missing.length) {
+    throw Error(`unknown traits: ${missing}`);
+  }
+  return cts.map((ct, index) =>
+    Object.assign(ct.toMutableJSON(), {
+      parameter: params[index],
+    })
   );
 }
 
@@ -64,12 +95,10 @@ const gbModelDocMethods: GBModelMethods = {
       CharacterPlay[],
       ParameterizedTrait[]
     ] = await Promise.all([
-      this.populate("character_plays").then(
-        (cps) => (cps || []).map((cp: GBCharacterPlayDoc) => cp.toMutableJSON()) // Add safety check
-      ),
+      populate_character_plays(this),
       populate_character_traits(this),
     ]);
-    const model: GBModelExpanded = Object.assign({}, this.toMutableJSON(), {
+    const model: GBModelExpanded = Object.assign(this.toMutableJSON(), {
       character_plays: character_plays,
       character_traits: character_traits,
       // dont let Some/Pneuma count twice for the INF pool
