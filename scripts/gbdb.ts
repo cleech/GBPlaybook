@@ -39,6 +39,14 @@ const db: GBDatabase = await createRxDatabase<GBDataCollections>({
 
 export default db;
 
+export class PartialError<T> extends Error {
+  partialResult?: T;
+  constructor(message: string, partial?: T, options?: ErrorOptions) {
+    super(message, options);
+    this.partialResult = partial;
+  }
+}
+
 type GBModelMethods = {
   expand: () => Promise<GBModelExpanded>;
 };
@@ -54,10 +62,11 @@ async function populate_character_plays(
   const missing = doc.character_plays.filter(
     (play) => !foundPlays.includes(play)
   );
+  const result = cps.map((cp) => cp.toJSON());
   if (missing.length) {
-    throw Error(`unknown plays: ${missing}`);
+    throw new PartialError(`unknown plays: ${missing}`, result);
   }
-  return cps.map((cp) => cp.toJSON());
+  return result;
 }
 
 async function populate_character_traits(
@@ -77,30 +86,41 @@ async function populate_character_traits(
   const cts = characterTraits.filter((ct) => ct !== null);
   const foundTraits = cts.map((ct) => ct.name);
   const missing = traits.filter((trait) => !foundTraits.includes(trait));
-  if (missing.length) {
-    throw Error(`unknown traits: ${missing}`);
-  }
-  return cts.map((ct, index) =>
+  const result = cts.map((ct, index) =>
     Object.assign(ct.toMutableJSON(), {
       parameter: params[index],
     })
   );
+  if (missing.length) {
+    throw new PartialError(`unknown traits: ${missing}`, result);
+  }
+  return result;
 }
 
 const gbModelDocMethods: GBModelMethods = {
   expand: async function (this: GBModelDoc): Promise<GBModelExpanded> {
     const db = this.collection.database;
     const dbSettings = await db.getLocal<GBDataMeta>("gbdata_meta");
-    const [character_plays, character_traits]: [
-      CharacterPlay[],
-      ParameterizedTrait[]
-    ] = await Promise.all([
-      populate_character_plays(this),
-      populate_character_traits(this),
+    let character_plays: CharacterPlay[] | void = [];
+    let character_traits: ParameterizedTrait[] | void = [];
+    const errors: Error[] = [];
+    [character_plays, character_traits] = await Promise.all([
+      populate_character_plays(this).catch(
+        (err: PartialError<CharacterPlay[]>) => {
+          errors.push(err);
+          return err.partialResult;
+        }
+      ),
+      populate_character_traits(this).catch(
+        (err: PartialError<ParameterizedTrait[]>) => {
+          errors.push(err);
+          return err.partialResult;
+        }
+      ),
     ]);
     const model: GBModelExpanded = Object.assign(this.toMutableJSON(), {
-      character_plays: character_plays,
-      character_traits: character_traits,
+      character_plays: character_plays || [],
+      character_traits: character_traits || [],
       // dont let Some/Pneuma count twice for the INF pool
       _inf: this.id === "Pneuma" ? 0 : undefined,
       // mini-statline display
@@ -112,6 +132,11 @@ const gbModelDocMethods: GBModelMethods = {
       // get errata level from db metadata
       version: dbSettings?.get("version"),
     });
+    if (errors.length) {
+      throw new PartialError("Error(s) expanding model", model, {
+        cause: new AggregateError(errors),
+      });
+    }
     return model;
   },
 };
