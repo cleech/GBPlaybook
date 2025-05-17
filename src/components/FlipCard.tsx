@@ -10,7 +10,7 @@ import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 import "./FlipCard.css";
 
-import { GBModelExpanded } from "../models/gbdb";
+import { GBModelExpanded } from "../models/gbdbTypes";
 import { Observable } from "rxjs";
 
 export function FlipCard({

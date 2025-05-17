@@ -5,7 +5,7 @@ import { useDimensionsRef } from "rooks";
 import { Button, Divider, Typography } from "@mui/material";
 
 import GBIcon from "../components/GBIcon";
-import { GBGuildDoc } from "../models/gbdb";
+import { GBGuildDoc } from "../models/gbdbTypes";
 import { Observable, fromEventPattern } from "rxjs";
 
 function maxBy<T>(data: Array<T>, by: (v: T) => number) {

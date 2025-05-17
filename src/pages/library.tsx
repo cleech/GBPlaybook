@@ -50,7 +50,7 @@ import VersionTag from "../components/VersionTag";
 import type { Gameplan } from "../components/DataTypes";
 import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
-import { GBGuildDoc, GBModelExpanded } from "../models/gbdb";
+import { GBGuildDoc, GBModelExpanded } from "../models/gbdbTypes";
 import { firstValueFrom, Observable } from "rxjs";
 import { SettingsDoc } from "../models/settings";
 

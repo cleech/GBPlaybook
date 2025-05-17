@@ -23,7 +23,7 @@ import { useRxData } from "../../hooks/useRxQuery";
 import { NetworkGame } from "../../components/NetworkGame";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
-import { GBGameStateDoc, GBGuildDoc } from "../../models/gbdb";
+import { GBGameStateDoc, GBGuildDoc } from "../../models/gbdbTypes";
 import { NavigateFab } from "./NavigateFab";
 import { useLoaderData } from "react-router-dom";
 

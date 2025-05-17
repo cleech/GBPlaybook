@@ -7,7 +7,7 @@ import { AppBarContext } from "../../utils/contexts";
 import OddsCalc from "../../components/Calc";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useData } from "../../hooks/useData";
-import { GBGameStateDoc } from "../../models/gbdb";
+import { GBGameStateDoc } from "../../models/gbdbTypes";
 import { Observable, firstValueFrom } from "rxjs";
 import { GameContextType } from "../../hooks/useGameState";
 import { SettingsDoc } from "../../models/settings";

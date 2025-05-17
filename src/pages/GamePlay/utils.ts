@@ -1,4 +1,4 @@
-import { GBSetupSteps } from "../../models/gbdb";
+import { GBSetupSteps } from "../../models/gbdbTypes";
 
 
 export function stepToNav(step: GBSetupSteps) {

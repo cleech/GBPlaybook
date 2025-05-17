@@ -8,7 +8,7 @@ import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
 import { GBCardCSS } from "./CardFront";
-import { GBModelExpanded } from "../models/gbdb";
+import { GBModelExpanded } from "../models/gbdbTypes";
 import { useRxData } from "../hooks/useRxQuery";
 import { Subscription } from "rxjs";
 import { getSettings } from "../models/settings";

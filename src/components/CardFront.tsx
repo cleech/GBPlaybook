@@ -8,7 +8,7 @@ import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
 import { Guild } from "./DataTypes";
-import { GBModelExpanded } from "../models/gbdb";
+import { GBModelExpanded } from "../models/gbdbTypes";
 import { Observable, Subscription } from "rxjs";
 import { useRxData } from "../hooks/useRxQuery";
 import { getSettings } from "../models/settings";

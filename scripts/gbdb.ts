@@ -6,10 +6,12 @@ import {
   disableWarnings as RXDBDisableDevWarnings,
 } from "rxdb/plugins/dev-mode";
 import { RxDBLocalDocumentsPlugin } from "rxdb/plugins/local-documents";
+import { RxDBMigrationSchemaPlugin } from "rxdb/plugins/migration-schema";
 
 RXDBDisableDevWarnings();
 addRxPlugin(RxDBDevModePlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
+addRxPlugin(RxDBMigrationSchemaPlugin);
 
 import { CharacterPlay } from "../src/components/DataTypes";
 
@@ -24,7 +26,7 @@ import {
   gbModelSchema,
   gbCharacterPlaySchema,
   gbCharacterTraitSchema,
-} from "../src/models/gbdb";
+} from "../src/models/gbdbTypes";
 
 import { GBDataMeta } from "../src/components/DataTypes";
 

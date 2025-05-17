@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useData } from "./useData";
-import { GBDatabase } from "../models/gbdb";
+import { GBDatabase } from "../models/gbdbTypes";
 
 export function useGBData<T>(
   fetch: (db: GBDatabase) => Promise<T>

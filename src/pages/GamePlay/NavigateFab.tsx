@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Fab, SxProps } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import { GBSetupSteps } from "../../models/gbdb";
+import { GBSetupSteps } from "../../models/gbdbTypes";
 import { firstValueFrom, map } from "rxjs";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
