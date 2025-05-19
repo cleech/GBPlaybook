@@ -18,11 +18,7 @@ import { readFile } from "node:fs/promises";
 import {
   GBDatabase,
   GBDataCollections,
-  gbGuildSchema,
-  gbModelSchema,
-  gbCharacterPlaySchema,
-  gbCharacterTraitSchema,
-  gbModelDocMethods,
+  gbCollectionsConfig,
 } from "../src/models/gbdbTypes";
 import { DataFile } from "../src/components/DataTypes";
 
@@ -61,19 +57,7 @@ export async function clearGBDatabase() {
 }
 
 export async function gbdbAddCollections(db: GBDatabase) {
-  await db.addCollections({
-    guilds: { schema: gbGuildSchema },
-    models: {
-      schema: gbModelSchema,
-      methods: gbModelDocMethods,
-      migrationStrategies: { 1: (doc) => doc },
-    },
-    character_plays: {
-      schema: gbCharacterPlaySchema,
-      migrationStrategies: { 1: (doc) => doc },
-    },
-    character_traits: { schema: gbCharacterTraitSchema },
-  });
+  await db.addCollections(gbCollectionsConfig);
 }
 
 // Accepts the RxDB bulkInsert result type

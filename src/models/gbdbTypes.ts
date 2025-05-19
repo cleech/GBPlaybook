@@ -6,9 +6,15 @@ import type {
   GBDataMeta,
 } from "../components/DataTypes";
 
-import { RxDatabase, RxCollection, RxJsonSchema, RxDocument } from "rxdb";
+import {
+  RxDatabase,
+  RxCollection,
+  RxJsonSchema,
+  RxDocument,
+  RxCollectionCreator,
+} from "rxdb";
 
-export interface ParameterizedTrait extends CharacterTrait {
+interface ParameterizedTrait extends CharacterTrait {
   parameter?: string;
 }
 
@@ -23,14 +29,14 @@ export interface GBModelExpanded
   _inf?: number;
 }
 
-export type GBModelMethods = {
+type GBModelMethods = {
   expand: () => Promise<GBModelExpanded>;
 };
 
 export type GBModelDoc = RxDocument<Model, GBModelMethods>;
 type GBModelCollection = RxCollection<Model, GBModelMethods>;
 
-export const gbModelSchema: RxJsonSchema<Model> = {
+const gbModelSchema: RxJsonSchema<Model> = {
   title: "Guild Ball model",
   version: 1,
   primaryKey: "id",
@@ -117,7 +123,7 @@ export const gbModelSchema: RxJsonSchema<Model> = {
 export type GBGuildDoc = RxDocument<Guild>;
 type GBGuildCollection = RxCollection<Guild>;
 
-export const gbGuildSchema: RxJsonSchema<Guild> = {
+const gbGuildSchema: RxJsonSchema<Guild> = {
   title: "Guild Ball guild",
   version: 0,
   primaryKey: "name",
@@ -133,10 +139,10 @@ export const gbGuildSchema: RxJsonSchema<Guild> = {
   required: ["color", "roster"],
 };
 
-export type GBCharacterPlayDoc = RxDocument<CharacterPlay>;
+type GBCharacterPlayDoc = RxDocument<CharacterPlay>;
 type GBCharacterPlayCollection = RxCollection<CharacterPlay>;
 
-export const gbCharacterPlaySchema: RxJsonSchema<CharacterPlay> = {
+const gbCharacterPlaySchema: RxJsonSchema<CharacterPlay> = {
   title: "Guild Ball character play",
   version: 1,
   primaryKey: "name",
@@ -152,10 +158,10 @@ export const gbCharacterPlaySchema: RxJsonSchema<CharacterPlay> = {
   required: ["text", "CST", "RNG", "SUS", "OPT"],
 };
 
-export type GBCharacterTraitDoc = RxDocument<CharacterTrait>;
+type GBCharacterTraitDoc = RxDocument<CharacterTrait>;
 type GBCharacterTraitCollection = RxCollection<CharacterTrait>;
 
-export const gbCharacterTraitSchema: RxJsonSchema<CharacterTrait> = {
+const gbCharacterTraitSchema: RxJsonSchema<CharacterTrait> = {
   title: "Guild Ball character trait",
   version: 0,
   primaryKey: "name",
@@ -183,7 +189,7 @@ export interface GBGameState {
 export type GBGameStateDoc = RxDocument<GBGameState>;
 type GBGameStateCollection = RxCollection<GBGameState>;
 
-export const gbGameStateSchema: RxJsonSchema<GBGameState> = {
+const gbGameStateSchema: RxJsonSchema<GBGameState> = {
   title: "Guild Ball Game State",
   version: 0,
   primaryKey: "_id",
@@ -224,6 +230,8 @@ export class PartialError<T> extends Error {
   partialResult?: T;
   constructor(message: string, partial?: T, options?: ErrorOptions) {
     super(message, options);
+    this.name = "PartialError";
+    Object.setPrototypeOf(this, PartialError.prototype);
     this.partialResult = partial;
   }
 }
@@ -274,7 +282,7 @@ async function populate_character_traits(
   return result;
 }
 
-export const gbModelDocMethods: GBModelMethods = {
+const gbModelDocMethods: GBModelMethods = {
   expand: async function (this: GBModelDoc): Promise<GBModelExpanded> {
     const db = this.collection.database;
     const dbSettings = await db.getLocal<GBDataMeta>("gbdata_meta");
@@ -316,4 +324,21 @@ export const gbModelDocMethods: GBModelMethods = {
     }
     return model;
   },
+};
+
+export const gbCollectionsConfig: {
+  [collection: string]: RxCollectionCreator;
+} = {
+  guilds: { schema: gbGuildSchema },
+  models: {
+    schema: gbModelSchema,
+    methods: gbModelDocMethods,
+    migrationStrategies: { 1: (doc) => doc },
+  },
+  character_plays: {
+    schema: gbCharacterPlaySchema,
+    migrationStrategies: { 1: (doc) => doc },
+  },
+  character_traits: { schema: gbCharacterTraitSchema },
+  game_state: { schema: gbGameStateSchema, localDocuments: true },
 };
