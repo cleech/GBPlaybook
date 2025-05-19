@@ -6,14 +6,15 @@ import crypto from "node:crypto";
 import { Manifest } from "../src/components/DataTypes";
 import { GBModelExpanded, PartialError } from "../src/models/gbdbTypes";
 import { clearGBDatabase, getGBDatabase, loadGBDatabase } from "./gbdb";
+import path from "node:path";
 
 const db = await getGBDatabase();
-const dataDir = __dirname + "/../public/data/";
+const dataDir = path.resolve(__dirname, "../public/data");
 
-const manifestPath = "manifest.json";
+const manifestPath = path.resolve(dataDir, "manifest.json");
 console.log(`\n# Loading manifest from ${manifestPath}`);
 const manifest: Manifest = await fs
-  .readFile(dataDir + manifestPath, "utf8")
+  .readFile(manifestPath, "utf8")
   .then(JSON.parse);
 
 const files: { filename: string; version: number; sha256: string }[] = [];
@@ -46,9 +47,9 @@ for (const fileEntry of files) {
   console.log(`# Season: ${fileEntry.version}`);
 
   // Clear data from previous file
-  await clearGBDatabase();
+  await clearGBDatabase(db);
 
-  const file = await fs.readFile(dataDir + dataFile, "utf8");
+  const file = await fs.readFile(path.resolve(dataDir, dataFile), "utf8");
   const hash = crypto.createHash("sha256").update(file).digest("hex");
 
   if (hash !== fileEntry.sha256) {
@@ -62,8 +63,7 @@ for (const fileEntry of files) {
   let schemaOk = true;
   let schemaErr;
   try {
-    // await gbdbAddCollections();
-    await loadGBDatabase(fileEntry, dataDir);
+    await loadGBDatabase(db, fileEntry, dataDir);
   } catch (err) {
     schemaErr = err;
     schemaOk = false;

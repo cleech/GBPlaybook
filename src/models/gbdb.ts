@@ -56,9 +56,7 @@ export async function getGBDatabase(): Promise<GBDatabase> {
             storage: getRxStorageDexie(),
           }
     );
-
     await db.addCollections(gbCollectionsConfig);
-
     return db;
   })().catch((err) => {
     gbdbInitPromise = undefined;

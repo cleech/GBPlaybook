@@ -1,14 +1,12 @@
 #!/usr/bin/env bun
 
-import path from "node:path";
 import { getGBDatabase, loadGBDatabase } from "./gbdb";
 
-const argFile = process.argv[2];
-if (!argFile) {
+const dataFile = process.argv[2];
+if (!dataFile) {
   console.error(`Usage: bun dump.ts <filename.json>`);
   process.exit(1);
 }
-const dataFile = path.join(process.cwd(), argFile);
 const versionMatch = /GB-Playbook-(\d+)-(\d+)(?:\.[a-z]{2})?\.json/.exec(
   dataFile
 );
@@ -17,7 +15,7 @@ const version = versionMatch
   : 0;
 
 const db = await getGBDatabase();
-await loadGBDatabase({ filename: dataFile, version: version });
+await loadGBDatabase(db, { filename: dataFile, version: version });
 const models = await db.models.find().exec();
 const expanded = await Promise.all(models.map((m) => m.expand()));
 console.log(JSON.stringify(expanded, null, 2));
