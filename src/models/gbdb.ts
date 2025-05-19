@@ -26,14 +26,7 @@ import {
   gbCharacterTraitSchema,
   gbGameStateSchema,
   GBGameState,
-  GBModelDoc,
-  GBModelMethods,
-  ParameterizedTrait,
-  GBModelExpanded,
-  GBCharacterPlayDoc,
 } from "./gbdbTypes";
-
-import { CharacterPlay, GBDataMeta } from "../components/DataTypes";
 
 if (import.meta.env.MODE === "development") {
   addRxPlugin(RxDBDevModePlugin);
@@ -44,50 +37,7 @@ addRxPlugin(RxDBLeaderElectionPlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
 addRxPlugin(RxDBMigrationSchemaPlugin);
 
-async function populate_character_traits(doc: GBModelDoc) {
-  const db = doc.collection.database;
-  return Promise.all(
-    (doc.character_traits ?? [])
-      .map((s) => s.split(/\[|\]/).filter(Boolean))
-      .map(async ([name, param]) => {
-        const ct = await db.character_traits.findOne(name.trim()).exec();
-        return Object.assign({}, ct?.toJSON(), {
-          parameter: param?.trim(),
-        });
-      })
-  );
-}
-
-const gbModelDocMethods: GBModelMethods = {
-  expand: async function (this: GBModelDoc): Promise<GBModelExpanded> {
-    const db = this.collection.database;
-    const dbSettings = await db.getLocal<GBDataMeta>("gbdata_meta");
-    const [character_plays, character_traits]: [
-      CharacterPlay[],
-      ParameterizedTrait[]
-    ] = await Promise.all([
-      this.populate("character_plays").then((cps: GBCharacterPlayDoc[]) =>
-        cps.map((cp) => cp.toJSON())
-      ),
-      populate_character_traits(this),
-    ]);
-    const model: GBModelExpanded = Object.assign(this.toMutableJSON(), {
-      character_plays: character_plays,
-      character_traits: character_traits,
-      // dont let Some/Pneuma count twice for the INF pool
-      _inf: this.id === "Pneuma" ? 0 : undefined,
-      // mini-statline display
-      statLine: `${this.jog}"/${this.sprint}" | ${this.tac} | ${
-        this.kickdice
-      }/${this.kickdist}" | ${this.def}+ | ${this.arm} | ${this.inf}/${
-        this.infmax
-      } | ${this.reach ? 2 : 1}"`,
-      // get errata level from db metadata
-      version: dbSettings?.get("version"),
-    });
-    return model;
-  },
-};
+import { gbModelDocMethods } from "./gbdbTypes";
 
 let gbdbInitPromise: Promise<GBDatabase> | undefined = undefined;
 

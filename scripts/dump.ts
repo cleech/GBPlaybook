@@ -1,8 +1,7 @@
 #!/usr/bin/env bun
 
-import type { DataFile } from "../src/components/DataTypes";
-import fs from "node:fs";
 import path from "node:path";
+import { getGBDatabase, loadGBDatabase } from "./gbdb";
 
 const argFile = process.argv[2];
 if (!argFile) {
@@ -17,22 +16,9 @@ const version = versionMatch
   ? Number(`${versionMatch[1]}.${versionMatch[2]}`)
   : 0;
 
-import db from "./gbdb";
-
-const data = JSON.parse(fs.readFileSync(dataFile, "utf8")) as DataFile;
-
-await Promise.all([
-  db.guilds.bulkInsert(data.Guilds),
-  db.models.bulkInsert(data.Models),
-  db.character_plays.bulkInsert(data["Character Plays"]),
-  db.character_traits.bulkInsert(data["Character Traits"]),
-  db.upsertLocal("gbdata_meta", {
-    version: version,
-    filename: dataFile,
-  }),
-]);
-
+const db = await getGBDatabase();
+await loadGBDatabase({ filename: dataFile, version: version });
 const models = await db.models.find().exec();
-const mxps = await Promise.all(models.map((m) => m.expand()));
-console.log(JSON.stringify(mxps, null, 2));
+const expanded = await Promise.all(models.map((m) => m.expand()));
+console.log(JSON.stringify(expanded, null, 2));
 process.exit(0);
