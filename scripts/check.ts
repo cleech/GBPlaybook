@@ -46,7 +46,7 @@ for (const fileEntry of files) {
   console.log(`# Season: ${fileEntry.version}`);
 
   // Clear data from previous file
-  // await clearGBDatabase();
+  await clearGBDatabase();
 
   const file = await fs.readFile(dataDir + dataFile, "utf8");
   const hash = crypto.createHash("sha256").update(file).digest("hex");
@@ -72,27 +72,29 @@ for (const fileEntry of files) {
   if (!schemaOk) {
     console.error(schemaErr);
     // move on to the next file
-    clearGBDatabase();
     continue;
   }
 
   // Play and trait expansion
   let expansionOk = true;
   const models = await db.models.find().exec();
-  const mxps = (
+  const errors: Error[] = [];
+  const expanded = (
     await Promise.all(
       models.map((m) =>
         m.expand().catch((err) => {
-          console.log(`\t${m.id}: ${err.message}`);
+          errors.push(err);
           if (err instanceof Error) {
             if (err.cause instanceof AggregateError) {
               err.cause.errors.forEach((err) => {
                 if (err instanceof Error) {
-                  console.log(`\t\t${err.message}`);
+                  err.message = `\t${err.message}`;
+                  errors.push(err);
                 }
               });
             } else if (err.cause instanceof Error) {
-              console.log(`\t\t${err.cause.message}`);
+              err.message = `\t${err.message}`;
+              errors.push(err.cause);
             }
           }
           expansionOk = false;
@@ -104,6 +106,9 @@ for (const fileEntry of files) {
     )
   ).filter((m) => m !== undefined);
   printTest("# Testing play and trait expansion", expansionOk);
+  errors.forEach((err) => {
+    console.log(`  ${err.message}`);
+  });
 
   // Unused Character Plays
   const unusedCP: string[] = [];
@@ -129,7 +134,7 @@ for (const fileEntry of files) {
   const unusedCT: string[] = [];
   for (const ct of await db.character_traits.find().exec()) {
     let count = 0;
-    for (const m of mxps || []) {
+    for (const m of expanded || []) {
       if (m.character_traits.some((t) => t.name === ct.name)) {
         count += 1;
       }
@@ -144,7 +149,6 @@ for (const fileEntry of files) {
       console.log(`  ${name.padEnd(46, ".")} ⚠️`);
     }
   }
-  clearGBDatabase();
 }
 
 process.exit(0);

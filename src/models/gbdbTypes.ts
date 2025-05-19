@@ -310,7 +310,7 @@ export const gbModelDocMethods: GBModelMethods = {
       version: dbSettings?.get("version"),
     });
     if (errors.length) {
-      throw new PartialError("Error(s) expanding model", model, {
+      throw new PartialError(`${model.id}: Error(s) expanding model`, model, {
         cause: new AggregateError(errors),
       });
     }
