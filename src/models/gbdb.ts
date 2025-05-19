@@ -20,12 +20,8 @@ import { BehaviorSubject, map as rxjsMap, Subscription } from "rxjs";
 import {
   GBDatabase,
   GBDataCollections,
-  gbGuildSchema,
-  gbModelSchema,
-  gbCharacterPlaySchema,
-  gbCharacterTraitSchema,
-  gbGameStateSchema,
   GBGameState,
+  gbCollectionsConfig,
 } from "./gbdbTypes";
 
 if (import.meta.env.MODE === "development") {
@@ -36,8 +32,6 @@ addRxPlugin(RxDBQueryBuilderPlugin);
 addRxPlugin(RxDBLeaderElectionPlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
 addRxPlugin(RxDBMigrationSchemaPlugin);
-
-import { gbModelDocMethods } from "./gbdbTypes";
 
 let gbdbInitPromise: Promise<GBDatabase> | undefined = undefined;
 
@@ -63,20 +57,7 @@ export async function getGBDatabase(): Promise<GBDatabase> {
           }
     );
 
-    await db.addCollections({
-      guilds: { schema: gbGuildSchema },
-      models: {
-        schema: gbModelSchema,
-        methods: gbModelDocMethods,
-        migrationStrategies: { 1: (doc) => doc },
-      },
-      character_plays: {
-        schema: gbCharacterPlaySchema,
-        migrationStrategies: { 1: (doc) => doc },
-      },
-      character_traits: { schema: gbCharacterTraitSchema },
-      game_state: { schema: gbGameStateSchema, localDocuments: true },
-    });
+    await db.addCollections(gbCollectionsConfig);
 
     return db;
   })().catch((err) => {
