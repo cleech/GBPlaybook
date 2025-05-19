@@ -283,7 +283,8 @@ const readFile = async (filename: string) => {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-  }).then((response) => {
+  }).then(async (response) => {
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
     return response.json();
   }).catch((err) => {
     console.error(err);

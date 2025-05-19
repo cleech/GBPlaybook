@@ -1,32 +1,33 @@
 #!/usr/bin/env bun
 
-import fs from "node:fs";
+import fs from "node:fs/promises";
 import crypto from "node:crypto";
 
-import { DataFile, Manifest } from "../src/components/DataTypes";
+import { Manifest } from "../src/components/DataTypes";
+import { GBModelExpanded, PartialError } from "../src/models/gbdbTypes";
+import { clearGBDatabase, getGBDatabase, loadGBDatabase } from "./gbdb";
 
-import db, { PartialError } from "./gbdb";
-import { GBModelExpanded } from "../src/models/gbdbTypes";
-
+const db = await getGBDatabase();
 const dataDir = __dirname + "/../public/data/";
 
 const manifestPath = "manifest.json";
 console.log(`\n# Loading manifest from ${manifestPath}`);
-const manifestContent = fs.readFileSync(dataDir + manifestPath, "utf8");
-const manifest = JSON.parse(manifestContent) as Manifest;
+const manifest: Manifest = await fs
+  .readFile(dataDir + manifestPath, "utf8")
+  .then(JSON.parse);
 
-const files: { version: number; filename: string; sha256: string }[] = [];
+const files: { filename: string; version: number; sha256: string }[] = [];
 
 for (const fileEntry of manifest.datafiles) {
   files.push({
-    sha256: fileEntry.sha256,
     filename: fileEntry.filename,
     version: fileEntry.version,
+    sha256: fileEntry.sha256,
   });
   for (const language in fileEntry.translations) {
     files.push({
-      version: fileEntry.version,
       filename: fileEntry.translations[language].filename,
+      version: fileEntry.version,
       sha256: fileEntry.translations[language].sha256,
     });
   }
@@ -45,14 +46,10 @@ for (const fileEntry of files) {
   console.log(`# Season: ${fileEntry.version}`);
 
   // Clear data from previous file
-  await db.guilds.find().remove();
-  await db.models.find().remove();
-  await db.character_plays.find().remove();
-  await db.character_traits.find().remove();
+  // await clearGBDatabase();
 
-  const file = fs.readFileSync(dataDir + dataFile, "utf8");
+  const file = await fs.readFile(dataDir + dataFile, "utf8");
   const hash = crypto.createHash("sha256").update(file).digest("hex");
-  const data = JSON.parse(file) as DataFile;
 
   if (hash !== fileEntry.sha256) {
     printTest("# Checking SHA256 hash", false);
@@ -65,13 +62,8 @@ for (const fileEntry of files) {
   let schemaOk = true;
   let schemaErr;
   try {
-    await Promise.all([
-      db.guilds.bulkInsert(data.Guilds),
-      db.models.bulkInsert(data.Models),
-      db.character_plays.bulkInsert(data["Character Plays"]),
-      db.character_traits.bulkInsert(data["Character Traits"]),
-      db.upsertLocal("gbdata_meta", fileEntry),
-    ]);
+    // await gbdbAddCollections();
+    await loadGBDatabase(fileEntry, dataDir);
   } catch (err) {
     schemaErr = err;
     schemaOk = false;
@@ -80,6 +72,7 @@ for (const fileEntry of files) {
   if (!schemaOk) {
     console.error(schemaErr);
     // move on to the next file
+    clearGBDatabase();
     continue;
   }
 
@@ -151,6 +144,7 @@ for (const fileEntry of files) {
       console.log(`  ${name.padEnd(46, ".")} ⚠️`);
     }
   }
+  clearGBDatabase();
 }
 
 process.exit(0);

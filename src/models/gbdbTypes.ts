@@ -3,6 +3,7 @@ import type {
   Guild,
   CharacterPlay,
   CharacterTrait,
+  GBDataMeta,
 } from "../components/DataTypes";
 
 import { RxDatabase, RxCollection, RxJsonSchema, RxDocument } from "rxdb";
@@ -218,3 +219,101 @@ export interface GBDataCollections {
 }
 
 export type GBDatabase = RxDatabase<GBDataCollections>;
+
+export class PartialError<T> extends Error {
+  partialResult?: T;
+  constructor(message: string, partial?: T, options?: ErrorOptions) {
+    super(message, options);
+    this.partialResult = partial;
+  }
+}
+
+async function populate_character_plays(
+  doc: GBModelDoc
+): Promise<CharacterPlay[]> {
+  const characterPlays: (GBCharacterPlayDoc | null)[] = await doc.populate(
+    "character_plays"
+  );
+  const cps = characterPlays.filter((cp) => cp !== null);
+  const foundPlays = cps.map((cp) => cp.name);
+  const missing = doc.character_plays.filter(
+    (play) => !foundPlays.includes(play)
+  );
+  const result = cps.map((cp) => cp.toJSON());
+  if (missing.length) {
+    throw new PartialError(`unknown plays: ${missing}`, result);
+  }
+  return result;
+}
+
+async function populate_character_traits(
+  doc: GBModelDoc
+): Promise<ParameterizedTrait[]> {
+  const traits: string[] = [];
+  const params: (string | undefined)[] = [];
+  for (const s of doc.character_traits) {
+    const [trait, param] = s.split(/\[|\]/);
+    traits.push(trait.trim());
+    params.push(param?.trim());
+  }
+  const db = doc.collection.database;
+  const characterTraits: (GBCharacterTraitDoc | null)[] = await Promise.all(
+    traits.map((name) => db.character_traits.findOne(name).exec())
+  );
+  const cts = characterTraits.filter((ct) => ct !== null);
+  const foundTraits = cts.map((ct) => ct.name);
+  const missing = traits.filter((trait) => !foundTraits.includes(trait));
+  const result = cts.map((ct, index) =>
+    Object.assign(ct.toMutableJSON(), {
+      parameter: params[index],
+    })
+  );
+  if (missing.length) {
+    throw new PartialError(`unknown traits: ${missing}`, result);
+  }
+  return result;
+}
+
+export const gbModelDocMethods: GBModelMethods = {
+  expand: async function (this: GBModelDoc): Promise<GBModelExpanded> {
+    const db = this.collection.database;
+    const dbSettings = await db.getLocal<GBDataMeta>("gbdata_meta");
+    let character_plays: CharacterPlay[] | undefined = [];
+    let character_traits: ParameterizedTrait[] | undefined = [];
+    const errors: Error[] = [];
+    [character_plays, character_traits] = await Promise.all([
+      populate_character_plays(this).catch(
+        (err: PartialError<CharacterPlay[]>) => {
+          errors.push(err);
+          return err.partialResult;
+        }
+      ),
+      populate_character_traits(this).catch(
+        (err: PartialError<ParameterizedTrait[]>) => {
+          errors.push(err);
+          return err.partialResult;
+        }
+      ),
+    ]);
+    const model: GBModelExpanded = Object.assign(this.toMutableJSON(), {
+      character_plays: character_plays || [],
+      character_traits: character_traits || [],
+      // dont let Some/Pneuma count twice for the INF pool
+      _inf: this.id === "Pneuma" ? 0 : undefined,
+      // mini-statline display
+      statLine: `${this.jog}"/${this.sprint}" | ${this.tac} | ${
+        this.kickdice
+      }/${this.kickdist}" | ${this.def}+ | ${this.arm} | ${this.inf}/${
+        this.infmax
+      } | ${this.reach ? 2 : 1}"`,
+      // get errata level from db metadata
+      version: dbSettings?.get("version"),
+    });
+    if (errors.length) {
+      throw new PartialError("Error(s) expanding model", model, {
+        cause: new AggregateError(errors),
+      });
+    }
+    return model;
+  },
+};

@@ -43,8 +43,9 @@ const CardFront = (props: CardFrontProps) => {
     (async () => {
       const setting$ = await getSettings();
       sub = setting$.subscribe((s) => {
-        setStyle(s?.toJSON().data.cardPreferences.preferredStyle || "sfg");
-        setLang(s?.toJSON().data.language || "auto");
+        const settings = s?.toJSON();
+        setStyle(settings?.data.cardPreferences.preferredStyle || "sfg");
+        setLang(settings?.data.language || "auto");
       });
     })();
     return () => sub?.unsubscribe();
