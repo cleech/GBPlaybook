@@ -314,7 +314,7 @@ export default function RosterList({
       ?.pipe(map((s) => s?.toJSON().data.uiPreferences.displayStatLine))
       .subscribe((sl) => setStatLine(sl));
     return () => sub?.unsubscribe();
-  });
+  }, [setting$]);
 
   const indexBases = teams.reduce(
     (acc, team, index) => {
