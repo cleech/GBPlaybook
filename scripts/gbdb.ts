@@ -13,6 +13,7 @@ addRxPlugin(RxDBDevModePlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
 addRxPlugin(RxDBMigrationSchemaPlugin);
 
+import path from "node:path";
 import { readFile } from "node:fs/promises";
 
 import {
@@ -31,7 +32,7 @@ export async function getGBDatabase(): Promise<GBDatabase> {
       localDocuments: true,
       storage: wrappedValidateAjvStorage({ storage: getRxStorageMemory() }),
     });
-    await gbdbAddCollections(db);
+    await db.addCollections(gbCollectionsConfig);
     return db;
   })().catch((err) => {
     gbdbInitPromise = undefined;
@@ -40,8 +41,7 @@ export async function getGBDatabase(): Promise<GBDatabase> {
   return gbdbInitPromise;
 }
 
-export async function clearGBDatabase() {
-  const db = await getGBDatabase();
+export async function clearGBDatabase(db: GBDatabase) {
   try {
     await Promise.all([
       db.getLocal("gbdata_meta").then((doc) => doc?.remove()),
@@ -54,10 +54,6 @@ export async function clearGBDatabase() {
     console.error(err);
     process.exit(1);
   }
-}
-
-export async function gbdbAddCollections(db: GBDatabase) {
-  await db.addCollections(gbCollectionsConfig);
 }
 
 // Accepts the RxDB bulkInsert result type
@@ -76,12 +72,12 @@ interface FileEntry {
 }
 
 export async function loadGBDatabase(
+  db: GBDatabase,
   fileEntry: FileEntry,
-  dataDir: string = "/"
+  dataDir: string = ""
 ) {
-  const db = await getGBDatabase();
   const data: DataFile = await readFile(
-    dataDir + fileEntry.filename,
+    path.resolve(dataDir, fileEntry.filename),
     "utf8"
   ).then(JSON.parse);
   await Promise.all([
