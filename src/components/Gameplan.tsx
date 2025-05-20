@@ -152,11 +152,6 @@ const SimpleCard = (props: { children?: ReactNode }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1.0);
 
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
   const updateSize = useCallback(() => {
     if (!ref.current) {
       return;
@@ -167,6 +162,12 @@ const SimpleCard = (props: { children?: ReactNode }) => {
     const newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
   }, []);
+
+  useLayoutEffect(() => {
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, [updateSize, ref.current]);
 
   return (
     // layout positioning div

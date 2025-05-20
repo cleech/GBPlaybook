@@ -256,11 +256,6 @@ const GameList = ({
   const [cardWidth, setCardWidth] = useState(500);
   const [cardHeight, setCardHeight] = useState(700);
   const [slideHeight, setSlideHeight] = useState(700);
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
 
   const updateSize = useCallback(() => {
     const width = sizeRef.current?.getBoundingClientRect().width ?? 0;
@@ -270,6 +265,12 @@ const GameList = ({
     setCardHeight(Math.min(height - barHeight - 12, (width * 7) / 5 - 12));
     setSlideHeight(height - barHeight);
   }, [large]);
+
+  useLayoutEffect(() => {
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, [updateSize, sizeRef.current]);
 
   return (
     <div

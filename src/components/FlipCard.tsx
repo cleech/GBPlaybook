@@ -24,11 +24,7 @@ export function FlipCard({
   const layoutRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
+
   const updateSize = useCallback(() => {
     if (!layoutRef.current) {
       return;
@@ -39,6 +35,12 @@ export function FlipCard({
     const newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
   }, []);
+
+  useLayoutEffect(() => {
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, [updateSize, targetRef.current]);
 
   return (
     <div

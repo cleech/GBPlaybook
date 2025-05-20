@@ -30,11 +30,6 @@ export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
     return () => sub?.unsubscribe();
   }, []);
 
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
   const updateSize = useCallback(() => {
     if (!targetRef.current) {
       return;
@@ -45,6 +40,12 @@ export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
     const newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
   }, []);
+
+  useLayoutEffect(() => {
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, [updateSize, targetRef.current]);
 
   const key = model.id;
   const gbcp =

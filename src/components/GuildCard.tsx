@@ -15,11 +15,7 @@ interface CardCSS extends CSSProperties {
 export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
   const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1.0);
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
+
   const updateSize = useCallback(() => {
     if (!targetRef.current) {
       return;
@@ -30,6 +26,12 @@ export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
     const newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
   }, []);
+
+  useLayoutEffect(() => {
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, [updateSize, targetRef.current]);
 
   return (
     <div
@@ -83,11 +85,7 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
   const layoutRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
+
   const updateSize = useCallback(() => {
     if (!layoutRef.current) {
       return;
@@ -98,6 +96,12 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
     const newScale = Math.min(vertScale, horiScale, 1);
     setScale(newScale ?? 1);
   }, []);
+
+  useLayoutEffect(() => {
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, [updateSize, layoutRef.current]);
 
   return (
     <div

@@ -184,7 +184,7 @@ function SwiperLayout({
     updateSize();
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
-  }, [updateSize]);
+  }, [updateSize, ref.current]);
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
   // I don't like this, it's just triggering a re-render which then also renders the buttons
