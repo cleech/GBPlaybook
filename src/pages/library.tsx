@@ -296,7 +296,7 @@ export function Roster() {
 export function GamePlans() {
   // const large = useMediaQuery(theme.breakpoints.up("sm"));
   const largeLayout = false; // Gameplans always use small layout
-  const { gameplans } = useData();
+  const { gameplans, gameplanYear } = useData();
 
   if (!gameplans) {
     return null;
@@ -316,7 +316,7 @@ export function GamePlans() {
 
   // Define slides
   const slides = gameplans.map((gameplan: Gameplan) => (
-    <GameplanCard key={gameplan.title} gameplan={gameplan} />
+    <GameplanCard key={gameplan.title} gameplan={gameplan} year={gameplanYear || 2018} />
   ));
 
   return (

@@ -151,7 +151,7 @@ const PrintSettings = (props: {
 };
 
 export const CardPrintScreen = () => {
-  const { gbdb: db, gameplans } = useData();
+  const { gbdb: db, gameplans, gameplanYear } = useData();
   const ref = useRef<{
     models: Map<string, ModelCheckBoxRef>;
     guilds: Map<string, GuildCheckBoxRef>;
@@ -398,6 +398,7 @@ export const CardPrintScreen = () => {
         {gameplans?.map((gp: Gameplan, index) => (
           <GameplanPrintCard
             gameplan={gp}
+            year={gameplanYear || 2018}
             key={`gameplan-${index}`}
             bleed={withBleed}
           />
@@ -1206,8 +1207,8 @@ const GuildCard = (props: {
   );
 };
 
-const GameplanPrintCard = (props: { gameplan: Gameplan; bleed: boolean }) => {
-  const { gameplan, bleed } = props;
+const GameplanPrintCard = (props: { gameplan: Gameplan; year: number; bleed: boolean }) => {
+  const { gameplan, year, bleed } = props;
 
   const [inView, setInView] = useState(false);
   const callback: MutationCallback = (mutationList) => {
@@ -1251,6 +1252,7 @@ const GameplanPrintCard = (props: { gameplan: Gameplan; bleed: boolean }) => {
         >
           <GameplanFront
             gameplan={gameplan}
+            year={year}
             style={{ borderRadius: 0 }}
             bleed={bleed}
           />

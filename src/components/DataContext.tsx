@@ -13,6 +13,7 @@ export interface DataContextProps {
   manifest?: Manifest;
   version: number;
   gameplans?: Gameplan[];
+  gameplanYear?: number;
   gbdb?: GBDatabase;
 }
 
@@ -148,7 +149,6 @@ async function bulkLoadDB(
 }
 
 let currentInitializationPromise: Promise<DataContextProps & { gbdb: GBDatabase }> | null = null;
-
 export async function initializeAppData(): Promise<DataContextProps & { gbdb: GBDatabase }> {
   if (currentInitializationPromise) {
     console.log("Application data initialization already in progress, returning existing promise.");
@@ -208,10 +208,12 @@ export async function initializeAppData(): Promise<DataContextProps & { gbdb: GB
     const gbdb = await getGBDatabase();
     await bulkLoadDB(finalFilenameToLoad, manifest, dataFile);
 
-    const gameplans: Gameplan[] = await readFile("gameplans.json");
+    const gameplansFile = manifest.gameplans[0].filename;
+    const gameplanYear = manifest.gameplans[0].version;
+    const gameplans: Gameplan[] = await readFile(gameplansFile);
 
     console.log("Application data initialization complete.");
-    return { manifest, version, gameplans, gbdb };
+    return { manifest, version, gameplans, gameplanYear, gbdb };
   };
 
   currentInitializationPromise = initializationWork();

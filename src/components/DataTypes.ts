@@ -82,6 +82,12 @@ export interface Manifest {
       };
     };
   }[];
+  gameplans: {
+    version: number;
+    filename: string;
+    sha256: string;
+    timestamp: string;
+  }[];
 }
 
 export interface GBDataMeta {

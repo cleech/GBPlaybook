@@ -1,0 +1,163 @@
+- title: Extra Shot
+  text: |-
+    The opposing player may choose
+    one of your models. Then, you may
+    choose two other friendly models.
+    The friendly models you chose gain
+    1 TAC and may Sprint without
+    spending influence.
+  initiative: 1
+  influence: 0
+- title: Feign Injury
+  text: |-
+    Once this turn, when selecting a
+    friendly model to activate, if there
+    are one or more friendly models
+    currently suffering the taken out
+    condition that have not activated,
+    you may force the opposing player
+    to select an enemy model to activate
+    instead. When you do, select a
+    friendly model to recover 4 HP.
+  initiative: 1
+  influence: 0
+- title: Set Me Up
+  text: |-
+    A friendly model may immediately
+    make a pass to another friendly
+    model. Models cannot generate MP,
+    use Pass & Move, or make a Snap
+    Shot as a result of this pass.
+  initiative: 2
+  influence: 1
+- title: Pep Talk
+  text: |-
+    Once per activation, friendly models
+    may use Bonus Time without
+    spending MP.
+  initiative: 2
+  influence: -1
+- title: Lost Focus
+  text: |-
+    Choose one of the following:
+    • The first time an enemy model
+    makes a kick, they suffer –1/–2"
+    KICK for the duration of the action.
+    • The first time a friendly model is
+    damaged by an enemy attack or play,
+    the friendly model may recover 3 HP
+    after the action is resolved.
+  initiative: 3
+  influence: 0
+- title: High Press
+  text: |-
+    Up to two friendly Squaddie models
+    may make a 2" dodge towards the
+    enemy goal post.
+  initiative: 3
+  influence: 0
+- title: Home Advantage
+  text: |-
+    When an enemy model scores a goal,
+    the friendly team gains 2 MP. When
+    making a goal kick after an enemy
+    model has scored a goal, you may
+    spend 1 MP to reroll the kick scatter.
+  initiative: 3
+  influence: 1
+- title: No Guts, No Glory
+  text: |-
+    Choose a friendly non-Mascot model
+    on the pitch. The chosen model
+    suffers 5 DMG.
+  initiative: 4
+  influence: 2
+- title: Adrenaline Rush
+  text: |-
+    Once this turn, a friendly model may
+    use Rest without spending MP.
+  initiative: 4
+  influence: 0
+- title: Big Rivals
+  text: |-
+    Choose a friendly model and an
+    enemy model. The chosen models
+    suffer a 1" push directly towards each
+    other.
+  initiative: 4
+  influence: 0
+- title: Man Marking
+  text: |-
+    Choose an enemy Squaddie model.
+    The chosen model suffers Marked
+    Target.
+  detail: |-
+    (Marked Target: When a friendly
+    model charges target enemy model, the
+    friendly model gains +0"/+2" MOV for
+    the duration of the charge.)
+  initiative: 4
+  influence: 0
+- title: Match Fixing
+  text: |-
+    Predict aloud whether the first
+    time your opponent scores VP this
+    turn will be as a result of a goal or
+    a take down. If your prediction is
+    correct, you may allocate 2 influence
+    between up to two friendly models.
+  initiative: 4
+  influence: 0
+- title: Nowhere to Hide
+  text: |-
+    Choose an obstruction, barrier,
+    or forest on the pitch. The chosen
+    terrain piece doesn’t provide the
+    benefit of cover.
+  initiative: 5
+  influence: 0
+- title: Catenaccio
+  text: |-
+    Choose a friendly Squaddie model.
+    The chosen model gains Backfield
+    Presence.
+  detail: |-
+    (Backfield Presence: While attacking a
+    model that is in possession of the ball,
+    this model gains +2 TAC.)
+  initiative: 5
+  influence: 0
+- title: Rushed Back
+  text: |-
+    The first enemy model that returns
+    to the pitch this turn after removing
+    the taken out condition suffers the
+    bleed condition.
+  initiative: 6
+  influence: 0
+- title: WHAT A STRIKE!
+  text: |-
+    Friendly models gain Goal of the Month.
+  detail: |-
+    (Goal of the Month: When this model
+    makes a successful shot, it scores a Screamer
+    if any double is rolled.)
+  initiative: 6
+  influence: 0
+- title: Brown Envelope
+  text: |-
+    The first time you select a model to
+    activate, the opposing player chooses
+    –1"/–1" MOV or –1 TAC. The
+    selected model suffers the chosen
+    effect.
+  initiative: 7
+  influence: 0
+- title: Gengenpress
+  text: |-
+    When your opponent ends their first
+    activation, you may remove up to 2
+    influence from a friendly model and
+    allocate it to another friendly model.
+  initiative: 7
+  influence: -1
