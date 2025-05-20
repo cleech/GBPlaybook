@@ -20,6 +20,7 @@ const image = new URL(
 
 export const GameplanFront = (props: {
   gameplan: Gameplan;
+  year: number;
   bleed?: boolean;
   style?: CardCSS;
 }) => {
@@ -61,30 +62,33 @@ export const GameplanFront = (props: {
               flexDirection: "column",
               alignItems: "center",
               lineHeight: "0.8em",
-              margin: "0.25em 0",
+              margin: "0.2em 0",
             }}
           >
-            {gameplan.title.split(/\n/).map((p, i) => (
-              <span key={`l${i}`}>
-                {p.split(/(?=[A-Z])/).map((s, j) => (
-                  <span
-                    key={`p${i}s${j}`}
-                    className={/^\p{Lu}/u.test(s) ? "dropcap" : ""}
-                  >
-                    <span key={`p${i}s${j}c`}>{s}</span>
+            { /* ignore the dropcap style if it's all caps */
+              /[a-z]/.test(gameplan.title) ?
+                gameplan.title.split(/\n/).map((p, i) => (
+                  <span key={`l${i}`}>
+                    {p.split(/(?=[A-Z])/).map((s, j) => (
+                      <span
+                        key={`p${i}s${j}`}
+                        className={/^\p{Lu}/u.test(s) ? "dropcap" : ""}
+                      >
+                        <span key={`p${i}s${j}c`}>{s}</span>
+                      </span>
+                    ))}
                   </span>
-                ))}
-              </span>
-            ))}
+                )) : gameplan.title}
           </div>
           <div
             style={{
-              fontSize: "20pt",
+              fontSize: "21pt",
               margin: "0 1em",
               whiteSpace: "pre-wrap",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              lineHeight: 1,
             }}
           >
             {gameplan.text}
@@ -136,7 +140,7 @@ export const GameplanFront = (props: {
               wordSpacing: 0,
             }}
           >
-            ™ & © Steamforged Games LTD 2019
+            ™ & © Steamforged Games LTD {props.year}
           </div>
         </div>
       </div>
@@ -197,7 +201,7 @@ const SimpleCard = (props: { children?: ReactNode }) => {
   );
 };
 
-export const GameplanCard = (props: { gameplan: Gameplan }) => (
+export const GameplanCard = (props: { gameplan: Gameplan, year: number }) => (
   <SimpleCard>
     <GameplanFront {...props} />
   </SimpleCard>
