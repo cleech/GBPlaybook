@@ -151,7 +151,7 @@ const PrintSettings = (props: {
 };
 
 export const CardPrintScreen = () => {
-  const { gbdb: db, gameplans, gameplanYear } = useData();
+  const { gbdb: db, manifest } = useData();
   const ref = useRef<{
     models: Map<string, ModelCheckBoxRef>;
     guilds: Map<string, GuildCheckBoxRef>;
@@ -164,10 +164,43 @@ export const CardPrintScreen = () => {
   const [Models, setModels] = useState<string[]>();
 
   const [doubleCard, setDouble] = useState(true);
-
   const [withBleed, setBleed] = useState(false);
-
   const [noFun, setNoFun] = useState(false);
+
+  // --- New state for all gameplan series ---
+  const [allGameplans, setAllGameplans] = useState<
+    { year: number; cards: Gameplan[] }[]
+  >([]);
+
+  // --- Load all gameplan files from manifest ---
+  useEffect(() => {
+    if (!manifest) return;
+    let canceled = false;
+    const fetchAllGameplans = async () => {
+      const results: { year: number; cards: Gameplan[] }[] = [];
+      for (const gp of manifest.gameplans) {
+        try {
+          const res = await fetch(`data/${gp.filename}`);
+          if (!res.ok) throw new Error(`Failed to fetch ${gp.filename}`);
+          const cards = await res.json();
+          if (!canceled) {
+            results.push({ year: gp.version, cards });
+          }
+        } catch (e) {
+          // Optionally handle error
+          console.error(e);
+        }
+      }
+      if (!canceled) {
+        setAllGameplans(results);
+      }
+    };
+    fetchAllGameplans();
+    return () => {
+      canceled = true;
+    };
+  }, [manifest]);
+  // --- end gameplan loading ---
 
   useEffect(() => {
     if (!db) {
@@ -264,7 +297,7 @@ export const CardPrintScreen = () => {
       </AppBarContent>
 
       <Box className="controls no-print" sx={{ p: "1rem" }}>
-        <GuildList ref={list} />
+        <GuildList ref={list} allGameplans={allGameplans} />
         <Box
           sx={{
             display: "flex",
@@ -295,11 +328,14 @@ export const CardPrintScreen = () => {
                       }
                     });
 
-                    if (list.current.guild === "gameplans") {
+                    if (/gameplans/.test(list.current.guild)) {
                       ref.current?.gameplans.forEach((control) => {
-                        control.setChecked(true);
+                        const year = list.current?.guild?.split("-")[1];
+                        if (String(control.year) == year)
+                          control.setChecked(true);
                       });
                     }
+
                     if (list.current.guild === "refcards") {
                       ref.current?.refcards.forEach((control) => {
                         control.setChecked(true);
@@ -330,9 +366,11 @@ export const CardPrintScreen = () => {
                         control.setChecked(false);
                       }
                     });
-                    if (list.current.guild === "gameplans") {
+                    if (/gameplans/.test(list.current.guild)) {
                       ref.current?.gameplans.forEach((control) => {
-                        control.setChecked(false);
+                        const year = list.current?.guild?.split("-")[1];
+                        if (String(control.year) == year)
+                          control.setChecked(false);
                       });
                     }
                     if (list.current.guild === "refcards") {
@@ -348,7 +386,7 @@ export const CardPrintScreen = () => {
             </ButtonGroup>
             <VersionTag />
           </Box>
-          <ModelLists ref={ref} />
+          <ModelLists ref={ref} allGameplans={allGameplans} />
         </Box>
         <Divider />
         <Box>
@@ -395,14 +433,18 @@ export const CardPrintScreen = () => {
             doubleCard={doubleCard}
           />
         ))}
-        {gameplans?.map((gp: Gameplan, index) => (
-          <GameplanPrintCard
-            gameplan={gp}
-            year={gameplanYear || 2018}
-            key={`gameplan-${index}`}
-            bleed={withBleed}
-          />
+        {/* --- Render all gameplan series --- */}
+        {allGameplans.map(({ year, cards }) => (
+          cards.map((gp: Gameplan, index: number) => (
+            <GameplanPrintCard
+              gameplan={gp}
+              year={year}
+              key={`gameplan-${year}-${index}`}
+              bleed={withBleed}
+            />
+          ))
         ))}
+        {/* --- End gameplan series --- */}
         {[...Array(5).keys()].map((index) => (
           <RefcardPrintCard
             index={index}
@@ -411,7 +453,7 @@ export const CardPrintScreen = () => {
           />
         ))}
       </Box>
-    </Box>
+    </Box >
   );
 };
 
@@ -419,7 +461,7 @@ interface GuildListRef {
   guild: string | undefined;
 }
 
-const GuildList = (props: { ref: React.Ref<GuildListRef> }) => {
+const GuildList = (props: { ref: React.Ref<GuildListRef>, allGameplans: { year: number; cards: Gameplan[] }[] }) => {
   const [guild, setGuild] = useState<string | undefined>(undefined);
 
   useImperativeHandle(props.ref, () => ({ guild }), [guild]);
@@ -478,13 +520,15 @@ const GuildList = (props: { ref: React.Ref<GuildListRef> }) => {
             style={{ "--color": "#333333" }}
           />
         </MenuItem>
-        <MenuItem key="gameplans" value="gameplans" dense>
-          <ListItemBanner
-            text="Gameplans"
-            icon="GB"
-            style={{ "--color": "#333333" }}
-          />
-        </MenuItem>
+        {props.allGameplans.map(({ year }) => (
+          <MenuItem key={`gameplans-${year}`} value={`gameplans-${year}`} dense>
+            <ListItemBanner
+              text={`Gameplan [${year}]`}
+              icon="GB"
+              style={{ "--color": "#333333" }}
+            />
+          </MenuItem>
+        ))}
         {Guilds.map((g) => (
           <MenuItem key={g.name} value={g.name} dense>
             <GuildListItem g={g} />
@@ -687,15 +731,17 @@ const ModelCheckBox = (props: { m: GBModelDoc, ref: React.Ref<ModelCheckBoxRef> 
 
 interface GameplanCheckBoxRef extends CheckBoxRef {
   g: Gameplan;
+  year: number;
 }
 
-const GameplanCheckBox = (props: { g: Gameplan, ref: React.Ref<GameplanCheckBoxRef> }) => {
+const GameplanCheckBox = (props: { g: Gameplan, year: number, ref: React.Ref<GameplanCheckBoxRef> }) => {
   const [checked, setChecked] = useState(false);
-  const g = props.g;
+  const { g, year } = props;
   useImperativeHandle(
     props.ref,
     () => ({
       g: props.g,
+      year: props.year,
       checked: checked,
       setChecked: (value: boolean) => {
         if (checked !== value) {
@@ -704,7 +750,7 @@ const GameplanCheckBox = (props: { g: Gameplan, ref: React.Ref<GameplanCheckBoxR
         }
       },
     }),
-    [props.g, checked, setChecked]
+    [props.g, props.year, checked, setChecked]
   );
   return (
     <FormControlLabel
@@ -715,7 +761,7 @@ const GameplanCheckBox = (props: { g: Gameplan, ref: React.Ref<GameplanCheckBoxR
       }}
       control={<Checkbox checked={checked} size="small" color="warning" />}
       label={g.title}
-      className={`model-checkbox gameplans ${g.title.replace(
+      className={`model-checkbox gameplans-${year} ${g.title.replace(
         /[^a-zA-Z0-9]/g,
         ""
       )} hide`}
@@ -793,8 +839,9 @@ interface ModelListRef {
   refcards: Map<string, RefCardCheckBoxRef>;
 }
 
-const ModelLists = (props: { ref: React.Ref<ModelListRef> }) => {
-  const { gbdb: db, gameplans } = useData();
+const ModelLists = (props: { ref: React.Ref<ModelListRef>, allGameplans: { year: number; cards: Gameplan[] }[] }) => {
+  const { gbdb: db } = useData();
+  const { allGameplans } = props;
   const checkboxes = useRef(new Map<string, ModelCheckBoxRef>());
   const guilds = useRef(new Map<string, GuildCheckBoxRef>());
   const gps = useRef(new Map<string, GameplanCheckBoxRef>());
@@ -812,6 +859,7 @@ const ModelLists = (props: { ref: React.Ref<ModelListRef> }) => {
 
   const [Guilds, setGuilds] = useState<GBGuildDoc[]>();
   const [Models, setModels] = useState<GBModelDoc[]>();
+
   useEffect(() => {
     const fetchData = async () => {
       if (!db) {
@@ -859,7 +907,7 @@ const ModelLists = (props: { ref: React.Ref<ModelListRef> }) => {
     fetchData().catch(console.error);
   }, [db]);
 
-  if (!gameplans || !Guilds || !Models) {
+  if (!allGameplans || !Guilds || !Models) {
     return null;
   }
 
@@ -873,19 +921,24 @@ const ModelLists = (props: { ref: React.Ref<ModelListRef> }) => {
         } as CSSProperties
       }
     >
-      {gameplans.map((gp: Gameplan) => (
-        <GameplanCheckBox
-          g={gp}
-          key={gp.title}
-          ref={(element) => {
-            if (element) {
-              gps.current.set(gp.title, element);
-            } else {
-              gps.current.delete(gp.title);
-            }
-          }}
-        />
-      ))}
+      {/* --- Render all gameplan checkboxes for all series --- */}
+      {allGameplans.map(({ year, cards }) =>
+        cards.map((gp: Gameplan) => (
+          <GameplanCheckBox
+            g={gp}
+            year={year}
+            key={`${year}-${gp.title}`}
+            ref={(element) => {
+              if (element) {
+                gps.current.set(`${year}:${gp.title}`, element);
+              } else {
+                gps.current.delete(`${year}:${gp.title}`);
+              }
+            }}
+          />
+        ))
+      )}
+      {/* --- End gameplan checkboxes --- */}
       {[
         "Playbook Results",
         "Turn Sequence",
