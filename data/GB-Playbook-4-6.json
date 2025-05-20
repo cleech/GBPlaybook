@@ -13996,11 +13996,6 @@
       "text": "At the start of this model’s activation, remove all conditions it’s suffering. This model recovers 2 HP."
     },
     {
-      "name": "Raise the Stakes",
-      "active": true,
-      "text": "Once per turn during this model’s activation, it may make a 4\" dodge. After this dodge is resolved, the opposing player may choose one of their models to make a 4\" dodge."
-    },
-    {
       "name": "Stack the Deck",
       "active": false,
       "text": "Once per turn at the start of this model’s activation, if the opposing team has the initiative, this model is allocated 1 influence."
@@ -14244,11 +14239,6 @@
       "name": "Feathered Friends",
       "active": false,
       "text": "While within a friendly Harrier AOE, this model gains +1 TAC and cover."
-    },
-    {
-      "name": "Updraft",
-      "active": false,
-      "text": "Once per turn when it advances through a Harrier AOE, this model may gain +2\"/+2\" MOV for the duration of the advance."
     },
     {
       "name": "Hawk Eye",
@@ -15036,24 +15026,9 @@
       "text": "Remove the Burning condition from this model. If you do, enemy models within this pulse suffer -1\"/-1\" MOV."
     },
     {
-      "name": "Natural Baller",
-      "active": true,
-      "text": "Once per turn, when this model gains possesion of a ball marker, this model may immediately be allocated 1 influence."
-    },
-    {
-      "name": "Dread Captain",
-      "active": true,
-      "text": "Once per turn, when this model makes an Attack you may reroll up to 2 dice."
-    },
-    {
       "name": "Who's a Good Boy",
       "active": true,
       "text": "Once per turn, when targeting a friendly named model with a character play, this model may use the character play without spending influence."
-    },
-    {
-      "name": "Bait And Switch",
-      "active": true,
-      "text": "When this model scores a goal, if it does not use Run the Length, enemy models within this pulse suffer either the snared or bleed condition."
     },
     {
       "name": "Prodigy",
