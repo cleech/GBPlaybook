@@ -403,7 +403,7 @@ export const CardPrintScreen = () => {
             bleed={withBleed}
           />
         ))}
-        {gameplans?.map((_: Gameplan, index) => (
+        {[...Array(5).keys()].map((index) => (
           <RefcardPrintCard
             index={index}
             key={`refcard-${index}`}
