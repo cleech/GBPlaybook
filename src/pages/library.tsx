@@ -53,6 +53,7 @@ import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 import { GBGuildDoc, GBModelExpanded } from "../models/gbdbTypes";
 import { firstValueFrom, Observable } from "rxjs";
 import { SettingsDoc } from "../models/settings";
+import useResizeObserver from "@react-hook/resize-observer";
 
 export default function Library() {
   const location = useLocation();
@@ -165,14 +166,12 @@ function SwiperLayout({
   slides,
   largeLayout = false,
 }: SwiperLayoutProps) {
-
-  const ref = useRef<HTMLDivElement>(null);
   const [cardWidth, setCardWidth] = useState(0);
   const [cardHeight, setCardHeight] = useState(0);
 
-  const updateSize = useCallback(() => {
-    const containerWidth = ref.current?.getBoundingClientRect().width ?? (largeLayout ? 1000 : 500);
-    const containerHeight = ref.current?.getBoundingClientRect().height ?? 700;
+  const updateSize = useCallback(({ width, height }: DOMRectReadOnly) => {
+    const containerWidth = width ?? (largeLayout ? 1000 : 500);
+    const containerHeight = height ?? 700;
     const aspectRatioMultiplier = largeLayout ? 10 : 5;
     const calculatedWidth = Math.min(containerWidth, (containerHeight * aspectRatioMultiplier) / 7) - 12;
     const calculatedHeight = Math.min(containerHeight, (containerWidth * 7) / aspectRatioMultiplier) - 12;
@@ -180,11 +179,14 @@ function SwiperLayout({
     setCardHeight(calculatedHeight);
   }, [largeLayout]);
 
+  const sizeRef = useRef<HTMLDivElement>(null);
+
   useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  }, [updateSize]);
+    if (sizeRef.current)
+      updateSize(sizeRef.current.getBoundingClientRect());
+  }, [sizeRef, updateSize]);
+
+  useResizeObserver(sizeRef, (entry) => updateSize(entry.contentRect));
 
   const [swiper, setSwiper] = useState<SwiperRef | null>(null);
   // I don't like this, it's just triggering a re-render which then also renders the buttons
@@ -196,7 +198,7 @@ function SwiperLayout({
     <>
       {navigation(swiper)}
       <Box
-        ref={ref}
+        ref={sizeRef}
         sx={{
           height: "100%",
           position: "relative",
