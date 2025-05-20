@@ -1,13 +1,10 @@
 import {
   CSSProperties,
-  useRef,
-  useState,
-  useLayoutEffect,
-  useCallback,
   ReactNode,
 } from "react";
 
 import { Gameplan } from "./DataTypes";
+import useScaleRef from "../hooks/useScaleRef";
 
 interface CardCSS extends CSSProperties {
   "--scale"?: number | string;
@@ -149,29 +146,11 @@ export const GameplanFront = (props: {
 };
 
 const SimpleCard = (props: { children?: ReactNode }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1.0);
-
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
-  const updateSize = useCallback(() => {
-    if (!ref.current) {
-      return;
-    }
-    const { width, height } = ref.current.getBoundingClientRect();
-    const vertScale = width / 500;
-    const horiScale = height / 700;
-    const newScale = Math.min(vertScale, horiScale, 1);
-    setScale(newScale ?? 1);
-  }, []);
-
+  const [scale, layoutRef] = useScaleRef<HTMLDivElement>(500, 700);
   return (
     // layout positioning div
     <div
-      ref={ref}
+      ref={layoutRef}
       style={{
         width: "100%",
         maxWidth: "500px",

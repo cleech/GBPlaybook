@@ -1,39 +1,20 @@
 import {
-  useState,
   useRef,
-  useLayoutEffect,
   CSSProperties,
-  useCallback,
 } from "react";
 import GBImages from "../utils/GBImages";
 import "./FlipCard.css";
+import useScaleRef from "../hooks/useScaleRef";
 
 interface CardCSS extends CSSProperties {
   "--scale": number | string;
 }
 
 export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
-  const targetRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1.0);
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
-  const updateSize = useCallback(() => {
-    if (!targetRef.current) {
-      return;
-    }
-    const { width, height } = targetRef.current.getBoundingClientRect();
-    const vertScale = width / 1000;
-    const horiScale = height / 700;
-    const newScale = Math.min(vertScale, horiScale, 1);
-    setScale(newScale ?? 1);
-  }, []);
-
+  const [scale, layoutRef] = useScaleRef<HTMLDivElement>(1000, 700);
   return (
     <div
-      ref={targetRef}
+      ref={layoutRef}
       style={{
         width: "100%",
         maxWidth: "1000px",
@@ -80,25 +61,8 @@ export const DoubleGuildCard = ({ guild }: { guild: string | undefined }) => {
 };
 
 export function FlipGuildCard({ guild }: { guild: string | undefined }) {
-  const layoutRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
-  const updateSize = useCallback(() => {
-    if (!layoutRef.current) {
-      return;
-    }
-    const { width, height } = layoutRef.current.getBoundingClientRect();
-    const vertScale = width / 500;
-    const horiScale = height / 700;
-    const newScale = Math.min(vertScale, horiScale, 1);
-    setScale(newScale ?? 1);
-  }, []);
-
+  const [scale, layoutRef] = useScaleRef<HTMLDivElement>(500, 700);
   return (
     <div
       ref={layoutRef}

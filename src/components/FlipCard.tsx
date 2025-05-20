@@ -1,17 +1,11 @@
-import {
-  useState,
-  useRef,
-  useLayoutEffect,
-  useCallback,
-  JSX,
-  PropsWithChildren,
-} from "react";
+import { useRef, JSX, PropsWithChildren, } from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
 import "./FlipCard.css";
 
 import { GBModelExpanded } from "../models/gbdbTypes";
 import { Observable } from "rxjs";
+import useScaleRef from "../hooks/useScaleRef";
 
 export function FlipCard({
   children,
@@ -21,24 +15,8 @@ export function FlipCard({
   model: GBModelExpanded;
   health$?: Observable<number>;
 }>): JSX.Element {
-  const layoutRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
-  const updateSize = useCallback(() => {
-    if (!layoutRef.current) {
-      return;
-    }
-    const { width, height } = layoutRef.current.getBoundingClientRect();
-    const vertScale = width / 500;
-    const horiScale = height / 700;
-    const newScale = Math.min(vertScale, horiScale, 1);
-    setScale(newScale ?? 1);
-  }, []);
+  const [scale, layoutRef] = useScaleRef<HTMLDivElement>(500, 700);
 
   return (
     <div

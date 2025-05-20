@@ -1,8 +1,5 @@
 import {
   useState,
-  useRef,
-  useLayoutEffect,
-  useCallback,
   JSX,
   useEffect,
 } from "react";
@@ -12,11 +9,9 @@ import GBImages from "../utils/GBImages";
 import { GBModelExpanded } from "../models/gbdbTypes";
 import { Subscription } from "rxjs";
 import { getSettings } from "../models/settings";
+import useScaleRef from "../hooks/useScaleRef";
 
 export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
-  const targetRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1.0);
-
   const [cardStyle, setStyle] = useState<"sfg" | "gbcp">("sfg");
 
   useEffect(() => {
@@ -30,21 +25,7 @@ export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
     return () => sub?.unsubscribe();
   }, []);
 
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
-  const updateSize = useCallback(() => {
-    if (!targetRef.current) {
-      return;
-    }
-    const { width, height } = targetRef.current.getBoundingClientRect();
-    const vertScale = width / 1000;
-    const horiScale = height / 700;
-    const newScale = Math.min(vertScale, horiScale, 1);
-    setScale(newScale ?? 1);
-  }, []);
+  const [scale, layoutRef] = useScaleRef<HTMLDivElement>(1000, 700);
 
   const key = model.id;
   const gbcp =
@@ -54,7 +35,7 @@ export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
 
   return (
     <div
-      ref={targetRef}
+      ref={layoutRef}
       style={{
         width: "100%",
         maxWidth: "1000px",

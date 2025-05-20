@@ -1,9 +1,9 @@
 import {
   useState,
-  useRef,
   useLayoutEffect,
   useEffect,
   useCallback,
+  useRef,
 } from "react";
 import { useBlocker } from "react-router-dom";
 import type { BlockerFunction } from "react-router";
@@ -39,6 +39,7 @@ import { useRxData } from "../../hooks/useRxQuery";
 import { NetworkGame } from "../../components/NetworkGame";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
+import useResizeObserver from "@react-hook/resize-observer";
 
 export default function Game() {
   const [showSnack, setShowSnack] = useState(false);
@@ -248,7 +249,7 @@ const GameList = ({
 }) => {
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
-  const sizeRef = useRef<HTMLDivElement>(null);
+
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(true);
@@ -256,20 +257,22 @@ const GameList = ({
   const [cardWidth, setCardWidth] = useState(500);
   const [cardHeight, setCardHeight] = useState(700);
   const [slideHeight, setSlideHeight] = useState(700);
-  useLayoutEffect(() => {
-    updateSize();
-    window.addEventListener("resize", updateSize);
-    return () => window.removeEventListener("resize", updateSize);
-  });
 
-  const updateSize = useCallback(() => {
-    const width = sizeRef.current?.getBoundingClientRect().width ?? 0;
-    const height = sizeRef.current?.getBoundingClientRect().height ?? 0;
+  const updateSize = useCallback(({ width, height }: DOMRectReadOnly) => {
     const barHeight = large ? 56 : 112;
     setCardWidth(Math.min(width - 12, ((height - barHeight) * 5) / 7 - 12));
     setCardHeight(Math.min(height - barHeight - 12, (width * 7) / 5 - 12));
     setSlideHeight(height - barHeight);
   }, [large]);
+
+  const sizeRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (sizeRef.current)
+      updateSize(sizeRef.current.getBoundingClientRect());
+  }, [sizeRef, updateSize]);
+
+  useResizeObserver(sizeRef, (entry) => updateSize(entry.contentRect));
 
   return (
     <div
