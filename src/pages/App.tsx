@@ -157,12 +157,10 @@ const App = () => {
 export const AppContent = () => {
   const { drawer, setDrawer } = useOutletContext<{ drawer: boolean; setDrawer: React.Dispatch<React.SetStateAction<boolean>> }>();
   return (
-    <>
+    <DataProvider>
       <AppDrawer drawer={drawer} setDrawer={setDrawer} />
-      <DataProvider>
-        <Outlet />
-      </DataProvider>
-    </>
+      <Outlet />
+    </DataProvider>
   )
 }
 
@@ -257,7 +255,7 @@ function AppDrawerContent(props: {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  // sx={{ py: 0.5 }} // Adjust padding as needed
+                // sx={{ py: 0.5 }} // Adjust padding as needed
                 >
                   <ListItemText primary={item.text} />
                 </ListItemButton>
