@@ -79,7 +79,7 @@ export const GameplanFront = (props: {
           </div>
           <div
             style={{
-              fontSize: "21pt",
+              fontSize: "20pt",
               margin: "0 1em",
               whiteSpace: "pre-wrap",
               display: "flex",
@@ -89,7 +89,7 @@ export const GameplanFront = (props: {
             }}
           >
             {gameplan.text}
-            <p style={{ fontStyle: "italic", margin: "0.5em 0" }}>
+            <p style={{ fontStyle: "italic", margin: "1em 0" }}>
               {gameplan.detail}
             </p>
           </div>
