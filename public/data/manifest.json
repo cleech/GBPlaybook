@@ -63,6 +63,12 @@
       "filename": "gameplans-2019.json",
       "sha256": "5c72e80c16705be4a3dadfbdb5a7504775827d5aae312b954814354112b328e3",
       "timestamp": "2025-05-19T23:37:27Z"
+    },
+    {
+      "version": 2018,
+      "filename": "gameplans-2018.json",
+      "sha256": "55fa834e5c7aead775a4bdbb809528b74fd1662cbe111d84ada1a19f8ac5191b",
+      "timestamp": "2025-05-21T23:37:27Z"
     }
   ]
 }

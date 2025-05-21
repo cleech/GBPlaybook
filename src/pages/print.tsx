@@ -523,7 +523,7 @@ const GuildList = (props: { ref: React.Ref<GuildListRef>, allGameplans: { year: 
         {props.allGameplans.map(({ year }) => (
           <MenuItem key={`gameplans-${year}`} value={`gameplans-${year}`} dense>
             <ListItemBanner
-              text={`Gameplan [${year}]`}
+              text={`Gameplans [${year}]`}
               icon="GB"
               style={{ "--color": "#333333" }}
             />
