@@ -1,4 +1,3 @@
-// import React from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App, { AppContent } from "./pages/App";
@@ -31,6 +30,7 @@ registerSW({ immediate: true });
 import "./utils/i18next";
 import { reSort } from "./utils/reSort";
 import { initializeAppData } from "./components/DataContext";
+import LoadingSplash from "./components/LoadingSplash";
 
 const router = createHashRouter(
   [{
@@ -41,7 +41,7 @@ const router = createHashRouter(
       loader: async () => {
         return await getSettings();
       },
-      hydrateFallbackElement: <div>Loading ...</div>,
+      hydrateFallbackElement: <LoadingSplash />,
       children: [
         {
           path: "/",
@@ -60,6 +60,7 @@ const router = createHashRouter(
             }
             return targetRoute;
           },
+          hydrateFallbackElement: <LoadingSplash />,
           Component: () => {
             const target = useLoaderData<string>();
             return <Navigate to={target} replace />
@@ -75,6 +76,7 @@ const router = createHashRouter(
                 const { gbdb: db } = await initializeAppData();
                 return await db.guilds.find().exec();
               },
+              hydrateFallbackElement: <LoadingSplash />,
             },
             { path: "game/draft", element: <Draft />, },
             { path: "game/draft/play", element: <Game />, },
@@ -91,6 +93,7 @@ const router = createHashRouter(
                 const { gbdb: db } = await initializeAppData();
                 return await db.guilds.find().exec();
               },
+              hydrateFallbackElement: <LoadingSplash />,
             },
             { path: "gameplans", element: <GamePlans /> },
             { path: "refcards", element: <RefCards /> },
@@ -107,6 +110,7 @@ const router = createHashRouter(
                 const roster = await Promise.all(_roster.map((m) => m.expand()));
                 return { guild, roster };
               },
+              hydrateFallbackElement: <LoadingSplash />,
             },
           ]
         },

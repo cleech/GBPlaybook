@@ -3,7 +3,6 @@ import React, {
   useRef,
   useLayoutEffect,
   useCallback,
-  Suspense,
   useEffect,
   RefObject,
   useMemo,
@@ -87,9 +86,7 @@ export default function Library() {
         height: "100%",
       }}
     >
-      <Suspense fallback={<p>Loading ...</p>}>
-        <Outlet context={{ slideRef }} />
-      </Suspense>
+      <Outlet context={{ slideRef }} />
     </main>
   );
 }
