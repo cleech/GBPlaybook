@@ -269,7 +269,7 @@ export const DataProvider = ({ children }: DataProviderProps) => {
 
   if (isLoading) {
     // You might want to render a loading spinner or null here
-    return <div>Loading application data...</div>;
+    return;
   }
 
   return (
