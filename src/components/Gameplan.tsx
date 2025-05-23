@@ -6,6 +6,8 @@ import {
 import { Gameplan } from "./DataTypes";
 import useScaleRef from "../hooks/useScaleRef";
 
+import { css } from '@emotion/css';
+
 interface CardCSS extends CSSProperties {
   "--scale"?: number | string;
 }
@@ -26,7 +28,7 @@ export const GameplanFront = (props: {
 
   return (
     <div
-      className={`card-front ${props.bleed ? "bleed" : null}`}
+      className={`card-front ${props.bleed ? "bleed" : ''}`}
       style={{
         width: "100%",
         height: "100%",
@@ -78,18 +80,23 @@ export const GameplanFront = (props: {
                 )) : gameplan.title}
           </div>
           <div
-            style={{
-              fontSize: "20pt",
-              margin: "0 1em",
-              whiteSpace: "pre-wrap",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              lineHeight: 1,
-            }}
+            // 10pt scaled at 200dpi/96 is 20.83pt
+            // 9pt (Keep Your Chin Up) is 18.75pt
+            className={css`
+              margin: 0 1em;
+              white-space: pre-wrap;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              line-height: 1;
+              p { font-size: 20.83pt; margin: 0em 0 1em 0; }
+              #KeepYourChinUp { font-size: 18.75pt; }
+            `}
           >
-            {gameplan.text}
-            <p style={{ fontStyle: "italic", margin: "1em 0" }}>
+            <p id={gameplan.title.replace(/[^a-zA-Z0-9]+/g, '')}>
+              {gameplan.text}
+            </p>
+            <p style={{ fontStyle: "italic" }}>
               {gameplan.detail}
             </p>
           </div>
@@ -197,7 +204,7 @@ export const ReferenceCardFront = (props: {
   ).href;
   return (
     <div
-      className={`card-front ${props.bleed ? "bleed" : null}`}
+      className={`card-front ${props.bleed ? "bleed" : ''} `}
       style={{
         width: "100%",
         height: "100%",
