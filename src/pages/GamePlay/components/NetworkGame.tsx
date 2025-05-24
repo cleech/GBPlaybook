@@ -11,9 +11,9 @@ import {
   Typography,
 } from "@mui/material";
 import { Sync } from "@mui/icons-material";
-import { useData } from "../hooks/useData";
-import { GBDatabase, GBGameState, } from "../models/gbdbTypes";
-import { gbdbBeginReplication, gbdbStopReplication, peerConnected$ } from "../models/gbdb";
+import { useData } from "../../../hooks/useData";
+import { GBDatabase, GBGameState, } from "../../../models/gbdbTypes";
+import { gbdbBeginReplication, gbdbStopReplication, peerConnected$ } from "../../../models/gbdb";
 import {
   RxWebRTCReplicationPool,
   SimplePeer,
@@ -25,7 +25,7 @@ import {
   HandshakeIDs,
   HandshakeJoinMessage,
 } from "./netHandshake";
-import { useNetworkState } from "../hooks/useNetworkState";
+import { useNetworkState } from "../../../hooks/useNetworkState";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { firstValueFrom } from "rxjs";
 

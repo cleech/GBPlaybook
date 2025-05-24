@@ -9,7 +9,7 @@ import {
   MenuItem,
   MenuList,
 } from "@mui/material";
-import { DraftList, BSDraftList } from "../../components/Draft";
+import { DraftList, BSDraftList } from "./components/Draft";
 
 import "./Draft.css";
 
@@ -20,14 +20,13 @@ import VersionTag from "../../components/VersionTag";
 // import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
 import { GBGameStateDoc } from "../../models/gbdbTypes";
 import { Model } from "../../components/DataTypes";
-// import ResumeSnackBar from "./ResumeSnackBar";
 import { SettingsDoc } from "../../models/settings";
 import { useRxData } from "../../hooks/useRxQuery";
 import { firstValueFrom, map, Observable } from "rxjs";
-import { NetworkGame } from "../../components/NetworkGame";
+import { NetworkGame } from "./components/NetworkGame";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
-import { NavigateFab } from "./NavigateFab";
+import { NavigateFab } from "./components/NavigateFab";
 
 export default function Draft() {
   const { active: networkActive } = useNetworkState();
@@ -208,8 +207,6 @@ function DraftInner() {
         style={{ width: "100%" }}
         disabled={networkActive}
       />
-
-      {/* <ResumeSnackBar /> */}
     </>
   );
 }

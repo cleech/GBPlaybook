@@ -2,14 +2,60 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Fab, SxProps } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import { GBSetupSteps } from "../../models/gbdbTypes";
+import { css, keyframes } from '@emotion/css';
 import { firstValueFrom, map } from "rxjs";
-import { useNetworkState } from "../../hooks/useNetworkState";
-import { useGameState } from "../../hooks/useGameState";
-import { stepToNav } from "./utils";
 
-import "./NavigateFab.css";
-import "./wacky.css";
+import { GBSetupSteps } from "../../../models/gbdbTypes";
+import { useNetworkState } from "../../../hooks/useNetworkState";
+import { useGameState } from "../../../hooks/useGameState";
+
+const rotate = keyframes`
+  from {
+    transform: translate(-50%, -50%) scale(1.4) rotate(0turn);
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1.4) rotate(1turn);
+  }
+`;
+
+const animateCss = css`
+  --offset: 5px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    background: conic-gradient(transparent, darkred 280deg, transparent);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    aspect-ratio: 1;
+    width: 100%;
+    animation: ${rotate} 2s linear infinite;
+  }
+
+  &::after {
+    content: "";
+    background: inherit;
+    border-radius: inherit;
+    position: absolute;
+    inset: var(--offset);
+    height: calc(100% - 2 * var(--offset));
+    width: calc(100% - 2 * var(--offset));
+  }
+`;
+
+function stepToNav(step: GBSetupSteps) {
+  switch (step) {
+    case "Guilds":
+      return "/game";
+    case "Draft":
+      return "/game/draft";
+    case "Game":
+      return "/game/draft/play";
+  }
+}
 
 interface NavigateFabProps {
   disabled: boolean;
@@ -17,6 +63,7 @@ interface NavigateFabProps {
   onAction?: () => void;
   sx?: SxProps;
 }
+
 export function NavigateFab(props: NavigateFabProps) {
   const navigate = useNavigate();
   const { gameState1$, gameState2$ } = useGameState();
@@ -73,7 +120,7 @@ export function NavigateFab(props: NavigateFabProps) {
 
   return (
     <Fab
-      className={animate ? "fabAnimate" : undefined}
+      className={animate ? animateCss : undefined}
       {...otherProps}
       color="secondary"
       onClick={() => {

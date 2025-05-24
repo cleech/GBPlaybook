@@ -11,14 +11,14 @@ import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import { CheckCircleTwoTone as Check } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
-import { useUpdateAnimation } from "../hooks/useUpdateAnimation";
-import { Model, Guild } from "../components/DataTypes";
-import { GBGameStateDoc } from "../models/gbdbTypes";
-import { reSort } from "../utils/reSort";
-import { useRxData } from "../hooks/useRxQuery";
+import { useUpdateAnimation } from "../../../hooks/useUpdateAnimation";
+import { Model, Guild } from "../../../components/DataTypes";
+import { GBGameStateDoc } from "../../../models/gbdbTypes";
+import { reSort } from "../../../utils/reSort";
+import { useRxData } from "../../../hooks/useRxQuery";
 import { map, Observable } from "rxjs";
 import { useLoaderData } from "react-router-dom";
-import { SettingsDoc } from "../models/settings";
+import { SettingsDoc } from "../../../models/settings";
 
 export interface DraftModel extends Model {
   selected: boolean;
