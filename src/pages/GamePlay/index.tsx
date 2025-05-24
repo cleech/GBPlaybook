@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 
 import { AppBarContent } from "../App";
 import { AppBarContext } from "../../utils/contexts";
-import OddsCalc from "../../components/Calc";
+import OddsCalc from "./components/Calc";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useData } from "../../hooks/useData";
 import { GBGameStateDoc } from "../../models/gbdbTypes";

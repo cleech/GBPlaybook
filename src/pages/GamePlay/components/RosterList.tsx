@@ -15,14 +15,14 @@ import {
 } from "@mui/material";
 import MinusIcon from "@mui/icons-material/Remove";
 import PlusIcon from "@mui/icons-material/Add";
-import useLongPress from "../hooks/useLongPress";
-import GBIcon from "./GBIcon";
-import { useUpdateAnimation } from "../hooks/useUpdateAnimation";
-import { GBGameStateDoc, GBModelExpanded } from "../models/gbdbTypes";
+import useLongPress from "../../../hooks/useLongPress";
+import GBIcon from "../../../components/GBIcon";
+import { useUpdateAnimation } from "../../../hooks/useUpdateAnimation";
+import { GBGameStateDoc, GBModelExpanded } from "../../../models/gbdbTypes";
 import { useEffect, useMemo, useState } from "react";
 import { map, Observable } from "rxjs";
 import { useLoaderData } from "react-router-dom";
-import { SettingsDoc } from "../models/settings";
+import { SettingsDoc } from "../../../models/settings";
 
 interface RosterListProps {
   teams: GBGameStateDoc[];

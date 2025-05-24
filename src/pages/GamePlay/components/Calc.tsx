@@ -8,10 +8,21 @@ import {
   IconButton,
   Menu,
 } from "@mui/material";
-
 import { Remove, Add, CasinoTwoTone } from "@mui/icons-material";
+import { css } from '@emotion/css';
 
-import "./Calc.css";
+const diceBin = [
+  css`background-color: #1d202266`,
+  css`background-color: #4A1B2066`,
+  css`background-color: #76151e66`,
+  css`background-color: #ce1f2755`,
+  css`background-color: #ea832966`,
+  css`background-color: #DC9B2566`,
+  css`background-color: #cdb32066`,
+  css`background-color: #8EA32D66`,
+  css`background-color: #4e933966`,
+  css`background-color: #39653b66`,
+];
 
 const formatter = new Intl.NumberFormat(undefined, {
   style: "percent",
@@ -26,7 +37,7 @@ function fact(n: number): number {
   return n * fact(n - 1);
 }
 
-function OddsToHit(target: number, pool: number, reroll: boolean): number[] {
+function oddsToHit(target: number, pool: number, reroll: boolean): number[] {
   if (!target || !pool) {
     return [];
   }
@@ -172,19 +183,18 @@ export function OddsCalc() {
           <Typography sx={{ textDecoration: "underline" }}>Hits</Typography>
           <Typography sx={{ textDecoration: "underline" }}>Chance</Typography>
           {
-            // [.95, .85, .75, .65, .55, .45, .35, .25, .15, .05]
-            OddsToHit(target, pool, reroll)
-            .map((n, i) => (
-              <Fragment key={i}>
-                <div>{i + 1}+</div>
-                <div
-                  className={`dice-bin-${Math.floor(n * 10)}`}
-                  style={{ padding: "0 1em", margin: "1px", width: "100%" }}
-                >
-                  {formatter.format(n)}
-                </div>
-              </Fragment>
-            ))
+            oddsToHit(target, pool, reroll)
+              .map((n, i) => (
+                <Fragment key={i}>
+                  <div>{i + 1}+</div>
+                  <div
+                    className={diceBin[Math.floor(n * 10)]}
+                    style={{ padding: "0 1em", margin: "1px", width: "100%" }}
+                  >
+                    {formatter.format(n)}
+                  </div>
+                </Fragment>
+              ))
           }
         </div>
       </Menu>

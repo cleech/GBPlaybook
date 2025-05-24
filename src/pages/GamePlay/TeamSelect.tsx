@@ -17,14 +17,13 @@ import { AppBarContent } from "../App";
 
 import VersionTag from "../../components/VersionTag";
 // import { pulseAnimationKeyFrames } from "../../hooks/useUpdateAnimation";
-// import ResumeSnackBar from "./ResumeSnackBar";
 import { useRxData } from "../../hooks/useRxQuery";
 
-import { NetworkGame } from "../../components/NetworkGame";
+import { NetworkGame } from "./components/NetworkGame";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
 import { GBGameStateDoc, GBGuildDoc } from "../../models/gbdbTypes";
-import { NavigateFab } from "./NavigateFab";
+import { NavigateFab } from "./components/NavigateFab";
 import { useLoaderData } from "react-router-dom";
 
 function SelectedIcon({ team, size }: { team: string; size: number }) {
@@ -266,7 +265,6 @@ export default function TeamSelect() {
       </AppBarContent>
       <GuildGrid guilds={guilds} Controller={GameControls} />
       <VersionTag />
-      {/* <ResumeSnackBar /> */}
     </Box>
   );
 }
