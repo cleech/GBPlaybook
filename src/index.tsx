@@ -14,10 +14,10 @@ import Library, {
   GuildList,
   RefCards,
   Roster,
-} from "./pages/library";
-import Settings from "./pages/settings";
+} from "./pages/Library";
+import Settings from "./pages/Settings";
 
-import { CardPrintScreen } from "./pages/print";
+import { CardPrintScreen } from "./pages/Print";
 
 import { getSettings, SettingsDoc } from "./models/settings";
 import { defaultSettings } from "./models/defaultSettings";

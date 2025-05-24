@@ -22,7 +22,7 @@ import {
   Alert,
   Box,
 } from "@mui/material";
-import RosterList, { HealthCounter } from "../../components/RosterList";
+import RosterList, { HealthCounter } from "./components/RosterList";
 import { FlipCard } from "../../components/FlipCard";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -36,7 +36,7 @@ import { GBGameStateDoc, GBModelExpanded } from "../../models/gbdbTypes";
 import { reSort } from "../../utils/reSort";
 import { firstValueFrom, map } from "rxjs";
 import { useRxData } from "../../hooks/useRxQuery";
-import { NetworkGame } from "../../components/NetworkGame";
+import { NetworkGame } from "./components/NetworkGame";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
 import useResizeObserver from "@react-hook/resize-observer";
