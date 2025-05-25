@@ -222,9 +222,33 @@ export interface GBDataCollections {
   character_plays: GBCharacterPlayCollection;
   character_traits: GBCharacterTraitCollection;
   game_state: GBGameStateCollection;
+  saved_lists: GBSavedListCollection;
 }
 
 export type GBDatabase = RxDatabase<GBDataCollections>;
+
+export interface GBSavedList {
+  id: string;
+  name: string;
+  modelIds: string[];
+}
+
+export type GBSavedListDoc = RxDocument<GBSavedList>;
+type GBSavedListCollection = RxCollection<GBSavedListDoc>;
+
+const gbSavedListSchema: RxJsonSchema<GBSavedList> = {
+  title: "Guild Ball Saved List",
+  version: 0,
+  primaryKey: "id",
+  type: "object",
+  properties: {
+    id: { type: "string", maxLength: 36 },
+    name: { type: "string", maxLength: 100 },
+    modelIds: { type: "array", ref: "models", items: { type: "string" } },
+  },
+  required: ["id", "name", "modelIds"],
+  indexes: ["name"],
+};
 
 export class PartialError<T> extends Error {
   partialResult?: T;
@@ -341,4 +365,5 @@ export const gbCollectionsConfig: {
   },
   character_traits: { schema: gbCharacterTraitSchema },
   game_state: { schema: gbGameStateSchema, localDocuments: true },
+  saved_lists: { schema: gbSavedListSchema },
 };

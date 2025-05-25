@@ -6,9 +6,18 @@ import {
   Breadcrumbs,
   IconButton,
   Box,
+  ToggleButton,
+  ToggleButtonGroup,
+  List,
+  ListItem,
+  ListItemText,
+  Paper,
 } from "@mui/material";
 import { GuildGrid, ControlProps } from "../../components/GuildGrid";
 import GBIcon from "../../components/GBIcon";
+import { useGBData } from "../../hooks/useGBData";
+import { useData } from "../../hooks/useData"; // Added
+import { GBSavedListDoc, GBDatabase, GBModelDoc } from "../../models/gbdbTypes"; // Added GBModelDoc
 
 import Color from "color";
 
@@ -88,9 +97,28 @@ function GameControls(props: ControlProps) {
   const [waiting, setWaiting] = useState(false);
   const theme = useTheme();
 
+  const [player1Mode, setPlayer1Mode] = useState<"guild" | "list">("guild");
+  const [player2Mode, setPlayer2Mode] = useState<"guild" | "list">("guild");
+  const [fetchedSavedLists, setFetchedSavedLists] = useState<GBSavedListDoc[]>([]);
+  const [player1ListName, setPlayer1ListName] = useState<string | undefined>(undefined);
+  const [player2ListName, setPlayer2ListName] = useState<string | undefined>(undefined);
+
   const { active: networkActive } = useNetworkState();
 
   const { gameState1$, gameState2$ } = useGameState();
+  const { gbdb } = useData(); // Get gbdb instance
+
+  const savedListsData = useGBData<GBSavedListDoc[]>(
+    async (db: GBDatabase) => db.saved_lists.find().exec(),
+    []
+  );
+
+  useEffect(() => {
+    if (savedListsData) {
+      setFetchedSavedLists(savedListsData);
+    }
+  }, [savedListsData]);
+
 
   const [teamDoc1, setGameState1] = useState<GBGameStateDoc | null>();
   useEffect(() => {
@@ -147,92 +175,251 @@ function GameControls(props: ControlProps) {
   );
 
   useEffect(() => {
-    const sub = props.update$.subscribe((g) => pickTeam(g));
+    // Only subscribe to pickTeam if the current player is in guild mode
+    const sub = props.update$.subscribe((g) => {
+      if (selector === "P1" && player1Mode === "guild") {
+        pickTeam(g);
+      } else if (selector === "P2" && player2Mode === "guild") {
+        pickTeam(g);
+      }
+    });
     return () => sub.unsubscribe();
-  }, [props.update$, pickTeam]);
+  }, [props.update$, pickTeam, selector, player1Mode, player2Mode]);
+
+  const handleSelectList = async (selectedList: GBSavedListDoc) => {
+    if (!gbdb) {
+      alert("Database not available.");
+      return;
+    }
+
+    const currentTeamDoc = selector === 'P1' ? teamDoc1 : teamDoc2;
+    if (!currentTeamDoc) {
+      alert(`Team document for ${selector} not available.`);
+      return;
+    }
+
+    try {
+      const modelDocsMap = await gbdb.models.findByIds(selectedList.modelIds).exec();
+      const modelsArray = Array.from(modelDocsMap.values()).filter(Boolean) as GBModelDoc[];
+      const rosterForGameState = modelsArray.map(model => ({ name: model.id, health: model.hp }));
+
+      // Use selectedList.name as the 'guild' field when a list is chosen
+      await currentTeamDoc.incrementalPatch({ roster: rosterForGameState, guild: selectedList.name });
+
+      if (selector === 'P1') {
+        setPlayer1ListName(selectedList.name);
+        setTeam1(undefined); // Clear guild selection for P1
+      } else {
+        setPlayer2ListName(selectedList.name);
+        setTeam2(undefined); // Clear guild selection for P2
+      }
+
+      // Turn switching logic
+      if (selector === 'P1') {
+        if (!(team2 || player2ListName) && !networkActive) { // Check if P2 has made any selection
+          setSelector('P2');
+        } else {
+          setSelector('GO');
+        }
+      } else if (selector === 'P2') {
+        if (!(team1 || player1ListName)) { // Check if P1 has made any selection
+          setSelector('P1');
+        } else {
+          setSelector('GO');
+        }
+      }
+    } catch (error) {
+      console.error("Error selecting list:", error);
+      alert(`Failed to select list "${selectedList.name}".`);
+    }
+  };
+
+  const handlePlayerModeChange = async (player: "P1" | "P2", newMode: "guild" | "list" | null) => {
+    if (!newMode) return;
+
+    if (player === "P1") {
+      setPlayer1Mode(newMode);
+      if (newMode === 'guild') {
+        setPlayer1ListName(undefined); // Clear list name
+        // teamDoc1?.incrementalPatch({ roster: [] }); // Optionally clear roster
+      } else { // newMode === 'list'
+        await teamDoc1?.incrementalPatch({ guild: undefined, roster: [] }); // Clear guild and roster
+        setTeam1(undefined); // Clear team1 state
+      }
+    } else { // Player P2
+      setPlayer2Mode(newMode);
+      if (newMode === 'guild') {
+        setPlayer2ListName(undefined); // Clear list name
+        // teamDoc2?.incrementalPatch({ roster: [] }); // Optionally clear roster
+      } else { // newMode === 'list'
+        await teamDoc2?.incrementalPatch({ guild: undefined, roster: [] }); // Clear guild and roster
+        setTeam2(undefined); // Clear team2 state
+      }
+    }
+  };
+
+  const activePlayerIsListMode =
+    (selector === 'P1' && player1Mode === 'list') ||
+    (selector === 'P2' && player2Mode === 'list' && !networkActive);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        margin: "5px",
-        gap: "5px",
-      }}
-    >
-      <Button
-        variant="outlined"
-        style={{
-          minWidth: props.size,
-          maxWidth: props.size,
-          minHeight: props.size,
-          maxHeight: props.size,
-          fontSize: props.size * 0.5,
-          ...(selector === "P1"
-            ? {
-              borderColor: theme.palette.secondary.light,
-              borderRadius: "12px",
-              borderWidth: "4px",
-            }
-            : {
-              borderColor: theme.palette.primary.dark,
-              borderRadius: "12px",
-              borderWidth: "4px",
-            }),
-        }}
-        onClick={() => setSelector("P1")}
-      >
-        {team1 ? <SelectedIcon team={team1} size={props.size} /> : "P1"}
-      </Button>
+    <>
+      {activePlayerIsListMode && (
+        <Typography
+          variant="subtitle1"
+          align="center"
+          color="text.secondary"
+          sx={{ mb: 1, fontWeight: 'bold' }}
+        >
+          Currently selecting from: Saved List. (Guild selection is paused)
+        </Typography>
+      )}
       <div
         style={{
-          height: "100%",
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
-          gap: "0.25em",
+          margin: "5px",
+          gap: "5px",
         }}
       >
-        <Typography variant="caption">vs</Typography>
-        <NavigateFab
-          dest="Draft"
-          disabled={!team1 || !team2}
-          onAction={() => setWaiting(true)}
-          sx={{ m: "0 15px" }}
-        />
-        <Typography variant="caption">
-          {waiting ? "(waiting)" : "\u00A0"}
-        </Typography>
+        {/* Player 1 Area */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
+          <Button
+            variant="outlined"
+            style={{
+              minWidth: props.size,
+              maxWidth: props.size,
+              minHeight: props.size,
+              maxHeight: props.size,
+              fontSize: props.size * 0.5,
+              ...(selector === "P1"
+                ? {
+                  borderColor: theme.palette.secondary.light,
+                  borderRadius: "12px",
+                  borderWidth: "4px",
+                }
+                : {
+                  borderColor: theme.palette.primary.dark,
+                  borderRadius: "12px",
+                  borderWidth: "4px",
+                }),
+            }}
+            onClick={() => setSelector("P1")}
+          >
+            {player1Mode === 'list' && player1ListName ? player1ListName.substring(0, 8) : (team1 ? <SelectedIcon team={team1} size={props.size} /> : "P1")}
+          </Button>
+          <ToggleButtonGroup
+            value={player1Mode}
+            exclusive
+            onChange={(_event, newMode) => handlePlayerModeChange("P1", newMode as "guild" | "list" | null)}
+            aria-label="Player 1 selection mode"
+            size="small"
+          >
+            <ToggleButton value="guild" aria-label="select guild">
+              Guild
+            </ToggleButton>
+            <ToggleButton value="list" aria-label="select list">
+              List
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Box>
+
+        {/* VS Area */}
+        <div
+          style={{
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.25em",
+            alignSelf: 'flex-start', // Align with the top of the buttons
+            marginTop: props.size / 2 - theme.spacing(3) // Adjust alignment
+          }}
+        >
+          <Typography variant="caption">vs</Typography>
+          <NavigateFab
+            dest="Draft"
+            disabled={!(team1 || player1ListName) || !(team2 || player2ListName)}
+            onAction={() => setWaiting(true)}
+            sx={{ m: "0 15px" }}
+          />
+          <Typography variant="caption">
+            {waiting ? "(waiting)" : "\u00A0"}
+          </Typography>
+        </div>
+
+        {/* Player 2 Area */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
+          <Button
+            variant="outlined"
+            disabled={networkActive}
+            style={{
+              minWidth: props.size,
+              maxWidth: props.size,
+              minHeight: props.size,
+              maxHeight: props.size,
+              fontSize: props.size * 0.5,
+              ...(selector === "P2"
+                ? {
+                  borderColor: theme.palette.secondary.light,
+                  borderRadius: "12px",
+                  borderWidth: "4px",
+                }
+                : {
+                  borderColor: theme.palette.primary.dark,
+                  borderRadius: "12px",
+                  borderWidth: "4px",
+                }),
+            }}
+            onClick={() => setSelector("P2")}
+          >
+            {player2Mode === 'list' && player2ListName ? player2ListName.substring(0, 8) : (team2 ? <SelectedIcon team={team2} size={props.size} /> : "P2")}
+          </Button>
+          <ToggleButtonGroup
+            value={player2Mode}
+            exclusive
+            onChange={(_event, newMode) => handlePlayerModeChange("P2", newMode as "guild" | "list" | null)}
+            aria-label="Player 2 selection mode"
+            size="small"
+            disabled={networkActive}
+          >
+            <ToggleButton value="guild" aria-label="select guild">
+              Guild
+            </ToggleButton>
+            <ToggleButton value="list" aria-label="select list">
+              List
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Box>
       </div>
-      <Button
-        variant="outlined"
-        disabled={networkActive}
-        style={{
-          minWidth: props.size,
-          maxWidth: props.size,
-          minHeight: props.size,
-          maxHeight: props.size,
-          fontSize: props.size * 0.5,
-          ...(selector === "P2"
-            ? {
-              borderColor: theme.palette.secondary.light,
-              borderRadius: "12px",
-              borderWidth: "4px",
-            }
-            : {
-              borderColor: theme.palette.primary.dark,
-              borderRadius: "12px",
-              borderWidth: "4px",
-            }),
-        }}
-        onClick={() => setSelector("P2")}
-      >
-        {team2 ? <SelectedIcon team={team2} size={props.size} /> : "P2"}
-      </Button>
-    </div>
+
+      {/* Saved Lists Display Area */}
+      {((selector === "P1" && player1Mode === "list") || (selector === "P2" && player2Mode === "list" && !networkActive)) && (
+        <Paper elevation={2} sx={{ mt: 2, p: 1, maxHeight: 200, overflow: 'auto', width: '80%', margin: '16px auto' }}>
+          <Typography variant="h6" sx={{textAlign: 'center', mb:1}}>
+            {selector === "P1" ? "Player 1: Select a Saved List" : "Player 2: Select a Saved List"}
+          </Typography>
+          {fetchedSavedLists.length > 0 ? (
+            <List dense>
+              {fetchedSavedLists.map((list) => (
+                <ListItem
+                  key={list.id}
+                  button
+                  onClick={() => handleSelectList(list)}
+                >
+                  <ListItemText primary={list.name} secondary={`Models: ${list.modelIds.length}`} />
+                </ListItem>
+              ))}
+            </List>
+          ) : (
+            <Typography variant="body2" sx={{textAlign: 'center'}}>No saved lists found.</Typography>
+          )}
+        </Paper>
+      )}
+    </>
   );
 }
 
