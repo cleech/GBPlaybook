@@ -29,7 +29,7 @@ registerSW({ immediate: true });
 
 import "./utils/i18next";
 import { reSort } from "./utils/reSort";
-import { initializeAppData } from "./components/DataContext";
+import { initializeAppData } from "./components/appData";
 import LoadingSplash from "./components/LoadingSplash";
 
 const router = createHashRouter(
