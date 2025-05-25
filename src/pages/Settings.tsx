@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
 import { Observable } from "rxjs";
 import ISO6391 from "iso-639-1";
 import { useRouteLoaderData } from "react-router-dom";
-import { initializeAppData } from "../components/DataContext";
+import { initializeAppData } from "../components/appData";
 import { defaultSettings } from "../models/defaultSettings";
 
 const SettingsSwitch = ({ value$, onChange, label }:
