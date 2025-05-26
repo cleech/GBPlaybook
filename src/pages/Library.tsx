@@ -50,7 +50,7 @@ import type { Gameplan } from "../components/DataTypes";
 import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 import { GBGuildDoc, GBModelExpanded } from "../models/gbdbTypes";
-import { firstValueFrom, Observable } from "rxjs";
+import { firstValueFrom, fromEventPattern, Observable } from "rxjs";
 import { SettingsDoc } from "../models/settings";
 import useResizeObserver from "@react-hook/resize-observer";
 
@@ -153,7 +153,9 @@ function ExtraIconsControl(props: ControlProps) {
 }
 
 interface SwiperLayoutProps {
-  navigation: (swiper: SwiperRef | null) => React.ReactNode;
+  navigation: (
+    swiper: RefObject<SwiperRef | undefined>,
+    index$: Observable<number>) => React.ReactNode;
   slides: React.ReactNode[];
   largeLayout?: boolean;
 }
@@ -185,15 +187,26 @@ function SwiperLayout({
 
   useResizeObserver(sizeRef, (entry) => updateSize(entry.contentRect));
 
-  const [swiper, setSwiper] = useState<SwiperRef | null>(null);
-  // I don't like this, it's just triggering a re-render which then also renders the buttons
-  const [, setActiveSlideIndex] = useState(0);
+  const swiper = useRef<SwiperRef>(undefined);
+
+  const observers = useMemo<Set<(e: number) => void>>(() => new Set(), []);
+  const event$ = fromEventPattern<number>(
+    (handler) => {
+      observers.add(handler);
+      handler(swiper.current?.activeIndex)
+    },
+    (handler) => observers.delete(handler)
+  );
+  const emitEvent = useCallback(
+    (e: number) => {
+      observers.forEach((handler) => handler(e));
+    }, [observers]);
 
   const { slideRef } = useOutletContext<{ slideRef: RefObject<number> }>();
 
   return (
     <>
-      {navigation(swiper)}
+      {navigation(swiper, event$)}
       <Box
         ref={sizeRef}
         sx={{
@@ -205,11 +218,11 @@ function SwiperLayout({
         }}
       >
         <Swiper
-          onSwiper={setSwiper}
+          onSwiper={(ref) => swiper.current = ref}
           initialSlide={slideRef.current ?? 0}
           onSlideChange={(swiperInstance) => {
             slideRef.current = swiperInstance.activeIndex;
-            setActiveSlideIndex(swiperInstance.activeIndex);
+            emitEvent(swiperInstance.activeIndex);
           }}
           slidesPerView="auto"
           centeredSlides={true}
@@ -254,11 +267,11 @@ export function Roster() {
   const large = useMediaQuery(theme.breakpoints.up("sm"));
 
   // Define navigation render prop
-  const navigation = (swiper: SwiperRef | null) => (
+  const navigation = (swiper: RefObject<SwiperRef | undefined>, index$: Observable<number>) => (
     <SwiperButtons
       guild={g}
       swiper={swiper}
-      activeIndex={swiper?.activeIndex ?? 0}
+      index$={index$}
     />
   );
 
@@ -302,14 +315,14 @@ export function GamePlans() {
   }
 
   // Define navigation render prop
-  const navigation = (swiper: SwiperRef | null) => (
+  const navigation = (swiper: RefObject<SwiperRef | undefined>, index$: Observable<number>) => (
     <SwiperChipNavigation // Correctly call SwiperChipNavigation as a component
       swiper={swiper}
+      index$={index$}
       items={gameplans.map((g, index) => ({
         key: index,
         label: g.title,
       }))}
-      activeIndex={swiper?.activeIndex} // Get activeIndex from swiper
     />
   ); // End of navigation function body
 
@@ -342,9 +355,10 @@ export function RefCards() {
   // const large = useMediaQuery(theme.breakpoints.up("sm"));
   const largeLayout = false; // RefCards always use small layout
 
-  const navigation = (swiper: SwiperRef | null) => (
+  const navigation = (swiper: RefObject<SwiperRef | undefined>, index$: Observable<number>) => (
     <SwiperChipNavigation
       swiper={swiper}
+      index$={index$}
       items={[
         "Playbook Results",
         "Turn Sequence",
@@ -352,7 +366,6 @@ export function RefCards() {
         "Spending Momentum",
         "Actions",
       ].map((title, index) => ({ key: index, label: title }))}
-      activeIndex={swiper?.activeIndex}
     />
   );
 
@@ -386,23 +399,30 @@ interface ChipItem {
 }
 
 interface SwiperChipNavigationProps {
-  swiper: SwiperRef | null;
+  swiper: RefObject<SwiperRef | undefined>;
+  index$: Observable<number>;
   items: ChipItem[];
   slideOffset?: number;
-  activeIndex?: number;
-  leadingIcon?: React.ReactNode;
+  leadingIcon?: () => React.ReactNode;
   className?: string;
 }
 
 function SwiperChipNavigation({
   swiper,
+  index$,
   items,
   leadingIcon,
-  activeIndex,
   className,
   slideOffset = 0,
 }: SwiperChipNavigationProps) {
   const theme = useTheme();
+
+  const [activeIndex, setActiveIndex] = useState(swiper.current?.activeIndex);
+  useEffect(() => {
+    const sub = index$.subscribe((index) => setActiveIndex(index));
+    return () => { sub.unsubscribe(); }
+  }, [index$]);
+
   return (
     <div
       className={className}
@@ -422,7 +442,7 @@ function SwiperChipNavigation({
           my: 1, // Added margin for consistent spacing
         }}
       >
-        {leadingIcon}
+        {leadingIcon?.()}
         {items.map((item, index) => {
           const isActive = index + slideOffset === activeIndex;
           return (
@@ -432,7 +452,7 @@ function SwiperChipNavigation({
               label={item.label}
               // variant={isActive ? "filled" : "outlined"} // Change variant based on active state
               clickable={false}
-              onClick={() => swiper?.slideTo(index + slideOffset)}
+              onClick={() => swiper.current?.slideTo(index + slideOffset)}
               sx={{
                 boxShadow: isActive ? `0 0 10px ${theme.palette.warning.main}` : "none",
               }}
@@ -447,10 +467,15 @@ function SwiperChipNavigation({
 
 function SwiperButtons(props: {
   guild: GBGuildDoc;
-  swiper: SwiperRef | null;
-  activeIndex: number;
+  swiper: RefObject<SwiperRef | undefined>;
+  index$: Observable<number>;
 }) {
-  const { guild, swiper, activeIndex } = props;
+  const { guild, swiper, index$ } = props;
+  const [activeIndex, setActiveIndex] = useState(swiper.current?.activeIndex);
+  useEffect(() => {
+    const sub = index$.subscribe((index) => setActiveIndex(index));
+    return () => { sub.unsubscribe(); }
+  }, [index$]);
   const theme = useTheme();
   const isLeadingIconActive = activeIndex === 0;
   const roster = guild.roster;
@@ -460,10 +485,10 @@ function SwiperButtons(props: {
     [roster]
   );
 
-  const leadingIcon = (
-    <IconButton
+  const leadingIcon = () => {
+    return <IconButton
       sx={{ padding: 0, mr: 0 }}
-      onClick={() => swiper?.slideTo(0)}
+      onClick={() => swiper.current?.slideTo(0)}
     >
       <div
         style={{
@@ -482,14 +507,14 @@ function SwiperButtons(props: {
         <GBIcon icon={guild.name} className="dark" fontSize="32px" style={{ flexShrink: 0 }} />
       </div>
     </IconButton>
-  );
+  };
 
   return (
     <SwiperChipNavigation
       swiper={swiper}
+      index$={index$}
       items={items}
       slideOffset={1}
-      activeIndex={activeIndex}
       leadingIcon={leadingIcon}
     />
   );
