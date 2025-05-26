@@ -20,7 +20,7 @@
         "react-detect-offline": "^2.4.5",
         "react-dom": "^19.1.0",
         "react-i18next": "^15.5.1",
-        "react-router-dom": "^7.6.0",
+        "react-router-dom": "^7.6.1",
         "react-string-replace": "^1.1.1",
         "rooks": "^8.0.1",
         "rxdb": "^15.39.0",
@@ -50,10 +50,6 @@
         "workbox-window": "^7.0.0",
       },
     },
-  },
-  "overrides": {
-    "sharp": "0.32.6",
-    "sharp-ico": "0.1.5",
   },
   "packages": {
     "@ampproject/remapping": ["@ampproject/remapping@2.3.0", "", { "dependencies": { "@jridgewell/gen-mapping": "^0.3.5", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw=="],
@@ -1404,9 +1400,9 @@
 
     "react-refresh": ["react-refresh@0.17.0", "", {}, "sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ=="],
 
-    "react-router": ["react-router@7.6.0", "", { "dependencies": { "cookie": "^1.0.1", "set-cookie-parser": "^2.6.0" }, "peerDependencies": { "react": ">=18", "react-dom": ">=18" }, "optionalPeers": ["react-dom"] }, "sha512-GGufuHIVCJDbnIAXP3P9Sxzq3UUsddG3rrI3ut1q6m0FI6vxVBF3JoPQ38+W/blslLH4a5Yutp8drkEpXoddGQ=="],
+    "react-router": ["react-router@7.6.1", "", { "dependencies": { "cookie": "^1.0.1", "set-cookie-parser": "^2.6.0" }, "peerDependencies": { "react": ">=18", "react-dom": ">=18" }, "optionalPeers": ["react-dom"] }, "sha512-hPJXXxHJZEsPFNVbtATH7+MMX43UDeOauz+EAU4cgqTn7ojdI9qQORqS8Z0qmDlL1TclO/6jLRYUEtbWidtdHQ=="],
 
-    "react-router-dom": ["react-router-dom@7.6.0", "", { "dependencies": { "react-router": "7.6.0" }, "peerDependencies": { "react": ">=18", "react-dom": ">=18" } }, "sha512-DYgm6RDEuKdopSyGOWZGtDfSm7Aofb8CCzgkliTjtu/eDuB0gcsv6qdFhhi8HdtmA+KHkt5MfZ5K2PdzjugYsA=="],
+    "react-router-dom": ["react-router-dom@7.6.1", "", { "dependencies": { "react-router": "7.6.1" }, "peerDependencies": { "react": ">=18", "react-dom": ">=18" } }, "sha512-vxU7ei//UfPYQ3iZvHuO1D/5fX3/JOqhNTbRR+WjSBWxf9bIvpWK+ftjmdfJHzPOuMQKe2fiEdG+dZX6E8uUpA=="],
 
     "react-string-replace": ["react-string-replace@1.1.1", "", {}, "sha512-26TUbLzLfHQ5jO5N7y3Mx88eeKo0Ml0UjCQuX4BMfOd/JX+enQqlKpL1CZnmjeBRvQE8TR+ds9j1rqx9CxhKHQ=="],
 
