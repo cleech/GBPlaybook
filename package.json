@@ -33,7 +33,7 @@
     "rooks": "^8.0.1",
     "rxdb": "^15.39.0",
     "rxjs": "^7.8.2",
-    "swiper": "^11.2.6",
+    "swiper": "^11.2.8",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
