@@ -413,7 +413,7 @@ interface CarouselChipNavigationProps {
   embla: EmblaCarouselType | undefined;
   items: ChipItem[];
   slideOffset?: number;
-  leadingIcon?: (props: { index: number }) => React.ReactNode;
+  leadingIcon?: (props: { ref: React.Ref<HTMLDivElement> | undefined }) => React.ReactNode;
   className?: string;
 }
 
@@ -426,12 +426,18 @@ function CarouselChipNavigation({
 }: CarouselChipNavigationProps) {
   const theme = useTheme();
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  const chipRefs: RefObject<HTMLDivElement[]> = useRef([]);
+  const activeSlideRef = useRef(0);
 
   useEffect(() => {
     if (!embla) return;
-    setActiveIndex(embla.selectedScrollSnap());
-    const callback = (e: EmblaCarouselType) => setActiveIndex(e.selectedScrollSnap());
+    activeSlideRef.current = embla.selectedScrollSnap();
+    chipRefs.current[activeSlideRef.current]?.classList.add("activeSlide");
+    const callback = (e: EmblaCarouselType) => {
+      chipRefs.current[activeSlideRef.current]?.classList.remove("activeSlide");
+      activeSlideRef.current = e.selectedScrollSnap();
+      chipRefs.current[activeSlideRef.current]?.classList.add("activeSlide");
+    };
     embla.on('select', callback);
     return () => { embla.off('select', callback) };
   }, [embla]);
@@ -453,22 +459,24 @@ function CarouselChipNavigation({
           justifyContent: "center",
           gap: "5px",
           my: 1, // Added margin for consistent spacing
+          '& .activeSlide': {
+            boxShadow: `0 0 10px ${theme.palette.warning.main}`
+          }
         }}
       >
-        {leadingIcon?.({ index: activeIndex })}
+        {leadingIcon?.({
+          ref: (el: HTMLDivElement) => { chipRefs.current[0] = el }
+        })}
         {items.map((item, index) => {
-          const isActive = index + slideOffset === activeIndex;
           return (
             <Chip
+              ref={(el: HTMLDivElement) => { chipRefs.current[index + slideOffset] = el }}
               color="primary"
               key={item.key}
               label={item.label}
               // variant={isActive ? "filled" : "outlined"} // Change variant based on active state
               clickable={false}
               onClick={() => embla?.scrollTo(index + slideOffset)}
-              sx={{
-                boxShadow: isActive ? `0 0 10px ${theme.palette.warning.main}` : "none",
-              }}
             />
           )
         })}
@@ -483,7 +491,6 @@ function CarouselButtons(props: {
   embla: EmblaCarouselType | undefined;
 }) {
   const { guild, embla } = props;
-  const theme = useTheme();
   const roster = guild.roster;
 
   const items: ChipItem[] = useMemo(
@@ -491,13 +498,13 @@ function CarouselButtons(props: {
     [roster]
   );
 
-  const leadingIcon = (props: { index: number }) => {
-    const isLeadingIconActive = props.index === 0;
+  const leadingIcon = (props: { ref: React.Ref<HTMLDivElement> | undefined }) => {
     return <IconButton
       sx={{ padding: 0, mr: 0 }}
       onClick={() => embla?.scrollTo(0)}
     >
       <div
+        ref={props.ref}
         style={{
           width: "32px",
           height: "32px",
@@ -507,8 +514,6 @@ function CarouselButtons(props: {
           alignItems: "center",
           justifyContent: "center",
           overflow: "visible",
-          // Add visual indication if active
-          boxShadow: isLeadingIconActive ? `0 0 10px ${theme.palette.warning.main}` : "none",
         }}
       >
         <GBIcon icon={guild.name} className="dark" fontSize="32px" style={{ flexShrink: 0 }} />
