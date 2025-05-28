@@ -31,19 +31,19 @@ export function useRxData<T>(
   const _query = useCallback(query, deps ?? []);
   const [data, setData] = useState<T>();
   useEffect(() => {
-    let cancled = false;
+    let canceled = false;
     if (!db) {
       return;
     }
     const fetchData = async () => {
       const _data = await _query(db);
-      if (!cancled) {
+      if (!canceled) {
         setData(_data);
       }
     };
     fetchData().catch(console.error);
     return () => {
-      cancled = true;
+      canceled = true;
     };
   }, [db, _query, setData]);
   return data;

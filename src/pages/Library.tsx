@@ -29,9 +29,10 @@ import {
   IconButton,
 } from "@mui/material";
 
-import type { Swiper as SwiperRef } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import { EmblaCarouselType } from 'embla-carousel';
+import useEmblaCarousel from "embla-carousel-react";
+
+import { css, cx } from "@emotion/css";
 
 import { useData } from "../hooks/useData";
 import { FlipCard } from "../components/FlipCard";
@@ -50,9 +51,11 @@ import type { Gameplan } from "../components/DataTypes";
 import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 import { GBGuildDoc, GBModelExpanded } from "../models/gbdbTypes";
-import { firstValueFrom, fromEventPattern, Observable } from "rxjs";
+import { firstValueFrom, Observable } from "rxjs";
 import { SettingsDoc } from "../models/settings";
+
 import useResizeObserver from "@react-hook/resize-observer";
+import { useDebounceCallback } from "@react-hook/debounce";
 
 export default function Library() {
   const location = useLocation();
@@ -152,31 +155,65 @@ function ExtraIconsControl(props: ControlProps) {
   );
 }
 
-interface SwiperLayoutProps {
-  navigation: (
-    swiper: RefObject<SwiperRef | undefined>,
-    index$: Observable<number>) => React.ReactNode;
+interface CarouselLayoutProps {
+  navigation: (embla: EmblaCarouselType | undefined,) => React.ReactNode;
   slides: React.ReactNode[];
   largeLayout?: boolean;
 }
 
-function SwiperLayout({
+const CAROUSEL_GAP = "5vw";
+const CAROUSEL_PADDING = "4px";
+
+const emblaStyles = {
+  viewport: css({
+    overflow: "hidden",
+    flex: "0 1 100%",
+    minHeight: 0,
+    position: "relative",
+    padding: CAROUSEL_PADDING,
+    // border: "2px solid red"
+  }),
+  container: css({
+    height: "100%",
+    display: "flex",
+    gap: CAROUSEL_GAP,
+    // border: "2px solid yellow"
+  }),
+  slide: css({
+    flex: "0 0 100%",
+    minWidth: 0,
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    // border: "2px solid blue"
+  }),
+  card: css({
+    // border: "2px solid green"
+  })
+};
+
+function CarouselLayout({
   navigation,
   slides,
   largeLayout = false,
-}: SwiperLayoutProps) {
-  const [cardWidth, setCardWidth] = useState(0);
-  const [cardHeight, setCardHeight] = useState(0);
+}: CarouselLayoutProps) {
+  const maxWidth = largeLayout ? 1000 : 500;
+  const maxHeight = 700;
+  const [slideWidth, setSlideWidth] = useState(maxWidth);
+  const [slideHieght, setSlideHieght] = useState(maxHeight);
 
-  const updateSize = useCallback(({ width, height }: DOMRectReadOnly) => {
-    const containerWidth = width ?? (largeLayout ? 1000 : 500);
-    const containerHeight = height ?? 700;
+  const _updateSize = useCallback(({ width, height }: DOMRectReadOnly) => {
     const aspectRatioMultiplier = largeLayout ? 10 : 5;
-    const calculatedWidth = Math.min(containerWidth, (containerHeight * aspectRatioMultiplier) / 7) - 12;
-    const calculatedHeight = Math.min(containerHeight, (containerWidth * 7) / aspectRatioMultiplier) - 12;
-    setCardWidth(calculatedWidth);
-    setCardHeight(calculatedHeight);
-  }, [largeLayout]);
+    const calculatedWidth = Math.min(width, (height * aspectRatioMultiplier) / 7, maxWidth);
+    setSlideWidth(calculatedWidth);
+    const calculatedHeight = Math.min(height, (width * 7) / aspectRatioMultiplier, maxHeight);
+    setSlideHieght(calculatedHeight);
+    // console.log(`container {width: ${width}, height: ${height}`);
+    // console.log(`card {width: ${calculatedWidth}, height: ${calculatedHeight}`);
+  }, [largeLayout, maxWidth, maxHeight]);
+
+  const updateSize = useDebounceCallback(_updateSize, 32, true);
 
   const sizeRef = useRef<HTMLDivElement>(null);
 
@@ -187,76 +224,53 @@ function SwiperLayout({
 
   useResizeObserver(sizeRef, (entry) => updateSize(entry.contentRect));
 
-  const swiper = useRef<SwiperRef>(undefined);
-
-  const observers = useMemo<Set<(e: number) => void>>(() => new Set(), []);
-  const event$ = fromEventPattern<number>(
-    (handler) => {
-      observers.add(handler);
-      handler(swiper.current?.activeIndex)
-    },
-    (handler) => observers.delete(handler)
-  );
-  const emitEvent = useCallback(
-    (e: number) => {
-      observers.forEach((handler) => handler(e));
-    }, [observers]);
-
   const { slideRef } = useOutletContext<{ slideRef: RefObject<number> }>();
+
+  const [emblaRef, emblaAPI] = useEmblaCarousel({
+    align: 'center',
+    containScroll: false,
+    // skipSnaps: true,
+    startIndex: slideRef.current,
+    watchSlides: false,
+  });
+
+  useEffect(() => {
+    if (!emblaAPI) return;
+    const callback = (e: EmblaCarouselType) => { slideRef.current = e.selectedScrollSnap() };
+    emblaAPI.on('select', callback);
+    return () => { emblaAPI.off('select', callback) };
+  }, [emblaAPI, slideRef]);
 
   return (
     <>
-      {navigation(swiper, event$)}
-      <Box
-        ref={sizeRef}
-        sx={{
-          height: "100%",
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+      {navigation(emblaAPI)}
+
+      <div
+        className={cx("embla__viewport", emblaStyles.viewport)}
+        ref={(el) => { sizeRef.current = el; emblaRef(el); }}
       >
-        <Swiper
-          onSwiper={(ref) => swiper.current = ref}
-          initialSlide={slideRef.current ?? 0}
-          onSlideChange={(swiperInstance) => {
-            slideRef.current = swiperInstance.activeIndex;
-            emitEvent(swiperInstance.activeIndex);
-          }}
-          slidesPerView="auto"
-          centeredSlides={true}
-          spaceBetween={0.25 * 96}
-          style={{
-            height: '100%',
-            // height: cardHeight,
-            overflow: 'visible',
-          }}
-        >
+        <div className={cx("embla__container", emblaStyles.container)}>
           {slides.map((slideContent, index) => (
-            <SwiperSlide
-              key={index}
+            <div key={index}
+              className={cx("embla__slide", emblaStyles.slide)}
               style={{
-                width: cardWidth,
-                // height: cardHeight,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-              <div style={{
-                height: cardHeight,
-                width: cardWidth,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
-              }}>
+                maxWidth: `${slideWidth}px`
+              }}
+            >
+              <div
+                className={emblaStyles.card}
+                style={{
+                  height: `${slideHieght}px`,
+                  width: `${slideWidth}px`,
+                }}
+              >
                 {slideContent}
               </div>
-            </SwiperSlide>
+            </div>
           ))}
-        </Swiper>
+        </div>
         <VersionTag />
-      </Box>
+      </div>
     </>
   );
 }
@@ -267,11 +281,10 @@ export function Roster() {
   const large = useMediaQuery(theme.breakpoints.up("sm"));
 
   // Define navigation render prop
-  const navigation = (swiper: RefObject<SwiperRef | undefined>, index$: Observable<number>) => (
-    <SwiperButtons
+  const navigation = (embla: EmblaCarouselType | undefined) => (
+    <CarouselButtons
       guild={g}
-      swiper={swiper}
-      index$={index$}
+      embla={embla}
     />
   );
 
@@ -296,7 +309,7 @@ export function Roster() {
         </Breadcrumbs>
       </AppBarContent>
 
-      <SwiperLayout
+      <CarouselLayout
         navigation={navigation}
         slides={slides}
         largeLayout={large}
@@ -315,16 +328,15 @@ export function GamePlans() {
   }
 
   // Define navigation render prop
-  const navigation = (swiper: RefObject<SwiperRef | undefined>, index$: Observable<number>) => (
-    <SwiperChipNavigation // Correctly call SwiperChipNavigation as a component
-      swiper={swiper}
-      index$={index$}
+  const navigation = (embla: EmblaCarouselType | undefined) => (
+    <CarouselChipNavigation
+      embla={embla}
       items={gameplans.map((g, index) => ({
         key: index,
         label: g.title,
       }))}
     />
-  ); // End of navigation function body
+  );
 
   // Define slides
   const slides = gameplans.map((gameplan: Gameplan) => (
@@ -342,7 +354,7 @@ export function GamePlans() {
         </Breadcrumbs>
       </AppBarContent>
 
-      <SwiperLayout
+      <CarouselLayout
         navigation={navigation}
         slides={slides}
         largeLayout={largeLayout}
@@ -355,10 +367,9 @@ export function RefCards() {
   // const large = useMediaQuery(theme.breakpoints.up("sm"));
   const largeLayout = false; // RefCards always use small layout
 
-  const navigation = (swiper: RefObject<SwiperRef | undefined>, index$: Observable<number>) => (
-    <SwiperChipNavigation
-      swiper={swiper}
-      index$={index$}
+  const navigation = (embla: EmblaCarouselType | undefined) => (
+    <CarouselChipNavigation
+      embla={embla}
       items={[
         "Playbook Results",
         "Turn Sequence",
@@ -384,7 +395,7 @@ export function RefCards() {
         </Breadcrumbs>
       </AppBarContent>
 
-      <SwiperLayout
+      <CarouselLayout
         navigation={navigation}
         slides={slides}
         largeLayout={largeLayout}
@@ -398,30 +409,32 @@ interface ChipItem {
   label: string;
 }
 
-interface SwiperChipNavigationProps {
-  swiper: RefObject<SwiperRef | undefined>;
-  index$: Observable<number>;
+interface CarouselChipNavigationProps {
+  embla: EmblaCarouselType | undefined;
   items: ChipItem[];
   slideOffset?: number;
-  leadingIcon?: () => React.ReactNode;
+  leadingIcon?: (props: { index: number }) => React.ReactNode;
   className?: string;
 }
 
-function SwiperChipNavigation({
-  swiper,
-  index$,
+function CarouselChipNavigation({
+  embla,
   items,
   leadingIcon,
   className,
   slideOffset = 0,
-}: SwiperChipNavigationProps) {
+}: CarouselChipNavigationProps) {
   const theme = useTheme();
 
-  const [activeIndex, setActiveIndex] = useState(swiper.current?.activeIndex);
+  const [activeIndex, setActiveIndex] = useState(0);
+
   useEffect(() => {
-    const sub = index$.subscribe((index) => setActiveIndex(index));
-    return () => { sub.unsubscribe(); }
-  }, [index$]);
+    if (!embla) return;
+    setActiveIndex(embla.selectedScrollSnap());
+    const callback = (e: EmblaCarouselType) => setActiveIndex(e.selectedScrollSnap());
+    embla.on('select', callback);
+    return () => { embla.off('select', callback) };
+  }, [embla]);
 
   return (
     <div
@@ -442,7 +455,7 @@ function SwiperChipNavigation({
           my: 1, // Added margin for consistent spacing
         }}
       >
-        {leadingIcon?.()}
+        {leadingIcon?.({ index: activeIndex })}
         {items.map((item, index) => {
           const isActive = index + slideOffset === activeIndex;
           return (
@@ -452,7 +465,7 @@ function SwiperChipNavigation({
               label={item.label}
               // variant={isActive ? "filled" : "outlined"} // Change variant based on active state
               clickable={false}
-              onClick={() => swiper.current?.slideTo(index + slideOffset)}
+              onClick={() => embla?.scrollTo(index + slideOffset)}
               sx={{
                 boxShadow: isActive ? `0 0 10px ${theme.palette.warning.main}` : "none",
               }}
@@ -465,19 +478,12 @@ function SwiperChipNavigation({
   );
 }
 
-function SwiperButtons(props: {
+function CarouselButtons(props: {
   guild: GBGuildDoc;
-  swiper: RefObject<SwiperRef | undefined>;
-  index$: Observable<number>;
+  embla: EmblaCarouselType | undefined;
 }) {
-  const { guild, swiper, index$ } = props;
-  const [activeIndex, setActiveIndex] = useState(swiper.current?.activeIndex);
-  useEffect(() => {
-    const sub = index$.subscribe((index) => setActiveIndex(index));
-    return () => { sub.unsubscribe(); }
-  }, [index$]);
+  const { guild, embla } = props;
   const theme = useTheme();
-  const isLeadingIconActive = activeIndex === 0;
   const roster = guild.roster;
 
   const items: ChipItem[] = useMemo(
@@ -485,10 +491,11 @@ function SwiperButtons(props: {
     [roster]
   );
 
-  const leadingIcon = () => {
+  const leadingIcon = (props: { index: number }) => {
+    const isLeadingIconActive = props.index === 0;
     return <IconButton
       sx={{ padding: 0, mr: 0 }}
-      onClick={() => swiper.current?.slideTo(0)}
+      onClick={() => embla?.scrollTo(0)}
     >
       <div
         style={{
@@ -510,9 +517,8 @@ function SwiperButtons(props: {
   };
 
   return (
-    <SwiperChipNavigation
-      swiper={swiper}
-      index$={index$}
+    <CarouselChipNavigation
+      embla={embla}
       items={items}
       slideOffset={1}
       leadingIcon={leadingIcon}

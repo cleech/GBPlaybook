@@ -25,8 +25,7 @@ import {
 import RosterList, { HealthCounter } from "./components/RosterList";
 import { FlipCard } from "../../components/FlipCard";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import useEmblaCarousel from "embla-carousel-react";
 
 import { Home, NavigateNext } from "@mui/icons-material";
 import { AppBarContent } from "../App";
@@ -39,7 +38,11 @@ import { useRxData } from "../../hooks/useRxQuery";
 import { NetworkGame } from "./components/NetworkGame";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
+
 import useResizeObserver from "@react-hook/resize-observer";
+import { useDebounceCallback } from '@react-hook/debounce';
+
+import { css, cx } from "@emotion/css";
 
 export default function Game() {
   const [showSnack, setShowSnack] = useState(false);
@@ -160,16 +163,16 @@ function GameInner() {
     if (!gameState2$) {
       return;
     }
-    let cancled = false;
+    let canceled = false;
     const snapshot = async () => {
       const doc = await firstValueFrom(gameState2$);
-      if (!cancled) {
+      if (!canceled) {
         setGameState2(doc);
       }
     };
     snapshot();
     return () => {
-      cancled = true;
+      canceled = true;
     };
   }, [gameState2$]);
 
@@ -247,36 +250,12 @@ const GameList = ({
   rosters: GBModelExpanded[][];
   disabled: boolean[];
 }) => {
-  const theme = useTheme();
-  const large = useMediaQuery(theme.breakpoints.up("sm"));
-
   const [open, setOpen] = useState(false);
-  const [index, setIndex] = useState(0);
   const [expanded, setExpanded] = useState(true);
-
-  const [cardWidth, setCardWidth] = useState(500);
-  const [cardHeight, setCardHeight] = useState(700);
-  const [slideHeight, setSlideHeight] = useState(700);
-
-  const updateSize = useCallback(({ width, height }: DOMRectReadOnly) => {
-    const barHeight = large ? 56 : 112;
-    setCardWidth(Math.min(width - 12, ((height - barHeight) * 5) / 7 - 12));
-    setCardHeight(Math.min(height - barHeight - 12, (width * 7) / 5 - 12));
-    setSlideHeight(height - barHeight);
-  }, [large]);
-
-  const sizeRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    if (sizeRef.current)
-      updateSize(sizeRef.current.getBoundingClientRect());
-  }, [sizeRef, updateSize]);
-
-  useResizeObserver(sizeRef, (entry) => updateSize(entry.contentRect));
+  const [index, setIndex] = useState(0);
 
   return (
     <div
-      ref={sizeRef}
       style={{
         width: "100%",
         display: "flex",
@@ -316,9 +295,6 @@ const GameList = ({
             root: {
               style: {
                 position: "absolute",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
               },
             },
             backdrop: {
@@ -328,65 +304,143 @@ const GameList = ({
             },
           }}
         >
-          <Swiper
-            initialSlide={index}
-            direction="vertical"
-            centeredSlides
-            spaceBetween={(slideHeight - Math.min(cardHeight, 500)) / 2}
-            onInit={(swiper) => {
-              swiper.el.style.width = `${Math.min(cardWidth, 500)}px`;
-              swiper.el.style.height = `${Math.min(cardHeight, 700)}px`;
-              // swiper.el.style.height = `${slideHeight}px`;
-            }}
-            style={{
-              overflow: "visible",
-            }}
-          >
-            {teams
-              .map((t, index) => [
-                // Guild Rules Card
-                () => <FlipGuildCard guild={t.guild} />,
-                // Model Cards
-                rosters[index].map((m, _index) => () => {
-                  return (
-                    <FlipCard
-                      model={m}
-                      health$={t.get$("roster").pipe(
-                        map((r) => {
-                          return r[_index].health;
-                        })
-                      )}
-                    >
-                      <CardControls
-                        model={m}
-                        state={teams[index]}
-                        disabled={disabled[index]}
-                      />
-                    </FlipCard>
-                  );
-                }),
-              ])
-              .flat(2)
-              .map((component, index) => (
-                <SwiperSlide key={index}>
-                  <div
-                    style={{
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {component?.()}
-                  </div>
-                </SwiperSlide>
-              ))}
-          </Swiper>
+          <CardCarousel
+            teams={teams}
+            rosters={rosters}
+            disabled={disabled}
+            index={index}
+          />
         </Modal>
       </div>
     </div>
   );
 };
+
+const CAROUSEL_GAP = "28px";
+const CAROUSEL_PADDING = "4px";
+
+const emblaStyles = {
+  viewport: css({
+    overflow: "hidden",
+    height: "100%",
+    pointerEvents: "none",
+    padding: CAROUSEL_PADDING,
+    // border: "2px solid red"
+  }),
+  container: css({
+    height: '100%',
+    display: "flex",
+    flexDirection: "column",
+    gap: CAROUSEL_GAP,
+    // border: "2px solid yellow"
+  }),
+  slide: css({
+    flex: '0 0 100%',
+    minHeight: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    // border: "2px solid blue"
+  }),
+  card: css({
+    pointerEvents: "initial",
+    // border: "2px solid green"
+  })
+};
+
+const maxHeight = 700;
+const maxWidth = 500;
+
+function CardCarousel({
+  teams,
+  rosters,
+  disabled,
+  index
+}: {
+  teams: GBGameStateDoc[];
+  rosters: GBModelExpanded[][];
+  disabled: boolean[];
+  index: number;
+}) {
+  const [slideHeight, setSlideHeight] = useState(maxHeight);
+  const [slideWidth, setSlideWidth] = useState(maxWidth);
+
+  const _updateSize = useCallback(({ width, height }: DOMRectReadOnly) => {
+    const calculatedWidth = Math.min(width, (height * 5) / 7, maxWidth);
+    const calculatedHeight = Math.min(height, (width * 7) / 5, maxHeight);
+    setSlideHeight(calculatedHeight);
+    setSlideWidth(calculatedWidth);
+    // console.log(`container {width: ${containerWidth}, height: ${containerHeight}`);
+    // console.log(`card {width: ${calculatedWidth}, height: ${calculatedHeight}`);
+  }, []);
+
+  const updateSize = useDebounceCallback(_updateSize, 32, true);
+
+  const sizeRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (sizeRef.current)
+      updateSize(sizeRef.current.getBoundingClientRect());
+  }, [sizeRef, updateSize]);
+
+  useResizeObserver(sizeRef, (entry) => updateSize(entry.contentRect));
+
+  const [emblaRef] = useEmblaCarousel({
+    startIndex: index,
+    align: 'center',
+    axis: 'y',
+    containScroll: false,
+    skipSnaps: true,
+    watchSlides: false,
+  });
+
+  const cards = teams
+    .flatMap((t, index) => [
+      // Guild Rules Card
+      <FlipGuildCard key={`guild-${index}`} guild={t.guild} />,
+      // Model Cards
+      ...rosters[index].map((m, _index) =>
+        <FlipCard
+          key={`model-${index}-${_index}`}
+          model={m}
+          health$={t.get$("roster").pipe(
+            map((r) => {
+              return r[_index].health;
+            })
+          )}
+        >
+          <CardControls
+            model={m}
+            state={teams[index]}
+            disabled={disabled[index]}
+          />
+        </FlipCard>
+      ),
+    ]);
+
+  return (
+    <div
+      className={cx("embla__viewport", emblaStyles.viewport)}
+      ref={(el) => { sizeRef.current = el; emblaRef(el); }}
+    >
+      <div className={cx("embla__container", emblaStyles.container)}>
+        {cards.map((component, index) => (
+          <div key={index} className={cx("embla__slide", emblaStyles.slide)}>
+            <div
+              className={emblaStyles.card}
+              style={{
+                height: `${slideHeight}px`,
+                width: `${slideWidth}px`,
+              }}
+            >
+              {component}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 function CardControls({
   state,

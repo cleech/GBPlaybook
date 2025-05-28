@@ -160,14 +160,14 @@ const SimpleCard = (props: { children?: ReactNode }) => {
       ref={layoutRef}
       style={{
         width: "100%",
-        maxWidth: "500px",
         height: "100%",
-        maxHeight: "700px",
-        // display: "flex",
-        // alignItems: "center",
-        // justifyContent: "center",
-        padding: 0,
-        margin: 0,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        // maxWidth: "500px",
+        // maxHeight: "700px",
+        // padding: 0,
+        // margin: 0,
       }}
     >
       {/* sizing div */}
