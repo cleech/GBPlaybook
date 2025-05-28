@@ -168,7 +168,7 @@ function CarouselLayout({
   slides,
   largeLayout = false,
 }: CarouselLayoutProps) {
-  const [slideWidth, setSlideWidth] = useState(0);
+  const [slideWidth, setSlideWidth] = useState(500);
 
   const _updateSize = useCallback(({ width: containerWidth, height: containerHeight }: DOMRectReadOnly) => {
     const maxWidth = (largeLayout ? 1000 : 500) + 24; // +24 for padding
@@ -211,7 +211,7 @@ function CarouselLayout({
   const [emblaRef, emblaAPI] = useEmblaCarousel({
     align: 'center',
     containScroll: false,
-    skipSnaps: true,
+    // skipSnaps: true,
     startIndex: slideRef.current,
     watchSlides: false,
   });
