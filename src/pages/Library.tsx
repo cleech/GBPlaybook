@@ -51,7 +51,7 @@ import type { Gameplan } from "../components/DataTypes";
 import GBIcon from "../components/GBIcon";
 import { GameplanCard, ReferenceCard } from "../components/Gameplan";
 import { GBGuildDoc, GBModelExpanded } from "../models/gbdbTypes";
-import { firstValueFrom, fromEventPattern, Observable } from "rxjs";
+import { firstValueFrom, Observable } from "rxjs";
 import { SettingsDoc } from "../models/settings";
 
 import useResizeObserver from "@react-hook/resize-observer";
@@ -156,9 +156,7 @@ function ExtraIconsControl(props: ControlProps) {
 }
 
 interface CarouselLayoutProps {
-  navigation: (
-    embla: RefObject<EmblaCarouselType | undefined>,
-    index$: Observable<number>) => React.ReactNode;
+  navigation: (embla: EmblaCarouselType | undefined,) => React.ReactNode;
   slides: React.ReactNode[];
   largeLayout?: boolean;
 }
@@ -191,21 +189,6 @@ function CarouselLayout({
 
   useResizeObserver(sizeRef, (entry) => updateSize(entry.contentRect));
 
-  const observers = useMemo<Set<(e: number) => void>>(() => new Set(), []);
-
-  const event$ = fromEventPattern<number>(
-    (handler) => {
-      observers.add(handler);
-      handler(emblaAPI?.selectedScrollSnap() ?? 0);
-    },
-    (handler) => observers.delete(handler)
-  );
-
-  const emitEvent = useCallback(
-    (e: EmblaCarouselType) => {
-      observers.forEach((handler) => handler(e.selectedScrollSnap()));
-    }, [observers]);
-
   const { slideRef } = useOutletContext<{ slideRef: RefObject<number> }>();
 
   const [emblaRef, emblaAPI] = useEmblaCarousel({
@@ -217,19 +200,15 @@ function CarouselLayout({
   });
 
   useEffect(() => {
-    emblaAPI?.on('select', emitEvent);
-    return () => { emblaAPI?.off('select', emitEvent); }
-  }, [emblaAPI, emitEvent]);
-
-  const emblaAPIRef = useRef(emblaAPI);
-
-  useEffect(() => {
-    emblaAPIRef.current = emblaAPI;
-  }, [emblaAPI]);
+    if (!emblaAPI) return;
+    const callback = (e: EmblaCarouselType) => { slideRef.current = e.selectedScrollSnap() };
+    emblaAPI.on('select', callback);
+    return () => { emblaAPI.off('select', callback) };
+  }, [emblaAPI, slideRef]);
 
   return (
     <>
-      {navigation(emblaAPIRef, event$)}
+      {navigation(emblaAPI)}
 
       <div className={cx("embla__viewport", css({
         overflow: "hidden",
@@ -273,11 +252,10 @@ export function Roster() {
   const large = useMediaQuery(theme.breakpoints.up("sm"));
 
   // Define navigation render prop
-  const navigation = (embla: RefObject<EmblaCarouselType | undefined>, index$: Observable<number>) => (
+  const navigation = (embla: EmblaCarouselType | undefined) => (
     <CarouselButtons
       guild={g}
       embla={embla}
-      index$={index$}
     />
   );
 
@@ -321,16 +299,15 @@ export function GamePlans() {
   }
 
   // Define navigation render prop
-  const navigation = (embla: RefObject<EmblaCarouselType | undefined>, index$: Observable<number>) => (
-    <CarouselChipNavigation // Correctly call CarouselChipNavigation as a component
+  const navigation = (embla: EmblaCarouselType | undefined) => (
+    <CarouselChipNavigation
       embla={embla}
-      index$={index$}
       items={gameplans.map((g, index) => ({
         key: index,
         label: g.title,
       }))}
     />
-  ); // End of navigation function body
+  );
 
   // Define slides
   const slides = gameplans.map((gameplan: Gameplan) => (
@@ -361,10 +338,9 @@ export function RefCards() {
   // const large = useMediaQuery(theme.breakpoints.up("sm"));
   const largeLayout = false; // RefCards always use small layout
 
-  const navigation = (embla: RefObject<EmblaCarouselType | undefined>, index$: Observable<number>) => (
+  const navigation = (embla: EmblaCarouselType | undefined) => (
     <CarouselChipNavigation
       embla={embla}
-      index$={index$}
       items={[
         "Playbook Results",
         "Turn Sequence",
@@ -405,17 +381,15 @@ interface ChipItem {
 }
 
 interface CarouselChipNavigationProps {
-  embla: RefObject<EmblaCarouselType | undefined>;
-  index$: Observable<number>;
+  embla: EmblaCarouselType | undefined;
   items: ChipItem[];
   slideOffset?: number;
-  leadingIcon?: () => React.ReactNode;
+  leadingIcon?: (props: { index: number }) => React.ReactNode;
   className?: string;
 }
 
 function CarouselChipNavigation({
   embla,
-  index$,
   items,
   leadingIcon,
   className,
@@ -423,11 +397,15 @@ function CarouselChipNavigation({
 }: CarouselChipNavigationProps) {
   const theme = useTheme();
 
-  const [activeIndex, setActiveIndex] = useState(embla.current?.selectedScrollSnap() ?? 0);
+  const [activeIndex, setActiveIndex] = useState(0);
+
   useEffect(() => {
-    const sub = index$.subscribe((index) => setActiveIndex(index));
-    return () => { sub.unsubscribe(); }
-  }, [index$]);
+    if (!embla) return;
+    setActiveIndex(embla.selectedScrollSnap());
+    const callback = (e: EmblaCarouselType) => setActiveIndex(e.selectedScrollSnap());
+    embla.on('select', callback);
+    return () => { embla.off('select', callback) };
+  }, [embla]);
 
   return (
     <div
@@ -448,7 +426,7 @@ function CarouselChipNavigation({
           my: 1, // Added margin for consistent spacing
         }}
       >
-        {leadingIcon?.()}
+        {leadingIcon?.({ index: activeIndex })}
         {items.map((item, index) => {
           const isActive = index + slideOffset === activeIndex;
           return (
@@ -458,7 +436,7 @@ function CarouselChipNavigation({
               label={item.label}
               // variant={isActive ? "filled" : "outlined"} // Change variant based on active state
               clickable={false}
-              onClick={() => embla.current?.scrollTo(index + slideOffset)}
+              onClick={() => embla?.scrollTo(index + slideOffset)}
               sx={{
                 boxShadow: isActive ? `0 0 10px ${theme.palette.warning.main}` : "none",
               }}
@@ -473,17 +451,10 @@ function CarouselChipNavigation({
 
 function CarouselButtons(props: {
   guild: GBGuildDoc;
-  embla: RefObject<EmblaCarouselType | undefined>;
-  index$: Observable<number>;
+  embla: EmblaCarouselType | undefined;
 }) {
-  const { guild, embla, index$ } = props;
-  const [activeIndex, setActiveIndex] = useState(embla.current?.selectedScrollSnap() ?? 0);
-  useEffect(() => {
-    const sub = index$.subscribe((index) => setActiveIndex(index));
-    return () => { sub.unsubscribe(); }
-  }, [index$]);
+  const { guild, embla } = props;
   const theme = useTheme();
-  const isLeadingIconActive = activeIndex === 0;
   const roster = guild.roster;
 
   const items: ChipItem[] = useMemo(
@@ -491,10 +462,11 @@ function CarouselButtons(props: {
     [roster]
   );
 
-  const leadingIcon = () => {
+  const leadingIcon = (props: { index: number }) => {
+    const isLeadingIconActive = props.index === 0;
     return <IconButton
       sx={{ padding: 0, mr: 0 }}
-      onClick={() => embla.current?.scrollTo(0)}
+      onClick={() => embla?.scrollTo(0)}
     >
       <div
         style={{
@@ -518,7 +490,6 @@ function CarouselButtons(props: {
   return (
     <CarouselChipNavigation
       embla={embla}
-      index$={index$}
       items={items}
       slideOffset={1}
       leadingIcon={leadingIcon}
