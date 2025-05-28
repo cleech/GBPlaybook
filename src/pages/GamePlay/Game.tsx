@@ -316,6 +316,41 @@ const GameList = ({
   );
 };
 
+const CAROUSEL_GAP = "28px";
+const CAROUSEL_PADDING = "4px";
+
+const emblaStyles = {
+  viewport: css({
+    overflow: "hidden",
+    height: "100%",
+    pointerEvents: "none",
+    padding: CAROUSEL_PADDING,
+    // border: "2px solid red"
+  }),
+  container: css({
+    height: '100%',
+    display: "flex",
+    flexDirection: "column",
+    gap: CAROUSEL_GAP,
+    // border: "2px solid yellow"
+  }),
+  slide: css({
+    flex: '0 0 100%',
+    minHeight: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    // border: "2px solid blue"
+  }),
+  card: css({
+    pointerEvents: "initial",
+    // border: "2px solid green"
+  })
+};
+
+const maxHeight = 700;
+const maxWidth = 500;
+
 function CardCarousel({
   teams,
   rosters,
@@ -327,15 +362,12 @@ function CardCarousel({
   disabled: boolean[];
   index: number;
 }) {
-  const padding = 6;
-  const [slideHeight, setSlideHeight] = useState(700 + 2 * padding);
-  const [slideWidth, setSlideWidth] = useState(500 + 2 * padding);
+  const [slideHeight, setSlideHeight] = useState(maxHeight);
+  const [slideWidth, setSlideWidth] = useState(maxWidth);
 
-  const _updateSize = useCallback(({ width: containerWidth, height: containerHeight }: DOMRectReadOnly) => {
-    const maxHeight = 700 + (2 * padding); // + for padding
-    const maxWidth = 500 + (2 * padding); // + for padding
-    const calculatedWidth = Math.min(containerWidth, (containerHeight * 5) / 7, maxWidth);
-    const calculatedHeight = Math.min(containerHeight, (containerWidth * 7) / 5, maxHeight);
+  const _updateSize = useCallback(({ width, height }: DOMRectReadOnly) => {
+    const calculatedWidth = Math.min(width, (height * 5) / 7, maxWidth);
+    const calculatedHeight = Math.min(height, (width * 7) / 5, maxHeight);
     setSlideHeight(calculatedHeight);
     setSlideWidth(calculatedWidth);
     // console.log(`container {width: ${containerWidth}, height: ${containerHeight}`);
@@ -361,68 +393,49 @@ function CardCarousel({
     skipSnaps: true,
     watchSlides: false,
   });
+
+  const cards = teams
+    .flatMap((t, index) => [
+      // Guild Rules Card
+      <FlipGuildCard guild={t.guild} />,
+      // Model Cards
+      ...rosters[index].map((m, _index) =>
+        <FlipCard
+          model={m}
+          health$={t.get$("roster").pipe(
+            map((r) => {
+              return r[_index].health;
+            })
+          )}
+        >
+          <CardControls
+            model={m}
+            state={teams[index]}
+            disabled={disabled[index]}
+          />
+        </FlipCard>
+      ),
+    ]);
+
   return (
-    <div className={cx("embla__viewport",
-      css({
-        overflow: "hidden",
-        height: "100%",
-        pointerEvents: "none",
-      }))}
-      ref={(el) => { sizeRef.current = el; return emblaRef(el) }}
+    <div
+      className={cx("embla__viewport", emblaStyles.viewport)}
+      ref={(el) => { sizeRef.current = el; emblaRef(el); }}
     >
-      <div className={cx("embla__container", css({
-        height: '100%',
-        display: "flex",
-        flexDirection: "column",
-      }))}>
-        {teams
-          .map((t, index) => [
-            // Guild Rules Card
-            () => <FlipGuildCard guild={t.guild} />,
-            // Model Cards
-            rosters[index].map((m, _index) => () => {
-              return (
-                <FlipCard
-                  model={m}
-                  health$={t.get$("roster").pipe(
-                    map((r) => {
-                      return r[_index].health;
-                    })
-                  )}
-                >
-                  <CardControls
-                    model={m}
-                    state={teams[index]}
-                    disabled={disabled[index]}
-                  />
-                </FlipCard>
-              );
-            }),
-          ])
-          .flat(2)
-          .map((component, index) => (
-            <div key={index}
-              className={cx("embla__slide")}
+      <div className={cx("embla__container", emblaStyles.container)}>
+        {cards.map((component, index) => (
+          <div key={index} className={cx("embla__slide", emblaStyles.slide)}>
+            <div
+              className={emblaStyles.card}
               style={{
-                flex: '0 0 100%',
-                minHeight: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                height: `${slideHeight}px`,
+                width: `${slideWidth}px`,
               }}
             >
-              <div
-                style={{
-                  height: `${slideHeight}px`,
-                  width: `${slideWidth}px`,
-                  padding: `${padding}px`,
-                  pointerEvents: "initial",
-                }}>
-                {component?.()}
-              </div>
+              {component}
             </div>
-          ))}
-
+          </div>
+        ))}
       </div>
     </div>
   )

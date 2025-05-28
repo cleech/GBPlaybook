@@ -161,22 +161,57 @@ interface CarouselLayoutProps {
   largeLayout?: boolean;
 }
 
+const CAROUSEL_GAP = "5vw";
+const CAROUSEL_PADDING = "4px";
+
+const emblaStyles = {
+  viewport: css({
+    overflow: "hidden",
+    flex: "0 1 100%",
+    minHeight: 0,
+    position: "relative",
+    padding: CAROUSEL_PADDING,
+    // border: "2px solid red"
+  }),
+  container: css({
+    height: "100%",
+    display: "flex",
+    gap: CAROUSEL_GAP,
+    // border: "2px solid yellow"
+  }),
+  slide: css({
+    flex: "0 0 100%",
+    minWidth: 0,
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    // border: "2px solid blue"
+  }),
+  card: css({
+    // border: "2px solid green"
+  })
+};
+
 function CarouselLayout({
   navigation,
   slides,
   largeLayout = false,
 }: CarouselLayoutProps) {
-  const [slideWidth, setSlideWidth] = useState(500);
+  const maxWidth = largeLayout ? 1000 : 500;
+  const maxHeight = 700;
+  const [slideWidth, setSlideWidth] = useState(maxWidth);
+  const [slideHieght, setSlideHieght] = useState(maxHeight);
 
-  const _updateSize = useCallback(({ width: containerWidth, height: containerHeight }: DOMRectReadOnly) => {
-    const maxWidth = (largeLayout ? 1000 : 500) + 24; // +24 for padding
+  const _updateSize = useCallback(({ width, height }: DOMRectReadOnly) => {
     const aspectRatioMultiplier = largeLayout ? 10 : 5;
-    const calculatedWidth = Math.min(containerWidth, (containerHeight * aspectRatioMultiplier) / 7, maxWidth);
-    // const calculatedHeight = Math.min(containerHeight, (containerWidth * 7) / aspectRatioMultiplier, 724);
+    const calculatedWidth = Math.min(width, (height * aspectRatioMultiplier) / 7, maxWidth);
     setSlideWidth(calculatedWidth);
-    // console.log(`container {width: ${containerWidth}, height: ${containerHeight}`);
+    const calculatedHeight = Math.min(height, (width * 7) / aspectRatioMultiplier, maxHeight);
+    setSlideHieght(calculatedHeight);
+    // console.log(`container {width: ${width}, height: ${height}`);
     // console.log(`card {width: ${calculatedWidth}, height: ${calculatedHeight}`);
-  }, [largeLayout]);
+  }, [largeLayout, maxWidth, maxHeight]);
 
   const updateSize = useDebounceCallback(_updateSize, 32, true);
 
@@ -210,33 +245,27 @@ function CarouselLayout({
     <>
       {navigation(emblaAPI)}
 
-      <div className={cx("embla__viewport", css({
-        overflow: "hidden",
-        flex: "0 1 100%",
-        minHeight: 0,
-        position: "relative",
-      }))}
-        ref={(el) => { sizeRef.current = el; return emblaRef(el) }}
+      <div
+        className={cx("embla__viewport", emblaStyles.viewport)}
+        ref={(el) => { sizeRef.current = el; emblaRef(el); }}
       >
-        <div
-          className={cx("embla__container", css({
-            height: "100%",
-            display: "flex",
-            gap: "5vw"
-          }))}
-        >
+        <div className={cx("embla__container", emblaStyles.container)}>
           {slides.map((slideContent, index) => (
-            <div key={index} className={cx("embla__slide", css({
-              flex: "0 0 100%",
-              minWidth: 0,
-              maxWidth: `${slideWidth}px`,
-              height: "100%",
-              padding: "12px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }))}>
-              {slideContent}
+            <div key={index}
+              className={cx("embla__slide", emblaStyles.slide)}
+              style={{
+                maxWidth: `${slideWidth}px`
+              }}
+            >
+              <div
+                className={emblaStyles.card}
+                style={{
+                  height: `${slideHieght}px`,
+                  width: `${slideWidth}px`,
+                }}
+              >
+                {slideContent}
+              </div>
             </div>
           ))}
         </div>
