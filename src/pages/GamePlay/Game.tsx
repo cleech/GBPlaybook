@@ -397,10 +397,11 @@ function CardCarousel({
   const cards = teams
     .flatMap((t, index) => [
       // Guild Rules Card
-      <FlipGuildCard guild={t.guild} />,
+      <FlipGuildCard key={`guild-${index}`} guild={t.guild} />,
       // Model Cards
       ...rosters[index].map((m, _index) =>
         <FlipCard
+          key={`model-${index}-${_index}`}
           model={m}
           health$={t.get$("roster").pipe(
             map((r) => {
