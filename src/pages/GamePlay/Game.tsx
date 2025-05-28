@@ -163,16 +163,16 @@ function GameInner() {
     if (!gameState2$) {
       return;
     }
-    let cancled = false;
+    let canceled = false;
     const snapshot = async () => {
       const doc = await firstValueFrom(gameState2$);
-      if (!cancled) {
+      if (!canceled) {
         setGameState2(doc);
       }
     };
     snapshot();
     return () => {
-      cancled = true;
+      canceled = true;
     };
   }, [gameState2$]);
 

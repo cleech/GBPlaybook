@@ -8,19 +8,19 @@ export function useGBData<T>(
   const { gbdb: db } = useData();
   const [data, setData] = useState<T>();
   useEffect(() => {
-    let cancled = false;
+    let canceled = false;
     if (!db) {
       return;
     }
     const fn = async () => {
       const response = await fetch(db);
-      if (!cancled) {
+      if (!canceled) {
         setData(response);
       }
     };
     fn().catch(console.error);
     return () => {
-      cancled = true;
+      canceled = true;
     };
   }, [db, fetch]);
   return data;
