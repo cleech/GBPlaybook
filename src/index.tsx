@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import GamePlay, { TeamSelect, Draft, Game } from "./pages/GamePlay";
 import Library, {
+  LibraryCarousel,
   GamePlans,
   GuildList,
   RefCards,
@@ -95,22 +96,27 @@ const router = createHashRouter(
               },
               hydrateFallbackElement: <LoadingSplash />,
             },
-            { path: "gameplans", element: <GamePlans /> },
-            { path: "refcards", element: <RefCards /> },
             {
-              path: ":guild",
-              element: <Roster />,
-              loader: async ({ params }) => {
-                const { gbdb: db } = await initializeAppData();
-                const [guild, _roster] = await Promise.all([
-                  db.guilds.findOne().where({ name: params.guild }).exec(),
-                  db.models.find().or([{ guild1: params.guild }, { guild2: params.guild }]).exec(),
-                ]);
-                reSort(_roster, "id", guild ? guild.roster : []);
-                const roster = await Promise.all(_roster.map((m) => m.expand()));
-                return { guild, roster };
-              },
-              hydrateFallbackElement: <LoadingSplash />,
+              element: <LibraryCarousel />,
+              children: [
+                { path: "gameplans", element: <GamePlans /> },
+                { path: "refcards", element: <RefCards /> },
+                {
+                  path: ":guild",
+                  element: <Roster />,
+                  loader: async ({ params }) => {
+                    const { gbdb: db } = await initializeAppData();
+                    const [guild, _roster] = await Promise.all([
+                      db.guilds.findOne().where({ name: params.guild }).exec(),
+                      db.models.find().or([{ guild1: params.guild }, { guild2: params.guild }]).exec(),
+                    ]);
+                    reSort(_roster, "id", guild ? guild.roster : []);
+                    const roster = await Promise.all(_roster.map((m) => m.expand()));
+                    return { guild, roster };
+                  },
+                  hydrateFallbackElement: <LoadingSplash />,
+                },
+              ]
             },
           ]
         },

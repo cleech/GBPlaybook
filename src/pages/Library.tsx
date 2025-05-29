@@ -30,7 +30,7 @@ import {
 } from "@mui/material";
 
 import { EmblaCarouselType } from 'embla-carousel';
-import useEmblaCarousel from "embla-carousel-react";
+import useEmblaCarousel, { EmblaViewportRefType } from "embla-carousel-react";
 
 import { css, cx } from "@emotion/css";
 
@@ -95,10 +95,7 @@ export default function Library() {
 }
 
 export function GuildList() {
-  const { slideRef } = useOutletContext<{
-    slideRef: RefObject<number>;
-  }>();
-
+  const slideRef = useOutletContext<{ slideRef: RefObject<number>; }>().slideRef;
   const guilds = useLoaderData<GBGuildDoc[]>();
   slideRef.current = 0;
 
@@ -155,10 +152,27 @@ function ExtraIconsControl(props: ControlProps) {
   );
 }
 
-interface CarouselLayoutProps {
-  navigation: (embla: EmblaCarouselType | undefined,) => React.ReactNode;
-  slides: React.ReactNode[];
-  largeLayout?: boolean;
+export function LibraryCarousel() {
+  const slideRef = useOutletContext<{ slideRef: RefObject<number> }>().slideRef;
+
+  const [emblaRef, emblaAPI] = useEmblaCarousel({
+    align: 'center',
+    containScroll: false,
+    // skipSnaps: true,
+    startIndex: slideRef.current,
+    watchSlides: false,
+  });
+
+  useEffect(() => {
+    if (!emblaAPI) return;
+    const callback = (e: EmblaCarouselType) => { slideRef.current = e.selectedScrollSnap() };
+    emblaAPI.on('select', callback);
+    return () => { emblaAPI.off('select', callback) };
+  }, [emblaAPI, slideRef]);
+
+  return (
+    <Outlet context={{ emblaRef, emblaAPI }} />
+  );
 }
 
 const CAROUSEL_GAP = "5vw";
@@ -193,8 +207,14 @@ const emblaStyles = {
   })
 };
 
+interface CarouselLayoutProps {
+  emblaRef: EmblaViewportRefType;
+  slides: React.ReactNode[];
+  largeLayout?: boolean;
+}
+
 function CarouselLayout({
-  navigation,
+  emblaRef,
   slides,
   largeLayout = false,
 }: CarouselLayoutProps) {
@@ -224,71 +244,43 @@ function CarouselLayout({
 
   useResizeObserver(sizeRef, (entry) => updateSize(entry.contentRect));
 
-  const { slideRef } = useOutletContext<{ slideRef: RefObject<number> }>();
-
-  const [emblaRef, emblaAPI] = useEmblaCarousel({
-    align: 'center',
-    containScroll: false,
-    // skipSnaps: true,
-    startIndex: slideRef.current,
-    watchSlides: false,
-  });
-
-  useEffect(() => {
-    if (!emblaAPI) return;
-    const callback = (e: EmblaCarouselType) => { slideRef.current = e.selectedScrollSnap() };
-    emblaAPI.on('select', callback);
-    return () => { emblaAPI.off('select', callback) };
-  }, [emblaAPI, slideRef]);
-
   return (
-    <>
-      {navigation(emblaAPI)}
-
-      <div
-        className={cx("embla__viewport", emblaStyles.viewport)}
-        ref={(el) => { sizeRef.current = el; emblaRef(el); }}
-      >
-        <div className={cx("embla__container", emblaStyles.container)}>
-          {slides.map((slideContent, index) => (
-            <div key={index}
-              className={cx("embla__slide", emblaStyles.slide)}
+    <div
+      className={cx("embla__viewport", emblaStyles.viewport)}
+      ref={(el) => { sizeRef.current = el; emblaRef(el); }}
+    >
+      <div className={cx("embla__container", emblaStyles.container)}>
+        {slides.map((slideContent, index) => (
+          <div key={index}
+            className={cx("embla__slide", emblaStyles.slide)}
+            style={{
+              maxWidth: `${slideWidth}px`
+            }}
+          >
+            <div
+              className={emblaStyles.card}
               style={{
-                maxWidth: `${slideWidth}px`
+                height: `${slideHieght}px`,
+                width: `${slideWidth}px`,
               }}
             >
-              <div
-                className={emblaStyles.card}
-                style={{
-                  height: `${slideHieght}px`,
-                  width: `${slideWidth}px`,
-                }}
-              >
-                {slideContent}
-              </div>
+              {slideContent}
             </div>
-          ))}
-        </div>
-        <VersionTag />
+          </div>
+        ))}
       </div>
-    </>
+      <VersionTag />
+    </div>
   );
 }
 
 export function Roster() {
   const { guild: g, roster } = useLoaderData<{ guild: GBGuildDoc; roster: GBModelExpanded[] }>();
+  const { emblaRef, emblaAPI } = useOutletContext<{ emblaRef: EmblaViewportRefType, emblaAPI: EmblaCarouselType }>();
+
   const theme = useTheme();
   const large = useMediaQuery(theme.breakpoints.up("sm"));
 
-  // Define navigation render prop
-  const navigation = (embla: EmblaCarouselType | undefined) => (
-    <CarouselButtons
-      guild={g}
-      embla={embla}
-    />
-  );
-
-  // Define slides
   const slides = [
     // Guild Card Slide
     large ? <DoubleGuildCard key={g.name} guild={g.name} /> : <FlipGuildCard key={g.name} guild={g.name} />,
@@ -308,9 +300,12 @@ export function Roster() {
           <Typography>{g.name}</Typography>
         </Breadcrumbs>
       </AppBarContent>
-
+      <CarouselButtons
+        guild={g}
+        embla={emblaAPI}
+      />
       <CarouselLayout
-        navigation={navigation}
+        emblaRef={emblaRef}
         slides={slides}
         largeLayout={large}
       />
@@ -319,26 +314,13 @@ export function Roster() {
 }
 
 export function GamePlans() {
-  // const large = useMediaQuery(theme.breakpoints.up("sm"));
-  const largeLayout = false; // Gameplans always use small layout
   const { gameplans, gameplanYear } = useData();
+  const { emblaRef, emblaAPI } = useOutletContext<{ emblaRef: EmblaViewportRefType, emblaAPI: EmblaCarouselType }>();
 
   if (!gameplans) {
     return null;
   }
 
-  // Define navigation render prop
-  const navigation = (embla: EmblaCarouselType | undefined) => (
-    <CarouselChipNavigation
-      embla={embla}
-      items={gameplans.map((g, index) => ({
-        key: index,
-        label: g.title,
-      }))}
-    />
-  );
-
-  // Define slides
   const slides = gameplans.map((gameplan: Gameplan) => (
     <GameplanCard key={gameplan.title} gameplan={gameplan} year={gameplanYear || 2018} />
   ));
@@ -353,32 +335,24 @@ export function GamePlans() {
           <Typography>Gameplan Cards</Typography>
         </Breadcrumbs>
       </AppBarContent>
-
+      <CarouselChipNavigation
+        embla={emblaAPI}
+        items={gameplans.map((g, index) => ({
+          key: index,
+          label: g.title,
+        }))}
+      />
       <CarouselLayout
-        navigation={navigation}
+        emblaRef={emblaRef}
         slides={slides}
-        largeLayout={largeLayout}
+        largeLayout={false}
       />
     </>
   );
 }
 
 export function RefCards() {
-  // const large = useMediaQuery(theme.breakpoints.up("sm"));
-  const largeLayout = false; // RefCards always use small layout
-
-  const navigation = (embla: EmblaCarouselType | undefined) => (
-    <CarouselChipNavigation
-      embla={embla}
-      items={[
-        "Playbook Results",
-        "Turn Sequence",
-        "Conditions",
-        "Spending Momentum",
-        "Actions",
-      ].map((title, index) => ({ key: index, label: title }))}
-    />
-  );
+  const { emblaRef, emblaAPI } = useOutletContext<{ emblaRef: EmblaViewportRefType, emblaAPI: EmblaCarouselType }>();
 
   const slides = [...Array(5).keys()]
     .map((i) => i + 1)
@@ -394,11 +368,20 @@ export function RefCards() {
           <Typography>Rules Reference Cards</Typography>
         </Breadcrumbs>
       </AppBarContent>
-
+      <CarouselChipNavigation
+        embla={emblaAPI}
+        items={[
+          "Playbook Results",
+          "Turn Sequence",
+          "Conditions",
+          "Spending Momentum",
+          "Actions",
+        ].map((title, index) => ({ key: index, label: title }))}
+      />
       <CarouselLayout
-        navigation={navigation}
+        emblaRef={emblaRef}
         slides={slides}
-        largeLayout={largeLayout}
+        largeLayout={false}
       />
     </>
   );
