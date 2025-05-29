@@ -29,6 +29,7 @@ interface RosterListProps {
   rosters: GBModelExpanded[][];
   expanded: boolean;
   onClick: (index: number, expand: boolean) => void;
+  afterTransition: (expanded: boolean) => void;
   disabled: boolean[];
 }
 
@@ -304,6 +305,7 @@ export default function RosterList({
   rosters,
   expanded,
   onClick,
+  afterTransition,
   disabled,
 }: RosterListProps) {
   const theme = useTheme();
@@ -334,13 +336,19 @@ export default function RosterList({
         return (
           <Accordion
             key={index}
-            expanded={expanded === true}
+            expanded={expanded}
             square
             sx={{
               backgroundColor: "transparent",
             }}
             disableGutters={true}
             elevation={0}
+            slotProps={{
+              transition: {
+                onEnter: () => afterTransition(true),
+                onExited: () => afterTransition(false)
+              }
+            }}
           >
             <AccordionSummary
               component="div"

@@ -270,8 +270,8 @@ const GameList = ({
         onClick={(i, expandList) => {
           setIndex(i);
           setExpanded(expandList);
-          setOpen(!expandList);
         }}
+        afterTransition={(expandList) => {setOpen(!expandList)}}
       />
       <div
         style={{
@@ -288,7 +288,6 @@ const GameList = ({
           }}
           open={open}
           onClose={() => {
-            setOpen(false);
             setExpanded(true);
           }}
           slotProps={{
