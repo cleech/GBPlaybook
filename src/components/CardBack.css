@@ -22,9 +22,17 @@ div.card-back .overlay {
   right: 0;
   width: 500px;
   height: 700px;
-  transform-origin: top right;
-  transform: scale(var(--scale));
+  zoom: var(--scale);
   /* outline: 1px solid red; */
+}
+
+@supports (-moz-appearance:none) {
+  /* zoom still kind of sucks on Firefox */
+  body div.card-back > .overlay {
+    zoom: unset;
+    transform-origin: top right;
+    transform: scale(var(--scale));
+  }
 }
 
 div.card-back.bleed {
@@ -36,8 +44,15 @@ div.card-back.bleed.double {
 }
 
 div.card-back.bleed > .overlay {
-  top: calc(25px * var(--scale));
-  right: calc(25px * var(--scale));
+  top: 25px;
+  right: 25px;
+}
+/* this need to be different with transform:scale */
+@supports (-moz-appearance:none) {
+  div.card-back.bleed > .overlay {
+    top: calc(25px * var(--scale));
+    right: calc(25px * var(--scale));
+  }
 }
 
 div.card-back.gbcp {
