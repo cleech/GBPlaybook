@@ -101,7 +101,6 @@ div.card-back.gbcp.bleed.double {
   border: 2px solid black;
   border-radius: 5px;
   background-color: var(--gbcp-color);
-  z-index: -2;
 }
 
 .card-back .name-plate {
@@ -240,7 +239,6 @@ div.card-back.gbcp.bleed.double {
   border: 2px solid black;
   border-radius: 5px;
   background-color: var(--gbcp-color);
-  z-index: -2;
 }
 
 .card-back .footer .tags {
