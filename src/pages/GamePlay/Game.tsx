@@ -271,7 +271,7 @@ const GameList = ({
           setIndex(i);
           setExpanded(expandList);
         }}
-        afterTransition={(expandList) => {setOpen(!expandList)}}
+        afterTransition={(expandList) => { setOpen(!expandList) }}
       />
       <div
         style={{
@@ -316,14 +316,14 @@ const GameList = ({
 };
 
 const CAROUSEL_GAP = "28px";
-const CAROUSEL_PADDING = "4px";
+const CAROUSEL_PADDING = 4;
 
 const emblaStyles = {
   viewport: css({
     overflow: "hidden",
     height: "100%",
     pointerEvents: "none",
-    padding: CAROUSEL_PADDING,
+    padding: `${CAROUSEL_PADDING}px`,
     // border: "2px solid red"
   }),
   container: css({
@@ -369,8 +369,8 @@ function CardCarousel({
     const calculatedHeight = Math.min(height, (width * 7) / 5, maxHeight);
     setSlideHeight(calculatedHeight);
     setSlideWidth(calculatedWidth);
-    // console.log(`container {width: ${containerWidth}, height: ${containerHeight}`);
-    // console.log(`card {width: ${calculatedWidth}, height: ${calculatedHeight}`);
+    // console.log(`container {width: ${width}, height: ${height}}`);
+    // console.log(`card {width: ${calculatedWidth}, height: ${calculatedHeight}}`);
   }, []);
 
   const updateSize = useDebounceCallback(_updateSize, 32, true);
@@ -378,8 +378,13 @@ function CardCarousel({
   const sizeRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (sizeRef.current)
-      updateSize(sizeRef.current.getBoundingClientRect());
+    if (!sizeRef.current)
+      return;
+    const rect = sizeRef.current.getBoundingClientRect();
+    updateSize(DOMRectReadOnly.fromRect({
+      width: rect.width - (2 * CAROUSEL_PADDING),
+      height: rect.height - (2 * CAROUSEL_PADDING)
+    }));
   }, [sizeRef, updateSize]);
 
   useResizeObserver(sizeRef, (entry) => updateSize(entry.contentRect));

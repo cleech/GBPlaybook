@@ -176,7 +176,7 @@ export function LibraryCarousel() {
 }
 
 const CAROUSEL_GAP = "5vw";
-const CAROUSEL_PADDING = "4px";
+const CAROUSEL_PADDING = 4;
 
 const emblaStyles = {
   viewport: css({
@@ -184,7 +184,7 @@ const emblaStyles = {
     flex: "0 1 100%",
     minHeight: 0,
     position: "relative",
-    padding: CAROUSEL_PADDING,
+    padding: `${CAROUSEL_PADDING}px`,
     // border: "2px solid red"
   }),
   container: css({
@@ -238,8 +238,13 @@ function CarouselLayout({
   const sizeRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    if (sizeRef.current)
-      updateSize(sizeRef.current.getBoundingClientRect());
+    if (!sizeRef.current)
+      return;
+    const rect = sizeRef.current.getBoundingClientRect();
+    updateSize(DOMRectReadOnly.fromRect({
+      width: rect.width - (2 * CAROUSEL_PADDING),
+      height: rect.height - (2 * CAROUSEL_PADDING),
+    }));
   }, [sizeRef, updateSize]);
 
   useResizeObserver(sizeRef, (entry) => updateSize(entry.contentRect));
