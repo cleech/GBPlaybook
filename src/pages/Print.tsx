@@ -1104,7 +1104,7 @@ const ModelCard = (props: {
         )}
       </div>
       <div
-        ref={ref}
+        // ref={ref}
         className={`card ${!inView ? "hide" : ""}`}
         id={id}
         style={{
@@ -1229,7 +1229,7 @@ const GuildCard = (props: {
         )}
       </div>
       <div
-        ref={ref}
+        // ref={ref}
         className={`card ${!inView ? "hide" : ""}`}
         id={name}
         style={{
