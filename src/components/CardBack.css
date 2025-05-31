@@ -5,7 +5,8 @@ div.card-back {
   aspect-ratio: 5 / 7;
   max-width: 500px;
   max-height: 700px;
-  border-radius: calc(25px * var(--scale));
+  zoom: var(--scale);
+  border-radius: 25px;
   background-size: 110%;
   background-repeat: no-repeat;
   background-position: center center;
@@ -22,20 +23,12 @@ div.card-back .overlay {
   right: 0;
   width: 500px;
   height: 700px;
-  zoom: var(--scale);
   /* outline: 1px solid red; */
 }
 
-@supports (-moz-appearance:none) {
-  /* zoom still kind of sucks on Firefox */
-  body div.card-back > .overlay {
-    zoom: unset;
-    transform-origin: top right;
-    transform: scale(var(--scale));
-  }
-}
-
 div.card-back.bleed {
+  max-width: 550px;
+  max-height: 750px;
   background-size: auto 100%;
 }
 
@@ -47,33 +40,46 @@ div.card-back.bleed > .overlay {
   top: 25px;
   right: 25px;
 }
-/* this need to be different with transform:scale */
+
+/* zoom still kind of sucks on Firefox */
 @supports (-moz-appearance:none) {
+  div.card-back {
+    zoom: unset;
+    border-radius: calc(25px * var(--scale));
+  }
+  div.card-back > .overlay {
+    transform-origin: top right;
+    transform: scale(var(--scale));
+  }
   div.card-back.bleed > .overlay {
     top: calc(25px * var(--scale));
     right: calc(25px * var(--scale));
   }
 }
 
+/* no print bleed on these */
 div.card-back.gbcp {
-  /* no print bleed on these */
-  background-position: left;
-  background-size: 100% 100%;
+  background-size: 500px 700px;
 }
-
 div.card-back.gbcp.bleed {
-  /* no print bleed on these */
-  background-position: center center;
-  background-size: calc(100% - 25px) calc(100% - 25px);
+  background-position: center;
   background-color: var(--mom-color, var(--team-color));
 }
-
-div.card-back.gbcp.bleed.double {
-  /* no print bleed on these */
+div.card-back.gbcp.double {
   background-position: left;
-  background-size: calc(100% - 12.5px) calc(100% - 25px);
-  background-color: var(--mom-color, var(--team-color));
-  /* background-color: var(--mom-color, var(--team-color)); */
+}
+
+@supports (-moz-appearance:none) {
+  div.card-back.gbcp {
+    background-size: 100%;
+    background-origin: content-box;
+  }
+  div.card-back.gbcp.bleed {
+    padding: calc(25px * var(--scale));
+  }
+  div.card-back.gbcp.double.bleed {
+    padding-left: unset;
+  }
 }
 
 .card-back .container {

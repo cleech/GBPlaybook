@@ -95,10 +95,8 @@
 
 @media print {
   @page {
-  size: auto;
-  margin: 0.25in;
-  /* size: 5.24in 3.74in; */
-  /* margin: 0; */
+    size: auto;
+    margin: 0.25in;
   }
 
   .no-print {
@@ -118,7 +116,6 @@
     break-inside: avoid;
     page-break-inside: avoid;
     margin: 0.0625in;
-    /* margin: 0; */
     /* box-sizing: border-box; */
     border: none;
   }

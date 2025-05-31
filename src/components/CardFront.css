@@ -39,7 +39,8 @@ div.card-front {
   aspect-ratio: 5 / 7;
   max-width: 500px;
   max-height: 700px;
-  border-radius: calc(25px * var(--scale));
+  zoom: var(--scale);
+  border-radius: 25px;
   background-size: 110% auto;
   background-repeat: no-repeat;
   background-position: center center;
@@ -56,20 +57,12 @@ div.card-front > .overlay {
   left: 0;
   width: 500px;
   height: 700px;
-  zoom: var(--scale);
   /* outline: 1px solid red; */
 }
 
-/* zoom still kind of sucks on Firefox */
-@supports (-moz-appearance:none) {
-  div.card-front > .overlay {
-    zoom: unset;
-    transform-origin: top left;
-    transform: scale(var(--scale));
-  }
-}
-
 div.card-front.bleed {
+  max-width: 550px;
+  max-height: 750px;
   background-size: auto 100%;
 }
 
@@ -81,32 +74,46 @@ div.card-front.bleed > .overlay {
   top: 25px;
   left: 25px;
 }
-/* this need to be different with transform:scale */
+
+/* zoom still kind of sucks on Firefox */
 @supports (-moz-appearance:none) {
+  div.card-front {
+    zoom: unset;
+    border-radius: calc(25px * var(--scale));
+  }
+  div.card-front > .overlay {
+    transform-origin: top left;
+    transform: scale(var(--scale));
+  }
   div.card-front.bleed > .overlay {
     top: calc(25px * var(--scale));
     left: calc(25px * var(--scale));
   }
 }
 
+/* no print bleed on these */
 div.card-front.gbcp {
-  /* no print bleed on these */
-  background-position: right;
-  background-size: 100% 100%;
+    background-size: 500px 700px;
 }
-
 div.card-front.gbcp.bleed {
-  /* no print bleed on these */
-  background-position: center center;
-  background-size: calc(100% - 25px) calc(100% - 25px);
+  background-position: center;
   background-color: var(--mom-color, var(--team-color));
 }
-
-div.card-front.gbcp.bleed.double {
-  /* no print bleed on these */
+div.card-front.gbcp.double {
   background-position: right;
-  background-size: calc(100% - 12.5px) calc(100% - 25px);
-  background-color: var(--mom-color, var(--team-color));
+}
+
+@supports (-moz-appearance:none) {
+  div.card-front.gbcp {
+    background-size: 100%;
+    background-origin: content-box;
+  }
+  div.card-front.gbcp.bleed {
+    padding: calc(25px * var(--scale));
+  }
+  div.card-front.gbcp.double.bleed {
+    padding-right: unset;
+  }
 }
 
 /* top box positioning and layout */

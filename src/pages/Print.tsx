@@ -67,10 +67,10 @@ const PrintSettings = (props: {
   useEffect(() => {
     const size = doubleCard
       ? withBleed
-        ? "5.24in 3.74in"
+        ? "5.25in 3.75in"
         : "5in 3.5in"
       : withBleed
-        ? "2.74in 3.74in"
+        ? "2.75in 3.75in"
         : "2.5in 3.5in";
     const style = document.createElement("style");
     if (!paged) {
@@ -167,12 +167,10 @@ export const CardPrintScreen = () => {
   const [withBleed, setBleed] = useState(false);
   const [noFun, setNoFun] = useState(false);
 
-  // --- New state for all gameplan series ---
   const [allGameplans, setAllGameplans] = useState<
     { year: number; cards: Gameplan[] }[]
   >([]);
 
-  // --- Load all gameplan files from manifest ---
   useEffect(() => {
     if (!manifest) return;
     let canceled = false;
@@ -200,7 +198,6 @@ export const CardPrintScreen = () => {
       canceled = true;
     };
   }, [manifest]);
-  // --- end gameplan loading ---
 
   useEffect(() => {
     if (!db) {
@@ -433,7 +430,6 @@ export const CardPrintScreen = () => {
             doubleCard={doubleCard}
           />
         ))}
-        {/* --- Render all gameplan series --- */}
         {allGameplans.map(({ year, cards }) => (
           cards.map((gp: Gameplan, index: number) => (
             <GameplanPrintCard
@@ -444,7 +440,6 @@ export const CardPrintScreen = () => {
             />
           ))
         ))}
-        {/* --- End gameplan series --- */}
         {[...Array(5).keys()].map((index) => (
           <RefcardPrintCard
             index={index}
@@ -921,7 +916,6 @@ const ModelLists = (props: { ref: React.Ref<ModelListRef>, allGameplans: { year:
         } as CSSProperties
       }
     >
-      {/* --- Render all gameplan checkboxes for all series --- */}
       {allGameplans.map(({ year, cards }) =>
         cards.map((gp: Gameplan) => (
           <GameplanCheckBox
@@ -938,7 +932,6 @@ const ModelLists = (props: { ref: React.Ref<ModelListRef>, allGameplans: { year:
           />
         ))
       )}
-      {/* --- End gameplan checkboxes --- */}
       {[
         "Playbook Results",
         "Turn Sequence",
@@ -1019,13 +1012,9 @@ const ModelCard = (props: {
     return null;
   }
 
-  //   if (GBImages[`${model.id}_gbcp_front`]) {
-  //     model.gbcp = true;
-  //   }
-
-  const width = bleed ? "5.24in" : "5in";
-  const singleWidth = bleed ? "2.74in" : "2.5in";
-  const height = bleed ? "3.74in" : "3.5in";
+  const width = bleed ? "5.25in" : "5in";
+  const singleWidth = bleed ? "2.75in" : "2.5in";
+  const height = bleed ? "3.75in" : "3.5in";
 
   return doubleCard ? (
     <div
@@ -1033,7 +1022,6 @@ const ModelCard = (props: {
       className={`card ${!inView ? "hide" : ""}`}
       id={id}
       style={{
-        position: "relative",
         width: width,
         height: height,
         display: "inline-flex",
@@ -1049,10 +1037,8 @@ const ModelCard = (props: {
             model={model}
             style={
               {
-                width: width,
                 borderRadius: 0,
                 "--scale": "calc(2.5 * 96 / 500)",
-                // "--scale": "calc((7/3) * 96 / 500)",
               } as GBCardCSS
             }
           />
@@ -1062,10 +1048,8 @@ const ModelCard = (props: {
             model={model}
             style={
               {
-                width: width,
                 borderRadius: 0,
                 "--scale": "calc(2.5 * (96 / 500))",
-                // "--scale": "calc((7/3) * 96 / 500)",
               } as GBCardCSS
             }
           />
@@ -1089,12 +1073,10 @@ const ModelCard = (props: {
       >
         {inView && (
           <CardFront
-            className={`card-front print ${bleed ? "bleed" : ""} ${noFun ? "nofun" : ""
-              }`}
+            className={`card-front print ${bleed ? "bleed" : ""} ${noFun ? "nofun" : ""}`}
             model={model}
             style={
               {
-                width: singleWidth,
                 borderRadius: 0,
                 "--scale": "calc(2.5 * 96 / 500)",
                 // "--scale": "calc((7/3) * 96 / 500)",
@@ -1123,7 +1105,6 @@ const ModelCard = (props: {
             model={model}
             style={
               {
-                width: singleWidth,
                 borderRadius: 0,
                 "--scale": "calc(2.5 * (96 / 500))",
                 // "--scale": "calc((7/3) * 96 / 500)",
@@ -1153,9 +1134,9 @@ const GuildCard = (props: {
   };
   const [ref] = useMutationObserverRef(callback);
 
-  const width = bleed ? "5.24in" : "5in";
-  const height = bleed ? "3.74in" : "3.5in";
-  const singleWidth = bleed ? "2.74in" : "2.5in";
+  const width = bleed ? "5.25in" : "5in";
+  const height = bleed ? "3.75in" : "3.5in";
+  const singleWidth = bleed ? "2.75in" : "2.5in";
 
   return doubleCard ? (
     <div
@@ -1163,7 +1144,6 @@ const GuildCard = (props: {
       className={`card ${!inView ? "hide" : ""}`}
       id={name}
       style={{
-        position: "relative",
         width: width,
         height: height,
         display: "inline-flex",
@@ -1200,45 +1180,38 @@ const GuildCard = (props: {
     </div>
   ) : (
     <>
+
       <div
         ref={ref}
         className={`card ${!inView ? "hide" : ""}`}
         id={name}
         style={{
-          position: "relative",
           width: singleWidth,
           height: height,
-          display: "inline-flex",
-          flexDirection: "row",
-          gap: 0,
         }}
       >
         {inView && (
           <>
             <div
               className={`card-front ${bleed ? "bleed" : ""}`}
-              style={
-                {
-                  backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
-                  width: singleWidth,
-                  borderRadius: 0,
-                } as GBCardCSS
-              }
+              style={{
+                width: "100%",
+                height: "100%",
+                backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
+                borderRadius: 0,
+              }}
             />
           </>
         )}
       </div>
+
       <div
         // ref={ref}
         className={`card ${!inView ? "hide" : ""}`}
         id={name}
         style={{
-          position: "relative",
           width: singleWidth,
           height: height,
-          display: "inline-flex",
-          flexDirection: "row",
-          gap: 0,
         }}
       >
         {inView && (
@@ -1247,8 +1220,9 @@ const GuildCard = (props: {
               className={`card-back ${bleed ? "bleed" : ""}`}
               style={
                 {
+                  width: "100%",
+                  height: "100%",
                   backgroundImage: `url(${GBImages.get(`${name}_back`)})`,
-                  width: singleWidth,
                   borderRadius: 0,
                 } as GBCardCSS
               }
@@ -1273,8 +1247,8 @@ const GameplanPrintCard = (props: { gameplan: Gameplan; year: number; bleed: boo
   };
   const [ref] = useMutationObserverRef(callback);
 
-  const width = bleed ? "2.74in" : "2.5in";
-  const height = bleed ? "3.74in" : "3.5in";
+  const width = bleed ? "2.75in" : "2.5in";
+  const height = bleed ? "3.75in" : "3.5in";
 
   return (
     <div
@@ -1282,34 +1256,21 @@ const GameplanPrintCard = (props: { gameplan: Gameplan; year: number; bleed: boo
       className={`card ${!inView ? "hide" : ""}`}
       id={gameplan.title.replace(/[^A-Za-z0-9]+/g, "")}
       style={{
-        position: "relative",
         width: width,
         height: height,
-        display: "inline-flex",
-        flexDirection: "row",
-        gap: 0,
+        backgroundColor: "black",
       }}
     >
       {inView && (
-        <div
-          className={`card-front ${bleed ? "bleed" : ""}`}
-          style={
-            {
-              // backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
-              height: height,
-              width: width,
-              borderRadius: 0,
-              "--scale": "calc(2.5 * 96 / 500)",
-            } as GBCardCSS
-          }
-        >
-          <GameplanFront
-            gameplan={gameplan}
-            year={year}
-            style={{ borderRadius: 0 }}
-            bleed={bleed}
-          />
-        </div>
+        <GameplanFront
+          gameplan={gameplan}
+          year={year}
+          style={{
+            borderRadius: 0,
+            "--scale": "calc(2.5 * 96 / 500)",
+          }}
+          bleed={bleed}
+        />
       )}
     </div>
   );
@@ -1328,8 +1289,8 @@ const RefcardPrintCard = (props: { index: number; bleed: boolean }) => {
   };
   const [ref] = useMutationObserverRef(callback);
 
-  const width = bleed ? "2.74in" : "2.5in";
-  const height = bleed ? "3.74in" : "3.5in";
+  const width = bleed ? "2.75in" : "2.5in";
+  const height = bleed ? "3.75in" : "3.5in";
 
   return (
     <div
@@ -1337,32 +1298,18 @@ const RefcardPrintCard = (props: { index: number; bleed: boolean }) => {
       className={`card ${!inView ? "hide" : ""}`}
       id={`refcard-${index}`}
       style={{
-        position: "relative",
         width: width,
         height: height,
-        display: "inline-flex",
-        flexDirection: "row",
-        gap: 0,
+        backgroundColor: "black",
       }}
     >
-      {inView && (
-        // <div
-        //   className="card-front"
-        //   style={
-        //     {
-        //       // backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
-        //       borderRadius: 0,
-        //       "--scale": "calc(2.5 * 96 / 500)",
-        //     } as GBCardCSS
-        //   }
-        // >
-        (<ReferenceCardFront
+      {inView &&
+        <ReferenceCardFront
           index={index + 1}
           style={{ borderRadius: 0 }}
           bleed={bleed}
-        />)
-        // </div>
-      )}
+        />
+      }
     </div>
   );
 };
