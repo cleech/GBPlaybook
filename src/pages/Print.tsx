@@ -43,6 +43,8 @@ import { reSort } from "../utils/reSort";
 import { useRxData } from "../hooks/useRxQuery";
 import { Settings } from "@mui/icons-material";
 
+import { cx } from "@emotion/css";
+
 const PrintSettings = (props: {
   withBleed: boolean;
   setBleed: (b: boolean) => void;
@@ -111,7 +113,6 @@ const PrintSettings = (props: {
         }}
         open={settingsOpen}
         onClose={settingsClose}
-      // onClick={settingsClose}
       >
         <Stack margin={2}>
           <FormControlLabel
@@ -644,7 +645,7 @@ const GuildCheckBox = (props: { g: Guild, ref: React.Ref<GuildCheckBoxRef> }) =>
       }}
       control={<Checkbox checked={checked} size="small" color="warning" />}
       label={g.name}
-      className={`model-checkbox ${g.name} hide ${g.minor ? "minor" : ""}`}
+      className={cx('model-checkbox', g.name, 'hide', { 'minor': g.minor })}
       style={
         {
           "--color1": g.shadow ?? g.color + "aa",
@@ -706,8 +707,7 @@ const ModelCheckBox = (props: { m: GBModelDoc, ref: React.Ref<ModelCheckBoxRef> 
       }}
       control={<Checkbox checked={checked} size="small" color="warning" />}
       label={m.id}
-      className={`model-checkbox ${m.guild1} ${m.guild2} ${m.id} hide ${guild1.minor ? "minor" : ""
-        }`}
+      className={cx('model-checkbox', m.guild1, m.guild2, m.id, 'hide', { 'minor': guild1.minor })}
       style={
         {
           "--color1": guild1.shadow ?? guild1.color + "aa",
@@ -756,10 +756,12 @@ const GameplanCheckBox = (props: { g: Gameplan, year: number, ref: React.Ref<Gam
       }}
       control={<Checkbox checked={checked} size="small" color="warning" />}
       label={g.title}
-      className={`model-checkbox gameplans-${year} ${g.title.replace(
-        /[^a-zA-Z0-9]/g,
-        ""
-      )} hide`}
+      className={cx(
+        'model-checkbox',
+        `gameplans-${year}`,
+        g.title.replace(/[^a-zA-Z0-9]/g, ""),
+        'hide'
+      )}
       style={
         {
           "--color1": "#333333",
@@ -812,7 +814,7 @@ const RefCardCheckBox = (props: { id: number, ref: React.Ref<RefCardCheckBoxRef>
       }}
       control={<Checkbox checked={checked} size="small" color="warning" />}
       label={titles[props.id]}
-      className={`model-checkbox refcards refcard-${props.id} hide`}
+      className={cx('model-checkbox', 'refcards', `refcard-${props.id}`, 'hide')}
       style={
         {
           "--color1": "#333333",
@@ -1019,7 +1021,7 @@ const ModelCard = (props: {
   return doubleCard ? (
     <div
       ref={ref}
-      className={`card ${!inView ? "hide" : ""}`}
+      className={cx('card', { 'hide': !inView })}
       id={id}
       style={{
         width: width,
@@ -1032,8 +1034,7 @@ const ModelCard = (props: {
       {inView && (
         <>
           <CardFront
-            className={`card-front double ${bleed ? "bleed" : ""} ${noFun ? "nofun" : ""
-              }`}
+            className={cx('print', 'double', { 'bleed': bleed }, { 'nofun': noFun })}
             model={model}
             style={
               {
@@ -1043,8 +1044,7 @@ const ModelCard = (props: {
             }
           />
           <CardBack
-            className={`card-back print double ${bleed ? "bleed" : ""} ${noFun ? "noFun" : ""
-              }`}
+            className={cx('print', 'double', { 'bleed': bleed }, { 'nofun': noFun })}
             model={model}
             style={
               {
@@ -1060,7 +1060,7 @@ const ModelCard = (props: {
     <>
       <div
         ref={ref}
-        className={`card ${!inView ? "hide" : ""}`}
+        className={cx('card', { 'hide': !inView })}
         id={id}
         style={{
           position: "relative",
@@ -1073,7 +1073,7 @@ const ModelCard = (props: {
       >
         {inView && (
           <CardFront
-            className={`card-front print ${bleed ? "bleed" : ""} ${noFun ? "nofun" : ""}`}
+            className={cx('print', { 'bleed': bleed }, { 'nofun': noFun })}
             model={model}
             style={
               {
@@ -1087,7 +1087,7 @@ const ModelCard = (props: {
       </div>
       <div
         // ref={ref}
-        className={`card ${!inView ? "hide" : ""}`}
+        className={cx('card', { 'hide': !inView })}
         id={id}
         style={{
           position: "relative",
@@ -1100,8 +1100,7 @@ const ModelCard = (props: {
       >
         {inView && (
           <CardBack
-            className={`card-back print ${bleed ? "bleed" : ""} ${noFun ? "nofun" : ""
-              }`}
+            className={cx('print', { 'bleed': bleed }, { 'nofun': noFun })}
             model={model}
             style={
               {
@@ -1141,7 +1140,7 @@ const GuildCard = (props: {
   return doubleCard ? (
     <div
       ref={ref}
-      className={`card ${!inView ? "hide" : ""}`}
+      className={cx('card', { 'hide': !inView })}
       id={name}
       style={{
         width: width,
@@ -1154,7 +1153,9 @@ const GuildCard = (props: {
       {inView && (
         <>
           <div
-            className={`card-front double ${bleed ? "bleed" : ""}`}
+            className={cx(
+              'card-front', 'print', 'double', { 'bleed': bleed })
+            }
             style={
               {
                 backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
@@ -1165,7 +1166,9 @@ const GuildCard = (props: {
             }
           />
           <div
-            className={`card-back double ${bleed ? "bleed" : ""}`}
+            className={cx(
+              'card-back', 'print', 'double', { 'bleed': bleed })
+            }
             style={
               {
                 backgroundImage: `url(${GBImages.get(`${name}_back`)})`,
@@ -1183,7 +1186,7 @@ const GuildCard = (props: {
 
       <div
         ref={ref}
-        className={`card ${!inView ? "hide" : ""}`}
+        className={cx('card', { 'hide': !inView })}
         id={name}
         style={{
           width: singleWidth,
@@ -1191,23 +1194,21 @@ const GuildCard = (props: {
         }}
       >
         {inView && (
-          <>
-            <div
-              className={`card-front ${bleed ? "bleed" : ""}`}
-              style={{
-                width: "100%",
-                height: "100%",
-                backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
-                borderRadius: 0,
-              }}
-            />
-          </>
+          <div
+            className={cx('card-front', 'print', { 'bleed': bleed })}
+            style={{
+              width: "100%",
+              height: "100%",
+              backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
+              borderRadius: 0,
+            }}
+          />
         )}
       </div>
 
       <div
         // ref={ref}
-        className={`card ${!inView ? "hide" : ""}`}
+        className={cx('card', { 'hide': !inView })}
         id={name}
         style={{
           width: singleWidth,
@@ -1217,7 +1218,7 @@ const GuildCard = (props: {
         {inView && (
           <>
             <div
-              className={`card-back ${bleed ? "bleed" : ""}`}
+              className={cx('card-back', 'print', { 'bleed': bleed })}
               style={
                 {
                   width: "100%",
@@ -1253,7 +1254,7 @@ const GameplanPrintCard = (props: { gameplan: Gameplan; year: number; bleed: boo
   return (
     <div
       ref={ref}
-      className={`card ${!inView ? "hide" : ""}`}
+      className={cx('card', { 'hide': !inView })}
       id={gameplan.title.replace(/[^A-Za-z0-9]+/g, "")}
       style={{
         width: width,
@@ -1295,7 +1296,7 @@ const RefcardPrintCard = (props: { index: number; bleed: boolean }) => {
   return (
     <div
       ref={ref}
-      className={`card ${!inView ? "hide" : ""}`}
+      className={cx('card', { 'hide': !inView })}
       id={`refcard-${index}`}
       style={{
         width: width,

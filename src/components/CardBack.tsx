@@ -13,6 +13,8 @@ import { useRxData } from "../hooks/useRxQuery";
 import { Subscription } from "rxjs";
 import { getSettings } from "../models/settings";
 
+import { cx } from "@emotion/css";
+
 interface CardBackProps {
   model: GBModelExpanded;
   style: GBCardCSS;
@@ -66,7 +68,7 @@ const CardBack = (props: CardBackProps) => {
 
   return (
     <div
-      className={`card-back ${key} ${gbcp && "gbcp"} ${props.className}`}
+      className={cx('card-back', key, { 'gbcp': gbcp }, props.className)}
       // ref={targetRef}
       style={{
         "--team-color": guild.color,
@@ -80,7 +82,7 @@ const CardBack = (props: CardBackProps) => {
         ...props.style,
       }}
     >
-      <div className={`overlay ${gbcp ? "gbcp" : ""}`}>
+      <div className={cx('overlay', { 'gbcp': gbcp })}>
         <div className="container">
           <div className="name-plate">
             <div className="guild-icon">

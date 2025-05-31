@@ -6,7 +6,7 @@ import {
 import { Gameplan } from "./DataTypes";
 import useScaleRef from "../hooks/useScaleRef";
 
-import { css } from '@emotion/css';
+import { css, cx } from '@emotion/css';
 
 interface CardCSS extends CSSProperties {
   "--scale"?: number | string;
@@ -28,7 +28,7 @@ export const GameplanFront = (props: {
 
   return (
     <div
-      className={`card-front ${props.bleed ? "bleed" : ''}`}
+      className={cx('card-front', { 'bleed': props.bleed })}
       style={{
         width: "100%",
         height: "100%",
@@ -71,7 +71,7 @@ export const GameplanFront = (props: {
                     {p.split(/(?=[A-Z])/).map((s, j) => (
                       <span
                         key={`p${i}s${j}`}
-                        className={/^\p{Lu}/u.test(s) ? "dropcap" : ""}
+                        className={cx({ 'dropcap': /^\p{Lu}/u.test(s) })}
                       >
                         <span key={`p${i}s${j}c`}>{s}</span>
                       </span>
@@ -204,7 +204,7 @@ export const ReferenceCardFront = (props: {
   ).href;
   return (
     <div
-      className={`card-front ${props.bleed ? "bleed" : ''} `}
+      className={cx('card-front', { 'bleed': props.bleed })}
       style={{
         width: "100%",
         height: "100%",

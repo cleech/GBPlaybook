@@ -13,6 +13,8 @@ import { Observable, Subscription } from "rxjs";
 import { useRxData } from "../hooks/useRxQuery";
 import { getSettings } from "../models/settings";
 
+import { cx } from "@emotion/css";
+
 interface CardFrontProps {
   model: GBModelExpanded;
   health$?: Observable<number>;
@@ -79,7 +81,9 @@ const CardFront = (props: CardFrontProps) => {
 
   return (
     <div
-      className={`card-front ${key} lang-${lang} ${gbcp && "gbcp"} ${props.className}`}
+      className={
+        cx('card-front', key, `lang-${lang}`, { 'gbcp': gbcp }, props.className)
+      }
       style={{
         "--team-color": guild1.color,
         /* not the best way to do this */
@@ -98,7 +102,7 @@ const CardFront = (props: CardFrontProps) => {
         ...props.style,
       }}
     >
-      <div className={`overlay ${gbcp ? "gbcp" : ""}`}>
+      <div className={cx('overlay', { "gbcp": gbcp })}>
         <div className="font-top-box">
           <NamePlate model={model} guild={guild1} />
           <StatBox model={model} />
@@ -155,7 +159,7 @@ const HealthBoxes = ({
     <div className="health">
       {[...Array(model.hp).keys()].map((key) => (
         <div
-          className={`health-box ${key + 1 > health ? "damaged" : ""}`}
+          className={cx('health-box', { 'damaged': key + 1 > health })}
           key={key}
         >
           {(key === 0 && <GBIcon icon="skull" size={17} />) ||
@@ -182,8 +186,7 @@ const Playbook = ({
         const [pb, mom] = pbm ? pbm.split(";") : [null, null];
         return (
           <div
-            className={`playbook-result ${!pb ? "spacer" : ""} ${mom ? "momentus" : ""
-              }`}
+            className={cx('playbook-result', { 'spacer': !pb }, { 'momentus': !!mom })}
             key={index * 7 + col}
             style={
               {

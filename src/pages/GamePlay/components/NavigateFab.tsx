@@ -9,6 +9,8 @@ import { GBSetupSteps } from "../../../models/gbdbTypes";
 import { useNetworkState } from "../../../hooks/useNetworkState";
 import { useGameState } from "../../../hooks/useGameState";
 
+import { cx } from "@emotion/css";
+
 const rotate = keyframes`
   from {
     transform: translate(-50%, -50%) scale(1.4) rotate(0turn);
@@ -120,7 +122,7 @@ export function NavigateFab(props: NavigateFabProps) {
 
   return (
     <Fab
-      className={animate ? animateCss : undefined}
+      className={cx({ [animateCss]: animate })}
       {...otherProps}
       color="secondary"
       onClick={() => {
