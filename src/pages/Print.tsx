@@ -575,7 +575,7 @@ const ListItemBanner = ({
           fontSize: "2em",
           width: "1em",
           height: "1em",
-          borderRadius: "1em",
+          borderRadius: "50%",
           display: "flex",
           overflow: "visible",
           alignItems: "center",

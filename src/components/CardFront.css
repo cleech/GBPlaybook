@@ -292,7 +292,7 @@ div.card-front.gbcp.double {
 .card-front .playbook-result {
   width: 45px;
   height: 45px;
-  border-radius: 45px;
+  border-radius: 50%;
   box-sizing: border-box;
   border: 2px solid black;
   background-color: white;
@@ -442,7 +442,7 @@ div.card-front.gbcp.double {
   /* how a box/circle displays */
   width: 25px;
   height: 25px;
-  border-radius: 25px;
+  border-radius: 50%;
   box-sizing: border-box;
   border: var(--line-width) solid black;
   background-color: white;
@@ -461,7 +461,7 @@ div.card-front.gbcp.double {
 .card-front.gbcp .health-box {
   width: 32px;
   height: 32px;
-  border-radius: 32px;
+  border-radius: 50%;
   font-size: 23px;
   filter: drop-shadow(0 0 5px black);
 }
