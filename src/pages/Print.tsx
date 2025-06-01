@@ -292,15 +292,20 @@ export const CardPrintScreen = () => {
                   const elements = document.querySelectorAll('.card:not(.hide)');
                   const zip = new JSZip();
 
-                  // Use Promise.all to wait for all asynchronous operations
                   const promises = Array.from(elements).map(async (el) => {
-                    const blob = await htmlToImage.toBlob(el as HTMLElement, { canvasWidth: 1000, canvasHeight: 700 });
+                    const blob = await htmlToImage.toBlob(el as HTMLElement, {
+                      canvasHeight:
+                        700 + (el.classList.contains('bleed') ? 50 : 0),
+                      canvasWidth:
+                        (el.classList.contains('double') ? 1000 : 500) +
+                        (el.classList.contains('bleed') ? 50 : 0),
+                    });
                     if (blob) {
                       zip.file(`${el.id}.png`, blob);
                     }
                   });
 
-                  await Promise.all(promises); // Wait for all blobs to be added to the zip
+                  await Promise.all(promises);
 
                   zip.generateAsync({ type: "blob" })
                     .then((blob) => {
@@ -637,7 +642,7 @@ const ListItemBanner = ({
 
 const DisplayModel = (name: string) => {
   document
-    .querySelectorAll(`.card#${name}`)
+    .querySelectorAll(`.card#${name}, .card#${name}_front, .card#${name}_back`)
     .forEach((card) => card?.classList.toggle("hide"));
 };
 
@@ -1052,7 +1057,7 @@ const ModelCard = (props: {
   return doubleCard ? (
     <div
       ref={ref}
-      className={cx('card', { 'hide': !inView })}
+      className={cx('card', 'double', { 'bleed': bleed }, { 'hide': !inView })}
       id={id}
       style={{
         width: width,
@@ -1091,8 +1096,8 @@ const ModelCard = (props: {
     <>
       <div
         ref={ref}
-        className={cx('card', { 'hide': !inView })}
-        id={id}
+        className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
+        id={`${id}_front`}
         style={{
           position: "relative",
           width: singleWidth,
@@ -1118,8 +1123,8 @@ const ModelCard = (props: {
       </div>
       <div
         // ref={ref}
-        className={cx('card', { 'hide': !inView })}
-        id={id}
+        className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
+        id={`${id}_back`}
         style={{
           position: "relative",
           width: singleWidth,
@@ -1171,7 +1176,7 @@ const GuildCard = (props: {
   return doubleCard ? (
     <div
       ref={ref}
-      className={cx('card', { 'hide': !inView })}
+      className={cx('card', 'double', { 'bleed': bleed }, { 'hide': !inView })}
       id={name}
       style={{
         width: width,
@@ -1217,7 +1222,7 @@ const GuildCard = (props: {
 
       <div
         ref={ref}
-        className={cx('card', { 'hide': !inView })}
+        className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
         id={name}
         style={{
           width: singleWidth,
@@ -1239,7 +1244,7 @@ const GuildCard = (props: {
 
       <div
         // ref={ref}
-        className={cx('card', { 'hide': !inView })}
+        className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
         id={name}
         style={{
           width: singleWidth,
@@ -1285,7 +1290,7 @@ const GameplanPrintCard = (props: { gameplan: Gameplan; year: number; bleed: boo
   return (
     <div
       ref={ref}
-      className={cx('card', { 'hide': !inView })}
+      className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
       id={gameplan.title.replace(/[^A-Za-z0-9]+/g, "")}
       style={{
         width: width,
@@ -1327,7 +1332,7 @@ const RefcardPrintCard = (props: { index: number; bleed: boolean }) => {
   return (
     <div
       ref={ref}
-      className={cx('card', { 'hide': !inView })}
+      className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
       id={`refcard-${index}`}
       style={{
         width: width,
