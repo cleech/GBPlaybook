@@ -20,7 +20,9 @@
     "@react-hook/debounce": "^4.0.0",
     "@react-hook/resize-observer": "^2.0.2",
     "color": "^5.0.0",
+    "downloadjs": "^1.4.7",
     "embla-carousel-react": "^8.6.0",
+    "html-to-image": "^1.11.13",
     "i18next": "^25.2.1",
     "i18next-browser-languagedetector": "^8.1.0",
     "i18next-http-backend": "^3.0.2",
@@ -40,6 +42,7 @@
   "devDependencies": {
     "@eslint/js": "^9.27.0",
     "@types/color": "^4.2.0",
+    "@types/downloadjs": "^1.4.6",
     "@types/lodash.clonedeep": "^4.5.7",
     "@types/react": "^19.1.5",
     "@types/react-detect-offline": "^2.4.1",

@@ -15,7 +15,7 @@ import { SettingsDoc } from "../../models/settings";
 export default function GamePlay() {
   const location = useLocation();
   const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
-  const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
+  const [appBarContainer, setContainer] = useState<HTMLElement | undefined>();
 
   useEffect(() => {
     if (!setting$) return;

@@ -32,6 +32,9 @@ import {
 import { EmblaCarouselType } from 'embla-carousel';
 import useEmblaCarousel, { EmblaViewportRefType } from "embla-carousel-react";
 
+import * as htmlToImage from 'html-to-image';
+import download from 'downloadjs';
+
 import { css, cx } from "@emotion/css";
 
 import { useData } from "../hooks/useData";
@@ -44,7 +47,8 @@ import {
   GuildGrid,
 } from "../components/GuildGrid";
 import { AppBarContent } from "./App";
-import { NavigateNext } from "@mui/icons-material";
+import { AppBarContext } from "../utils/contexts"
+import { NavigateNext, Download } from "@mui/icons-material";
 import { DoubleGuildCard, FlipGuildCard } from "../components/GuildCard";
 import VersionTag from "../components/VersionTag";
 import type { Gameplan } from "../components/DataTypes";
@@ -153,6 +157,7 @@ function ExtraIconsControl(props: ControlProps) {
 }
 
 export function LibraryCarousel() {
+  const [appBarContainer, setContainer] = useState<HTMLElement>();
   const slideRef = useOutletContext<{ slideRef: RefObject<number> }>().slideRef;
 
   const [emblaRef, emblaAPI] = useEmblaCarousel({
@@ -170,8 +175,40 @@ export function LibraryCarousel() {
     return () => { emblaAPI.off('select', callback) };
   }, [emblaAPI, slideRef]);
 
+  const cardDownload = useCallback(() => {
+    if (!emblaAPI)
+      return
+    try {
+      const index = emblaAPI.selectedScrollSnap();
+      const slides = emblaAPI.slideNodes();
+      const card = slides[index].firstElementChild;
+      //htmlToImage.toPng(card as HTMLElement).then((dataUrl) => download(dataUrl, 'gbcard.png'));
+      htmlToImage.toCanvas(card).then((canvas) => { document.body.appendChild(canvas); });
+    } catch (error) {
+      console.error(error);
+    }
+  }, [emblaAPI, emblaRef]);
+
   return (
-    <Outlet context={{ emblaRef, emblaAPI }} />
+    <>
+      <AppBarContent>
+        <Box sx={{
+          width: "100%",
+          display: "flex",
+          flexDiection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}>
+          <Box ref={(el: HTMLElement) => setContainer(el)} />
+          <IconButton size="small" onClick={cardDownload} >
+            <Download />
+          </IconButton>
+        </Box>
+      </AppBarContent>
+      <AppBarContext.Provider value={appBarContainer}>
+        <Outlet context={{ emblaRef, emblaAPI }} />
+      </AppBarContext.Provider>
+    </>
   );
 }
 
@@ -305,6 +342,7 @@ export function Roster() {
           <Typography>{g.name}</Typography>
         </Breadcrumbs>
       </AppBarContent>
+
       <CarouselButtons
         guild={g}
         embla={emblaAPI}
