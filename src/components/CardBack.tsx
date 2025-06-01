@@ -174,7 +174,7 @@ const CharacterTraits = ({ model }: { model: GBModelExpanded }) => (
     {model.character_traits.map((ct, index) => (
       <React.Fragment key={`ct-${index}`}>
         <div className="character-trait" key={`${ct.name}-${index}`}>
-          <div className={`trait ${ct.active && "active"}`}>
+          <div className={cx('trait', { 'active': ct.active })}>
             <CTName
               text={ct.name.concat(ct.parameter ? ` [${ct.parameter}]` : "")}
             />

@@ -1,4 +1,6 @@
 import React from "react";
+import { cx } from "@emotion/css";
+
 import "./GBIcon.css";
 
 import playbookDefs from "../assets/playbook-symbol-defs.svg";
@@ -24,7 +26,7 @@ export default function GBIcon(props: GBIconProps) {
 
   return (
     <svg
-      className={`gbicon gbicon-${icon} ${className || ""}`}
+      className={cx('gbicon', `gbicon-${icon}`, className)}
       style={computedStyle}
       {...otherProps}
     >
