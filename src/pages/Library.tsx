@@ -182,9 +182,7 @@ export function LibraryCarousel() {
       const index = emblaAPI.selectedScrollSnap();
       const slides = emblaAPI.slideNodes();
       const card = slides[index].firstElementChild;
-      //htmlToImage.toPng(card as HTMLElement).then((dataUrl) => download(dataUrl, 'gbcard.png'));
-      if (card)
-        htmlToImage.toCanvas(card as HTMLElement).then((canvas) => { document.body.appendChild(canvas); });
+      htmlToImage.toPng(card as HTMLElement).then((dataUrl) => download(dataUrl, 'gbcard.png'));
     } catch (error) {
       console.error(error);
     }

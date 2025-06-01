@@ -43,6 +43,11 @@ import { reSort } from "../utils/reSort";
 import { useRxData } from "../hooks/useRxQuery";
 import { Settings } from "@mui/icons-material";
 
+import DownloadIcon from "@mui/icons-material/Download";
+import * as htmlToImage from 'html-to-image';
+import JSZip from 'jszip';
+import download from 'downloadjs';
+
 import { cx } from "@emotion/css";
 
 const PrintSettings = (props: {
@@ -280,6 +285,32 @@ export const CardPrintScreen = () => {
               noFun={noFun}
               setNoFun={setNoFun}
             />
+            <Tooltip title="Download PNGs" arrow>
+              <IconButton
+                size="small"
+                onClick={async () => {
+                  const elements = document.querySelectorAll('.card:not(.hide)');
+                  const zip = new JSZip();
+
+                  // Use Promise.all to wait for all asynchronous operations
+                  const promises = Array.from(elements).map(async (el) => {
+                    const blob = await htmlToImage.toBlob(el as HTMLElement, { canvasWidth: 1000, canvasHeight: 700 });
+                    if (blob) {
+                      zip.file(`${el.id}.png`, blob);
+                    }
+                  });
+
+                  await Promise.all(promises); // Wait for all blobs to be added to the zip
+
+                  zip.generateAsync({ type: "blob" })
+                    .then((blob) => {
+                      download(blob, 'GB-Cards.zip');
+                    });
+                }}
+              >
+                <DownloadIcon />
+              </IconButton>
+            </Tooltip>
             <Tooltip title="Print" arrow>
               <IconButton
                 size="small"
