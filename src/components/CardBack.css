@@ -142,7 +142,7 @@ div.card-back.gbcp.double {
   font-size: 40px;
   letter-spacing: -0.05em;
   border-bottom: var(--line-width) solid black;
-  border-image-source: linear-gradient(to left, transparent, black 150px);
+  /*border-image-source: linear-gradient(to left, transparent, black 150px);*/
   border-image-slice: 0 0 1 0;
   width: 100%;
   line-height: 1em;
@@ -157,7 +157,7 @@ div.card-back.gbcp.double {
   font-size: 34px;
   letter-spacing: -0.02em;
   border-bottom: var(--line-width) solid black;
-  border-image-source: linear-gradient(to left, transparent, black 150px);
+  /*border-image-source: linear-gradient(to left, transparent, black 150px);*/
   border-image-slice: 0 0 1 0;
   line-height: 1em;
 }
