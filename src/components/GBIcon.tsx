@@ -1,9 +1,8 @@
 import React from "react";
-// import { cx } from "@emotion/css";
 
 import "./GBIcon.css";
 
-import playbookDefs from "../assets/playbook-symbol-defs.svg";
+// import playbookDefs from "../assets/playbook-symbol-defs.svg";
 // import gbDefs from "../assets/gb-symbol-defs.svg";
 
 interface GBIconProps {
@@ -14,7 +13,6 @@ interface GBIconProps {
   fontSize?: string | number;
   id?: string;
 }
-
 
 import Alchemists from "./icons/Alchemists";
 import ballFull from "./icons/ball-full";
@@ -55,7 +53,7 @@ import snared from "./icons/snared";
 import trophy from "./icons/trophy";
 import Union from "./icons/Union";
 
-const iconMap: Record<string, React.FC<GBIconProps>> = {
+const iconMap: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
   'Alchemists': Alchemists,
   'ball-full': ballFull,
   'ballotX': ballotX,
@@ -96,6 +94,49 @@ const iconMap: Record<string, React.FC<GBIconProps>> = {
   'Union': Union,
 }
 
+
+import DMG1 from "./pbicons/1";
+import DMG2 from "./pbicons/2";
+import DMG3 from "./pbicons/3";
+import DMG4 from "./pbicons/4";
+import DMG5 from "./pbicons/5";
+import DMG6 from "./pbicons/6";
+import DMG7 from "./pbicons/7";
+import DMG8 from "./pbicons/8";
+import CP from "./pbicons/CP";
+import CP2 from "./pbicons/CP2";
+import CP2gbcp from "./pbicons/CP-2gbcp";
+import CPgbcp from "./pbicons/CP-gbcp";
+import D from "./pbicons/D";
+import DD from "./pbicons/DD";
+import KD from "./pbicons/KD";
+import P from "./pbicons/P";
+import PD from "./pbicons/PD";
+import PP from "./pbicons/PP";
+import T from "./pbicons/T";
+
+const pbMap: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
+  "1": DMG1,
+  "2": DMG2,
+  "3": DMG3,
+  "4": DMG4,
+  "5": DMG5,
+  "6": DMG6,
+  "7": DMG7,
+  "8": DMG8,
+  "CP": CP,
+  "CP2": CP2,
+  "CP2-gbcp": CP2gbcp,
+  "CP-gbcp": CPgbcp,
+  "D": D,
+  "DD": DD,
+  "KD": KD,
+  "P": P,
+  "PD": PD,
+  "PP": PP,
+  "T": T,
+}
+
 export default function GBIcon(props: GBIconProps) {
   const { icon, size, style, className, ...otherProps } = props;
 
@@ -107,7 +148,6 @@ export default function GBIcon(props: GBIconProps) {
 
   return (
     iconMap[icon]({ className: className, style: computedStyle, ...otherProps })
-    // iconMap[icon]({})
   );
 }
 
@@ -115,10 +155,11 @@ interface PBProps {
   icon: string;
   size?: string;
   style?: React.CSSProperties;
+  className?: string;
 }
 
 export function PB(props: PBProps) {
-  const { icon, size, style } = props;
+  const { icon, size, style, className, ...otherProps } = props;
   const i = icon.replace(/</g, "D").replace(/>/g, "P");
 
   const computedStyle: React.CSSProperties = {
@@ -126,9 +167,12 @@ export function PB(props: PBProps) {
     ...(style && style.height ? { fontSize: style.height } : {}),
     ...(props.style || {}),
   };
-  return (
-    <svg className={`pbicon pbicon-${i}`} style={computedStyle} {...props}>
-      <use href={`${playbookDefs}#pbicon-${i}`} />
-    </svg>
-  );
+  try {
+    return (
+      pbMap[i]({ className: className, style: computedStyle, ...otherProps })
+    );
+  } catch (e) {
+    console.error(icon);
+    console.error(e);
+  }
 }
