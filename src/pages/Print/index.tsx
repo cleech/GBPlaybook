@@ -16,15 +16,15 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { AppBarContent } from "./App";
-import { useData } from "../hooks/useData";
+import { AppBarContent } from "../App";
+import { useData } from "../../hooks/useData";
 import "./print.css";
 
 import { useMutationObserverRef } from "rooks";
 
-import { CardFront, GBCardCSS } from "../components/CardFront";
-import { CardBack } from "../components/CardBack";
-import GBIcon from "../components/GBIcon";
+import { CardFront, GBCardCSS } from "../../components/CardFront";
+import { CardBack } from "../../components/CardBack";
+import GBIcon from "../../components/GBIcon";
 
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -35,13 +35,13 @@ import PrintIcon from "@mui/icons-material/Print";
 import SelectAllIcon from "@mui/icons-material/DoneAll";
 import ClearAllIcon from "@mui/icons-material/RemoveDone";
 import ClearIcon from "@mui/icons-material/Clear";
-import VersionTag from "../components/VersionTag";
-import GBImages from "../utils/GBImages";
-import { Gameplan, Guild } from "../components/DataTypes";
-import { GameplanFront, ReferenceCardFront } from "../components/Gameplan";
-import { GBGuildDoc, GBModelDoc } from "../models/gbdbTypes";
-import { reSort } from "../utils/reSort";
-import { useRxData } from "../hooks/useRxQuery";
+import VersionTag from "../../components/VersionTag";
+import GBImages from "../../utils/GBImages";
+import { Gameplan, Guild } from "../../components/DataTypes";
+import { GameplanFront, ReferenceCardFront } from "../../components/Gameplan";
+import { GBGuildDoc, GBModelDoc } from "../../models/gbdbTypes";
+import { reSort } from "../../utils/reSort";
+import { useRxData } from "../../hooks/useRxQuery";
 import { Link, Settings } from "@mui/icons-material";
 
 import DownloadIcon from "@mui/icons-material/Download";
