@@ -45,9 +45,10 @@ import { useRxData } from "../hooks/useRxQuery";
 import { Lock, Settings } from "@mui/icons-material";
 
 import DownloadIcon from "@mui/icons-material/Download";
+
 import * as htmlToImage from 'html-to-image';
 import JSZip from 'jszip';
-import download from 'downloadjs';
+import FileSaver from 'file-saver';
 
 import { cx } from "@emotion/css";
 
@@ -400,7 +401,7 @@ export default function CardPrintScreen() {
 
                   zip.generateAsync({ type: "blob" })
                     .then((blob) => {
-                      download(blob, 'GB-Cards.zip');
+                      FileSaver.saveAs(blob, 'GB-cards.zip');
                     });
                 }}
               >
