@@ -28,7 +28,10 @@ import { GBGuildDoc } from "../../models/gbdbTypes";
 export default function GuildList() {
   const slideRef = useOutletContext<{ slideRef: RefObject<number>; }>().slideRef;
   const guilds = useLoaderData<GBGuildDoc[]>();
-  slideRef.current = 0;
+
+  useEffect(() => {
+    slideRef.current = 0;
+  }, [slideRef])
 
   return (
     <>
