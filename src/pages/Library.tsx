@@ -194,7 +194,7 @@ export function LibraryCarousel() {
         <Box sx={{
           width: "100%",
           display: "flex",
-          flexDiection: "row",
+          flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
         }}>
