@@ -382,8 +382,14 @@ export const CardPrintScreen = () => {
                   const zip = new JSZip();
 
                   const promises = Array.from(elements).map(async (el) => {
+                    const singleWidth = doubleCard
+                      ? withBleed
+                        ? (width + (height / 15)) / 2
+                        : width / 2
+                      : width;
                     const blob = await htmlToImage.toBlob(el.firstElementChild as HTMLElement, {
-                      canvasWidth: width, canvasHeight: height,
+                      canvasWidth: el.classList.contains('double') ? width : singleWidth,
+                      canvasHeight: height,
                     });
                     if (blob) {
                       zip.file(`${el.id}.png`, blob);
