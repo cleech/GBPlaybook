@@ -12,6 +12,7 @@ import {
   FormControlLabel,
   Menu,
   Stack,
+  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -41,7 +42,7 @@ import { GameplanFront, ReferenceCardFront } from "../components/Gameplan";
 import { GBGuildDoc, GBModelDoc } from "../models/gbdbTypes";
 import { reSort } from "../utils/reSort";
 import { useRxData } from "../hooks/useRxQuery";
-import { Settings } from "@mui/icons-material";
+import { Lock, Settings } from "@mui/icons-material";
 
 import DownloadIcon from "@mui/icons-material/Download";
 import * as htmlToImage from 'html-to-image';
@@ -55,6 +56,10 @@ const PrintSettings = (props: {
   setBleed: (b: boolean) => void;
   doubleCard: boolean;
   setDouble: (b: boolean) => void;
+  width: number;
+  setWidth: (w: number) => void;
+  height: number;
+  setHeight: (h: number) => void;
   noFun: boolean;
   setNoFun: (b: boolean) => void;
 }) => {
@@ -70,7 +75,7 @@ const PrintSettings = (props: {
   const [paged, setPaged] = useState(true);
 
   // const { doubleCard, setDouble, withBleed, setBleed, noFun, setNoFun } = props;
-  const { doubleCard, setDouble, withBleed, setBleed } = props;
+  const { doubleCard, setDouble, withBleed, setBleed, width, setWidth, height, setHeight } = props;
   useEffect(() => {
     const size = doubleCard
       ? withBleed
@@ -99,6 +104,60 @@ const PrintSettings = (props: {
     };
   }, [doubleCard, withBleed, paged]);
 
+  const updateDouble = useCallback((d: boolean) => {
+    if (d !== doubleCard) {
+      setDouble(d);
+      if (d) {
+        if (!withBleed) {
+          setWidth(width * 2);
+        } else {
+          // double the main space, but not the bleed
+          const bleedSpace = height * 50 / 750;
+          setWidth((width - bleedSpace) * 2 + bleedSpace);
+        }
+      } else {
+        if (!withBleed) {
+          setWidth(width / 2);
+        } else {
+          // half the main space, but not the bleed
+          const bleedSpace = height * 50 / 750;
+          setWidth((width - bleedSpace) / 2 + bleedSpace);
+        }
+      }
+    }
+  }, [doubleCard, height, setDouble, setWidth, width, withBleed]);
+
+  const updateBleed = useCallback((b: boolean) => {
+    if (b !== withBleed) {
+      setBleed(b);
+      if (b) {
+        const deltaBleed = height * 5 / 70;
+        setHeight(height + deltaBleed);
+        setWidth(width + deltaBleed);
+      } else {
+        const deltaBleed = height * 5 / 75;
+        setHeight(height - deltaBleed);
+        setWidth(width - deltaBleed);
+      }
+    }
+  }, [withBleed, height, width, setBleed, setHeight, setWidth]);
+
+  const imageWidthChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const w = Number(e.target.value);
+    if (Number.isNaN(w)) return;
+    const h = w * 7 / (doubleCard ? 10 : 5);
+    setWidth(w);
+    setHeight(h);
+  }, [doubleCard, setHeight, setWidth]);
+
+  const imageHeightChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const h = Number(e.target.value);
+    if (Number.isNaN(h)) return;
+    const w = h * (doubleCard ? 10 : 5) / 7;
+    setWidth(w);
+    setHeight(h);
+  }, [doubleCard, setHeight, setWidth]);
+
   return (
     <>
       <Tooltip title="Print Settings" arrow>
@@ -125,7 +184,7 @@ const PrintSettings = (props: {
             control={
               <Checkbox
                 checked={doubleCard}
-                onChange={() => setDouble(!doubleCard)}
+                onChange={() => updateDouble(!doubleCard)}
               />
             }
           />
@@ -134,7 +193,7 @@ const PrintSettings = (props: {
             control={
               <Checkbox
                 checked={withBleed}
-                onChange={() => setBleed(!withBleed)}
+                onChange={() => updateBleed(!withBleed)}
               />
             }
           />
@@ -144,6 +203,25 @@ const PrintSettings = (props: {
               <Checkbox checked={!paged} onChange={() => setPaged(!paged)} />
             }
           />
+          <Divider sx={{ margin: "0.5em" }} />
+          {/* <FormControlLabel
+            label="Download PNG Image Size"
+            control={ */}
+          <Typography variant="caption" sx={{ margin: "0.5em" }} >
+            Download Image Size:
+          </Typography>
+          <Box sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}>
+            <TextField label="width" size="small" value={props.width} onChange={imageWidthChange} sx={{ width: "6em" }} />
+            <Lock fontSize="small" />
+            <TextField label="height" size="small" value={props.height} onChange={imageHeightChange} sx={{ width: "6em" }} />
+          </Box>
+          {/* }
+          /> */}
           {/* <FormControlLabel
             label="Ignore Special Themes"
             control={
@@ -151,7 +229,7 @@ const PrintSettings = (props: {
             }
           /> */}
         </Stack>
-      </Menu>
+      </Menu >
     </>
   );
 };
@@ -172,6 +250,9 @@ export const CardPrintScreen = () => {
   const [doubleCard, setDouble] = useState(true);
   const [withBleed, setBleed] = useState(false);
   const [noFun, setNoFun] = useState(false);
+
+  const [width, setWidth] = useState(1000);
+  const [height, setHeight] = useState(700);
 
   const [allGameplans, setAllGameplans] = useState<
     { year: number; cards: Gameplan[] }[]
@@ -282,6 +363,10 @@ export const CardPrintScreen = () => {
               setBleed={setBleed}
               doubleCard={doubleCard}
               setDouble={setDouble}
+              width={width}
+              setWidth={setWidth}
+              height={height}
+              setHeight={setHeight}
               noFun={noFun}
               setNoFun={setNoFun}
             />
@@ -294,11 +379,7 @@ export const CardPrintScreen = () => {
 
                   const promises = Array.from(elements).map(async (el) => {
                     const blob = await htmlToImage.toBlob(el.firstElementChild as HTMLElement, {
-                      canvasHeight:
-                        700 + (el.classList.contains('bleed') ? 50 : 0),
-                      canvasWidth:
-                        (el.classList.contains('double') ? 1000 : 500) +
-                        (el.classList.contains('bleed') ? 50 : 0),
+                      canvasWidth: width, canvasHeight: height,
                     });
                     if (blob) {
                       zip.file(`${el.id}.png`, blob);
