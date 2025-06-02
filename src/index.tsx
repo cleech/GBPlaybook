@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App, { AppContent } from "./pages/App";
@@ -8,7 +9,12 @@ import {
   Navigate,
   useLoaderData,
 } from "react-router-dom";
-import GamePlay, { TeamSelect, Draft, Game } from "./pages/GamePlay";
+
+const GamePlay = lazy(() => import("./pages/GamePlay"));
+const TeamSelect = lazy(() => import("./pages/GamePlay/TeamSelect"));
+const Draft = lazy(() => import("./pages/GamePlay/Draft"));
+const Game = lazy(() => import("./pages/GamePlay/Game"));
+
 import Library, {
   LibraryCarousel,
   GamePlans,
@@ -16,9 +22,9 @@ import Library, {
   RefCards,
   Roster,
 } from "./pages/Library";
-import Settings from "./pages/Settings";
 
-import { CardPrintScreen } from "./pages/Print";
+const Settings = lazy(() => import("./pages/Settings"));
+const CardPrintScreen = lazy(() => import("./pages/Print"));
 
 import { getSettings, SettingsDoc } from "./models/settings";
 import { defaultSettings } from "./models/defaultSettings";

@@ -238,7 +238,7 @@ const PrintSettings = (props: {
   );
 };
 
-export const CardPrintScreen = () => {
+export default function CardPrintScreen() {
   const { gbdb: db, manifest } = useData();
   const ref = useRef<{
     models: Map<string, ModelCheckBoxRef>;
