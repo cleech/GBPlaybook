@@ -51,14 +51,14 @@ export default function CarouselLayout({
   const maxWidth = largeLayout ? 1000 : 500;
   const maxHeight = 700;
   const [slideWidth, setSlideWidth] = useState(maxWidth);
-  const [slideHieght, setSlideHieght] = useState(maxHeight);
+  const [slideHeight, setSlideHeight] = useState(maxHeight);
 
   const _updateSize = useCallback(({ width, height }: DOMRectReadOnly) => {
     const aspectRatioMultiplier = largeLayout ? 10 : 5;
     const calculatedWidth = Math.min(width, (height * aspectRatioMultiplier) / 7, maxWidth);
     setSlideWidth(calculatedWidth);
     const calculatedHeight = Math.min(height, (width * 7) / aspectRatioMultiplier, maxHeight);
-    setSlideHieght(calculatedHeight);
+    setSlideHeight(calculatedHeight);
     // console.log(`container {width: ${width}, height: ${height}`);
     // console.log(`card {width: ${calculatedWidth}, height: ${calculatedHeight}`);
   }, [largeLayout, maxWidth, maxHeight]);
@@ -95,7 +95,7 @@ export default function CarouselLayout({
             <div
               className={emblaStyles.card}
               style={{
-                height: `${slideHieght}px`,
+                height: `${slideHeight}px`,
                 width: `${slideWidth}px`,
               }}
             >
