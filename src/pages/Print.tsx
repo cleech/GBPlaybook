@@ -42,7 +42,7 @@ import { GameplanFront, ReferenceCardFront } from "../components/Gameplan";
 import { GBGuildDoc, GBModelDoc } from "../models/gbdbTypes";
 import { reSort } from "../utils/reSort";
 import { useRxData } from "../hooks/useRxQuery";
-import { Lock, Settings } from "@mui/icons-material";
+import { Link, Settings } from "@mui/icons-material";
 
 import DownloadIcon from "@mui/icons-material/Download";
 
@@ -222,7 +222,7 @@ const PrintSettings = (props: {
             justifyContent: "space-between",
           }}>
             <TextField label="width" size="small" value={props.width} onChange={imageWidthChange} sx={{ width: "6em" }} />
-            <Lock fontSize="small" />
+            <Link fontSize="small" />
             <TextField label="height" size="small" value={props.height} onChange={imageHeightChange} sx={{ width: "6em" }} />
           </Box>
           {/* }
