@@ -1,6 +1,7 @@
 import {
   useRef,
   useEffect,
+  useCallback,
 } from "react";
 
 import {
@@ -21,20 +22,22 @@ export default function Library() {
     Number.parseInt(searchParams.get("m") ?? "0") || 0
   );
 
-  useEffect(() => {
+  const patchRoute = useCallback(async () => {
     if (!setting$) return;
-    const patchRoute = () => {
-      firstValueFrom(setting$)
-        .then((settingsDoc) =>
-          settingsDoc?.incrementalPatch({
-            libraryRoute: `${location.pathname}?m=${slideRef.current}`,
-          })
-        )
-        .catch(console.error);
-    };
+    try {
+      const settingsDoc = await firstValueFrom(setting$);
+      await settingsDoc?.incrementalPatch({
+        libraryRoute: `${location.pathname}?m=${slideRef.current}`,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }, [setting$, location.pathname]);
+
+  useEffect(() => {
     patchRoute();
-    return patchRoute
-  }, [location, setting$]);
+    return () => { patchRoute(); }
+  }, [patchRoute]);
 
   return (
     <main
