@@ -1,4 +1,4 @@
-import { RefObject, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useTheme } from "@mui/material";
 import { Box, Chip } from "@mui/material";
 import { EmblaCarouselType } from 'embla-carousel';
@@ -25,7 +25,7 @@ export default function CarouselChipNavigation({
 }: CarouselChipNavigationProps) {
   const theme = useTheme();
 
-  const chipRefs: RefObject<HTMLDivElement[]> = useRef([]);
+  const chipRefs = useRef<(HTMLDivElement | null)[]>([]);
   const activeSlideRef = useRef(0);
 
   useEffect(() => {
