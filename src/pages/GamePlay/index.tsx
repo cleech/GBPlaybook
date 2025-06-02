@@ -123,7 +123,3 @@ export default function GamePlay() {
     </main>
   );
 }
-
-export { default as TeamSelect } from "./TeamSelect";
-export { default as Draft } from "./Draft";
-export { default as Game } from "./Game";

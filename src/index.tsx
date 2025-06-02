@@ -1,7 +1,6 @@
 import { lazy } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App, { AppContent } from "./pages/App";
 
 import {
   createHashRouter,
@@ -10,18 +9,19 @@ import {
   useLoaderData,
 } from "react-router-dom";
 
+import App, { AppContent } from "./pages/App";
+
 const GamePlay = lazy(() => import("./pages/GamePlay"));
 const TeamSelect = lazy(() => import("./pages/GamePlay/TeamSelect"));
 const Draft = lazy(() => import("./pages/GamePlay/Draft"));
 const Game = lazy(() => import("./pages/GamePlay/Game"));
 
-import Library, {
-  LibraryCarousel,
-  GamePlans,
-  GuildList,
-  RefCards,
-  Roster,
-} from "./pages/Library";
+const Library = lazy(() => import("./pages/Library"));
+const LibraryCarousel = lazy(() => import("./pages/Library/LibraryCarousel"));
+const GamePlans = lazy(() => import("./pages/Library/GamePlans"));
+const GuildList = lazy(() => import("./pages/Library/GuildList"));
+const RefCards = lazy(() => import("./pages/Library/RefCards"));
+const Roster = lazy(() => import("./pages/Library/Roster"));
 
 const Settings = lazy(() => import("./pages/Settings"));
 const CardPrintScreen = lazy(() => import("./pages/Print"));
