@@ -71,19 +71,8 @@ export default function Roster() {
   );
 }
 
-function RosterButtons(props: {
-  guild: GBGuildDoc;
-  embla: EmblaCarouselType | undefined;
-}) {
-  const { guild, embla } = props;
-  const roster = guild.roster;
-
-  const items: ChipItem[] = useMemo(
-    () => roster.map((m, index) => ({ key: index, label: m, })),
-    [roster]
-  );
-
-  const leadingIcon = (props: { ref: React.Ref<HTMLDivElement> | undefined }) => {
+const createLeadingIcon = (guild: string, embla?: EmblaCarouselType) =>
+  (props: { ref?: React.Ref<HTMLDivElement> }) => {
     return <IconButton
       sx={{ padding: 0, mr: 0 }}
       onClick={() => embla?.scrollTo(0)}
@@ -101,10 +90,27 @@ function RosterButtons(props: {
           overflow: "visible",
         }}
       >
-        <GBIcon icon={guild.name} className="dark" fontSize="32px" style={{ flexShrink: 0 }} />
+        <GBIcon icon={guild} className="dark" fontSize="32px" style={{ flexShrink: 0 }} />
       </div>
     </IconButton>
   };
+
+function RosterButtons(props: {
+  guild: GBGuildDoc;
+  embla: EmblaCarouselType | undefined;
+}) {
+  const { guild, embla } = props;
+  const roster = guild.roster;
+
+  const items: ChipItem[] = useMemo(
+    () => roster.map((m, index) => ({ key: index, label: m, })),
+    [roster]
+  );
+
+  const leadingIcon = useMemo(
+    () => createLeadingIcon(guild.name, embla),
+    [guild, embla]
+  )
 
   return (
     <CarouselChipNavigation
