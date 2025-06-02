@@ -293,7 +293,7 @@ export const CardPrintScreen = () => {
                   const zip = new JSZip();
 
                   const promises = Array.from(elements).map(async (el) => {
-                    const blob = await htmlToImage.toBlob(el as HTMLElement, {
+                    const blob = await htmlToImage.toBlob(el.firstElementChild as HTMLElement, {
                       canvasHeight:
                         700 + (el.classList.contains('bleed') ? 50 : 0),
                       canvasWidth:
@@ -1062,13 +1062,18 @@ const ModelCard = (props: {
       style={{
         width: width,
         height: height,
-        display: "inline-flex",
-        flexDirection: "row",
-        gap: 0,
+        boxSizing: 'content-box'
       }}
     >
       {inView && (
-        <>
+        <div style={{
+          width: width,
+          height: height,
+          display: "inline-flex",
+          flexDirection: "row",
+          gap: 0,
+        }
+        }>
           <CardFront
             className={cx('print', 'double', { 'bleed': bleed }, { 'nofun': noFun })}
             model={model}
@@ -1089,9 +1094,9 @@ const ModelCard = (props: {
               } as GBCardCSS
             }
           />
-        </>
+        </div>
       )}
-    </div>
+    </div >
   ) : (
     <>
       <div
@@ -1099,53 +1104,58 @@ const ModelCard = (props: {
         className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
         id={`${id}_front`}
         style={{
-          position: "relative",
           width: singleWidth,
           height: height,
-          display: "inline-flex",
-          flexDirection: "row",
-          gap: 0,
+          boxSizing: 'content-box'
         }}
       >
         {inView && (
-          <CardFront
-            className={cx('print', { 'bleed': bleed }, { 'nofun': noFun })}
-            model={model}
-            style={
-              {
-                borderRadius: 0,
-                "--scale": "calc(2.5 * 96 / 500)",
-                // "--scale": "calc((7/3) * 96 / 500)",
-              } as GBCardCSS
-            }
-          />
+          <div
+            style={{
+              width: singleWidth,
+              height: height,
+            }}
+          >
+            <CardFront
+              className={cx('print', { 'bleed': bleed }, { 'nofun': noFun })}
+              model={model}
+              style={
+                {
+                  borderRadius: 0,
+                  "--scale": "calc(2.5 * 96 / 500)",
+                } as GBCardCSS
+              }
+            />
+          </div>
         )}
       </div>
       <div
-        // ref={ref}
         className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
         id={`${id}_back`}
         style={{
-          position: "relative",
           width: singleWidth,
           height: height,
-          display: "inline-flex",
-          flexDirection: "row",
-          gap: 0,
+          boxSizing: 'content-box'
         }}
       >
         {inView && (
-          <CardBack
-            className={cx('print', { 'bleed': bleed }, { 'nofun': noFun })}
-            model={model}
-            style={
-              {
-                borderRadius: 0,
-                "--scale": "calc(2.5 * (96 / 500))",
-                // "--scale": "calc((7/3) * 96 / 500)",
-              } as GBCardCSS
-            }
-          />
+          <div
+            style={{
+              width: singleWidth,
+              height: height,
+            }}
+          >
+            <CardBack
+              className={cx('print', { 'bleed': bleed }, { 'nofun': noFun })}
+              model={model}
+              style={
+                {
+                  borderRadius: 0,
+                  "--scale": "calc(2.5 * (96 / 500))",
+                } as GBCardCSS
+              }
+            />
+          </div>
         )}
       </div>
     </>
@@ -1181,13 +1191,19 @@ const GuildCard = (props: {
       style={{
         width: width,
         height: height,
-        display: "inline-flex",
-        flexDirection: "row",
-        gap: 0,
+        boxSizing: 'content-box'
       }}
     >
       {inView && (
-        <>
+        <div
+          style={{
+            width: width,
+            height: height,
+            display: "inline-flex",
+            flexDirection: "row",
+            gap: 0,
+          }}
+        >
           <div
             className={cx(
               'card-front', 'print', 'double', { 'bleed': bleed })
@@ -1214,27 +1230,27 @@ const GuildCard = (props: {
               } as GBCardCSS
             }
           />
-        </>
+        </div>
       )}
     </div>
   ) : (
     <>
-
       <div
         ref={ref}
         className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
-        id={name}
+        id={`${name}_front`}
         style={{
           width: singleWidth,
           height: height,
+          boxSizing: 'content-box'
         }}
       >
         {inView && (
           <div
             className={cx('card-front', 'print', { 'bleed': bleed })}
             style={{
-              width: "100%",
-              height: "100%",
+              width: singleWidth,
+              height: height,
               backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
               borderRadius: 0,
             }}
@@ -1243,28 +1259,26 @@ const GuildCard = (props: {
       </div>
 
       <div
-        // ref={ref}
         className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
-        id={name}
+        id={`${name}_back`}
         style={{
           width: singleWidth,
           height: height,
+          boxSizing: 'content-box'
         }}
       >
         {inView && (
-          <>
-            <div
-              className={cx('card-back', 'print', { 'bleed': bleed })}
-              style={
-                {
-                  width: "100%",
-                  height: "100%",
-                  backgroundImage: `url(${GBImages.get(`${name}_back`)})`,
-                  borderRadius: 0,
-                } as GBCardCSS
-              }
-            />
-          </>
+          <div
+            className={cx('card-back', 'print', { 'bleed': bleed })}
+            style={
+              {
+                width: singleWidth,
+                height: height,
+                backgroundImage: `url(${GBImages.get(`${name}_back`)})`,
+                borderRadius: 0,
+              } as GBCardCSS
+            }
+          />
         )}
       </div>
     </>
@@ -1295,19 +1309,27 @@ const GameplanPrintCard = (props: { gameplan: Gameplan; year: number; bleed: boo
       style={{
         width: width,
         height: height,
+        boxSizing: 'content-box',
         backgroundColor: "black",
       }}
     >
       {inView && (
-        <GameplanFront
-          gameplan={gameplan}
-          year={year}
+        <div
           style={{
-            borderRadius: 0,
-            "--scale": "calc(2.5 * 96 / 500)",
+            width: width,
+            height: height,
           }}
-          bleed={bleed}
-        />
+        >
+          <GameplanFront
+            gameplan={gameplan}
+            year={year}
+            style={{
+              borderRadius: 0,
+              "--scale": "calc(2.5 * 96 / 500)",
+            }}
+            bleed={bleed}
+          />
+        </div>
       )}
     </div>
   );
@@ -1337,15 +1359,23 @@ const RefcardPrintCard = (props: { index: number; bleed: boolean }) => {
       style={{
         width: width,
         height: height,
+        boxSizing: 'content-box',
         backgroundColor: "black",
       }}
     >
       {inView &&
-        <ReferenceCardFront
-          index={index + 1}
-          style={{ borderRadius: 0 }}
-          bleed={bleed}
-        />
+        <div
+          style={{
+            width: width,
+            height: height,
+          }}
+        >
+          <ReferenceCardFront
+            index={index + 1}
+            style={{ borderRadius: 0 }}
+            bleed={bleed}
+          />
+        </div>
       }
     </div>
   );
