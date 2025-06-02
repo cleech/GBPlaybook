@@ -112,30 +112,30 @@ const PrintSettings = (props: {
           setWidth(width * 2);
         } else {
           // double the main space, but not the bleed
-          const bleedSpace = height * 50 / 750;
-          setWidth((width - bleedSpace) * 2 + bleedSpace);
+          const bleedSpace = height / 15;
+          setWidth(width * 2 - bleedSpace);
         }
       } else {
         if (!withBleed) {
           setWidth(width / 2);
         } else {
           // half the main space, but not the bleed
-          const bleedSpace = height * 50 / 750;
-          setWidth((width - bleedSpace) / 2 + bleedSpace);
+          const bleedSpace = height / 15;
+          setWidth((width + bleedSpace) / 2);
         }
       }
     }
-  }, [doubleCard, height, setDouble, setWidth, width, withBleed]);
+  }, [doubleCard, withBleed, height, width, setDouble, setWidth]);
 
   const updateBleed = useCallback((b: boolean) => {
     if (b !== withBleed) {
       setBleed(b);
       if (b) {
-        const deltaBleed = height * 5 / 70;
+        const deltaBleed = height / 14;
         setHeight(height + deltaBleed);
         setWidth(width + deltaBleed);
       } else {
-        const deltaBleed = height * 5 / 75;
+        const deltaBleed = height / 15;
         setHeight(height - deltaBleed);
         setWidth(width - deltaBleed);
       }
@@ -145,18 +145,22 @@ const PrintSettings = (props: {
   const imageWidthChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const w = Number(e.target.value);
     if (Number.isNaN(w)) return;
-    const h = w * 7 / (doubleCard ? 10 : 5);
+    const h = withBleed
+      ? w * 15 / (doubleCard ? 21 : 11)
+      : w * 7 / (doubleCard ? 10 : 5);
     setWidth(w);
     setHeight(h);
-  }, [doubleCard, setHeight, setWidth]);
+  }, [doubleCard, withBleed, setHeight, setWidth]);
 
   const imageHeightChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const h = Number(e.target.value);
     if (Number.isNaN(h)) return;
-    const w = h * (doubleCard ? 10 : 5) / 7;
+    const w = withBleed
+      ? h * (doubleCard ? 21 : 11) / 15
+      : h * (doubleCard ? 10 : 5) / 7;
     setWidth(w);
     setHeight(h);
-  }, [doubleCard, setHeight, setWidth]);
+  }, [doubleCard, withBleed, setHeight, setWidth]);
 
   return (
     <>
