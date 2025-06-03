@@ -12,7 +12,6 @@ import {
   FormControlLabel,
   Menu,
   Stack,
-  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -42,28 +41,13 @@ import { GameplanFront, ReferenceCardFront } from "../../components/Gameplan";
 import { GBGuildDoc, GBModelDoc } from "../../models/gbdbTypes";
 import { reSort } from "../../utils/reSort";
 import { useRxData } from "../../hooks/useRxQuery";
-import { Link, Settings } from "@mui/icons-material";
-
-import DownloadIcon from "@mui/icons-material/Download";
-
-import * as htmlToImage from 'html-to-image';
-import JSZip from 'jszip';
-import FileSaver from 'file-saver';
+import { Settings } from "@mui/icons-material";
 
 import { cx } from "@emotion/css";
+import DownloadDialog from "./components/DownloadDialog";
+import PrintSettingsContext, { usePrintSettings } from "./components/PrintSettingsContext";
 
-const PrintSettings = (props: {
-  withBleed: boolean;
-  setBleed: (b: boolean) => void;
-  doubleCard: boolean;
-  setDouble: (b: boolean) => void;
-  width: number;
-  setWidth: (w: number) => void;
-  height: number;
-  setHeight: (h: number) => void;
-  noFun: boolean;
-  setNoFun: (b: boolean) => void;
-}) => {
+const PrintSettings = () => {
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
   const settingsOpen = Boolean(menuAnchor);
   const settingsClick = (e: MouseEvent<HTMLElement>) => {
@@ -75,8 +59,9 @@ const PrintSettings = (props: {
 
   const [paged, setPaged] = useState(true);
 
-  // const { doubleCard, setDouble, withBleed, setBleed, noFun, setNoFun } = props;
-  const { doubleCard, setDouble, withBleed, setBleed, width, setWidth, height, setHeight } = props;
+  const settings = usePrintSettings();
+  const { doubleCard, setDouble, withBleed, setBleed } = settings;
+
   useEffect(() => {
     const size = doubleCard
       ? withBleed
@@ -104,6 +89,77 @@ const PrintSettings = (props: {
       document.head.removeChild(style);
     };
   }, [doubleCard, withBleed, paged]);
+
+  return (
+    <>
+      <Tooltip title="Print Settings" arrow>
+        <IconButton size="small" onClick={settingsClick}>
+          <Settings />
+        </IconButton>
+      </Tooltip>
+      <Menu
+        anchorEl={menuAnchor}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        open={settingsOpen}
+        onClose={settingsClose}
+      >
+        <Stack margin={2}>
+          <FormControlLabel
+            label="Double Wide Cards"
+            control={
+              <Checkbox
+                checked={doubleCard}
+                onChange={() => setDouble(!doubleCard)}
+              />
+            }
+          />
+          <FormControlLabel
+            label="With Print Bleed"
+            control={
+              <Checkbox
+                checked={withBleed}
+                onChange={() => setBleed(!withBleed)}
+              />
+            }
+          />
+          <FormControlLabel
+            label="Set Page to Card Size"
+            control={
+              <Checkbox checked={!paged} onChange={() => setPaged(!paged)} />
+            }
+          />
+        </Stack>
+      </Menu >
+    </>
+  );
+};
+
+export default function CardPrintScreen() {
+  const { gbdb: db, manifest } = useData();
+  const ref = useRef<{
+    models: Map<string, ModelCheckBoxRef>;
+    guilds: Map<string, GuildCheckBoxRef>;
+    gameplans: Map<string, GameplanCheckBoxRef>;
+    refcards: Map<string, RefCardCheckBoxRef>;
+  }>(null);
+  const list = useRef<GuildListRef>(null);
+
+  const [Guilds, setGuilds] = useState<string[]>();
+  const [Models, setModels] = useState<string[]>();
+
+  const [doubleCard, setDouble] = useState(true);
+  const [withBleed, setBleed] = useState(false);
+  const [noFun, setNoFun] = useState(false);
+
+  const [width, setWidth] = useState(1000);
+  const [height, setHeight] = useState(700);
 
   const updateDouble = useCallback((d: boolean) => {
     if (d !== doubleCard) {
@@ -142,122 +198,6 @@ const PrintSettings = (props: {
       }
     }
   }, [withBleed, height, width, setBleed, setHeight, setWidth]);
-
-  const imageWidthChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const w = Number(e.target.value);
-    if (Number.isNaN(w)) return;
-    const h = withBleed
-      ? w * 15 / (doubleCard ? 21 : 11)
-      : w * 7 / (doubleCard ? 10 : 5);
-    setWidth(w);
-    setHeight(h);
-  }, [doubleCard, withBleed, setHeight, setWidth]);
-
-  const imageHeightChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const h = Number(e.target.value);
-    if (Number.isNaN(h)) return;
-    const w = withBleed
-      ? h * (doubleCard ? 21 : 11) / 15
-      : h * (doubleCard ? 10 : 5) / 7;
-    setWidth(w);
-    setHeight(h);
-  }, [doubleCard, withBleed, setHeight, setWidth]);
-
-  return (
-    <>
-      <Tooltip title="Print Settings" arrow>
-        <IconButton size="small" onClick={settingsClick}>
-          <Settings />
-        </IconButton>
-      </Tooltip>
-      <Menu
-        anchorEl={menuAnchor}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-        open={settingsOpen}
-        onClose={settingsClose}
-      >
-        <Stack margin={2}>
-          <FormControlLabel
-            label="Double Wide Cards"
-            control={
-              <Checkbox
-                checked={doubleCard}
-                onChange={() => updateDouble(!doubleCard)}
-              />
-            }
-          />
-          <FormControlLabel
-            label="With Print Bleed"
-            control={
-              <Checkbox
-                checked={withBleed}
-                onChange={() => updateBleed(!withBleed)}
-              />
-            }
-          />
-          <FormControlLabel
-            label="Set Page to Card Size"
-            control={
-              <Checkbox checked={!paged} onChange={() => setPaged(!paged)} />
-            }
-          />
-          <Divider sx={{ margin: "0.5em" }} />
-          {/* <FormControlLabel
-            label="Download PNG Image Size"
-            control={ */}
-          <Typography variant="caption" sx={{ margin: "0.5em" }} >
-            Download Image Size:
-          </Typography>
-          <Box sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}>
-            <TextField label="width" size="small" value={props.width} onChange={imageWidthChange} sx={{ width: "6em" }} />
-            <Link fontSize="small" />
-            <TextField label="height" size="small" value={props.height} onChange={imageHeightChange} sx={{ width: "6em" }} />
-          </Box>
-          {/* }
-          /> */}
-          {/* <FormControlLabel
-            label="Ignore Special Themes"
-            control={
-              <Checkbox checked={noFun} onChange={() => setNoFun(!noFun)} />
-            }
-          /> */}
-        </Stack>
-      </Menu >
-    </>
-  );
-};
-
-export default function CardPrintScreen() {
-  const { gbdb: db, manifest } = useData();
-  const ref = useRef<{
-    models: Map<string, ModelCheckBoxRef>;
-    guilds: Map<string, GuildCheckBoxRef>;
-    gameplans: Map<string, GameplanCheckBoxRef>;
-    refcards: Map<string, RefCardCheckBoxRef>;
-  }>(null);
-  const list = useRef<GuildListRef>(null);
-
-  const [Guilds, setGuilds] = useState<string[]>();
-  const [Models, setModels] = useState<string[]>();
-
-  const [doubleCard, setDouble] = useState(true);
-  const [withBleed, setBleed] = useState(false);
-  const [noFun, setNoFun] = useState(false);
-
-  const [width, setWidth] = useState(1000);
-  const [height, setHeight] = useState(700);
 
   const [allGameplans, setAllGameplans] = useState<
     { year: number; cards: Gameplan[] }[]
@@ -342,242 +282,209 @@ export default function CardPrintScreen() {
   }
 
   return (
-    <Box
-      component="main"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-        height: "100%",
-      }}
-    >
-      <AppBarContent>
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <Typography>Card Printer</Typography>
-          <Box>
-            <PrintSettings
-              withBleed={withBleed}
-              setBleed={setBleed}
-              doubleCard={doubleCard}
-              setDouble={setDouble}
-              width={width}
-              setWidth={setWidth}
-              height={height}
-              setHeight={setHeight}
-              noFun={noFun}
-              setNoFun={setNoFun}
-            />
-            <Tooltip title="Download PNGs" arrow>
-              <IconButton
-                size="small"
-                onClick={async () => {
-                  const elements = document.querySelectorAll('.card:not(.hide)');
-                  const zip = new JSZip();
-
-                  const promises = Array.from(elements).map(async (el) => {
-                    const singleWidth = doubleCard
-                      ? withBleed
-                        ? (width + (height / 15)) / 2
-                        : width / 2
-                      : width;
-                    const blob = await htmlToImage.toBlob(el.firstElementChild as HTMLElement, {
-                      canvasWidth: el.classList.contains('double') ? width : singleWidth,
-                      canvasHeight: height,
-                    });
-                    if (blob) {
-                      zip.file(`${el.id}.png`, blob);
-                    }
-                  });
-
-                  await Promise.all(promises);
-
-                  zip.generateAsync({ type: "blob" })
-                    .then((blob) => {
-                      FileSaver.saveAs(blob, 'GB-cards.zip');
-                    });
-                }}
-              >
-                <DownloadIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Print" arrow>
-              <IconButton
-                size="small"
-                onClick={() => {
-                  window.print();
-                }}
-              >
-                <PrintIcon />
-              </IconButton>
-            </Tooltip>
-          </Box>
-        </Box>
-      </AppBarContent>
-
-      <Box className="controls no-print" sx={{ p: "1rem" }}>
-        <GuildList ref={list} allGameplans={allGameplans} />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            my: "0.5rem",
-          }}
-        >
-          <Box sx={{ position: "relative" }}>
-            <ButtonGroup variant="text" sx={{ mb: "0.5rem" }}>
-              <Tooltip title="Select All" arrow>
-                <Button
-                  onClick={() => {
-                    if (!list.current?.guild) {
-                      return;
-                    }
-                    ref.current?.guilds
-                      .get(list.current.guild)
-                      ?.setChecked(true);
-                    ref.current?.models.forEach((control) => {
-                      if (!list.current?.guild) {
-                        return;
-                      }
-                      if (
-                        control.m.guild1 === list.current.guild ||
-                        control.m.guild2 === list.current.guild
-                      ) {
-                        control.setChecked(true);
-                      }
-                    });
-
-                    if (/gameplans/.test(list.current.guild)) {
-                      ref.current?.gameplans.forEach((control) => {
-                        const year = list.current?.guild?.split("-")[1];
-                        if (String(control.year) == year)
-                          control.setChecked(true);
-                      });
-                    }
-
-                    if (list.current.guild === "refcards") {
-                      ref.current?.refcards.forEach((control) => {
-                        control.setChecked(true);
-                      });
-                    }
-                  }}
-                >
-                  <SelectAllIcon />
-                </Button>
-              </Tooltip>
-              <Tooltip title="Clear All" arrow>
-                <Button
-                  onClick={() => {
-                    if (!list.current?.guild) {
-                      return;
-                    }
-                    ref.current?.guilds
-                      .get(list.current.guild)
-                      ?.setChecked(false);
-                    ref.current?.models.forEach((control) => {
-                      if (!list.current?.guild) {
-                        return;
-                      }
-                      if (
-                        control.m.guild1 === list.current.guild ||
-                        control.m.guild2 === list.current.guild
-                      ) {
-                        control.setChecked(false);
-                      }
-                    });
-                    if (/gameplans/.test(list.current.guild)) {
-                      ref.current?.gameplans.forEach((control) => {
-                        const year = list.current?.guild?.split("-")[1];
-                        if (String(control.year) == year)
-                          control.setChecked(false);
-                      });
-                    }
-                    if (list.current.guild === "refcards") {
-                      ref.current?.refcards.forEach((control) => {
-                        control.setChecked(false);
-                      });
-                    }
-                  }}
-                >
-                  <ClearAllIcon />
-                </Button>
-              </Tooltip>
-            </ButtonGroup>
-            <VersionTag />
-          </Box>
-          <ModelLists ref={ref} allGameplans={allGameplans} />
-        </Box>
-        <Divider />
-        <Box>
-          <Button
-            variant="text"
-            color="primary"
-            startIcon={<ClearIcon />}
-            onClick={() => {
-              ref.current?.guilds.forEach((control) => {
-                control.setChecked(false);
-              });
-              ref.current?.models.forEach((control) => {
-                control.setChecked(false);
-              });
-              ref.current?.gameplans.forEach((control) => {
-                control.setChecked(false);
-              });
-              ref.current?.refcards.forEach((control) => {
-                control.setChecked(false);
-              });
+    <PrintSettingsContext value={{
+      doubleCard, setDouble: updateDouble,
+      withBleed, setBleed: updateBleed,
+      width, setWidth,
+      height, setHeight,
+      noFun, setNoFun,
+    }}>
+      <Box
+        component="main"
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <AppBarContent>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
           >
-            Clear Cards
-          </Button>
-        </Box>
-      </Box>
+            <Typography>Card Printer</Typography>
+            <Box>
+              <PrintSettings />
+              <Tooltip title="Download PNGs" arrow>
+                <DownloadDialog />
+              </Tooltip>
+              <Tooltip title="Print" arrow>
+                <IconButton
+                  size="small"
+                  onClick={() => {
+                    window.print();
+                  }}
+                >
+                  <PrintIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          </Box>
+        </AppBarContent>
 
-      <Box className="Cards">
-        {Guilds.map((g) => (
-          <GuildCard
-            name={g}
-            key={g}
-            bleed={withBleed}
-            doubleCard={doubleCard}
-          />
-        ))}
-        {Models.map((m) => (
-          <ModelCard
-            name={m}
-            id={m}
-            key={m}
-            bleed={withBleed}
-            noFun={noFun}
-            doubleCard={doubleCard}
-          />
-        ))}
-        {allGameplans.map(({ year, cards }) => (
-          cards.map((gp: Gameplan, index: number) => (
-            <GameplanPrintCard
-              gameplan={gp}
-              year={year}
-              key={`gameplan-${year}-${index}`}
+        <Box className="controls no-print" sx={{ p: "1rem" }}>
+          <GuildList ref={list} allGameplans={allGameplans} />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              my: "0.5rem",
+            }}
+          >
+            <Box sx={{ position: "relative" }}>
+              <ButtonGroup variant="text" sx={{ mb: "0.5rem" }}>
+                <Tooltip title="Select All" arrow>
+                  <Button
+                    onClick={() => {
+                      if (!list.current?.guild) {
+                        return;
+                      }
+                      ref.current?.guilds
+                        .get(list.current.guild)
+                        ?.setChecked(true);
+                      ref.current?.models.forEach((control) => {
+                        if (!list.current?.guild) {
+                          return;
+                        }
+                        if (
+                          control.m.guild1 === list.current.guild ||
+                          control.m.guild2 === list.current.guild
+                        ) {
+                          control.setChecked(true);
+                        }
+                      });
+
+                      if (/gameplans/.test(list.current.guild)) {
+                        ref.current?.gameplans.forEach((control) => {
+                          const year = list.current?.guild?.split("-")[1];
+                          if (String(control.year) == year)
+                            control.setChecked(true);
+                        });
+                      }
+
+                      if (list.current.guild === "refcards") {
+                        ref.current?.refcards.forEach((control) => {
+                          control.setChecked(true);
+                        });
+                      }
+                    }}
+                  >
+                    <SelectAllIcon />
+                  </Button>
+                </Tooltip>
+                <Tooltip title="Clear All" arrow>
+                  <Button
+                    onClick={() => {
+                      if (!list.current?.guild) {
+                        return;
+                      }
+                      ref.current?.guilds
+                        .get(list.current.guild)
+                        ?.setChecked(false);
+                      ref.current?.models.forEach((control) => {
+                        if (!list.current?.guild) {
+                          return;
+                        }
+                        if (
+                          control.m.guild1 === list.current.guild ||
+                          control.m.guild2 === list.current.guild
+                        ) {
+                          control.setChecked(false);
+                        }
+                      });
+                      if (/gameplans/.test(list.current.guild)) {
+                        ref.current?.gameplans.forEach((control) => {
+                          const year = list.current?.guild?.split("-")[1];
+                          if (String(control.year) == year)
+                            control.setChecked(false);
+                        });
+                      }
+                      if (list.current.guild === "refcards") {
+                        ref.current?.refcards.forEach((control) => {
+                          control.setChecked(false);
+                        });
+                      }
+                    }}
+                  >
+                    <ClearAllIcon />
+                  </Button>
+                </Tooltip>
+              </ButtonGroup>
+              <VersionTag />
+            </Box>
+            <ModelLists ref={ref} allGameplans={allGameplans} />
+          </Box>
+          <Divider />
+          <Box>
+            <Button
+              variant="text"
+              color="primary"
+              startIcon={<ClearIcon />}
+              onClick={() => {
+                ref.current?.guilds.forEach((control) => {
+                  control.setChecked(false);
+                });
+                ref.current?.models.forEach((control) => {
+                  control.setChecked(false);
+                });
+                ref.current?.gameplans.forEach((control) => {
+                  control.setChecked(false);
+                });
+                ref.current?.refcards.forEach((control) => {
+                  control.setChecked(false);
+                });
+              }}
+            >
+              Clear Cards
+            </Button>
+          </Box>
+        </Box>
+
+        <Box className="Cards">
+          {Guilds.map((g) => (
+            <GuildCard
+              name={g}
+              key={g}
+              bleed={withBleed}
+              doubleCard={doubleCard}
+            />
+          ))}
+          {Models.map((m) => (
+            <ModelCard
+              name={m}
+              id={m}
+              key={m}
+              bleed={withBleed}
+              noFun={noFun}
+              doubleCard={doubleCard}
+            />
+          ))}
+          {allGameplans.map(({ year, cards }) => (
+            cards.map((gp: Gameplan, index: number) => (
+              <GameplanPrintCard
+                gameplan={gp}
+                year={year}
+                key={`gameplan-${year}-${index}`}
+                bleed={withBleed}
+              />
+            ))
+          ))}
+          {[...Array(5).keys()].map((index) => (
+            <RefcardPrintCard
+              index={index}
+              key={`refcard-${index}`}
               bleed={withBleed}
             />
-          ))
-        ))}
-        {[...Array(5).keys()].map((index) => (
-          <RefcardPrintCard
-            index={index}
-            key={`refcard-${index}`}
-            bleed={withBleed}
-          />
-        ))}
-      </Box>
-    </Box >
+          ))}
+        </Box>
+      </Box >
+    </PrintSettingsContext>
   );
 };
 
