@@ -363,7 +363,7 @@ export default function CardPrintScreen() {
                       if (/gameplans/.test(list.current.guild)) {
                         ref.current?.gameplans.forEach((control) => {
                           const year = list.current?.guild?.split("-")[1];
-                          if (String(control.year) == year)
+                          if (String(control.year) === year)
                             control.setChecked(true);
                         });
                       }
@@ -401,7 +401,7 @@ export default function CardPrintScreen() {
                       if (/gameplans/.test(list.current.guild)) {
                         ref.current?.gameplans.forEach((control) => {
                           const year = list.current?.guild?.split("-")[1];
-                          if (String(control.year) == year)
+                          if (String(control.year) === year)
                             control.setChecked(false);
                         });
                       }
