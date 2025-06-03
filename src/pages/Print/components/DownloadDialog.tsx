@@ -7,7 +7,8 @@ import * as htmlToImage from "html-to-image";
 import JSZip from "jszip";
 import FileSaver from "file-saver";
 
-import { PrintSettingsType, usePrintSettings } from "./PrintSettingsContext";
+import { PrintSettingsType } from "./PrintSettingsContext";
+import usePrintSettings from "./usePrintSettings";
 
 export default function DownloadDialog() {
   const [dialogOpen, setDialog] = useState(false);

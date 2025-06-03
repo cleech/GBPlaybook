@@ -45,7 +45,8 @@ import { Settings } from "@mui/icons-material";
 
 import { cx } from "@emotion/css";
 import DownloadDialog from "./components/DownloadDialog";
-import PrintSettingsContext, { usePrintSettings } from "./components/PrintSettingsContext";
+import PrintSettingsContext from "./components/PrintSettingsContext";
+import usePrintSettings from "./components/usePrintSettings";
 
 const PrintSettings = () => {
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);

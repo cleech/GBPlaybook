@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 
 export interface PrintSettingsType {
   doubleCard: boolean;
@@ -14,12 +14,4 @@ export interface PrintSettingsType {
 }
 
 const PrintSettingsContext = createContext<PrintSettingsType | undefined>(undefined);
-export default PrintSettingsContext.Provider;
-
-export function usePrintSettings() {
-  const context = useContext(PrintSettingsContext);
-  if (context === undefined) {
-    throw new Error("usePrintSettings must be used within a PrintSettingsProvider");
-  }
-  return context;
-}
+export default PrintSettingsContext;
