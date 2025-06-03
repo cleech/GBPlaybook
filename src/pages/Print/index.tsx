@@ -5,13 +5,10 @@ import React, {
   useImperativeHandle,
   CSSProperties,
   useEffect,
-  MouseEvent,
 } from "react";
 import {
   ButtonGroup,
   FormControlLabel,
-  Menu,
-  Stack,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -41,106 +38,11 @@ import { GameplanFront, ReferenceCardFront } from "../../components/Gameplan";
 import { GBGuildDoc, GBModelDoc } from "../../models/gbdbTypes";
 import { reSort } from "../../utils/reSort";
 import { useRxData } from "../../hooks/useRxQuery";
-import { Settings } from "@mui/icons-material";
 
 import { cx } from "@emotion/css";
 import DownloadDialog from "./components/DownloadDialog";
 import PrintSettingsContext from "./components/PrintSettingsContext";
-import usePrintSettings from "./components/usePrintSettings";
-
-const PrintSettings = () => {
-  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
-  const settingsOpen = Boolean(menuAnchor);
-  const settingsClick = (e: MouseEvent<HTMLElement>) => {
-    setMenuAnchor(e.currentTarget);
-  };
-  const settingsClose = () => {
-    setMenuAnchor(null);
-  };
-
-  const [paged, setPaged] = useState(true);
-
-  const settings = usePrintSettings();
-  const { doubleCard, setDouble, withBleed, setBleed } = settings;
-
-  useEffect(() => {
-    const size = doubleCard
-      ? withBleed
-        ? "5.25in 3.75in"
-        : "5in 3.5in"
-      : withBleed
-        ? "2.75in 3.75in"
-        : "2.5in 3.5in";
-    const style = document.createElement("style");
-    if (!paged) {
-      style.innerHTML = `
-      @media print {
-        @page {        
-          size: ${size};
-          margin: 0;
-        }
-        .Cards > .card {
-          margin: 0;
-        }
-      }
-      `;
-    }
-    document.head.appendChild(style);
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, [doubleCard, withBleed, paged]);
-
-  return (
-    <>
-      <Tooltip title="Print Settings" arrow>
-        <IconButton size="small" onClick={settingsClick}>
-          <Settings />
-        </IconButton>
-      </Tooltip>
-      <Menu
-        anchorEl={menuAnchor}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-        open={settingsOpen}
-        onClose={settingsClose}
-      >
-        <Stack margin={2}>
-          <FormControlLabel
-            label="Double Wide Cards"
-            control={
-              <Checkbox
-                checked={doubleCard}
-                onChange={() => setDouble(!doubleCard)}
-              />
-            }
-          />
-          <FormControlLabel
-            label="With Print Bleed"
-            control={
-              <Checkbox
-                checked={withBleed}
-                onChange={() => setBleed(!withBleed)}
-              />
-            }
-          />
-          <FormControlLabel
-            label="Set Page to Card Size"
-            control={
-              <Checkbox checked={!paged} onChange={() => setPaged(!paged)} />
-            }
-          />
-        </Stack>
-      </Menu >
-    </>
-  );
-};
+import PrintSettingsMenu from "./components/PrintSettingsMenu";
 
 export default function CardPrintScreen() {
   const { gbdb: db, manifest } = useData();
@@ -311,7 +213,7 @@ export default function CardPrintScreen() {
           >
             <Typography>Card Printer</Typography>
             <Box>
-              <PrintSettings />
+              <PrintSettingsMenu />
               <Tooltip title="Download PNGs" arrow>
                 <DownloadDialog />
               </Tooltip>
