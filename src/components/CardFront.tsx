@@ -163,7 +163,7 @@ const HealthBoxes = ({
           key={key}
         >
           {key === 0 ? <GBIcon icon="skull" size={17} />
-            : (key + 1) === model.recovery ? <GBIcon icon="bandage" size={22} />
+            : (key + 1) === model.recovery ? <GBIcon icon="bandage" size={23} />
               : (key + 1) === model.hp ? key + 1 : null}
         </div>
       ))}
