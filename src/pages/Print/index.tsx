@@ -969,32 +969,29 @@ const ModelCard = (props: {
     >
       {inView && (
         <div style={{
-          width: width,
-          height: height,
+          width: '100%',
+          height: '100%',
           display: "inline-flex",
           flexDirection: "row",
+          "--scale": "calc(2.5 * 96 / 500)",
           gap: 0,
-        }
-        }>
+        } as GBCardCSS}
+        >
           <CardFront
             className={cx('print', 'double', { 'bleed': bleed }, { 'nofun': noFun })}
             model={model}
-            style={
-              {
-                borderRadius: 0,
-                "--scale": "calc(2.5 * 96 / 500)",
-              } as GBCardCSS
-            }
+            style={{
+              borderRadius: 0,
+              "--scale": "inherit",
+            }}
           />
           <CardBack
             className={cx('print', 'double', { 'bleed': bleed }, { 'nofun': noFun })}
             model={model}
-            style={
-              {
-                borderRadius: 0,
-                "--scale": "calc(2.5 * (96 / 500))",
-              } as GBCardCSS
-            }
+            style={{
+              borderRadius: 0,
+              "--scale": "inherit",
+            }}
           />
         </div>
       )}
@@ -1016,17 +1013,16 @@ const ModelCard = (props: {
             style={{
               width: singleWidth,
               height: height,
-            }}
+              "--scale": "calc(2.5 * 96 / 500)",
+            } as GBCardCSS}
           >
             <CardFront
               className={cx('print', { 'bleed': bleed }, { 'nofun': noFun })}
               model={model}
-              style={
-                {
-                  borderRadius: 0,
-                  "--scale": "calc(2.5 * 96 / 500)",
-                } as GBCardCSS
-              }
+              style={{
+                borderRadius: 0,
+                "--scale": "inherit",
+              }}
             />
           </div>
         )}
@@ -1045,17 +1041,16 @@ const ModelCard = (props: {
             style={{
               width: singleWidth,
               height: height,
-            }}
+              "--scale": "calc(2.5 * (96 / 500))",
+            } as GBCardCSS}
           >
             <CardBack
               className={cx('print', { 'bleed': bleed }, { 'nofun': noFun })}
               model={model}
-              style={
-                {
-                  borderRadius: 0,
-                  "--scale": "calc(2.5 * (96 / 500))",
-                } as GBCardCSS
-              }
+              style={{
+                borderRadius: 0,
+                "--scale": "inherit",
+              }}
             />
           </div>
         )}
@@ -1110,27 +1105,21 @@ const GuildCard = (props: {
             className={cx(
               'card-front', 'print', 'double', { 'bleed': bleed })
             }
-            style={
-              {
-                backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
-                width: width,
-                borderRadius: 0,
-                // "--scale": "calc(2.5 * 96 / 500)",
-              } as GBCardCSS
-            }
+            style={{
+              backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
+              width: width,
+              borderRadius: 0,
+            }}
           />
           <div
             className={cx(
               'card-back', 'print', 'double', { 'bleed': bleed })
             }
-            style={
-              {
-                backgroundImage: `url(${GBImages.get(`${name}_back`)})`,
-                width: width,
-                borderRadius: 0,
-                // "--scale": "calc(2.5 * 96 / 500)",
-              } as GBCardCSS
-            }
+            style={{
+              backgroundImage: `url(${GBImages.get(`${name}_back`)})`,
+              width: width,
+              borderRadius: 0,
+            }}
           />
         </div>
       )}
@@ -1220,14 +1209,14 @@ const GameplanPrintCard = (props: { gameplan: Gameplan; year: number; bleed: boo
           style={{
             width: width,
             height: height,
-          }}
+            "--scale": "calc(2.5 * 96 / 500)",
+          } as GBCardCSS}
         >
           <GameplanFront
             gameplan={gameplan}
             year={year}
             style={{
               borderRadius: 0,
-              "--scale": "calc(2.5 * 96 / 500)",
             }}
             bleed={bleed}
           />

@@ -91,9 +91,9 @@ export default function DownloadDialog() {
           <Button
             variant="contained"
             disabled={waiting}
-            onClick={() => {
+            onClick={async () => {
               setWaiting(true);
-              downloadCards(fileName, settings).finally(() => {
+              await downloadCards(fileName, settings).finally(() => {
                 setWaiting(false);
                 setDialog(false);
               });
@@ -136,10 +136,30 @@ async function downloadCards(fileName: string, settings: PrintSettingsType) {
         ? (width + (height / 15)) / 2
         : width / 2
       : width;
-    const blob = await htmlToImage.toBlob(el.firstElementChild as HTMLElement, {
-      canvasWidth: el.classList.contains('double') ? width : singleWidth,
+
+    const isDouble = el.classList.contains('double');
+
+    const copiedNode = el.cloneNode(true) as HTMLElement;
+    const container = copiedNode.firstElementChild as HTMLElement;
+
+    // ugly fix for the print style overrides
+    copiedNode.classList.add('Cards')
+
+    container.style.width = isDouble
+      ? withBleed ? '1050px' : '1000px'
+      : withBleed ? '550px' : '500px';
+    container.style.height = withBleed ? '750px' : '700px';
+    container.style.setProperty('--scale', '1');
+
+    document.body.appendChild(copiedNode);
+
+    const blob = await htmlToImage.toBlob(container, {
+      canvasWidth: isDouble ? width : singleWidth,
       canvasHeight: height,
     });
+
+    document.body.removeChild(copiedNode);
+
     if (blob) {
       zip.file(`${el.id}.png`, blob);
     }
