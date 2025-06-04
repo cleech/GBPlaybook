@@ -16,7 +16,7 @@ import usePrintSettings from "./usePrintSettings";
 export default function DownloadDialog() {
   const [dialogOpen, setDialog] = useState(false);
   const [fileName, setFileName] = useState("GB-cards.zip");
-  const [imgType, setImgType] = useState("image/png");
+  const [imgType, setImgType] = useState("png");
   const [waiting, setWaiting] = useState(false);
 
   const settings = usePrintSettings();
@@ -106,8 +106,8 @@ export default function DownloadDialog() {
                 onChange={(e: React.ChangeEvent) => {
                   setImgType((e.target as HTMLInputElement).value);
                 }}>
-                <FormControlLabel value="image/png" control={<Radio />} label="PNG" />
-                <FormControlLabel value="image/jpeg" control={<Radio />} label="JPEG" />
+                <FormControlLabel value="png" control={<Radio />} label="PNG" />
+                <FormControlLabel value="jpeg" control={<Radio />} label="JPEG" />
               </RadioGroup>
             </Box>
           </Box>
@@ -176,12 +176,14 @@ async function downloadCards(fileName: string, type: string, settings: PrintSett
 
     document.body.appendChild(copiedNode);
     const blob = await ScreenShot.domToBlob(container, {
-      type: type,
+      type: `image/${type}`,
       scale: (height / (withBleed ? 750 : 700)),
     });
     document.body.removeChild(copiedNode);
 
-    if (blob) { zip.file(`${el.id}.png`, blob); }
+    if (blob) {
+      zip.file(`${el.id}.${type}`, blob);
+    }
   });
 
   await Promise.all(promises);
