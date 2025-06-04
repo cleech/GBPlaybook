@@ -1,9 +1,12 @@
 import { useCallback, useState } from "react";
-import { Box, Button, Checkbox, CircularProgress, Dialog, DialogContent, DialogTitle, FormControlLabel, IconButton, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box, Button, Checkbox, CircularProgress, Dialog, DialogContent, DialogTitle,
+  FormControlLabel, IconButton, Radio, RadioGroup, Stack, TextField, Typography
+} from "@mui/material";
 import Link from "@mui/icons-material/Link";
 import Download from "@mui/icons-material/Download";
 
-import * as htmlToImage from "html-to-image";
+import * as ScreenShot from "modern-screenshot";
 import JSZip from "jszip";
 import FileSaver from "file-saver";
 
@@ -13,6 +16,7 @@ import usePrintSettings from "./usePrintSettings";
 export default function DownloadDialog() {
   const [dialogOpen, setDialog] = useState(false);
   const [fileName, setFileName] = useState("GB-cards.zip");
+  const [imgType, setImgType] = useState("image/png");
   const [waiting, setWaiting] = useState(false);
 
   const settings = usePrintSettings();
@@ -50,50 +54,76 @@ export default function DownloadDialog() {
     <Dialog open={dialogOpen} onClose={() => setDialog(false)} >
       <DialogTitle>Download Card Images</DialogTitle>
       <DialogContent>
-        <Stack spacing={2}>
-          <Typography variant="caption" >
-            Card Options:
-          </Typography>
-          <Box sx={{ border: 1, borderRadius: 1, borderColor: 'action.disabled', p: 1 }}>
-            <Stack direction="row" justifyContent={"space-evenly"}>
-              <FormControlLabel
-                label="Double Wide Cards"
-                control={
-                  <Checkbox
-                    checked={doubleCard}
-                    onChange={() => setDouble(!doubleCard)}
-                  />
-                }
-              />
-              <FormControlLabel
-                label="With Print Bleed"
-                control={
-                  <Checkbox
-                    checked={withBleed}
-                    onChange={() => setBleed(!withBleed)}
-                  />
-                }
-              />
-            </Stack>
+        <Stack spacing={1}>
+          <Box>
+            <Typography variant="caption" >
+              Card Options:
+            </Typography>
+            <Box sx={{ border: 1, borderRadius: 1, borderColor: 'action.disabled', p: 1 }}>
+              <Stack direction="row" justifyContent={"space-evenly"}>
+                <FormControlLabel
+                  label="Double Wide"
+                  control={
+                    <Checkbox
+                      checked={doubleCard}
+                      onChange={() => setDouble(!doubleCard)}
+                    />
+                  }
+                />
+                <FormControlLabel
+                  label="Print Bleed"
+                  control={
+                    <Checkbox
+                      checked={withBleed}
+                      onChange={() => setBleed(!withBleed)}
+                    />
+                  }
+                />
+              </Stack>
+            </Box>
           </Box>
           <Typography variant="caption">
-            Image Sizes:
+            Image Size:
           </Typography>
           <Stack direction="row" spacing={1} alignItems="center">
-            <TextField label="width" size="small" value={width.toFixed(0)} onChange={widthChange} />
+            <TextField
+              label="width" size="small"
+              value={width.toFixed(0)} onChange={widthChange}
+            />
             <Link />
-            <TextField label="height" size="small" value={height.toFixed(0)} onChange={heightChange} />
+            <TextField
+              label="height" size="small"
+              value={height.toFixed(0)} onChange={heightChange}
+            />
           </Stack>
+          <Box>
+            <Typography variant="caption">
+              Image Type:
+            </Typography>
+            <Box sx={{ border: 1, borderRadius: 1, borderColor: 'action.disabled', p: 1 }}>
+              <RadioGroup row sx={{ justifyContent: "space-evenly" }}
+                value={imgType}
+                onChange={(e: React.ChangeEvent) => {
+                  setImgType((e.target as HTMLInputElement).value);
+                }}>
+                <FormControlLabel value="image/png" control={<Radio />} label="PNG" />
+                <FormControlLabel value="image/jpeg" control={<Radio />} label="JPEG" />
+              </RadioGroup>
+            </Box>
+          </Box>
           <Typography variant="caption">
             Download File:
           </Typography>
-          <TextField label="file name" size="small" value={fileName} onChange={(e) => setFileName(e.target.value)} />
+          <TextField
+            label="file name" size="small" value={fileName}
+            onChange={(e) => setFileName(e.target.value)}
+          />
           <Button
             variant="contained"
             disabled={waiting}
-            onClick={async () => {
+            onClick={() => {
               setWaiting(true);
-              await downloadCards(fileName, settings).finally(() => {
+              downloadCards(fileName, imgType, settings).finally(() => {
                 setWaiting(false);
                 setDialog(false);
               });
@@ -121,9 +151,10 @@ export default function DownloadDialog() {
   </>)
 }
 
-async function downloadCards(fileName: string, settings: PrintSettingsType) {
+async function downloadCards(fileName: string, type: string, settings: PrintSettingsType) {
   if (!fileName || !settings) return;
-  const { doubleCard, withBleed, width, height } = settings;
+
+  const { withBleed, height } = settings;
 
   const elements = document.querySelectorAll('.card:not(.hide)');
   if (elements.length === 0) return;
@@ -131,44 +162,29 @@ async function downloadCards(fileName: string, settings: PrintSettingsType) {
   const zip = new JSZip();
 
   const promises = Array.from(elements).map(async (el) => {
-    const singleWidth = doubleCard
-      ? withBleed
-        ? (width + (height / 15)) / 2
-        : width / 2
-      : width;
-
-    const isDouble = el.classList.contains('double');
 
     const copiedNode = el.cloneNode(true) as HTMLElement;
     const container = copiedNode.firstElementChild as HTMLElement;
 
-    // ugly fix for the print style overrides
-    copiedNode.classList.add('Cards')
-
-    container.style.width = isDouble
-      ? withBleed ? '1050px' : '1000px'
-      : withBleed ? '550px' : '500px';
+    const isDouble = el.classList.contains('double');
+    container.style.width =
+      isDouble
+        ? withBleed ? '1050px' : '1000px'
+        : withBleed ? '550px' : '500px';
     container.style.height = withBleed ? '750px' : '700px';
     container.style.setProperty('--scale', '1');
 
     document.body.appendChild(copiedNode);
-
-    const blob = await htmlToImage.toBlob(container, {
-      canvasWidth: isDouble ? width : singleWidth,
-      canvasHeight: height,
+    const blob = await ScreenShot.domToBlob(container, {
+      type: type,
+      scale: (height / (withBleed ? 750 : 700)),
     });
-
     document.body.removeChild(copiedNode);
 
-    if (blob) {
-      zip.file(`${el.id}.png`, blob);
-    }
+    if (blob) { zip.file(`${el.id}.png`, blob); }
   });
 
   await Promise.all(promises);
-
-  await zip.generateAsync({ type: "blob" })
-    .then((blob) => {
-      FileSaver.saveAs(blob, fileName);
-    });
+  const blob = await zip.generateAsync({ type: "blob" });
+  FileSaver.saveAs(blob, fileName);
 }

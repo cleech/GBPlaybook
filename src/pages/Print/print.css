@@ -48,11 +48,6 @@
   margin: 0.0625in;
 }
 
-.Cards .print div {
-  border-image-source: unset !important;
-  border-image-slice: unset !important;
-}
-
 .hide {
   display: none !important;
 }
