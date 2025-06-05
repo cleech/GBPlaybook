@@ -175,13 +175,31 @@ async function downloadCards(fileName: string, type: string, settings: PrintSett
     container.style.setProperty('--scale', '1');
 
     document.body.appendChild(copiedNode);
+
     const blob = await ScreenShot.domToBlob(container, {
       type: `image/${type}`,
       scale: (height / (withBleed ? 750 : 700)),
     });
+
+    //await ScreenShot.domToForeignObjectSvg(container, {
+    //  scale: (height / (withBleed ? 750 : 700)),
+    //}).then(svg => document.body.appendChild(svg));
+    //
+    //await ScreenShot.domToSvg(container, {
+    //  scale: (height / (withBleed ? 750 : 700)),
+    //}).then(svgUrl => {
+    //  const img = new Image();
+    //  img.src = svgUrl;
+    //  document.body.appendChild(img);
+    //});
+
     document.body.removeChild(copiedNode);
 
     if (blob) {
+      //const img = new Image();
+      //img.src = URL.createObjectURL(blob);
+      //document.body.appendChild(img);
+
       zip.file(`${el.id}.${type}`, blob);
     }
   });
