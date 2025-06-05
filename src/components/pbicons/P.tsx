@@ -1,0 +1,14 @@
+import { cx } from "@emotion/css";
+
+const Icon = (props: { className?: string }) => {
+  const { className, ...otherProps } = props;
+  return (
+    <svg className={cx('pbicon', 'pbicon-P', className)}
+      {...otherProps}
+      viewBox="0 0 32 32">
+      <path d="M4.382 0v7.608l12.17 8.383-12.17 8.383v7.625l23.236-15.983-0.058-0.019 0.058-0.019-23.236-15.976z"></path>
+    </svg>
+  )
+};
+
+export default Icon;

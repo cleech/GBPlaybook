@@ -61,7 +61,7 @@ export const textIconReplace = (text: string | Array<string>) => {
                 height: "21px",
                 backgroundColor: "white",
                 border: "var(--line-width) solid black",
-                borderRadius: "21px",
+                borderRadius: "50%",
                 position: "absolute",
                 alignSelf: "center",
                 justifySelf: "center",
@@ -77,9 +77,9 @@ export const textIconReplace = (text: string | Array<string>) => {
                   // .replace(/</g, "D")
                   // .replace(/>/g, "P")
                 }
-                // size={21}
-                // color="black"
-                // removeInlineStyle={true}
+              // size={21}
+              // color="black"
+              // removeInlineStyle={true}
               />
             </div>
           </span>

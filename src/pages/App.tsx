@@ -130,7 +130,7 @@ const DrawerNavigationButton = (props: {
 };
 
 const App = () => {
-  const [appBarContainer, setContainer] = useState<HTMLElement | null>(null);
+  const [appBarContainer, setContainer] = useState<HTMLElement>();
   const [drawer, setDrawer] = useState(false);
   return (
     <ThemeProvider theme={darkTheme}>

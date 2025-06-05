@@ -6,7 +6,7 @@ import {
 import { Gameplan } from "./DataTypes";
 import useScaleRef from "../hooks/useScaleRef";
 
-import { css } from '@emotion/css';
+import { css, cx } from '@emotion/css';
 
 interface CardCSS extends CSSProperties {
   "--scale"?: number | string;
@@ -28,7 +28,7 @@ export const GameplanFront = (props: {
 
   return (
     <div
-      className={`card-front ${props.bleed ? "bleed" : ''}`}
+      className={cx('card-front', { 'bleed': props.bleed })}
       style={{
         width: "100%",
         height: "100%",
@@ -54,7 +54,7 @@ export const GameplanFront = (props: {
           }}
         >
           <div
-            style={{
+            className={css({
               fontFamily: "IM Fell Great Primer SC",
               fontSize: "33.33pt",
               display: "flex",
@@ -62,7 +62,9 @@ export const GameplanFront = (props: {
               alignItems: "center",
               lineHeight: "0.8em",
               margin: "0.2em 0",
-            }}
+              whiteSpace: "pre",
+              '& span': { whiteSpace: "pre" }
+            })}
           >
             { /* ignore the dropcap style if it's all caps */
               /[a-z]/.test(gameplan.title) ?
@@ -71,7 +73,7 @@ export const GameplanFront = (props: {
                     {p.split(/(?=[A-Z])/).map((s, j) => (
                       <span
                         key={`p${i}s${j}`}
-                        className={/^\p{Lu}/u.test(s) ? "dropcap" : ""}
+                        className={cx({ 'dropcap': /^\p{Lu}/u.test(s) })}
                       >
                         <span key={`p${i}s${j}c`}>{s}</span>
                       </span>
@@ -82,16 +84,16 @@ export const GameplanFront = (props: {
           <div
             // 10pt scaled at 200dpi/96 is 20.83pt
             // 9pt (Keep Your Chin Up) is 18.75pt
-            className={css`
-              margin: 0 1em;
-              white-space: pre-wrap;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              line-height: 1;
-              p { font-size: 20.83pt; margin: 0em 0 1em 0; }
-              #KeepYourChinUp { font-size: 18.75pt; }
-            `}
+            className={css({
+              margin: "0 1em",
+              whiteSpace: "pre",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              lineHeight: 1,
+              p: { fontSize: '20.83pt', margin: '0em 0 1em 0', whiteSpace: 'pre' },
+              'p#KeepYourChinUp': { fontSize: '18.75pt' }
+            })}
           >
             <p id={gameplan.title.replace(/[^a-zA-Z0-9]+/g, '')}>
               {gameplan.text}
@@ -108,7 +110,7 @@ export const GameplanFront = (props: {
               left: 40,
               width: "80px",
               height: "80px",
-              borderRadius: "40px",
+              borderRadius: "50%",
               boxSizing: "border-box",
               display: "flex",
               alignItems: "center",
@@ -125,7 +127,7 @@ export const GameplanFront = (props: {
               right: 40,
               width: "80px",
               height: "80px",
-              borderRadius: "40px",
+              borderRadius: "50%",
               boxSizing: "border-box",
               display: "flex",
               alignItems: "center",
@@ -204,7 +206,7 @@ export const ReferenceCardFront = (props: {
   ).href;
   return (
     <div
-      className={`card-front ${props.bleed ? "bleed" : ''} `}
+      className={cx('card-front', { 'bleed': props.bleed })}
       style={{
         width: "100%",
         height: "100%",
