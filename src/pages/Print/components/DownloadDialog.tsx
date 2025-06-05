@@ -179,7 +179,13 @@ async function downloadCards(fileName: string, type: string, settings: PrintSett
     const blob = await ScreenShot.domToBlob(container, {
       type: `image/${type}`,
       scale: (height / (withBleed ? 750 : 700)),
-    });
+    }).then((_blob) => ScreenShot.domToBlob(container, {
+      type: `image/${type}`,
+      scale: (height / (withBleed ? 750 : 700)),
+    })).then((_blob) => ScreenShot.domToBlob(container, {
+      type: `image/${type}`,
+      scale: (height / (withBleed ? 750 : 700)),
+    }));
 
     //await ScreenShot.domToForeignObjectSvg(container, {
     //  scale: (height / (withBleed ? 750 : 700)),
