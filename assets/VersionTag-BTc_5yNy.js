@@ -1,1 +1,0 @@
-import{j as s,T as t}from"./index-Bmp5g9m-.js";import{u as r}from"./useData-DhlZqCqP.js";const i=()=>{const{version:o}=r();return s.jsxs(t,{sx:{position:"absolute",bottom:0,right:0,color:"text.disabled"},children:["[",o,"]"]})};export{i as V};
