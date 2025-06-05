@@ -1,1 +1,0 @@
-import{_ as n}from"./index-C8qF_m5L.js";import{u as i}from"./index-BOj1ugl0.js";const s=(t,a)=>{const e=n.useRef(null);return i(()=>{var r;t&&((r=e.current)==null||r.animate({backgroundColor:["initial","red","initial"],boxShadow:["0 0 0px 0px transparent","0 0 0.25em 0.25em red","0 0 0.25em 0.25em transparent"]},500))},a),e};export{s as u};
