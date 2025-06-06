@@ -147,7 +147,7 @@ export default function GBIcon(props: GBIconProps) {
   };
 
   return (
-    iconMap[icon]({ className: className, style: computedStyle, ...otherProps })
+    iconMap[icon]?.({ className: className, style: computedStyle, ...otherProps }) ?? null
   );
 }
 

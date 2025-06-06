@@ -200,15 +200,8 @@ div.card-front.gbcp.double {
 }
 
 .dropcap span::first-letter {
-  float: left;
-  padding-top: 0.075em;
-}
+  vertical-align: -7.5%;
 
-@supports (-moz-appearance:none) {
-  .dropcap span::first-letter {
-    float: unset;
-    padding: inherit;
-  }
 }
 
 .card-front .name-plate-right > .reach {
