@@ -45,9 +45,7 @@ export const textIconReplace = (text: string | Array<string>) => {
             style={{
               display: "inline-flex",
               /* this should match the contained icon */
-              width: "21px",
-              /* this is matched to the x-hight of the text */
-              // height: "11px",
+              width: "1em",
               height: "1ex",
               position: "relative",
               overflow: "visible",
@@ -57,8 +55,8 @@ export const textIconReplace = (text: string | Array<string>) => {
               style={{
                 display: "flex",
                 overflow: "visible",
-                width: "21px",
-                height: "21px",
+                width: "1em",
+                height: "1em",
                 backgroundColor: "white",
                 border: "var(--line-width) solid black",
                 borderRadius: "50%",

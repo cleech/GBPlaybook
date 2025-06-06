@@ -264,16 +264,34 @@ const CharacterPlays = ({
     {model.character_plays.map((cp) => (
       <React.Fragment key={cp.name}>
         <CPName text={cp.name} />
-        <span>
+        <span style={{
+          whiteSpace: 'nowrap', display: 'inline', alignItems: "baseline",
+        }}>
           {String(cp.CST)
             .split(",")
             .map((s, idx) => (
               <span key={idx}>
                 {idx > 0 && "/"}
                 {{
-                  CP: <GBIcon icon={gbcp ? "ball" : "GB"} size={18} />,
-                  CP2: <GBIcon icon={gbcp ? "trophy" : "GBT"} size={18} />,
-                }[s] || <span>{s}</span>}
+                  CP:
+                    <div style={{
+                      width: "1em", height: "1cap",
+                      display: "inline-flex",
+                      alignItems: "flex-end",
+                      justifyContent: "flex-start",
+                    }}>
+                      <GBIcon icon={gbcp ? "ball" : "GB"} size='1.2cap' />
+                    </div>,
+                  CP2:
+                    <div style={{
+                      width: "1em", height: "1cap",
+                      display: "inline-flex",
+                      alignItems: "flex-end",
+                      justifyContent: "flex-start",
+                    }}>
+                      <GBIcon icon={gbcp ? "trophy" : "GBT"} size='1.2cap' />
+                    </div>
+                }[s] || s}
               </span>
             ))}
         </span>
