@@ -3,7 +3,7 @@ import {
   CSSProperties,
 } from "react";
 import GBImages from "../utils/GBImages";
-import "./FlipCard.css";
+import flipStyles from './flipCardStyles';
 import useScaleRef from "../hooks/useScaleRef";
 
 interface CardCSS extends CSSProperties {
@@ -76,15 +76,13 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
         justifyContent: "center",
       }}
     >
-      <div
-        ref={targetRef}
-        className="flip-card"
+      <div className={flipStyles.flipCard}
         onClick={() => {
           targetRef.current?.classList.toggle("flipped");
         }}
       >
-        <div className="flip-card-inner">
-          <div className="flip-card-front">
+        <div ref={targetRef} className={flipStyles.flipCardInner}>
+          <div className={flipStyles.flipCardFront}>
             <div
               className="card-front"
               style={
@@ -95,7 +93,7 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
               }
             />
           </div>
-          <div className="flip-card-back">
+          <div className={flipStyles.flipCardBack}>
             <div
               className="card-back"
               style={
@@ -108,6 +106,6 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

@@ -1,11 +1,12 @@
 import { useRef, JSX, PropsWithChildren, } from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
-import "./FlipCard.css";
 
 import { GBModelExpanded } from "../models/gbdbTypes";
 import { Observable } from "rxjs";
 import useScaleRef from "../hooks/useScaleRef";
+
+import flipStyles from './flipCardStyles';
 
 export function FlipCard({
   children,
@@ -32,14 +33,13 @@ export function FlipCard({
       }}
     >
       <div
-        ref={targetRef}
-        className="flip-card"
+        className={flipStyles.flipCard}
         onClick={() => {
           targetRef.current?.classList.toggle("flipped");
         }}
       >
-        <div className="flip-card-inner">
-          <div className="flip-card-front">
+        <div ref={targetRef} className={flipStyles.flipCardInner}>
+          <div className={flipStyles.flipCardFront}>
             <CardFront
               model={model}
               health$={health$}
@@ -47,7 +47,7 @@ export function FlipCard({
             />
             {children}
           </div>
-          <div className="flip-card-back">
+          <div className={flipStyles.flipCardBack}>
             <CardBack model={model} style={{ "--scale": scale }} />
           </div>
         </div>
