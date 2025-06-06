@@ -9,29 +9,43 @@ import {
   MenuItem,
   MenuList,
 } from "@mui/material";
-import { DraftList, BSDraftList } from "./components/Draft";
-
-import "./Draft.css";
-
 import { Home, NavigateNext } from "@mui/icons-material";
-import { AppBarContent } from "../App";
+import { css } from "@emotion/css";
+import { firstValueFrom, map, Observable } from "rxjs";
 
+import { AppBarContent } from "../App";
 import VersionTag from "../../components/VersionTag";
-// import { pulseAnimationKeyFrames } from "../../components/useUpdateAnimation";
 import { GBGameStateDoc } from "../../models/gbdbTypes";
 import { Model } from "../../components/DataTypes";
 import { SettingsDoc } from "../../models/settings";
 import { useRxData } from "../../hooks/useRxQuery";
-import { firstValueFrom, map, Observable } from "rxjs";
 import { NetworkGame } from "./components/NetworkGame";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
+
 import { NavigateFab } from "./components/NavigateFab";
+import { DraftList, BSDraftList } from "./components/Draft";
+
+const draftScreen = css({
+  display: 'grid',
+  overflow: 'visible',
+  margin: 'auto',
+  '@media(orientation: portrait)': {
+    gridTemplateColumns: '1fr auto 1fr',
+    justifyItems: 'center',
+    '& > *': { gridColumn: 2 }
+  },
+  '@media(orientation: landscape)': {
+    gridTemplateRows: '1fr auto 1fr',
+    alignItems: 'center',
+    '& > *': { gridRow: 2 }
+  }
+});
 
 export default function Draft() {
   const { active: networkActive } = useNetworkState();
   return (
-    <Box className="DraftScreen">
+    <Box className={draftScreen}>
       <AppBarContent>
         <Box
           sx={{
