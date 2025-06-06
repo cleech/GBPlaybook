@@ -12,12 +12,16 @@ import FileSaver from "file-saver";
 
 import { PrintSettingsType } from "./PrintSettingsContext";
 import usePrintSettings from "./usePrintSettings";
+import { useSearchParams } from "react-router-dom";
 
 export default function DownloadDialog() {
   const [dialogOpen, setDialog] = useState(false);
   const [fileName, setFileName] = useState("GB-cards.zip");
   const [imgType, setImgType] = useState("png");
   const [waiting, setWaiting] = useState(false);
+
+  const [searchParams] = useSearchParams();
+  const debug = searchParams.has("debug");
 
   const settings = usePrintSettings();
   const {
@@ -123,7 +127,7 @@ export default function DownloadDialog() {
             disabled={waiting}
             onClick={() => {
               setWaiting(true);
-              downloadCards(fileName, imgType, settings).finally(() => {
+              downloadCards(fileName, imgType, settings, debug).finally(() => {
                 setWaiting(false);
                 setDialog(false);
               });
@@ -151,7 +155,9 @@ export default function DownloadDialog() {
   </>)
 }
 
-async function downloadCards(fileName: string, type: string, settings: PrintSettingsType) {
+async function downloadCards(
+  fileName: string, type: string,
+  settings: PrintSettingsType, debug?: boolean) {
   if (!fileName || !settings) return;
 
   const { withBleed, height } = settings;
@@ -159,13 +165,14 @@ async function downloadCards(fileName: string, type: string, settings: PrintSett
   const elements = document.querySelectorAll('.card:not(.hide)');
   if (elements.length === 0) return;
 
-  const zip = new JSZip();
+  const files: { file: string, blob: Blob }[] = [];
 
   const promises = Array.from(elements).map(async (el) => {
 
     const copiedNode = el.cloneNode(true) as HTMLElement;
     const container = copiedNode.firstElementChild as HTMLElement;
 
+    container.style.visibility = 'hidden';
     const isDouble = el.classList.contains('double');
     container.style.width =
       isDouble
@@ -176,41 +183,39 @@ async function downloadCards(fileName: string, type: string, settings: PrintSett
 
     document.body.appendChild(copiedNode);
 
-    const blob = await ScreenShot.domToBlob(container, {
+    const context = await ScreenShot.createContext(container, {
+      debug: debug,
       type: `image/${type}`,
       scale: (height / (withBleed ? 750 : 700)),
-    }).then((_blob) => ScreenShot.domToBlob(container, {
-      type: `image/${type}`,
-      scale: (height / (withBleed ? 750 : 700)),
-    })).then((_blob) => ScreenShot.domToBlob(container, {
-      type: `image/${type}`,
-      scale: (height / (withBleed ? 750 : 700)),
-    }));
+    })
+    // modern-screenshot trys to do everything with applied styles,
+    //  but it misses ::first-letter pseudo-elements
+    // Just inject the CSS rule and it will get applied again in the SVG
+    context.svgStyleElement?.appendChild(document.createTextNode(
+      '.dropcap span::first-letter { vertical-align: -7.5%; }'
+    ));
 
-    //await ScreenShot.domToForeignObjectSvg(container, {
-    //  scale: (height / (withBleed ? 750 : 700)),
-    //}).then(svg => document.body.appendChild(svg));
-    //
-    //await ScreenShot.domToSvg(container, {
-    //  scale: (height / (withBleed ? 750 : 700)),
-    //}).then(svgUrl => {
-    //  const img = new Image();
-    //  img.src = svgUrl;
-    //  document.body.appendChild(img);
-    //});
-
+    const blob = await ScreenShot.domToBlob(context);
     document.body.removeChild(copiedNode);
 
-    if (blob) {
-      //const img = new Image();
-      //img.src = URL.createObjectURL(blob);
-      //document.body.appendChild(img);
-
-      zip.file(`${el.id}.${type}`, blob);
+    if (debug) {
+      const img = new Image();
+      img.src = URL.createObjectURL(blob);
+      img.onclick = () => document.body.removeChild(img);
+      document.body.appendChild(img);
+    } else {
+      files.push({ file: `${el.id}.${type}`, blob });
     }
   });
 
   await Promise.all(promises);
-  const blob = await zip.generateAsync({ type: "blob" });
-  FileSaver.saveAs(blob, fileName);
+
+  if (files.length !== 0) {
+    const zip = new JSZip();
+    for (const { file, blob } of files) {
+      zip.file(file, blob);
+    }
+    const blob = await zip.generateAsync({ type: "blob" });
+    FileSaver.saveAs(blob, fileName);
+  }
 }

@@ -1229,7 +1229,7 @@
 
     "minimatch": ["minimatch@3.1.2", "", { "dependencies": { "brace-expansion": "^1.1.7" } }, "sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw=="],
 
-    "modern-screenshot": ["modern-screenshot@github:cleech/modern-screenshot#da3f7a7", {}, "cleech-modern-screenshot-da3f7a7"],
+    "modern-screenshot": ["modern-screenshot@github:cleech/modern-screenshot#26d2405", {}, "cleech-modern-screenshot-26d2405"],
 
     "mongodb": ["mongodb@6.10.0", "", { "dependencies": { "@mongodb-js/saslprep": "^1.1.5", "bson": "^6.7.0", "mongodb-connection-string-url": "^3.0.0" }, "peerDependencies": { "@aws-sdk/credential-providers": "^3.188.0", "@mongodb-js/zstd": "^1.1.0", "gcp-metadata": "^5.2.0", "kerberos": "^2.0.1", "mongodb-client-encryption": ">=6.0.0 <7", "snappy": "^7.2.2", "socks": "^2.7.1" }, "optionalPeers": ["@aws-sdk/credential-providers", "@mongodb-js/zstd", "gcp-metadata", "kerberos", "mongodb-client-encryption", "snappy", "socks"] }, "sha512-gP9vduuYWb9ZkDM546M+MP2qKVk5ZG2wPF63OvSRuUbqCR+11ZCAE1mOfllhlAG0wcoJY5yDL/rV3OmYEwXIzg=="],
 
