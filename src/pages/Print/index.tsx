@@ -1095,8 +1095,8 @@ const GuildCard = (props: {
       {inView && (
         <div
           style={{
-            width: width,
-            height: height,
+            width: "100%",
+            height: "100%",
             display: "inline-flex",
             flexDirection: "row",
             gap: 0,
@@ -1108,7 +1108,7 @@ const GuildCard = (props: {
             }
             style={{
               backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
-              width: width,
+              height: "100%",
               borderRadius: 0,
             }}
           />
@@ -1118,7 +1118,7 @@ const GuildCard = (props: {
             }
             style={{
               backgroundImage: `url(${GBImages.get(`${name}_back`)})`,
-              width: width,
+              height: "100%",
               borderRadius: 0,
             }}
           />
