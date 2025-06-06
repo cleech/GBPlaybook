@@ -167,12 +167,15 @@ async function downloadCards(
 
   const files: { file: string, blob: Blob }[] = [];
 
+  const root = document.querySelector<HTMLElement>('#root');
+  const saved_root_overflow = root!.style.overflow;
+  root!.style.overflow = 'hidden';
+
   const promises = Array.from(elements).map(async (el) => {
 
     const copiedNode = el.cloneNode(true) as HTMLElement;
     const container = copiedNode.firstElementChild as HTMLElement;
 
-    container.style.visibility = 'hidden';
     const isDouble = el.classList.contains('double');
     container.style.width =
       isDouble
@@ -181,7 +184,7 @@ async function downloadCards(
     container.style.height = withBleed ? '750px' : '700px';
     container.style.setProperty('--scale', '1');
 
-    document.body.appendChild(copiedNode);
+    root!.appendChild(copiedNode);
 
     const context = await ScreenShot.createContext(container, {
       debug: debug,
@@ -196,7 +199,7 @@ async function downloadCards(
     ));
 
     const blob = await ScreenShot.domToBlob(context);
-    document.body.removeChild(copiedNode);
+    root!.removeChild(copiedNode);
 
     if (debug) {
       const img = new Image();
@@ -209,6 +212,7 @@ async function downloadCards(
   });
 
   await Promise.all(promises);
+  root!.style.overflow = saved_root_overflow;
 
   if (files.length !== 0) {
     const zip = new JSZip();

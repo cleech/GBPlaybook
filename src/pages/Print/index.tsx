@@ -199,6 +199,7 @@ export default function CardPrintScreen() {
           flexDirection: "column",
           width: "100%",
           height: "100%",
+          overflow: "hidden",
         }}
       >
         <AppBarContent>
