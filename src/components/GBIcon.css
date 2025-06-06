@@ -132,9 +132,11 @@ Single-colored icons can be modified like so:
   color: #00994a;
 }
 
+/*
 .gbicon-GBT {
   width: 0.96em;
 }
+*/
 
 .pbicon {
   display: inline-block;
