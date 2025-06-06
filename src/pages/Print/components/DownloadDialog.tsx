@@ -191,9 +191,8 @@ async function downloadCards(
       type: `image/${type}`,
       scale: (height / (withBleed ? 750 : 700)),
     })
-    // modern-screenshot trys to do everything with applied styles,
-    //  but it misses ::first-letter pseudo-elements
-    // Just inject the CSS rule and it will get applied again in the SVG
+    // Inject CSS for dropcap first-letter pseudo-element that modern-screenshot misses
+    // The -7.5% vertical-align value matches the styling in CardFront.css
     context.svgStyleElement?.appendChild(document.createTextNode(
       '.dropcap span::first-letter { vertical-align: -7.5%; }'
     ));
@@ -204,7 +203,10 @@ async function downloadCards(
     if (debug) {
       const img = new Image();
       img.src = URL.createObjectURL(blob);
-      img.onclick = () => document.body.removeChild(img);
+      img.onclick = () => {
+        document.body.removeChild(img);
+        URL.revokeObjectURL(img.src);
+      }
       document.body.appendChild(img);
     } else {
       files.push({ file: `${el.id}.${type}`, blob });
