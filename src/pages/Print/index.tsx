@@ -215,9 +215,7 @@ export default function CardPrintScreen() {
             <Typography>Card Printer</Typography>
             <Box>
               <PrintSettingsMenu />
-              <Tooltip title="Download PNGs" arrow>
-                <DownloadDialog />
-              </Tooltip>
+              <DownloadDialog />
               <Tooltip title="Print" arrow>
                 <IconButton
                   size="small"

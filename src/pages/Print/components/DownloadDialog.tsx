@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import {
   Box, Button, Checkbox, CircularProgress, Dialog, DialogContent, DialogTitle,
-  FormControlLabel, IconButton, Radio, RadioGroup, Stack, TextField, Typography
+  FormControlLabel, IconButton, Radio, RadioGroup, Stack, TextField, Tooltip, Typography
 } from "@mui/material";
 import Link from "@mui/icons-material/Link";
 import Download from "@mui/icons-material/Download";
@@ -52,9 +52,11 @@ export default function DownloadDialog() {
   }, [doubleCard, withBleed, setHeight, setWidth]);
 
   return (<>
-    <IconButton size="small" onClick={() => setDialog(true)} >
-      <Download />
-    </IconButton>
+    <Tooltip title="Download Images" arrow>
+      <IconButton size="small" onClick={() => setDialog(true)} >
+        <Download />
+      </IconButton>
+    </Tooltip>
     <Dialog open={dialogOpen} onClose={() => setDialog(false)} >
       <DialogTitle>Download Card Images</DialogTitle>
       <DialogContent>
