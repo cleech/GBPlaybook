@@ -14,7 +14,11 @@ import {
 } from "@mui/material";
 import { AppBarContent } from "../App";
 import { useData } from "../../hooks/useData";
-import "./print.css";
+
+import {
+  printGlobal, printMain, controls, guild, cards,
+  hide, noPrint, modelListContainer, modelCheckbox
+} from "./printStyles";
 
 import { useMutationObserverRef } from "rooks";
 
@@ -39,7 +43,10 @@ import { GBGuildDoc, GBModelDoc } from "../../models/gbdbTypes";
 import { reSort } from "../../utils/reSort";
 import { useRxData } from "../../hooks/useRxQuery";
 
+import cl from 'classnames';
 import { cx } from "@emotion/css";
+import { Global } from "@emotion/react";
+
 import DownloadDialog from "./components/DownloadDialog";
 import PrintSettingsContext from "./components/PrintSettingsContext";
 import PrintSettingsMenu from "./components/PrintSettingsMenu";
@@ -194,6 +201,7 @@ export default function CardPrintScreen() {
     }}>
       <Box
         component="main"
+        className={printMain}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -201,6 +209,7 @@ export default function CardPrintScreen() {
           height: "100%",
         }}
       >
+        <Global styles={printGlobal} />
         <AppBarContent>
           <Box
             sx={{
@@ -229,7 +238,7 @@ export default function CardPrintScreen() {
           </Box>
         </AppBarContent>
 
-        <Box className="controls no-print" sx={{ p: "1rem" }}>
+        <Box className={cx(controls, noPrint)} sx={{ p: "1rem" }}>
           <GuildList ref={list} allGameplans={allGameplans} />
           <Box
             sx={{
@@ -347,7 +356,7 @@ export default function CardPrintScreen() {
           </Box>
         </Box>
 
-        <Box className="Cards">
+        <Box id='Cards' className={cards}>
           {Guilds.map((g) => (
             <GuildCard
               name={g}
@@ -406,14 +415,14 @@ const GuildList = (props: { ref: React.Ref<GuildListRef>, allGameplans: { year: 
         return;
       }
       document
-        .querySelectorAll(".model-checkbox")
-        .forEach((m) => m.classList.add("hide"));
+        .querySelectorAll(`.${modelCheckbox}`)
+        .forEach((m) => { m.classList.add(hide) });
 
       const guild = Guilds.find((g) => g.name === name);
       if (guild) {
         const { minor } = guild;
 
-        const e = document.querySelector<HTMLElement>(".model-list-container");
+        const e = document.querySelector<HTMLElement>(`.${modelListContainer}`);
         if (minor) {
           e?.style.setProperty("--major-order", "2");
           e?.style.setProperty("--minor-order", "0");
@@ -424,8 +433,8 @@ const GuildList = (props: { ref: React.Ref<GuildListRef>, allGameplans: { year: 
       }
 
       document
-        .querySelectorAll(`.model-checkbox.${name}`)
-        .forEach((m) => m.classList.remove("hide"));
+        .querySelectorAll(`.${modelCheckbox}.${name}`)
+        .forEach((m) => { m.classList.remove(hide); });
     },
     [Guilds]
   );
@@ -493,7 +502,7 @@ const ListItemBanner = ({
   style?: ListCSS;
 }) => (
   <div
-    className="guild"
+    className={guild}
     key={text}
     style={
       {
@@ -543,7 +552,7 @@ const ListItemBanner = ({
 const DisplayModel = (name: string) => {
   document
     .querySelectorAll(`.card#${name}, .card#${name}_front, .card#${name}_back`)
-    .forEach((card) => card?.classList.toggle("hide"));
+    .forEach((card) => card?.classList.toggle(hide));
 };
 
 interface CheckBoxRef {
@@ -581,7 +590,7 @@ const GuildCheckBox = (props: { g: Guild, ref: React.Ref<GuildCheckBoxRef> }) =>
       }}
       control={<Checkbox checked={checked} size="small" color="warning" />}
       label={g.name}
-      className={cx('model-checkbox', g.name, 'hide', { 'minor': g.minor })}
+      className={cl(modelCheckbox, g.name, { 'minor': g.minor }, hide)}
       style={
         {
           "--color1": g.shadow ?? g.color + "aa",
@@ -643,7 +652,7 @@ const ModelCheckBox = (props: { m: GBModelDoc, ref: React.Ref<ModelCheckBoxRef> 
       }}
       control={<Checkbox checked={checked} size="small" color="warning" />}
       label={m.id}
-      className={cx('model-checkbox', m.guild1, m.guild2, m.id, 'hide', { 'minor': guild1.minor })}
+      className={cl(modelCheckbox, m.guild1, m.guild2, m.id, hide, { 'minor': guild1.minor })}
       style={
         {
           "--color1": guild1.shadow ?? guild1.color + "aa",
@@ -692,11 +701,11 @@ const GameplanCheckBox = (props: { g: Gameplan, year: number, ref: React.Ref<Gam
       }}
       control={<Checkbox checked={checked} size="small" color="warning" />}
       label={g.title}
-      className={cx(
-        'model-checkbox',
+      className={cl(
+        modelCheckbox,
         `gameplans-${year}`,
         g.title.replace(/[^a-zA-Z0-9]/g, ""),
-        'hide'
+        hide
       )}
       style={
         {
@@ -750,7 +759,7 @@ const RefCardCheckBox = (props: { id: number, ref: React.Ref<RefCardCheckBoxRef>
       }}
       control={<Checkbox checked={checked} size="small" color="warning" />}
       label={titles[props.id]}
-      className={cx('model-checkbox', 'refcards', `refcard-${props.id}`, 'hide')}
+      className={cl(modelCheckbox, 'refcards', `refcard-${props.id}`, hide)}
       style={
         {
           "--color1": "#333333",
@@ -846,7 +855,7 @@ const ModelLists = (props: { ref: React.Ref<ModelListRef>, allGameplans: { year:
 
   return (
     <Box
-      className="model-list-container"
+      className={modelListContainer}
       style={
         {
           "--major-order": 0,
@@ -957,7 +966,7 @@ const ModelCard = (props: {
   return doubleCard ? (
     <div
       ref={ref}
-      className={cx('card', 'double', { 'bleed': bleed }, { 'hide': !inView })}
+      className={cl('card', 'double', { 'bleed': bleed }, { [hide]: !inView })}
       id={id}
       style={{
         width: width,
@@ -976,7 +985,7 @@ const ModelCard = (props: {
         } as GBCardCSS}
         >
           <CardFront
-            className={cx('print', 'double', { 'bleed': bleed }, { 'nofun': noFun })}
+            className={cl('print', 'double', { 'bleed': bleed }, { 'nofun': noFun })}
             model={model}
             style={{
               borderRadius: 0,
@@ -984,7 +993,7 @@ const ModelCard = (props: {
             }}
           />
           <CardBack
-            className={cx('print', 'double', { 'bleed': bleed }, { 'nofun': noFun })}
+            className={cl('print', 'double', { 'bleed': bleed }, { 'nofun': noFun })}
             model={model}
             style={{
               borderRadius: 0,
@@ -998,7 +1007,7 @@ const ModelCard = (props: {
     <>
       <div
         ref={ref}
-        className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
+        className={cl('card', { 'bleed': bleed }, { [hide]: !inView })}
         id={`${id}_front`}
         style={{
           width: singleWidth,
@@ -1015,7 +1024,7 @@ const ModelCard = (props: {
             } as GBCardCSS}
           >
             <CardFront
-              className={cx('print', { 'bleed': bleed }, { 'nofun': noFun })}
+              className={cl('print', { 'bleed': bleed }, { 'nofun': noFun })}
               model={model}
               style={{
                 borderRadius: 0,
@@ -1026,7 +1035,7 @@ const ModelCard = (props: {
         )}
       </div>
       <div
-        className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
+        className={cl('card', { 'bleed': bleed }, { [hide]: !inView })}
         id={`${id}_back`}
         style={{
           width: singleWidth,
@@ -1043,7 +1052,7 @@ const ModelCard = (props: {
             } as GBCardCSS}
           >
             <CardBack
-              className={cx('print', { 'bleed': bleed }, { 'nofun': noFun })}
+              className={cl('print', { 'bleed': bleed }, { 'nofun': noFun })}
               model={model}
               style={{
                 borderRadius: 0,
@@ -1081,7 +1090,7 @@ const GuildCard = (props: {
   return doubleCard ? (
     <div
       ref={ref}
-      className={cx('card', 'double', { 'bleed': bleed }, { 'hide': !inView })}
+      className={cl('card', 'double', { 'bleed': bleed }, { [hide]: !inView })}
       id={name}
       style={{
         width: width,
@@ -1100,9 +1109,7 @@ const GuildCard = (props: {
           }}
         >
           <div
-            className={cx(
-              'card-front', 'print', 'double', { 'bleed': bleed })
-            }
+            className={cl('card-front', 'print', 'double', { 'bleed': bleed })}
             style={{
               backgroundImage: `url(${GBImages.get(`${name}_front`)})`,
               height: "100%",
@@ -1110,9 +1117,7 @@ const GuildCard = (props: {
             }}
           />
           <div
-            className={cx(
-              'card-back', 'print', 'double', { 'bleed': bleed })
-            }
+            className={cl('card-back', 'print', 'double', { 'bleed': bleed })}
             style={{
               backgroundImage: `url(${GBImages.get(`${name}_back`)})`,
               height: "100%",
@@ -1126,7 +1131,7 @@ const GuildCard = (props: {
     <>
       <div
         ref={ref}
-        className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
+        className={cl('card', { 'bleed': bleed }, { [hide]: !inView })}
         id={`${name}_front`}
         style={{
           width: singleWidth,
@@ -1136,7 +1141,7 @@ const GuildCard = (props: {
       >
         {inView && (
           <div
-            className={cx('card-front', 'print', { 'bleed': bleed })}
+            className={cl('card-front', 'print', { 'bleed': bleed })}
             style={{
               width: singleWidth,
               height: height,
@@ -1148,7 +1153,7 @@ const GuildCard = (props: {
       </div>
 
       <div
-        className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
+        className={cl('card', { 'bleed': bleed }, { [hide]: !inView })}
         id={`${name}_back`}
         style={{
           width: singleWidth,
@@ -1158,7 +1163,7 @@ const GuildCard = (props: {
       >
         {inView && (
           <div
-            className={cx('card-back', 'print', { 'bleed': bleed })}
+            className={cl('card-back', 'print', { 'bleed': bleed })}
             style={
               {
                 width: singleWidth,
@@ -1193,7 +1198,7 @@ const GameplanPrintCard = (props: { gameplan: Gameplan; year: number; bleed: boo
   return (
     <div
       ref={ref}
-      className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
+      className={cl('card', { 'bleed': bleed }, { [hide]: !inView })}
       id={gameplan.title.replace(/[^A-Za-z0-9]+/g, "")}
       style={{
         width: width,
@@ -1243,7 +1248,7 @@ const RefcardPrintCard = (props: { index: number; bleed: boolean }) => {
   return (
     <div
       ref={ref}
-      className={cx('card', { 'bleed': bleed }, { 'hide': !inView })}
+      className={cl('card', { 'bleed': bleed }, { [hide]: !inView })}
       id={`refcard-${index}`}
       style={{
         width: width,
