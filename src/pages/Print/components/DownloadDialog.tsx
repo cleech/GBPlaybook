@@ -14,6 +14,8 @@ import { PrintSettingsType } from "./PrintSettingsContext";
 import usePrintSettings from "./usePrintSettings";
 import { useSearchParams } from "react-router-dom";
 
+import { hide } from "../printStyles";
+
 export default function DownloadDialog() {
   const [dialogOpen, setDialog] = useState(false);
   const [fileName, setFileName] = useState("GB-cards.zip");
@@ -164,7 +166,7 @@ async function downloadCards(
 
   const { withBleed, height } = settings;
 
-  const elements = document.querySelectorAll('.card:not(.hide)');
+  const elements = document.querySelectorAll(`#Cards .card:not(.${hide})`);
   if (elements.length === 0) return;
 
   const files: { file: string, blob: Blob }[] = [];
