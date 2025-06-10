@@ -1,7 +1,11 @@
+import "./index.css";
+// import here to enable web-component, component tag is used in index.html
+import "@khmyznikov/pwa-install"
+import { registerSW } from "virtual:pwa-register";
+registerSW({ immediate: true });
+
 // import { lazy } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
-
 import {
   createHashRouter,
   RouterProvider,
@@ -30,9 +34,6 @@ import { getSettings, SettingsDoc } from "./models/settings";
 import { defaultSettings } from "./models/defaultSettings";
 
 import { getGBDatabase } from "./models/gbdb";
-
-import { registerSW } from "virtual:pwa-register";
-registerSW({ immediate: true });
 
 import "./utils/i18next";
 import { reSort } from "./utils/reSort";
