@@ -3,6 +3,7 @@ import React, {
   useContext,
   useEffect,
   useState,
+  Suspense,
 } from "react";
 
 import {
@@ -31,6 +32,7 @@ import { map, Observable } from "rxjs";
 import { AppBarContext } from "../utils/contexts";
 import { SettingsDoc } from "../models/settings";
 import { DataProvider } from "../components/DataContext";
+import LoadingSplash from "../components/LoadingSplash";
 
 export const AppBarContent = (props: { children?: ReactNode }) => {
   const containerRef = useContext(AppBarContext);
@@ -159,7 +161,9 @@ export const AppContent = () => {
   return (
     <DataProvider>
       <AppDrawer drawer={drawer} setDrawer={setDrawer} />
-      <Outlet />
+      <Suspense fallback={<LoadingSplash />}>
+        <Outlet />
+      </Suspense>
     </DataProvider>
   )
 }
