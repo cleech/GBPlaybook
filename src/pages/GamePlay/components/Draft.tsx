@@ -5,7 +5,6 @@ import {
   useCallback,
   useRef,
 } from "react";
-import cloneDeep from "lodash.clonedeep";
 import { Badge, Card, Checkbox, FormControlLabel } from "@mui/material";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
@@ -362,7 +361,7 @@ export const DraftList = (props: DraftListProps) => {
 
   useEffect(() => {
     if (ready && roster) {
-      const team = cloneDeep(roster.filter((m: DraftModel) => m.selected));
+      const team = structuredClone(roster.filter((m: DraftModel) => m.selected));
       listReady?.(team);
     } else {
       unready?.();
@@ -587,7 +586,7 @@ export const BSDraftList = (props: DraftListProps) => {
 
   useEffect(() => {
     if (ready && roster) {
-      const team = cloneDeep(roster.filter((m: DraftModel) => m.selected));
+      const team = structuredClone(roster.filter((m: DraftModel) => m.selected));
       listReady?.(team);
     } else {
       unready?.();
