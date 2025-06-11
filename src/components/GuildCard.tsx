@@ -1,3 +1,6 @@
+import "./CardFront.css"
+import "./CardBack.css"
+
 import {
   useRef,
   CSSProperties,
