@@ -1,6 +1,6 @@
 import React, {
   ReactNode,
-  useContext,
+  use,
   useEffect,
   useState,
   Suspense,
@@ -35,7 +35,7 @@ import { DataProvider } from "../components/DataContext";
 import LoadingSplash from "../components/LoadingSplash";
 
 export const AppBarContent = (props: { children?: ReactNode }) => {
-  const containerRef = useContext(AppBarContext);
+  const containerRef = use(AppBarContext);
   return <Portal container={containerRef}>{props.children}</Portal>;
 };
 
@@ -148,11 +148,11 @@ const App = () => {
           ref={(el: HTMLElement) => setContainer(el)}
           onClick={() => setDrawer(true)}
         />
-        <AppBarContext.Provider value={appBarContainer}>
+        <AppBarContext value={appBarContainer}>
           <Suspense fallback={<LoadingSplash />}>
             <Outlet context={{ drawer, setDrawer }} />
           </Suspense>
-        </AppBarContext.Provider>
+        </AppBarContext>
       </Box>
     </ThemeProvider>
   );

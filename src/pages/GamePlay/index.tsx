@@ -110,7 +110,7 @@ export default function GamePlay() {
         />
         <OddsCalc />
       </AppBarContent>
-      <AppBarContext.Provider value={appBarContainer}>
+      <AppBarContext value={appBarContainer}>
         <Outlet
           context={
             {
@@ -119,7 +119,7 @@ export default function GamePlay() {
             } as GameContextType
           }
         />
-      </AppBarContext.Provider>
+      </AppBarContext>
     </main>
   );
 }
