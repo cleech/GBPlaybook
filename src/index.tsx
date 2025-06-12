@@ -13,7 +13,8 @@ import {
   useLoaderData,
 } from "react-router-dom";
 
-import App, { AppContent } from "./pages/App";
+import App from "./pages/App";
+const AppContent = lazy(() => import("./pages/AppContent"));
 
 const GamePlay = lazy(() => import("./pages/GamePlay"));
 const TeamSelect = lazy(() => import("./pages/GamePlay/TeamSelect"));
