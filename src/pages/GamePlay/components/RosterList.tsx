@@ -21,7 +21,7 @@ import { useUpdateAnimation } from "../../../hooks/useUpdateAnimation";
 import { GBGameStateDoc, GBModelExpanded } from "../../../models/gbdbTypes";
 import { useEffect, useMemo, useState } from "react";
 import { map, Observable } from "rxjs";
-import { useLoaderData } from "react-router-dom";
+import { useRouteLoaderData } from "react-router-dom";
 import { SettingsDoc } from "../../../models/settings";
 
 interface RosterListProps {
@@ -309,7 +309,7 @@ export default function RosterList({
   disabled,
 }: RosterListProps) {
   const theme = useTheme();
-  const setting$ = useLoaderData<Observable<SettingsDoc | null>>();
+  const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
   const [displayStatLine, setStatLine] = useState<boolean>();
   useEffect(() => {
     const sub = setting$
