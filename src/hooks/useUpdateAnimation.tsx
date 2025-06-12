@@ -23,11 +23,3 @@ export const useUpdateAnimation = <T extends HTMLElement>(
   }, deps);
   return ref;
 };
-
-export const pulseAnimationKeyFrames = {
-  boxShadow: [
-    "0 0 0px 0px transparent",
-    "0 0 20px 20px red",
-    "0 0 20px 20px transparent",
-  ],
-};
