@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactNode } from "react";
+import { use, ReactNode } from "react";
 import { GBDatabase } from "../models/gbdbTypes";
 import { Manifest, Gameplan } from "./DataTypes";
 import { DataContext } from "../utils/contexts";
@@ -16,43 +16,15 @@ interface DataProviderProps {
   children: ReactNode;
 }
 
+let dataPromise: Promise<DataContextProps>;
+
+function fetchData(): Promise<DataContextProps> {
+  dataPromise = dataPromise ?? initializeAppData();
+  return dataPromise;
+}
+
 export const DataProvider = ({ children }: DataProviderProps) => {
-  const [dataContextValue, setDataContextValue] = useState<DataContextProps>({
-    manifest: undefined,
-    version: 0,
-    gameplans: undefined,
-    gbdb: undefined,
-  });
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    let canceled = false;
-    const loadAppData = async () => {
-      setIsLoading(true);
-      try {
-        const initializedData = await initializeAppData();
-        if (!canceled) {
-          setDataContextValue(initializedData);
-        }
-      } catch (error) {
-        console.error("Failed to initialize application data in DataProvider:", error);
-      } finally {
-        if (!canceled) {
-          setIsLoading(false);
-        }
-      }
-    };
-    loadAppData();
-    return () => {
-      canceled = true;
-    };
-  }, []); // Run once on mount
-
-  if (isLoading) {
-    // You might want to render a loading spinner or null here
-    return;
-  }
-
+  const dataContextValue = use(fetchData());
   return (
     <DataContext.Provider value={dataContextValue}>
       {children}
