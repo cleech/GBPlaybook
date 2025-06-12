@@ -26,8 +26,8 @@ function fetchData(): Promise<DataContextProps> {
 export const DataProvider = ({ children }: DataProviderProps) => {
   const dataContextValue = use(fetchData());
   return (
-    <DataContext.Provider value={dataContextValue}>
+    <DataContext value={dataContextValue}>
       {children}
-    </DataContext.Provider>
+    </DataContext>
   );
 };
