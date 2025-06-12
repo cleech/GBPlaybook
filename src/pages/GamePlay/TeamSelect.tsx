@@ -16,7 +16,6 @@ import { Home, NavigateNext } from "@mui/icons-material";
 import { AppBarContent } from "../App";
 
 import VersionTag from "../../components/VersionTag";
-// import { pulseAnimationKeyFrames } from "../../hooks/useUpdateAnimation";
 import { useRxData } from "../../hooks/useRxQuery";
 
 import { NetworkGame } from "./components/NetworkGame";
