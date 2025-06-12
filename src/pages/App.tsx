@@ -149,7 +149,9 @@ const App = () => {
           onClick={() => setDrawer(true)}
         />
         <AppBarContext.Provider value={appBarContainer}>
-          <Outlet context={{ drawer, setDrawer }} />
+          <Suspense fallback={<LoadingSplash />}>
+            <Outlet context={{ drawer, setDrawer }} />
+          </Suspense>
         </AppBarContext.Provider>
       </Box>
     </ThemeProvider>
@@ -161,9 +163,7 @@ export const AppContent = () => {
   return (
     <DataProvider>
       <AppDrawer drawer={drawer} setDrawer={setDrawer} />
-      <Suspense fallback={<LoadingSplash />}>
-        <Outlet />
-      </Suspense>
+      <Outlet />
     </DataProvider>
   )
 }
