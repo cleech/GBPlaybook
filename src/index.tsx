@@ -31,14 +31,11 @@ const Roster = lazy(() => import("./pages/Library/Roster"));
 const Settings = lazy(() => import("./pages/Settings"));
 const CardPrintScreen = lazy(() => import("./pages/Print"));
 
-import { getSettings, SettingsDoc } from "./models/settings";
+import type { SettingsDoc } from "./models/settings";
 import { defaultSettings } from "./models/defaultSettings";
-
-import { getGBDatabase } from "./models/gbdb";
 
 import "./utils/i18next";
 import { reSort } from "./utils/reSort";
-import { initializeAppData } from "./components/appData";
 import LoadingSplash from "./components/LoadingSplash";
 
 const router = createHashRouter(
@@ -47,27 +44,37 @@ const router = createHashRouter(
     children: [{
       element: <AppContent />,
       id: "settings",
-      loader: async () => {
-        return await getSettings();
+      lazy: {
+        loader: async () => {
+          const getSettings = (await import("./models/settings")).getSettings;
+          return async () => {
+            return await getSettings();
+          }
+        },
       },
       hydrateFallbackElement: <LoadingSplash />,
       children: [
         {
           path: "/",
-          loader: async () => {
-            const gbdb = await getGBDatabase();
-            const settings = await gbdb.getLocal<SettingsDoc>("settings");
-            const initialScreen: string =
-              settings?.get("initialScreen") ?? defaultSettings.initialScreen;
+          lazy: {
+            loader: async () => {
+              const getGBDatabase = (await import("./models/gbdb")).getGBDatabase;
+              return async () => {
+                const gbdb = await getGBDatabase();
+                const settings = await gbdb.getLocal<SettingsDoc>("settings");
+                const initialScreen: string =
+                  settings?.get("initialScreen") ?? defaultSettings.initialScreen;
 
-            let targetRoute = initialScreen;
+                let targetRoute = initialScreen;
 
-            if (initialScreen === "/game") {
-              targetRoute = settings?.get("gamePlayRoute") ?? initialScreen;
-            } else if (initialScreen === "/library") {
-              targetRoute = settings?.get("libraryRoute") ?? initialScreen;
-            }
-            return targetRoute;
+                if (initialScreen === "/game") {
+                  targetRoute = settings?.get("gamePlayRoute") ?? initialScreen;
+                } else if (initialScreen === "/library") {
+                  targetRoute = settings?.get("libraryRoute") ?? initialScreen;
+                }
+                return targetRoute;
+              }
+            },
           },
           hydrateFallbackElement: <LoadingSplash />,
           Component: () => {
@@ -81,9 +88,14 @@ const router = createHashRouter(
             {
               path: "game",
               element: <TeamSelect />,
-              loader: async () => {
-                const { gbdb: db } = await initializeAppData();
-                return await db.guilds.find().exec();
+              lazy: {
+                loader: async () => {
+                  const initializeAppData = (await import("./components/appData")).initializeAppData;
+                  return async () => {
+                    const { gbdb: db } = await initializeAppData();
+                    return await db.guilds.find().exec();
+                  }
+                },
               },
               hydrateFallbackElement: <LoadingSplash />,
             },
@@ -98,9 +110,14 @@ const router = createHashRouter(
             {
               index: true,
               element: <GuildList />,
-              loader: async () => {
-                const { gbdb: db } = await initializeAppData();
-                return await db.guilds.find().exec();
+              lazy: {
+                loader: async () => {
+                  const initializeAppData = (await import("./components/appData")).initializeAppData;
+                  return async () => {
+                    const { gbdb: db } = await initializeAppData();
+                    return await db.guilds.find().exec();
+                  }
+                },
               },
               hydrateFallbackElement: <LoadingSplash />,
             },
@@ -112,15 +129,20 @@ const router = createHashRouter(
                 {
                   path: ":guild",
                   element: <Roster />,
-                  loader: async ({ params }) => {
-                    const { gbdb: db } = await initializeAppData();
-                    const [guild, _roster] = await Promise.all([
-                      db.guilds.findOne().where({ name: params.guild }).exec(),
-                      db.models.find().or([{ guild1: params.guild }, { guild2: params.guild }]).exec(),
-                    ]);
-                    reSort(_roster, "id", guild ? guild.roster : []);
-                    const roster = await Promise.all(_roster.map((m) => m.expand()));
-                    return { guild, roster };
+                  lazy: {
+                    loader: async () => {
+                      const initializeAppData = (await import("./components/appData")).initializeAppData;
+                      return async ({ params }) => {
+                        const { gbdb: db } = await initializeAppData();
+                        const [guild, _roster] = await Promise.all([
+                          db.guilds.findOne().where({ name: params.guild }).exec(),
+                          db.models.find().or([{ guild1: params.guild }, { guild2: params.guild }]).exec(),
+                        ]);
+                        reSort(_roster, "id", guild ? guild.roster : []);
+                        const roster = await Promise.all(_roster.map((m) => m.expand()));
+                        return { guild, roster };
+                      }
+                    },
                   },
                   hydrateFallbackElement: <LoadingSplash />,
                 },
