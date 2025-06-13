@@ -7,7 +7,7 @@ import { DataFile, Gameplan, GBDataMeta, Manifest } from "./DataTypes";
 import { getSettings, SettingsDoc } from "../models/settings";
 
 const readFile = async (filename: string) => {
-  const result = await fetch(`data/${filename}`, {
+  const result = await fetch(`${import.meta.env.BASE_URL}data/${filename}`, {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",

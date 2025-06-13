@@ -7,7 +7,7 @@ registerSW({ immediate: true });
 import { lazy } from "react";
 import { createRoot } from "react-dom/client";
 import {
-  createHashRouter,
+  createBrowserRouter,
   RouterProvider,
   Navigate,
   useLoaderData,
@@ -38,7 +38,7 @@ import "./utils/i18next";
 import { reSort } from "./utils/reSort";
 import LoadingSplash from "./components/LoadingSplash";
 
-const router = createHashRouter(
+const router = createBrowserRouter(
   [{
     element: <App />,
     children: [{

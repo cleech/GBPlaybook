@@ -120,7 +120,7 @@ export default function CardPrintScreen() {
       const results: { year: number; cards: Gameplan[] }[] = [];
       for (const gp of manifest.gameplans) {
         try {
-          const res = await fetch(`data/${gp.filename}`);
+          const res = await fetch(`/data/${gp.filename}`);
           if (!res.ok) throw new Error(`Failed to fetch ${gp.filename}`);
           const cards = await res.json();
           if (!canceled) {
