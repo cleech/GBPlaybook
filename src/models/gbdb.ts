@@ -33,7 +33,10 @@ addRxPlugin(RxDBLeaderElectionPlugin);
 addRxPlugin(RxDBLocalDocumentsPlugin);
 addRxPlugin(RxDBMigrationSchemaPlugin);
 
-let gbdbInitPromise: Promise<GBDatabase> | undefined = undefined;
+let gbdbInitPromise: Promise<GBDatabase> | undefined;
+import.meta.hot?.dispose(() => {
+  gbdbInitPromise = undefined;
+});
 
 export async function getGBDatabase(): Promise<GBDatabase> {
   if (gbdbInitPromise) return gbdbInitPromise;
@@ -44,17 +47,17 @@ export async function getGBDatabase(): Promise<GBDatabase> {
     const db = await createRxDatabase<GBDataCollections>(
       import.meta.env.MODE === "development"
         ? {
-            name: "gb_playbook",
-            localDocuments: true,
-            storage: wrappedValidateAjvStorage({
-              storage: getRxStorageDexie(),
-            }),
-          }
-        : {
-            name: "gb_playbook",
-            localDocuments: true,
+          name: "gb_playbook",
+          localDocuments: true,
+          storage: wrappedValidateAjvStorage({
             storage: getRxStorageDexie(),
-          }
+          }),
+        }
+        : {
+          name: "gb_playbook",
+          localDocuments: true,
+          storage: getRxStorageDexie(),
+        }
     );
     await db.addCollections(gbCollectionsConfig);
     return db;

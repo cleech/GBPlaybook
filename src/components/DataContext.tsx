@@ -16,7 +16,10 @@ interface DataProviderProps {
   children: ReactNode;
 }
 
-let dataPromise: Promise<DataContextProps>;
+let dataPromise: Promise<DataContextProps> | undefined;
+import.meta.hot?.dispose(() => {
+  dataPromise = undefined;
+});
 
 function fetchData(): Promise<DataContextProps> {
   dataPromise = dataPromise ?? initializeAppData();
