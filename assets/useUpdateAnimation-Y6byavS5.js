@@ -1,0 +1,1 @@
+import{R as n}from"./index-vrGLaMjv.js";import{u as i}from"./index-CUHCHVmv.js";const s=(t,a)=>{const e=n.useRef(null);return i(()=>{var r;t&&((r=e.current)==null||r.animate({backgroundColor:["initial","red","initial"],boxShadow:["0 0 0px 0px transparent","0 0 0.25em 0.25em red","0 0 0.25em 0.25em transparent"]},500))},a),e};export{s as u};

@@ -1,0 +1,1 @@
+import{b as i}from"./gbdb-ByVlvCfB.js";import{_ as r}from"./index-vrGLaMjv.js";import"./Subscriber-2FHf28Ub.js";import"./Observable-Dd5zfCig.js";import"./firstValueFrom-D1SthV8Z.js";let t;async function g(){return t||(t=(async()=>{const e=await i();return e.insertLocal("settings",r).catch(()=>{}),e.getLocal$("settings")})(),t)}export{g as getSettings};

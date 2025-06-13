@@ -1,0 +1,1 @@
+import{j as s}from"./index-vrGLaMjv.js";import{u as t}from"./useData-CPN2ngNC.js";import{T as r}from"./Typography-On-xX9Wh.js";const m=()=>{const{version:o}=t();return s.jsxs(r,{sx:{position:"absolute",bottom:0,right:0,color:"text.disabled"},children:["[",o,"]"]})};export{m as V};
