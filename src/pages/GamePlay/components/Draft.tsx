@@ -185,6 +185,7 @@ export const DraftList = (props: DraftListProps) => {
 
   const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
   const [gameSize, setGameSize] = useState<3 | 4 | 6>(6);
+
   useEffect(() => {
     const sub = setting$
       ?.pipe(map((s) => s?.toJSON().data.gameSize))
@@ -212,24 +213,21 @@ export const DraftList = (props: DraftListProps) => {
         })
       );
       reSort(tmpRoster, "id", guild.roster);
+      const selected: Set<string> = new Set();
       // pre-select captain and mascot for minor guilds
       if (!disabled && guild.minor) {
-        const selected: Set<string> = new Set(
-          props.stateDoc.get("roster").map((m: unknown) => JSON.stringify(m))
-        );
         tmpRoster.forEach((m) => {
           if (m.captain || (m.mascot && DraftLimits[gameSize].mascot > 0)) {
             selected.add(JSON.stringify({ name: m.id, health: m.hp }));
             m.disabled = 1;
           }
         });
-        props.stateDoc
-          .incrementalModify((state) => {
-            state.roster = Array.from(selected).map((s) => JSON.parse(s));
-            return state;
-          })
-          .catch(console.error);
       }
+      await props.stateDoc.incrementalModify((state) => {
+        state.roster = Array.from(selected).map((s) => JSON.parse(s));
+        return state;
+      })
+        .catch(console.error);
       // disable mascots in a 3v3 game
       if (DraftLimits[gameSize].mascot === 0) {
         tmpRoster.forEach((m) => {
@@ -378,7 +376,7 @@ export const DraftList = (props: DraftListProps) => {
 
   return (
     <StyledBadge
-      badgeContent={ready ? <Check color="success" /> : 0}
+      badgeContent={ready ? <Check color="success" /> : null}
       style={{ overflow: "visible", ...style }}
     >
       <Card
@@ -488,9 +486,14 @@ export const BSDraftList = (props: DraftListProps) => {
         })
       );
       reSort(tmpRoster, "id", guild.roster);
+      await props.stateDoc.incrementalModify((state) => {
+        state.roster = [];
+        return state;
+      })
+        .catch(console.error);
       return tmpRoster;
     },
-    [guild]
+    [guild, gameSize]
   );
 
   const onSwitch = useCallback(
@@ -602,7 +605,7 @@ export const BSDraftList = (props: DraftListProps) => {
 
   return (
     <StyledBadge
-      badgeContent={ready ? <Check color="success" /> : 0}
+      badgeContent={ready ? <Check color="success" /> : null}
       style={{ overflow: "visible", ...style }}
     >
       <Card
