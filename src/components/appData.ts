@@ -27,7 +27,10 @@ const readFile = async (filename: string) => {
 
 const gb_meta_local = "gbdata_meta";
 
-let currentBulkLoadDBPromise: Promise<void> | null = null;
+let currentBulkLoadDBPromise: Promise<void> | undefined;
+import.meta.hot?.dispose(() => {
+  currentBulkLoadDBPromise = undefined;
+});
 
 async function bulkLoadDB(
   filename: string,
@@ -173,14 +176,16 @@ async function bulkLoadDB(
       console.log(
         `bulkLoadDB operation for ${filename} finished. Clearing promise.`
       );
-      currentBulkLoadDBPromise = null;
+      currentBulkLoadDBPromise = undefined;
     }
   });
 }
 
-let currentInitializationPromise: Promise<
-  DataContextProps & { gbdb: GBDatabase }
-> | null = null;
+let currentInitializationPromise: Promise<DataContextProps & { gbdb: GBDatabase }> | undefined;
+import.meta.hot?.dispose(() => {
+  currentInitializationPromise = undefined;
+});
+
 export async function initializeAppData(): Promise<
   DataContextProps & { gbdb: GBDatabase }
 > {
@@ -279,7 +284,7 @@ export async function initializeAppData(): Promise<
   promiseToReturn
     .finally(() => {
       if (currentInitializationPromise === promiseToReturn) {
-        currentInitializationPromise = null;
+        currentInitializationPromise = undefined;
         console.log(
           "Cleared currentInitializationPromise after initialization."
         );
@@ -288,7 +293,7 @@ export async function initializeAppData(): Promise<
     .catch(() => {
       // Ensure clearance on error too, if not already cleared by finally
       if (currentInitializationPromise === promiseToReturn) {
-        currentInitializationPromise = null;
+        currentInitializationPromise = undefined;
         console.log(
           "Cleared currentInitializationPromise after an error during initialization."
         );

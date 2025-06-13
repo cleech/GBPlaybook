@@ -25,7 +25,10 @@ export interface Settings {
 
 export type SettingsDoc = RxLocalDocument<GBDatabase, Settings>;
 
-let settingsInitPromise: Promise<Observable<SettingsDoc | null>> | undefined = undefined;
+let settingsInitPromise: Promise<Observable<SettingsDoc | null>> | undefined;
+import.meta.hot?.dispose(() => {
+  settingsInitPromise = undefined;
+});
 
 export async function getSettings(): Promise<Observable<SettingsDoc | null>> {
   if (settingsInitPromise) return settingsInitPromise;
