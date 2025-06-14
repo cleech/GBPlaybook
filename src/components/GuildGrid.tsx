@@ -1,6 +1,5 @@
-import React, { ComponentType, useCallback, useEffect, useMemo } from "react";
-
-import { useDimensionsRef } from "rooks";
+import React, { ComponentType, useCallback, useLayoutEffect, useMemo, useRef } from "react";
+import useResizeObserver from "@react-hook/resize-observer";
 
 import { Button, Divider, Typography } from "@mui/material";
 
@@ -73,17 +72,20 @@ export function GuildGrid({
   Controller,
 }:
   GuildGridProps) {
-  const [ref, dimensions] = useDimensionsRef();
-  const [size, setSize] = React.useState<number>(0);
 
-  useEffect(() => {
-    if (!dimensions) {
-      return;
-    }
+  const ref = useRef<HTMLDivElement>(null);
+  const [size, setSize] = React.useState<number>(0);
+  const updateSize = useCallback(({ width, height }: DOMRectReadOnly) => {
     const count = guilds?.length ?? 0;
-    const size = itemSize(dimensions, count, 1)?.size ?? 0;
+    const size = itemSize({ width, height }, count, 1)?.size ?? 0;
     setSize(size);
-  }, [dimensions, guilds]);
+  }, [guilds]);
+  useLayoutEffect(() => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    updateSize(rect);
+  }, [updateSize]);
+  useResizeObserver(ref, (entry) => updateSize(entry.contentRect));
 
   const observers = useMemo<Set<(e: string) => void>>(() => new Set(), []);
   const event$ = fromEventPattern<string>(
@@ -110,9 +112,11 @@ export function GuildGrid({
         justifyContent: "space-evenly",
       }}
     >
-      <GuildGridInner guilds={guilds} size={size} pickTeam={emitEvent} />
-      <Divider />
-      <Controller size={size} update$={event$} />
+      {size && <>
+        <GuildGridInner guilds={guilds} size={size} pickTeam={emitEvent} />
+        <Divider />
+        <Controller size={size} update$={event$} />
+      </>}
     </div>
   );
 }
