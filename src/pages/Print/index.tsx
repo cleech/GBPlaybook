@@ -50,6 +50,7 @@ import { Global } from "@emotion/react";
 import DownloadDialog from "./components/DownloadDialog";
 import PrintSettingsContext from "./components/PrintSettingsContext";
 import PrintSettingsMenu from "./components/PrintSettingsMenu";
+import { useLoaderData } from "react-router-dom";
 
 export default function CardPrintScreen() {
   const { gbdb: db, manifest } = useData();
@@ -407,18 +408,18 @@ const GuildList = (props: { ref: React.Ref<GuildListRef>, allGameplans: { year: 
 
   useImperativeHandle(props.ref, () => ({ guild }), [guild]);
 
-  const Guilds = useRxData((db) => db.guilds.find().exec());
+  const guilds = useLoaderData<GBGuildDoc[]>();
 
   const SelectGuild = useCallback(
     (name: string) => {
-      if (!Guilds) {
+      if (!guilds) {
         return;
       }
       document
         .querySelectorAll(`.${modelCheckbox}`)
         .forEach((m) => { m.classList.add(hide) });
 
-      const guild = Guilds.find((g) => g.name === name);
+      const guild = guilds.find((g) => g.name === name);
       if (guild) {
         const { minor } = guild;
 
@@ -436,7 +437,7 @@ const GuildList = (props: { ref: React.Ref<GuildListRef>, allGameplans: { year: 
         .querySelectorAll(`.${modelCheckbox}.${name}`)
         .forEach((m) => { m.classList.remove(hide); });
     },
-    [Guilds]
+    [guilds]
   );
   const handleChange = useCallback(
     (event: SelectChangeEvent<string>) => {
@@ -445,10 +446,6 @@ const GuildList = (props: { ref: React.Ref<GuildListRef>, allGameplans: { year: 
     },
     [SelectGuild]
   );
-
-  if (!Guilds) {
-    return;
-  }
 
   return (
     <FormControl size="small">
@@ -470,7 +467,7 @@ const GuildList = (props: { ref: React.Ref<GuildListRef>, allGameplans: { year: 
             />
           </MenuItem>
         ))}
-        {Guilds.map((g) => (
+        {guilds?.map((g) => (
           <MenuItem key={g.name} value={g.name} dense>
             <GuildListItem g={g} />
           </MenuItem>

@@ -150,7 +150,18 @@ const router = createBrowserRouter(
             },
           ]
         },
-        { path: "print", element: <CardPrintScreen /> },
+        {
+          path: "print", element: <CardPrintScreen />,
+          lazy: {
+            loader: async () => {
+              const initializeAppData = (await import("./components/appData")).initializeAppData;
+              return async () => {
+                const { gbdb: db } = await initializeAppData();
+                return await db.guilds.find().exec();
+              }
+            }
+          }
+        },
         { path: "settings", element: <Settings /> }
       ]
     }]
