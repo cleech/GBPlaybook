@@ -361,8 +361,8 @@ function CardCarousel({
   disabled: boolean[];
   index: number;
 }) {
-  const [slideHeight, setSlideHeight] = useState(maxHeight);
-  const [slideWidth, setSlideWidth] = useState(maxWidth);
+  const [slideHeight, setSlideHeight] = useState(0);
+  const [slideWidth, setSlideWidth] = useState(0);
 
   const _updateSize = useCallback(({ width, height }: DOMRectReadOnly) => {
     const calculatedWidth = Math.min(width, (height * 5) / 7, maxWidth);
@@ -428,7 +428,7 @@ function CardCarousel({
       ref={(el) => { sizeRef.current = el; emblaRef(el); }}
     >
       <div className={cx("embla__container", emblaStyles.container)}>
-        {cards.map((component, index) => (
+        {(slideWidth > 0 && slideHeight > 0) && cards.map((component, index) => (
           <div key={index} className={cx("embla__slide", emblaStyles.slide)}>
             <div
               className={emblaStyles.card}

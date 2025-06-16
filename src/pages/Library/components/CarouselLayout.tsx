@@ -50,8 +50,8 @@ export default function CarouselLayout({
 }: CarouselLayoutProps) {
   const maxWidth = largeLayout ? 1000 : 500;
   const maxHeight = 700;
-  const [slideWidth, setSlideWidth] = useState(maxWidth);
-  const [slideHeight, setSlideHeight] = useState(maxHeight);
+  const [slideWidth, setSlideWidth] = useState(0);
+  const [slideHeight, setSlideHeight] = useState(0);
 
   const _updateSize = useCallback(({ width, height }: DOMRectReadOnly) => {
     const aspectRatioMultiplier = largeLayout ? 10 : 5;
@@ -85,7 +85,7 @@ export default function CarouselLayout({
       ref={(el) => { sizeRef.current = el; emblaRef(el); }}
     >
       <div className={cx("embla__container", emblaStyles.container)}>
-        {slides.map((slideContent, index) => (
+        {(slideWidth > 0 && slideHeight > 0) && slides.map((slideContent, index) => (
           <div key={index}
             className={cx("embla__slide", emblaStyles.slide)}
             style={{
