@@ -29,18 +29,22 @@ import { DraftList, BSDraftList } from "./components/Draft";
 import { reSort } from "../../utils/reSort";
 
 const draftScreen = css({
+  width: '100%',
+  height: '100%',
   display: 'grid',
   overflow: 'visible',
   margin: 'auto',
   '@media(orientation: portrait)': {
     gridTemplateColumns: '1fr auto 1fr',
+    gridTemplateRows: '1fr auto auto auto 1fr',
+    gridTemplateAreas: '". . ." ". one ." ". fab ." ". two ." ". . ."',
     justifyItems: 'center',
-    '& > *': { gridColumn: 2 }
   },
   '@media(orientation: landscape)': {
     gridTemplateRows: '1fr auto 1fr',
+    gridTemplateColumns: '1fr auto auto auto 1fr',
+    gridTemplateAreas: '". . . . ." ". one fab two ." ". . . . ."',
     alignItems: 'center',
-    '& > *': { gridRow: 2 }
   }
 });
 
@@ -197,21 +201,21 @@ function DraftInner() {
         stateDoc={player1}
         ready={() => setReady1(true)}
         unready={() => setReady1(false)}
-        style={{ width: "100%" }}
+        style={{ width: "100%", gridArea: "one" }}
         roster={roster1}
       />
       <NavigateFab
         dest="Game"
         disabled={!ready1 || !ready2}
         onAction={navAction}
-        sx={{ m: "10px" }}
+        sx={{ m: "10px", gridArea: "fab" }}
       />
       <DraftList2
         guild={guild2}
         stateDoc={player2}
         ready={() => setReady2(true)}
         unready={() => setReady2(false)}
-        style={{ width: "100%" }}
+        style={{ width: "100%", gridArea: "two" }}
         disabled={networkActive}
         roster={roster2}
       />
