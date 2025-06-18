@@ -1,0 +1,7 @@
+name = "guildball-playbook"
+compatibility_date = "2025-06-13"
+assets = { not_found_handling = "single-page-application" }
+routes = [
+  { pattern = "guildball.app", custom_domain = true },
+  { pattern = "www.guildball.app", custom_domain = true }
+]

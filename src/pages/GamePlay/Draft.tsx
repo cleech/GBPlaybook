@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, MouseEvent } from "react";
+import { useState, useEffect, MouseEvent, useCallback } from "react";
 import { useNavigate, useRouteLoaderData } from "react-router-dom";
 import {
   Typography,
@@ -11,34 +11,40 @@ import {
 } from "@mui/material";
 import { Home, NavigateNext } from "@mui/icons-material";
 import { css } from "@emotion/css";
-import { firstValueFrom, map, Observable } from "rxjs";
+import { firstValueFrom, Observable } from "rxjs";
 
 import { AppBarContent } from "../App";
 import VersionTag from "../../components/VersionTag";
-import { GBGameStateDoc } from "../../models/gbdbTypes";
-import { Model } from "../../components/DataTypes";
+import { GBDatabase, GBGameStateDoc } from "../../models/gbdbTypes";
+import { Guild } from "../../components/DataTypes";
 import { SettingsDoc } from "../../models/settings";
 import { useRxData } from "../../hooks/useRxQuery";
 import { NetworkGame } from "./components/NetworkGame";
 import { useNetworkState } from "../../hooks/useNetworkState";
 import { useGameState } from "../../hooks/useGameState";
+import { Roster, DraftModel } from "./components/Draft";
 
 import { NavigateFab } from "./components/NavigateFab";
 import { DraftList, BSDraftList } from "./components/Draft";
+import { reSort } from "../../utils/reSort";
 
 const draftScreen = css({
+  width: '100%',
+  height: '100%',
   display: 'grid',
   overflow: 'visible',
   margin: 'auto',
   '@media(orientation: portrait)': {
     gridTemplateColumns: '1fr auto 1fr',
+    gridTemplateRows: '1fr auto auto auto 1fr',
+    gridTemplateAreas: '". . ." ". one ." ". fab ." ". two ." ". . ."',
     justifyItems: 'center',
-    '& > *': { gridColumn: 2 }
   },
   '@media(orientation: landscape)': {
     gridTemplateRows: '1fr auto 1fr',
+    gridTemplateColumns: '1fr auto auto auto 1fr',
+    gridTemplateAreas: '". . . . ." ". one fab two ." ". . . . ."',
     alignItems: 'center',
-    '& > *': { gridRow: 2 }
   }
 });
 
@@ -79,31 +85,13 @@ export default function Draft() {
 }
 
 function DraftInner() {
-  const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
   const navigate = useNavigate();
-  // const [waiting, setWaiting] = useState(false);
-  // const [locked, setLocked] = useState(false);
-
-  const [team1, setTeam1] = useState<Model[] | undefined>();
-  const [team2, setTeam2] = useState<Model[] | undefined>();
-  const ready1 = useCallback((team: Model[]) => setTeam1(team), []);
-  const ready2 = useCallback((team: Model[]) => setTeam2(team), []);
-  const unready1 = useCallback(() => setTeam1(undefined), []);
-  const unready2 = useCallback(() => setTeam2(undefined), []);
-
-  const [gameSize, setGameSize] = useState<3 | 4 | 6>();
-  useEffect(() => {
-    const sub = setting$
-      ?.pipe(map((s) => s?.toJSON().data.gameSize))
-      .subscribe((gs) => setGameSize(gs));
-    return () => sub?.unsubscribe();
-  }, [setting$]);
-
+  const [ready1, setReady1] = useState(false);
+  const [ready2, setReady2] = useState(false);
   const { active: networkActive } = useNetworkState();
-
   const { gameState1$, gameState2$ } = useGameState();
-
   const [player1, setPlayer1] = useState<GBGameStateDoc | null>();
+
   useEffect(() => {
     if (!gameState1$) {
       return;
@@ -163,8 +151,43 @@ function DraftInner() {
       [player1, player2, navigate]
     ) ?? [];
 
+  const [roster1, roster2] = useRxData<[Roster | undefined, Roster | undefined]>(async (db) => {
+    let roster1, roster2;
+    if (guild1 && player1) {
+      roster1 = await fetchRoster(db, guild1, player1);
+    }
+    if (guild2 && player2) {
+      roster2 = await fetchRoster(db, guild2, player2);
+    }
+    return [roster1, roster2];
+  }, [guild1, guild2, player1, player2]) ?? [];
+
+  const navAction = useCallback(() => {
+    if (!(guild1 && guild2 && player1 && player2)) return;
+    const lineup = structuredClone(player1.getLatest().roster);
+    reSort(lineup, "name", guild1.roster);
+    player1
+      .incrementalPatch({
+        score: 0,
+        momentum: 0,
+        roster: lineup,
+      })
+      .catch(console.error);
+    if (!networkActive) {
+      const lineup = structuredClone(player2.getLatest().roster);
+      reSort(lineup, "name", guild2.roster);
+      player2
+        .incrementalPatch({
+          score: 0,
+          momentum: 0,
+          roster: lineup,
+        })
+        .catch(console.error);
+    }
+  }, [guild1, guild2, networkActive, player1, player2]);
+
   // wait for data load from db
-  if (!guild1 || !guild2 || !player1 || !player2) {
+  if (!guild1 || !guild2 || !player1 || !player2 || !roster1 || !roster2) {
     return null;
   }
 
@@ -174,52 +197,27 @@ function DraftInner() {
   return (
     <>
       <DraftList1
-        // hacky, but force reset when this setting changes
-        key={`1-${gameSize}`}
         guild={guild1}
         stateDoc={player1}
-        ready={ready1}
-        unready={unready1}
-        style={{ width: "100%" }}
+        ready={() => setReady1(true)}
+        unready={() => setReady1(false)}
+        style={{ width: "100%", gridArea: "one" }}
+        roster={roster1}
       />
-
-      {/* <Typography variant="caption">{"\u00A0"}</Typography> */}
       <NavigateFab
         dest="Game"
-        disabled={!team1 || !team2}
-        onAction={() => {
-          player1
-            .incrementalPatch({
-              score: 0,
-              momentum: 0,
-              roster: team1?.map((m) => ({ name: m.id, health: m.hp })) || [],
-            })
-            .catch(console.error);
-          if (!networkActive) {
-            player2
-              .incrementalPatch({
-                score: 0,
-                momentum: 0,
-                roster: team2?.map((m) => ({ name: m.id, health: m.hp })) || [],
-              })
-              .catch(console.error);
-          }
-        }}
-        sx={{ m: "10px" }}
+        disabled={!ready1 || !ready2}
+        onAction={navAction}
+        sx={{ m: "10px", gridArea: "fab" }}
       />
-      {/* <Typography variant="caption">
-        {waiting ? "(waiting)" : "\u00A0"}
-      </Typography> */}
-
       <DraftList2
-        // hacky, but force reset when this setting changes
-        key={`2-${gameSize}`}
         guild={guild2}
         stateDoc={player2}
-        ready={ready2}
-        unready={unready2}
-        style={{ width: "100%" }}
+        ready={() => setReady2(true)}
+        unready={() => setReady2(false)}
+        style={{ width: "100%", gridArea: "two" }}
         disabled={networkActive}
+        roster={roster2}
       />
     </>
   );
@@ -293,4 +291,15 @@ function GameSizeMenu() {
       </Menu>
     </>
   );
+}
+
+async function fetchRoster(db: GBDatabase, guild: Guild, stateDoc: GBGameStateDoc) {
+  const models = await db.models.find().where("id").in(guild.roster).exec();
+  const tmpRoster: DraftModel[] = models.map((m) => Object.assign(m.toMutableJSON(), { disabled: 0, }));
+  reSort(tmpRoster, "id", guild.roster);
+  await stateDoc.incrementalModify((state) => {
+    state.roster = [];
+    return state;
+  }).catch(console.error);
+  return tmpRoster;
 }

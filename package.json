@@ -9,7 +9,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "gh-pages --dist dist --dotfiles"
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
     "@emotion/css": "^11.13.5",
@@ -42,6 +42,7 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.6.0",
     "@eslint/js": "^9.28.0",
     "@types/color": "^4.2.0",
     "@types/file-saver": "^2.0.7",
@@ -52,7 +53,6 @@
     "eslint": "^9.28.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
-    "gh-pages": "^6.2.0",
     "globals": "^16.2.0",
     "rollup-plugin-visualizer": "^6.0.3",
     "typescript": "^5.8.3",
@@ -61,7 +61,8 @@
     "vite-plugin-node-polyfills": "^0.23.0",
     "vite-plugin-pwa": "^1.0.0",
     "workbox-build": "^7.3.0",
-    "workbox-window": "^7.0.0"
+    "workbox-window": "^7.0.0",
+    "wrangler": "^4.20.0"
   },
   "resolutions": {
     "sharp": "0.32.6",

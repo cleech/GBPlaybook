@@ -1,9 +1,7 @@
 import {
   useState,
   useEffect,
-  CSSProperties,
-  useCallback,
-  useRef,
+  CSSProperties
 } from "react";
 import { Badge, Card, Checkbox, FormControlLabel } from "@mui/material";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
@@ -13,89 +11,29 @@ import { styled } from "@mui/material/styles";
 import { useUpdateAnimation } from "../../../hooks/useUpdateAnimation";
 import { Model, Guild } from "../../../components/DataTypes";
 import { GBGameStateDoc } from "../../../models/gbdbTypes";
-import { reSort } from "../../../utils/reSort";
-import { useRxData } from "../../../hooks/useRxQuery";
 import { map, Observable } from "rxjs";
 import { useRouteLoaderData } from "react-router-dom";
 import { SettingsDoc } from "../../../models/settings";
 
 export interface DraftModel extends Model {
-  selected: boolean;
   disabled: number;
 }
 export type Roster = DraftModel[];
-type condition = (m: DraftModel) => boolean;
-
-// enforce a limit of how many models can be selected that match a given condition
-function checkCount(
-  roster: Roster,
-  model: DraftModel,
-  oldCount: number,
-  value: boolean,
-  condition: condition,
-  limit: number
-) {
-  let newCount = oldCount;
-  if (condition(model)) {
-    newCount += value ? 1 : -1;
-    if (newCount === limit) {
-      roster.forEach((m) => {
-        if (!m.selected && condition(m)) {
-          m.disabled += 1;
-        }
-      });
-    } else if (newCount === limit - 1 && oldCount === limit) {
-      roster.forEach((m) => {
-        if (!(m === model || m.selected) && condition(m)) {
-          m.disabled += -1;
-        }
-      });
-    }
-  }
-  return newCount;
-}
-
-function checkVeterans(roster: Roster, model: DraftModel, value: boolean) {
-  roster.forEach((m) => {
-    if (m !== model && m.name === model.name) {
-      m.disabled += value ? 1 : -1;
-    }
-    // special handling of vGreede / Averisse
-    // for veteran of previously benched model
-    if (m.dehcneb === model.name || m.name === model.dehcneb) {
-      m.disabled += value ? 1 : -1;
-    }
-  });
-}
-
-function checkBenched(
-  roster: Roster,
-  model: DraftModel,
-  value: boolean,
-  update: (model: DraftModel, selected: boolean) => void
-) {
-  if (model.dehcneb) {
-    const b = roster.find((b) => b.benched && b.name === model.dehcneb);
-    if (b) {
-      update(b, value);
-    }
-  }
-}
 
 interface DraftListItemProps {
   model: DraftModel;
   disabled?: boolean;
   stateDoc: GBGameStateDoc;
-  updateCounts: (m: DraftModel, v: boolean) => void;
 }
 
 function DraftListItem({
   model,
   disabled = false,
   stateDoc,
-  updateCounts,
 }: DraftListItemProps) {
-  const [selected, setSelected] = useState(model.selected);
+  const [selected, setSelected] = useState(false);
+  const ref = useUpdateAnimation(disabled, [selected]);
+
   useEffect(() => {
     const selected$ = stateDoc.get$("roster").pipe(
       map((r: Array<{ name: string; health: number }>) => {
@@ -104,13 +42,10 @@ function DraftListItem({
     );
     const observer = selected$.subscribe((v) => {
       setSelected(v);
-      if (v !== model.selected && !model.benched) {
-        updateCounts(model, v);
-      }
     });
     return () => observer?.unsubscribe();
-  }, [stateDoc, model, updateCounts]);
-  const ref = useUpdateAnimation(disabled, [selected]);
+  }, [stateDoc, model.id]);
+
   return (
     <FormControlLabel
       ref={ref}
@@ -155,10 +90,12 @@ const StyledBadge = styled(Badge)(() => ({
 
 interface DraftListProps {
   guild: Guild;
+  roster: Roster;
   stateDoc: GBGameStateDoc;
   disabled?: boolean;
-  ready: (team: Model[]) => void;
-  unready: () => void;
+  // ready: (team: Model[]) => void;
+  ready?: () => void;
+  unready?: () => void;
   style?: CSSProperties;
 }
 
@@ -181,186 +118,111 @@ const DraftLimits = {
 };
 
 export const DraftList = (props: DraftListProps) => {
-  const { guild, ready: listReady, unready, disabled = false, style } = props;
-
-  const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
-  const [gameSize, setGameSize] = useState<3 | 4 | 6>(6);
-
-  useEffect(() => {
-    const sub = setting$
-      ?.pipe(map((s) => s?.toJSON().data.gameSize))
-      .subscribe((gs) => setGameSize(gs ?? 6));
-    return () => sub?.unsubscribe();
-  }, [setting$]);
-
-  // putting these behind a ref avoids stale captures in the callback
-  // when db updates cause multiple callback runs in one update cycle
-  const counters = useRef({ captain: 0, mascot: 0, squaddieCount: 0 });
-  // but then we need to trigger a render, so use a fake state counter for that
-  const [, setUpdate] = useState(0);
+  const { guild, ready: listReady, unready, disabled = false, style, stateDoc } = props;
 
   const [ready, setReady] = useState(false);
 
-  const roster = useRxData(
-    async (db) => {
-      const models = await db.models.find().where("id").in(guild.roster).exec();
-      // need to make a copy of the roster data
-      // and add in UI state for drafting
-      const tmpRoster: DraftModel[] = models.map((m) =>
-        Object.assign(m.toMutableJSON(), {
-          selected: false,
-          disabled: m.benched ? 1 : 0,
-        })
-      );
-      reSort(tmpRoster, "id", guild.roster);
-      const selected: Set<string> = new Set();
-      // pre-select captain and mascot for minor guilds
-      if (!disabled && guild.minor) {
-        tmpRoster.forEach((m) => {
-          if (m.captain || (m.mascot && DraftLimits[gameSize].mascot > 0)) {
-            selected.add(JSON.stringify({ name: m.id, health: m.hp }));
-            m.disabled = 1;
-          }
-        });
-      }
-      await props.stateDoc.incrementalModify((state) => {
-        state.roster = Array.from(selected).map((s) => JSON.parse(s));
-        return state;
-      })
-        .catch(console.error);
-      // disable mascots in a 3v3 game
-      if (DraftLimits[gameSize].mascot === 0) {
-        tmpRoster.forEach((m) => {
-          if (m.mascot) {
-            m.disabled = 1;
-          }
-        });
-      }
-      return tmpRoster;
-    },
-    [guild, gameSize]
-  );
-
-  const onSwitch = useCallback(
-    (model: DraftModel, value: boolean) => {
-      function checkCaptains(
-        roster: Roster,
-        model: DraftModel,
-        count: number,
-        value: boolean
-      ) {
-        return checkCount(
-          roster,
-          model,
-          count,
-          value,
-          (m: DraftModel) => !!m.captain,
-          DraftLimits[gameSize].captain
-        );
-      }
-
-      function checkMascots(
-        roster: Roster,
-        model: DraftModel,
-        count: number,
-        value: boolean
-      ) {
-        return checkCount(
-          roster,
-          model,
-          count,
-          value,
-          (m: DraftModel) => !!m.mascot,
-          DraftLimits[gameSize].mascot
-        );
-      }
-
-      function checkSquaddieCount(
-        roster: Roster,
-        model: DraftModel,
-        count: number,
-        value: boolean
-      ) {
-        return checkCount(
-          roster,
-          model,
-          count,
-          value,
-          (m: DraftModel) => !(m.captain || m.mascot),
-          DraftLimits[gameSize].squaddies
-        );
-      }
-
-      if (!roster) {
-        return;
-      }
-
-      model.selected = value;
-
-      const newCaptain = checkCaptains(
-        roster,
-        model,
-        counters.current.captain,
-        value
-      );
-      counters.current.captain = newCaptain;
-
-      const newMascot = checkMascots(
-        roster,
-        model,
-        counters.current.mascot,
-        value
-      );
-      counters.current.mascot = newMascot;
-
-      const newCount = checkSquaddieCount(
-        roster,
-        model,
-        counters.current.squaddieCount,
-        value
-      );
-      counters.current.squaddieCount = newCount;
-
-      checkVeterans(roster, model, value);
-      checkBenched(roster, model, value, (benched, value) => {
-        if (disabled) {
-          return;
-        }
-        benched.selected = value;
-        props.stateDoc.incrementalModify((state) => {
-          if (value) {
-            const r = state.roster.concat({
-              name: benched.id,
-              health: benched.hp,
-            });
-            state.roster = r;
-          } else {
-            const r = state.roster.filter((o) => o.name != benched.id);
-            state.roster = r;
-          }
-          return state;
-        });
+  const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
+  const [gameSize, setGameSize] = useState<3 | 4 | 6>();
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.gameSize))
+      .subscribe((gs) => {
+        if (gs && !disabled)
+          stateDoc.incrementalPatch({ roster: [] }).then(
+            () => setGameSize(gs)
+          ).catch(console.error);
       });
+    return () => sub?.unsubscribe();
+  }, [setting$, stateDoc, disabled]);
 
-      if (
-        newCaptain === DraftLimits[gameSize].captain &&
-        newMascot === DraftLimits[gameSize].mascot &&
-        newCount === DraftLimits[gameSize].squaddies
-      ) {
-        setReady(true);
-      } else {
-        setReady(false);
-      }
+  const [oldRoster, setRoster] = useState(props.roster);
+  const roster = structuredClone(oldRoster);
 
-      setUpdate((old) => old + 1);
-    },
-    [props.stateDoc, roster, gameSize, disabled]
-  );
+  useEffect(() => {
+    if (!gameSize) { return; }
+    const observer = stateDoc.roster$
+      .pipe(map(l => l.map(m => m.name)))
+      .subscribe((r) => {
+        const roster = structuredClone(oldRoster);
+        const lineup = roster
+          .filter((m) => r.includes(m.id))
+          .filter((m) => !m.benched);
+        // model categories limit checks
+        const captainSet = lineup.filter((m) => m.captain).length === DraftLimits[gameSize].captain;
+        const mascotSet = lineup.filter((m) => m.mascot).length === DraftLimits[gameSize].mascot;
+        const squaddiesSet = lineup.filter((m) => !m.captain && !m.mascot).length === DraftLimits[gameSize].squaddies;
+        const isReady = captainSet && mascotSet && squaddiesSet;
+        setReady(isReady);
+        // reset and re-calculate the disabled counts of each model
+        for (const m of roster) {
+          m.disabled = 0;
+          const selected = r.includes(m.id);
+          if (m.benched) { m.disabled += 1; }
+          if (captainSet && m.captain && !selected) { m.disabled += 1; }
+          if (mascotSet && m.mascot && !selected) { m.disabled += 1; }
+          if (squaddiesSet && !m.captain && !m.mascot && !selected) { m.disabled += 1; }
+        }
+        // process disabled counts for veteran models (seasoned models so far are always on a different guild)
+        for (const v of roster.filter(m => m.veteran)) {
+          const vSelected = r.includes(v.id);
+          for (const o of roster.filter(m => m.name === v.name && m !== v)) {
+            const oSelected = r.includes(o.id);
+            if (oSelected) { v.disabled += 1; }
+            if (vSelected) { o.disabled += 1; }
+          }
+          // vGreede and Avarisse
+          for (const o of roster.filter(m => m.dehcneb === v.name)) {
+            const oSelected = r.includes(o.id);
+            if (oSelected) { v.disabled += 1; }
+            if (vSelected) { o.disabled += 1; }
+          }
+        }
+        // only make automatic changes if !disabled (not network opponent)
+        if (!disabled) {
+          let needsUpdate = false;
+          let updatedLineup = structuredClone(stateDoc.getLatest().roster);
+          // make sure selected state of benched models is correct
+          for (const m of roster.filter(m => m.benched)) {
+            const o = roster.find(o => o.id === m.benched);
+            if (!o) { continue; }
+            const mSelected = r.includes(m.id);
+            const oSelected = r.includes(o.id);
+            if (oSelected && !mSelected) {
+              needsUpdate = true;
+              updatedLineup.push({ name: m.id, health: m.hp });
+            }
+            if (!oSelected && mSelected) {
+              needsUpdate = true;
+              updatedLineup = updatedLineup.filter((_m) => _m.name != m.id);
+            }
+          }
+          // force selection of Captain and Mascot for minor guilds
+          if (guild.minor) {
+            for (const m of roster) {
+              if (m.captain || (m.mascot && !m.disabled)) {
+                if (!r.includes(m.id)) {
+                  needsUpdate = true;
+                  updatedLineup.push({ name: m.id, health: m.hp });
+                }
+              }
+            }
+          }
+          if (needsUpdate) {
+            stateDoc.incrementalPatch({ roster: updatedLineup })
+          }
+        }
+        setRoster(roster);
+      });
+    return () => observer?.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameSize]);
 
   useEffect(() => {
     if (ready && roster) {
-      const team = structuredClone(roster.filter((m: DraftModel) => m.selected));
-      listReady?.(team);
+      // const team = structuredClone(roster.filter((m: DraftModel) => m.selected));
+      // listReady?.(team);
+      listReady?.();
     } else {
       unready?.();
     }
@@ -397,8 +259,7 @@ export const DraftList = (props: DraftListProps) => {
             <DraftListItem
               key={m.id}
               model={m}
-              stateDoc={props.stateDoc}
-              updateCounts={onSwitch}
+              stateDoc={stateDoc}
               disabled={disabled}
             />
           ))}
@@ -407,8 +268,7 @@ export const DraftList = (props: DraftListProps) => {
             <DraftListItem
               key={m.id}
               model={m}
-              stateDoc={props.stateDoc}
-              updateCounts={onSwitch}
+              stateDoc={stateDoc}
               disabled={disabled}
             />
           ))}
@@ -419,8 +279,7 @@ export const DraftList = (props: DraftListProps) => {
             <DraftListItem
               key={m.id}
               model={m}
-              stateDoc={props.stateDoc}
-              updateCounts={onSwitch}
+              stateDoc={stateDoc}
               disabled={disabled}
             />
           ))}
@@ -431,8 +290,7 @@ export const DraftList = (props: DraftListProps) => {
             <DraftListItem
               key={m.id}
               model={m}
-              stateDoc={props.stateDoc}
-              updateCounts={onSwitch}
+              stateDoc={stateDoc}
               disabled={disabled}
             />
           ))}
@@ -458,139 +316,69 @@ const BSDraftLimits = {
 };
 
 export const BSDraftList = (props: DraftListProps) => {
-  const { guild, ready: listReady, unready, disabled = false, style } = props;
-
-  const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
-  const [gameSize, setGameSize] = useState<3 | 4 | 6>(6);
-  useEffect(() => {
-    const sub = setting$
-      ?.pipe(map((s) => s?.toJSON().data.gameSize))
-      .subscribe((gs) => setGameSize(gs ?? 6));
-    return () => sub?.unsubscribe();
-  }, [setting$]);
-
-  const counters = useRef({ masterCount: 0, apprenticeCount: 0 });
-  const [, setUpdate] = useState(0);
+  const { guild, ready: listReady, unready, disabled = false, style, stateDoc } = props;
 
   const [ready, setReady] = useState(false);
 
-  const roster = useRxData(
-    async (db) => {
-      const models = await db.models.find().where("id").in(guild.roster).exec();
-      // need to make a copy of the roster data
-      // and add UI state for drafting
-      const tmpRoster: DraftModel[] = models.map((m) =>
-        Object.assign(m.toMutableJSON(), {
-          selected: false,
-          disabled: m.benched ? 1 : 0,
-        })
-      );
-      reSort(tmpRoster, "id", guild.roster);
-      await props.stateDoc.incrementalModify((state) => {
-        state.roster = [];
-        return state;
-      })
-        .catch(console.error);
-      return tmpRoster;
-    },
-    [guild, gameSize]
-  );
-
-  const onSwitch = useCallback(
-    (model: DraftModel, value: boolean) => {
-      function checkMasterCount(
-        roster: Roster,
-        model: DraftModel,
-        count: number,
-        value: boolean
-      ) {
-        return checkCount(
-          roster,
-          model,
-          count,
-          value,
-          (m: DraftModel) => !!m.captain,
-          BSDraftLimits[gameSize].master
-        );
-      }
-
-      function checkApprenticeCount(
-        roster: Roster,
-        model: DraftModel,
-        count: number,
-        value: boolean
-      ) {
-        return checkCount(
-          roster,
-          model,
-          count,
-          value,
-          (m: DraftModel) => !m.captain,
-          BSDraftLimits[gameSize].apprentice
-        );
-      }
-
-      if (!roster) {
-        return;
-      }
-
-      model.selected = value;
-
-      const newMasterCount = checkMasterCount(
-        roster,
-        model,
-        counters.current.masterCount,
-        value
-      );
-      counters.current.masterCount = newMasterCount;
-
-      const newApprenticeCount = checkApprenticeCount(
-        roster,
-        model,
-        counters.current.apprenticeCount,
-        value
-      );
-      counters.current.apprenticeCount = newApprenticeCount;
-
-      checkVeterans(roster, model, value);
-      checkBenched(roster, model, value, (benched, value) => {
-        if (disabled) {
-          return;
+  const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
+  const [gameSize, setGameSize] = useState<3 | 4 | 6>();
+  useEffect(() => {
+    const sub = setting$
+      ?.pipe(map((s) => s?.toJSON().data.gameSize))
+      .subscribe((gs) => {
+        if (gs && !disabled) {
+          stateDoc.incrementalPatch({ roster: [] }).then(
+            () => setGameSize(gs)
+          ).catch(console.error);
         }
-        benched.selected = value;
-        props.stateDoc.incrementalModify((state) => {
-          if (value) {
-            const r = state.roster.concat({
-              name: benched.id,
-              health: benched.hp,
-            });
-            state.roster = r;
-          } else {
-            const r = state.roster.filter((o) => o.name != benched.id);
-            state.roster = r;
-          }
-          return state;
-        });
       });
+    return () => sub?.unsubscribe();
+  }, [setting$, stateDoc, disabled]);
 
-      if (
-        newMasterCount === BSDraftLimits[gameSize].master &&
-        newApprenticeCount === BSDraftLimits[gameSize].apprentice
-      ) {
-        setReady(true);
-      } else {
-        setReady(false);
-      }
+  const [oldRoster, setRoster] = useState(props.roster);
+  const roster = structuredClone(oldRoster);
 
-      setUpdate((old) => old + 1);
-    },
-    [props.stateDoc, roster, gameSize, disabled]
-  );
+  useEffect(() => {
+    if (!gameSize) { return; }
+    const observer = stateDoc.roster$
+      .pipe(map(l => l.map(m => m.name)))
+      .subscribe((r) => {
+        const roster = structuredClone(oldRoster);
+        const lineup = roster
+          .filter((m) => r.includes(m.id))
+          .filter((m) => !m.benched);
+        // model categories limit checks
+        const masterSet = lineup.filter((m) => m.captain).length === BSDraftLimits[gameSize].master;
+        const apprenticeSet = lineup.filter((m) => !m.captain).length === BSDraftLimits[gameSize].apprentice;
+        const isReady = masterSet && apprenticeSet;
+        setReady(isReady);
+        // reset and re-calculate the disabled counts of each model
+        for (const m of roster) {
+          m.disabled = 0;
+          const selected = r.includes(m.id);
+          if (masterSet && m.captain && !selected) { m.disabled += 1; }
+          if (apprenticeSet && !m.captain && !selected) { m.disabled += 1; }
+        }
+        // process disabled counts for veteran models (seasoned models so far are always on a different guild)
+        for (const v of roster.filter(m => m.veteran)) {
+          const vSelected = r.includes(v.id);
+          for (const o of roster.filter(m => m.name === v.name && m !== v)) {
+            const oSelected = r.includes(o.id);
+            if (oSelected) { v.disabled += 1; }
+            if (vSelected) { o.disabled += 1; }
+          }
+        }
+        setRoster(roster);
+      });
+    return () => observer?.unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameSize]);
 
   useEffect(() => {
     if (ready && roster) {
-      const team = structuredClone(roster.filter((m: DraftModel) => m.selected));
-      listReady?.(team);
+      // const team = structuredClone(roster.filter((m: DraftModel) => m.selected));
+      // listReady?.(team);
+      listReady?.();
     } else {
       unready?.();
     }
@@ -626,8 +414,7 @@ export const BSDraftList = (props: DraftListProps) => {
             <DraftListItem
               key={m.id}
               model={m}
-              stateDoc={props.stateDoc}
-              updateCounts={onSwitch}
+              stateDoc={stateDoc}
               disabled={disabled}
             />
           ))}
@@ -638,8 +425,7 @@ export const BSDraftList = (props: DraftListProps) => {
             <DraftListItem
               key={m.id}
               model={m}
-              stateDoc={props.stateDoc}
-              updateCounts={onSwitch}
+              stateDoc={stateDoc}
               disabled={disabled}
             />
           ))}
@@ -650,8 +436,7 @@ export const BSDraftList = (props: DraftListProps) => {
             <DraftListItem
               key={m.id}
               model={m}
-              stateDoc={props.stateDoc}
-              updateCounts={onSwitch}
+              stateDoc={stateDoc}
               disabled={disabled}
             />
           ))}

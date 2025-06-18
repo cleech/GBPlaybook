@@ -26,3 +26,7 @@ dev-dist
 *.njsproj
 *.sln
 *.sw?
+
+# cloudflare
+.wrangler
+.dev.vars*

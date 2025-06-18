@@ -7,7 +7,7 @@ registerSW({ immediate: true });
 import { lazy } from "react";
 import { createRoot } from "react-dom/client";
 import {
-  createHashRouter,
+  createBrowserRouter,
   RouterProvider,
   Navigate,
   useLoaderData,
@@ -38,7 +38,7 @@ import "./utils/i18next";
 import { reSort } from "./utils/reSort";
 import LoadingSplash from "./components/LoadingSplash";
 
-const router = createHashRouter(
+const router = createBrowserRouter(
   [{
     element: <App />,
     children: [{
@@ -150,7 +150,18 @@ const router = createHashRouter(
             },
           ]
         },
-        { path: "print", element: <CardPrintScreen /> },
+        {
+          path: "print", element: <CardPrintScreen />,
+          lazy: {
+            loader: async () => {
+              const initializeAppData = (await import("./components/appData")).initializeAppData;
+              return async () => {
+                const { gbdb: db } = await initializeAppData();
+                return await db.guilds.find().exec();
+              }
+            }
+          }
+        },
         { path: "settings", element: <Settings /> }
       ]
     }]
