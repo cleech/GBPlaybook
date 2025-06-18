@@ -118,30 +118,33 @@ const DraftLimits = {
 };
 
 export const DraftList = (props: DraftListProps) => {
-  const { guild, ready: listReady, unready, disabled = false, style, roster, stateDoc } = props;
+  const { guild, ready: listReady, unready, disabled = false, style, stateDoc } = props;
 
-  const [, setUpdate] = useState(0);
   const [ready, setReady] = useState(false);
 
   const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
-  const [gameSize, setGameSize] = useState<3 | 4 | 6>(6);
+  const [gameSize, setGameSize] = useState<3 | 4 | 6>();
   useEffect(() => {
     const sub = setting$
       ?.pipe(map((s) => s?.toJSON().data.gameSize))
       .subscribe((gs) => {
-        if (gs) {
-          setGameSize(gs);
-          if (!disabled)
-            stateDoc.incrementalPatch({ roster: [] });
-        }
+        if (gs && !disabled)
+          stateDoc.incrementalPatch({ roster: [] }).then(
+            () => setGameSize(gs)
+          ).catch(console.error);
       });
     return () => sub?.unsubscribe();
   }, [setting$, stateDoc, disabled]);
 
+  const [oldRoster, setRoster] = useState(props.roster);
+  const roster = structuredClone(oldRoster);
+
   useEffect(() => {
+    if (!gameSize) { return; }
     const observer = stateDoc.roster$
       .pipe(map(l => l.map(m => m.name)))
       .subscribe((r) => {
+        const roster = structuredClone(oldRoster);
         const lineup = roster
           .filter((m) => r.includes(m.id))
           .filter((m) => !m.benched);
@@ -149,6 +152,8 @@ export const DraftList = (props: DraftListProps) => {
         const captainSet = lineup.filter((m) => m.captain).length === DraftLimits[gameSize].captain;
         const mascotSet = lineup.filter((m) => m.mascot).length === DraftLimits[gameSize].mascot;
         const squaddiesSet = lineup.filter((m) => !m.captain && !m.mascot).length === DraftLimits[gameSize].squaddies;
+        const isReady = captainSet && mascotSet && squaddiesSet;
+        setReady(isReady);
         // reset and re-calculate the disabled counts of each model
         for (const m of roster) {
           m.disabled = 0;
@@ -204,20 +209,14 @@ export const DraftList = (props: DraftListProps) => {
             }
           }
           if (needsUpdate) {
-            stateDoc.incrementalModify((state) => {
-              state.roster = updatedLineup;
-              return state;
-            })
+            stateDoc.incrementalPatch({ roster: updatedLineup })
           }
         }
-        // check the ready conditions
-        const isReady = captainSet && mascotSet && squaddiesSet;
-        setReady(isReady);
-        // kick a render update after processing changes
-        setUpdate((old) => old + 1);
+        setRoster(roster);
       });
     return () => observer?.unsubscribe();
-  }, [stateDoc, roster, gameSize, disabled, guild.minor]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameSize]);
 
   useEffect(() => {
     if (ready && roster) {
@@ -317,36 +316,42 @@ const BSDraftLimits = {
 };
 
 export const BSDraftList = (props: DraftListProps) => {
-  const { guild, ready: listReady, unready, disabled = false, style, roster, stateDoc } = props;
+  const { guild, ready: listReady, unready, disabled = false, style, stateDoc } = props;
 
-  const [, setUpdate] = useState(0);
   const [ready, setReady] = useState(false);
 
   const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
-  const [gameSize, setGameSize] = useState<3 | 4 | 6>(6);
+  const [gameSize, setGameSize] = useState<3 | 4 | 6>();
   useEffect(() => {
     const sub = setting$
       ?.pipe(map((s) => s?.toJSON().data.gameSize))
       .subscribe((gs) => {
-        if (gs) {
-          setGameSize(gs);
-          if (!disabled)
-            stateDoc.incrementalPatch({ roster: [] });
+        if (gs && !disabled) {
+          stateDoc.incrementalPatch({ roster: [] }).then(
+            () => setGameSize(gs)
+          ).catch(console.error);
         }
       });
     return () => sub?.unsubscribe();
   }, [setting$, stateDoc, disabled]);
 
+  const [oldRoster, setRoster] = useState(props.roster);
+  const roster = structuredClone(oldRoster);
+
   useEffect(() => {
+    if (!gameSize) { return; }
     const observer = stateDoc.roster$
       .pipe(map(l => l.map(m => m.name)))
       .subscribe((r) => {
+        const roster = structuredClone(oldRoster);
         const lineup = roster
           .filter((m) => r.includes(m.id))
           .filter((m) => !m.benched);
         // model categories limit checks
         const masterSet = lineup.filter((m) => m.captain).length === BSDraftLimits[gameSize].master;
         const apprenticeSet = lineup.filter((m) => !m.captain).length === BSDraftLimits[gameSize].apprentice;
+        const isReady = masterSet && apprenticeSet;
+        setReady(isReady);
         // reset and re-calculate the disabled counts of each model
         for (const m of roster) {
           m.disabled = 0;
@@ -363,14 +368,11 @@ export const BSDraftList = (props: DraftListProps) => {
             if (vSelected) { o.disabled += 1; }
           }
         }
-        // check the ready conditions
-        const isReady = masterSet && apprenticeSet;
-        setReady(isReady);
-        // kick a render update after processing changes
-        setUpdate((old) => old + 1);
+        setRoster(roster);
       });
     return () => observer?.unsubscribe();
-  }, [stateDoc, roster, gameSize]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameSize]);
 
   useEffect(() => {
     if (ready && roster) {
