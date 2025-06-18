@@ -128,10 +128,13 @@ export const DraftList = (props: DraftListProps) => {
     const sub = setting$
       ?.pipe(map((s) => s?.toJSON().data.gameSize))
       .subscribe((gs) => {
-        if (gs && !disabled)
-          stateDoc.incrementalPatch({ roster: [] }).then(
-            () => setGameSize(gs)
-          ).catch(console.error);
+        if (gs && !disabled) {
+          stateDoc.incrementalPatch({ roster: [] })
+            .then(() => setGameSize(gs))
+            .catch(console.error);
+        } else {
+          setGameSize(gs);
+        }
       });
     return () => sub?.unsubscribe();
   }, [setting$, stateDoc, disabled]);
@@ -209,7 +212,7 @@ export const DraftList = (props: DraftListProps) => {
             }
           }
           if (needsUpdate) {
-            stateDoc.incrementalPatch({ roster: updatedLineup })
+            stateDoc.incrementalPatch({ roster: updatedLineup }).catch(console.error);
           }
         }
         setRoster(roster);
@@ -327,9 +330,11 @@ export const BSDraftList = (props: DraftListProps) => {
       ?.pipe(map((s) => s?.toJSON().data.gameSize))
       .subscribe((gs) => {
         if (gs && !disabled) {
-          stateDoc.incrementalPatch({ roster: [] }).then(
-            () => setGameSize(gs)
-          ).catch(console.error);
+          stateDoc.incrementalPatch({ roster: [] })
+            .then(() => setGameSize(gs))
+            .catch(console.error);
+        } else {
+          setGameSize(gs);
         }
       });
     return () => sub?.unsubscribe();
