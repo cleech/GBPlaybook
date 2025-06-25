@@ -7,6 +7,11 @@
         "@emotion/css": "^11.13.5",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.1",
+        "@fontsource/comfortaa": "^5.2.6",
+        "@fontsource/crimson-text": "^5.2.6",
+        "@fontsource/im-fell-great-primer": "^5.2.6",
+        "@fontsource/im-fell-great-primer-sc": "^5.2.6",
+        "@fontsource/noto-sans-symbols": "^5.2.9",
         "@khmyznikov/pwa-install": "^0.5.7",
         "@mui/icons-material": "^7.2.0",
         "@mui/material": "^7.1.1",
@@ -60,6 +65,7 @@
   },
   "overrides": {
     "sharp": "0.32.6",
+    "sharp-ico": "0.1.5",
   },
   "packages": {
     "@ampproject/remapping": ["@ampproject/remapping@2.3.0", "", { "dependencies": { "@jridgewell/gen-mapping": "^0.3.5", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw=="],
@@ -449,6 +455,16 @@
     "@firebase/vertexai": ["@firebase/vertexai@1.0.1", "", { "dependencies": { "@firebase/app-check-interop-types": "0.3.3", "@firebase/component": "0.6.11", "@firebase/logger": "0.4.4", "@firebase/util": "1.10.2", "tslib": "^2.1.0" }, "peerDependencies": { "@firebase/app": "0.x", "@firebase/app-types": "0.x" } }, "sha512-f48MGSofhaS05ebpN7zMIv4tBqYf19pXr5/4njKtNZVLbjxUswDma0SuFDoO+IwgbdkhFxgtNctM+C1zfI/O1Q=="],
 
     "@firebase/webchannel-wrapper": ["@firebase/webchannel-wrapper@1.0.3", "", {}, "sha512-2xCRM9q9FlzGZCdgDMJwc0gyUkWFtkosy7Xxr6sFgQwn+wMNIWd7xIvYNauU1r64B5L5rsGKy/n9TKJ0aAFeqQ=="],
+
+    "@fontsource/comfortaa": ["@fontsource/comfortaa@5.2.6", "", {}, "sha512-hZomBUay5QHPJjVOVhGC4utfjB8SQcWjrXXRnsYmajx8KDMZFzLHut4fJqz7bgXbuuJ8VgRm1SumzjXR2UXuMg=="],
+
+    "@fontsource/crimson-text": ["@fontsource/crimson-text@5.2.6", "", {}, "sha512-qy2ZgWzwMYapa5yBnc1XO5XQM1txC1x7uQSag6a9y2yVFSilBmeH70tzY8zSfozi+vC+5udoUzk+gsrecxAnPA=="],
+
+    "@fontsource/im-fell-great-primer": ["@fontsource/im-fell-great-primer@5.2.6", "", {}, "sha512-g5pf+8lD+s0qCpUA5fisMiwy2cjTnFKCpu9jh5LtnNgodNn3xUQk2LMehc+Q+6KQN7bYc8EMgN+D/H1i+mWouQ=="],
+
+    "@fontsource/im-fell-great-primer-sc": ["@fontsource/im-fell-great-primer-sc@5.2.6", "", {}, "sha512-IBHoxVOLe1ovQGtYu0HnlEyWa6WsmWUPXPFRxip1+ZaXgzkQSfWzODX0rDPM5wSOoiUpGurHjbBluCxKxbrqNQ=="],
+
+    "@fontsource/noto-sans-symbols": ["@fontsource/noto-sans-symbols@5.2.9", "", {}, "sha512-HeAGqmXrjjnKkHp7fADmDPEwBr4vnaMLBE5Ox0NjzB3wJS/z+qgd+YjKAiP84ch9PROwgcnXvvgfj3uwhUkGYQ=="],
 
     "@grpc/grpc-js": ["@grpc/grpc-js@1.9.15", "", { "dependencies": { "@grpc/proto-loader": "^0.7.8", "@types/node": ">=12.12.47" } }, "sha512-nqE7Hc0AzI+euzUwDAy0aY5hCp10r734gMGRdU+qOPX0XSceI2ULrcXB5U2xSc5VkWwalCj4M7GzCAygZl2KoQ=="],
 

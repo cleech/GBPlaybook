@@ -4,6 +4,12 @@ import "@khmyznikov/pwa-install"
 import { registerSW } from "virtual:pwa-register";
 registerSW({ immediate: true });
 
+import '@fontsource/comfortaa';
+import '@fontsource/crimson-text';
+import '@fontsource/im-fell-great-primer-sc';
+import '@fontsource/im-fell-great-primer';
+import '@fontsource/noto-sans-symbols';
+
 import { lazy } from "react";
 import { createRoot } from "react-dom/client";
 import {
