@@ -9,7 +9,6 @@ import Color from "color";
 
 import { GBCardCSS } from "./CardFront";
 import { GBModelExpanded } from "../models/gbdbTypes";
-import { useRxData } from "../hooks/useRxQuery";
 import { Subscription } from "rxjs";
 import { getSettings } from "../models/settings";
 
@@ -41,15 +40,6 @@ const CardBack = (props: CardBackProps) => {
     return () => sub?.unsubscribe();
   }, []);
 
-  const guild = useRxData(
-    (db) => db.guilds.findOne().where({ name: model.guild1 }).exec(),
-    [model.guild1]
-  );
-
-  if (!guild) {
-    return null;
-  }
-
   const gbcp =
     cardStyle === "gbcp" &&
     (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
@@ -71,13 +61,13 @@ const CardBack = (props: CardBackProps) => {
       className={cx('card-back', key, { 'gbcp': gbcp }, props.className)}
       // ref={targetRef}
       style={{
-        "--team-color": guild.color,
-        "--gbcp-color": Color(guild.shadow ?? guild.color).mix(
+        "--team-color": model.guild1.color,
+        "--gbcp-color": Color(model.guild1.shadow ?? model.guild1.color).mix(
           Color.rgb(254, 246, 227),
           0.9
         ),
-        "--mom-color": guild.shadow,
-        "--mom-border-color": guild.darkColor,
+        "--mom-color": model.guild1.shadow,
+        "--mom-border-color": model.guild1.darkColor,
         backgroundImage: background,
         ...props.style,
       }}
@@ -86,7 +76,7 @@ const CardBack = (props: CardBackProps) => {
         <div className="container">
           <div className="name-plate">
             <div className="guild-icon">
-              <GBIcon id="guild-icon" icon={guild.name} />
+              <GBIcon id="guild-icon" icon={model.guild1.name} />
             </div>
             <div className="name dropcap">
               {model.name.split(/(?=[A-Z])/).map((s, i) => (
@@ -121,8 +111,8 @@ const CardBack = (props: CardBackProps) => {
                   {model.version}
                 </div>
               </div>
-              <FooterIcon icon={model.guild1} />
-              {model.guild2 && <FooterIcon icon={model.guild2} />}
+              <FooterIcon icon={model.guild1.name} />
+              {model.guild2 && <FooterIcon icon={model.guild2.name} />}
             </div>
             <div className="base-size">{`Size ${model.base} mm`}</div>
           </div>

@@ -10,7 +10,6 @@ import Color from "color";
 import { Guild } from "./DataTypes";
 import { GBModelExpanded } from "../models/gbdbTypes";
 import { Observable, Subscription } from "rxjs";
-import { useRxData } from "../hooks/useRxQuery";
 import { getSettings } from "../models/settings";
 
 import { cx } from "@emotion/css";
@@ -53,20 +52,6 @@ const CardFront = (props: CardFrontProps) => {
     return () => sub?.unsubscribe();
   }, []);
 
-  const [guild1, guild2] =
-    useRxData(
-      (db) =>
-        Promise.all([
-          db.guilds.findOne().where({ name: model.guild1 }).exec(),
-          db.guilds.findOne().where({ name: model.guild2 }).exec(),
-        ]),
-      [model.guild1, model.guild2]
-    ) ?? [];
-
-  if (!guild1) {
-    return null;
-  }
-
   const gbcp =
     cardStyle === "gbcp" &&
     (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
@@ -85,26 +70,26 @@ const CardFront = (props: CardFrontProps) => {
         cx('card-front', key, `lang-${lang}`, { 'gbcp': gbcp }, props.className)
       }
       style={{
-        "--team-color": guild1.color,
+        "--team-color": model.guild1.color,
         /* not the best way to do this */
-        // "--gbcp-color": Color(guild2 ? guild2.color : guild1.color).mix(
+        // "--gbcp-color": Color(model.guild2 ? model.guild2.color : guild1.color).mix(
         //   Color.rgb(240, 230, 210),
         //   0.9
         // ),
-        "--gbcp-color": Color(guild1.shadow ?? guild1.color)
+        "--gbcp-color": Color(model.guild1.shadow ?? model.guild1.color)
           .mix(Color.rgb(254, 246, 227), 0.9)
           .string(),
-        "--guild1-color": guild1.color,
-        "--guild2-color": guild2 ? guild2.color : undefined,
-        "--mom-color": guild1.shadow,
-        "--mom-border-color": guild1.darkColor,
+        "--guild1-color": model.guild1.color,
+        "--guild2-color": model.guild2 ? model.guild2.color : undefined,
+        "--mom-color": model.guild1.shadow,
+        "--mom-border-color": model.guild1.darkColor,
         backgroundImage: props.noBackground ? undefined : `url(${image})`,
         ...props.style,
       }}
     >
       <div className={cx('overlay', { "gbcp": gbcp })}>
         <div className="font-top-box">
-          <NamePlate model={model} guild={guild1} />
+          <NamePlate model={model} guild={model.guild1} />
           <StatBox model={model} />
         </div>
         <Playbook model={model} gbcp={gbcp} />

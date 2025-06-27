@@ -21,7 +21,9 @@ interface ParameterizedTrait extends CharacterTrait {
 // Expanded Model, with plays and traits populated
 // Also adds in additional runtime values
 export interface GBModelExpanded
-  extends Omit<Model, "character_plays" | "character_traits"> {
+  extends Omit<Model, "character_plays" | "character_traits" | "guild1" | "guild2"> {
+  guild1: Guild;
+  guild2?: Guild;
   character_plays: CharacterPlay[];
   character_traits: ParameterizedTrait[];
   version: number;
@@ -38,7 +40,7 @@ type GBModelCollection = RxCollection<Model, GBModelMethods>;
 
 const gbModelSchema: RxJsonSchema<Model> = {
   title: "Guild Ball model",
-  version: 1,
+  version: 2,
   primaryKey: "id",
   type: "object",
   properties: {
@@ -95,8 +97,8 @@ const gbModelSchema: RxJsonSchema<Model> = {
       type: "integer",
       enum: [30, 40, 50],
     },
-    guild1: { type: "string", maxLength: 32 },
-    guild2: { type: "string", maxLength: 32, default: "" },
+    guild1: { type: "string", maxLength: 32, ref: "guilds" },
+    guild2: { type: "string", maxLength: 32, default: "", ref: "guilds" },
     gbcp: { type: "boolean", default: false },
   },
   required: [
@@ -283,11 +285,13 @@ async function populate_character_traits(
 }
 
 const gbModelDocMethods: GBModelMethods = {
-  expand: async function (this: GBModelDoc): Promise<GBModelExpanded> {
+  expand: async function(this: GBModelDoc): Promise<GBModelExpanded> {
     const db = this.collection.database;
     const dbSettings = await db.getLocal<GBDataMeta>("gbdata_meta");
     let character_plays: CharacterPlay[] | undefined = [];
     let character_traits: ParameterizedTrait[] | undefined = [];
+    const guild1: Guild = await this.populate("guild1").then(gdoc => gdoc.toJSON());
+    const guild2: Guild = await this.populate("guild2").then(gdoc => gdoc?.toJSON());
     const errors: Error[] = [];
     [character_plays, character_traits] = await Promise.all([
       populate_character_plays(this).catch(
@@ -304,16 +308,16 @@ const gbModelDocMethods: GBModelMethods = {
       ),
     ]);
     const model: GBModelExpanded = Object.assign(this.toMutableJSON(), {
+      guild1: guild1,
+      guild2: guild2,
       character_plays: character_plays || [],
       character_traits: character_traits || [],
       // dont let Some/Pneuma count twice for the INF pool
       _inf: this.id === "Pneuma" ? 0 : undefined,
       // mini-statline display
-      statLine: `${this.jog}"/${this.sprint}" | ${this.tac} | ${
-        this.kickdice
-      }/${this.kickdist}" | ${this.def}+ | ${this.arm} | ${this.inf}/${
-        this.infmax
-      } | ${this.reach ? 2 : 1}"`,
+      statLine: `${this.jog}"/${this.sprint}" | ${this.tac} | ${this.kickdice
+        }/${this.kickdist}" | ${this.def}+ | ${this.arm} | ${this.inf}/${this.infmax
+        } | ${this.reach ? 2 : 1}"`,
       // get errata level from db metadata
       version: dbSettings?.get("version"),
     });
@@ -333,7 +337,10 @@ export const gbCollectionsConfig: {
   models: {
     schema: gbModelSchema,
     methods: gbModelDocMethods,
-    migrationStrategies: { 1: (doc) => doc },
+    migrationStrategies: {
+      1: (doc) => doc,
+      2: (doc) => doc
+    },
   },
   character_plays: {
     schema: gbCharacterPlaySchema,
