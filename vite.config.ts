@@ -1,5 +1,5 @@
 import { VitePWA } from 'vite-plugin-pwa';
-import { defineConfig } from 'vite'
+import { defineConfig, PluginOption } from 'vite'
 import react from '@vitejs/plugin-react'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -111,7 +111,7 @@ export default defineConfig({
         enabled: true,
       },
     }),
-    visualizer(),
+    visualizer() as PluginOption,
   ],
   define: {
     BUILD_DATE: JSON.stringify(new Date().toDateString()),
