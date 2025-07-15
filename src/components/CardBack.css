@@ -5,8 +5,7 @@ div.card-back {
   aspect-ratio: 5 / 7;
   max-width: 500px;
   max-height: 700px;
-  zoom: var(--scale);
-  border-radius: 25px;
+  border-radius: calc(25px * var(--scale));
   background-size: 110%;
   background-repeat: no-repeat;
   background-position: center center;
@@ -23,10 +22,13 @@ div.card-back .overlay {
   right: 0;
   width: 500px;
   height: 700px;
-  /* outline: 1px solid red; */
+  transform-origin: top right;
+  transform: scale(var(--scale));
+  /*outline: 1px solid red; */
 }
 
 div.card-back.bleed {
+  aspect-ratio: 2.75 / 3.75;
   max-width: 550px;
   max-height: 750px;
   background-size: auto 100%;
@@ -37,49 +39,25 @@ div.card-back.bleed.double {
 }
 
 div.card-back.bleed > .overlay {
-  top: 25px;
-  right: 25px;
-}
-
-/* zoom still kind of sucks on Firefox */
-@supports (-moz-appearance:none) {
-  div.card-back {
-    zoom: unset;
-    border-radius: calc(25px * var(--scale));
-  }
-  div.card-back > .overlay {
-    transform-origin: top right;
-    transform: scale(var(--scale));
-  }
-  div.card-back.bleed > .overlay {
-    top: calc(25px * var(--scale));
-    right: calc(25px * var(--scale));
-  }
+  top: calc(25px * var(--scale));
+  right: calc(25px * var(--scale));
 }
 
 /* no print bleed on these */
 div.card-back.gbcp {
-  background-size: 500px 700px;
+  box-sizing: border-box;
+  background-size: 100%;
+  background-origin: content-box;
+}
+div.card-back.gbcp > .overlay {
+  box-sizing: content-box;
 }
 div.card-back.gbcp.bleed {
-  background-position: center;
+  padding: calc(25px * var(--scale));
   background-color: var(--mom-color, var(--team-color));
 }
-div.card-back.gbcp.double {
-  background-position: left;
-}
-
-@supports (-moz-appearance:none) {
-  div.card-back.gbcp {
-    background-size: 100%;
-    background-origin: content-box;
-  }
-  div.card-back.gbcp.bleed {
-    padding: calc(25px * var(--scale));
-  }
-  div.card-back.gbcp.double.bleed {
-    padding-left: unset;
-  }
+div.card-back.gbcp.double.bleed {
+  padding-left: unset;
 }
 
 .card-back .container {

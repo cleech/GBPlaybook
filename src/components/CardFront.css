@@ -13,25 +13,6 @@
   */
 }
 
-/*
-  firefox won't draw lines that scale down below 1px
-  but they seem to print just fine
-  this seems better without setting image-rendering
-  good enough to drop it? I don't think anyone cares anyway
-@supports (-moz-appearance:none) {
-  .card-front,
-  .card-back {
-    --line-width: calc(1px / var(--scale));
-  }
-  @media print {
-    .card-front,
-    .card-back {
-      --line-width: 1px;
-    }
-  }
-}
-*/
-
 /* card sizing and background image placement */
 
 div.card-front {
@@ -39,8 +20,7 @@ div.card-front {
   aspect-ratio: 5 / 7;
   max-width: 500px;
   max-height: 700px;
-  zoom: var(--scale);
-  border-radius: 25px;
+  border-radius: calc(25px * var(--scale));
   background-size: 110% auto;
   background-repeat: no-repeat;
   background-position: center center;
@@ -57,10 +37,13 @@ div.card-front > .overlay {
   left: 0;
   width: 500px;
   height: 700px;
+  transform-origin: top left;
+  transform: scale(var(--scale));
   /* outline: 1px solid red; */
 }
 
 div.card-front.bleed {
+  aspect-ratio: 2.75 / 3.75;
   max-width: 550px;
   max-height: 750px;
   background-size: auto 100%;
@@ -71,49 +54,25 @@ div.card-front.bleed.double {
 }
 
 div.card-front.bleed > .overlay {
-  top: 25px;
-  left: 25px;
-}
-
-/* zoom still kind of sucks on Firefox */
-@supports (-moz-appearance:none) {
-  div.card-front {
-    zoom: unset;
-    border-radius: calc(25px * var(--scale));
-  }
-  div.card-front > .overlay {
-    transform-origin: top left;
-    transform: scale(var(--scale));
-  }
-  div.card-front.bleed > .overlay {
-    top: calc(25px * var(--scale));
-    left: calc(25px * var(--scale));
-  }
+  top: calc(25px * var(--scale));
+  left: calc(25px * var(--scale));
 }
 
 /* no print bleed on these */
 div.card-front.gbcp {
-    background-size: 500px 700px;
+  box-sizing: border-box;
+  background-size: 100%;
+  background-origin: content-box;
+}
+div.card-front.gbcp > .overlay {
+  box-sizing: content-box;
 }
 div.card-front.gbcp.bleed {
-  background-position: center;
   background-color: var(--mom-color, var(--team-color));
+  padding: calc(25px * var(--scale));
 }
-div.card-front.gbcp.double {
-  background-position: right;
-}
-
-@supports (-moz-appearance:none) {
-  div.card-front.gbcp {
-    background-size: 100%;
-    background-origin: content-box;
-  }
-  div.card-front.gbcp.bleed {
-    padding: calc(25px * var(--scale));
-  }
-  div.card-front.gbcp.double.bleed {
-    padding-right: unset;
-  }
+div.card-front.gbcp.double.bleed {
+  padding-right: unset;
 }
 
 /* top box positioning and layout */
