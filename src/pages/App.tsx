@@ -111,6 +111,10 @@ const App = () => {
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
+          // paddingTop: 'env(safe-area-inset-top)',
+          // paddingLeft: 'env(safe-area-inset-left)',
+          // paddingRight: 'env(safe-area-inset-right)',
+          paddingBottom: 'env(safe-area-inset-bottom)',
         }}
       >
         <MyAppBar
