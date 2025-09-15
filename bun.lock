@@ -7,7 +7,7 @@
         "@emotion/css": "^11.13.5",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.1",
-        "@fontsource/comfortaa": "^5.2.6",
+        "@fontsource/comfortaa": "^5.2.7",
         "@fontsource/crimson-text": "^5.2.6",
         "@fontsource/im-fell-great-primer": "^5.2.6",
         "@fontsource/im-fell-great-primer-sc": "^5.2.6",
@@ -18,7 +18,7 @@
         "@react-hook/debounce": "^4.0.0",
         "@react-hook/resize-observer": "^2.0.2",
         "classnames": "^2.5.1",
-        "color": "^5.0.0",
+        "color": "^5.0.2",
         "embla-carousel-react": "^8.6.0",
         "file-saver": "^2.0.5",
         "i18next": "^25.5.2",
@@ -455,7 +455,7 @@
 
     "@firebase/webchannel-wrapper": ["@firebase/webchannel-wrapper@1.0.3", "", {}, "sha512-2xCRM9q9FlzGZCdgDMJwc0gyUkWFtkosy7Xxr6sFgQwn+wMNIWd7xIvYNauU1r64B5L5rsGKy/n9TKJ0aAFeqQ=="],
 
-    "@fontsource/comfortaa": ["@fontsource/comfortaa@5.2.6", "", {}, "sha512-hZomBUay5QHPJjVOVhGC4utfjB8SQcWjrXXRnsYmajx8KDMZFzLHut4fJqz7bgXbuuJ8VgRm1SumzjXR2UXuMg=="],
+    "@fontsource/comfortaa": ["@fontsource/comfortaa@5.2.7", "", {}, "sha512-Lwf8zfx0RL+zoTR5yuxFgxebzIfYGWw7xhODZx/BwwaV89Fxmssv/fw3MJAOtjmdhSm6m2PZ89wfoT8OLlvM4g=="],
 
     "@fontsource/crimson-text": ["@fontsource/crimson-text@5.2.6", "", {}, "sha512-qy2ZgWzwMYapa5yBnc1XO5XQM1txC1x7uQSag6a9y2yVFSilBmeH70tzY8zSfozi+vC+5udoUzk+gsrecxAnPA=="],
 
@@ -839,7 +839,7 @@
 
     "clsx": ["clsx@2.1.1", "", {}, "sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA=="],
 
-    "color": ["color@5.0.0", "", { "dependencies": { "color-convert": "^3.0.1", "color-string": "^2.0.0" } }, "sha512-16BlyiuyLq3MLxpRWyOTiWsO3ii/eLQLJUQXBSNcxMBBSnyt1ee9YUdaozQp03ifwm5woztEZGDbk9RGVuCsdw=="],
+    "color": ["color@5.0.2", "", { "dependencies": { "color-convert": "^3.0.1", "color-string": "^2.0.0" } }, "sha512-e2hz5BzbUPcYlIRHo8ieAhYgoajrJr+hWoceg6E345TPsATMUKqDgzt8fSXZJJbxfpiPzkWyphz8yn8At7q3fA=="],
 
     "color-convert": ["color-convert@3.0.1", "", { "dependencies": { "color-name": "^2.0.0" } }, "sha512-5kQah2eolfQV7HCrxtsBBArPfT5dwaKYMCXeMQsdRO7ihTO/cuNLGjd50ITCDn+ZU/YbS0Go64SjP9154eopxg=="],
 
