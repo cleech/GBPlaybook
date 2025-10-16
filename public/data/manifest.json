@@ -12,6 +12,11 @@
           "filename": "GB-Playbook-4-7.fr.json",
           "sha256": "22c83d7f3431980edc6366661328fba0a19e5974aa4f86ad591d6ed437c744b3",
           "timestamp": "2025-11-20T19:26:33Z"
+        },
+        "zh": {
+          "filename": "GB-Playbook-4-7.zh.json",
+          "sha256": "0ea69f59a6f42a2b6306a2d86be7023877f62cb803114cc7f086be7f2845a9f5",
+          "timestamp": "2025-11-17T01:04:05Z"
         }
       }
     },

@@ -29,6 +29,11 @@ i18n
           "Guild Ball": "Guild Ball",
         },
       },
+      zh: {
+        translation: {
+          "Guild Ball": "Guild Ball",
+        },
+      },
     },
     debug: import.meta.env.MODE === "development" ? true : false,
     interpolation: {
