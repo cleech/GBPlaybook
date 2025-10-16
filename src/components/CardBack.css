@@ -145,7 +145,7 @@ div.card-back.gbcp.double.bleed {
 }
 
 .card-back .character-trait .trait {
-  font-family: "Crimson Text", serif;
+  font-family: "Crimson Text", "Noto Serif SC", serif;
   font-weight: 800;
   font-style: italic;
   font-size: 21px;
@@ -159,7 +159,7 @@ div.card-back.gbcp.double.bleed {
 }
 
 .card-back .character-trait .trait > :first-child > :nth-child(2) {
-  font-family: "Crimson Text", serif;
+  font-family: "Crimson Text", "Noto Serif SC", serif;
   font-weight: 600;
   font-style: normal;
   font-size: 21px;
@@ -167,7 +167,7 @@ div.card-back.gbcp.double.bleed {
 }
 
 .card-back .character-trait .text {
-  font-family: "Crimson Text", serif;
+  font-family: "Crimson Text", "Noto Serif SC", serif;
   font-size: 21px;
   line-height: 22px;
   text-align: left;
@@ -176,7 +176,7 @@ div.card-back.gbcp.double.bleed {
 }
 
 .card-back :is(.legendary, .heroic) {
-  font-family: "Crimson Text", serif;
+  font-family: "Crimson Text", "Noto Serif SC", serif;
   font-size: 21px;
   line-height: 22px;
   text-align: left;
@@ -184,14 +184,14 @@ div.card-back.gbcp.double.bleed {
 }
 
 .card-back :is(.heroic, .legendary) > :first-child > :first-child {
-  font-family: "Crimson Text", serif;
+  font-family: "Crimson Text", "Noto Serif SC", serif;
   font-weight: 800;
   font-style: italic;
   font-size: 21px;
 }
 
 .card-back :is(.legendary, .heroic) > :first-child > :nth-child(2) {
-  font-family: "Crimson Text", serif;
+  font-family: "Crimson Text", "Noto Serif SC", serif;
   font-weight: 600;
   font-style: normal;
   font-size: 21px;
@@ -226,7 +226,7 @@ div.card-back.gbcp.double.bleed {
 }
 
 .card-back .footer .tags {
-  font-family: "Crimson Text", serif;
+  font-family: "Crimson Text", "Noto Serif SC", serif;
   font-weight: 400;
   font-size: 20px;
   line-height: 20px;
@@ -274,7 +274,7 @@ div.card-back.gbcp.double.bleed {
 }
 
 .card-back .footer .base-size {
-  font-family: "Crimson Text", serif;
+  font-family: "Crimson Text", "Noto Serif SC", serif;
   font-weight: 400;
   font-size: 21px;
   line-height: 20px;

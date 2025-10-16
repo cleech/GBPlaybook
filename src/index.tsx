@@ -9,6 +9,7 @@ import '@fontsource/crimson-text';
 import '@fontsource/im-fell-great-primer-sc';
 import '@fontsource/im-fell-great-primer';
 import '@fontsource/noto-sans-symbols';
+import '@fontsource/noto-serif-sc';
 
 import { lazy } from "react";
 import { createRoot } from "react-dom/client";
