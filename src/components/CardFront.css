@@ -167,7 +167,7 @@ div.card-front.gbcp.double.bleed {
   position: absolute;
   bottom: 0;
   width: 230px;
-  font-family: "Crimson Text", serif;
+  font-family: "Crimson Text", "Noto Serif SC", serif;
   font-size: 21px;
   border-top: var(--line-width) solid black;
   border-image-source: linear-gradient(to left, transparent, black 150px);
@@ -191,7 +191,7 @@ div.card-front.gbcp.double.bleed {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   /* text styling */
-  font-family: "Crimson Text", serif;
+  font-family: "Crimson Text", "Noto Serif SC", serif;
   font-weight: 400;
   font-size: 20px;
   letter-spacing: -1px;
@@ -289,7 +289,7 @@ div.card-front.gbcp.double.bleed {
   align-items: flex-end;
   text-align: center;
   /* default text styling, used from the CP attributes */
-  font-family: "Crimson Text", serif;
+  font-family: "Crimson Text", "Noto Serif SC", serif;
   font-weight: 400;
   font-size: 20px;
 }
@@ -339,7 +339,7 @@ div.card-front.gbcp.double.bleed {
 /* individual play name styling */
 
 .card-front .character-plays .name {
-  font-family: "Crimson Text", serif;
+  font-family: "Crimson Text", "Noto Serif SC", serif;
   font-size: 20px;
   white-space: nowrap;
   text-align: left;
@@ -360,7 +360,7 @@ div.card-front.gbcp.double.bleed {
 
 .card-front .character-plays .text {
   grid-column-end: span 5;
-  font-family: "Crimson Text", serif;
+  font-family: "Crimson Text", "Noto Serif SC", serif;
   font-size: 21px;
   line-height: 22px;
   text-align: left;
@@ -411,7 +411,7 @@ div.card-front.gbcp.double.bleed {
   text-align: center;
   line-height: 23px;
   /* text and icon styling */
-  font-family: "Crimson Text", serif;
+  font-family: "Crimson Text", "Noto Serif SC", serif;
   font-weight: 600;
   color: var(--mom-color, var(--team-color));
 }
