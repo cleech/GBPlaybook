@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-05-20T00:56:59Z",
+  "timestamp": "2025-10-16T23:27:11Z",
   "datafiles": [
     {
       "version": 4.7,
@@ -12,6 +12,11 @@
           "filename": "GB-Playbook-4-7.fr.json",
           "sha256": "a71008a2aeacc42aa0f5a1551f72b88c86fca4e2a3c6448284e8fe4637c41c83",
           "timestamp": "2025-05-12T21:38:22Z"
+        },
+        "zh": {
+          "filename": "GB-Playbook-4-7.zh.json",
+          "sha256": "c1a9a84d2a994752430966dd15cbf2492c5f1a039bb57e38b12f0bb099ca6cba",
+          "timestamp": "2025-10-16T23:26:33Z"
         }
       }
     },

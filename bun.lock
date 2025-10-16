@@ -12,6 +12,7 @@
         "@fontsource/im-fell-great-primer": "^5.2.6",
         "@fontsource/im-fell-great-primer-sc": "^5.2.6",
         "@fontsource/noto-sans-symbols": "^5.2.10",
+        "@fontsource/noto-serif-sc": "^5.2.8",
         "@khmyznikov/pwa-install": "^0.5.8",
         "@mui/icons-material": "^7.3.2",
         "@mui/material": "^7.3.2",
@@ -65,6 +66,7 @@
   },
   "overrides": {
     "sharp": "0.32.6",
+    "sharp-ico": "0.1.5",
   },
   "packages": {
     "@ampproject/remapping": ["@ampproject/remapping@2.3.0", "", { "dependencies": { "@jridgewell/gen-mapping": "^0.3.5", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw=="],
@@ -464,6 +466,8 @@
     "@fontsource/im-fell-great-primer-sc": ["@fontsource/im-fell-great-primer-sc@5.2.6", "", {}, "sha512-IBHoxVOLe1ovQGtYu0HnlEyWa6WsmWUPXPFRxip1+ZaXgzkQSfWzODX0rDPM5wSOoiUpGurHjbBluCxKxbrqNQ=="],
 
     "@fontsource/noto-sans-symbols": ["@fontsource/noto-sans-symbols@5.2.10", "", {}, "sha512-S2aGxeKo9RoJqzQl68nVmQsTTOBAVq77ozOtg92QIchMDfzhb6FtnwxMfoymUI0awSf6FG8S/2btnPWSPkkajg=="],
+
+    "@fontsource/noto-serif-sc": ["@fontsource/noto-serif-sc@5.2.8", "", {}, "sha512-C7fAr+d1GjOAw1qIbntsnqbA3l5dkdzcmNNgeCXLC8QZ7VNubL7MTrX8UcYKHceX4mI//z8gGtXbOeeQrB6P7g=="],
 
     "@grpc/grpc-js": ["@grpc/grpc-js@1.9.15", "", { "dependencies": { "@grpc/proto-loader": "^0.7.8", "@types/node": ">=12.12.47" } }, "sha512-nqE7Hc0AzI+euzUwDAy0aY5hCp10r734gMGRdU+qOPX0XSceI2ULrcXB5U2xSc5VkWwalCj4M7GzCAygZl2KoQ=="],
 
