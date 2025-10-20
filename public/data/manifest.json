@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-16T23:27:11Z",
+  "timestamp": "2025-10-20T22:24:04Z",
   "datafiles": [
     {
       "version": 4.7,
@@ -15,8 +15,8 @@
         },
         "zh": {
           "filename": "GB-Playbook-4-7.zh.json",
-          "sha256": "c1a9a84d2a994752430966dd15cbf2492c5f1a039bb57e38b12f0bb099ca6cba",
-          "timestamp": "2025-10-16T23:26:33Z"
+          "sha256": "d114a847678669aed18a61ea7a8da5fd89c591683c9cdb5a91bcffdb8063ff53",
+          "timestamp": "2025-10-20T22:23:16Z"
         }
       }
     },
