@@ -13717,27 +13717,27 @@
     {
       "name": "Gimme Fuel...",
       "active": false,
-      "text": "While this model is on the pitch, when a friendly model makes an attack that targets an enemy model suffering the burning condition, the friendly model may gain +2 TAC for the duration of that attack. Each friendly model may benefit from Gimme Fuel... once per turn."
+      "text": "当这个模型在场时，当一个友方模型发起攻击并且目标是一个处于燃烧状态的敌方模型时，友方模型获得+2 TAC。每个友方模型每回合可以有一次机会从Gimme Fuel中受益"
     },
     {
       "name": "Backdraft",
       "active": true,
-      "text": "This model gains +2 TAC when attacking an enemy model suffering the Burning condition."
+      "text": "此模型攻击处于燃烧状态的敌方模型时获得+2 TAC"
     },
     {
       "name": "Furious",
       "active": false,
-      "text": "When this model makes a charge during its activation, it may do so without spending influence."
+      "text": "当这个模型在激活期间可以进行一次不消耗影响力的冲锋。"
     },
     {
       "name": "Inferno",
       "active": false,
-      "text": "When this model makes a successful attack, the target enemy model suffers the burning condition. Then enemy models within 2\" of this model suffering the burning condition suffer 1 condition damage."
+      "text": "当此模型命中目标敌人模型时，目标遭受燃烧状态。然后在此模型2”范围内的持有燃烧状态的敌人模型遭受1条件伤害"
     },
     {
       "name": "Waning Light",
       "active": false,
-      "text": "This model cannot recover HP. When this model suffers the taken out condition, enemy models within this pulse suffer 3 condition DMG and the burning condition. After this model is removed from the pitch, replace this model’s stat card with Soma’s stat card."
+      "text": "此模型无法恢复HP。当此模型被移出时，该脉冲范围内的敌方模型会受到3点条件伤害和燃烧状态。在移除此模型后，用Soma的统计卡替换此模型的统计卡"
     },
     {
       "name": "Beaker Keeper",
@@ -13957,7 +13957,7 @@
     {
       "name": "Far Strike",
       "active": true,
-      "text": "此模型的激活中每回合一次，如果此模型拥有对名6”内敌方模型的视线，则此模型可以宣布一次对该敌方模型的攻击视同正在接战�。"
+      "text": "此模型的激活中每回合一次，如果此模型拥有对名6”内敌方模型的视线，则此模型可以宣布一次对该敌方模型的攻击视同正在接战。"
     },
     {
       "name": "Kindled",
@@ -14942,92 +14942,92 @@
     {
       "name": "Sheep Become the Shepherds",
       "active": false,
-      "text": "If this model suffers the taken out condition during the Activation Phase, friendly models are allocated influence up to their max INF."
+      "text": "如果此模型在激活阶段被移出时，友方模型将分配其最大INF的影响。"
     },
     {
       "name": "Heartless Brute!",
       "active": false,
-      "text": "When an enemy model inflicts the taken out condition on this model, the enemy model suffers Singled Out for the remainder of the turn.\n(Singled Out: Friendly models gain +2 TAC while attacking target enemy model.)"
+      "text": "当敌方模型将此模型移出时，敌方模型在回合剩余时间内受到 Singled Out.\n(Singled Out: 友好模型在攻击目标敌人模型时获得 +2 TAC.)"
     },
     {
       "name": "Herding",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove it from the pitch. If it does, choose an enemy model within 3\". The chosen enemy model suffers a 3\" push."
+      "text": "在这个模型的激活期间，每回合可以选择一个友方收割标记并将其从场上移除。如果它这样做，选择敌方模型并在3”内将其推离。被选中的敌方模型会受到3”的推力"
     },
     {
       "name": "Littermates",
       "active": false,
-      "text": "If this model suffers the taken out condition the named friendly model gains Furious and +4 TAC for the remainder of the turn.\n(Furious: When this model makes a charge during its activation, it may do so without spending influence.)"
+      "text": "如果这个模型被移出时，指定友方模型在回合剩余时间内获得 Furious 和 +4 TAC .\n(Furious: 这个模型在激活中可以使用一次不消耗影响力的冲锋.)"
     },
     {
       "name": "Matched Pair",
       "active": false,
-      "text": "This model and the named friendly model are treated as a single Squaddie during team selection. While the named friendly model is on the pitch, this model activates simultaneously with it. When this model suffers the taken out condition, the enemy team gains 1 VP instead of 2 VP."
+      "text": "此模型和指定的友方模型在团队选择时被视为一个队友模型。当指定的友方模型在场地上时，此模型会同时激活。当此模型被移出时，敌方团队获得1 VP而不是2 VP"
     },
     {
       "name": "Workhorse",
       "active": false,
-      "text": "If this model suffers the taken out condition it may place up to 5 friendly harvest markers anywhere on the pitch."
+      "text": "如果这个模型被移出时，最多可以在球场上任何地方放置多达5个友方收获标记"
     },
     {
       "name": "Baa-ttering Ram",
       "active": false,
-      "text": "During this model’s advances, models whose bases are touched by its base immediately suffer a 4\" push directly away from it. This model can only push each model once per turn with Baa-ttering Ram."
+      "text": "此模型行进时，将任何底座与此模型底座接触的模型径直远离此模型推离 4”，每名模型每回合只会受此特性影响一次。"
     },
     {
       "name": "Flock",
       "active": true,
-      "text": "When this model ends an advance, one other friendly model within this pulse may make a 2\" dodge."
+      "text": "当此模型结束一次行进时，此脉冲范围内的一个友方模型可以进行一次 2”躲避"
     },
     {
       "name": "Have You Any Wool?",
       "active": false,
-      "text": "If this model suffers the taken out condition friendly models gain +2 ARM for the remainder of the turn."
+      "text": "如果这个模型被移出时，友好模型会在剩余回合中获得+2 ARM"
     },
     {
       "name": "All About The Game",
       "active": false,
-      "text": "If this model suffers the taken out condition friendly models gain +1/+1\" KICK for the remainder of the turn."
+      "text": "如果这个模型被移出时，目标友好模型获得 +1/+1” KICK，直到回合结束"
     },
     {
       "name": "Shearing",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove it from the pitch. If it does, this model may make a 4\" dodge."
+      "text": "在这个模型激活期间，每回合在2”范围内选择一个友方收获标记并将其从场上移除。如果这样做，这个模型可以进行 4” 躲避"
     },
     {
       "name": "Do the Thing!",
       "active": false,
-      "text": "Once per turn a friendly model may take a second activation."
+      "text": "每回合中，友方模型可以进行一次额外的激活"
     },
     {
       "name": "Lance",
       "active": false,
-      "text": "When this model makes a charge, this model gains an additional +2 TAC and +1 DMG to playbook damage results for the duration of the charge."
+      "text": "当此模型进行冲锋时，此模型获得额外的+2 TAC和 +1 DMG。"
     },
     {
       "name": "Shelling Out",
       "active": false,
-      "text": "Friendly models within this aura gain +1 TAC. When a friendly model within this aura inflicts the taken out condition on an enemy model, the friendly team gains an additional 1 MP."
+      "text": "此光环内的友方模型获得+1 TAC。当此光环内的友方模型对敌方模型施加被击倒状态时，友方队伍获得额外的1 MP。"
     },
     {
       "name": "Trusty Steed",
       "active": false,
-      "text": "This model fills the roles of both Captain and Mascot in your team. This model generates 2 VPs when it suffers the taken out condition. Avarisse may not be selected for your team if this model is your captain."
+      "text": "此模型在您的团队中扮演着队长和吉祥物两种角色。当此模型被移出时，将生成两个VP。如果此模型是您的队长，则Avarisse可能不会被选中加入您的团队。"
     },
     {
       "name": "Contract",
       "active": false,
-      "text": "While the named friendly model is on the pitch, this model activates simultaneously with it."
+      "text": "当指定的友好模型在场上时，此模型会与其同时激活。"
     },
     {
       "name": "Drop Off",
       "active": true,
-      "text": "Once per turn during this model’s activation, if the named friendly model isn't on the pitch and isn't suffering the taken out condition, it may be placed on the pitch in base contact with this model."
+      "text": "在本模型激活期间每回合一次，如果指定的友好模型不在场上并且没有被移出，它可以被放回场上与本模型底盘接触放置"
     },
     {
       "name": "Thuggery",
       "active": false,
-      "text": "While this model is within 1\" of the named friendly model, this model gains +1 DMG to playbook damage results and may add a {KD} playbook result to each successful attack it makes."
+      "text": "该模型与指定友方模型距离 1\" 内，该模型获得+1 DMG，并增加一个 {KD} 效果"
     },
     {
       "name": "Pick Up",
@@ -15037,7 +15037,7 @@
     {
       "name": "Ready to Go",
       "active": false,
-      "text": "This model may be allocated influence while not on the pitch."
+      "text": "本模型不在场地时也可以照常分配影响力"
     },
     {
       "name": "Back to Black",
