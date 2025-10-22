@@ -1110,7 +1110,7 @@
         "Secretion",
         "Venomous Strike"
       ],
-      "heroic": "在此脉冲范围内受到中毒的敌方模型遭受3点状态DMG.",
+      "heroic": "Coagulation [3\" Pulse]\n在此脉冲范围内受到中毒的敌方模型遭受3点状态DMG.",
       "types": "Valentian, Human, Male,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -1161,7 +1161,7 @@
       "character_traits": [
         "I've Been Burnt Before..."
       ],
-      "heroic": "在此脉冲范围内的敌方模型遭受燃烧状态.",
+      "heroic": "Face Your Fear [4\" Pulse]\n在此脉冲范围内的敌方模型遭受燃烧状态.",
       "types": "Skaldic, Human, Female,\nStriker,\nSquaddie",
       "playbook": [
         [
