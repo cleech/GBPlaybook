@@ -10122,7 +10122,7 @@
         "Guild Rule: Precise Calculations",
         "Stormwind"
       ],
-      "legendary": "Perfect Course [6\" Pulse]\n此脉冲范围内每有一个敌方模型，就可以选择一个友方模型进行一此4” 闪避. 每个友方模型只能被选择一次.",
+      "legendary": "Perfect Course [6\" Pulse]\n此脉冲范围内每有一个敌方模型，就可以选择一个此脉冲范围内的友方模型进行一次 4” 闪避，每个友方模型只能被选择一次。",
       "types": "Sultarish, Human, Female,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -12580,7 +12580,7 @@
     },
     {
       "name": "Unexpected Arrival",
-      "text": "3\"脉冲。在此脉冲范围内的敌方模型受到个径直远离此模型的4\"推移。",
+      "text": "3\"脉冲。在此脉冲范围内的敌方模型受到径直远离此模型的4\"推移。",
       "CST": "CP2",
       "RNG": "S",
       "SUS": false,
@@ -13284,7 +13284,7 @@
     },
     {
       "name": "Smelling Salts",
-      "text": "在此范围内放置一个AOE。在此AOE范围内的友方模型移除所有受到的状态。",
+      "text": "在此范围内放置一个AOE。在此AOE范围内的友方模型移除受到的所有状态。",
       "CST": 2,
       "RNG": 2,
       "SUS": false,
@@ -13987,7 +13987,7 @@
     {
       "name": "Close Control",
       "active": false,
-      "text": "此模型忽视每回合受到的第一次铲球。"
+      "text": "此模型忽视每回合受到的第一个战术手册抢断结果。"
     },
     {
       "name": "Tryhard",
@@ -14587,7 +14587,7 @@
     {
       "name": "Linked",
       "active": true,
-      "text": "当此模型的激活结束时，如果其可以激活，则指定友方模型可以立即进行其激活。"
+      "text": "当此模型的激活结束时，如果指定的友方模型可以激活，则该模型可以立即激活。"
     },
     {
       "name": "Pack Mentality",
@@ -14822,27 +14822,27 @@
     {
       "name": "Stormwind",
       "active": false,
-      "text": "当敌方模型成为此模型角色技巧的目标时，该敌方模型受到击倒"
+      "text": "当此模型的角色技巧击中一个敌方模型时，该敌方模型受到击倒"
     },
     {
       "name": "About Their Necks",
       "active": false,
-      "text": "当此模型进行每回合的第一次攻击时，被攻击的敌方模型受到–1 TAC直到回合结束"
+      "text": "该模型每回合第一次因为敌方攻击或角色技巧受到伤害时，造成伤害的敌方模型受到-1 TAC直到回合结束。"
     },
     {
       "name": "Gladiator",
       "active": false,
-      "text": "当此模型宣布反击时,此模型获得+1 DEF直到完成此次反击"
+      "text": "当此模型宣布反击时,此模型获得 +1 DEF直到敌方模型完成攻击"
     },
     {
       "name": "Blessings of Old",
       "active": false,
-      "text": "此模型一次至多受到2 DMG"
+      "text": "此模型一次至多受到 2 DMG"
     },
     {
       "name": "Sharp Eyes",
       "active": false,
-      "text": "在此光环范围内开始激活的友方公会模型，此模型直到激活结束前获得 Anatomical Precision.\n(Anatomical Precision: 此模型攻击时敌方模型受到 -1 ARM.)"
+      "text": "在此光环范围内激活的友方模型获得 Anatomical Precision，直到激活结束。\n(Anatomical Precision: 此模型攻击时敌方模型受到 -1 ARM.)"
     },
     {
       "name": "Don't Get Cocky",
@@ -14937,7 +14937,7 @@
     {
       "name": "Protect the Ball",
       "active": true,
-      "text": "在这个模型的激活期间，每回合它可以选择一个距离在2英寸以内的友方收割标记并将其从场上移除。如果做到了这一点，脉冲内的友方模型将在剩余的回合中获得 Close Control.\n(Close Control: 这个模型可以忽略每个回合遭受的第一个抢断。.)"
+      "text": "在这个模型的激活期间，每回合它可以选择一个距离在2英寸以内的友方收割标记并将其从场上移除。如果做到了这一点，脉冲内的友方模型将在剩余的回合中获得 Close Control.\n(Close Control: 此模型忽视每回合受到的第一个战术手册抢断结果。.)"
     },
     {
       "name": "Sheep Become the Shepherds",
