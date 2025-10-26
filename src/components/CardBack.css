@@ -175,12 +175,24 @@ div.card-back.gbcp.double.bleed {
   margin-bottom: 0.25em;
 }
 
+.card-back[lang="zh"] .character-trait .text {
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: unset;
+}
+
 .card-back :is(.legendary, .heroic) {
   font-family: "Crimson Text", serif;
   font-size: 21px;
   line-height: 22px;
   text-align: left;
   white-space: pre-wrap;
+}
+
+.card-back[lang="zh"] :is(.legendary, .heroic) {
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: unset;
 }
 
 .card-back :is(.heroic, .legendary) > :first-child > :first-child {

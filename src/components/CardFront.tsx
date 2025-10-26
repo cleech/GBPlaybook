@@ -1,4 +1,5 @@
 import React, { CSSProperties, useEffect, useState } from "react";
+import { useData } from "../hooks/useData";
 import GBImages from "../utils/GBImages";
 
 import GBIcon, { PB } from "./GBIcon";
@@ -33,11 +34,11 @@ export interface GBCardCSS extends CSSProperties {
 }
 
 const CardFront = (props: CardFrontProps) => {
+  const { lang } = useData();
   const model = props.model;
   const key = model.id;
 
   const [cardStyle, setStyle] = useState<"sfg" | "gbcp">("sfg");
-  const [lang, setLang] = useState<string>("auto");
 
   useEffect(() => {
     let sub: Subscription | undefined;
@@ -46,7 +47,6 @@ const CardFront = (props: CardFrontProps) => {
       sub = setting$.subscribe((s) => {
         const settings = s?.toJSON();
         setStyle(settings?.data.cardPreferences.preferredStyle || "sfg");
-        setLang(settings?.data.language || "auto");
       });
     })();
     return () => sub?.unsubscribe();
@@ -66,9 +66,8 @@ const CardFront = (props: CardFrontProps) => {
 
   return (
     <div
-      className={
-        cx('card-front', key, `lang-${lang}`, { 'gbcp': gbcp }, props.className)
-      }
+      lang={lang}
+      className={cx('card-front', key, { gbcp: gbcp }, props.className)}
       style={{
         "--team-color": model.guild1.color,
         /* not the best way to do this */

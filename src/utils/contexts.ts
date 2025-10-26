@@ -8,4 +8,5 @@ export const DataContext = createContext<DataContextProps>({
   manifest: undefined,
   version: 0,
   gameplans: undefined,
+  lang: "en",
 });

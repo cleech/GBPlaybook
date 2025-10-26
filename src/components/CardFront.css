@@ -369,6 +369,12 @@ div.card-front.gbcp.double.bleed {
   letter-spacing: -1px;
 }
 
+.card-front[lang="zh"] .character-plays .text {
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: unset;
+}
+
 .card-front .health {
   /* grid positioning */
   position: absolute;
@@ -436,7 +442,7 @@ div.card-front.gbcp.double.bleed {
 
 /* Skatha was close, and the french translation pushed it over */
 
-.Skatha.lang-fr .character-plays .text {
+.Skatha[lang="fr"] .character-plays .text {
   /* letter-spacing: -1.1px;
   word-spacing: -1.1px; */
   font-size: 20px;
