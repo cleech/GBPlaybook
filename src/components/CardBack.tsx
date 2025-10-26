@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useData } from "../hooks/useData";
 import GBImages from "../utils/GBImages";
 
 import GBIcon from "./GBIcon";
@@ -22,6 +23,7 @@ interface CardBackProps {
 }
 
 const CardBack = (props: CardBackProps) => {
+  const { lang } = useData();
   const model = props.model;
   const key = model.id;
 
@@ -58,6 +60,7 @@ const CardBack = (props: CardBackProps) => {
 
   return (
     <div
+      lang={lang}
       className={cx('card-back', key, { 'gbcp': gbcp }, props.className)}
       // ref={targetRef}
       style={{

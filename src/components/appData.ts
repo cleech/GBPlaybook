@@ -216,9 +216,9 @@ export async function initializeAppData(): Promise<
 
     const resolvedLang = i18n.resolvedLanguage;
     const effectiveLanguage =
-      settingLanguage === "auto" || !settingLanguage
+      (settingLanguage === "auto" || !settingLanguage
         ? resolvedLang
-        : settingLanguage;
+        : settingLanguage) ?? "en";
 
     const manifest: Manifest = await readFile("manifest.json");
 
@@ -275,7 +275,7 @@ export async function initializeAppData(): Promise<
     const gameplans: Gameplan[] = await readFile(gameplansFile);
 
     console.log("Application data initialization complete.");
-    return { reloadData: async () => { }, manifest, version, gameplans, gameplanYear, gbdb };
+    return { reloadData: async () => { }, manifest, version, gameplans, gameplanYear, gbdb, lang: effectiveLanguage };
   };
 
   currentInitializationPromise = initializationWork();

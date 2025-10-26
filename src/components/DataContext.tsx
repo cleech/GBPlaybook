@@ -11,6 +11,7 @@ export interface DataContextProps {
   gameplans?: Gameplan[];
   gameplanYear?: number;
   gbdb?: GBDatabase;
+  lang: string;
 }
 
 interface DataProviderProps {
