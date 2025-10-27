@@ -26,18 +26,18 @@ export const AppBarContent = (props: { children?: ReactNode }) => {
   return <Portal container={containerRef}>{props.children}</Portal>;
 };
 
-const MyAppBar = (props: { onClick: React.MouseEventHandler, ref: React.Ref<HTMLElement> }) => (
+const MyAppBar = ({ ref, onClick }: { ref: React.Ref<HTMLElement>, onClick: React.MouseEventHandler }) => (
   <AppBar position="static" className="no-print">
     <Toolbar variant="dense">
       <Box
-        ref={props.ref}
+        ref={ref}
         sx={{
           display: "flex",
           flexDirection: "row",
           width: "100%",
         }}
       />
-      <IconButton size="small" color="inherit" onClick={props.onClick}>
+      <IconButton size="small" color="inherit" onClick={onClick}>
         <MenuIcon />
       </IconButton>
     </Toolbar>
