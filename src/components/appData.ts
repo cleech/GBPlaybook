@@ -275,7 +275,7 @@ export async function initializeAppData(): Promise<
     const gameplans: Gameplan[] = await readFile(gameplansFile);
 
     console.log("Application data initialization complete.");
-    return { manifest, version, gameplans, gameplanYear, gbdb };
+    return { reloadData: async () => { }, manifest, version, gameplans, gameplanYear, gbdb };
   };
 
   currentInitializationPromise = initializationWork();

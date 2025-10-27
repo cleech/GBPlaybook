@@ -19,7 +19,6 @@ import { useTranslation } from "react-i18next";
 import { Observable } from "rxjs";
 import ISO6391 from "iso-639-1";
 import { useRouteLoaderData } from "react-router-dom";
-import { initializeAppData } from "../components/appData";
 import { defaultSettings } from "../models/defaultSettings";
 
 const SettingsSwitch = ({ value$, onChange, label }:
@@ -54,7 +53,7 @@ const SettingsSwitch = ({ value$, onChange, label }:
 }
 
 const Settings = () => {
-  const { manifest } = useData();
+  const { reloadData, manifest } = useData();
   const setting$ = useRouteLoaderData<Observable<SettingsDoc | null>>("settings");
   const { i18n } = useTranslation();
   const lng = i18n.resolvedLanguage;
@@ -66,7 +65,7 @@ const Settings = () => {
   }, [setting$]);
 
   if (!manifest || !settingsDoc) {
-    return;
+    return null;
   }
 
   return (
@@ -97,7 +96,7 @@ const Settings = () => {
                 doc.libraryRoute = defaultSettings.libraryRoute;
                 return doc;
               });
-              await initializeAppData();
+              await reloadData();
             }
           }}
         >
@@ -127,7 +126,7 @@ const Settings = () => {
                 doc.libraryRoute = defaultSettings.libraryRoute;
                 return doc;
               });
-              await initializeAppData();
+              await reloadData();
             }
           }}
         >

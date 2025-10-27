@@ -4,6 +4,7 @@ import { DataContextProps } from "../components/DataContext";
 export const AppBarContext = createContext<HTMLElement | undefined>(undefined);
 
 export const DataContext = createContext<DataContextProps>({
+  reloadData: async () => { },
   manifest: undefined,
   version: 0,
   gameplans: undefined,
