@@ -208,6 +208,8 @@ export default function CardPrintScreen() {
           flexDirection: "column",
           width: "100%",
           height: "100%",
+          // background: "rgba(100%, 100%, 100%, 5%)",
+          // backdropFilter: "blur(5px)",
         }}
       >
         <Global styles={printGlobal} />

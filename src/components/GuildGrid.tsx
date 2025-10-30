@@ -191,7 +191,8 @@ export function GridIconButton(props: {
         minHeight: size,
         maxWidth: size,
         maxHeight: size,
-        background: "rgba(100%, 100%, 100%, 5%)",
+        background: "rgba(100%, 100%, 100%, 15%)",
+        backdropFilter: "blur(10px)",
       }}
       sx={{
         "@media (hover: hover)": {
