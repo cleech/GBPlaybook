@@ -57,23 +57,39 @@ const darkTheme = createTheme({
     mode: "dark",
     primary: {
       // main: "#4e91ba",
-      main: "#ba9d4e",
+      // main: "#ba9d4e",
+      main: "#5578a6",
     },
     secondary: {
-      main: "#ffb300",
+      // main: "#ffb300",
+      main: '#ffca28',
     },
-    background: {
-      default: "#121a22",
-    },
+    // background: {
+    //   default: "#121a22",
+    // },
   },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          background:
+          // need this hackery to allow nested backdrop-filters ...
+          '&::before': {
+            content: "''",
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            backdropFilter: "blur(2px)",
+            zIndex: -99,
+          },
+          overflow: "hidden",
+          backgroundColor: "#400",
+          backgroundImage:
             // "linear-gradient(20deg, black, #121a22, #1d506f, #121a22, black)",
             // "linear-gradient(120deg, black, #221a22, #5f405f, #221a22, black)",
-            "linear-gradient(45deg, black, #5a1616, #734930, #5a1616, black)",
+            // "linear-gradient(45deg, black, #5a1616, #734930, #5a1616, black)",
+            "repeating-linear-gradient(45deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5) 70px, transparent 0px, transparent 140px)," +
+            "repeating-linear-gradient(-45deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6) 70px, transparent 0px, transparent 140px)," +
+            "linear-gradient(-45deg, #c33, 10%, #400, 90%, #c33)",
         },
         "@media print": {
           body: {
@@ -96,6 +112,14 @@ const darkTheme = createTheme({
       defaultProps: {
         LinkComponent: LinkBehavior,
       },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          background: "rgba(100%, 100%, 100%, 10%)",
+          backdropFilter: "blur(10px)",
+        }
+      }
     },
   },
 });

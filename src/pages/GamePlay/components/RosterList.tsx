@@ -339,7 +339,9 @@ export default function RosterList({
             expanded={expanded}
             square
             sx={{
-              backgroundColor: "transparent",
+              // backgroundColor: "transparent",
+              background: "rgba(100%, 100%, 100%, 10%)",
+              backdropFilter: "blur(10px)",
             }}
             disableGutters={true}
             elevation={0}
