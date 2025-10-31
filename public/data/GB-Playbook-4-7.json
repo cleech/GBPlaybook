@@ -386,6 +386,12 @@
         "Harry",
         "Mist"
       ]
+    },
+    {
+      "name": "Lumberjacks",
+      "minor": true,
+      "color": "#416abb",
+      "roster": []
     }
   ],
   "Models": [

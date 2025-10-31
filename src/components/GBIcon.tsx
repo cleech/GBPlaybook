@@ -147,7 +147,7 @@ export default function GBIcon(props: GBIconProps) {
   };
 
   return (
-    iconMap[icon]?.({ className: className, style: computedStyle, ...otherProps }) ?? null
+    iconMap[icon]?.({ className: className, style: computedStyle, ...otherProps }) ?? '?'
   );
 }
 
@@ -169,7 +169,7 @@ export function PB(props: PBProps) {
   };
   try {
     return (
-      pbMap[i]({ className: className, style: computedStyle, ...otherProps })
+      pbMap[i]?.({ className: className, style: computedStyle, ...otherProps }) ?? '?'
     );
   } catch (e) {
     console.error(icon);
