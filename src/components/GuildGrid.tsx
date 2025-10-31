@@ -217,6 +217,7 @@ export function GridIconButton(props: {
           borderRadius: "50%",
           padding: "0.0625em",
           background: "content-box linear-gradient(to bottom, #000, #333)",
+          filter: (props.g.disabled ? "grayscale(0.8)" : "unset"),
         }}
       >
         <GBIcon

@@ -53,6 +53,8 @@ import snared from "./icons/snared";
 import trophy from "./icons/trophy";
 import Union from "./icons/Union";
 
+import Lumberjacks from "./icons/Lumberjacks";
+
 const iconMap: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
   'Alchemists': Alchemists,
   'ball-full': ballFull,
@@ -92,6 +94,8 @@ const iconMap: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
   'snared': snared,
   'trophy': trophy,
   'Union': Union,
+
+  'Lumberjacks': Lumberjacks,
 }
 
 
