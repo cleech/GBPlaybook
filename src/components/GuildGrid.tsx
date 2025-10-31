@@ -60,6 +60,7 @@ interface GridIcon {
   name: string;
   icon: string;
   style?: React.CSSProperties;
+  disabled?: boolean;
 }
 
 interface GuildGridProps {
@@ -143,6 +144,7 @@ const GuildGridInner = React.memo(
       key: g.name,
       name: g.name,
       icon: g.name,
+      disabled: g.roster.length === 0,
     }));
 
     return (
@@ -179,6 +181,7 @@ export function GridIconButton(props: {
   return (
     <Button
       key={g.key}
+      disabled={props.g.disabled}
       variant="outlined"
       onClick={() => pickTeam?.(g.key)}
       style={{
@@ -230,7 +233,7 @@ export function GridIconButton(props: {
       <Typography
         variant="caption"
         style={{
-          color: "whitesmoke",
+          color: props.g.disabled ? "darkgrey" : "whitesmoke",
           // letterSpacing: "normal",
           textTransform: "capitalize",
           textShadow:
