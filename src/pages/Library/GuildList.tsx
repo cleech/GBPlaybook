@@ -12,6 +12,7 @@ import {
 import {
   Typography,
   Breadcrumbs,
+  Box,
 } from "@mui/material";
 
 import {
@@ -36,9 +37,17 @@ export default function GuildList() {
   return (
     <>
       <AppBarContent>
-        <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
-          <Typography>Library</Typography>
-        </Breadcrumbs>
+        <Box sx={{
+          display: "flex",
+          width: "100%",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between"
+        }}>
+          <Breadcrumbs separator={<NavigateNext fontSize="small" />}>
+            <Typography>Library</Typography>
+          </Breadcrumbs>
+        </Box>
       </AppBarContent>
       <GuildGrid guilds={guilds} Controller={ExtraIconsControl} />
       <VersionTag />
@@ -64,6 +73,7 @@ function ExtraIconsControl(props: ControlProps) {
     >
       <GridIconButton
         g={{
+          id: "gameplans",
           key: "gameplans",
           name: "gameplans",
           icon: "GB",
@@ -74,6 +84,7 @@ function ExtraIconsControl(props: ControlProps) {
       />
       <GridIconButton
         g={{
+          id: "refcards",
           key: "refcards",
           name: "Rules",
           icon: "GB",

@@ -21,6 +21,7 @@ export interface Settings {
   libraryRoute: string;
   // auto switch on new major release
   mostRecentErrata?: string;
+  customListOrder?: string[];
 }
 
 export type SettingsDoc = RxLocalDocument<GBDatabase, Settings>;

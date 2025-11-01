@@ -157,8 +157,8 @@ const Settings = () => {
 
       <Typography>UI Options:</Typography>
 
+      <p />
       <Typography>Initial Screen:</Typography>
-
       <FormControl>
         <Select
           value={settingsDoc?.toJSON().data.initialScreen}
