@@ -43,6 +43,15 @@ import { defaultSettings } from "./models/defaultSettings";
 import "./utils/i18next";
 import { reSort } from "./utils/reSort";
 import LoadingSplash from "./components/LoadingSplash";
+import { GBDatabase } from "./models/gbdbTypes";
+
+async function sortedGuilds(db: GBDatabase) {
+  const guilds = await db.guilds.find().exec();
+  const settings = await db.getLocal<SettingsDoc>("settings");
+  const listOrder = settings?.get("customListOrder") ?? [];
+  reSort(guilds, "name", listOrder);
+  return guilds;
+}
 
 const router = createBrowserRouter(
   [{
@@ -99,7 +108,7 @@ const router = createBrowserRouter(
                   const initializeAppData = (await import("./components/appData")).initializeAppData;
                   return async () => {
                     const { gbdb: db } = await initializeAppData();
-                    return await db.guilds.find().exec();
+                    return await sortedGuilds(db);
                   }
                 },
               },
@@ -121,7 +130,7 @@ const router = createBrowserRouter(
                   const initializeAppData = (await import("./components/appData")).initializeAppData;
                   return async () => {
                     const { gbdb: db } = await initializeAppData();
-                    return await db.guilds.find().exec();
+                    return await sortedGuilds(db);
                   }
                 },
               },
@@ -163,7 +172,7 @@ const router = createBrowserRouter(
               const initializeAppData = (await import("./components/appData")).initializeAppData;
               return async () => {
                 const { gbdb: db } = await initializeAppData();
-                return await db.guilds.find().exec();
+                return await sortedGuilds(db);
               }
             }
           }
