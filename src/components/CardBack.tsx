@@ -131,7 +131,7 @@ const CardBack = (props: CardBackProps) => {
             letterSpacing: 0,
             wordSpacing: 0,
             color: "white",
-            display: gbcp && "none" || "block",
+            display: (model.guild1.name === "Lamplighters" || gbcp) ? "none" : "block",
           }}
         >
           ™ & © Steamforged Games LTD 2025

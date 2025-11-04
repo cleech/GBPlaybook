@@ -1,15 +1,15 @@
-timestamp: "2025-05-20T00:56:59Z"
+timestamp: "2025-11-05T00:11:47Z"
 datafiles:
   - version: 4.7
     description: Steamforged Guild Ball 4.7
     filename: GB-Playbook-4-7.json
-    sha256: 67a488e0eb2c0255066c5e3dae38705ff94bb318e068e3244d86229e66353ff8
-    timestamp: "2025-05-12T21:38:22Z"
+    sha256: dbbc44bc9c74acf62ea4c094ec5201e27d8b2532e267f049f64136f83a35bf66
+    timestamp: "2025-11-05T00:10:50Z"
     translations:
       fr:
         filename: GB-Playbook-4-7.fr.json
-        sha256: a71008a2aeacc42aa0f5a1551f72b88c86fca4e2a3c6448284e8fe4637c41c83
-        timestamp: "2025-05-12T21:38:22Z"
+        sha256: b283e5c917ed06f58e854745e363783dc6a52617a1146caec88ea0e40e5f1539
+        timestamp: "2025-11-05T00:10:50Z"
   - version: 4.6
     description: Steamforged Guild Ball 4.6
     filename: GB-Playbook-4-6.json
