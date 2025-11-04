@@ -2,6 +2,7 @@ import {
   useRef,
   useEffect,
   useCallback,
+  useState,
 } from "react";
 
 import {
@@ -13,6 +14,10 @@ import {
 
 import { firstValueFrom, Observable } from "rxjs";
 import { SettingsDoc } from "../../models/settings";
+import { Box } from "@mui/material";
+import { AppBarContent } from "../App";
+import { AppBarContext } from "../../utils/contexts";
+import OddsCalc from "../GamePlay/components/Calc";
 
 export default function Library() {
   const location = useLocation();
@@ -21,6 +26,8 @@ export default function Library() {
   const slideRef = useRef<number>(
     Number.parseInt(searchParams.get("m") ?? "0") || 0
   );
+
+  const [appBarContainer, setContainer] = useState<HTMLElement>();
 
   const patchRoute = useCallback(async () => {
     if (!setting$) return;
@@ -49,7 +56,21 @@ export default function Library() {
         overflow: "hidden",
       }}
     >
-      <Outlet context={{ slideRef }} />
+      <AppBarContent>
+        <Box ref={(el: HTMLElement) => setContainer(el)}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: 'space-between',
+          }}
+        />
+        <OddsCalc />
+      </AppBarContent>
+      <AppBarContext value={appBarContainer}>
+        <Outlet context={{ slideRef }} />
+      </AppBarContext>
     </main>
   );
 }
