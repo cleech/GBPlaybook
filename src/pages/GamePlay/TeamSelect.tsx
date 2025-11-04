@@ -24,6 +24,7 @@ import { useGameState } from "../../hooks/useGameState";
 import { GBGameStateDoc, GBGuildDoc } from "../../models/gbdbTypes";
 import { NavigateFab } from "./components/NavigateFab";
 import { useLoaderData } from "react-router-dom";
+import { AppBarContext } from "../../utils/contexts";
 
 function SelectedIcon({ team, size }: { team: string; size: number }) {
   const guild = useRxData(
@@ -237,6 +238,7 @@ function GameControls(props: ControlProps) {
 
 export default function TeamSelect() {
   const guilds = useLoaderData<GBGuildDoc[]>();
+  const [appBarContainer, setContainer] = useState<HTMLElement>();
   return (
     <Box
       sx={{
@@ -246,7 +248,7 @@ export default function TeamSelect() {
       }}
     >
       <AppBarContent>
-        <div
+        <Box
           style={{
             display: "flex",
             flexDirection: "row",
@@ -259,10 +261,20 @@ export default function TeamSelect() {
               <Home sx={{ color: "text.secondary" }} />
             </IconButton>
           </Breadcrumbs>
-          <NetworkGame allowNew={true} />
-        </div>
+          <Box
+            ref={(el: HTMLElement) => setContainer(el)}
+            style={{
+              display: "flex",
+              flexDirection: "row-reverse",
+            }}
+          >
+            <NetworkGame allowNew={true} />
+          </Box>
+        </Box>
       </AppBarContent>
-      <GuildGrid guilds={guilds} Controller={GameControls} />
+      <AppBarContext value={appBarContainer}>
+        <GuildGrid guilds={guilds} Controller={GameControls} />
+      </AppBarContext>
       <VersionTag />
     </Box>
   );

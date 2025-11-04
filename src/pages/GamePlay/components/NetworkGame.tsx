@@ -8,6 +8,7 @@ import {
   IconButton,
   Stack,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { Sync } from "@mui/icons-material";
@@ -159,15 +160,17 @@ export function NetworkGame({ allowNew = false }: { allowNew?: boolean }) {
 
   return (
     <>
-      <IconButton
-        size="small"
-        color={color}
-        // disabled={!networkEnabled || (!allowNew && !active)}
-        disabled={!allowNew && !active}
-        onClick={() => setDialog(true)}
-      >
-        <Sync />
-      </IconButton>
+      <Tooltip arrow title="Network Game">
+        <IconButton
+          size="small"
+          color={color}
+          // disabled={!networkEnabled || (!allowNew && !active)}
+          disabled={!allowNew && !active}
+          onClick={() => setDialog(true)}
+        >
+          <Sync />
+        </IconButton>
+      </Tooltip>
       <Dialog open={dialogOpen} onClose={() => setDialog(false)}>
         <DialogTitle>Network Game Setup</DialogTitle>
         <DialogContent>

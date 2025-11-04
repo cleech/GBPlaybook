@@ -7,6 +7,7 @@ import {
   Button,
   IconButton,
   Menu,
+  Tooltip,
 } from "@mui/material";
 import { Remove, Add, CasinoTwoTone } from "@mui/icons-material";
 import { css } from '@emotion/css';
@@ -124,14 +125,16 @@ export function OddsCalc() {
   const [reroll, setReroll] = useState(false);
   return (
     <>
-      <IconButton
-        size="small"
-        onClick={(e) => {
-          setAnchorEl(anchorEl ? null : e.currentTarget);
-        }}
-      >
-        <CasinoTwoTone />
-      </IconButton>
+      <Tooltip arrow title="Dice Calculator">
+        <IconButton
+          size="small"
+          onClick={(e) => {
+            setAnchorEl(anchorEl ? null : e.currentTarget);
+          }}
+        >
+          <CasinoTwoTone />
+        </IconButton>
+      </Tooltip>
 
       <Menu
         open={open}

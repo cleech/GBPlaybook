@@ -57,13 +57,11 @@ export default function GridSettingsMenu(props: {
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
         transformOrigin={{ vertical: "top", horizontal: "center" }}
       >
+        <Typography variant="h5" textAlign="center">
+          Grid Layout
+        </Typography>
+        <Divider />
         <List>
-          <ListItemText>
-            <Typography textAlign="center">
-              Grid Layout
-            </Typography>
-          </ListItemText>
-          <Divider />
           <ListItemButton onClick={() => {
             props.setList([...props.list].sort((a, b) => a.id.localeCompare(b.id)));
           }}>
