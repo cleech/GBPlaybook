@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import MinusIcon from "@mui/icons-material/Remove";
 import PlusIcon from "@mui/icons-material/Add";
-import useLongPress from "../../../hooks/useLongPress";
+import { mergeProps, useLongPress, usePress } from 'react-aria';
 import GBIcon from "../../../components/GBIcon";
 import { useUpdateAnimation } from "../../../hooks/useUpdateAnimation";
 import { GBGameStateDoc, GBModelExpanded } from "../../../models/gbdbTypes";
@@ -65,18 +65,21 @@ function Counter<T>({
   disabled = false,
   longPressClear = false,
 }: CounterProps<T>) {
-  const longPressDown = useLongPress({
-    onLongPress: () => {
+  const { longPressProps } = useLongPress({
+    onLongPress: (_e) => {
       setValue(object, 0);
     },
-    onClick: (e) => {
-      e.stopPropagation();
+  });
+  const { pressProps } = usePress({
+    onPress: (_e) => {
+      // e.stopPropagation();
       const v = value(object);
       if (v > 0) {
         setValue(object, v - 1);
       }
     },
   });
+
   return (
     <div
       style={{
@@ -89,16 +92,7 @@ function Counter<T>({
       <CounterLabel disabled={disabled} object={object} label={label} />
       <ButtonGroup size="small" variant="contained" disabled={disabled}>
         <Button
-          {...(longPressClear ? longPressDown : {})}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (!longPressClear) {
-              const v = value(object);
-              if (v > 0) {
-                setValue(object, v - 1);
-              }
-            }
-          }}
+          {...(longPressClear ? mergeProps(pressProps, longPressProps) : pressProps)}
         >
           <MinusIcon fontSize="inherit" />
         </Button>
@@ -147,15 +141,17 @@ export function HealthCounter({
   disabled?: boolean;
   stacked?: boolean;
 }) {
-  const longPressDown = useLongPress({
-    onLongPress: () => {
+  const { longPressProps: longPressDown } = useLongPress({
+    onLongPress: (_e) => {
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         oldState.roster[m].health = 0;
         return oldState;
       });
-    },
-    onClick: () => {
+    }
+  });
+  const { pressProps: pressDown } = usePress({
+    onPress: (_e) => {
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health > 0) {
@@ -165,8 +161,8 @@ export function HealthCounter({
       });
     },
   });
-  const longPressUp = useLongPress({
-    onLongPress: () => {
+  const { longPressProps: longPressUp } = useLongPress({
+    onLongPress: (_e) => {
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health < model.recovery) {
@@ -174,8 +170,10 @@ export function HealthCounter({
         }
         return oldState;
       });
-    },
-    onClick: () => {
+    }
+  });
+  const { pressProps: pressUp } = usePress({
+    onPress: (_e) => {
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health < model.hp) {
@@ -226,17 +224,17 @@ export function HealthCounter({
               "& .MuiButtonGroup-grouped": { minWidth: "1rem" },
             }}
           >
-            <Button {...longPressDown} onClick={(e) => e.stopPropagation()}>
+            <Button {...mergeProps(longPressDown, pressDown)}>
               <MinusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
             </Button>
-            <Button {...longPressUp} onClick={(e) => e.stopPropagation()}>
+            <Button {...mergeProps(longPressUp, pressUp)}>
               <PlusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
             </Button>
           </ButtonGroup>
         </>
       ) : (
         <ButtonGroup size="small" variant="contained" disabled={disabled}>
-          <Button {...longPressDown} onClick={(e) => e.stopPropagation()}>
+          <Button {...mergeProps(longPressDown, pressDown)}>
             <MinusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
           </Button>
           <HealthCounterLabel
@@ -244,7 +242,7 @@ export function HealthCounter({
             model={model}
             disabled={disabled}
           />
-          <Button {...longPressUp} onClick={(e) => e.stopPropagation()}>
+          <Button {...mergeProps(longPressUp, pressUp)}>
             <PlusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
           </Button>
         </ButtonGroup>
