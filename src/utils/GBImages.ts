@@ -1142,6 +1142,24 @@ const GBImages: Map<string, string> = new Map([
   ["vGutter_gbcp_front", new URL("../assets/cards/GBCP/vGutter-00.jpg", import.meta.url).href],
   ["vGutter_gbcp_back", new URL("../assets/cards/GBCP/vGutter-01.jpg", import.meta.url).href],
 
+  /* Lumberjacks */
+  ["Oak_back", Masons_back],
+  ["Oak_front", new URL("../assets/cards/Masons/GB-S4-Masons-19-08-06.jpg", import.meta.url).href],
+  ["Chipper_back", Masons_back],
+  ["Chipper_front", new URL("../assets/cards/Masons/GB-S4-Masons-19-08-20.jpg", import.meta.url).href],
+  ["Bucker_back", Masons_back],
+  ["Bucker_front", new URL("../assets/cards/Masons/GB-S4-Masons-19-08-20.jpg", import.meta.url).href],
+  ["Itsa_back", Masons_back],
+  ["Itsa_front", new URL("../assets/cards/Masons/GB-S4-Masons-19-08-06.jpg", import.meta.url).href],
+  ["Tinder_back", Masons_back],
+  ["Tinder_front", new URL("../assets/cards/Masons/GB-S4-Masons-19-08-06.jpg", import.meta.url).href],
+  ["Cross_back", Masons_back],
+  ["Cross_front", new URL("../assets/cards/Masons/GB-S4-Masons-19-08-20.jpg", import.meta.url).href],
+  ["Cut_back", Masons_back],
+  ["Cut_front", new URL("../assets/cards/Masons/GB-S4-Masons-19-08-20.jpg", import.meta.url).href],
+  ["CrossCut_back", Masons_back],
+  ["CrossCut_front", new URL("../assets/cards/Masons/GB-S4-Masons-19-08-20.jpg", import.meta.url).href],
+
   /* Lamplighters in SFG style */
   ["Beacon_front", new URL("../assets/cards/Lamps_Backs/beacon.jpg", import.meta.url).href],
   ["Beacon_back", Lamps_back],

@@ -1,17 +1,17 @@
 {
-  "timestamp": "2025-11-17T01:03:23Z",
+  "timestamp": "2025-11-17T01:04:30Z",
   "datafiles": [
     {
       "version": 4.7,
       "description": "Steamforged Guild Ball 4.7",
       "filename": "GB-Playbook-4-7.json",
-      "sha256": "a97bc88436afe79eb729750dd09d49db81446ec1de7e441c6b17ae512d0e21b4",
-      "timestamp": "2025-11-17T01:03:11Z",
+      "sha256": "0c0898cfa2647f7adb9c904f0befc696abff57aa101a975a3f8665a09de73d2a",
+      "timestamp": "2025-11-17T01:04:29Z",
       "translations": {
         "fr": {
           "filename": "GB-Playbook-4-7.fr.json",
-          "sha256": "1978aafb3bfbf4e27e2e94c61bdf98549ebe97fa6b5de2beea08e1dbfee0b8fc",
-          "timestamp": "2025-11-17T00:59:41Z"
+          "sha256": "0ea69f59a6f42a2b6306a2d86be7023877f62cb803114cc7f086be7f2845a9f5",
+          "timestamp": "2025-11-17T01:04:05Z"
         }
       }
     },

@@ -313,7 +313,8 @@ const gbModelDocMethods: GBModelMethods = {
       character_plays: character_plays || [],
       character_traits: character_traits || [],
       // dont let Some/Pneuma count twice for the INF pool
-      _inf: this.id === "Pneuma" ? 0 : undefined,
+      // or CrossCut
+      _inf: ((this.id === "Pneuma") || (this.id === "CrossCut")) ? 0 : undefined,
       // mini-statline display
       statLine: `${this.jog}"/${this.sprint}" | ${this.tac} | ${this.kickdice
         }/${this.kickdist}" | ${this.def}+ | ${this.arm} | ${this.inf}/${this.infmax
