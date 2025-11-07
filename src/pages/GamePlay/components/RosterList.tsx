@@ -90,7 +90,7 @@ function Counter<T>({
       }}
     >
       <CounterLabel disabled={disabled} object={object} label={label} />
-      <ButtonGroup size="small" variant="contained" disabled={disabled}>
+      <ButtonGroup variant="contained" disabled={disabled}>
         <Button
           {...(longPressClear ? mergeProps(pressProps, longPressProps) : pressProps)}
         >
@@ -118,10 +118,10 @@ const HealthCounterLabel = (props: {
   const { model, disabled } = props;
   const ref = useUpdateAnimation<HTMLButtonElement>(disabled, [props.health]);
   return (
-    <Button ref={ref} disabled size="small"
+    <Button ref={ref} disabled
       style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
     >
-      <Typography variant="body2" color="text.primary">
+      <Typography color="text.primary" variant='h5'>
         {`${String(props.health).padStart(2, "0")} / ${String(
           model.hp
         ).padStart(2, "0")}`}
@@ -225,17 +225,17 @@ export function HealthCounter({
             }}
           >
             <Button {...mergeProps(longPressDown, pressDown)}>
-              <MinusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
+              <MinusIcon />
             </Button>
             <Button {...mergeProps(longPressUp, pressUp)}>
-              <PlusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
+              <PlusIcon />
             </Button>
           </ButtonGroup>
         </>
       ) : (
         <ButtonGroup size="small" variant="contained" disabled={disabled}>
           <Button {...mergeProps(longPressDown, pressDown)}>
-            <MinusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
+            <MinusIcon fontSize="inherit" />
           </Button>
           <HealthCounterLabel
             health={health}
@@ -243,7 +243,7 @@ export function HealthCounter({
             disabled={disabled}
           />
           <Button {...mergeProps(longPressUp, pressUp)}>
-            <PlusIcon fontSize="inherit" sx={{ pointerEvents: "none" }} />
+            <PlusIcon fontSize="inherit" />
           </Button>
         </ButtonGroup>
       )}

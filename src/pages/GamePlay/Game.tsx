@@ -460,8 +460,8 @@ function CardControls({
       elevation={2}
       sx={{
         position: "absolute",
-        right: 0,
-        bottom: 0,
+        right: '0px',
+        bottom: '0px',
         // bottom: `calc(22px * ${scale})`,
         // transform: `scale(${scale ?? 1})`,
         // transformOrigin: "bottom right",
