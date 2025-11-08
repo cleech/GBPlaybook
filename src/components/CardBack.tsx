@@ -4,6 +4,7 @@ import GBImages from "../utils/GBImages";
 
 import GBIcon from "./GBIcon";
 import "./CardBack.css";
+import "./CardQuirks.css"
 
 import { textIconReplace } from "./CardUtils";
 import Color from "color";
@@ -106,12 +107,14 @@ const CardBack = (props: CardBackProps) => {
                     display: "flex",
                     placeContent: "center",
                     alignItems: "center",
-                    fontFamily: "Crimson Text",
-                    fontSize: "26px",
-                    fontWeight: "800",
+                    fontFamily: "Calluna-Regular",
+                    fontSize: "calc(9pt * 200/96)",
+                    fontWeight: "600",
                   }}
                 >
-                  {model.version}
+                  <div style={{ marginTop: "5px" }}>
+                    {model.version}
+                  </div>
                 </div>
               </div>
               <FooterIcon icon={model.guild1.name} />
@@ -122,14 +125,11 @@ const CardBack = (props: CardBackProps) => {
         </div>
         <div
           style={{
-            fontFamily: "serif",
-            fontSize: "10pt",
             position: "absolute",
+            bottom: "1em",
             width: "100%",
+            fontSize: "calc(5pt * 200/96)",
             textAlign: "center",
-            bottom: "1.5em",
-            letterSpacing: 0,
-            wordSpacing: 0,
             color: "white",
             display: (model.guild1.name === "Lamplighters" || gbcp) ? "none" : "block",
           }}
@@ -166,6 +166,11 @@ const CharacterTraits = ({ model }: { model: GBModelExpanded }) => (
     </div>
     {model.character_traits.map((ct, index) => (
       <React.Fragment key={`ct-${index}`}>
+        <div style={{
+          // backgroundColor: 'red',
+          flexGrow: 1,
+          ...(index === 0 ? { maxHeight: 0 } : { maxHeight: "1.2em" }),
+        }} />
         <div className="character-trait" key={`${ct.name}-${index}`}>
           <div className={cx('trait', { 'active': ct.active })}>
             <CTName
@@ -174,7 +179,6 @@ const CharacterTraits = ({ model }: { model: GBModelExpanded }) => (
           </div>
           <span className="text">{textIconReplace(ct.text)}</span>
         </div>
-        <div style={{ flexGrow: 1, maxHeight: "1em" }} />
       </React.Fragment>
     ))}
   </>
@@ -188,6 +192,11 @@ const Heroic = ({ model }: { model: GBModelExpanded }) => {
   const text = model.heroic.split("\n").slice(1).join("\n");
   return (
     <>
+      <div style={{
+        // backgroundColor: 'red',
+        maxHeight: "0.5em",
+        flexGrow: 1,
+      }} />
       <div className="header dropcap">
         <span>Heroic </span>
         <span>Play</span>
@@ -196,7 +205,6 @@ const Heroic = ({ model }: { model: GBModelExpanded }) => {
         <CTName text={name} />
         <span>{textIconReplace(text)}</span>
       </div>
-      <div style={{ flexGrow: 1, maxHeight: "1em" }} />
     </>
   );
 };
@@ -209,6 +217,11 @@ const Legendary = ({ model }: { model: GBModelExpanded }) => {
   const text = model.legendary.split("\n").slice(1).join("\n");
   return (
     <>
+      <div style={{
+        // backgroundColor: 'red',
+        maxHeight: "0.5em",
+        flexGrow: 1,
+      }} />
       <div className="header dropcap">
         <span>Legendary </span>
         <span>Play</span>
@@ -217,7 +230,6 @@ const Legendary = ({ model }: { model: GBModelExpanded }) => {
         <CTName text={name} />
         <span>{textIconReplace(text)}</span>
       </div>
-      <div style={{ flexGrow: 1, maxHeight: "1em" }} />
     </>
   );
 };

@@ -1,0 +1,5 @@
+@font-face {
+  font-family: 'Calluna-Regular';
+  src: url(./Calluna-Regular.woff2) format('woff2'),
+       url(./Calluna-Regular.woff) format('woff');
+}

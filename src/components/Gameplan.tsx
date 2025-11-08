@@ -1,5 +1,6 @@
 import "./CardFront.css"
 import "./CardBack.css"
+import "./CardQuirks.css"
 
 import {
   CSSProperties,
@@ -52,8 +53,8 @@ export const GameplanFront = (props: {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            fontFamily: "Crimson Text",
-            letterSpacing: "-1px",
+            fontFamily: "Calluna-Regular",
+            // letterSpacing: "-1px",
           }}
         >
           <div
@@ -94,8 +95,10 @@ export const GameplanFront = (props: {
               flexDirection: "column",
               alignItems: "center",
               lineHeight: 1,
-              p: { fontSize: '20.83pt', margin: '0em 0 1em 0', whiteSpace: 'pre' },
-              'p#KeepYourChinUp': { fontSize: '18.75pt' }
+              // p: { fontSize: '20.83pt', margin: '0em 0 1em 0', whiteSpace: 'pre' },
+              p: { fontSize: 'calc(8pt * 200/96)', margin: '0em 0 1em 0', whiteSpace: 'pre' },
+              // 'p#KeepYourChinUp': { fontSize: '18.75pt' }
+              'p#KeepYourChinUp': { fontSize: 'calc(8pt * 200/96)' }
             })}
           >
             <p id={gameplan.title.replace(/[^a-zA-Z0-9]+/g, '')}>

@@ -4,6 +4,7 @@ import GBImages from "../utils/GBImages";
 
 import GBIcon, { PB } from "./GBIcon";
 import "./CardFront.css";
+import "./CardQuirks.css"
 
 import { textIconReplace } from "./CardUtils";
 import Color from "color";
@@ -148,7 +149,7 @@ const HealthBoxes = ({
         >
           {key === 0 ? <GBIcon icon="skull" size={17} />
             : (key + 1) === model.recovery ? <GBIcon icon="bandage" size={23} />
-              : (key + 1) === model.hp ? key + 1 : null}
+              : (key + 1) === model.hp ? <span>{key + 1}</span> : null}
         </div>
       ))}
     </div>
@@ -215,7 +216,7 @@ const StatBox = ({ model }: { model: GBModelExpanded }) => (
 );
 
 const BooleanIcon = ({ test }: { test: boolean }) => (
-  <GBIcon icon={test ? "checkmark" : "ballotX"} size={14} />
+  <GBIcon icon={test ? "checkmark" : "ballotX"} size={'1.2cap'} />
 );
 
 function CPName({ text }: { text: string }) {
@@ -237,62 +238,61 @@ const CharacterPlays = ({
   gbcp?: boolean;
 }) => (
   <div className="character-plays">
-    <span className="dropcap">
-      <span>Character </span>
-      <span>Plays</span>
-    </span>
-    <span>CST</span>
-    <span>RNG</span>
-    <span>SUS</span>
-    <span>OPT</span>
-    {model.character_plays.map((cp) => (
-      <React.Fragment key={cp.name}>
-        <CPName text={cp.name} />
-        <span style={{
-          whiteSpace: 'nowrap', display: 'inline', alignItems: "baseline",
-        }}>
-          {String(cp.CST)
-            .split(",")
-            .map((s, idx) => (
-              <span key={idx}>
-                {idx > 0 && "/"}
-                {{
-                  CP:
-                    <div style={{
-                      width: "1em", height: "1cap",
-                      display: "inline-flex",
-                      alignItems: "flex-end",
-                      justifyContent: "flex-start",
-                    }}>
-                      <GBIcon icon={gbcp ? "ball" : "GB"} size='1.2cap' />
-                    </div>,
-                  CP2:
-                    <div style={{
-                      width: "1em", height: "1cap",
-                      display: "inline-flex",
-                      alignItems: "flex-end",
-                      justifyContent: "flex-start",
-                    }}>
-                      <GBIcon icon={gbcp ? "trophy" : "GBT"} size='1.2cap' />
-                    </div>
-                }[s] || s}
-              </span>
-            ))}
-        </span>
-        <span>
-          {cp.RNG}
-          {typeof cp.RNG === "number" && '"'}
-        </span>
-        <span>
-          <BooleanIcon test={cp.SUS} />
-        </span>
-        <span>
-          <BooleanIcon test={cp.OPT} />
-        </span>
-        <div className={`text`}>{textIconReplace(cp.text)}</div>
+    <div className="header">
+      <span className="dropcap">
+        <span>Character </span>
+        <span>Plays</span>
+      </span>
+      <span>CST</span>
+      <span>RNG</span>
+      <span>SUS</span>
+      <span>OPT</span>
+    </div>
+    {model.character_plays.map((cp, index) => (
+      <React.Fragment key={`cp-${index}`}>
+        <div style={{
+          // backgroundColor: 'red',
+          maxHeight: '0.5em',
+          flexGrow: 1,
+        }} />
+        <div key={cp.name} className="play">
+          <CPName text={cp.name} />
+          <span style={{
+            whiteSpace: 'nowrap', display: 'inline', alignItems: "baseline",
+          }}>
+            {String(cp.CST)
+              .split(",")
+              .map((s, idx) => (
+                <span key={idx}>
+                  {idx > 0 && "/"}
+                  {{
+                    CP:
+                      <GBIcon icon={gbcp ? "ball" : "GB"} size='1em'
+                        style={{ verticalAlign: '-3px', }}
+                      />,
+                    CP2:
+                      <GBIcon icon={gbcp ? "trophy" : "GBT"} size='1em'
+                        style={{ verticalAlign: '-3px', }}
+                      />
+                  }[s] || s}
+                </span>
+              ))}
+          </span>
+          <span>
+            {cp.RNG}
+            {typeof cp.RNG === "number" && '"'}
+          </span>
+          <span>
+            <BooleanIcon test={cp.SUS} />
+          </span>
+          <span>
+            <BooleanIcon test={cp.OPT} />
+          </span>
+          <div className={`text`}>{textIconReplace(cp.text)}</div>
+        </div >
       </React.Fragment>
     ))}
-  </div>
+  </div >
 );
 
 const MemoCardFront = React.memo(CardFront);

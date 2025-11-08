@@ -5,14 +5,27 @@
   position: relative;
   overflow: hidden;
   --line-width: 1px;
+  --line-color: black;
   /* This makes background images print */
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
   /*
   --rainbow: linear-gradient(-90deg,#adfbda 0,#35c3ff 30%,#fda399 50%,#76d880 70%,#ebf38b 90%,#adfbda 100%);
   */
+  /* default font settings */
+  font-family: "Calluna-Regular", serif;
+  font-size: calc(7pt * 200/96);
+  font-variant-numeric: lining-nums;
+  line-height: 1.125em;
 }
-
+/*
+.overlay {
+  outline: 1px solid red;
+  color: yellow;
+  filter: invert();
+  opacity: 50%;
+}
+*/
 /* card sizing and background image placement */
 
 div.card-front {
@@ -31,7 +44,7 @@ div.card-front {
 
 /* scalable overlay */
 
-div.card-front > .overlay {
+ div.card-front > .overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -39,7 +52,6 @@ div.card-front > .overlay {
   height: 700px;
   transform-origin: top left;
   transform: scale(var(--scale));
-  /* outline: 1px solid red; */
 }
 
 div.card-front.bleed {
@@ -137,11 +149,15 @@ div.card-front.gbcp.double.bleed {
 .card-front .name-plate-right > .name {
   display: flex;
   font-family: "IM Fell Great Primer SC", serif;
-  font-weight: 400;
-  font-size: 40px;
-  letter-spacing: -0.05em;
-  margin-top: -8px;
-  line-height: 50px;
+  font-size: calc(15pt * 200/96);
+  letter-spacing: -2px;
+  line-height: 34px;
+  /* line-height: 0.8em; */
+  margin-left: 3px;
+  padding-bottom: 4px;
+  border-bottom: var(--line-width) solid var(--line-color);
+  border-image-source: linear-gradient(to left, transparent, var(--line-color) 150px);
+  border-image-slice: 0 0 1 0;
 }
 
 .card-front.gbcp .name-plate-right > .name {
@@ -149,7 +165,6 @@ div.card-front.gbcp.double.bleed {
 }
 
 /* drop cap */
-
 .dropcap {
   white-space: pre-wrap;
 }
@@ -160,19 +175,19 @@ div.card-front.gbcp.double.bleed {
 
 .dropcap span::first-letter {
   vertical-align: -7.5%;
-
 }
 
 .card-front .name-plate-right > .reach {
   position: absolute;
-  bottom: 0;
+  bottom: 0px;
+  height: 24px;
   width: 230px;
-  font-family: "Crimson Text", serif;
-  font-size: 21px;
-  border-top: var(--line-width) solid black;
-  border-image-source: linear-gradient(to left, transparent, black 150px);
-  border-image-slice: 1 0 0 0;
+  box-sizing: border-box;
+  padding: 2px;
   text-align: left;
+  /* border-top: var(--line-width) solid var(--line-color); */
+  /* border-image-source: linear-gradient(to left, transparent, var(--line-color) 150px); */
+  /* border-image-slice: 1 0 0 0; */
 }
 
 .card-front.gbcp .name-plate-right > .reach {
@@ -190,11 +205,8 @@ div.card-front.gbcp.double.bleed {
   /* grid layout */
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  /* text styling */
-  font-family: "Crimson Text", serif;
-  font-weight: 400;
-  font-size: 20px;
-  letter-spacing: -1px;
+  line-height: 26px;
+  /* letter-spacing: -1px; */
   text-align: center;
 }
 
@@ -212,11 +224,11 @@ div.card-front.gbcp.double.bleed {
 /* interior border */
 
 .card-front .statbox > :nth-child(-n + 6) {
-  border-bottom: var(--line-width) solid black;
+  border-bottom: var(--line-width) solid var(--line-color);
 }
 
 .card-front .statbox > :not(:nth-child(6n + 1)) {
-  border-left: var(--line-width) solid black;
+  border-left: var(--line-width) solid var(--line-color);
 }
 
 /* playbook */
@@ -280,18 +292,20 @@ div.card-front.gbcp.double.bleed {
 .card-front .character-plays {
   /* placement */
   position: absolute;
-  top: 272px;
+  top: 274px;
   width: 390px;
-  padding: 5px 0 0 24px;
-  /* layout */
-  display: grid;
-  grid-template-columns: 232px repeat(4, 1fr);
-  align-items: flex-end;
-  text-align: center;
-  /* default text styling, used from the CP attributes */
-  font-family: "Crimson Text", serif;
-  font-weight: 400;
-  font-size: 20px;
+  height: 320px;
+  /* max-height: 320px; */
+  /* min-height: 255px; */
+  padding: 0 12px 0 24px;
+
+  /* display: grid; */
+  /* grid-template-areas: "header" "." "p1" "." "p2" "." "p3"; */
+  /* grid-template-rows: auto repeat(3, 0.33em auto); */
+
+  display: flex;
+  flex-direction: column;
+  /* gap: 0.33em; */
 }
 
 .card-front.card-front.gbcp .character-plays-wrapper {
@@ -315,61 +329,56 @@ div.card-front.gbcp.double.bleed {
   font-size: 18px;
 }
 
-/* first row borders */
-
-.card-front .character-plays > :nth-child(-n + 5) {
-  padding: 2px;
-  border-bottom: var(--line-width) solid black;
-  border-left: var(--line-width) solid black;
-  letter-spacing: -1px;
-}
-
 /* "Character Plays" header */
 
-.card-front .character-plays > :first-child {
+.card-front .character-plays .header {
+  display: grid;
+  grid-template-columns: 232px repeat(4, 1fr);
+  align-items: flex-end;
+}
+
+.card-front .character-plays .header > :first-child {
   font-family: "IM Fell Great Primer SC", serif;
-  font-weight: 400;
-  font-size: 28px;
-  line-height: 1em;
+  font-size: calc(9.5pt * 200/96);
+  letter-spacing: -0.25px;
+  line-height: 1.025em;
   text-align: left;
-  padding: 0;
-  border-left: none;
+  border-bottom: var(--line-width) solid var(--line-color);
+}
+
+.card-front .character-plays .header > :not(:first-child) {
+  letter-spacing: -1px;
+  text-align: center;
+  border-bottom: var(--line-width) solid var(--line-color);
+  border-left: var(--line-width) solid var(--line-color);
 }
 
 /* individual play name styling */
 
-.card-front .character-plays .name {
-  font-family: "Crimson Text", serif;
-  font-size: 20px;
-  white-space: nowrap;
-  text-align: left;
+.card-front .character-plays .play {
+  display: grid;
+  grid-template-columns: 232px repeat(4, 1fr);
+  align-items: flex-end;
+  text-align: center;
 }
 
-.card-front .character-plays .name > span:first-child {
-  font-weight: 800;
+.card-front .character-plays .play .name {
+  white-space: nowrap;
+  text-align: left;
+  font-weight: 600;
+}
+
+.card-front .character-plays .play .name > span:first-child {
   font-style: italic;
 }
 
-.card-front .character-plays .name > span:nth-child(2) {
-  font-weight: 600;
-  font-size: 19px;
-  letter-spacing: -1px;
-}
-
-/* chatacter play text layout and styling */
-
-.card-front .character-plays .text {
+.card-front .character-plays .play .text {
   grid-column-end: span 5;
-  font-family: "Crimson Text", serif;
-  font-size: 21px;
-  line-height: 22px;
   text-align: left;
   white-space: pre-wrap;
-  padding-bottom: 5px;
-  letter-spacing: -1px;
 }
 
-.card-front[lang="zh"] .character-plays .text {
+.card-front[lang="zh"] .character-plays .play .text {
   font-size: 18px;
   line-height: 1.5;
   letter-spacing: unset;
@@ -402,18 +411,21 @@ div.card-front.gbcp.double.bleed {
   height: 25px;
   border-radius: 50%;
   box-sizing: border-box;
-  border: var(--line-width) solid black;
+  border: var(--line-width) solid var(--line-color);
   background-color: white;
   /* positioning text and icons */
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  line-height: 23px;
   /* text and icon styling */
-  font-family: "Crimson Text", serif;
+  font-family: "Calluna-Regular", serif;
+  font-size: calc(6pt * 200/96);
   font-weight: 600;
   color: var(--mom-color, var(--team-color));
+}
+.card-front .health-box span {
+  margin-top: 5px;
 }
 
 .card-front.gbcp .health-box {
@@ -427,36 +439,6 @@ div.card-front.gbcp.double.bleed {
 .card-front .health-box.damaged {
   color: black;
   background-color: darkred;
-}
-
-/* quirks, card specific fixes, etc. */
-
-/* Smoke has too much text */
-
-.Smoke .character-plays .text {
-  /* letter-spacing: -1.1px; */
-  /* word-spacing: -1.1px; */
-  font-size: 20px;
-  line-height: 21px;
-}
-
-/* Skatha was close, and the french translation pushed it over */
-
-.Skatha[lang="fr"] .character-plays .text {
-  /* letter-spacing: -1.1px;
-  word-spacing: -1.1px; */
-  font-size: 20px;
-  line-height: 21px;
-}
-
-/* 'The Hat' has a crazy long name */
-
-.Harry.card-front .name-plate-right > .name {
-  font-size: 36px;
-}
-
-.vHarriet.card-front .name-plate-right > .name {
-  font-size: 32px;
 }
 
 /* Compound/Lucky playbook gradients */

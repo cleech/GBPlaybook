@@ -1,0 +1,37 @@
+/* quirks, card specific fixes, etc. */
+
+/* Harry/Harriet 'The Hat' has a crazy long name */
+
+.Harry.card-front .name-plate-right > .name {
+  font-size: 33px;
+}
+
+.vHarriet.card-front .name-plate-right > .name {
+  font-size: 30px;
+}
+
+/* Smoke has too much text */
+
+/* .Smoke .character-plays .text { */
+/*   font-size: calc(6.5pt * 200/96); */
+/*   line-height: 1.1em; */
+/* } */
+
+/* Skatha was close, and the french translation pushed it over */
+
+.Skatha[lang="fr"] .character-plays .text {
+  font-size: calc(6.5pt * 200/96);
+  line-height: 1.1em;
+}
+
+.Silence .character-plays .text {
+  font-size: calc(6.5pt * 200/96);
+  /* line-height: 1.1em; */
+  /* letter-spacing: -0.3px; */
+  /* word-spacing: -0.3px; */
+}
+
+.Midas {
+  /* letter-spacing: -0.3px; */
+  /* word-spacing: -0.3px; */
+}

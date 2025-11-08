@@ -1,5 +1,6 @@
 import "./CardFront.css"
 import "./CardBack.css"
+import "./CardQuirks.css"
 
 import {
   useRef,
