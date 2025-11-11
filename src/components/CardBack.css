@@ -218,6 +218,11 @@ div.card-back.gbcp.double.bleed {
   font-style: normal;
 }
 
+/* spacing for blacksmith masters */
+.card-back .legendary > * > span:not(:first-child) {
+  margin-top: 1em;
+}
+
 .card-back .footer {
   position: absolute;
   top: 595px;
