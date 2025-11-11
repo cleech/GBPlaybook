@@ -1,12 +1,12 @@
 {
-  "timestamp": "2025-11-05T00:11:47Z",
+  "timestamp": "2025-11-16T21:42:46Z",
   "datafiles": [
     {
       "version": 4.7,
       "description": "Steamforged Guild Ball 4.7",
       "filename": "GB-Playbook-4-7.json",
-      "sha256": "dbbc44bc9c74acf62ea4c094ec5201e27d8b2532e267f049f64136f83a35bf66",
-      "timestamp": "2025-11-05T00:10:50Z",
+      "sha256": "00e3943668d9cddfd11ddf25521c96738838b31ccc05e7861cce891fe557a545",
+      "timestamp": "2025-11-16T21:42:46Z",
       "translations": {
         "fr": {
           "filename": "GB-Playbook-4-7.fr.json",

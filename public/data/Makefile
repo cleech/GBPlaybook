@@ -1,9 +1,16 @@
-.PHONY: FILES
-FILES: manifest.yaml gameplans-2018.json gameplans-2019.json gameplans-2025.json
+DATAFILES := $(wildcard GB-Playbook-*.json)
+GAMEPLANS := gameplans-2018.json gameplans-2019.json gameplans-2025.json
+
+all: manifest.yaml $(GAMEPLANS)
+
+manifest.json: $(DATAFILES)
+	../../scripts/updateManifest.sh $?
 
 manifest.yaml: manifest.json
 	yq -pjson -oyaml $< > $@
 
-%.json: %.yaml
+$(GAMEPLANS): %.json: %.yaml
 	yq -pyaml -ojson $< > $@
 
+$(DATAFILES:json=yaml): %.yaml: %.json
+	yq -pjson -oyaml $< > $@

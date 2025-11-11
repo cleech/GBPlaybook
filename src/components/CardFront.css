@@ -17,6 +17,9 @@
   font-size: calc(7pt * 200/96);
   font-variant-numeric: lining-nums;
   line-height: 1.125em;
+  em {
+    font-size: calc(6.5pt * 200/96);
+  }
 }
 /*
 .overlay {
@@ -376,6 +379,14 @@ div.card-front.gbcp.double.bleed {
   grid-column-end: span 5;
   text-align: left;
   white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
+  * { margin: 0; }
+  ul {
+    padding-left: 1em;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .card-front[lang="zh"] .character-plays .play .text {

@@ -1,0 +1,13 @@
+diff --git a/package.json b/package.json
+index 901911387d5f0e433ae1d70bd65a80f442ef227b..841b673fa90c71ea6a0f630bcf0e8703aa861996 100644
+--- a/package.json
++++ b/package.json
+@@ -2,7 +2,7 @@
+   "name": "handlebars-async-helpers-ts",
+   "version": "2.0.2",
+   "description": "Adding async function support to handlebars helpers",
+-  "main": "dist/index.js",
++  "main": "index.js",
+   "scripts": {
+     "test": "ts-mocha --ui bdd --recursive --timeout 15000 'test/**/*.ts'",
+     "build": "tsc -p .",

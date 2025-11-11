@@ -170,6 +170,14 @@ div.card-back.gbcp.double.bleed {
   text-align: left;
   white-space: pre-wrap;
   margin-bottom: 0.25em;
+  display: flex;
+  flex-direction: column;
+  * { margin: 0; }
+  ul {
+    padding-left: 1em;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .card-back[lang="zh"] .character-trait .text {
@@ -182,6 +190,16 @@ div.card-back.gbcp.double.bleed {
   line-height: 22px;
   text-align: left;
   white-space: pre-wrap;
+  & > span {
+    display: flex;
+    flex-direction: column;
+  }
+  * { margin: 0; }
+  ul {
+    padding-left: 1em;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .card-back[lang="zh"] :is(.legendary, .heroic) {

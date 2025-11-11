@@ -6,7 +6,6 @@ import GBIcon from "./GBIcon";
 import "./CardBack.css";
 import "./CardQuirks.css"
 
-import { textIconReplace } from "./CardUtils";
 import Color from "color";
 
 import { GBCardCSS } from "./CardFront";
@@ -15,6 +14,7 @@ import { Subscription } from "rxjs";
 import { getSettings } from "../models/settings";
 
 import { cx } from "@emotion/css";
+import { CardText } from "./CardUtils";
 
 interface CardBackProps {
   model: GBModelExpanded;
@@ -177,7 +177,9 @@ const CharacterTraits = ({ model }: { model: GBModelExpanded }) => (
               text={ct.name.concat(ct.parameter ? ` [${ct.parameter}]` : "")}
             />
           </div>
-          <span className="text">{textIconReplace(ct.text)}</span>
+          <span className="text">
+            <CardText>{ct.text}</CardText>
+          </span>
         </div>
       </React.Fragment>
     ))}
@@ -203,7 +205,9 @@ const Heroic = ({ model }: { model: GBModelExpanded }) => {
       </div>
       <div className="heroic">
         <CTName text={name} />
-        <span>{textIconReplace(text)}</span>
+        <span>
+          <CardText>{text}</CardText>
+        </span>
       </div>
     </>
   );
@@ -228,7 +232,9 @@ const Legendary = ({ model }: { model: GBModelExpanded }) => {
       </div>
       <div className="legendary">
         <CTName text={name} />
-        <span>{textIconReplace(text)}</span>
+        <span>
+          <CardText>{text}</CardText>
+        </span>
       </div>
     </>
   );

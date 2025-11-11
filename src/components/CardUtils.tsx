@@ -1,10 +1,102 @@
-import React from "react";
-import reactStringReplace from "react-string-replace";
+import { useEffect, useState } from "react";
+import Handlebars from "handlebars";
+import asyncHelpers from "handlebars-async-helpers-ts";
+import Markdown, { Components } from "react-markdown";
+import rehypeRaw from "rehype-raw";
+
+import { getGBDatabase } from "../models/gbdb";
 import { PB } from "./GBIcon";
 
-export const textIconReplace = (text: string | Array<string>) => {
+const hb = asyncHelpers(Handlebars);
+
+hb.registerHelper("d", () => new hb.SafeString('<gb-icon icon="D"></gb-icon>'));
+hb.registerHelper("dd", () => new hb.SafeString('<gb-icon icon="DD"></gb-icon>'));
+hb.registerHelper("p", () => new hb.SafeString('<gb-icon icon="P"></gb-icon>'));
+hb.registerHelper("T", () => new hb.SafeString('<gb-icon icon="T"></gb-icon>'));
+hb.registerHelper("KD", () => new hb.SafeString('<gb-icon icon="KD"></gb-icon>'));
+hb.registerHelper("GB", () => new hb.SafeString('<gb-icon icon="CP"></gb-icon>'));
+
+hb.registerHelper("trait", async (name: string, ...rest: any[]) => {
+  const qualifier = (rest.length > 1) ? rest[0] : undefined;
+  const gbdb = await getGBDatabase();
+  const trait = await gbdb?.character_traits.findOne(name).exec().then(doc => doc?.toJSON());
+  return new hb.SafeString(`(_${trait?.name}${qualifier ? ` [${qualifier}]` : ''}: ${trait?.text}_)`);
+});
+
+hb.registerHelper("play", async (name: string, ...rest: any[]) => {
+  const qualifier = (rest.length > 1) ? rest[0] : undefined;
+  const gbdb = await getGBDatabase();
+  const play = await gbdb?.character_plays.findOne(name).exec().then(doc => doc?.toJSON());
+  return new hb.SafeString(`(_${play?.name}${qualifier ? ` [${qualifier}]` : ''}: ${play?.text}_)`);
+});
+
+const InlinePBIcon = (props: { icon: string }) => (
+  <span
+    style={{
+      display: "inline-flex",
+      width: "1em",
+      height: "1ex",
+      position: "relative",
+      overflow: "visible",
+    }}
+  >
+    <div
+      style={{
+        display: "flex",
+        overflow: "visible",
+        width: "1em",
+        height: "1em",
+        backgroundColor: "white",
+        border: "var(--line-width) solid black",
+        borderRadius: "50%",
+        position: "absolute",
+        alignSelf: "center",
+        justifySelf: "center",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <PB icon={props.icon} />
+    </div>
+  </span>
+);
+
+const customComponents: Components = {
+  p: 'span',
+  // @ts-ignore
+  'gb-icon': (props: { icon: string }) => {
+    const { icon } = props;
+    // return <PB icon={icon} />
+    return <InlinePBIcon icon={icon} />
+  }
+}
+
+export const CardText = (props: { children: string }) => {
+  const template = hb.compile(props.children);
+
+  const [text, setText] = useState<string>();
+  useEffect(() => {
+    const fetchData = async () => {
+      const text = await template({});
+      setText(text);
+    }
+    fetchData();
+  }, []);
+
+  return (
+    <Markdown
+      components={customComponents}
+      rehypePlugins={[rehypeRaw]}
+    >
+      {text}
+    </Markdown>
+  );
+}
+
+/*
+const textIconReplace = (text: string | Array<string>) => {
   let replacedtext = reactStringReplace(text, /\(◉(.*?)\)/g, (match, index) => (
-    <React.Fragment key={`i-a-${index}`}>
+    <React.Fragment key={`i - a - ${index} `}>
       (◉
       <span
         style={{
@@ -21,7 +113,7 @@ export const textIconReplace = (text: string | Array<string>) => {
     replacedtext,
     /\(([^◉].*?)\)/g,
     (match, index) => (
-      <React.Fragment key={`i-${index}`}>
+      <React.Fragment key={`i - ${index} `}>
         (
         <span
           style={{
@@ -40,11 +132,10 @@ export const textIconReplace = (text: string | Array<string>) => {
     /{([<>TKDGB]+)}/,
     (match, index) => {
       return (
-        <React.Fragment key={`pb-${index}`}>
+        <React.Fragment key={`pb - ${index} `}>
           <span
             style={{
               display: "inline-flex",
-              /* this should match the contained icon */
               width: "1em",
               height: "1ex",
               position: "relative",
@@ -91,7 +182,7 @@ export const textIconReplace = (text: string | Array<string>) => {
     /\b([A-Z]+)\b/g,
     (match, index) => (
       <span
-        key={`tla-${index}`}
+        key={`tla - ${index} `}
         style={{
           letterSpacing: "-1px",
         }}
@@ -103,3 +194,4 @@ export const textIconReplace = (text: string | Array<string>) => {
 
   return <>{replacedtext}</>;
 };
+*/

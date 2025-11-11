@@ -6,7 +6,7 @@ import GBIcon, { PB } from "./GBIcon";
 import "./CardFront.css";
 import "./CardQuirks.css"
 
-import { textIconReplace } from "./CardUtils";
+import { CardText } from "./CardUtils";
 import Color from "color";
 
 import { Guild } from "./DataTypes";
@@ -288,7 +288,9 @@ const CharacterPlays = ({
           <span>
             <BooleanIcon test={cp.OPT} />
           </span>
-          <div className={`text`}>{textIconReplace(cp.text)}</div>
+          <div className={'text'}>
+            <CardText>{cp.text}</CardText>
+          </div>
         </div >
       </React.Fragment>
     ))}

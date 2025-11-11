@@ -1273,7 +1273,7 @@
         "Sentinel [1\" Aura]",
         "Tough Hide"
       ],
-      "legendary": "Tested Mettle [6\" Aura]\nThis model gains Stoic.\n\nIf this model has the Captain model type, while within this aura other friendly Master models gain Stoic and friendly Apprentice models gain Tough Hide.\n(Stoic: This model may ignore the first push that it suffers each turn.)",
+      "legendary": "Tested Mettle [6\" Aura]\nThis model gains Stoic.\n\nIf this model has the Captain model type, while within this aura other friendly Master models gain Stoic and friendly Apprentice models gain Tough Hide.\n{{trait 'Stoic'}}",
       "types": "Mald, Human, Male,\nCentre Back,\nMaster, Squaddie",
       "playbook": [
         [
@@ -3800,7 +3800,7 @@
         "Follow My Lead",
         "Tow"
       ],
-      "heroic": "Protect Those Close [4\" Aura]\nWhile within this aura, friendly models gain Sturdy.\n(Sturdy: Once per turn this model may ignore the first knocked down condition placed upon it.)",
+      "heroic": "Protect Those Close [4\" Aura]\nWhile within this aura, friendly models gain Sturdy.\n{{trait 'Sturdy'}}",
       "types": "Valentian, Human, Female,\nCentre Back,\nCaptain",
       "playbook": [
         [
@@ -4433,7 +4433,7 @@
         "Crow Scarer",
         "Don't Fear The..."
       ],
-      "legendary": "Against the Grain [6\" Pulse]\nOnce during this model’s activation, it may use a character play without spending influence. Friendly models within this pulse gain Life Drinker.\n(Life Drinker: When it damages one or more enemy models with a playbook damage result, this model may recover 1 HP.)",
+      "legendary": "Against the Grain [6\" Pulse]\nOnce during this model’s activation, it may use a character play without spending influence. Friendly models within this pulse gain Life Drinker.\n{{trait 'Life Drinker'}}",
       "types": "Mald, Human, Male,\nAttacking Midfielder,\nReaper, Captain",
       "playbook": [
         [
@@ -4486,7 +4486,7 @@
         "For the Family [4\" Aura]",
         "Planting Master"
       ],
-      "legendary": "Huge Tracts of Land [6\" Aura]\nThis model may immediately place up to two friendly harvest markers within this aura. While within this aura, friendly guild models gain Sturdy.\n(Sturdy: This model may ignore the first knocked down condition placed upon it each turn.)",
+      "legendary": "Huge Tracts of Land [6\" Aura]\nThis model may immediately place up to two friendly harvest markers within this aura. While within this aura, friendly guild models gain Sturdy.\n{{trait 'Sturdy'}}",
       "types": "Piert, Human, Male,\nDefensive Midfielder,\nPlanter, Captain",
       "playbook": [
         [
@@ -6065,7 +6065,7 @@
         "Light Footed",
         "Nature's Chill"
       ],
-      "legendary": "Winter's Night [6\" Aura]\nWhen a friendly model within this aura makes a successful attack, the friendly model may add an additional {<} playbook result.",
+      "legendary": "Winter's Night [6\" Aura]\nWhen a friendly model within this aura makes a successful attack, the friendly model may add an additional {{d}} playbook result.",
       "types": "Erskirii, Human, Female,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6807,7 +6807,7 @@
         "Linked [Harmony]",
         "Poised"
       ],
-      "legendary": "Topping Out! [6\" Pulse]\nChoose one effect:\n• Friendly models within this pulse gain +1 ARM\n• Friendly models within this pulse are allocated 1 influence",
+      "legendary": "Topping Out! [6\" Pulse]\nChoose one effect:\n- Friendly models within this pulse gain +1 ARM\n- Friendly models within this pulse are allocated 1 influence",
       "types": "Castellyian, Human, Female,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6862,7 +6862,7 @@
         "Repointing [6\" Aura]",
         "Tough Hide"
       ],
-      "legendary": "Hammer Time! [6\" Pulse]\nEach other friendly model within the pulse may choose one of the following benefits:\n• +2\"/+2\" MOV\n• +1 DMG to Playbook damage results",
+      "legendary": "Hammer Time! [6\" Pulse]\nEach other friendly model within the pulse may choose one of the following benefits:\n- +2\"/+2\" MOV\n- +1 DMG to Playbook damage results",
       "types": "Raed, Human, Male,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -7539,7 +7539,7 @@
         "Floored",
         "Knockback"
       ],
-      "heroic": "Protect Those Close [4\" Aura]\nWhile within this aura, friendly models gain Sturdy.\n(Sturdy: Once per turn this model may ignore the first knocked down condition placed upon it.)",
+      "heroic": "Protect Those Close [4\" Aura]\nWhile within this aura, friendly models gain Sturdy.\n{{trait 'Sturdy'}}",
       "types": "Castellyian, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -8438,7 +8438,7 @@
       "character_traits": [
         "Shadow Like"
       ],
-      "legendary": "Strike from the Shadows [6\" Pulse]\nChoose one effect:\n• Friendly models within this pulse gain +1 DEF.\n• Friendly models within this pulse make a 2\" dodge.",
+      "legendary": "Strike from the Shadows [6\" Pulse]\nChoose one effect:\n- Friendly models within this pulse gain +1 DEF.\n- Friendly models within this pulse make a 2\" dodge.",
       "types": "Sultarish, Human, Male,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -11876,7 +11876,7 @@
     },
     {
       "name": "Chemical Breeze",
-      "text": "Choose one:\n• Enemy models within 3\" of target friendly guild model suffer the burning condition.\n• Enemy models within 3\" of target friendly guild model suffer the poison condition.",
+      "text": "Choose one:\n- Enemy models within 3\" of target friendly guild model suffer the burning condition.\n- Enemy models within 3\" of target friendly guild model suffer the poison condition.",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -11908,7 +11908,7 @@
     },
     {
       "name": "Raging Fire",
-      "text": "Target friendly guild model gains Inferno.\n(Inferno: When this model makes a successful attack, the target enemy model suffers the burning condition. Then enemy models within 2\" of this model suffering the burning condition suffer 1 condition damage.)",
+      "text": "Target friendly guild model gains Inferno.\n{{trait 'Inferno'}}",
       "CST": 2,
       "RNG": 6,
       "SUS": true,
@@ -12068,7 +12068,7 @@
     },
     {
       "name": "Get In the Goal!",
-      "text": "Target friendly model gains Goal Defence.\n(Goal Defence: Enemy models suffer +1 TN to Shots while this model is within 4\" of a friendly goalpost.)",
+      "text": "Target friendly model gains Goal Defence.\n{{trait 'Goal Defence'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12284,7 +12284,7 @@
     },
     {
       "name": "Whisky Chaser",
-      "text": "The next time target friendly guild model makes a successful attack, the friendly model may add an additional {KD} playbook result.",
+      "text": "The next time target friendly guild model makes a successful attack, the friendly model may add an additional {{KD}} playbook result.",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12716,7 +12716,7 @@
     },
     {
       "name": "Constitution",
-      "text": "4\" aura. While within this aura, friendly models gain Tough Hide.\n(Tough Hide: This model suffers -1 DMG from enemy plays and playbook damage results.)",
+      "text": "4\" aura. While within this aura, friendly models gain Tough Hide.\n{{trait 'Tough Hide'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12724,7 +12724,7 @@
     },
     {
       "name": "Help 'Em Out",
-      "text": "4” aura. While within this aura, friendly models gain Close Ranks.\n(Close Ranks: When this model causes an enemy model to suffer the crowding out penalty, the enemy model suffers an additional -1 dice pool.)",
+      "text": "4” aura. While within this aura, friendly models gain Close Ranks.\n{{trait 'Close Ranks'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -12772,7 +12772,7 @@
     },
     {
       "name": "Get Stuck In!",
-      "text": "This model gains Rowdy.\n(Rowdy: This model doesn’t suffer crowding out penalties.)",
+      "text": "This model gains Rowdy.\n{{trait 'Rowdy'}}",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
@@ -12948,7 +12948,7 @@
     },
     {
       "name": "Blessing of the Moon Goddess",
-      "text": "The next time target friendly model makes a successful attack, the friendly model may add an additional {<<} playbook result.",
+      "text": "The next time target friendly model makes a successful attack, the friendly model may add an additional {{dd}} playbook result.",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12980,7 +12980,7 @@
     },
     {
       "name": "Feral Instincts",
-      "text": "Target friendly model gains Anatomical Precision.\n(Anatomical Precision: During an attack from this model enemy models suffer -1 ARM.)",
+      "text": "Target friendly model gains Anatomical Precision.\n{{trait 'Anatomical Precision'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13084,7 +13084,7 @@
     },
     {
       "name": "Fulcrum",
-      "text": "6\" aura. While within this aura, friendly models gain Poised.\n(Poised: Once per turn this model may declare a Counter-Attack without spending MP.)",
+      "text": "6\" aura. While within this aura, friendly models gain Poised.\n{{trait 'Poised'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13092,7 +13092,7 @@
     },
     {
       "name": "Hold the Ball!",
-      "text": "Target friendly model gains Close Control.\n(Close Control: This model may ignore the first tackle playbook result that it suffers each turn.)",
+      "text": "Target friendly model gains Close Control.\n{{trait 'Close Control'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13100,7 +13100,7 @@
     },
     {
       "name": "Squad Tactics",
-      "text": "Target other friendly guild model gains Assist [Chisel].\n(Assist [Chisel]: While attacking an enemy model engaged by the named friendly model, this model gains +1 TAC and +1 DMG to playbook damage results.)",
+      "text": "Target other friendly guild model gains Assist [Chisel].\n{{trait 'Assist' 'Chisel'}}",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -13108,7 +13108,7 @@
     },
     {
       "name": "Lodestone",
-      "text": "Choose one:\n• Other models within 4\" of target enemy  model suffer a 2\" push directly towards target  enemy model.\n• Other models within 4\" of target enemy  model suffer a 2\" push directly away from  target enemy model.",
+      "text": "Choose one:\n- Other models within 4\" of target enemy  model suffer a 2\" push directly towards target  enemy model.\n- Other models within 4\" of target enemy  model suffer a 2\" push directly away from  target enemy model.",
       "CST": "2,CP2",
       "RNG": 8,
       "SUS": false,
@@ -13204,7 +13204,7 @@
     },
     {
       "name": "Hollowed",
-      "text": "Target friendly model gains Empathy.\n(Empathy: While attacking this model, playbook damage results don’t generate MP.)",
+      "text": "Target friendly model gains Empathy.\n{{trait 'Empathy'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13380,7 +13380,7 @@
     },
     {
       "name": "Stand Firm",
-      "text": "Target friendly model gains Sturdy.\n(Sturdy: This model may ignore the first knocked down condition that it suffers each turn.)",
+      "text": "Target friendly model gains Sturdy.\n{{trait 'Sturdy'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13420,7 +13420,7 @@
     },
     {
       "name": "Erupting Sores",
-      "text": "2\" pulse. The opposing player chooses one of the following:\n• Enemy models within this pulse suffer 2 DMG and the poison condition.\n• Enemy models within this pulse suffer 2 DMG and the bleed condition.",
+      "text": "2\" pulse. The opposing player chooses one of the following:\n- Enemy models within this pulse suffer 2 DMG and the poison condition.\n- Enemy models within this pulse suffer 2 DMG and the bleed condition.",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": false,
@@ -13492,7 +13492,7 @@
     },
     {
       "name": "Guard the Flock",
-      "text": "Target friendly model gains Protective Instinct.\n(While engaging this model, an enemy model can't declare an attack against any other friendly model.)",
+      "text": "Target friendly model gains Protective Instinct.\n{{trait 'Protective Instinct'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13636,7 +13636,7 @@
     },
     {
       "name": "Annoyance",
-      "text": "This model gains Protective Instinct.\n(Protective Instinct: While engaging this model, an enemy model can't declare an attack against any other friendly model.)",
+      "text": "This model gains Protective Instinct.\n{{trait 'Protective Instinct'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13652,7 +13652,7 @@
     },
     {
       "name": "Catching the Scent",
-      "text": "Target friendly Mascot model gains +1 TAC and Feral.\n(Feral: Once per turn during its activation, this model may declare an attack without spending influence).",
+      "text": "Target friendly Mascot model gains +1 TAC and Feral.\n{{trait 'Feral'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13668,7 +13668,7 @@
     },
     {
       "name": "Quoining",
-      "text": "This model gains Protective Instinct.\n(While engaging this model, an enemy model can't declare an attack against any other friendly model.)",
+      "text": "This model gains Protective Instinct.\n{{trait 'Protective Instinct'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13676,7 +13676,7 @@
     },
     {
       "name": "Tortoise Power",
-      "text": "This model gains Battering Ram.\n(Battering Ram: During this model's advances, models whose bases are touched by its base immediately suffer a 2\" push directly away from it. This model can only push each model once per turn with Battering Ram.)",
+      "text": "This model gains Battering Ram.\n{{trait 'Battering Ram'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13695,7 +13695,7 @@
     {
       "name": "Fulmination",
       "active": false,
-      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4\". If it does, for the remainder of the turn when this model makes a successful attack, it may add an additional {<} playbook result."
+      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4\". If it does, for the remainder of the turn when this model makes a successful attack, it may add an additional {{d}} playbook result."
     },
     {
       "name": "Midas Touch",
@@ -13805,7 +13805,7 @@
     {
       "name": "Deadeye",
       "active": false,
-      "text": "When this model makes a successful attack, it may add an additional {GB} playbook result."
+      "text": "When this model makes a successful attack, it may add an additional {{GB}} playbook result."
     },
     {
       "name": "Elusive",
@@ -13935,7 +13935,7 @@
     {
       "name": "Arsenal",
       "active": true,
-      "text": "If this model starts its activation within 6\" of the named friendly model, this model gains a benefit for the remainder of the turn.\nChoose one of the following benefits:\n• 2\" Melee\n• Instruction\n(Instruction: This model's next attack gains +2 net hits)"
+      "text": "If this model starts its activation within 6\" of the named friendly model, this model gains a benefit for the remainder of the turn.\nChoose one of the following benefits:\n- 2\" Melee\n- Instruction\n{{play 'Instruction'}}"
     },
     {
       "name": "Stamina",
@@ -14170,7 +14170,7 @@
     {
       "name": "Magic Touch",
       "active": false,
-      "text": "When this model makes a successful attack, it may add an additional {T} playbook result."
+      "text": "When this model makes a successful attack, it may add an additional {{T}} playbook result."
     },
     {
       "name": "Hooked",
@@ -14185,7 +14185,7 @@
     {
       "name": "The Old Ways",
       "active": false,
-      "text": "Once per turn, when this model inflicts the taken out condition on an enemy model, this model gains The Owner [6\" Aura] for the remainder of the turn.\n(The Owner: While within this aura, friendly guild models gain +1 DMG to character plays that cause damage and to playbook damage results.)"
+      "text": "Once per turn, when this model inflicts the taken out condition on an enemy model, this model gains The Owner [6\" Aura] for the remainder of the turn.\n{{trait 'The Owner'}}"
     },
     {
       "name": "Damaged Target",
@@ -14305,7 +14305,7 @@
     {
       "name": "Roulette",
       "active": true,
-      "text": "At the start of this model’s activation, choose one effect. The chosen effect lasts until the end of this model’s activation.\n• This model gains +1\"/+1\" MOV.\n• This model gains +1 TAC.\n• This model gains +0/+2\" KICK."
+      "text": "At the start of this model’s activation, choose one effect. The chosen effect lasts until the end of this model’s activation.\n- This model gains +1\"/+1\" MOV.\n- This model gains +1 TAC.\n- This model gains +0/+2\" KICK."
     },
     {
       "name": "Fixer",
@@ -14360,7 +14360,7 @@
     {
       "name": "Crow Scarer",
       "active": false,
-      "text": "While this model is within 2\" of a friendly harvest marker, it gains Poised.\n(◉ Poised: Once per turn this model may declare a Counter-Attack without spending MP.)"
+      "text": "While this model is within 2\" of a friendly harvest marker, it gains Poised.\n{{trait 'Poised'}}"
     },
     {
       "name": "Don't Fear The...",
@@ -14370,7 +14370,7 @@
     {
       "name": "Harvest Supper",
       "active": false,
-      "text": "While this model is on the pitch, friendly models gain Subsistence.\n(◉ Subsistence: Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove that marker from the pitch. If it does, this model may recover 4 HP.)"
+      "text": "While this model is on the pitch, friendly models gain Subsistence.\n{{trait 'Subsistence'}}"
     },
     {
       "name": "Pain Response",
@@ -14500,7 +14500,7 @@
     {
       "name": "Beating Wings Over Water",
       "active": true,
-      "text": "Once per turn during this model’s activation, choose another friendly model within 8\". The chosen model gains Flying.\n(Flying: When this model moves, it ignores terrain and other models’ bases. It can't end its movement overlapping another base, an obstruction, or a barrier.)"
+      "text": "Once per turn during this model’s activation, choose another friendly model within 8\". The chosen model gains Flying.\n{{trait 'Flying'}}"
     },
     {
       "name": "Tag Along",
@@ -14580,12 +14580,12 @@
     {
       "name": "Bring Them Down",
       "active": false,
-      "text": "While this model is on the pitch, friendly human models gain Big Game Traps.\n(Big Game Traps: Once per turn during this model’s activation, it may place a friendly trap marker within 2\".)"
+      "text": "While this model is on the pitch, friendly human models gain Big Game Traps.\n{{trait 'Big Game Traps'}}"
     },
     {
       "name": "Expert Trapper",
       "active": false,
-      "text": "While this model is on the pitch, when an enemy model triggers a trap marker, choose one additional effect:\n• The enemy model suffers Weak Point.\n• The enemy model suffers the bleed condition."
+      "text": "While this model is on the pitch, when an enemy model triggers a trap marker, choose one additional effect:\n- The enemy model suffers Weak Point.\n- The enemy model suffers the bleed condition."
     },
     {
       "name": "Isolated Target",
@@ -14615,7 +14615,7 @@
     {
       "name": "Unorthodox",
       "active": false,
-      "text": "When this model makes a successful attack against an enemy model suffering the snared condition, it may add an additional {<<} playbook result."
+      "text": "When this model makes a successful attack against an enemy model suffering the snared condition, it may add an additional {{dd}} playbook result."
     },
     {
       "name": "Mirage",
@@ -14850,7 +14850,7 @@
     {
       "name": "Sharp Eyes",
       "active": false,
-      "text": "When a friendly model begins its activation within this aura, the friendly model gains Anatomical Precision for the duration of its activation.\n(Anatomical Precision: During an attack from this model enemy models suffer -1 ARM.)"
+      "text": "When a friendly model begins its activation within this aura, the friendly model gains Anatomical Precision for the duration of its activation.\n{{trait 'Anatomical Precision'}}"
     },
     {
       "name": "Don't Get Cocky",
@@ -14895,7 +14895,7 @@
     {
       "name": "Haunting Melody",
       "active": true,
-      "text": "Once per turn during this model’s activation, this model may choose an enemy model within 8\". The opposing player chooses one of the following:\n• This model makes a jog towards the chosen model.\n• The chosen model makes a jog towards this model and is a friendly model for the duration of this action."
+      "text": "Once per turn during this model’s activation, this model may choose an enemy model within 8\". The opposing player chooses one of the following:\n- This model makes a jog towards the chosen model.\n- The chosen model makes a jog towards this model and is a friendly model for the duration of this action."
     },
     {
       "name": "Predatory Instinct",
@@ -14920,7 +14920,7 @@
     {
       "name": "Cloak of Rats",
       "active": true,
-      "text": "At the end of this model’s activation, the opposing player chooses one of the following:\n• Enemy models within this pulse suffer the snared condition.\n• Enemy models within this pulse suffer 3 DMG."
+      "text": "At the end of this model’s activation, the opposing player chooses one of the following:\n- Enemy models within this pulse suffer the snared condition.\n- Enemy models within this pulse suffer 3 DMG."
     },
     {
       "name": "Grim Caress",
@@ -14945,7 +14945,7 @@
     {
       "name": "Protect the Ball",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove it from the pitch. If it does, friendly models within the pulse gain Close Control for the remainder of the turn.\n(Close Control: This model may ignore the first tackle playbook result that it suffers each turn.)"
+      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove it from the pitch. If it does, friendly models within the pulse gain Close Control for the remainder of the turn.\n{{trait 'Close Control'}}"
     },
     {
       "name": "Sheep Become the Shepherds",
@@ -14955,7 +14955,7 @@
     {
       "name": "Heartless Brute!",
       "active": false,
-      "text": "When an enemy model inflicts the taken out condition on this model, the enemy model suffers Singled Out for the remainder of the turn.\n(Singled Out: Friendly models gain +2 TAC while attacking target enemy model.)"
+      "text": "When an enemy model inflicts the taken out condition on this model, the enemy model suffers Singled Out for the remainder of the turn.\n{{play 'Singled Out'}}"
     },
     {
       "name": "Herding",
@@ -14965,7 +14965,7 @@
     {
       "name": "Littermates",
       "active": false,
-      "text": "If this model suffers the taken out condition the named friendly model gains Furious and +4 TAC for the remainder of the turn.\n(Furious: When this model makes a charge during its activation, it may do so without spending influence.)"
+      "text": "If this model suffers the taken out condition the named friendly model gains Furious and +4 TAC for the remainder of the turn.\n{{trait 'Furious'}}"
     },
     {
       "name": "Matched Pair",
@@ -15035,7 +15035,7 @@
     {
       "name": "Thuggery",
       "active": false,
-      "text": "While this model is within 1\" of the named friendly model, this model gains +1 DMG to playbook damage results and may add a {KD} playbook result to each successful attack it makes."
+      "text": "While this model is within 1\" of the named friendly model, this model gains +1 DMG to playbook damage results and may add a {{KD}} playbook result to each successful attack it makes."
     },
     {
       "name": "Pick Up",
@@ -15060,17 +15060,17 @@
     {
       "name": "Flare Out",
       "active": false,
-      "text": "While this model is on the pitch, friendly models which are suffering the burning condition gain Overheat.\n(Overheat [3\" Pulse]: When this model suffers the taken out condition during the Activation Phase, enemy models within this pulse suffer 3 DMG and the burning condition.)"
+      "text": "While this model is on the pitch, friendly models which are suffering the burning condition gain Overheat.\n{{trait 'Overheat' '3\" Pulse'}}"
     },
     {
       "name": "The Ladderman Cometh",
       "active": false,
-      "text": "If this model is not suffering from the burning condition, it gains Extended Reach.\n(Extended Reach: During its activation this model's melee zone is 3\".)"
+      "text": "If this model is not suffering from the burning condition, it gains Extended Reach.\n{{trait 'Extended Reach'}}"
     },
     {
       "name": "Light Goes On",
       "active": false,
-      "text": "While this model is suffering from the burning condition, it gains +2 TAC and Searing Strike.\n(Searing Strike: Enemy models damaged by this model suffer -1 ARM for the remainder of the turn and the burning condition.)"
+      "text": "While this model is suffering from the burning condition, it gains +2 TAC and Searing Strike.\n{{trait 'Searing Strike'}}"
     },
     {
       "name": "Light Goes Off",
@@ -15095,7 +15095,7 @@
     {
       "name": "Now You See Me...",
       "active": false,
-      "text": "While not suffering the burning condition, this model gains Unpredictable Movement.\n(◉ Unpredictable Movement: Once per turn when an enemy model ends an advance in this model's melee zone, this model may immediately make a 2\" Dodge.)"
+      "text": "While not suffering the burning condition, this model gains Unpredictable Movement.\n{{trait 'Unpredictable Movement'}}"
     },
     {
       "name": "Clumsy",
