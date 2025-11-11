@@ -48,7 +48,7 @@ const InlinePBIcon = (props: { icon: string }) => (
   <span
     style={{
       display: "inline-flex",
-      width: "1em",
+      width: "2ch",
       height: "1ex",
       position: "relative",
       overflow: "visible",
@@ -58,8 +58,8 @@ const InlinePBIcon = (props: { icon: string }) => (
       style={{
         display: "flex",
         overflow: "visible",
-        width: "1em",
-        height: "1em",
+        width: "2ch",
+        height: "2ch",
         backgroundColor: "white",
         border: "var(--line-width) solid black",
         borderRadius: "50%",
@@ -70,7 +70,7 @@ const InlinePBIcon = (props: { icon: string }) => (
         justifyContent: "center",
       }}
     >
-      <PB icon={props.icon} />
+      <PB icon={props.icon} style={{ height: '1.8ex', overflow: 'visible' }} />
     </div>
   </span>
 );
