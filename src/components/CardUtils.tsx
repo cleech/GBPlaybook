@@ -17,17 +17,31 @@ hb.registerHelper("KD", () => new hb.SafeString('<gb-icon icon="KD"></gb-icon>')
 hb.registerHelper("GB", () => new hb.SafeString('<gb-icon icon="CP"></gb-icon>'));
 
 hb.registerHelper("trait", async (name: string, ...rest: any[]) => {
-  const qualifier = (rest.length > 1) ? rest[0] : undefined;
   const gbdb = await getGBDatabase();
   const trait = await gbdb?.character_traits.findOne(name).exec().then(doc => doc?.toJSON());
-  return new hb.SafeString(`(_${trait?.name}${qualifier ? ` [${qualifier}]` : ''}: ${trait?.text}_)`);
+  const qualifier = (rest.length > 1) ? rest[0] : undefined;
+  const depth = (rest[rest.length - 1].data.root.depth);
+  if (depth === 1) {
+    const template = hb.compile(trait?.text);
+    const text = await template({ depth: 2 });
+    return new hb.SafeString(`(_${trait?.name}${qualifier ? ` [${qualifier}]` : ''}: ${text}_)`);
+  } else {
+    return new hb.SafeString(`(_${trait?.name}${qualifier ? ` [${qualifier}]` : ''}: ${trait?.text}_)`);
+  }
 });
 
 hb.registerHelper("play", async (name: string, ...rest: any[]) => {
-  const qualifier = (rest.length > 1) ? rest[0] : undefined;
   const gbdb = await getGBDatabase();
   const play = await gbdb?.character_plays.findOne(name).exec().then(doc => doc?.toJSON());
-  return new hb.SafeString(`(_${play?.name}${qualifier ? ` [${qualifier}]` : ''}: ${play?.text}_)`);
+  const qualifier = (rest.length > 1) ? rest[0] : undefined;
+  const depth = (rest[rest.length - 1].data.root.depth);
+  if (depth === 1) {
+    const template = hb.compile(play?.text);
+    const text = await template({ depth: 2 });
+    return new hb.SafeString(`(_${play?.name}${qualifier ? ` [${qualifier}]` : ''}: ${text}_)`);
+  } else {
+    return new hb.SafeString(`(_${play?.name}${qualifier ? ` [${qualifier}]` : ''}: ${play?.text}_)`);
+  }
 });
 
 const InlinePBIcon = (props: { icon: string }) => (
@@ -66,7 +80,6 @@ const customComponents: Components = {
   // @ts-ignore
   'gb-icon': (props: { icon: string }) => {
     const { icon } = props;
-    // return <PB icon={icon} />
     return <InlinePBIcon icon={icon} />
   }
 }
@@ -77,7 +90,7 @@ export const CardText = (props: { children: string }) => {
   const [text, setText] = useState<string>();
   useEffect(() => {
     const fetchData = async () => {
-      const text = await template({});
+      const text = await template({ depth: 1 });
       setText(text);
     }
     fetchData();
