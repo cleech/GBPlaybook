@@ -1,14 +1,14 @@
 [
   {
     "title": "Seize the Initiative",
-    "text": "Starting with the Player that has the\nInitiative, both Players can choose [1]\nfriendly model to immediately make\na [4”] Dodge.",
+    "text": "Starting with the Player that has the\nInitiative, both Players can choose [1]\nfriendly model to immediately make\na [4”] __Dodge__.",
     "initiative": 7,
     "influence": 0
   },
   {
     "title": "Sell it to the Crowd",
-    "text": "Each time a friendly model scores\na goal, it can use Run The Length!\nwithout spending MP.",
-    "detail": "(After scoring a goal the active model\nmay spend [1] MP to immediately\nmake a [4”] Dodge; this Dodge takes\nplace prior to the Goal Kick.)",
+    "text": "Each time a friendly model scores\na goal, it can use _Run The Length!_\nwithout spending MP.",
+    "detail": "After scoring a goal the active model\nmay spend [1] MP to immediately\nmake a [4”] __Dodge__; this __Dodge__ takes\nplace prior to the Goal Kick.",
     "initiative": 6,
     "influence": -1
   },
@@ -20,8 +20,8 @@
   },
   {
     "title": "Grudge Match",
-    "text": "Starting with the Player that has the\nInitiative, both Players can choose\n[1] enemy [Squaddie] model that is\ncurrently on the Pitch, the chosen\nmodels suffer Singled Out.",
-    "detail": "(Friendly models gain [+2] TAC against\ntarget enemy model.)",
+    "text": "Starting with the Player that has the\nInitiative, both Players can choose\n[1] enemy [Squaddie] model that is\ncurrently on the Pitch, the chosen\nmodels suffer _Singled Out_.",
+    "detail": "Friendly models gain [+2] TAC against\ntarget enemy model.",
     "initiative": 6,
     "influence": -1
   },
@@ -33,20 +33,20 @@
   },
   {
     "title": "Hunker Down",
-    "text": "While within the friendly half of the\nPitch, friendly models gain Resolute.",
-    "detail": "(When this model targets an enemy\nmodel with a Counter Attack, this model\ngains [+2] TAC for the duration of the\nCounter Attack.)",
+    "text": "While within the friendly half of the\nPitch, friendly models gain _Resolute_.",
+    "detail": "When this model targets an enemy\nmodel with a __Counter Attack__, this model\ngains [+2] TAC for the duration of the\n__Counter Attack__.",
     "initiative": 1,
     "influence": 1
   },
   {
     "title": "The Offside Trap",
-    "text": "An enemy model must spend [+1]\nadditional MP to make a Shot or a\nSnap Shot! if it is closer to the friendly\ngoal-post than any other model.",
+    "text": "An enemy model must spend [+1]\nadditional MP to make a __Shot__ or a\n__Snap Shot!__ if it is closer to the friendly\n__goal-post__ than any other model.",
     "initiative": 1,
     "influence": 1
   },
   {
     "title": "Back in the Game",
-    "text": "The first time a friendly model\nsuffers the taken-out condition,\nbefore removing the friendly model\nfrom the Pitch, any Influence\ncurrently on the friendly model may\nbe allocated to one other friendly\nmodel within [8”].",
+    "text": "The first time a friendly model\nsuffers the __taken-out__ condition,\nbefore removing the friendly model\nfrom the Pitch, any Influence\ncurrently on the friendly model may\nbe allocated to one other friendly\nmodel within [8”].",
     "initiative": 4,
     "influence": 0
   },
@@ -58,7 +58,7 @@
   },
   {
     "title": "Full-Back",
-    "text": "The first time a friendly model\ndeclares a Charge while within [8”]\nof an edge of the Pitch, the friendly\nmodel spends [1] less Influence.",
+    "text": "The first time a friendly model\ndeclares a __Charge__ while within [8”]\nof an edge of the Pitch, the friendly\nmodel spends [1] less Influence.",
     "initiative": 5,
     "influence": 0
   },
@@ -82,36 +82,36 @@
   },
   {
     "title": "Keep Your Chin Up!",
-    "text": "The first time a friendly model uses Come on\nMate!, it may do so without spending MP.",
-    "detail": "(During its activation, a model may spend\n[2] MP to target an other friendly model\nwithin [8”]. The target friendly model\nrecovers [4] HP or removes all conditions.\nA model may only benefit from Come on\nMate! once per turn.)",
+    "text": "The first time a friendly model uses _Come on_\n_Mate!_, it may do so without spending MP.",
+    "detail": "During its activation, a model may spend\n[2] MP to target an other friendly model\nwithin [8”]. The target friendly model\nrecovers [4] HP or removes all conditions.\nA model may only benefit from Come on\nMate! once per turn.",
     "initiative": 4,
     "influence": 0
   },
   {
     "title": "Won’t Touch the Hair",
-    "text": "Choose [1] friendly [Squaddie] model\nthat is currently on the Pitch, the\nchosen model gains Poised.",
-    "detail": "(Once per turn, this model may make a\nCounter Attack without spending MP.)",
+    "text": "Choose [1] friendly [Squaddie] model\nthat is currently on the Pitch, the\nchosen model gains _Poised_.",
+    "detail": "Once per turn, this model may make a\n__Counter Attack__ without spending MP.",
     "initiative": 3,
     "influence": 1
   },
   {
     "title": "Wing Backs",
-    "text": "Each time a friendly model activates\nwithin [8”] of an edge of the Pitch,\nthe friendly model gains Shadow Like.",
-    "detail": "(At the start of this model’s activation\nit may make a [2”] Dodge.)",
+    "text": "Each time a friendly model activates\nwithin [8”] of an edge of the Pitch,\nthe friendly model gains _Shadow Like_.",
+    "detail": "At the start of this model’s activation\nit may make a [2”] __Dodge__.",
     "initiative": 4,
     "influence": 0
   },
   {
     "title": "Stick to the Plan",
-    "text": "Friendly models gain Showboating.",
-    "detail": "(This model spends [1] less MP to make\nTeamwork actions.)",
+    "text": "Friendly models gain _Showboating_.",
+    "detail": "This model spends [1] less MP to make\nTeamwork actions.",
     "initiative": 5,
     "influence": -1
   },
   {
     "title": "Kick ’Em When\nThey’re Down",
-    "text": "Friendly [Squaddie] models gain\nShove the Boot In.",
-    "detail": "(This model gains [+1] DMG to\nPlaybook damage results while\ntargeting an enemy model that is\nsuffering the knocked-down condition.)",
+    "text": "Friendly [Squaddie] models gain\n_Shove the Boot In_.",
+    "detail": "This model gains [+1] DMG to\nPlaybook damage results while\ntargeting an enemy model that is\nsuffering the __knocked-down__ condition.",
     "initiative": 2,
     "influence": -1
   }

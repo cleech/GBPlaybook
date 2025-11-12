@@ -3,19 +3,19 @@
     Starting with the Player that has the
     Initiative, both Players can choose [1]
     friendly model to immediately make
-    a [4”] Dodge.
+    a [4”] __Dodge__.
   initiative: 7
   influence: 0
 - title: Sell it to the Crowd
   text: |-
     Each time a friendly model scores
-    a goal, it can use Run The Length!
+    a goal, it can use _Run The Length!_
     without spending MP.
   detail: |-
-    (After scoring a goal the active model
+    After scoring a goal the active model
     may spend [1] MP to immediately
-    make a [4”] Dodge; this Dodge takes
-    place prior to the Goal Kick.)
+    make a [4”] __Dodge__; this __Dodge__ takes
+    place prior to the Goal Kick.
   initiative: 6
   influence: -1
 - title: Lone Striker
@@ -32,10 +32,10 @@
     Initiative, both Players can choose
     [1] enemy [Squaddie] model that is
     currently on the Pitch, the chosen
-    models suffer Singled Out.
+    models suffer _Singled Out_.
   detail: |-
-    (Friendly models gain [+2] TAC against
-    target enemy model.)
+    Friendly models gain [+2] TAC against
+    target enemy model.
   initiative: 6
   influence: -1
 - title: Dig Deep
@@ -47,26 +47,26 @@
 - title: Hunker Down
   text: |-
     While within the friendly half of the
-    Pitch, friendly models gain Resolute.
+    Pitch, friendly models gain _Resolute_.
   detail: |-
-    (When this model targets an enemy
-    model with a Counter Attack, this model
+    When this model targets an enemy
+    model with a __Counter Attack__, this model
     gains [+2] TAC for the duration of the
-    Counter Attack.)
+    __Counter Attack__.
   initiative: 1
   influence: 1
 - title: The Offside Trap
   text: |-
     An enemy model must spend [+1]
-    additional MP to make a Shot or a
-    Snap Shot! if it is closer to the friendly
-    goal-post than any other model.
+    additional MP to make a __Shot__ or a
+    __Snap Shot!__ if it is closer to the friendly
+    __goal-post__ than any other model.
   initiative: 1
   influence: 1
 - title: Back in the Game
   text: |-
     The first time a friendly model
-    suffers the taken-out condition,
+    suffers the __taken-out__ condition,
     before removing the friendly model
     from the Pitch, any Influence
     currently on the friendly model may
@@ -84,7 +84,7 @@
 - title: Full-Back
   text: |-
     The first time a friendly model
-    declares a Charge while within [8”]
+    declares a __Charge__ while within [8”]
     of an edge of the Pitch, the friendly
     model spends [1] less Influence.
   initiative: 5
@@ -108,43 +108,43 @@
   influence: 0
 - title: Keep Your Chin Up!
   text: |-
-    The first time a friendly model uses Come on
-    Mate!, it may do so without spending MP.
+    The first time a friendly model uses _Come on_
+    _Mate!_, it may do so without spending MP.
   detail: |-
-    (During its activation, a model may spend
+    During its activation, a model may spend
     [2] MP to target an other friendly model
     within [8”]. The target friendly model
     recovers [4] HP or removes all conditions.
     A model may only benefit from Come on
-    Mate! once per turn.)
+    Mate! once per turn.
   initiative: 4
   influence: 0
 - title: Won’t Touch the Hair
   text: |-
     Choose [1] friendly [Squaddie] model
     that is currently on the Pitch, the
-    chosen model gains Poised.
+    chosen model gains _Poised_.
   detail: |-
-    (Once per turn, this model may make a
-    Counter Attack without spending MP.)
+    Once per turn, this model may make a
+    __Counter Attack__ without spending MP.
   initiative: 3
   influence: 1
 - title: Wing Backs
   text: |-
     Each time a friendly model activates
     within [8”] of an edge of the Pitch,
-    the friendly model gains Shadow Like.
+    the friendly model gains _Shadow Like_.
   detail: |-
-    (At the start of this model’s activation
-    it may make a [2”] Dodge.)
+    At the start of this model’s activation
+    it may make a [2”] __Dodge__.
   initiative: 4
   influence: 0
 - title: Stick to the Plan
   text: |-
-    Friendly models gain Showboating.
+    Friendly models gain _Showboating_.
   detail: |-
-    (This model spends [1] less MP to make
-    Teamwork actions.)
+    This model spends [1] less MP to make
+    Teamwork actions.
   initiative: 5
   influence: -1
 - title: |-
@@ -152,11 +152,11 @@
     They’re Down
   text: |-
     Friendly [Squaddie] models gain
-    Shove the Boot In.
+    _Shove the Boot In_.
   detail: |-
-    (This model gains [+1] DMG to
+    This model gains [+1] DMG to
     Playbook damage results while
     targeting an enemy model that is
-    suffering the knocked-down condition.)
+    suffering the __knocked-down__ condition.
   initiative: 2
   influence: -1

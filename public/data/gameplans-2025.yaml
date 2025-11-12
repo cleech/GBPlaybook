@@ -4,7 +4,7 @@
     one of your models. Then, you may
     choose two other friendly models.
     The friendly models you chose gain
-    1 TAC and may Sprint without
+    +1 TAC and may __Sprint__ without
     spending influence.
   initiative: 1
   influence: 0
@@ -13,7 +13,7 @@
     Once this turn, when selecting a
     friendly model to activate, if there
     are one or more friendly models
-    currently suffering the taken out
+    currently suffering the __taken-out__
     condition that have not activated,
     you may force the opposing player
     to select an enemy model to activate
@@ -24,26 +24,26 @@
 - title: Set Me Up
   text: |-
     A friendly model may immediately
-    make a pass to another friendly
+    make a __Pass__ to another friendly
     model. Models cannot generate MP,
-    use Pass & Move, or make a Snap
-    Shot as a result of this pass.
+    use __Pass & Move__, or make a __Snap__
+    __Shot__ as a result of this pass.
   initiative: 2
   influence: 1
 - title: Pep Talk
   text: |-
     Once per activation, friendly models
-    may use Bonus Time without
+    may use __Bonus Time__ without
     spending MP.
   initiative: 2
   influence: -1
 - title: Lost Focus
   text: |-
     Choose one of the following:
-    • The first time an enemy model
-    makes a kick, they suffer –1/–2"
+    - The first time an enemy model
+    makes a __Kick__, they suffer –1/–2"
     KICK for the duration of the action.
-    • The first time a friendly model is
+    - The first time a friendly model is
     damaged by an enemy attack or play,
     the friendly model may recover 3 HP
     after the action is resolved.
@@ -52,15 +52,15 @@
 - title: High Press
   text: |-
     Up to two friendly Squaddie models
-    may make a 2" dodge towards the
-    enemy goal post.
+    may make a 2" __Dodge__ towards the
+    enemy __goal-post__.
   initiative: 3
   influence: 0
 - title: Home Advantage
   text: |-
     When an enemy model scores a goal,
     the friendly team gains 2 MP. When
-    making a goal kick after an enemy
+    making a __goal-kick__ after an enemy
     model has scored a goal, you may
     spend 1 MP to reroll the kick scatter.
   initiative: 3
@@ -75,27 +75,27 @@
 - title: Adrenaline Rush
   text: |-
     Once this turn, a friendly model may
-    use Rest without spending MP.
+    use __Rest__ without spending MP.
   initiative: 4
   influence: 0
 - title: Big Rivals
   text: |-
     Choose a friendly model and an
     enemy model. The chosen models
-    suffer a 1" push directly towards each
+    suffer a 1" __Push__ directly towards each
     other.
   initiative: 4
   influence: 0
 - title: Man Marking
   text: |-
     Choose an enemy Squaddie model.
-    The chosen model suffers Marked
-    Target.
+    The chosen model suffers _Marked_
+    _Target_.
   detail: |-
-    (Marked Target: When a friendly
+    Marked Target: When a friendly
     model charges target enemy model, the
     friendly model gains +0"/+2" MOV for
-    the duration of the charge.)
+    the duration of the charge.
   initiative: 4
   influence: 0
 - title: Match Fixing
@@ -119,29 +119,29 @@
 - title: Catenaccio
   text: |-
     Choose a friendly Squaddie model.
-    The chosen model gains Backfield
-    Presence.
+    The chosen model gains _Backfield_
+    _Presence_.
   detail: |-
-    (Backfield Presence: While attacking a
+    Backfield Presence: While attacking a
     model that is in possession of the ball,
-    this model gains +2 TAC.)
+    this model gains +2 TAC.
   initiative: 5
   influence: 0
 - title: Rushed Back
   text: |-
     The first enemy model that returns
     to the pitch this turn after removing
-    the taken out condition suffers the
-    bleed condition.
+    the __taken-out__ condition suffers the
+    __bleed__ condition.
   initiative: 6
   influence: 0
 - title: WHAT A STRIKE!
   text: |-
-    Friendly models gain Goal of the Month.
+    Friendly models gain _Goal of the Month_.
   detail: |-
-    (Goal of the Month: When this model
+    Goal of the Month: When this model
     makes a successful shot, it scores a Screamer
-    if any double is rolled.)
+    if any double is rolled.
   initiative: 6
   influence: 0
 - title: Brown Envelope
