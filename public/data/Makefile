@@ -3,7 +3,7 @@ GAMEPLANS := gameplans-2018.json gameplans-2019.json gameplans-2025.json
 
 all: manifest.yaml $(GAMEPLANS)
 
-manifest.json: $(DATAFILES)
+manifest.json: $(DATAFILES) $(GAMEPLANS)
 	../../scripts/updateManifest.sh $?
 
 manifest.yaml: manifest.json

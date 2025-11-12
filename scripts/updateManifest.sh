@@ -54,29 +54,39 @@ for dataFile in "$@"; do
          # 1. Update the top-level timestamp
          (.timestamp |= (now|todate)) |
 
-         # 2. Process the datafiles array
-         (.datafiles |= map(
-           # Check if the top-level filename matches
-           if .filename == $dataFile then
-             # Update this top-level entry
-             update_entry($mtime; $sha)
-           # Else, check if translations exist and is an object
-           elif (.translations | type == "object") then
-             # Try to update within the translations map
-             .translations |= map_values(
-               if .filename == $dataFile then
-                 # Update this translation entry
-                 update_entry($mtime; $sha)
-               else
-                 # Keep other translations unchanged
-                 .
-               end
-             )
-           # Else, no match found here, keep the entry unchanged
-           else
-             .
-           end
-         ))
+         # 2. Conditionally process either the gameplans or datafiles array
+         if ($dataFile | test("^gameplans-.*\\.json$")) then
+           (.gameplans |= map(
+             if .filename == $dataFile then
+               update_entry($mtime; $sha)
+             else
+               .
+             end
+           ))
+         else
+           (.datafiles |= map(
+             # Check if the top-level filename matches
+             if .filename == $dataFile then
+               # Update this top-level entry
+               update_entry($mtime; $sha)
+             # Else, check if translations exist and is an object
+             elif (.translations | type == "object") then
+               # Try to update within the translations map
+               .translations |= map_values(
+                 if .filename == $dataFile then
+                   # Update this translation entry
+                   update_entry($mtime; $sha)
+                 else
+                   # Keep other translations unchanged
+                   .
+                 end
+               )
+             # Else, no match found here, keep the entry unchanged
+             else
+               .
+             end
+           ))
+         end
        ' \
        manifest.json > "${TMP}"
 
