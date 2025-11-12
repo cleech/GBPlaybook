@@ -1,4 +1,4 @@
-timestamp: "2025-11-16T21:44:48Z"
+timestamp: "2025-11-16T21:45:38Z"
 datafiles:
   - version: 4.7
     description: Steamforged Guild Ball 4.7
@@ -8,33 +8,33 @@ datafiles:
     translations:
       fr:
         filename: GB-Playbook-4-7.fr.json
-        sha256: 2c3f7df930508b9605a1ffafee5be68839d65e27bf175439c70a23cffcd9e34f
-        timestamp: "2025-11-16T21:44:48Z"
+        sha256: 7c4fed96149819cc6b8d45887cdcf36ba9c800ec019b7d40f9d0b29169ed6f8a
+        timestamp: "2025-11-16T21:45:38Z"
   - version: 4.6
     description: Steamforged Guild Ball 4.6
     filename: GB-Playbook-4-6.json
-    sha256: 98e4ac822dd93fd49007d75deae9e185eaccac849dcd4844eec579ab65402833
-    timestamp: "2025-11-16T21:44:48Z"
+    sha256: d968bdbe1e65d809ef4695f6cf0175269b6657436e0b8295e727cf033fa31c86
+    timestamp: "2025-11-16T21:45:38Z"
     translations:
       fr:
         filename: GB-Playbook-4-6.fr.json
-        sha256: d205964e705e2d5bbefb2bbacfb70afb94a4117e63f8b8bdba2fc749bb888d03
-        timestamp: "2025-11-16T21:44:48Z"
+        sha256: c6e1343f3d7abc1659cfabf122545cd46ce37ba42a35417cf94f684b217b7f32
+        timestamp: "2025-11-16T21:45:38Z"
   - version: 4.5
     description: Guild Ball Community Project 4.5
     filename: GB-Playbook-4-5.json
-    sha256: 7965f52c9b3fbef9140fea76a1860ef509dd3847ff158e90142be3c96f135364
-    timestamp: "2025-11-16T21:44:48Z"
+    sha256: 015a36dac47a62689a83c77655946b37123d19ff1cc2e46dcbf6dec4d23d2271
+    timestamp: "2025-11-16T21:45:38Z"
   - version: 4.4
     description: Guild Ball Community Project 4.4
     filename: GB-Playbook-4-4.json
-    sha256: eb0e63c86fa958f25efbee549dc9bc655955a3fdbdb4f1c43604eda4aef2e27f
-    timestamp: "2025-11-16T21:44:48Z"
+    sha256: d3fa2dc2902b07ae20c328c765bef3570677e409602c1297b516f9190e2661e9
+    timestamp: "2025-11-16T21:45:38Z"
   - version: 4.3
     description: Steamforged Guild Ball 4.3
     filename: GB-Playbook-4-3.json
-    sha256: b9e2551b7f64fbdea0a03e4ecc901af8cd2c18e612f307833b1ce8ce5634293a
-    timestamp: "2025-11-16T21:44:48Z"
+    sha256: a4bc07f874f07c546ad1d03ddf075b87afc69d514a2133a166dbbfbfca5cce12
+    timestamp: "2025-11-16T21:45:38Z"
 gameplans:
   - version: 2025
     filename: gameplans-2025.json

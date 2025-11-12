@@ -1227,7 +1227,7 @@
         "Sentinel [1\" Aura]",
         "Tough Hide"
       ],
-      "legendary": "Tested Mettle [6\" Aura]\nThis model gains Stoic.\n\nIf this model has the Captain model type, while within this aura other friendly Master models gain Stoic and friendly Apprentice models gain Tough Hide.\n(Stoic: This model may ignore the first push that it suffers each turn.)",
+      "legendary": "Tested Mettle [6\" Aura]\nThis model gains Stoic.\n\nIf this model has the Captain model type, while within this aura other friendly Master models gain Stoic and friendly Apprentice models gain Tough Hide.\n{{trait 'Stoic'}}",
       "types": "Mald, Human, Male,\nCentre Back,\nMaster, Squaddie",
       "playbook": [
         [
@@ -3702,7 +3702,7 @@
         "Follow My Lead",
         "Tow"
       ],
-      "heroic": "Protect Those Close [4\" Aura]\nWhile within this aura, friendly models gain Sturdy.\n(Sturdy: Once per turn this model may ignore the first knocked down condition placed upon it.)",
+      "heroic": "Protect Those Close [4\" Aura]\nWhile within this aura, friendly models gain Sturdy.\n{{trait 'Sturdy'}}",
       "types": "Valentian, Human, Female,\nCentre Back,\nCaptain",
       "playbook": [
         [
@@ -4321,7 +4321,7 @@
         "Crow Scarer",
         "Don't Fear The..."
       ],
-      "legendary": "Against the Grain [6\" Pulse]\nOnce during this model’s activation, it may use a character play without spending influence. Friendly models within this pulse gain Life Drinker.\n(Life Drinker: When it damages one or more enemy models with a playbook damage result, this model may recover 1 HP.)",
+      "legendary": "Against the Grain [6\" Pulse]\nOnce during this model’s activation, it may use a character play without spending influence. Friendly models within this pulse gain Life Drinker.\n{{trait 'Life Drinker'}}",
       "types": "Mald, Human, Male,\nAttacking Midfielder,\nReaper, Captain",
       "playbook": [
         [
@@ -4373,7 +4373,7 @@
         "For the Family [4\" Aura]",
         "Planting Master"
       ],
-      "legendary": "Huge Tracts of Land [6\" Aura]\nThis model may immediately place up to two friendly harvest markers within this aura. While within this aura, friendly guild models gain Sturdy.\n(Sturdy: This model may ignore the first knocked down condition placed upon it each turn.)",
+      "legendary": "Huge Tracts of Land [6\" Aura]\nThis model may immediately place up to two friendly harvest markers within this aura. While within this aura, friendly guild models gain Sturdy.\n{{trait 'Sturdy'}}",
       "types": "Piert, Human, Male,\nDefensive Midfielder,\nPlanter, Captain",
       "playbook": [
         [
@@ -7361,7 +7361,7 @@
         "Floored",
         "Knockback"
       ],
-      "heroic": "Protect Those Close [4\" Aura]\nWhile within this aura, friendly models gain Sturdy.\n(Sturdy: Once per turn this model may ignore the first knocked down condition placed upon it.)",
+      "heroic": "Protect Those Close [4\" Aura]\nWhile within this aura, friendly models gain Sturdy.\n{{trait 'Sturdy'}}",
       "types": "Castellyian, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -11331,7 +11331,7 @@
     },
     {
       "name": "Raging Fire",
-      "text": "Target friendly guild model gains Inferno.\n(Inferno: When this model makes a successful attack, the target enemy model suffers the burning condition. Then enemy models within 2\" of this model suffering the burning condition suffer 1 condition damage.)",
+      "text": "Target friendly guild model gains Inferno.\n{{trait 'Inferno'}}",
       "CST": 2,
       "RNG": 6,
       "SUS": true,
@@ -11491,7 +11491,7 @@
     },
     {
       "name": "Get In the Goal!",
-      "text": "Target friendly model gains Goal Defence.\n(Goal Defence: Enemy models suffer +1 TN to Shots while this model is within 4\" of a friendly goalpost.)",
+      "text": "Target friendly model gains Goal Defence.\n{{trait 'Goal Defence'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12123,7 +12123,7 @@
     },
     {
       "name": "Taking Flight",
-      "text": "This model may make a jog and gains Flying.\n(Flying: When this model moves, it ignores terrain and other models' bases. It can't end its movement overlapping another base, an obstruction, or a barrier).",
+      "text": "This model may make a jog and gains Flying.\n{{trait 'Flying'}}.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12139,7 +12139,7 @@
     },
     {
       "name": "Constitution",
-      "text": "4\" aura. While within this aura, friendly models gain Tough Hide.\n(Tough Hide: This model suffers -1 DMG from enemy plays and playbook damage results.)",
+      "text": "4\" aura. While within this aura, friendly models gain Tough Hide.\n{{trait 'Tough Hide'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12147,7 +12147,7 @@
     },
     {
       "name": "Help 'Em Out",
-      "text": "4” aura. While within this aura, friendly models gain Close Ranks.\n(Close Ranks: When this model causes an enemy model to suffer the crowding out penalty, the enemy model suffers an additional -1 dice pool.)",
+      "text": "4” aura. While within this aura, friendly models gain Close Ranks.\n{{trait 'Close Ranks'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -12195,7 +12195,7 @@
     },
     {
       "name": "Get Stuck In!",
-      "text": "This model gains Rowdy.\n(Rowdy: This model doesn’t suffer crowding out penalties.)",
+      "text": "This model gains Rowdy.\n{{trait 'Rowdy'}}",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
@@ -12403,7 +12403,7 @@
     },
     {
       "name": "Feral Instincts",
-      "text": "Target friendly model gains Anatomical Precision.\n(Anatomical Precision: During an attack from this model enemy models suffer -1 ARM.)",
+      "text": "Target friendly model gains Anatomical Precision.\n{{trait 'Anatomical Precision'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12507,7 +12507,7 @@
     },
     {
       "name": "Fulcrum",
-      "text": "6\" aura. While within this aura, friendly models gain Poised.\n(Poised: Once per turn this model may declare a Counter-Attack without spending MP.)",
+      "text": "6\" aura. While within this aura, friendly models gain Poised.\n{{trait 'Poised'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12515,7 +12515,7 @@
     },
     {
       "name": "Hold the Ball!",
-      "text": "Target friendly model gains Close Control.\n(Close Control: This model may ignore the first tackle playbook result that it suffers each turn.)",
+      "text": "Target friendly model gains Close Control.\n{{trait 'Close Control'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12523,7 +12523,7 @@
     },
     {
       "name": "Squad Tactics",
-      "text": "Target other friendly guild model gains Assist [Chisel].\n(Assist [Chisel]: While attacking an enemy model engaged by the named friendly model, this model gains +1 TAC and +1 DMG to playbook damage results.)",
+      "text": "Target other friendly guild model gains Assist [Chisel].\n{{trait 'Assist' 'Chisel'}}",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -12643,7 +12643,7 @@
     },
     {
       "name": "Hollowed",
-      "text": "Target friendly model gains Empathy.\n(Empathy: While attacking this model, playbook damage results don’t generate MP.)",
+      "text": "Target friendly model gains Empathy.\n{{trait 'Empathy'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12827,7 +12827,7 @@
     },
     {
       "name": "Stand Firm",
-      "text": "Target friendly model gains Sturdy.\n(Sturdy: This model may ignore the first knocked down condition that it suffers each turn.)",
+      "text": "Target friendly model gains Sturdy.\n{{trait 'Sturdy'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13020,7 +13020,7 @@
     {
       "name": "Gimme Fuel...",
       "active": false,
-      "text": "While this model is on the pitch, friendly guild models gain Backdraft.\n(◉ Backdraft: When this model declares an attack or charge, it may remove the burning condition from an enemy model within 4\". If it does so, this model gains +2 TAC for the duration of the attack or charge.)"
+      "text": "While this model is on the pitch, friendly guild models gain Backdraft.\n{{trait 'Backdraft'}}"
     },
     {
       "name": "Backdraft",
@@ -13235,7 +13235,7 @@
     {
       "name": "Arsenal",
       "active": true,
-      "text": "If this model starts its activation within 6\" of the named friendly model, this model gains a benefit for the remainder of the turn.\nChoose one of the following benefits:\n• +1/+0\" KICK\n• Anatomical Precision\n(Anatomical Precision: During an attack from this model enemy models suffer −1 ARM.)"
+      "text": "If this model starts its activation within 6\" of the named friendly model, this model gains a benefit for the remainder of the turn.\nChoose one of the following benefits:\n• +1/+0\" KICK\n• Anatomical Precision\n{{trait 'Anatomical Precision'}}"
     },
     {
       "name": "Stamina",
@@ -13495,7 +13495,7 @@
     {
       "name": "The Old Ways",
       "active": false,
-      "text": "Once per turn, when this model inflicts the taken out condition on an enemy model, this model gains The Owner [6\" Aura] for the remainder of the turn.\n(The Owner: While within this aura, friendly guild models gain +1 DMG to character plays that cause damage and to playbook damage results.)"
+      "text": "Once per turn, when this model inflicts the taken out condition on an enemy model, this model gains The Owner [6\" Aura] for the remainder of the turn.\n{{trait 'The Owner'}}"
     },
     {
       "name": "Damaged Target",
@@ -13680,7 +13680,7 @@
     {
       "name": "Crow Scarer",
       "active": false,
-      "text": "While this model is within 2\" of a friendly harvest marker, it gains Poised.\n(◉ Poised: Once per turn this model may declare a Counter-Attack without spending MP.)"
+      "text": "While this model is within 2\" of a friendly harvest marker, it gains Poised.\n{{trait 'Poised'}}"
     },
     {
       "name": "Don't Fear The...",
@@ -13690,7 +13690,7 @@
     {
       "name": "Harvest Supper",
       "active": false,
-      "text": "While this model is on the pitch, friendly models gain Subsistence.\n(◉ Subsistence: Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove that marker from the pitch. If it does, this model may recover 4 HP.)"
+      "text": "While this model is on the pitch, friendly models gain Subsistence.\n{{trait 'Subsistence'}}"
     },
     {
       "name": "Fertiliser",
@@ -13825,7 +13825,7 @@
     {
       "name": "Beating Wings Over Water",
       "active": true,
-      "text": "Once per turn during this model’s activation, choose another friendly model within 8\". The chosen model gains Flying.\n(Flying: When this model moves, it ignores terrain and other models’ bases. It can't end its movement overlapping another base, an obstruction, or a barrier.)"
+      "text": "Once per turn during this model’s activation, choose another friendly model within 8\". The chosen model gains Flying.\n{{trait 'Flying'}}"
     },
     {
       "name": "Tag Along",
@@ -13905,7 +13905,7 @@
     {
       "name": "Bring Them Down",
       "active": false,
-      "text": "While this model is on the pitch, friendly human models gain Big Game Traps.\n(Big Game Traps: Once per turn during this model’s activation, it may place a friendly trap marker within 2\".)"
+      "text": "While this model is on the pitch, friendly human models gain Big Game Traps.\n{{trait 'Big Game Traps'}}"
     },
     {
       "name": "Expert Trapper",
@@ -14180,7 +14180,7 @@
     {
       "name": "Sharp Eyes",
       "active": false,
-      "text": "When a friendly model begins its activation within this aura, the friendly model gains Anatomical Precision for the duration of its activation.\n(Anatomical Precision: During an attack from this model enemy models suffer -1 ARM.)"
+      "text": "When a friendly model begins its activation within this aura, the friendly model gains Anatomical Precision for the duration of its activation.\n{{trait 'Anatomical Precision'}}"
     },
     {
       "name": "Don't Get Cocky",
@@ -14275,7 +14275,7 @@
     {
       "name": "Protect the Ball",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove it from the pitch. If it does, friendly models within the pulse gain Close Control for the remainder of the turn.\n(Close Control: This model may ignore the first tackle playbook result that it suffers each turn.)"
+      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove it from the pitch. If it does, friendly models within the pulse gain Close Control for the remainder of the turn.\n{{trait 'Close Control'}}"
     },
     {
       "name": "Sheep Become the Shepherds",
@@ -14285,7 +14285,7 @@
     {
       "name": "Heartless Brute!",
       "active": false,
-      "text": "When an enemy model inflicts the taken out condition on this model, the enemy model suffers Singled Out for the remainder of the turn.\n(Singled Out: Friendly models gain +2 TAC while attacking target enemy model.)"
+      "text": "When an enemy model inflicts the taken out condition on this model, the enemy model suffers Singled Out for the remainder of the turn.\n{{play 'Singled Out'}}"
     },
     {
       "name": "Herding",
@@ -14295,7 +14295,7 @@
     {
       "name": "Littermates",
       "active": false,
-      "text": "If this model suffers the taken out condition the named friendly model gains Furious and +4 TAC for the remainder of the turn.\n(Furious: When this model makes a charge during its activation, it may do so without spending influence.)"
+      "text": "If this model suffers the taken out condition the named friendly model gains Furious and +4 TAC for the remainder of the turn.\n{{trait 'Furious'}}"
     },
     {
       "name": "Matched Pair",
@@ -14376,6 +14376,11 @@
       "name": "Ready to Go",
       "active": false,
       "text": "This model may be allocated influence while not on the pitch."
+    },
+    {
+      "name": "Subsistence",
+      "active": true,
+      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove that marker from the pitch. If it does, this model may recover 4 HP."
     }
   ]
 }

@@ -1273,7 +1273,7 @@
         "Sentinel [1\" Aura]",
         "Tough Hide"
       ],
-      "legendary": "Tested Mettle [6\" Aura]\nCe modèle gagne Stoic.\n\nSi ce modèle est le Capitaine, tant qu'ils sont dans cette aura les autres modèles Master alliés gagnent Stoic et les modèles Apprentice alliés gagnent Though Hide.\n(Stoic: Ce modèle peut ignorer le premier push qu'il subit chaque tour.)",
+      "legendary": "Tested Mettle [6\" Aura]\nCe modèle gagne Stoic.\n\nSi ce modèle est le Capitaine, tant qu'ils sont dans cette aura les autres modèles Master alliés gagnent Stoic et les modèles Apprentice alliés gagnent Though Hide.\n{{trait 'Stoic'}}",
       "types": "Mald, Human, Male,\nCentre Back,\nMaster, Squaddie",
       "playbook": [
         [
@@ -3800,7 +3800,7 @@
         "Follow My Lead",
         "Tow"
       ],
-      "heroic": "Protect Those Close [4\" Aura]\nTant qu'ils sont dans cette aura, les modèles alliés gagnent Sturdy.\n(Sturdy: Une fois par tour ce modèle ignore la pemière condition Knocked down infligée)",
+      "heroic": "Protect Those Close [4\" Aura]\nTant qu'ils sont dans cette aura, les modèles alliés gagnent Sturdy.\n{{trait 'Sturdy'}}",
       "types": "Valentian, Human, Female,\nCentre Back,\nCaptain",
       "playbook": [
         [
@@ -4433,7 +4433,7 @@
         "Crow Scarer",
         "Don't Fear The..."
       ],
-      "legendary": "Against the Grain [6\" Pulse]\nUne fois durant son activation, ce modèle peut utiliser un character play sans dépenser d'influence. Les modèles alliés dans le pulse gagnent Life Drinker.\n(Life Drinker: Lorsqu'il blesse un ou plusieurs modèles ennemis avec un résultat dégât du playbook, ce modèle peut récupèrer 1 HP.)",
+      "legendary": "Against the Grain [6\" Pulse]\nUne fois durant son activation, ce modèle peut utiliser un character play sans dépenser d'influence. Les modèles alliés dans le pulse gagnent Life Drinker.\n{{trait 'Life Drinker'}}",
       "types": "Mald, Human, Male,\nAttacking Midfielder,\nReaper, Captain",
       "playbook": [
         [
@@ -4486,7 +4486,7 @@
         "For the Family [4\" Aura]",
         "Planting Master"
       ],
-      "legendary": "Huge Tracts of Land [6\" Aura]\nCe modèle peut placer jusqu'à 2 harvest markers alliés dans son aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Sturdy.\n(Sturdy: Ce modèle ignore la première condition Knocked down qu'il subit chaque tour.)",
+      "legendary": "Huge Tracts of Land [6\" Aura]\nCe modèle peut placer jusqu'à 2 harvest markers alliés dans son aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Sturdy.\n{{trait 'Sturdy'}}",
       "types": "Piert, Human, Male,\nDefensive Midfielder,\nPlanter, Captain",
       "playbook": [
         [
@@ -7539,7 +7539,7 @@
         "Floored",
         "Knockback"
       ],
-      "heroic": "Protect Those Close [4\" Aura]\nTant qu'ils sont dans cette aura, les modèles alliés gagnent Sturdy.\n(Sturdy: Une fois par tour ce modèle ignore la pemière condition Knocked down infligée)",
+      "heroic": "Protect Those Close [4\" Aura]\nTant qu'ils sont dans cette aura, les modèles alliés gagnent Sturdy.\n{{trait 'Sturdy'}}",
       "types": "Castellyian, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -11908,7 +11908,7 @@
     },
     {
       "name": "Raging Fire",
-      "text": "Le modèle allié ciblé gagne Inferno.\n(Inferno: Quand ce modèle réalise une attaque avec succès, le modèle ennemi ciblé souffre de la condition Burning. Puis les modèles ennemis dans les 2\" de la figurine souffrant de la condition Burning subissent 1 condition DMG.)",
+      "text": "Le modèle allié ciblé gagne Inferno.\n{{trait 'Inferno'}}",
       "CST": 2,
       "RNG": 6,
       "SUS": true,
@@ -12068,7 +12068,7 @@
     },
     {
       "name": "Get In the Goal!",
-      "text": "Le modèle allié ciblé gagne Goal Defence.\n(Goal Defence: Les modèles ennemis subissent +1 TN pour les shot tant que ce modèle est dans les 4\" du but allié).",
+      "text": "Le modèle allié ciblé gagne Goal Defence.\n{{trait 'Goal Defence'}}.",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12716,7 +12716,7 @@
     },
     {
       "name": "Constitution",
-      "text": "4\" aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Though Hide. (Though Hide: Ce modèle subit -1 DMG des plays ennemis et des résultats dégâts d'un playbook).",
+      "text": "4\" aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Though Hide. {{trait 'Though Hide'}}.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12724,7 +12724,7 @@
     },
     {
       "name": "Help 'Em Out",
-      "text": "4\" Aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Close Ranks. (Close Ranks: Lorsque ce modèle inflige la pénalité crowding out à un modèle ennemi, le modèle ennemi subit un -1 supplémentaire sur le nombre de dés à lancer).",
+      "text": "4\" Aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Close Ranks. {{trait 'Close Ranks'}}.",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -12772,7 +12772,7 @@
     },
     {
       "name": "Get Stuck In!",
-      "text": "Ce modèle gagne la règle Rowdy.\n(Rowdy: Ce modèle ne subit pas de pénalités crowding out.)",
+      "text": "Ce modèle gagne la règle Rowdy.\n{{trait 'Rowdy'}}",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
@@ -12980,7 +12980,7 @@
     },
     {
       "name": "Feral Instincts",
-      "text": "Le modèle allié ciblé gagne Anatomical Precision. (Anatomical Precision: Lors d'une attaque de ce modèle, le modèle ennemi subit -1 ARM.)",
+      "text": "Le modèle allié ciblé gagne Anatomical Precision. {{trait 'Anatomical Precision'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13084,7 +13084,7 @@
     },
     {
       "name": "Fulcrum",
-      "text": "6\" aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Poised. (Poised: Une fois par tour ce model peut déclarer une contre attaque sans dépenser de MP.)",
+      "text": "6\" aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Poised. {{trait 'Poised'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13100,7 +13100,7 @@
     },
     {
       "name": "Squad Tactics",
-      "text": "L'autre modèle allié ciblé gagne Assist [Chisel].     (Assist [Chisel]: Tant qu'il attaque un modèle ennemi engagé par le modèle allié nommé, ce modèle gagne +1 TAC et +1 DMG sur ses résultats dégâts du playbook).",
+      "text": "L'autre modèle allié ciblé gagne Assist [Chisel].     {{trait 'Assist' 'Chisel'}}.",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -13204,7 +13204,7 @@
     },
     {
       "name": "Hollowed",
-      "text": "Le modèle allié ciblé gagne Empathy. (Empathy: Si ce modèle est attaqué, les résultats avec dégâts du playbook ne génèrent pas de MP.)",
+      "text": "Le modèle allié ciblé gagne Empathy. {{trait 'Empathy'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13380,7 +13380,7 @@
     },
     {
       "name": "Stand Firm",
-      "text": "Le modèle allié ciblé gagne Sturdy.                                   (Sturdy: Ce modèle ignore la première condition Knocked down qu'il subit chaque tour).",
+      "text": "Le modèle allié ciblé gagne Sturdy.                                   {{trait 'Sturdy'}}.",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13492,7 +13492,7 @@
     },
     {
       "name": "Guard the Flock",
-      "text": "Le modèle allié ciblé gagne Protective Instinct. (Protective Instinct: Tant qu'il engage ce modèle, un modèle ennemi ne peut pas déclarer une attaque contre un autre modèle allié)",
+      "text": "Le modèle allié ciblé gagne Protective Instinct. {{trait 'Protective Instinct'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13636,7 +13636,7 @@
     },
     {
       "name": "Annoyance",
-      "text": "Le modèle allié ciblé gagne Protective Instinct. (Protective Instinct: Tant qu'il engage ce modèle, un modèle ennemi ne peut pas déclarer une attaque contre un autre modèle allié)",
+      "text": "Le modèle allié ciblé gagne Protective Instinct. {{trait 'Protective Instinct'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13652,7 +13652,7 @@
     },
     {
       "name": "Catching the Scent",
-      "text": "La mascotte allié ciblée gagne +1 TAC et Feral.\n(Feral : Une fois par tour, lors de son activation, ce modèle peut déclarer une attaque sans dépenser d'influence.)",
+      "text": "La mascotte allié ciblée gagne +1 TAC et Feral.\n{{trait 'Feral'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13668,7 +13668,7 @@
     },
     {
       "name": "Quoining",
-      "text": "Le modèle allié ciblé gagne Protective Instinct. (Protective Instinct: Tant qu'il engage ce modèle, un modèle ennemi ne peut pas déclarer une attaque contre un autre modèle allié)",
+      "text": "Le modèle allié ciblé gagne Protective Instinct. {{trait 'Protective Instinct'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13676,7 +13676,7 @@
     },
     {
       "name": "Tortoise Power",
-      "text": "Ce modèle gagne Battering Ram.\n(Battering Ram : Pendant les advances de ce modèle, les modèles dont le socle est touché par son socle subissent immédiatement un push de 2\" directement à l'opposé. Ce modèle ne peut push chaque modèle qu'une seule fois par tour avec Battering Ram.)",
+      "text": "Ce modèle gagne Battering Ram.\n{{trait 'Battering Ram'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13935,7 +13935,7 @@
     {
       "name": "Arsenal",
       "active": true,
-      "text": "Si ce modèle commence son activation à 6\" du modèle allié nommé, ce modèle gagne un avantage pour le reste du tour.\nChoisissez l'un des avantages suivants :\n- 2\" Melee zone\n- Instruction\n(Instruction : La prochaine attaque du modèle Apprentice ciblé gagne +2 touches réussies.)."
+      "text": "Si ce modèle commence son activation à 6\" du modèle allié nommé, ce modèle gagne un avantage pour le reste du tour.\nChoisissez l'un des avantages suivants :\n- 2\" Melee zone\n- Instruction\n{{play 'Instruction'}}."
     },
     {
       "name": "Stamina",
@@ -14185,7 +14185,7 @@
     {
       "name": "The Old Ways",
       "active": false,
-      "text": "Une fois par tour, lorsque ce modèle inflige la condition taken out à un modèle ennemi, ce modèle bénéficie de l'aura The Owner [6\"] jusqu'à la fin du tour.\n(The Owner : tant qu'ils sont dans cette aura, les modèles alliés gagnent +1 DMG aux character plays et aux résultats dégats du playbook)."
+      "text": "Une fois par tour, lorsque ce modèle inflige la condition taken out à un modèle ennemi, ce modèle bénéficie de l'aura The Owner [6\"] jusqu'à la fin du tour.\n{{trait 'The Owner'}}."
     },
     {
       "name": "Damaged Target",
@@ -14360,7 +14360,7 @@
     {
       "name": "Crow Scarer",
       "active": false,
-      "text": "Tant que ce modèle se trouve à 2\" d'un harvest marker allié, il gagne Poised.\n(◉ Poised : Une fois par tour, ce modèle peut déclarer une contre attaque sans dépenser de MP)."
+      "text": "Tant que ce modèle se trouve à 2\" d'un harvest marker allié, il gagne Poised.\n{{trait 'Poised'}}."
     },
     {
       "name": "Don't Fear The...",
@@ -14370,7 +14370,7 @@
     {
       "name": "Harvest Supper",
       "active": false,
-      "text": "Tant que ce modèle est sur le terrain, les modèles alliés gagnent Subsistence.\n(◉ Subsistence: Une fois par tour pendant l'activation de ce modèle, il peut choisir un harvest marker allié à 2\" et retirer ce marqueur du terrain. S'il le fait, ce modèle peut récupérer 4 HP)."
+      "text": "Tant que ce modèle est sur le terrain, les modèles alliés gagnent Subsistence.\n{{trait 'Subsistence'}}."
     },
     {
       "name": "Pain Response",
@@ -14500,7 +14500,7 @@
     {
       "name": "Beating Wings Over Water",
       "active": true,
-      "text": "Une fois par tour pendant l'activation de ce modèle, choisissez un autre modèle allié à 8\". Le modèle choisi gagne Vol.\n(Vol : Lorsque ce modèle se déplace, il ignore le terrain et les socles des autres modèles. Il ne peut pas terminer son mouvement en chevauchant un autre socle, un obstacle ou une barrière)."
+      "text": "Une fois par tour pendant l'activation de ce modèle, choisissez un autre modèle allié à 8\". Le modèle choisi gagne Vol.\n{{trait 'Vol'}}."
     },
     {
       "name": "Tag Along",
@@ -14580,7 +14580,7 @@
     {
       "name": "Bring Them Down",
       "active": false,
-      "text": "Tant que ce modèle est sur le terrain, les modèles humains alliés gagnent Big Game Traps.\n(Big Game Traps : Une fois par tour pendant l'activation de ce modèle, il peut placer un trap marker allié à 2\")."
+      "text": "Tant que ce modèle est sur le terrain, les modèles humains alliés gagnent Big Game Traps.\n{{trait 'Big Game Traps'}}."
     },
     {
       "name": "Expert Trapper",
@@ -14850,7 +14850,7 @@
     {
       "name": "Sharp Eyes",
       "active": false,
-      "text": "Lorsqu'un modèle allié commence son activation à l'intérieur de cette aura, il gagne Anatomical Precision pour la durée de son activation.\n(Anatomical Precision : Lors d'une attaque de ce modèle, les modèles ennemis subissent -1 ARM)."
+      "text": "Lorsqu'un modèle allié commence son activation à l'intérieur de cette aura, il gagne Anatomical Precision pour la durée de son activation.\n{{trait 'Anatomical Precision'}}."
     },
     {
       "name": "Don't Get Cocky",
@@ -14945,7 +14945,7 @@
     {
       "name": "Protect the Ball",
       "active": true,
-      "text": "Une fois par tour pendant l'activation de ce modèle, il peut choisir un harvest marker allié à 2\" et le retirer du terrain. S'il le fait, les modèles alliés dans ce pulse gagnent Close Control pour le reste du tour.\n(Close Control : Ce modèle peut ignorer le premier résultat Tacle du playbook qu'il subit à chaque tour)."
+      "text": "Une fois par tour pendant l'activation de ce modèle, il peut choisir un harvest marker allié à 2\" et le retirer du terrain. S'il le fait, les modèles alliés dans ce pulse gagnent Close Control pour le reste du tour.\n{{trait 'Close Control'}}."
     },
     {
       "name": "Sheep Become the Shepherds",
@@ -14955,7 +14955,7 @@
     {
       "name": "Heartless Brute!",
       "active": false,
-      "text": "Lorsqu'un modèle ennemi inflige la condition taken out à ce modèle, le modèle ennemi subit Singled Out jusqu'à la fin du tour.\n(Singled Out : Les modèles alliés gagnent +2 TAC lorsqu'ils attaquent le modèle ennemi ciblé)."
+      "text": "Lorsqu'un modèle ennemi inflige la condition taken out à ce modèle, le modèle ennemi subit Singled Out jusqu'à la fin du tour.\n{{play 'Singled Out'}}."
     },
     {
       "name": "Herding",
@@ -14965,7 +14965,7 @@
     {
       "name": "Littermates",
       "active": false,
-      "text": "Si ce modèle subit la condition taken out, le modèle allié nommé gagne Furious et +4 TAC pour le reste du tour.\n(Furious : Lorsque ce modèle charge pendant son activation, il peut le faire sans dépenser d'influence)."
+      "text": "Si ce modèle subit la condition taken out, le modèle allié nommé gagne Furious et +4 TAC pour le reste du tour.\n{{trait 'Furious'}}."
     },
     {
       "name": "Matched Pair",
@@ -15060,17 +15060,17 @@
     {
       "name": "Flare Out",
       "active": false,
-      "text": "Tant que ce modèle est sur le terrain, les modèles alliés qui souffrent de la condition Burning gagnent Overheat.\n(Overheat [3\" Pulse]: Lorsque ce modèle souffre de la condition taken out pendant la phase d'activation, les modèles ennemis dans ce pulse subissent 3 DMG et la condition Burning)."
+      "text": "Tant que ce modèle est sur le terrain, les modèles alliés qui souffrent de la condition Burning gagnent Overheat.\n{{trait 'Overheat' '3\" Pulse'}}."
     },
     {
       "name": "The Ladderman Cometh",
       "active": false,
-      "text": "Si ce modèle ne souffre pas de la condition Burning, il gagne Extended Reach.\n(Extended Reach : pendant son activation, la melee zone de cette figurine est de 3\")."
+      "text": "Si ce modèle ne souffre pas de la condition Burning, il gagne Extended Reach.\n{{trait 'Extended Reach'}}."
     },
     {
       "name": "Light Goes On",
       "active": false,
-      "text": "Tant que ce modèle souffre de la condition Burning , il gagne +2 TAC et Searing Strike.\n(Searing Strike : Les modèles ennemis blessés par ce modèle subissent -1 ARM pour le reste du tour et la condition Burning)."
+      "text": "Tant que ce modèle souffre de la condition Burning , il gagne +2 TAC et Searing Strike.\n{{trait 'Searing Strike'}}."
     },
     {
       "name": "Light Goes Off",
@@ -15095,7 +15095,7 @@
     {
       "name": "Now You See Me...",
       "active": false,
-      "text": "Tant qu'elle ne souffre pas de la condition Burning , ce modèle gagne Unpredictable Movement.\n(◉ Unpredictable Movement : Une fois par tour, lorsqu'un modèle ennemi termine une advance dans la melee zone de ce modèle, ce modèle peut immédiatement effectuer un Dodge de 2\")."
+      "text": "Tant qu'elle ne souffre pas de la condition Burning , ce modèle gagne Unpredictable Movement.\n{{trait 'Unpredictable Movement'}}."
     },
     {
       "name": "Clumsy",
@@ -15191,6 +15191,11 @@
       "name": "Chameleon",
       "active": false,
       "text": "Quand ce modèle revient sur le terrain après avoir subit la condition taken out,  il peut considérer la zone de déploiement de l'équipe ennemie comme la sienne."
+    },
+    {
+      "name": "Subsistence",
+      "active": true,
+      "text": "Une fois par tour pendant l'activation de ce modèle, il peut choisir un harvest marker allié à 2\" et retirer ce marqueur du terrain. S'il le fait, ce modèle peut récupérer 4 HP."
     }
   ]
 }
