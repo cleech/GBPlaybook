@@ -1263,7 +1263,7 @@
         "Sentinel [1\" Aura]",
         "Tough Hide"
       ],
-      "legendary": "Tested Mettle [6\" Aura]\nCe modèle gagne Stoic.\n\nSi ce modèle est le Capitaine, tant qu'ils sont dans cette aura les autres modèles Master alliés gagnent Stoic et les modèles Apprentice alliés gagnent Though Hide.\n{{trait 'Stoic'}}",
+      "legendary": "Tested Mettle [6\" Aura]\nCe modèle gagne Stoic.\n\nSi ce modèle est le Capitaine, tant qu'ils sont dans cette aura les autres modèles Master alliés gagnent Stoic et les modèles Apprentice alliés gagnent Tough Hide.\n{{trait 'Stoic'}}",
       "types": "Mald, Human, Male,\nCentre Back,\nMaster, Squaddie",
       "playbook": [
         [
@@ -12694,7 +12694,7 @@
     },
     {
       "name": "Constitution",
-      "text": "4\" aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Though Hide. {{trait 'Though Hide'}}.",
+      "text": "4\" aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Tough Hide. {{trait 'Tough Hide'}}.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -14413,7 +14413,7 @@
     {
       "name": "Beating Wings Over Water",
       "active": true,
-      "text": "Une fois par tour pendant l'activation de ce modèle, choisissez un autre modèle allié à 8\". Le modèle choisi gagne Vol.\n{{trait 'Vol'}}."
+      "text": "Une fois par tour pendant l'activation de ce modèle, choisissez un autre modèle allié à 8\". Le modèle choisi gagne Vol.\n{{trait 'Flying'}}."
     },
     {
       "name": "Tag Along",

@@ -21,8 +21,7 @@
 /* Skatha was close, and the french translation pushed it over */
 
 .Skatha[lang="fr"] .character-plays .text {
-  font-size: calc(6.5pt * 200/96);
-  line-height: 1.1em;
+  font-size: calc(6.7pt * 200/96);
 }
 
 .Silence .character-plays .text {

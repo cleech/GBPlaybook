@@ -19,6 +19,10 @@ hb.registerHelper("GB", () => new hb.SafeString('<gb-icon icon="CP"></gb-icon>')
 hb.registerHelper("trait", async (name: string, ...rest: any[]) => {
   const gbdb = await getGBDatabase();
   const trait = await gbdb?.character_traits.findOne(name).exec().then(doc => doc?.toJSON());
+  if (!trait) {
+    console.error(`can not find trait ${name}`);
+    return;
+  }
   const qualifier = (rest.length > 1) ? rest[0] : undefined;
   const depth = (rest[rest.length - 1].data.root.depth);
   if (depth === 1) {
@@ -33,6 +37,10 @@ hb.registerHelper("trait", async (name: string, ...rest: any[]) => {
 hb.registerHelper("play", async (name: string, ...rest: any[]) => {
   const gbdb = await getGBDatabase();
   const play = await gbdb?.character_plays.findOne(name).exec().then(doc => doc?.toJSON());
+  if (!play) {
+    console.error(`can not find play ${name}`);
+    return;
+  }
   const qualifier = (rest.length > 1) ? rest[0] : undefined;
   const depth = (rest[rest.length - 1].data.root.depth);
   if (depth === 1) {

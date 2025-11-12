@@ -14378,6 +14378,11 @@
       "text": "This model may be allocated influence while not on the pitch."
     },
     {
+      "name": "Goal Defence",
+      "active": false,
+      "text": "Enemy models suffer +1 TN to Shots while this model is within 4\" of a friendly goalpost."
+    },
+    {
       "name": "Subsistence",
       "active": true,
       "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove that marker from the pitch. If it does, this model may recover 4 HP."
