@@ -250,12 +250,11 @@ const CharacterPlays = ({
     </div>
     {model.character_plays.map((cp, index) => (
       <React.Fragment key={`cp-${index}`}>
-        <div style={{
-          // backgroundColor: 'red',
+        <div className="flex-space" style={{
           maxHeight: '0.5em',
           flexGrow: 1,
         }} />
-        <div key={cp.name} className="play">
+        <div key={cp.name} className={`play ${cp.name.replace(/\s/g, '')}`}>
           <CPName text={cp.name} />
           <span style={{
             whiteSpace: 'nowrap', display: 'inline', alignItems: "baseline",

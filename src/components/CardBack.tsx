@@ -166,12 +166,11 @@ const CharacterTraits = ({ model }: { model: GBModelExpanded }) => (
     </div>
     {model.character_traits.map((ct, index) => (
       <React.Fragment key={`ct-${index}`}>
-        <div style={{
-          // backgroundColor: 'red',
+        <div className="flex-space" style={{
           flexGrow: 1,
-          ...(index === 0 ? { maxHeight: 0 } : { maxHeight: "1.2em" }),
+          ...(index === 0 ? { maxHeight: 0 } : { maxHeight: "1em" }),
         }} />
-        <div className="character-trait" key={`${ct.name}-${index}`}>
+        <div className={`character-trait ${ct.name.replace(/\s/g, '')}`} key={`${ct.name}-${index}`}>
           <div className={cx('trait', { 'active': ct.active })}>
             <CTName
               text={ct.name.concat(ct.parameter ? ` [${ct.parameter}]` : "")}
@@ -194,8 +193,7 @@ const Heroic = ({ model }: { model: GBModelExpanded }) => {
   const text = model.heroic.split("\n").slice(1).join("\n");
   return (
     <>
-      <div style={{
-        // backgroundColor: 'red',
+      <div className="flex-space" style={{
         maxHeight: "0.5em",
         flexGrow: 1,
       }} />
@@ -221,8 +219,7 @@ const Legendary = ({ model }: { model: GBModelExpanded }) => {
   const text = model.legendary.split("\n").slice(1).join("\n");
   return (
     <>
-      <div style={{
-        // backgroundColor: 'red',
+      <div className="flex-space" style={{
         maxHeight: "0.5em",
         flexGrow: 1,
       }} />

@@ -6,6 +6,7 @@
   overflow: hidden;
   --line-width: 1px;
   --line-color: black;
+  --radius: 50%;
   /* This makes background images print */
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
@@ -17,10 +18,8 @@
   font-size: calc(7pt * 200/96);
   font-variant-numeric: lining-nums;
   line-height: 1.125em;
-  em {
-    font-size: calc(6.5pt * 200/96);
-  }
 }
+
 /*
 .overlay {
   outline: 1px solid red;
@@ -202,14 +201,13 @@ div.card-front.gbcp.double.bleed {
 .card-front .statbox {
   /* positioning */
   position: absolute;
-  top: 105px;
+  top: 107px;
   left: 24px;
   width: 293px;
   /* grid layout */
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  line-height: 26px;
-  /* letter-spacing: -1px; */
+  line-height: 1.25em;
   text-align: center;
 }
 
@@ -227,6 +225,7 @@ div.card-front.gbcp.double.bleed {
 /* interior border */
 
 .card-front .statbox > :nth-child(-n + 6) {
+  letter-spacing: -1px;
   border-bottom: var(--line-width) solid var(--line-color);
 }
 
@@ -259,7 +258,7 @@ div.card-front.gbcp.double.bleed {
 .card-front .playbook-result {
   width: 45px;
   height: 45px;
-  border-radius: 50%;
+  border-radius: var(--radius);
   box-sizing: border-box;
   border: 2px solid black;
   background-color: white;
@@ -309,6 +308,9 @@ div.card-front.gbcp.double.bleed {
   display: flex;
   flex-direction: column;
   /* gap: 0.33em; */
+  em {
+    font-size: calc(6.5pt * 200/96);
+  }
 }
 
 .card-front.card-front.gbcp .character-plays-wrapper {
@@ -336,7 +338,7 @@ div.card-front.gbcp.double.bleed {
 
 .card-front .character-plays .header {
   display: grid;
-  grid-template-columns: 232px repeat(4, 1fr);
+  grid-template-columns: 230px repeat(4, 1fr);
   align-items: flex-end;
 }
 
@@ -350,6 +352,7 @@ div.card-front.gbcp.double.bleed {
 }
 
 .card-front .character-plays .header > :not(:first-child) {
+  line-height: 1em;
   letter-spacing: -1px;
   text-align: center;
   border-bottom: var(--line-width) solid var(--line-color);
@@ -360,7 +363,7 @@ div.card-front.gbcp.double.bleed {
 
 .card-front .character-plays .play {
   display: grid;
-  grid-template-columns: 232px repeat(4, 1fr);
+  grid-template-columns: 230px repeat(4, 1fr);
   align-items: flex-end;
   text-align: center;
 }
@@ -420,7 +423,7 @@ div.card-front.gbcp.double.bleed {
   /* how a box/circle displays */
   width: 25px;
   height: 25px;
-  border-radius: 50%;
+  border-radius: var(--radius);
   box-sizing: border-box;
   border: var(--line-width) solid var(--line-color);
   background-color: white;

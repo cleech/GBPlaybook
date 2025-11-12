@@ -1,5 +1,6 @@
 /* quirks, card specific fixes, etc. */
 
+
 /* Harry/Harriet 'The Hat' has a crazy long name */
 
 .Harry.card-front .name-plate-right > .name {
@@ -35,3 +36,27 @@
   /* letter-spacing: -0.3px; */
   /* word-spacing: -0.3px; */
 }
+
+.Oak.card-back {
+  /* font-size: calc(6.75pt * 200/96); */
+}
+
+.MidasTouch .text {
+  letter-spacing: -0.2px;
+  ::first-line { letter-spacing: 0 }
+}
+
+.play.Infuse .text {
+  letter-spacing: -1px;
+  ::first-line { letter-spacing: -0.5px; }
+}
+
+.CaberToss .text {
+  letter-spacing: -0.1px;
+}
+
+.SwipeRight .text {
+  letter-spacing: -0.1px;
+}
+
+

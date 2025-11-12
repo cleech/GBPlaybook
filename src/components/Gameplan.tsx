@@ -1,6 +1,5 @@
 import "./CardFront.css"
 import "./CardBack.css"
-import "./CardQuirks.css"
 
 import {
   CSSProperties,
@@ -11,6 +10,8 @@ import { Gameplan } from "./DataTypes";
 import useScaleRef from "../hooks/useScaleRef";
 
 import { css, cx } from '@emotion/css';
+
+import Markdown from "react-markdown";
 
 interface CardCSS extends CSSProperties {
   "--scale"?: number | string;
@@ -60,6 +61,7 @@ export const GameplanFront = (props: {
           <div
             className={css({
               fontFamily: "IM Fell Great Primer SC",
+              letterSpacing: "-1px",
               fontSize: "33.33pt",
               display: "flex",
               flexDirection: "column",
@@ -95,18 +97,34 @@ export const GameplanFront = (props: {
               flexDirection: "column",
               alignItems: "center",
               lineHeight: 1,
-              // p: { fontSize: '20.83pt', margin: '0em 0 1em 0', whiteSpace: 'pre' },
-              p: { fontSize: 'calc(8pt * 200/96)', margin: '0em 0 1em 0', whiteSpace: 'pre' },
-              // 'p#KeepYourChinUp': { fontSize: '18.75pt' }
-              'p#KeepYourChinUp': { fontSize: 'calc(8pt * 200/96)' }
+              div: { fontSize: 'calc(9pt * 200/96)', margin: 0, whiteSpace: 'pre' },
+              '#KeepYourChinUp': { fontSize: 'calc(8.5pt * 200/96)' },
+              '#RawEnthusiasm': { fontSize: 'calc(8.75pt * 200/96)' },
+              '.detail#WHATASTRIKE': { fontSize: 'calc(8.5pt * 200/96)' },
+              p: { margin: '0.5em' },
+              ul: { margin: 0, display: 'flex', flexDirection: 'column' },
             })}
           >
-            <p id={gameplan.title.replace(/[^a-zA-Z0-9]+/g, '')}>
-              {gameplan.text}
-            </p>
-            <p style={{ fontStyle: "italic" }}>
-              {gameplan.detail}
-            </p>
+            <div
+              className="text"
+              id={gameplan.title.replace(/[^a-zA-Z0-9]+/g, '')}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Markdown>
+                {gameplan.text}
+              </Markdown>
+            </div>
+            <div
+              className='detail'
+              id={gameplan.title.replace(/[^a-zA-Z0-9]+/g, '')}
+            >
+              <Markdown>
+                {gameplan.detail ? `(_${gameplan.detail}_)` : undefined}
+              </Markdown>
+            </div>
           </div>
           <div
             style={{
@@ -156,7 +174,7 @@ export const GameplanFront = (props: {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

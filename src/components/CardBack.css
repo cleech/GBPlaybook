@@ -63,7 +63,7 @@ div.card-back.gbcp.double.bleed {
   position: absolute;
   top: 23px;
   width: 100%;
-  height: 565px;
+  height: 563px;
   box-sizing: border-box;
   padding-left: 22px;
   padding-right: 24px;
@@ -145,6 +145,9 @@ div.card-back.gbcp.double.bleed {
 
 .card-back .character-trait {
   text-align: left;
+  em {
+    font-size: calc(6.5pt * 200/96);
+  }
 }
 
 .card-back .character-trait .trait {
@@ -199,6 +202,9 @@ div.card-back.gbcp.double.bleed {
     padding-left: 1em;
     display: flex;
     flex-direction: column;
+  }
+  em {
+    font-size: calc(6.5pt * 200/96);
   }
 }
 
