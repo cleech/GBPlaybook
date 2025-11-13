@@ -1,12 +1,10 @@
 /* quirks, card specific fixes, etc. */
 
-
 /* Harry/Harriet 'The Hat' has a crazy long name */
 
 .Harry.card-front .name-plate-right > .name {
   font-size: 33px;
 }
-
 .vHarriet.card-front .name-plate-right > .name {
   font-size: 30px;
 }
@@ -25,10 +23,11 @@
 }
 
 .Silence .character-plays .text {
-  font-size: calc(6.5pt * 200/96);
-  /* line-height: 1.1em; */
-  /* letter-spacing: -0.3px; */
-  /* word-spacing: -0.3px; */
+  font-size: calc(6.7pt * 200/96);
+}
+.FireBlast .text {
+  ::first-line { letter-spacing: normal; }
+  letter-spacing: -0.4px;
 }
 
 .Midas {
@@ -45,13 +44,13 @@
 }
 
 .MidasTouch .text {
+  ::first-line { letter-spacing: normal }
   letter-spacing: -0.2px;
-  ::first-line { letter-spacing: 0 }
 }
 
 .Infuse .text {
-  letter-spacing: -1px;
   ::first-line { letter-spacing: -0.5px; }
+  letter-spacing: -1px;
 }
 
 .CaberToss .text {
