@@ -254,7 +254,7 @@ const CharacterPlays = ({
           maxHeight: '0.5em',
           flexGrow: 1,
         }} />
-        <div key={cp.name} className={`play ${cp.name.replace(/\s/g, '')}`}>
+        <div key={cp.name} className={`play ${cp.name.split(' [', 1)[0].replace(/[^a-zA-Z]/g, '')}`}>
           <CPName text={cp.name} />
           <span style={{
             whiteSpace: 'nowrap', display: 'inline', alignItems: "baseline",

@@ -40,12 +40,16 @@
   /* font-size: calc(6.75pt * 200/96); */
 }
 
+.LikeWePractised .name {
+  font-size: calc(6.7pt * 200/96);
+}
+
 .MidasTouch .text {
   letter-spacing: -0.2px;
   ::first-line { letter-spacing: 0 }
 }
 
-.play.Infuse .text {
+.Infuse .text {
   letter-spacing: -1px;
   ::first-line { letter-spacing: -0.5px; }
 }
@@ -57,5 +61,3 @@
 .SwipeRight .text {
   letter-spacing: -0.1px;
 }
-
-

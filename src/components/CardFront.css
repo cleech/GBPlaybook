@@ -371,11 +371,13 @@ div.card-front.gbcp.double.bleed {
 .card-front .character-plays .play .name {
   white-space: nowrap;
   text-align: left;
-  font-weight: 600;
+  font-weight: bold;
+  font-size-adjust: ch-width 0.55;
 }
 
 .card-front .character-plays .play .name > span:first-child {
   font-style: italic;
+  letter-spacing: -0.3px;
 }
 
 .card-front .character-plays .play .text {
@@ -435,7 +437,7 @@ div.card-front.gbcp.double.bleed {
   /* text and icon styling */
   font-family: "Calluna-Regular", serif;
   font-size: calc(6pt * 200/96);
-  font-weight: 600;
+  font-weight: bold;
   color: var(--mom-color, var(--team-color));
 }
 .card-front .health-box span {
@@ -497,7 +499,7 @@ div.card-front.gbcp.double.bleed {
 
 .Flea.gbcp
   .character-plays
-  div.name:nth-of-type(3)
+  .LikeWePractised
   > span:nth-child(2)::before {
   color: "red";
   content: "\a";

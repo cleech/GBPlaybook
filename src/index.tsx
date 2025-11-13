@@ -5,10 +5,10 @@ import { registerSW } from "virtual:pwa-register";
 registerSW({ immediate: true });
 
 import '@fontsource/comfortaa';
+import './fonts/Calluna-Regular/stylesheet.css';
 import '@fontsource/im-fell-great-primer-sc';
 import '@fontsource/im-fell-great-primer';
-import '@fontsource/noto-sans-symbols';
-import './fonts/Calluna-Regular/stylesheet.css';
+import '@fontsource/noto-sans-symbols-2';
 
 import { lazy } from "react";
 import { createRoot } from "react-dom/client";

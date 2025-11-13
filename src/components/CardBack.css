@@ -118,7 +118,6 @@ div.card-back.gbcp.double.bleed {
   font-family: "IM Fell Great Primer SC", serif;
   line-height: .8em;
   margin-left: 5px;
-  font-weight: 400;
   font-size: calc(15pt * 200/96);
   letter-spacing: -2px;
   border-bottom: var(--line-width) solid var(--line-color);
@@ -151,21 +150,25 @@ div.card-back.gbcp.double.bleed {
 }
 
 .card-back .character-trait .trait {
-  font-weight: 600;
+  font-weight: bold;
   font-style: italic;
+  font-size-adjust: ch-width 0.55;
+  letter-spacing: -0.3px;
 }
 
 .card-back .character-trait .trait.active > ::before {
   content: "◉ ";
-  font-style: normal;
-  font-weight: 400;
   font-family: "Noto Sans Symbols 2", sans-serif;
+  font-size-adjust: ch-width 1;
+  font-weight: normal;
+  font-style: normal;
 }
 
 .card-back .character-trait .trait > :first-child > :nth-child(2) {
-  font-weight: 600;
+  font-weight: bold;
   font-style: normal;
   line-height: 1.1em;
+  letter-spacing: initial;
 }
 
 .card-back .character-trait .text {
@@ -215,13 +218,16 @@ div.card-back.gbcp.double.bleed {
 }
 
 .card-back :is(.heroic, .legendary) > :first-child > :first-child {
-  font-weight: 600;
+  font-weight: bold;
   font-style: italic;
+  font-size-adjust: ch-width 0.55;
+  letter-spacing: -0.3px;
 }
 
 .card-back :is(.legendary, .heroic) > :first-child > :nth-child(2) {
-  font-weight: 600;
+  font-weight: bold;
   font-style: normal;
+  font-size-adjust: ch-width 0.55;
 }
 
 /* spacing for blacksmith masters */

@@ -12,7 +12,7 @@
         "@fontsource/comfortaa": "^5.2.8",
         "@fontsource/im-fell-great-primer": "^5.2.6",
         "@fontsource/im-fell-great-primer-sc": "^5.2.6",
-        "@fontsource/noto-sans-symbols": "^5.2.11",
+        "@fontsource/noto-sans-symbols-2": "^5.2.8",
         "@fontsource/noto-serif-sc": "^5.2.8",
         "@khmyznikov/pwa-install": "^0.5.8",
         "@mui/icons-material": "^7.3.4",
@@ -481,7 +481,7 @@
 
     "@fontsource/im-fell-great-primer-sc": ["@fontsource/im-fell-great-primer-sc@5.2.6", "", {}, "sha512-IBHoxVOLe1ovQGtYu0HnlEyWa6WsmWUPXPFRxip1+ZaXgzkQSfWzODX0rDPM5wSOoiUpGurHjbBluCxKxbrqNQ=="],
 
-    "@fontsource/noto-sans-symbols": ["@fontsource/noto-sans-symbols@5.2.11", "", {}, "sha512-/PKE+LTNizVcXnTBCREqWta9u+pBdA4QdJIdNguume9J09HHdqUYFr6hijY/GnYTuxxDht6woOClzjp8PYl+SQ=="],
+    "@fontsource/noto-sans-symbols-2": ["@fontsource/noto-sans-symbols-2@5.2.8", "", {}, "sha512-OGKq1CaSIszlSBc4Ie2XPBS8yFfF1fMfzjjoRRfpijjgjk1Xg/WSo/3Bg0cJdoxxIdQ0a2XENzJHhfpWLNv5Lw=="],
 
     "@fontsource/noto-serif-sc": ["@fontsource/noto-serif-sc@5.2.8", "", {}, "sha512-C7fAr+d1GjOAw1qIbntsnqbA3l5dkdzcmNNgeCXLC8QZ7VNubL7MTrX8UcYKHceX4mI//z8gGtXbOeeQrB6P7g=="],
 
