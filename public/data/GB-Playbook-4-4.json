@@ -2366,7 +2366,7 @@
         "Assist [Scum, Quaff]",
         "Get Over Here [Scum, Quaff]"
       ],
-      "heroic": "Animal Treat [Scum, Quaff ]\nTarget named friendly model within 4\" gains +2 TAC.",
+      "heroic": "Animal Treat [Scum, Quaff]\nTarget named friendly model within 4\" gains +2 TAC.",
       "types": "Indar, Human, Male,\nDefensive Midfielder\nSquaddie",
       "playbook": [
         [
