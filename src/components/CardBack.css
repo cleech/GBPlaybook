@@ -156,15 +156,16 @@ div.card-back.gbcp.double.bleed {
   letter-spacing: -0.3px;
 }
 
-.card-back .character-trait .trait.active > ::before {
-  content: "◉ ";
+/* .card-back .character-trait .trait.active > ::before { */
+.card-back .character-trait .trait .active {
+  /* content: "◉ "; */
   font-family: "Noto Sans Symbols 2", sans-serif;
   font-size-adjust: ch-width 1;
   font-weight: normal;
   font-style: normal;
 }
 
-.card-back .character-trait .trait > :first-child > :nth-child(2) {
+.card-back .character-trait .trait > :first-child > :nth-child(3) {
   font-weight: bold;
   font-style: normal;
   line-height: 1.1em;
@@ -217,14 +218,14 @@ div.card-back.gbcp.double.bleed {
   letter-spacing: unset;
 }
 
-.card-back :is(.heroic, .legendary) > :first-child > :first-child {
+.card-back :is(.heroic, .legendary) > :first-child > :nth-child(2) {
   font-weight: bold;
   font-style: italic;
   font-size-adjust: ch-width 0.55;
   letter-spacing: -0.3px;
 }
 
-.card-back :is(.legendary, .heroic) > :first-child > :nth-child(2) {
+.card-back :is(.legendary, .heroic) > :first-child > :nth-child(3) {
   font-weight: bold;
   font-style: normal;
   font-size-adjust: ch-width 0.55;

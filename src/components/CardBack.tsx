@@ -147,11 +147,12 @@ const FooterIcon = ({ icon }: { icon: string }) => (
   </div>
 );
 
-function CTName({ text }: { text: string }) {
+function CTName({ text, active }: { text: string, active?: boolean }) {
   const name = text.split("[", 1)[0];
   const arg = text.replace(/[^[]*(\[.*\])?/, " $1");
   return (
     <div>
+      <span className='active' style={{ display: active ? 'inline' : 'none' }}>◉ </span>
       <span>{name}</span>
       <span>{arg}</span>
     </div>
@@ -171,9 +172,10 @@ const CharacterTraits = ({ model }: { model: GBModelExpanded }) => (
           ...(index === 0 ? { maxHeight: 0 } : { maxHeight: "1em" }),
         }} />
         <div className={`character-trait ${ct.name.replace(/\s/g, '')}`} key={`${ct.name}-${index}`}>
-          <div className={cx('trait', { 'active': ct.active })}>
+          <div className='trait'>
             <CTName
               text={ct.name.concat(ct.parameter ? ` [${ct.parameter}]` : "")}
+              active={ct.active}
             />
           </div>
           <span className="text">
