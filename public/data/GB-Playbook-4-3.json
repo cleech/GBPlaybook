@@ -12123,7 +12123,7 @@
     },
     {
       "name": "Taking Flight",
-      "text": "This model may make a jog and gains Flying.\n{{trait 'Flying'}}.",
+      "text": "This model may make a jog and gains Flying.\n{{trait 'Flying'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,

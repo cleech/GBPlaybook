@@ -12716,7 +12716,7 @@
     },
     {
       "name": "Constitution",
-      "text": "4\" aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Tough Hide. {{trait 'Tough Hide'}}.",
+      "text": "4\" aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Tough Hide.\n{{trait 'Tough Hide'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12724,7 +12724,7 @@
     },
     {
       "name": "Help 'Em Out",
-      "text": "4\" Aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Close Ranks. {{trait 'Close Ranks'}}.",
+      "text": "4\" Aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Close Ranks.\n{{trait 'Close Ranks'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -12980,7 +12980,7 @@
     },
     {
       "name": "Feral Instincts",
-      "text": "Le modèle allié ciblé gagne Anatomical Precision. {{trait 'Anatomical Precision'}}",
+      "text": "Le modèle allié ciblé gagne Anatomical Precision.\n{{trait 'Anatomical Precision'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13084,7 +13084,7 @@
     },
     {
       "name": "Fulcrum",
-      "text": "6\" aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Poised. {{trait 'Poised'}}",
+      "text": "6\" aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Poised.\n{{trait 'Poised'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13204,7 +13204,7 @@
     },
     {
       "name": "Hollowed",
-      "text": "Le modèle allié ciblé gagne Empathy. {{trait 'Empathy'}}",
+      "text": "Le modèle allié ciblé gagne Empathy.\n{{trait 'Empathy'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13380,7 +13380,7 @@
     },
     {
       "name": "Stand Firm",
-      "text": "Le modèle allié ciblé gagne Sturdy.                                   {{trait 'Sturdy'}}.",
+      "text": "Le modèle allié ciblé gagne Sturdy.\n{{trait 'Sturdy'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13492,7 +13492,7 @@
     },
     {
       "name": "Guard the Flock",
-      "text": "Le modèle allié ciblé gagne Protective Instinct. {{trait 'Protective Instinct'}}",
+      "text": "Le modèle allié ciblé gagne Protective Instinct.\n{{trait 'Protective Instinct'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13636,7 +13636,7 @@
     },
     {
       "name": "Annoyance",
-      "text": "Le modèle allié ciblé gagne Protective Instinct. {{trait 'Protective Instinct'}}",
+      "text": "Le modèle allié ciblé gagne Protective Instinct.\n{{trait 'Protective Instinct'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13668,7 +13668,7 @@
     },
     {
       "name": "Quoining",
-      "text": "Le modèle allié ciblé gagne Protective Instinct. {{trait 'Protective Instinct'}}",
+      "text": "Le modèle allié ciblé gagne Protective Instinct.\n{{trait 'Protective Instinct'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13755,7 +13755,7 @@
     {
       "name": "Light Footed",
       "active": false,
-      "text": "Lorsque ce modèle effectue une advance , il ignore la pénalité de MOV pour les terrains difficiles."
+      "text": "Lorsque ce modèle effectue une advance, il ignore la pénalité de MOV pour les terrains difficiles."
     },
     {
       "name": "Overheat",
@@ -13815,7 +13815,7 @@
     {
       "name": "Burning Effigy",
       "active": false,
-      "text": "Lorsqu'il souffre de la condition Burning , ce modèle gagne +2 TAC et ignore la pénalité de MOV due à la condition Burning."
+      "text": "Lorsqu'il souffre de la condition Burning, ce modèle gagne +2 TAC et ignore la pénalité de MOV due à la condition Burning."
     },
     {
       "name": "Burning Strike",
@@ -13980,7 +13980,7 @@
     {
       "name": "Sweeping Charge",
       "active": false,
-      "text": "Lorsque ce modèle charge pendant son activation, en plus d'un ou plusieurs résultats de playbook damage , les modèles dans sa melee zone subissent 3 DMG."
+      "text": "Lorsque ce modèle charge pendant son activation, en plus d'un ou plusieurs résultats de playbook damage, les modèles dans sa melee zone subissent 3 DMG."
     },
     {
       "name": "Quick Off the Line",
@@ -14265,7 +14265,7 @@
     {
       "name": "Webbing",
       "active": true,
-      "text": "Une fois par tour pendant l'activation de ce modèle, s'il y a un nest marker allié à 4\" de ce modèle et à 2\" d'un ballon libre , alors ce modèle peut prendre possession du ballon."
+      "text": "Une fois par tour pendant l'activation de ce modèle, s'il y a un nest marker allié à 4\" de ce modèle et à 2\" d'un ballon libre, alors ce modèle peut prendre possession du ballon."
     },
     {
       "name": "Stoic",
@@ -14745,7 +14745,7 @@
     {
       "name": "Voodoo Strings",
       "active": true,
-      "text": "Pendant l'activation de ce modèle, lorsqu'il inflige des dégâts à un modèle ennemi avec un ou plusieurs résultats dégâts du playbook , choisissez un modèle dans cette aura pour subir une push de 2\". Chaque modèle ne peut être push par Voodoo Strings qu'une seule fois par tour."
+      "text": "Pendant l'activation de ce modèle, lorsqu'il inflige des dégâts à un modèle ennemi avec un ou plusieurs résultats dégâts du playbook, choisissez un modèle dans cette aura pour subir une push de 2\". Chaque modèle ne peut être push par Voodoo Strings qu'une seule fois par tour."
     },
     {
       "name": "Control Strings",
@@ -14940,7 +14940,7 @@
     {
       "name": "Plague Ridden",
       "active": false,
-      "text": "Lorsqu'il souffre de disease , ce modèle gagne +1 DMG aux résultats dégâts du Playbook."
+      "text": "Lorsqu'il souffre de disease, ce modèle gagne +1 DMG aux résultats dégâts du Playbook."
     },
     {
       "name": "Protect the Ball",
@@ -15055,7 +15055,7 @@
     {
       "name": "Blinded by the Light",
       "active": false,
-      "text": "Tant que ce modèle souffre de la condition Burning , les modèles ennemis subissent -1 TAC lorsqu'ils attaquent ce modèle."
+      "text": "Tant que ce modèle souffre de la condition Burning, les modèles ennemis subissent -1 TAC lorsqu'ils attaquent ce modèle."
     },
     {
       "name": "Flare Out",
@@ -15070,7 +15070,7 @@
     {
       "name": "Light Goes On",
       "active": false,
-      "text": "Tant que ce modèle souffre de la condition Burning , il gagne +2 TAC et Searing Strike.\n{{trait 'Searing Strike'}}."
+      "text": "Tant que ce modèle souffre de la condition Burning, il gagne +2 TAC et Searing Strike.\n{{trait 'Searing Strike'}}"
     },
     {
       "name": "Light Goes Off",
@@ -15095,7 +15095,7 @@
     {
       "name": "Now You See Me...",
       "active": false,
-      "text": "Tant qu'elle ne souffre pas de la condition Burning , ce modèle gagne Unpredictable Movement.\n{{trait 'Unpredictable Movement'}}."
+      "text": "Tant qu'elle ne souffre pas de la condition Burning, ce modèle gagne Unpredictable Movement.\n{{trait 'Unpredictable Movement'}}"
     },
     {
       "name": "Clumsy",

@@ -12046,7 +12046,7 @@
     },
     {
       "name": "Get In the Goal!",
-      "text": "Le modèle allié ciblé gagne Goal Defence.\n{{trait 'Goal Defence'}}.",
+      "text": "Le modèle allié ciblé gagne Goal Defence.\n{{trait 'Goal Defence'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12694,7 +12694,7 @@
     },
     {
       "name": "Constitution",
-      "text": "4\" aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Tough Hide. {{trait 'Tough Hide'}}.",
+      "text": "4\" aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Tough Hide.\n{{trait 'Tough Hide'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12702,7 +12702,7 @@
     },
     {
       "name": "Help 'Em Out",
-      "text": "4\" Aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Close Ranks. {{trait 'Close Ranks'}}.",
+      "text": "4\" Aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Close Ranks.\n{{trait 'Close Ranks'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -12958,7 +12958,7 @@
     },
     {
       "name": "Feral Instincts",
-      "text": "Le modèle allié ciblé gagne Anatomical Precision. {{trait 'Anatomical Precision'}}",
+      "text": "Le modèle allié ciblé gagne Anatomical Precision.\n{{trait 'Anatomical Precision'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13062,7 +13062,7 @@
     },
     {
       "name": "Fulcrum",
-      "text": "6\" aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Poised. {{trait 'Poised'}}",
+      "text": "6\" aura. Tant qu'ils sont dans cette aura, les modèles alliés gagnent Poised.\n{{trait 'Poised'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13078,7 +13078,7 @@
     },
     {
       "name": "Squad Tactics",
-      "text": "L'autre modèle allié ciblé gagne Assist [Chisel].\n{{trait 'Assist' 'Chisel'}}.",
+      "text": "L'autre modèle allié ciblé gagne Assist [Chisel].\n{{trait 'Assist' 'Chisel'}}",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -13198,7 +13198,7 @@
     },
     {
       "name": "Hollowed",
-      "text": "Le modèle allié ciblé gagne Empathy. {{trait 'Empathy'}}",
+      "text": "Le modèle allié ciblé gagne Empathy.\n{{trait 'Empathy'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13374,7 +13374,7 @@
     },
     {
       "name": "Stand Firm",
-      "text": "Le modèle allié ciblé gagne Sturdy.                                   {{trait 'Sturdy'}}.",
+      "text": "Le modèle allié ciblé gagne Sturdy.\n{{trait 'Sturdy'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13486,7 +13486,7 @@
     },
     {
       "name": "Guard the Flock",
-      "text": "Le modèle allié ciblé gagne Protective Instinct. {{trait 'Protective Instinct'}}",
+      "text": "Le modèle allié ciblé gagne Protective Instinct.\n{{trait 'Protective Instinct'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13623,7 +13623,7 @@
     {
       "name": "Gimme Fuel...",
       "active": false,
-      "text": "Tant que ce modèle est sur le terrain, les modèles alliés gagnent Backdraft.\n{{trait 'Backdraft'}}."
+      "text": "Tant que ce modèle est sur le terrain, les modèles alliés gagnent Backdraft.\n{{trait 'Backdraft'}}"
     },
     {
       "name": "Backdraft",
@@ -13653,7 +13653,7 @@
     {
       "name": "Light Footed",
       "active": false,
-      "text": "Lorsque ce modèle effectue une advance , il ignore la pénalité de MOV pour les terrains difficiles."
+      "text": "Lorsque ce modèle effectue une advance, il ignore la pénalité de MOV pour les terrains difficiles."
     },
     {
       "name": "Overheat",
@@ -13718,7 +13718,7 @@
     {
       "name": "Burning Effigy",
       "active": false,
-      "text": "Lorsqu'il souffre de la condition burning , ce modèle gagne +2 TAC et ignore la pénalité de MOV due à la condition burning."
+      "text": "Lorsqu'il souffre de la condition burning, ce modèle gagne +2 TAC et ignore la pénalité de MOV due à la condition burning."
     },
     {
       "name": "Burning Strike",
@@ -13838,7 +13838,7 @@
     {
       "name": "Arsenal",
       "active": true,
-      "text": "Si ce modèle commence son activation à 6\" du modèle allié nommé, ce modèle gagne un avantage pour le reste du tour.\nChoisissez l'un des avantages suivants :\n- Kick +1/+0\n- Anatomical Precision\n{{trait 'Anatomical Precision'}}."
+      "text": "Si ce modèle commence son activation à 6\" du modèle allié nommé, ce modèle gagne un avantage pour le reste du tour.\nChoisissez l'un des avantages suivants :\n- Kick +1/+0\n- Anatomical Precision\n{{trait 'Anatomical Precision'}}"
     },
     {
       "name": "Stamina",
@@ -13883,7 +13883,7 @@
     {
       "name": "Sweeping Charge",
       "active": false,
-      "text": "Lorsque ce modèle charge pendant son activation, en plus d'un ou plusieurs résultats de playbook damage , les modèles dans sa melee zone subissent 3 DMG."
+      "text": "Lorsque ce modèle charge pendant son activation, en plus d'un ou plusieurs résultats de playbook damage, les modèles dans sa melee zone subissent 3 DMG."
     },
     {
       "name": "Quick Off the Line",
@@ -14088,7 +14088,7 @@
     {
       "name": "The Old Ways",
       "active": false,
-      "text": "Une fois par tour, lorsque ce modèle inflige la condition taken out à un modèle ennemi, ce modèle bénéficie de l'aura The Owner [6\"] jusqu'à la fin du tour.\n{{trait 'The Owner'}}."
+      "text": "Une fois par tour, lorsque ce modèle inflige la condition taken out à un modèle ennemi, ce modèle bénéficie de l'aura The Owner [6\"] jusqu'à la fin du tour.\n{{trait 'The Owner'}}"
     },
     {
       "name": "Damaged Target",
@@ -14168,7 +14168,7 @@
     {
       "name": "Webbing",
       "active": true,
-      "text": "Une fois par tour pendant l'activation de ce modèle, s'il y a un nest marker allié à 4\" de ce modèle et à 2\" d'un ballon libre , alors ce modèle peut prendre possession du ballon."
+      "text": "Une fois par tour pendant l'activation de ce modèle, s'il y a un nest marker allié à 4\" de ce modèle et à 2\" d'un ballon libre, alors ce modèle peut prendre possession du ballon."
     },
     {
       "name": "Stoic",
@@ -14268,7 +14268,7 @@
     {
       "name": "Crow Scarer",
       "active": false,
-      "text": "Tant que ce modèle se trouve à 2\" d'un harvest marker allié, il gagne Poised.\n{{trait 'Poised'}}."
+      "text": "Tant que ce modèle se trouve à 2\" d'un harvest marker allié, il gagne Poised.\n{{trait 'Poised'}}"
     },
     {
       "name": "Don't Fear The...",
@@ -14278,7 +14278,7 @@
     {
       "name": "Harvest Supper",
       "active": false,
-      "text": "Tant que ce modèle est sur le terrain, les modèles alliés gagnent Subsistence.\n{{trait 'Subsistence'}}."
+      "text": "Tant que ce modèle est sur le terrain, les modèles alliés gagnent Subsistence.\n{{trait 'Subsistence'}}"
     },
     {
       "name": "Fertiliser",
@@ -14413,7 +14413,7 @@
     {
       "name": "Beating Wings Over Water",
       "active": true,
-      "text": "Une fois par tour pendant l'activation de ce modèle, choisissez un autre modèle allié à 8\". Le modèle choisi gagne Vol.\n{{trait 'Flying'}}."
+      "text": "Une fois par tour pendant l'activation de ce modèle, choisissez un autre modèle allié à 8\". Le modèle choisi gagne Vol.\n{{trait 'Flying'}}"
     },
     {
       "name": "Tag Along",
@@ -14493,7 +14493,7 @@
     {
       "name": "Bring Them Down",
       "active": false,
-      "text": "Tant que ce modèle est sur le terrain, les modèles humains alliés gagnent Big Game Traps.\n{{trait 'Big Game Traps'}}."
+      "text": "Tant que ce modèle est sur le terrain, les modèles humains alliés gagnent Big Game Traps.\n{{trait 'Big Game Traps'}}"
     },
     {
       "name": "Expert Trapper",
@@ -14658,7 +14658,7 @@
     {
       "name": "Voodoo Strings",
       "active": true,
-      "text": "Pendant l'activation de ce modèle, lorsqu'il inflige des dégâts à un modèle ennemi avec un ou plusieurs résultats dégâts du playbook , choisissez un modèle dans cette aura pour subir une push de 2\". Chaque modèle ne peut être push par Voodoo Strings qu'une seule fois par tour."
+      "text": "Pendant l'activation de ce modèle, lorsqu'il inflige des dégâts à un modèle ennemi avec un ou plusieurs résultats dégâts du playbook, choisissez un modèle dans cette aura pour subir une push de 2\". Chaque modèle ne peut être push par Voodoo Strings qu'une seule fois par tour."
     },
     {
       "name": "Control Strings",
@@ -14768,7 +14768,7 @@
     {
       "name": "Sharp Eyes",
       "active": false,
-      "text": "Lorsqu'un modèle allié commence son activation à l'intérieur de cette aura, il gagne Anatomical Precision pour la durée de son activation.\n{{trait 'Anatomical Precision'}}."
+      "text": "Lorsqu'un modèle allié commence son activation à l'intérieur de cette aura, il gagne Anatomical Precision pour la durée de son activation.\n{{trait 'Anatomical Precision'}}"
     },
     {
       "name": "Don't Get Cocky",
@@ -14858,12 +14858,12 @@
     {
       "name": "Plague Ridden",
       "active": false,
-      "text": "Lorsqu'il souffre de disease , ce modèle gagne +1 DMG aux résultats dégâts du Playbook."
+      "text": "Lorsqu'il souffre de disease, ce modèle gagne +1 DMG aux résultats dégâts du Playbook."
     },
     {
       "name": "Protect the Ball",
       "active": true,
-      "text": "Une fois par tour pendant l'activation de ce modèle, il peut choisir un harvest marker allié à 2\" et le retirer du terrain. S'il le fait, les modèles alliés dans ce pulse gagnent Close Control pour le reste du tour.\n{{trait 'Close Control'}}."
+      "text": "Une fois par tour pendant l'activation de ce modèle, il peut choisir un harvest marker allié à 2\" et le retirer du terrain. S'il le fait, les modèles alliés dans ce pulse gagnent Close Control pour le reste du tour.\n{{trait 'Close Control'}}"
     },
     {
       "name": "Sheep Become the Shepherds",
@@ -14873,7 +14873,7 @@
     {
       "name": "Heartless Brute!",
       "active": false,
-      "text": "Lorsqu'un modèle ennemi inflige la condition taken out à ce modèle, le modèle ennemi subit Singled Out jusqu'à la fin du tour.\n{{play 'Singled Out'}}."
+      "text": "Lorsqu'un modèle ennemi inflige la condition taken out à ce modèle, le modèle ennemi subit Singled Out jusqu'à la fin du tour.\n{{play 'Singled Out'}}"
     },
     {
       "name": "Herding",
@@ -14883,7 +14883,7 @@
     {
       "name": "Littermates",
       "active": false,
-      "text": "Si ce modèle subit la condition taken out, le modèle allié nommé gagne Furious et +4 TAC pour le reste du tour.\n{{trait 'Furious'}}."
+      "text": "Si ce modèle subit la condition taken out, le modèle allié nommé gagne Furious et +4 TAC pour le reste du tour.\n{{trait 'Furious'}}"
     },
     {
       "name": "Matched Pair",
@@ -14973,22 +14973,22 @@
     {
       "name": "Blinded by the Light",
       "active": false,
-      "text": "Tant que ce modèle souffre de la condition burning , les modèles ennemis subissent -1 TAC lorsqu'ils attaquent ce modèle."
+      "text": "Tant que ce modèle souffre de la condition burning, les modèles ennemis subissent -1 TAC lorsqu'ils attaquent ce modèle."
     },
     {
       "name": "Flare Out",
       "active": false,
-      "text": "Tant que ce modèle est sur le terrain, les modèles alliés qui souffrent de la condition burning gagnent Overheat.\n{{trait 'Overheat' '3\" Pulse'}}."
+      "text": "Tant que ce modèle est sur le terrain, les modèles alliés qui souffrent de la condition burning gagnent Overheat.\n{{trait 'Overheat' '3\" Pulse'}}"
     },
     {
       "name": "The Ladderman Cometh",
       "active": false,
-      "text": "Si ce modèle ne souffre pas de la condition burning, il gagne Extended Reach.\n{{trait 'Extended Reach'}}."
+      "text": "Si ce modèle ne souffre pas de la condition burning, il gagne Extended Reach.\n{{trait 'Extended Reach'}}"
     },
     {
       "name": "Light Goes On",
       "active": false,
-      "text": "Tant que ce modèle souffre de la condition burning , il gagne +2 TAC et Searing Strike.\n{{trait 'Searing Strike'}}."
+      "text": "Tant que ce modèle souffre de la condition burning, il gagne +2 TAC et Searing Strike.\n{{trait 'Searing Strike'}}"
     },
     {
       "name": "Light Goes Off",
@@ -15013,7 +15013,7 @@
     {
       "name": "Now You See Me...",
       "active": false,
-      "text": "Tant qu'elle ne souffre pas de la condition burning , ce modèle gagne Unpredictable Movement.\n{{trait 'Unpredictable Movement'}}."
+      "text": "Tant qu'elle ne souffre pas de la condition burning, ce modèle gagne Unpredictable Movement.\n{{trait 'Unpredictable Movement'}}"
     },
     {
       "name": "Clumsy",
