@@ -15191,6 +15191,11 @@
       "name": "Chameleon",
       "active": false,
       "text": "When this model returns to the pitch after suffering the taken out condition, it may treat the enemy team's deployment zone as its own."
+    },
+    {
+      "name": "Subsistence",
+      "active": true,
+      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove that marker from the pitch. If it does, this model may recover 4 HP."
     }
   ]
 }

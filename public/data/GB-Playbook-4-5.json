@@ -6794,7 +6794,7 @@
         "Linked [Harmony]",
         "Poised"
       ],
-      "legendary": "Topping Out! [6\" Pulse]\nChoose one effect:\n• Friendly models within this pulse gain +1 ARM\n• Friendly models within this pulse are allocated 1 influence",
+      "legendary": "Topping Out! [6\" Pulse]\nChoose one effect:\n- Friendly models within this pulse gain +1 ARM\n- Friendly models within this pulse are allocated 1 influence",
       "types": "Castellyian, Human, Female,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6848,7 +6848,7 @@
         "Stoic",
         "Tough Hide"
       ],
-      "legendary": "Hammer Time! [6\" Aura]\nWhen another friendly guild model starts its activation within this aura, the friendly model may choose one of the following benefits:\n• +2\"/+2\" MOV\n• +1 DMG to Playbook damage results",
+      "legendary": "Hammer Time! [6\" Aura]\nWhen another friendly guild model starts its activation within this aura, the friendly model may choose one of the following benefits:\n- +2\"/+2\" MOV\n- +1 DMG to Playbook damage results",
       "types": "Raed, Human, Male,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -8422,7 +8422,7 @@
         "Dread Captain",
         "Shadow Like"
       ],
-      "legendary": "Strike from the Shadows [6\" Pulse]\nChoose one effect:\n• Friendly models within this pulse gain +1 DEF.\n• Friendly models within this pulse make a 2\" dodge.",
+      "legendary": "Strike from the Shadows [6\" Pulse]\nChoose one effect:\n- Friendly models within this pulse gain +1 DEF.\n- Friendly models within this pulse make a 2\" dodge.",
       "types": "Sultarish, Human, Male,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -11855,7 +11855,7 @@
     },
     {
       "name": "Chemical Breeze",
-      "text": "Choose one:\n• Enemy models within 3\" of target friendly guild model suffer the burning condition.\n• Enemy models within 3\" of target friendly guild model suffer the poison condition.",
+      "text": "Choose one:\n- Enemy models within 3\" of target friendly guild model suffer the burning condition.\n- Enemy models within 3\" of target friendly guild model suffer the poison condition.",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -13079,7 +13079,7 @@
     },
     {
       "name": "Lodestone",
-      "text": "Choose one:\n• Other models within 4\" of target enemy  model suffer a 2\" push directly towards target  enemy model.\n• Other models within 4\" of target enemy  model suffer a 2\" push directly away from  target enemy model.",
+      "text": "Choose one:\n- Other models within 4\" of target enemy  model suffer a 2\" push directly towards target  enemy model.\n- Other models within 4\" of target enemy  model suffer a 2\" push directly away from  target enemy model.",
       "CST": "2,CP2",
       "RNG": 8,
       "SUS": false,
@@ -13399,7 +13399,7 @@
     },
     {
       "name": "Erupting Sores",
-      "text": "2\" pulse. The opposing player chooses one of the following:\n• Enemy models within this pulse suffer 2 DMG and the poison condition.\n• Enemy models within this pulse suffer 2 DMG and the bleed condition.",
+      "text": "2\" pulse. The opposing player chooses one of the following:\n- Enemy models within this pulse suffer 2 DMG and the poison condition.\n- Enemy models within this pulse suffer 2 DMG and the bleed condition.",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": false,
@@ -13807,7 +13807,7 @@
     {
       "name": "Arsenal",
       "active": true,
-      "text": "If this model starts its activation within 6\" of the named friendly model, this model gains a benefit for the remainder of the turn.\nChoose one of the following benefits:\n• +1/+0\" KICK\n• Anatomical Precision\n{{trait 'Anatomical Precision'}}"
+      "text": "If this model starts its activation within 6\" of the named friendly model, this model gains a benefit for the remainder of the turn.\nChoose one of the following benefits:\n- +1/+0\" KICK\n- Anatomical Precision\n{{trait 'Anatomical Precision'}}"
     },
     {
       "name": "Stamina",
@@ -14177,7 +14177,7 @@
     {
       "name": "Roulette",
       "active": true,
-      "text": "At the start of this model’s activation, choose one effect. The chosen effect lasts until the end of this model’s activation.\n• This model gains +1\"/+1\" MOV.\n• This model gains +1 TAC.\n• This model gains +0/+2\" KICK."
+      "text": "At the start of this model’s activation, choose one effect. The chosen effect lasts until the end of this model’s activation.\n- This model gains +1\"/+1\" MOV.\n- This model gains +1 TAC.\n- This model gains +0/+2\" KICK."
     },
     {
       "name": "Fixer",
@@ -14467,7 +14467,7 @@
     {
       "name": "Expert Trapper",
       "active": false,
-      "text": "While this model is on the pitch, when an enemy model triggers a trap marker, choose one additional effect:\n• The enemy model suffers Weak Point.\n• The enemy model suffers the bleed condition."
+      "text": "While this model is on the pitch, when an enemy model triggers a trap marker, choose one additional effect:\n- The enemy model suffers Weak Point.\n- The enemy model suffers the bleed condition."
     },
     {
       "name": "Isolated Target",
@@ -14782,7 +14782,7 @@
     {
       "name": "Haunting Melody",
       "active": true,
-      "text": "Once per turn during this model’s activation, this model may choose an enemy model within 8\". The opposing player chooses one of the following:\n• This model makes a jog towards the chosen model.\n• The chosen model makes a jog towards this model and is a friendly model for the duration of this action."
+      "text": "Once per turn during this model’s activation, this model may choose an enemy model within 8\". The opposing player chooses one of the following:\n- This model makes a jog towards the chosen model.\n- The chosen model makes a jog towards this model and is a friendly model for the duration of this action."
     },
     {
       "name": "Predatory Instinct",
@@ -14807,7 +14807,7 @@
     {
       "name": "Cloak of Rats",
       "active": true,
-      "text": "At the end of this model’s activation, the opposing player chooses one of the following:\n• Enemy models within this pulse suffer the snared condition.\n• Enemy models within this pulse suffer 3 DMG."
+      "text": "At the end of this model’s activation, the opposing player chooses one of the following:\n- Enemy models within this pulse suffer the snared condition.\n- Enemy models within this pulse suffer 3 DMG."
     },
     {
       "name": "Grim Caress",

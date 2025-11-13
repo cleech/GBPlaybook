@@ -255,7 +255,9 @@
         "vHarmony",
         "Mallet",
         "Tower",
-        "Lucky"
+        "Lucky",
+        "Bucker",
+        "Tinder"
       ]
     },
     {
@@ -386,12 +388,6 @@
         "Harry",
         "Mist"
       ]
-    },
-    {
-      "name": "Lumberjacks",
-      "minor": true,
-      "color": "#416abb",
-      "roster": []
     }
   ],
   "Models": [
@@ -6807,7 +6803,7 @@
         "Linked [Harmony]",
         "Poised"
       ],
-      "legendary": "Topping Out! [6\" Pulse]\nChoisis un effet:\n• Les modèles alliés dans le pulse gagnent +1 ARM.\n• Les modèles alliés dans le pulse gagnent 1 influence.",
+      "legendary": "Topping Out! [6\" Pulse]\nChoisis un effet:\n- Les modèles alliés dans le pulse gagnent +1 ARM.\n- Les modèles alliés dans le pulse gagnent 1 influence.",
       "types": "Castellyian, Human, Female,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6862,7 +6858,7 @@
         "Repointing [6\" Aura]",
         "Tough Hide"
       ],
-      "legendary": "Hammer Time! [6\" Pulse]\nChaque autre modèle dans ce pulse peut choisir l'un des avantages suivants : \n• +2\"/+2\" MOV\n• +1 DMG aux résultats du Playbook",
+      "legendary": "Hammer Time! [6\" Pulse]\nChaque autre modèle dans ce pulse peut choisir l'un des avantages suivants : \n- +2\"/+2\" MOV\n- +1 DMG aux résultats du Playbook",
       "types": "Raed, Human, Male,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -7251,7 +7247,6 @@
       "id": "Flint",
       "name": "Flint",
       "guild1": "Masons",
-      "guild2": "Lumberjacks",
       "captain": false,
       "mascot": false,
       "veteran": false,
@@ -7460,7 +7455,6 @@
       "id": "Mallet",
       "name": "Mallet",
       "guild1": "Masons",
-      "guild2": "Lumberjacks",
       "captain": false,
       "mascot": false,
       "veteran": false,
@@ -8438,7 +8432,7 @@
       "character_traits": [
         "Shadow Like"
       ],
-      "legendary": "Strike from the Shadows [6\" Pulse]\nChoisis un effet:\n• Les modèles alliés dans ce pulse gagnent +1 DEF.\n• Les modèles alliés dans ce pulse peuvent faire un dodge de 2\".",
+      "legendary": "Strike from the Shadows [6\" Pulse]\nChoisis un effet:\n- Les modèles alliés dans ce pulse gagnent +1 DEF.\n- Les modèles alliés dans ce pulse peuvent faire un dodge de 2\".",
       "types": "Sultarish, Human, Male,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -11876,7 +11870,7 @@
     },
     {
       "name": "Chemical Breeze",
-      "text": "Choisis entre:\n• Les modèles ennemis dans les 3\" du modèle allié ciblé souffrent de la condition Burning.\n• Les modèles ennemis dans les 3\" du modèle allié ciblé souffrent de la condition Poison.",
+      "text": "Choisis entre:\n- Les modèles ennemis dans les 3\" du modèle allié ciblé souffrent de la condition Burning.\n- Les modèles ennemis dans les 3\" du modèle allié ciblé souffrent de la condition Poison.",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -12068,7 +12062,7 @@
     },
     {
       "name": "Get In the Goal!",
-      "text": "Le modèle allié ciblé gagne Goal Defence.\n{{trait 'Goal Defence'}}.",
+      "text": "Le modèle allié ciblé gagne Goal Defence.\n{{trait 'Goal Defence'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13100,7 +13094,7 @@
     },
     {
       "name": "Squad Tactics",
-      "text": "L'autre modèle allié ciblé gagne Assist [Chisel].     {{trait 'Assist' 'Chisel'}}.",
+      "text": "L'autre modèle allié ciblé gagne Assist [Chisel].\n{{trait 'Assist' 'Chisel'}}",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -13108,7 +13102,7 @@
     },
     {
       "name": "Lodestone",
-      "text": "Choisis un effet:\n• Les autres modèles dans les 4\" du modèle ennemi ciblé subissent un push de 2\" directement vers le modèle ennemi ciblé.\n• Les autres modèles dans les 4\" du modèle ennemi ciblé subissent un push de 2\" directement à l'opposé du modèle ennemi ciblé.",
+      "text": "Choisis un effet:\n- Les autres modèles dans les 4\" du modèle ennemi ciblé subissent un push de 2\" directement vers le modèle ennemi ciblé.\n- Les autres modèles dans les 4\" du modèle ennemi ciblé subissent un push de 2\" directement à l'opposé du modèle ennemi ciblé.",
       "CST": "2,CP2",
       "RNG": 8,
       "SUS": false,
@@ -13420,7 +13414,7 @@
     },
     {
       "name": "Erupting Sores",
-      "text": "2\" pulse. Le joueur adverse doit choisir entre:\n• Les modèles ennemis dans ce pulse subissent 2 DMG et la condition Poison.\n• Les modèles ennemis dans ce pulse subissent 2 DMG et la condition Bleed.",
+      "text": "2\" pulse. Le joueur adverse doit choisir entre:\n- Les modèles ennemis dans ce pulse subissent 2 DMG et la condition Poison.\n- Les modèles ennemis dans ce pulse subissent 2 DMG et la condition Bleed.",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": false,
@@ -13935,7 +13929,7 @@
     {
       "name": "Arsenal",
       "active": true,
-      "text": "Si ce modèle commence son activation à 6\" du modèle allié nommé, ce modèle gagne un avantage pour le reste du tour.\nChoisissez l'un des avantages suivants :\n- 2\" Melee zone\n- Instruction\n{{play 'Instruction'}}."
+      "text": "Si ce modèle commence son activation à 6\" du modèle allié nommé, ce modèle gagne un avantage pour le reste du tour.\nChoisissez l'un des avantages suivants :\n- 2\" Melee zone\n- Instruction\n{{play 'Instruction'}}"
     },
     {
       "name": "Stamina",
@@ -14185,7 +14179,7 @@
     {
       "name": "The Old Ways",
       "active": false,
-      "text": "Une fois par tour, lorsque ce modèle inflige la condition taken out à un modèle ennemi, ce modèle bénéficie de l'aura The Owner [6\"] jusqu'à la fin du tour.\n{{trait 'The Owner'}}."
+      "text": "Une fois par tour, lorsque ce modèle inflige la condition taken out à un modèle ennemi, ce modèle bénéficie de l'aura The Owner [6\"] jusqu'à la fin du tour.\n{{trait 'The Owner'}}"
     },
     {
       "name": "Damaged Target",
@@ -14360,7 +14354,7 @@
     {
       "name": "Crow Scarer",
       "active": false,
-      "text": "Tant que ce modèle se trouve à 2\" d'un harvest marker allié, il gagne Poised.\n{{trait 'Poised'}}."
+      "text": "Tant que ce modèle se trouve à 2\" d'un harvest marker allié, il gagne Poised.\n{{trait 'Poised'}}"
     },
     {
       "name": "Don't Fear The...",
@@ -14370,7 +14364,7 @@
     {
       "name": "Harvest Supper",
       "active": false,
-      "text": "Tant que ce modèle est sur le terrain, les modèles alliés gagnent Subsistence.\n{{trait 'Subsistence'}}."
+      "text": "Tant que ce modèle est sur le terrain, les modèles alliés gagnent Subsistence.\n{{trait 'Subsistence'}}"
     },
     {
       "name": "Pain Response",
@@ -14500,7 +14494,7 @@
     {
       "name": "Beating Wings Over Water",
       "active": true,
-      "text": "Une fois par tour pendant l'activation de ce modèle, choisissez un autre modèle allié à 8\". Le modèle choisi gagne Vol.\n{{trait 'Flying'}}."
+      "text": "Une fois par tour pendant l'activation de ce modèle, choisissez un autre modèle allié à 8\". Le modèle choisi gagne Vol.\n{{trait 'Flying'}}"
     },
     {
       "name": "Tag Along",
@@ -14580,7 +14574,7 @@
     {
       "name": "Bring Them Down",
       "active": false,
-      "text": "Tant que ce modèle est sur le terrain, les modèles humains alliés gagnent Big Game Traps.\n{{trait 'Big Game Traps'}}."
+      "text": "Tant que ce modèle est sur le terrain, les modèles humains alliés gagnent Big Game Traps.\n{{trait 'Big Game Traps'}}"
     },
     {
       "name": "Expert Trapper",
@@ -14850,7 +14844,7 @@
     {
       "name": "Sharp Eyes",
       "active": false,
-      "text": "Lorsqu'un modèle allié commence son activation à l'intérieur de cette aura, il gagne Anatomical Precision pour la durée de son activation.\n{{trait 'Anatomical Precision'}}."
+      "text": "Lorsqu'un modèle allié commence son activation à l'intérieur de cette aura, il gagne Anatomical Precision pour la durée de son activation.\n{{trait 'Anatomical Precision'}}"
     },
     {
       "name": "Don't Get Cocky",
@@ -14945,7 +14939,7 @@
     {
       "name": "Protect the Ball",
       "active": true,
-      "text": "Une fois par tour pendant l'activation de ce modèle, il peut choisir un harvest marker allié à 2\" et le retirer du terrain. S'il le fait, les modèles alliés dans ce pulse gagnent Close Control pour le reste du tour.\n{{trait 'Close Control'}}."
+      "text": "Une fois par tour pendant l'activation de ce modèle, il peut choisir un harvest marker allié à 2\" et le retirer du terrain. S'il le fait, les modèles alliés dans ce pulse gagnent Close Control pour le reste du tour.\n{{trait 'Close Control'}}"
     },
     {
       "name": "Sheep Become the Shepherds",
@@ -14955,7 +14949,7 @@
     {
       "name": "Heartless Brute!",
       "active": false,
-      "text": "Lorsqu'un modèle ennemi inflige la condition taken out à ce modèle, le modèle ennemi subit Singled Out jusqu'à la fin du tour.\n{{play 'Singled Out'}}."
+      "text": "Lorsqu'un modèle ennemi inflige la condition taken out à ce modèle, le modèle ennemi subit Singled Out jusqu'à la fin du tour.\n{{play 'Singled Out'}}"
     },
     {
       "name": "Herding",
@@ -14965,7 +14959,7 @@
     {
       "name": "Littermates",
       "active": false,
-      "text": "Si ce modèle subit la condition taken out, le modèle allié nommé gagne Furious et +4 TAC pour le reste du tour.\n{{trait 'Furious'}}."
+      "text": "Si ce modèle subit la condition taken out, le modèle allié nommé gagne Furious et +4 TAC pour le reste du tour.\n{{trait 'Furious'}}"
     },
     {
       "name": "Matched Pair",
@@ -15060,12 +15054,12 @@
     {
       "name": "Flare Out",
       "active": false,
-      "text": "Tant que ce modèle est sur le terrain, les modèles alliés qui souffrent de la condition Burning gagnent Overheat.\n{{trait 'Overheat' '3\" Pulse'}}."
+      "text": "Tant que ce modèle est sur le terrain, les modèles alliés qui souffrent de la condition Burning gagnent Overheat.\n{{trait 'Overheat' '3\" Pulse'}}"
     },
     {
       "name": "The Ladderman Cometh",
       "active": false,
-      "text": "Si ce modèle ne souffre pas de la condition Burning, il gagne Extended Reach.\n{{trait 'Extended Reach'}}."
+      "text": "Si ce modèle ne souffre pas de la condition Burning, il gagne Extended Reach.\n{{trait 'Extended Reach'}}"
     },
     {
       "name": "Light Goes On",
