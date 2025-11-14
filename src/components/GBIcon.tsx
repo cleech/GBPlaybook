@@ -53,9 +53,12 @@ import snared from "./icons/snared";
 import trophy from "./icons/trophy";
 import Union from "./icons/Union";
 
+import ActiveTrait from "./icons/active";
+
 import Lumberjacks from "./icons/Lumberjacks";
 
 const iconMap: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
+  'active': ActiveTrait,
   'Alchemists': Alchemists,
   'ball-full': ballFull,
   'ballotX': ballotX,

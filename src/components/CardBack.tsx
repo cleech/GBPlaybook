@@ -152,7 +152,8 @@ function CTName({ text, active }: { text: string, active?: boolean }) {
   const arg = text.replace(/[^[]*(\[.*\])?/, " $1");
   return (
     <div>
-      <span className='active' style={{ display: active ? 'inline' : 'none' }}>◉ </span>
+      {/* <span className='active' style={{ display: active ? 'inline' : 'none' }}>◉ </span> */}
+      <GBIcon icon="active" style={{ display: active ? 'inline' : 'none' }} />
       <span>{name}</span>
       <span>{arg}</span>
     </div>
