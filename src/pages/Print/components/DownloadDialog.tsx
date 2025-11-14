@@ -169,14 +169,12 @@ async function downloadCards(
   const elements = document.querySelectorAll(`#Cards .card:not(.${hide})`);
   if (elements.length === 0) return;
 
-  const files: { file: string, blob: Blob }[] = [];
-
   const root = document.querySelector<HTMLElement>('#root');
   const saved_root_overflow = root!.style.overflow;
-  root!.style.overflow = 'hidden';
 
-  const promises = Array.from(elements).map(async (el) => {
+  const zip = new JSZip();
 
+  const doOne = async (el: Element) => {
     const copiedNode = el.cloneNode(true) as HTMLElement;
     const container = copiedNode.firstElementChild as HTMLElement;
 
@@ -213,19 +211,18 @@ async function downloadCards(
       }
       document.body.appendChild(img);
     } else {
-      files.push({ file: `${el.id}.${type}`, blob });
+      zip.file(`${el.id}.${type}`, blob);
     }
-  });
+  };
 
-  await Promise.all(promises);
+  root!.style.overflow = 'hidden';
+  const processChain = Array.from(elements).reduce(async (previousPromise, nextEl) => {
+    await previousPromise;
+    return doOne(nextEl);
+  }, Promise.resolve());
+  await processChain;
   root!.style.overflow = saved_root_overflow;
 
-  if (files.length !== 0) {
-    const zip = new JSZip();
-    for (const { file, blob } of files) {
-      zip.file(file, blob);
-    }
-    const blob = await zip.generateAsync({ type: "blob" });
-    FileSaver.saveAs(blob, fileName);
-  }
+  const blob = await zip.generateAsync({ type: "blob" });
+  FileSaver.saveAs(blob, fileName);
 }
