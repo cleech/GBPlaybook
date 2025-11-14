@@ -1,4 +1,4 @@
-timestamp: "2025-11-20T19:28:08Z"
+timestamp: "2025-11-23T04:13:25Z"
 datafiles:
   - version: 4.7
     description: Steamforged Guild Ball 4.7
@@ -12,8 +12,8 @@ datafiles:
         timestamp: "2025-11-20T19:26:33Z"
       zh:
         filename: GB-Playbook-4-7.zh.json
-        sha256: 0ea69f59a6f42a2b6306a2d86be7023877f62cb803114cc7f086be7f2845a9f5
-        timestamp: "2025-11-17T01:04:05Z"
+        sha256: 52a52455cdcc7455ba9fa2d0da7020ebd6c22e571365ce26ee9a0d4431e2f582
+        timestamp: "2025-11-23T04:13:25Z"
   - version: 4.6
     description: Steamforged Guild Ball 4.6
     filename: GB-Playbook-4-6.json

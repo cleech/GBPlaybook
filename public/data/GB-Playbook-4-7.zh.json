@@ -241,7 +241,11 @@
       "color": "#416abb",
       "roster": [
         "Oak",
+        "Chipper",
         "Bucker",
+        "CrossCut",
+        "Cross",
+        "Cut",
         "Itsa",
         "Tinder",
         "Flint",
@@ -11920,6 +11924,58 @@
       "legendary": "Fell Swing [8\" Pulse]\nFriendly models within this pulse and within 1\" of a friendly log pile marker may declare an attack without spending influence. Then choose up to two friendly log pile markers on the pitch. Place the chosen log pile markers within this pulse."
     },
     {
+      "id": "Chipper",
+      "name": "Chipper",
+      "guild1": "Lumberjacks",
+      "captain": false,
+      "mascot": true,
+      "veteran": false,
+      "seasoned": false,
+      "hp": 8,
+      "recovery": 4,
+      "jog": 5,
+      "sprint": 7,
+      "tac": 4,
+      "kickdice": 2,
+      "kickdist": 4,
+      "def": 4,
+      "arm": 1,
+      "inf": 1,
+      "infmax": 2,
+      "base": 30,
+      "reach": false,
+      "gbcp": false,
+      "character_plays": [
+        "Dam Builder"
+      ],
+      "character_traits": [
+        "Den Protector",
+        "Hunker Down",
+        "Loved Creature"
+      ],
+      "types": "Raed, Animal,\nMascot",
+      "playbook": [
+        [
+          ">;M",
+          "CP;M",
+          ">>",
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "1;M",
+          "T;M",
+          "2",
+          "KD",
+          null,
+          null,
+          null
+        ]
+      ]
+    },
+    {
       "id": "Bucker",
       "name": "Bucker",
       "guild1": "Lumberjacks",
@@ -11968,6 +12024,165 @@
           "KD;M",
           "3",
           "4",
+          null,
+          null
+        ]
+      ]
+    },
+    {
+      "id": "CrossCut",
+      "name": "Cross Cut",
+      "guild1": "Lumberjacks",
+      "captain": false,
+      "mascot": false,
+      "veteran": false,
+      "seasoned": false,
+      "hp": 18,
+      "recovery": 0,
+      "jog": 0,
+      "sprint": 0,
+      "tac": 8,
+      "kickdice": 1,
+      "kickdist": 4,
+      "def": 2,
+      "arm": 2,
+      "inf": 2,
+      "infmax": 4,
+      "dehcneb": "Cross,Cut",
+      "base": 50,
+      "reach": true,
+      "gbcp": false,
+      "character_plays": [
+        "The Bigger They Are..."
+      ],
+      "character_traits": [
+        "Specialised Equipment [Cross,Cut]",
+        "Early Risers",
+        "Job's a Good'un [Cross,Cut]"
+      ],
+      "types": "Mald, Human,\nAttacking Midfielder,\nSquaddie",
+      "playbook": [
+        [
+          ">;M",
+          null,
+          "KD;M",
+          ">>",
+          "CP2",
+          null,
+          null
+        ],
+        [
+          "1;M",
+          "2;M",
+          "3;M",
+          "4,KD",
+          "5",
+          "6",
+          null
+        ]
+      ]
+    },
+    {
+      "id": "Cross",
+      "name": "Cross",
+      "guild1": "Lumberjacks",
+      "captain": false,
+      "mascot": false,
+      "veteran": false,
+      "seasoned": false,
+      "hp": 9,
+      "recovery": 5,
+      "jog": 6,
+      "sprint": 8,
+      "tac": 5,
+      "kickdice": 3,
+      "kickdist": 6,
+      "def": 4,
+      "arm": 0,
+      "inf": 1,
+      "infmax": 2,
+      "benched": "CrossCut",
+      "base": 30,
+      "reach": false,
+      "gbcp": false,
+      "character_plays": [
+        "Quick Foot",
+        "Crumb Boss [Cut]"
+      ],
+      "character_traits": [
+        "Matched Pair [Cut]"
+      ],
+      "types": "Mald, Human, Male,\nWinger,\nSquaddie",
+      "playbook": [
+        [
+          "1",
+          "><;M",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "T;M",
+          "CP;M",
+          "2;M",
+          "CP,<<",
+          "KD",
+          null,
+          null
+        ]
+      ],
+      "heroic": "It's Bucking Time!\nIf the friendly Cut is within 4\" of this model, place CrossCut with full HP in base contact with this model or Cut. Then remove any influence from this model and Cut and allocate it to CrossCut. Then remove this model and Cut from the pitch. Then replace this model's and Cut's stat cards with CrossCut's stat card."
+    },
+    {
+      "id": "Cut",
+      "name": "Cut",
+      "guild1": "Lumberjacks",
+      "captain": false,
+      "mascot": false,
+      "veteran": false,
+      "seasoned": false,
+      "hp": 9,
+      "recovery": 5,
+      "jog": 6,
+      "sprint": 8,
+      "tac": 5,
+      "kickdice": 3,
+      "kickdist": 6,
+      "def": 4,
+      "arm": 0,
+      "inf": 1,
+      "infmax": 2,
+      "benched": "CrossCut",
+      "base": 30,
+      "reach": false,
+      "gbcp": false,
+      "character_plays": [
+        "Steel Toecaps",
+        "Thief"
+      ],
+      "character_traits": [
+        "Matched Pair [Cross]",
+        "Sibling Rivalry [Cross]"
+      ],
+      "types": "Mald, Human, Female,\nWinger,\nSquaddie",
+      "playbook": [
+        [
+          "1",
+          "><;M",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        [
+          "T;M",
+          "CP;M",
+          "2;M",
+          "CP,<<",
+          "KD",
           null,
           null
         ]
@@ -13977,6 +14192,38 @@
       "SUS": false,
       "OPT": false,
       "text": "Target friendly model may make a 2\" dodge towards a friendly log pile marker. Each model may be affected by this character play only once per turn."
+    },
+    {
+      "name": "Dam Builder",
+      "CST": "1,CP",
+      "RNG": 1,
+      "SUS": false,
+      "OPT": true,
+      "text": "Choose a friendly log pile marker within range and place it within 4\" of its current location."
+    },
+    {
+      "name": "Crumb Boss [Cut]",
+      "CST": "CP",
+      "RNG": 4,
+      "SUS": true,
+      "OPT": true,
+      "text": "If the target named friendly model is within 4\" of a friendly log pile marker, it's allocated 2 influence and gains +1\"/+1\" MOV."
+    },
+    {
+      "name": "Steel Toecaps",
+      "CST": 2,
+      "RNG": 4,
+      "SUS": true,
+      "OPT": true,
+      "text": "Target friendly model gains +1 ARM and +0/+2\" KICK."
+    },
+    {
+      "name": "The Bigger They Are...",
+      "CST": "CP2",
+      "RNG": "P",
+      "SUS": false,
+      "OPT": true,
+      "text": "Target enemy model suffers condition damage equal to half of its current health, rounded down. Then, if there is a friendly log pile marker within 4\" of this model, you may place this model in base contact with it."
     }
   ],
   "Character Traits": [
@@ -15519,6 +15766,36 @@
       "name": "Putting Out Fires",
       "active": true,
       "text": "Once per turn during this model's activation, choose a friendly log pile marker and remove any amount of influence from friendly models within 4\" of it. Then, allocate the removed influence to other friendly models within 4\" of the chosen log pile marker."
+    },
+    {
+      "name": "Den Protector",
+      "active": false,
+      "text": "When this model declares a charge against an enemy model that's within 1\" of a friendly log pile marker, it may do so without spending influence."
+    },
+    {
+      "name": "Hunker Down",
+      "active": false,
+      "text": "Once per turn, while this model is within 1\" of a friendly logpile marker, it may use Encourage without spending MP."
+    },
+    {
+      "name": "Sibling Rivalry",
+      "active": false,
+      "text": "Once per turn during their activation, this model or the named friendly model may make a pass without spending influence if the kicking model is within 1\" of a friendly log pile marker."
+    },
+    {
+      "name": "Specialised Equipment",
+      "active": false,
+      "text": "This model can't be selected for a team but is automatically added when the named friendly models are selected for a team. This model doesn't count towards your maximum team size allowance and is not deployed at the start of the game."
+    },
+    {
+      "name": "Early Risers",
+      "active": false,
+      "text": "At the start of this model's activation, it may be placed within 1\" of its current location."
+    },
+    {
+      "name": "Job's a Good'un",
+      "active": false,
+      "text": "When this model suffers the taken out condition as a result of an enemy attack or play, enemy models within this model's melee zone suffer the knocked down condition. After this model is removed from the pitch, replace this model's stat card with Cross's and Cut's stat cards."
     }
   ]
 }
