@@ -11900,6 +11900,7 @@
         "Bends... But Never Breaks",
         "Caber Toss"
       ],
+      "legendary": "Fell Swing [8\" Pulse]\n在此脉冲范围内并位于友方木堆标记1\"内的友方模型可以宣布一次不用消耗影响力的攻击。然后将至多两个在球场上的友方木堆标记放置在脉冲范围内",
       "types": "Skald, Human, Female,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -11920,8 +11921,7 @@
           "4",
           null
         ]
-      ],
-      "legendary": "Fell Swing [8\" Pulse]\nFriendly models within this pulse and within 1\" of a friendly log pile marker may declare an attack without spending influence. Then choose up to two friendly log pile markers on the pitch. Place the chosen log pile markers within this pulse."
+      ]
     },
     {
       "id": "Chipper",
@@ -12112,6 +12112,7 @@
       "character_traits": [
         "Matched Pair [Cut]"
       ],
+      "heroic": "It's Bucking Time!\n如果友方模型Cut位于本模型4\" 内，将CrossCut以全额HP状态放置在本模型或Cut底盘接触位置。然后移除任意数量位于本模型和Cut上的影响力并分配给CrossCut.在此之后将本模型和Cut从球场上移除，并将本模型和Cut的详情卡替换为CrossCut的详情卡",
       "types": "Mald, Human, Male,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -12132,8 +12133,7 @@
           null,
           null
         ]
-      ],
-      "heroic": "It's Bucking Time!\nIf the friendly Cut is within 4\" of this model, place CrossCut with full HP in base contact with this model or Cut. Then remove any influence from this model and Cut and allocate it to CrossCut. Then remove this model and Cut from the pitch. Then replace this model's and Cut's stat cards with CrossCut's stat card."
+      ]
     },
     {
       "id": "Cut",
@@ -12272,6 +12272,7 @@
         "Synchronised [Flint]",
         "Putting Out Fires"
       ],
+      "legendary": "This Should Be Overtime...\n选择一个在场上的友方木堆标记将其放置在本模型4\"内",
       "types": "Eisnoran, Human, Male,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -12292,8 +12293,7 @@
           null,
           null
         ]
-      ],
-      "legendary": "This Should Be Overtime...\nChoose a friendly log pile marker on the pitch and place it within 4\" of this model."
+      ]
     }
   ],
   "Character Plays": [
@@ -12347,7 +12347,7 @@
     },
     {
       "name": "Raging Fire",
-      "text": "目标友方模型获得Inferno。\n（Inferno:当此模型成功攻击时，目标敌方模型遭受燃烧状态。然后距离此模型 2” 内受到燃烧状态的敌方模型受到1燃烧烧状态伤害。）",
+      "text": "目标友方模型获得Inferno。\n{{trait 'Inferno'}}",
       "CST": 2,
       "RNG": 6,
       "SUS": true,
@@ -13155,7 +13155,7 @@
     },
     {
       "name": "Constitution",
-      "text": "4” 光环。在此光环范围内的友方模型获得Tough Hide。\n（Tough Hide:此模型受到的来自敌方角色技巧和战术手册的伤害-1 DMG。）",
+      "text": "4” 光环。在此光环范围内的友方模型获得Tough Hide。\n{{trait 'Tough Hide'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13163,7 +13163,7 @@
     },
     {
       "name": "Help 'Em Out",
-      "text": "4” 光环。在此光环范围内的友方模型获得Close Ranks。\n（Close Ranks:当此模型使敌方模型受到挤出效果时，使该敌方模型的骰子池额外-1。）",
+      "text": "4” 光环。在此光环范围内的友方模型获得Close Ranks。\n{{trait 'Close Ranks'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13211,7 +13211,7 @@
     },
     {
       "name": "Get Stuck In!",
-      "text": "此模型获得获得Rowdy。\n（Rowdy:此模型不会受到挤出惩罚。）",
+      "text": "此模型获得获得Rowdy。\n{{trait 'Rowdy'}}",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
@@ -13419,7 +13419,7 @@
     },
     {
       "name": "Feral Instincts",
-      "text": "目标友方模型获得Anatomical Precision。\n（Anatomical Precision:在此模型攻击期间，目标敌方模型受到-1 ARM。）",
+      "text": "目标友方模型获得Anatomical Precision。\n{{trait 'Anatomical Precision'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13523,7 +13523,7 @@
     },
     {
       "name": "Fulcrum",
-      "text": "6” 光环。在此光环范围内的友方模型获得Poised。\n（Poised:此模型每回合可以进行一次无需MP的反击。）",
+      "text": "6” 光环。在此光环范围内的友方模型获得Poised。\n{{trait 'Poised'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13531,7 +13531,7 @@
     },
     {
       "name": "Hold the Ball!",
-      "text": "目标友方模型获得Close Control。\n（Close Control:此模型忽视每回合受到的第一个战术手册抢断结果。）",
+      "text": "目标友方模型获得Close Control。\n{{trait 'Close Control'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13643,7 +13643,7 @@
     },
     {
       "name": "Hollowed",
-      "text": "目标友方模型获得Empathy。\n（Empathy:在攻击此模型时，战术手册的伤害结果不会产生MP）",
+      "text": "目标友方模型获得Empathy。\n{{trait 'Empathy'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13819,7 +13819,7 @@
     },
     {
       "name": "Stand Firm",
-      "text": "目标友方模型获得Sturdy。\n（Sturdy:此模型可以忽视每回合受到的第一个击倒状态。）",
+      "text": "目标友方模型获得Sturdy。\n{{trait 'Sturdy'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13931,7 +13931,7 @@
     },
     {
       "name": "Guard the Flock",
-      "text": "目标友好模型获得Protective Instinct。\n（Protective Instinct:与此模型交战的一个敌方模型不能对其他任意友方模型发起攻击。）",
+      "text": "目标友好模型获得Protective Instinct。\n{{trait 'Protective Instinct'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -14075,7 +14075,7 @@
     },
     {
       "name": "Annoyance",
-      "text": "该模型获得Protective Instinct。\n（Protective Instinct:与此模型交战的一个敌方模型不能对其他任意友方模型发起攻击。）",
+      "text": "该模型获得Protective Instinct。\n{{trait 'Protective Instinct'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -14091,7 +14091,7 @@
     },
     {
       "name": "Catching the Scent",
-      "text": "目标友方吉祥物模型获得+1 TAC和Feral。\n（Feral：每回合一次，该模型在激活时可以宣布一次不消耗影响力的攻击）",
+      "text": "目标友方吉祥物模型获得+1 TAC和Feral。\n{{trait 'Feral'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -14107,7 +14107,7 @@
     },
     {
       "name": "Quoining",
-      "text": "该模型获得Protective Instinct。\n（Protective Instinct:与此模型交战的一个敌方模型不能对其他任意友方模型发起攻击。）",
+      "text": "该模型获得Protective Instinct。\n{{trait 'Protective Instinct'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -14115,7 +14115,7 @@
     },
     {
       "name": "Tortoise Power",
-      "text": "此模型获得Battering Ram。\n（Battering Ram：在此模型的移动过程中，与其底盘触碰的模型径直 2” 的推移。每个模型每回合只受一次效果。）",
+      "text": "此模型获得Battering Ram。\n{{trait 'Battering Ram'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -14131,99 +14131,99 @@
     },
     {
       "name": "Bull of the Woods",
+      "text": "本模型获得Lend a Hand\n{{trait 'Lend a Hand'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
-      "OPT": true,
-      "text": "This model gains Lend a Hand.\n{{trait 'Lend a Hand'}}"
+      "OPT": true
     },
     {
       "name": "Cut Em Down",
+      "text": "在此模型近战范围内的敌方模型受到-1 DEF和-2\"/-2\" MOV",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
-      "OPT": true,
-      "text": "While within this model's melee zone, enemy models suffer -1 DEF and -2\"/-2\" MOV."
+      "OPT": true
     },
     {
       "name": "Hoisting and Hauling",
+      "text": "选择一个范围内的友方木堆标记将其放置在本模型1\"内",
       "CST": "1,CP",
       "RNG": 4,
       "SUS": false,
-      "OPT": true,
-      "text": "Choose a friendly log pile marker within range and place it within 1\" of this model."
+      "OPT": true
     },
     {
       "name": "Axe A Question",
+      "text": "本模型获得 Assist [Mallet, Oak].\n{{trait 'Assist' 'Mallet, Oak'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
-      "OPT": true,
-      "text": "This model gains Assist [Mallet, Oak].\n{{trait 'Assist' 'Mallet, Oak'}}"
+      "OPT": true
     },
     {
       "name": "Marked for Felling",
+      "text": "当友方模型向目标敌方模型发起冲锋时，友方模型获得+0/+2\" MOV并可以在本次冲锋中越过障碍。该友方模型不可以在障碍上结束移动。",
       "CST": "1,CP",
       "RNG": 10,
       "SUS": true,
-      "OPT": false,
-      "text": "When a friendly model charges target enemy model, the friendly model gains +0/+2\" MOV and may move over obstructions for the duration of the charge. The friendly model can't end its movement overlapping an obstruction."
+      "OPT": false
     },
     {
       "name": "Reconnaissance",
+      "text": "6\" 光环。当位于此范围内时，友方模型不再受到攻击受益于cover的敌方模型时的-1 TAC惩罚",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
-      "OPT": true,
-      "text": "6\" aura. While within this aura, friendly models don't suffer the -1 TAC penalty for attacking an enemy model benefitting from cover."
+      "OPT": true
     },
     {
       "name": "Swipe Right",
+      "text": "目标敌方模型受到2\"推移。然后你可以选择一个范围内的友方木堆标记并将其放置在本模型1\"内",
       "CST": "CP",
       "RNG": 4,
       "SUS": false,
-      "OPT": true,
-      "text": "Target enemy model suffers a 2\" push. Then you may choose a friendly log pile marker within range and place it within 1\" of this model."
+      "OPT": true
     },
     {
       "name": "Skidding",
+      "text": "目标友方模型可以进行一次朝着友方木堆标记的2\"闪避，每个模型每回合只可以被该效果影响一次",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": false,
-      "OPT": false,
-      "text": "Target friendly model may make a 2\" dodge towards a friendly log pile marker. Each model may be affected by this character play only once per turn."
+      "OPT": false
     },
     {
       "name": "Dam Builder",
+      "text": "选择一个范围内的友方木堆标记并将其放置在当前位置的4\"内",
       "CST": "1,CP",
       "RNG": 1,
       "SUS": false,
-      "OPT": true,
-      "text": "Choose a friendly log pile marker within range and place it within 4\" of its current location."
+      "OPT": true
     },
     {
       "name": "Crumb Boss [Cut]",
+      "text": "如果目标名字的友方模型位于一个友方木堆标记4\"内，它获得2点影响力和+1\"/+1\" MOV",
       "CST": "CP",
       "RNG": 4,
       "SUS": true,
-      "OPT": true,
-      "text": "If the target named friendly model is within 4\" of a friendly log pile marker, it's allocated 2 influence and gains +1\"/+1\" MOV."
+      "OPT": true
     },
     {
       "name": "Steel Toecaps",
+      "text": "目标友方模型获得+1ARM和+0/+2\" KICK",
       "CST": 2,
       "RNG": 4,
       "SUS": true,
-      "OPT": true,
-      "text": "Target friendly model gains +1 ARM and +0/+2\" KICK."
+      "OPT": true
     },
     {
       "name": "The Bigger They Are...",
+      "text": "目标敌方模型受到向下取整的当前生命值一半的状态伤害。然后，如果一个友方木堆标记位于本模型4\"内，你可以将本模型放置在与它底盘接触的位置",
       "CST": "CP2",
       "RNG": "P",
       "SUS": false,
-      "OPT": true,
-      "text": "Target enemy model suffers condition damage equal to half of its current health, rounded down. Then, if there is a friendly log pile marker within 4\" of this model, you may place this model in base contact with it."
+      "OPT": true
     }
   ],
   "Character Traits": [
@@ -15735,67 +15735,67 @@
     {
       "name": "Bends... But Never Breaks",
       "active": false,
-      "text": "While this model is within 1\" of a friendly log pile marker, it gains Stoic. {{trait 'Stoic'}}"
+      "text": "当此模型在友方木堆标记1\"内时，它获得 Stoic. {{trait 'Stoic'}}"
     },
     {
       "name": "Caber Toss",
       "active": true,
-      "text": "Once per turn during this model's activation, you may choose a friendly log pile marker within 1\" of this model. Place the chosen log pile marker within 4\" of this model."
+      "text": "每回合一次在本模型激活期间，你可以选择一个1\"内的友方木堆标记并将其放置在本模型4\"内"
     },
     {
       "name": "Splitting Strikes",
       "active": false,
-      "text": "While within 1\" of a friendly log pile marker, when this model makes a successful attack and selects one or more playbook damage results, choose another enemy model within this model's melee zone. The chosen model suffers 2 DMG."
+      "text": "位于友方木堆标记1\"内时，当本模型进行一次成功的攻击并选择了一个或更多的战术手册中的伤害结果时，选择另一个位于近战范围内的敌方模型，被选中的模型受到2 DMG"
     },
     {
       "name": "Hew Do They Think They Are",
       "active": false,
-      "text": "While this model is within 1\" of the named friendly model or a friendly log pile marker, this model gains Poised.\n{{trait 'Poised'}}"
+      "text": "当此模型位于目标名字的友方模型或友方木堆标记1\"内时，本模型获得Poised\n{{trait 'Poised'}}"
     },
     {
       "name": "Eye of the Sun Father",
       "active": false,
-      "text": "Once per turn during this model's activation, if there is a friendly log pile marker within 4\" of this model, this model may make a pass or use a character play without spending influence."
+      "text": "每回合一次在本模型激活期间，如果一个友方木堆标记位于本模型4\"内，本模型可以进行一次不用消耗影响力的传球或角色表演"
     },
     {
       "name": "Synchronised",
       "active": false,
-      "text": "When the named friendly model receives a successful pass from this model, it may spend 1 less MP to use Pass & Move or make a Snap Shot."
+      "text": "当目标名字的友方模型成功接收到来自本模型的传球时，它可以少消耗1MP来进行一次Pass & Move 或是进行一次Snap Shot"
     },
     {
       "name": "Putting Out Fires",
       "active": true,
-      "text": "Once per turn during this model's activation, choose a friendly log pile marker and remove any amount of influence from friendly models within 4\" of it. Then, allocate the removed influence to other friendly models within 4\" of the chosen log pile marker."
+      "text": "每回合一次在本模型激活期间，选择一个友方木堆标记并移除它4\"内友方模型上任意数量的影响力。然后，将被移除的影响力分配到被选择的木堆标记4\"内其余友方模型上"
     },
     {
       "name": "Den Protector",
       "active": false,
-      "text": "When this model declares a charge against an enemy model that's within 1\" of a friendly log pile marker, it may do so without spending influence."
+      "text": "本模型可以不消耗影响力对友方木堆标记1\"内的敌方模型宣布冲锋"
     },
     {
       "name": "Hunker Down",
       "active": false,
-      "text": "Once per turn, while this model is within 1\" of a friendly logpile marker, it may use Encourage without spending MP."
+      "text": "每回合一次，当本模型位于友方木堆标记1\"内时，它可以不消耗MP使用一次Encourage"
     },
     {
       "name": "Sibling Rivalry",
       "active": false,
-      "text": "Once per turn during their activation, this model or the named friendly model may make a pass without spending influence if the kicking model is within 1\" of a friendly log pile marker."
+      "text": "每回合一次在本模型激活期间，如果传球模型位于友方木堆标记1\"内，本模型和目标名字的友方模型可以不消耗影响力进行传球"
     },
     {
       "name": "Specialised Equipment",
       "active": false,
-      "text": "This model can't be selected for a team but is automatically added when the named friendly models are selected for a team. This model doesn't count towards your maximum team size allowance and is not deployed at the start of the game."
+      "text": "本模型不能被选择进入队伍，但在指定名字的友方模型被选择时自动加入队伍。本模型不计入队伍的最大规模限制内，并且在游戏开始时不会被部署"
     },
     {
       "name": "Early Risers",
       "active": false,
-      "text": "At the start of this model's activation, it may be placed within 1\" of its current location."
+      "text": "本模型激活开始时，它可以被放置在当前位置的1\"内"
     },
     {
       "name": "Job's a Good'un",
       "active": false,
-      "text": "When this model suffers the taken out condition as a result of an enemy attack or play, enemy models within this model's melee zone suffer the knocked down condition. After this model is removed from the pitch, replace this model's stat card with Cross's and Cut's stat cards."
+      "text": "当本模型因为一次敌方模型的攻击或表演受到taken out状态时，本模型近战范围内的敌方模型受到knocked down状态。当本模型被从场上移除时，将本模型的详情卡替换成Cross和Cut的详情卡"
     }
   ]
 }
