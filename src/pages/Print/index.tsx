@@ -44,13 +44,14 @@ import { reSort } from "../../utils/reSort";
 import { useRxData } from "../../hooks/useRxQuery";
 
 import cl from 'classnames';
-import { cx } from "@emotion/css";
+import { css, cx } from "@emotion/css";
 import { Global } from "@emotion/react";
 
 import DownloadDialog from "./components/DownloadDialog";
 import PrintSettingsContext from "./components/PrintSettingsContext";
 import PrintSettingsMenu from "./components/PrintSettingsMenu";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
+import { GroupAddTwoTone } from "@mui/icons-material";
 
 export default function CardPrintScreen() {
   const { gbdb: db, manifest } = useData();
@@ -187,6 +188,9 @@ export default function CardPrintScreen() {
     };
     fetchData().catch(console.error);
   }, [db]);
+
+  const [searchParams] = useSearchParams();
+  const devMode = searchParams.has("dev");
 
   if (!Guilds || !Models) {
     return null;
@@ -334,7 +338,10 @@ export default function CardPrintScreen() {
             <ModelLists ref={ref} allGameplans={allGameplans} />
           </Box>
           <Divider />
-          <Box>
+          <Box
+            className={cx({ [css({ display: 'none' })]: !devMode })}
+            sx={{ display: "flex", justifyContent: 'space-between' }}
+          >
             <Button
               variant="text"
               color="primary"
@@ -355,6 +362,18 @@ export default function CardPrintScreen() {
               }}
             >
               Clear Cards
+            </Button>
+            <Button
+              variant="text"
+              color="primary"
+              startIcon={<GroupAddTwoTone />}
+              onClick={() => {
+                ref.current?.models.forEach((control) => {
+                  control.setChecked(true);
+                });
+              }}
+            >
+              Add All Model Cards
             </Button>
           </Box>
         </Box>
