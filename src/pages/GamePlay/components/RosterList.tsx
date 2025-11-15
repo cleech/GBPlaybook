@@ -114,15 +114,16 @@ const HealthCounterLabel = (props: {
   health: number;
   model: GBModelExpanded;
   disabled: boolean;
+  variant?: 'body1' | 'h5';
 }) => {
-  const { model, disabled } = props;
-  const ref = useUpdateAnimation<HTMLButtonElement>(disabled, [props.health]);
+  const { health, model, disabled, variant } = props;
+  const ref = useUpdateAnimation<HTMLButtonElement>(disabled, [health]);
   return (
     <Button ref={ref} disabled
       style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
     >
-      <Typography color="text.primary" variant='h5'>
-        {`${String(props.health).padStart(2, "0")} / ${String(
+      <Typography color="text.primary" variant={variant ?? 'body1'}>
+        {`${String(health).padStart(2, "0")} / ${String(
           model.hp
         ).padStart(2, "0")}`}
       </Typography>
@@ -215,6 +216,7 @@ export function HealthCounter({
             health={health}
             model={model}
             disabled={disabled}
+            variant='h5'
           />
           <ButtonGroup
             size="small"
