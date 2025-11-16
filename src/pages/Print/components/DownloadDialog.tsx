@@ -16,6 +16,8 @@ import { useSearchParams } from "react-router-dom";
 
 import { hide } from "../printStyles";
 
+const MAX_DPI = 300;
+
 export default function DownloadDialog() {
   const [dialogOpen, setDialog] = useState(false);
   const [fileName, setFileName] = useState("GB-cards.zip");
@@ -36,6 +38,11 @@ export default function DownloadDialog() {
   const widthChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const w = Number(e.target.value);
     if (Number.isNaN(w)) return;
+    if (w > (MAX_DPI * (
+      doubleCard ?
+        (withBleed ? 5.25 : 5) :
+        (withBleed ? 2.75 : 2.5)
+    ))) return;
     const h = withBleed
       ? w * 15 / (doubleCard ? 21 : 11)
       : w * 7 / (doubleCard ? 10 : 5);
@@ -46,6 +53,7 @@ export default function DownloadDialog() {
   const heightChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const h = Number(e.target.value);
     if (Number.isNaN(h)) return;
+    if (h > (MAX_DPI * (withBleed ? 3.75 : 3.5))) return;
     const w = withBleed
       ? h * (doubleCard ? 21 : 11) / 15
       : h * (doubleCard ? 10 : 5) / 7;
@@ -90,9 +98,14 @@ export default function DownloadDialog() {
               </Stack>
             </Box>
           </Box>
-          <Typography variant="caption">
-            Image Size:
-          </Typography>
+          <Stack direction="row" justifyContent='space-between'>
+            <Typography variant="caption">
+              Image Size:
+            </Typography>
+            <Typography variant="caption" >
+              {`(DPI: ${height / (withBleed ? 3.75 : 3.5)})`}
+            </Typography>
+          </Stack>
           <Stack direction="row" spacing={1} alignItems="center">
             <TextField
               label="width" size="small"
@@ -159,70 +172,115 @@ export default function DownloadDialog() {
   </>)
 }
 
+import workerUrl from 'modern-screenshot/worker?url';
+
+async function getCanvasBlob(canvas: HTMLCanvasElement, type?: string): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (blob) {
+        resolve(blob);
+      } else {
+        reject(new Error('Failed to create image from canvas.'));
+      }
+    }, type);
+  });
+}
+
+const MAX_WINDOW = 25;
+
 async function downloadCards(
   fileName: string, type: string,
   settings: PrintSettingsType, debug?: boolean) {
   if (!fileName || !settings) return;
 
-  const { withBleed, height } = settings;
+  const { doubleCard, withBleed, height, width } = settings;
 
-  const elements = document.querySelectorAll(`#Cards .card:not(.${hide})`);
+  const elements = Array.from(document.querySelectorAll(`#Cards .card:not(.${hide})`));
   if (elements.length === 0) return;
 
   const root = document.querySelector<HTMLElement>('#root');
+
+  const windowSize = Math.min(
+    MAX_WINDOW,
+    Math.floor(32767 / width),
+    Math.floor(32767 / height),
+    Math.floor((4096 * 4096) / (width * height))
+  );
+
+  const container = document.createElement('div');
+  container.style.width =
+    doubleCard
+      ? withBleed ? '1050px' : '1000px'
+      : withBleed ? '550px' : '500px';
+  container.style.height = `${(withBleed ? 750 : 700) * Math.min(elements.length, windowSize)}px`;
+  container.style.display = 'flex';
+  container.style.flexDirection = "column";
+
   const saved_root_overflow = root!.style.overflow;
+  root!.style.overflow = 'hidden';
+  root!.appendChild(container);
+
+  const context = await ScreenShot.createContext(container, {
+    debug: debug,
+    workerUrl,
+    workerNumber: 1,
+    scale: (height / (withBleed ? 750 : 700)),
+  })
+  context.svgStyleElement?.appendChild(document.createTextNode(
+    '.dropcap span::first-letter { vertical-align: -7.5%; }'
+  ));
 
   const zip = new JSZip();
 
-  const doOne = async (el: Element) => {
-    const copiedNode = el.cloneNode(true) as HTMLElement;
-    const container = copiedNode.firstElementChild as HTMLElement;
+  for (let i = 0; i < elements.length; i += windowSize) {
+    const window = elements.slice(i, i + windowSize);
 
-    const isDouble = el.classList.contains('double');
-    container.style.width =
-      isDouble
-        ? withBleed ? '1050px' : '1000px'
-        : withBleed ? '550px' : '500px';
-    container.style.height = withBleed ? '750px' : '700px';
-    container.style.setProperty('--scale', '1');
+    for (const el of window) {
+      const innerCard = el.firstElementChild!.cloneNode(true) as HTMLElement;
 
-    root!.appendChild(copiedNode);
+      const isDouble = el.classList.contains('double');
+      innerCard.style.width =
+        isDouble
+          ? withBleed ? '1050px' : '1000px'
+          : withBleed ? '550px' : '500px';
+      innerCard.style.height = withBleed ? '750px' : '700px';
+      innerCard.style.setProperty('--scale', '1');
 
-    const context = await ScreenShot.createContext(container, {
-      debug: debug,
-      type: `image/${type}`,
-      scale: (height / (withBleed ? 750 : 700)),
-    })
-    // Inject CSS for dropcap first-letter pseudo-element that modern-screenshot misses
-    // The -7.5% vertical-align value matches the styling in CardFront.css
-    context.svgStyleElement?.appendChild(document.createTextNode(
-      '.dropcap span::first-letter { vertical-align: -7.5%; }'
-    ));
+      container.appendChild(innerCard);
+    };
 
-    const blob = await ScreenShot.domToBlob(context);
-    root!.removeChild(copiedNode);
+    const canvas = await ScreenShot.domToCanvas(context).catch((err) => console.error(err));
 
-    if (debug) {
-      const img = new Image();
-      img.src = URL.createObjectURL(blob);
-      img.onclick = () => {
-        document.body.removeChild(img);
-        URL.revokeObjectURL(img.src);
-      }
-      document.body.appendChild(img);
-    } else {
-      zip.file(`${el.id}.${type}`, blob);
+    while (container.lastElementChild) {
+      container.removeChild(container.lastElementChild);
     }
-  };
 
-  root!.style.overflow = 'hidden';
-  const processChain = Array.from(elements).reduce(async (previousPromise, nextEl) => {
-    await previousPromise;
-    return doOne(nextEl);
-  }, Promise.resolve());
-  await processChain;
+    for (let j = 0; j < window.length; j++) {
+      let cardCanvas = document.createElement('canvas');
+      cardCanvas.width = width;
+      cardCanvas.height = height;
+      let cardContext = cardCanvas.getContext('2d');
+      cardContext!.drawImage(canvas!, 0, j * height, width, height, 0, 0, width, height);
+      const blob = await getCanvasBlob(cardCanvas, `image/${type}`);
+      if (debug) {
+        const img = new Image();
+        img.src = URL.createObjectURL(blob);
+        img.onclick = () => {
+          root!.removeChild(img);
+        }
+        root!.appendChild(img);
+      } else {
+        zip.file(`${window[j].id}.${type}`, blob);
+      }
+    }
+  }
+
+  ScreenShot.destroyContext(context);
+  root!.removeChild(container);
   root!.style.overflow = saved_root_overflow;
 
-  const blob = await zip.generateAsync({ type: "blob" });
-  FileSaver.saveAs(blob, fileName);
+  if (!debug) {
+    const blob = await zip.generateAsync({ type: "blob" });
+    FileSaver.saveAs(blob, fileName);
+  }
 }

@@ -338,10 +338,7 @@ export default function CardPrintScreen() {
             <ModelLists ref={ref} allGameplans={allGameplans} />
           </Box>
           <Divider />
-          <Box
-            className={cx({ [css({ display: 'none' })]: !devMode })}
-            sx={{ display: "flex", justifyContent: 'space-between' }}
-          >
+          <Box sx={{ display: "flex", justifyContent: 'space-between' }} >
             <Button
               variant="text"
               color="primary"
@@ -364,6 +361,7 @@ export default function CardPrintScreen() {
               Clear Cards
             </Button>
             <Button
+              className={cx({ [css({ display: 'none' })]: !devMode })}
               variant="text"
               color="primary"
               startIcon={<GroupAddTwoTone />}

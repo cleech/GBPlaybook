@@ -81,7 +81,7 @@ const darkTheme = createTheme({
             backdropFilter: "blur(2px)",
             zIndex: -99,
           },
-          overflow: "hidden",
+          // overflow: "hidden",
           backgroundColor: "#400",
           backgroundImage:
             // "linear-gradient(20deg, black, #121a22, #1d506f, #121a22, black)",
