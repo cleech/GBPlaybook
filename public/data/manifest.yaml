@@ -1,4 +1,4 @@
-timestamp: "2025-11-16T21:49:09Z"
+timestamp: "2025-11-17T00:47:38Z"
 datafiles:
   - version: 4.7
     description: Steamforged Guild Ball 4.7
@@ -38,13 +38,13 @@ datafiles:
 gameplans:
   - version: 2025
     filename: gameplans-2025.json
-    sha256: 5c757b29bcbbc6d36864271b6d7210efd9841daff966084adcd4aa00454e9880
-    timestamp: "2025-05-19T22:24:46Z"
+    sha256: f511dd179caeef1ba67106f9267a75b21589f165def79769449e8d4caaf1e220
+    timestamp: "2025-11-17T00:47:38Z"
   - version: 2019
     filename: gameplans-2019.json
-    sha256: 5c72e80c16705be4a3dadfbdb5a7504775827d5aae312b954814354112b328e3
-    timestamp: "2025-05-19T23:37:27Z"
+    sha256: 45e9d1608a098b9a567a7842259a197a56c3d78392d1f78172adf2b178c91233
+    timestamp: "2025-11-17T00:47:38Z"
   - version: 2018
     filename: gameplans-2018.json
-    sha256: 55fa834e5c7aead775a4bdbb809528b74fd1662cbe111d84ada1a19f8ac5191b
-    timestamp: "2025-05-21T23:37:27Z"
+    sha256: 948ed5a3e0fddc01bd0f94c3d579f16407bb9814466b41ab8bba74f8d2a3e1d8
+    timestamp: "2025-11-17T00:47:38Z"

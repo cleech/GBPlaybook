@@ -151,4 +151,34 @@ for (const fileEntry of files) {
   }
 }
 
+for (const fileEntry of manifest.gameplans ?? []) {
+  const dataFile = fileEntry.filename;
+
+  console.log(`\n\n--- Processing: ${dataFile} ---`);
+  console.log(`# Gameplan: ${fileEntry.version}`);
+
+  const filePath = path.resolve(dataDir, dataFile);
+  const file = await fs.readFile(filePath, "utf8");
+  const hash = crypto.createHash("sha256").update(file).digest("hex");
+
+  if (hash !== fileEntry.sha256) {
+    printTest("# Checking SHA256 hash", false);
+    console.log(`  Expected ${fileEntry.sha256}`);
+    console.log(`  Actual   ${hash}`);
+  } else {
+    printTest("# Checking SHA256 hash", true);
+  }
+
+  const stats = await fs.stat(filePath);
+  const mtime = stats.mtime.toISOString().split(".")[0] + "Z";
+
+  if (mtime !== fileEntry.timestamp) {
+    printTest("# Checking timestamp", false);
+    console.log(`  Expected ${fileEntry.timestamp}`);
+    console.log(`  Actual   ${mtime}`);
+  } else {
+    printTest("# Checking timestamp", true);
+  }
+}
+
 process.exit(0);
