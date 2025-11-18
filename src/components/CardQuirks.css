@@ -1,5 +1,11 @@
 /* quirks, card specific fixes, etc. */
 
+/* while waiting on better cards ... */
+:is(.Oak,.Chipper,.Bucker,.CrossCut,.Cross,.Cut,.Itsa,.Tinder) > .overlay > :not(.health) {
+  color: red;
+  display: none !important;
+}
+
 /* Harry/Harriet 'The Hat' has a crazy long name */
 
 .Harry.card-front .name-plate-right > .name {
