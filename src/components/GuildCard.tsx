@@ -88,10 +88,10 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
         <div ref={targetRef} className={flipStyles.flipCardInner}>
           <div className={flipStyles.flipCardFront}>
             <div
-              className="card-front"
+              className="card-back"
               style={
                 {
-                  backgroundImage: `url(${GBImages.get(`${guild}_front`)})`,
+                  backgroundImage: `url(${GBImages.get(`${guild}_back`)})`,
                   "--scale": scale,
                 } as CardCSS
               }
@@ -99,10 +99,10 @@ export function FlipGuildCard({ guild }: { guild: string | undefined }) {
           </div>
           <div className={flipStyles.flipCardBack}>
             <div
-              className="card-back"
+              className="card-front"
               style={
                 {
-                  backgroundImage: `url(${GBImages.get(`${guild}_back`)})`,
+                  backgroundImage: `url(${GBImages.get(`${guild}_front`)})`,
                   "--scale": scale,
                 } as CardCSS
               }
