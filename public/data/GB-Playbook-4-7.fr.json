@@ -11900,6 +11900,7 @@
         "Bends... But Never Breaks",
         "Caber Toss"
       ],
+      "legendary": "Fell Swing [8\" Pulse]\nLes modèles alliés dans ce pulse et à 1\" d'un marqueur Log Pile allié peuvent déclarer une attaque sans dépenser d'influence. Puis, choisissez jusqu'à deux marqueurs Log Pile sur le terrain. Placez les marqueurs Log Pile choisis dans ce pulse.",
       "types": "Skald, Human, Female,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -11920,8 +11921,7 @@
           "4",
           null
         ]
-      ],
-      "legendary": "Fell Swing [8\" Pulse]\nFriendly models within this pulse and within 1\" of a friendly log pile marker may declare an attack without spending influence. Then choose up to two friendly log pile markers on the pitch. Place the chosen log pile markers within this pulse."
+      ]
     },
     {
       "id": "Chipper",
@@ -12112,6 +12112,7 @@
       "character_traits": [
         "Matched Pair [Cut]"
       ],
+      "heroic": "It's Bucking Time!\nSi la Cut alliée est à 4\" de ce modèle, placez CrossCut avec tous ses HP au contact du socle de ce modèle ou de Cut. Puis retirez toute l'influence de ce modèle et de Cut et allouez-la à CrossCut. Puis retirez ce modèle et Cut du terrain. Puis remplacez les cartes de ce modèle et de Cut par celle de CrossCut.",
       "types": "Mald, Human, Male,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -12132,8 +12133,7 @@
           null,
           null
         ]
-      ],
-      "heroic": "It's Bucking Time!\nIf the friendly Cut is within 4\" of this model, place CrossCut with full HP in base contact with this model or Cut. Then remove any influence from this model and Cut and allocate it to CrossCut. Then remove this model and Cut from the pitch. Then replace this model's and Cut's stat cards with CrossCut's stat card."
+      ]
     },
     {
       "id": "Cut",
@@ -12272,6 +12272,7 @@
         "Synchronised [Flint]",
         "Putting Out Fires"
       ],
+      "legendary": "This Should Be Overtime...\nChoisissez un marqueur Log Pile allié sur le terrain et placez-le à 4\" de ce modèle.",
       "types": "Eisnoran, Human, Male,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -12292,8 +12293,7 @@
           null,
           null
         ]
-      ],
-      "legendary": "This Should Be Overtime...\nChoose a friendly log pile marker on the pitch and place it within 4\" of this model."
+      ]
     }
   ],
   "Character Plays": [
@@ -14131,99 +14131,99 @@
     },
     {
       "name": "Bull of the Woods",
+      "text": "Ce modèle gagne Lend a Hand.\n{{trait 'Lend a Hand'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
-      "OPT": true,
-      "text": "This model gains Lend a Hand.\n{{trait 'Lend a Hand'}}"
+      "OPT": true
     },
     {
       "name": "Cut Em Down",
+      "text": "Dans la melee zone de ce modèle, les modèles ennemis subissent -1 DEF et -2\"/-2\" MOV.",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
-      "OPT": true,
-      "text": "While within this model's melee zone, enemy models suffer -1 DEF and -2\"/-2\" MOV."
+      "OPT": true
     },
     {
       "name": "Hoisting and Hauling",
+      "text": "Choisissez un marqueur Log Pile allié à portée et placez-le à 1\" de ce modèle.",
       "CST": "1,CP",
       "RNG": 4,
       "SUS": false,
-      "OPT": true,
-      "text": "Choose a friendly log pile marker within range and place it within 1\" of this model."
+      "OPT": true
     },
     {
       "name": "Axe A Question",
+      "text": "Ce modèle gagne Assist [Mallet, Oak].\n{{trait 'Assist' 'Mallet, Oak'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
-      "OPT": true,
-      "text": "This model gains Assist [Mallet, Oak].\n{{trait 'Assist' 'Mallet, Oak'}}"
+      "OPT": true
     },
     {
       "name": "Marked for Felling",
+      "text": "Quand un modèle allié charge le modèle ennemi ciblé, il gagne +0\"/+2\" MOV et peut traverser les obstructions pour la durée de la charge. Le modèle allié ne peut pas terminer son mouvement en empiétant sur une obstruction.",
       "CST": "1,CP",
       "RNG": 10,
       "SUS": true,
-      "OPT": false,
-      "text": "When a friendly model charges target enemy model, the friendly model gains +0/+2\" MOV and may move over obstructions for the duration of the charge. The friendly model can't end its movement overlapping an obstruction."
+      "OPT": false
     },
     {
       "name": "Reconnaissance",
+      "text": "6\" aura. Dans cette aura, les modèles alliés ne subissent pas la pénalité de -1 TAC quand ils attaquent un modèle ennemi bénéficiant d'un cover.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
-      "OPT": true,
-      "text": "6\" aura. While within this aura, friendly models don't suffer the -1 TAC penalty for attacking an enemy model benefitting from cover."
+      "OPT": true
     },
     {
       "name": "Swipe Right",
+      "text": "Le modèle ennemi ciblé subit un push de 2\". Puis, vous pouvez choisir un marqueur Log Pile allié à portée et le placer à 1\" de ce modèle.",
       "CST": "CP",
       "RNG": 4,
       "SUS": false,
-      "OPT": true,
-      "text": "Target enemy model suffers a 2\" push. Then you may choose a friendly log pile marker within range and place it within 1\" of this model."
+      "OPT": true
     },
     {
       "name": "Skidding",
+      "text": "Le modèle allié ciblé peut faire un dodge de 2\" vers un marqueur Log Pile allié. Chaque modèle ne peut être affecté par ce character play qu'une fois par tour.",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": false,
-      "OPT": false,
-      "text": "Target friendly model may make a 2\" dodge towards a friendly log pile marker. Each model may be affected by this character play only once per turn."
+      "OPT": false
     },
     {
       "name": "Dam Builder",
+      "text": "Choisissez un marqueur Log Pile allié à portée et placez-le à 4\" de son emplacement actuel.",
       "CST": "1,CP",
       "RNG": 1,
       "SUS": false,
-      "OPT": true,
-      "text": "Choose a friendly log pile marker within range and place it within 4\" of its current location."
+      "OPT": true
     },
     {
       "name": "Crumb Boss [Cut]",
+      "text": "Si le modèle allié ciblé nommé est à 4\" d'un marqueur Log Pile allié, il reçoit 2 influence et gagne +1\"/+1\" MOV.",
       "CST": "CP",
       "RNG": 4,
       "SUS": true,
-      "OPT": true,
-      "text": "If the target named friendly model is within 4\" of a friendly log pile marker, it's allocated 2 influence and gains +1\"/+1\" MOV."
+      "OPT": true
     },
     {
       "name": "Steel Toecaps",
+      "text": "Le modèle allié ciblé gagne +1 ARM et +0/+2\" KICK.",
       "CST": 2,
       "RNG": 4,
       "SUS": true,
-      "OPT": true,
-      "text": "Target friendly model gains +1 ARM and +0/+2\" KICK."
+      "OPT": true
     },
     {
       "name": "The Bigger They Are...",
+      "text": "Le modèle ennemi ciblé subit des condition DMG égaux à la moitié de sa santé actuelle, arrondie à l'inférieur. Puis, si un marqueur Log Pile allié se trouve à 4\" de ce modèle, vous pouvez placer ce modèle au contact du marqueur.",
       "CST": "CP2",
       "RNG": "P",
       "SUS": false,
-      "OPT": true,
-      "text": "Target enemy model suffers condition damage equal to half of its current health, rounded down. Then, if there is a friendly log pile marker within 4\" of this model, you may place this model in base contact with it."
+      "OPT": true
     }
   ],
   "Character Traits": [
@@ -15735,67 +15735,67 @@
     {
       "name": "Bends... But Never Breaks",
       "active": false,
-      "text": "While this model is within 1\" of a friendly log pile marker, it gains Stoic. {{trait 'Stoic'}}"
+      "text": "Tant que ce modèle est à 1 \" d'un marqueur Log Pile allié, il gagne Stoic. {{trait 'Stoic'}}"
     },
     {
       "name": "Caber Toss",
       "active": true,
-      "text": "Once per turn during this model's activation, you may choose a friendly log pile marker within 1\" of this model. Place the chosen log pile marker within 4\" of this model."
+      "text": "Une fois par tour pendant l'activation de ce modèle, vous pouvez choisir un marqueur Log Pile allié à 1\" de ce modèle. Placez le marqueur Log Pile choisi à 4\" de ce modèle."
     },
     {
       "name": "Splitting Strikes",
       "active": false,
-      "text": "While within 1\" of a friendly log pile marker, when this model makes a successful attack and selects one or more playbook damage results, choose another enemy model within this model's melee zone. The chosen model suffers 2 DMG."
+      "text": "Tant qu'il est à 1\" d'un marqueur Log Pile allié, quand ce modèle réussit une attaque et choisit un ou plusieurs résultats dégâts du playbook, choisissez un autre modèle ennemi dans la melee zone de ce modèle. Le modèle choisi subit 2 DMG."
     },
     {
       "name": "Hew Do They Think They Are",
       "active": false,
-      "text": "While this model is within 1\" of the named friendly model or a friendly log pile marker, this model gains Poised.\n{{trait 'Poised'}}"
+      "text": "Tant qu'il est à 1\" du modèle allié nommé ou d'un marqueur Log Pile allié, ce modèle gagne Poised.\n{{trait 'Poised'}}"
     },
     {
       "name": "Eye of the Sun Father",
       "active": false,
-      "text": "Once per turn during this model's activation, if there is a friendly log pile marker within 4\" of this model, this model may make a pass or use a character play without spending influence."
+      "text": "Une fois par tour pendant l'activation de ce modèle, s'il y a un marqueur Log Pile allié à 4\" de ce modèle, il peut faire une passe ou utiliser un character play sans dépenser d'influence."
     },
     {
       "name": "Synchronised",
       "active": false,
-      "text": "When the named friendly model receives a successful pass from this model, it may spend 1 less MP to use Pass & Move or make a Snap Shot."
+      "text": "Quand le modèle allié nommé reçoit une passe réussie de la part de ce modèle, il peut dépenser 1 MP de moins pour utiliser Pass & Move ou tenter un Snap Shot."
     },
     {
       "name": "Putting Out Fires",
       "active": true,
-      "text": "Once per turn during this model's activation, choose a friendly log pile marker and remove any amount of influence from friendly models within 4\" of it. Then, allocate the removed influence to other friendly models within 4\" of the chosen log pile marker."
+      "text": "Une fois par tour pendant l'activation de ce modèle, choisissez un marqueur Log Pile allié et retirez n'importe quelle quantité d'influence des modèles alliés à 4\" du marqueur. Puis, allouez l'influence retirée à d'autres modèles alliés à 4\" du marqueur Log Pile choisi."
     },
     {
       "name": "Den Protector",
       "active": false,
-      "text": "When this model declares a charge against an enemy model that's within 1\" of a friendly log pile marker, it may do so without spending influence."
+      "text": "Quand ce modèle déclare une charge contre un modèle ennemi qui se trouve à 1\" d'un marqueur Log Pile allié, il peut le faire sans dépenser d'influence."
     },
     {
       "name": "Hunker Down",
       "active": false,
-      "text": "Once per turn, while this model is within 1\" of a friendly logpile marker, it may use Encourage without spending MP."
+      "text": "Une fois par tour, quand ce modèle est à 1\" d'un marqueur Log Pile allié, il peut utiliser Encourage sans dépenser de MP."
     },
     {
       "name": "Sibling Rivalry",
       "active": false,
-      "text": "Once per turn during their activation, this model or the named friendly model may make a pass without spending influence if the kicking model is within 1\" of a friendly log pile marker."
+      "text": "Une fois par tour pendant leur activation, ce modèle ou le modèle allié nommé peut faire une passe sans dépenser d'influence si le modèle qui passe est à 1\" d'un marqueur Log Pile allié."
     },
     {
       "name": "Specialised Equipment",
       "active": false,
-      "text": "This model can't be selected for a team but is automatically added when the named friendly models are selected for a team. This model doesn't count towards your maximum team size allowance and is not deployed at the start of the game."
+      "text": "Ce modèle ne peut pas être sélectionné pour une équipe, mais il est automatiquement ajouté lorsque les modèles alliés nommés sont sélectionnés. Ce modèle n'est pas pris en compte dans le calcul de la taille maximale de l'équipe et n'est pas déployé au début de la partie."
     },
     {
       "name": "Early Risers",
       "active": false,
-      "text": "At the start of this model's activation, it may be placed within 1\" of its current location."
+      "text": "Au début de l'activation de ce modèle, vous pouvez le placer à 1\" de son emplacement actuel."
     },
     {
       "name": "Job's a Good'un",
       "active": false,
-      "text": "When this model suffers the taken out condition as a result of an enemy attack or play, enemy models within this model's melee zone suffer the knocked down condition. After this model is removed from the pitch, replace this model's stat card with Cross's and Cut's stat cards."
+      "text": "Quand ce modèle subit la condition Taken out suite à une attaque ou à un play ennemi, les modèles ennemis dans la melee zone de ce modèle subissent la condition Knocked down. Après que ce modèle ait été retiré du terrain, remplacez sa carte par celles de Cross et Cut."
     }
   ]
 }
