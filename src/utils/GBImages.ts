@@ -1070,8 +1070,8 @@ const GBImages: Map<string, string> = new Map([
     "Snakeskin_front",
     new URL("../assets/cards/Union/GB-S4-Union-20-03-30.jpg", import.meta.url).href,
   ],
-  ["Lamplighters_front", new URL("../assets/cards/Lamplighters/lamp-beta.png", import.meta.url).href],
-  ["Lamplighters_back", new URL("../assets/cards/Lamplighters/lamp-beta.png", import.meta.url).href],
+  ["Lamplighters_front", new URL("../assets/cards/Lamplighters/Lamplighters-Guild-front.png", import.meta.url).href],
+  ["Lamplighters_back", new URL("../assets/cards/Lamplighters/Lamplighters-Guild-back.png", import.meta.url).href],
   [
     "Nightlight_gbcp_front",
     new URL("../assets/cards/Lamplighters/nightlight-00.jpg", import.meta.url).href,
