@@ -18,6 +18,10 @@
   font-size: calc(7pt * 200/96);
   font-variant-numeric: lining-nums;
   line-height: 1.125em;
+
+  /* --zh-font-size: calc(6.6pt * 200/96); */
+  --zh-font-size: calc(7pt * 200/96);
+  --zh-line-height: 1.5;
 }
 
 /*
@@ -313,6 +317,10 @@ div.card-front.gbcp.double.bleed {
   }
 }
 
+.card-front[lang|="zh"] .character-plays em {
+  font-style: normal;
+}
+
 .card-front.card-front.gbcp .character-plays-wrapper {
   position: absolute;
   top: 256px;
@@ -394,9 +402,9 @@ div.card-front.gbcp.double.bleed {
   }
 }
 
-.card-front[lang="zh"] .character-plays .play .text {
-  font-size: 18px;
-  line-height: 1.5;
+.card-front[lang|="zh"] .character-plays .play .text {
+  font-size: var(--zh-font-size);
+  line-height: var(--zh-line-height);
   letter-spacing: unset;
 }
 

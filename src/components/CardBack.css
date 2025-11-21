@@ -149,6 +149,12 @@ div.card-back.gbcp.double.bleed {
   }
 }
 
+.card-back[lang|="zh"] .character-trait em,
+.card-back[lang|="zh"] .heroic em,
+.card-back[lang|="zh"] .legendary em {
+  font-style: normal;
+}
+
 .card-back .character-trait .trait {
   font-weight: bold;
   font-style: italic;
@@ -189,9 +195,9 @@ div.card-back.gbcp.double.bleed {
   }
 }
 
-.card-back[lang="zh"] .character-trait .text {
-  font-size: 18px;
-  line-height: 1.5;
+.card-back[lang|="zh"] .character-trait .text {
+  font-size: var(--zh-font-size);
+  line-height: var(--zh-line-height);
   letter-spacing: unset;
 }
 
@@ -214,9 +220,9 @@ div.card-back.gbcp.double.bleed {
   }
 }
 
-.card-back[lang="zh"] :is(.legendary, .heroic) {
-  font-size: 18px;
-  line-height: 1.5;
+.card-back[lang|="zh"] :is(.legendary, .heroic) {
+  font-size: var(--zh-font-size);
+  line-height: var(--zh-line-height);
   letter-spacing: unset;
 }
 

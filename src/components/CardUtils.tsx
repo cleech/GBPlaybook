@@ -114,6 +114,10 @@ export const CardText = (props: { children: string }) => {
   );
 }
 
+export function toClassName(s: string): string {
+  return s.split('[', 1)?.[0].replace(/[\W]/g, '');
+}
+
 /*
 const textIconReplace = (text: string | Array<string>) => {
   let replacedtext = reactStringReplace(text, /\(◉(.*?)\)/g, (match, index) => (

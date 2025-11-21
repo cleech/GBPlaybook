@@ -7,7 +7,6 @@
 }
 
 /* Harry/Harriet 'The Hat' has a crazy long name */
-
 .Harry.card-front .name-plate-right > .name {
   font-size: 33px;
 }
@@ -15,54 +14,94 @@
   font-size: 30px;
 }
 
-/* Smoke has too much text */
-
-/* .Smoke .character-plays .text { */
-/*   font-size: calc(6.5pt * 200/96); */
-/*   line-height: 1.1em; */
-/* } */
-
-/* Skatha was close, and the french translation pushed it over */
-
-.Skatha[lang="fr"] .character-plays .text {
+/* Like We Practised is a super long title */
+.Flea .LikeWePractised .name {
   font-size: calc(6.7pt * 200/96);
 }
 
-.Silence .character-plays .text {
-  font-size: calc(6.7pt * 200/96);
-}
-.FireBlast .text {
-  ::first-line { letter-spacing: normal; }
-  letter-spacing: -0.4px;
-}
+/* Make play and trait text fit */
 
-.Midas {
-  /* letter-spacing: -0.3px; */
-  /* word-spacing: -0.3px; */
-}
-
-.Oak.card-back {
-  /* font-size: calc(6.75pt * 200/96); */
-}
-
-.LikeWePractised .name {
-  font-size: calc(6.7pt * 200/96);
-}
-
-.MidasTouch .text {
+.Midas[lang|="en"] .MidasTouch .text {
   ::first-line { letter-spacing: normal }
   letter-spacing: -0.2px;
 }
-
-.Infuse .text {
+.Smoke[lang|="en"] .Infuse .text,
+.Smoke[lang|="fr"] .Infuse .text {
   ::first-line { letter-spacing: -0.5px; }
   letter-spacing: -1px;
 }
 
-.CaberToss .text {
-  letter-spacing: -0.1px;
+.Burnish[lang="fr"] .character-plays .flex-space {
+  max-height: 0.1em !important;
 }
 
-.SwipeRight .text {
-  letter-spacing: -0.1px;
+.Siren[lang="fr"] .character-plays .flex-space {
+  max-height: 0.1em !important;
 }
+
+.Skatha[lang|="fr"] .ColdSnap .text {
+  ::first-line { letter-spacing: normal; }
+  letter-spacing: -0.2px;
+}
+
+.Nightlight[lang="fr"] .character-trait .text {
+  letter-spacing: -0.2px;
+}
+
+.Oak[lang|="en"] .CaberToss .text {
+  letter-spacing: -0.2px;
+}
+.Oak[lang|="fr"] .CaberToss .text {
+  font-size: calc(6.7pt * 200/96);
+  letter-spacing: -0.2px;
+}
+.Itsa[lang|="fr"] .MarkedforFelling .text {
+  letter-spacing: -0.2px;
+}
+.Tinder[lang|="en"] .SwipeRight .text {
+  letter-spacing: -0.2px;
+}
+
+.Casket[lang="fr"] .HeavyBurden .text {
+  letter-spacing: -0.2px;
+}
+.Silence[lang|="en"] .character-plays .text {
+  font-size: calc(6.7pt * 200/96);
+}
+.Silence[lang|="en"] .FireBlast .text {
+  ::first-line { letter-spacing: normal; }
+  letter-spacing: -0.4px;
+}
+.Silence[lang|="fr"] .character-plays .text {
+  font-size: calc(6.7pt * 200/96);
+  letter-spacing: -0.2px;
+}
+
+.Smoke[lang|="zh"] .character-plays .play .text {
+  font-size: calc(6.6pt * 200/96);
+  line-height: 1.5;
+}
+.Skatha[lang|="zh"].card-front .character-plays .text {
+  font-size: calc(6.8pt * 200/96);
+}
+.Hammer[lang|="zh"].card-front .flex-space {
+  max-height: 0.2em !important;
+}
+.Hammer[lang|="zh"].card-back :is(.text, .legendary) {
+  font-size: calc(6.7pt * 200/96);
+  line-height: 1.4;
+}
+.Mourn[lang|="zh"].card-front .flex-space {
+  max-height: 0.2em !important;
+}
+.Casket[lang|="zh"].card-front .flex-space {
+  max-height: 0.2em !important;
+}
+.vRage[lang|="zh"].card-back :is(.text, .heroic, .legendary) {
+  font-size: calc(6.7pt * 200/96);
+  line-height: 1.4;
+}
+.Bucker[lang|="zh"].card-front .flex-space {
+  max-height: 0.2em !important;
+}
+

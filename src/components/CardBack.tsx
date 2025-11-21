@@ -14,7 +14,7 @@ import { Subscription } from "rxjs";
 import { getSettings } from "../models/settings";
 
 import { cx } from "@emotion/css";
-import { CardText } from "./CardUtils";
+import { toClassName, CardText } from "./CardUtils";
 
 interface CardBackProps {
   model: GBModelExpanded;
@@ -172,7 +172,7 @@ const CharacterTraits = ({ model }: { model: GBModelExpanded }) => (
           flexGrow: 1,
           ...(index === 0 ? { maxHeight: 0 } : { maxHeight: "1em" }),
         }} />
-        <div className={`character-trait ${ct.name.replace(/\s/g, '')}`} key={`${ct.name}-${index}`}>
+        <div className={`character-trait ${toClassName(ct.name)}`} key={`${ct.name}-${index}`}>
           <div className='trait'>
             <CTName
               text={ct.name.concat(ct.parameter ? ` [${ct.parameter}]` : "")}
@@ -204,7 +204,7 @@ const Heroic = ({ model }: { model: GBModelExpanded }) => {
         <span>Heroic </span>
         <span>Play</span>
       </div>
-      <div className="heroic">
+      <div className={`heroic ${toClassName(name)}`}>
         <CTName text={name} />
         <span>
           <CardText>{text}</CardText>
@@ -230,7 +230,7 @@ const Legendary = ({ model }: { model: GBModelExpanded }) => {
         <span>Legendary </span>
         <span>Play</span>
       </div>
-      <div className="legendary">
+      <div className={`legendary ${toClassName(name)}`}>
         <CTName text={name} />
         <span>
           <CardText>{text}</CardText>

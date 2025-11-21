@@ -6,7 +6,7 @@ import GBIcon, { PB } from "./GBIcon";
 import "./CardFront.css";
 import "./CardQuirks.css"
 
-import { CardText } from "./CardUtils";
+import { toClassName, CardText } from "./CardUtils";
 import Color from "color";
 
 import { Guild } from "./DataTypes";
@@ -254,7 +254,7 @@ const CharacterPlays = ({
           maxHeight: '0.5em',
           flexGrow: 1,
         }} />
-        <div key={cp.name} className={`play ${cp.name.split(' [', 1)[0].replace(/[^a-zA-Z]/g, '')}`}>
+        <div key={cp.name} className={`play ${toClassName(cp.name)}`}>
           <CPName text={cp.name} />
           <span style={{
             whiteSpace: 'nowrap', display: 'inline', alignItems: "baseline",
