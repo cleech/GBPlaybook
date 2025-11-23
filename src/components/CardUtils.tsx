@@ -102,7 +102,7 @@ export const CardText = (props: { children: string }) => {
       setText(text);
     }
     fetchData();
-  }, []);
+  }, [template]);
 
   return (
     <Markdown

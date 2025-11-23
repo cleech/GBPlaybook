@@ -256,10 +256,10 @@ async function downloadCards(
     }
 
     for (let j = 0; j < window.length; j++) {
-      let cardCanvas = document.createElement('canvas');
+      const cardCanvas = document.createElement('canvas');
       cardCanvas.width = width;
       cardCanvas.height = height;
-      let cardContext = cardCanvas.getContext('2d');
+      const cardContext = cardCanvas.getContext('2d');
       cardContext!.drawImage(canvas!, 0, j * height, width, height, 0, 0, width, height);
       const blob = await getCanvasBlob(cardCanvas, `image/${type}`);
       if (debug) {
