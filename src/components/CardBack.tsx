@@ -4,7 +4,8 @@ import GBImages from "../utils/GBImages";
 
 import GBIcon from "./GBIcon";
 import "./CardBack.css";
-import "./CardQuirks.css"
+import "./CardQuirks.css";
+import "./Lumberjacks.css";
 
 import Color from "color";
 
