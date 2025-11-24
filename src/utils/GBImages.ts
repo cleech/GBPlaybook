@@ -22,11 +22,11 @@ const Lamps_back = new URL("../assets/cards/Lamps_Backs/Lamplighters_back.png", 
 const GBImages: Map<string, string> = new Map([
   [
     "Alchemists_back",
-    new URL("../assets/cards/Alchemists/GB-S4-Alchemists-19-02-01.png", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Alchemists-Back.png", import.meta.url).href,
   ],
   [
     "Alchemists_front",
-    new URL("../assets/cards/Alchemists/GB-S4-Alchemists-19-02-02.png", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Alchemists-Front.png", import.meta.url).href,
   ],
   ["Midas_back", Alchemists_back],
   [
@@ -113,11 +113,11 @@ const GBImages: Map<string, string> = new Map([
   ],
   [
     "Blacksmiths_back",
-    new URL("../assets/cards/Blacksmiths/GB-S4-Blacksmiths-20-03-01.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Blacksmiths-Back.png", import.meta.url).href,
   ],
   [
     "Blacksmiths_front",
-    new URL("../assets/cards/Blacksmiths/GB-S4-Blacksmiths-20-03-02.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Blacksmiths-Front.png", import.meta.url).href,
   ],
   ["Anvil_back", Blacksmiths_back],
   [
@@ -196,11 +196,11 @@ const GBImages: Map<string, string> = new Map([
   ],
   [
     "Brewers_back",
-    new URL("../assets/cards/Brewers/GB-S4-Brewers-20-03-01.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Brewers-Back.png", import.meta.url).href,
   ],
   [
     "Brewers_front",
-    new URL("../assets/cards/Brewers/GB-S4-Brewers-20-03-02.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Brewers-Front.png", import.meta.url).href,
   ],
   ["Tapper_back", Brewers_back],
   [
@@ -275,11 +275,11 @@ const GBImages: Map<string, string> = new Map([
   ],
   [
     "Butchers_back",
-    new URL("../assets/cards/Butchers/GB-S4-Butchers-19-08-01.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Butchers-Back.png", import.meta.url).href,
   ],
   [
     "Butchers_front",
-    new URL("../assets/cards/Butchers/GB-S4-Butchers-19-08-02.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Butchers-Front.png", import.meta.url).href,
   ],
   ["Ox_back", Butchers_back],
   ["Ox_front", new URL("../assets/cards/Butchers/GB-S4-Butchers-19-08-04.jpg", import.meta.url).href],
@@ -353,8 +353,8 @@ const GBImages: Map<string, string> = new Map([
     "Tenderiser_front",
     new URL("../assets/cards/Butchers/GB-S4-Butchers-19-08-32.jpg", import.meta.url).href,
   ],
-  ["Cooks_back", new URL("../assets/cards/Cooks/GB-S4-Cooks-19-08-01.jpg", import.meta.url).href],
-  ["Cooks_front", new URL("../assets/cards/Cooks/GB-S4-Cooks-19-08-02.jpg", import.meta.url).href],
+  ["Cooks_back", new URL("../assets/cards/GuildCards/Cooks-Back.png", import.meta.url).href],
+  ["Cooks_front", new URL("../assets/cards/GuildCards/Cooks-Front.png", import.meta.url).href],
   ["Wellington_back", Cooks_back],
   [
     "Wellington_front",
@@ -372,11 +372,11 @@ const GBImages: Map<string, string> = new Map([
   ["Sugar_front", new URL("../assets/cards/Cooks/GB-S4-Cooks-19-08-14.jpg", import.meta.url).href],
   [
     "Engineers_back",
-    new URL("../assets/cards/Engineers/GB-S4-Engineers-20-03-01.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Engineers-Back.png", import.meta.url).href,
   ],
   [
     "Engineers_front",
-    new URL("../assets/cards/Engineers/GB-S4-Engineers-20-03-02.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Engineers-Front.png", import.meta.url).href,
   ],
   ["Ballista_back", Engineers_back],
   [
@@ -450,11 +450,11 @@ const GBImages: Map<string, string> = new Map([
   ],
   [
     "Falconers_back",
-    new URL("../assets/cards/Falconers/GB-S4-Falconers-20-03-01.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Falconers-Back.png", import.meta.url).href,
   ],
   [
     "Falconers_front",
-    new URL("../assets/cards/Falconers/GB-S4-Falconers-20-03-02.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Falconers-Front.png", import.meta.url).href,
   ],
   ["Devana_back", Falconers_back],
   [
@@ -488,11 +488,11 @@ const GBImages: Map<string, string> = new Map([
   ],
   [
     "Farmers_back",
-    new URL("../assets/cards/Farmers/Farmers-back.png", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Farmers-Back.png", import.meta.url).href,
   ],
   [
     "Farmers_front",
-    new URL("../assets/cards/Farmers/Farmers-front.png", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Farmers-Front.png", import.meta.url).href,
   ],
   ["Grange_back", Farmers_back],
   [
@@ -568,11 +568,11 @@ const GBImages: Map<string, string> = new Map([
   ],
   [
     "Fishermen_back",
-    new URL("../assets/cards/Fishermen/GB-S4-Fishermen-19-08-01.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Fishermen-Back.png", import.meta.url).href,
   ],
   [
     "Fishermen_front",
-    new URL("../assets/cards/Fishermen/GB-S4-Fishermen-19-08-02.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Fishermen-Front.png", import.meta.url).href,
   ],
   ["Shark_back", Fishermen_back],
   [
@@ -651,11 +651,11 @@ const GBImages: Map<string, string> = new Map([
   ],
   [
     "Hunters_back",
-    new URL("../assets/cards/Hunters/GB-S4-Hunters-19-08-01.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Hunters-Back.png", import.meta.url).href,
   ],
   [
     "Hunters_front",
-    new URL("../assets/cards/Hunters/GB-S4-Hunters-19-08-02.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Hunters-Front.png", import.meta.url).href,
   ],
   ["Theron_back", Hunters_back],
   [
@@ -776,8 +776,8 @@ const GBImages: Map<string, string> = new Map([
   ["Mallet_front", new URL("../assets/cards/Masons/GB-S4-Masons-19-08-28.jpg", import.meta.url).href],
   ["Tower_back", Masons_back],
   ["Tower_front", new URL("../assets/cards/Masons/GB-S4-Masons-19-08-30.jpg", import.meta.url).href],
-  ["Miners_back", new URL("../assets/cards/Miners/GB-S4-Miners-20-03-01.jpg", import.meta.url).href],
-  ["Miners_front", new URL("../assets/cards/Miners/GB-S4-Miners-20-03-02.jpg", import.meta.url).href],
+  ["Miners_back", new URL("../assets/cards/GuildCards/Miners-Back.png", import.meta.url).href],
+  ["Miners_front", new URL("../assets/cards/GuildCards/Miners-Front.png", import.meta.url).href],
   ["Shaft_back", Miners_back],
   ["Shaft_front", new URL("../assets/cards/Miners/GB-S4-Miners-20-03-04.jpg", import.meta.url).href],
   ["Digger_back", Miners_back],
@@ -795,11 +795,11 @@ const GBImages: Map<string, string> = new Map([
   ["Spade_front", new URL("../assets/cards/Miners/GB-S4-Miners-20-03-14.jpg", import.meta.url).href],
   [
     "Morticians_back",
-    new URL("../assets/cards/Morticians/GB-S4-Morticians-19-08-01.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Morticians-Back.png", import.meta.url).href,
   ],
   [
     "Morticians_front",
-    new URL("../assets/cards/Morticians/GB-S4-Morticians-19-08-02.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Morticians-Front.png", import.meta.url).href,
   ],
   ["Obulus_back", Morticians_back],
   [
@@ -884,11 +884,11 @@ const GBImages: Map<string, string> = new Map([
   ],
   [
     "Navigators_back",
-    new URL("../assets/cards/Navigators/GB-S4-Navigators-20-03-01.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Navigators-Back.png", import.meta.url).href,
   ],
   [
     "Navigators_front",
-    new URL("../assets/cards/Navigators/GB-S4-Navigators-20-03-02.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Navigators-Front.png", import.meta.url).href,
   ],
   ["Windfinder_back", Navigators_back],
   [
@@ -920,8 +920,8 @@ const GBImages: Map<string, string> = new Map([
     "Horizon_front",
     new URL("../assets/cards/Navigators/GB-S4-Navigators-20-03-14.jpg", import.meta.url).href,
   ],
-  ["Order_back", new URL("../assets/cards/Order/GB-S4-Order-19-08-01.jpg", import.meta.url).href],
-  ["Order_front", new URL("../assets/cards/Order/GB-S4-Order-19-08-02.jpg", import.meta.url).href],
+  ["Order_back", new URL("../assets/cards/GuildCards/Order-Back.png", import.meta.url).href],
+  ["Order_front", new URL("../assets/cards/GuildCards/Order-Front.png", import.meta.url).href],
   ["sBrisket_back", Order_back],
   ["sBrisket_front", new URL("../assets/cards/Order/GB-S4-Order-19-08-04.jpg", import.meta.url).href],
   ["Pride_back", Order_back],
@@ -949,11 +949,11 @@ const GBImages: Map<string, string> = new Map([
   ["sSpigot_front", new URL("../assets/cards/Order/GB-S4-Order-19-08-18.jpg", import.meta.url).href],
   [
     "Ratcatchers_back",
-    new URL("../assets/cards/Ratcatchers/GB-S4-Ratcatchers-19-08-01.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Ratcatchers-Back.png", import.meta.url).href,
   ],
   [
     "Ratcatchers_front",
-    new URL("../assets/cards/Ratcatchers/GB-S4-Ratcatchers-19-08-02.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Ratcatchers-Front.png", import.meta.url).href,
   ],
   ["Piper_back", Ratcatchers_back],
   [
@@ -987,11 +987,11 @@ const GBImages: Map<string, string> = new Map([
   ],
   [
     "Shepherds_back",
-    new URL("../assets/cards/Shepherds/GB-S4-Shepherds-20-03-01.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Shepherds-Back.png", import.meta.url).href,
   ],
   [
     "Shepherds_front",
-    new URL("../assets/cards/Shepherds/GB-S4-Shepherds-20-03-02.jpg", import.meta.url).href,
+    new URL("../assets/cards/GuildCards/Shepherds-Front.png", import.meta.url).href,
   ],
   ["Herder_back", Shepherds_back],
   [
@@ -1028,8 +1028,8 @@ const GBImages: Map<string, string> = new Map([
     "Shearer_front",
     new URL("../assets/cards/Shepherds/GB-S4-Shepherds-20-03-16.jpg", import.meta.url).href,
   ],
-  ["Union_back", new URL("../assets/cards/Union/GB-S4-Union-20-03-01.jpg", import.meta.url).href],
-  ["Union_front", new URL("../assets/cards/Union/GB-S4-Union-20-03-02.jpg", import.meta.url).href],
+  ["Union_back", new URL("../assets/cards/GuildCards/Union-Back.png", import.meta.url).href],
+  ["Union_front", new URL("../assets/cards/GuildCards/Union-Front.png", import.meta.url).href],
   ["Blackheart_back", Union_back],
   [
     "Blackheart_front",
