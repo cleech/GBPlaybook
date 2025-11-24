@@ -373,6 +373,19 @@ export default function CardPrintScreen() {
             >
               Add All Model Cards
             </Button>
+            <Button
+              className={cx({ [css({ display: 'none' })]: !devMode })}
+              variant="text"
+              color="primary"
+              startIcon={<GroupAddTwoTone />}
+              onClick={() => {
+                ref.current?.guilds.forEach((control) => {
+                  control.setChecked(true);
+                });
+              }}
+            >
+              Add All Guild Cards
+            </Button>
           </Box>
         </Box>
 
