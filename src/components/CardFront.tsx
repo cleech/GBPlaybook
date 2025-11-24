@@ -8,12 +8,10 @@ import "./CardQuirks.css";
 import "./Lumberjacks.css";
 
 import { toClassName, CardText } from "./CardUtils";
-import Color from "color";
 
 import { Guild } from "./DataTypes";
 import { GBModelExpanded } from "../models/gbdbTypes";
-import { Observable, Subscription } from "rxjs";
-import { getSettings } from "../models/settings";
+import { Observable } from "rxjs";
 
 import { cx } from "@emotion/css";
 
@@ -27,7 +25,6 @@ interface CardFrontProps {
 
 export interface GBCardCSS extends CSSProperties {
   "--scale": number | string;
-  "--gbcp-color"?: string;
   "--mom-border-color"?: string;
   "--mom-color"?: string;
   "--team-color"?: string;
@@ -40,46 +37,14 @@ const CardFront = (props: CardFrontProps) => {
   const model = props.model;
   const key = model.id;
 
-  const [cardStyle, setStyle] = useState<"sfg" | "gbcp">("sfg");
-
-  useEffect(() => {
-    let sub: Subscription | undefined;
-    (async () => {
-      const setting$ = await getSettings();
-      sub = setting$.subscribe((s) => {
-        const settings = s?.toJSON();
-        setStyle(settings?.data.cardPreferences.preferredStyle || "sfg");
-      });
-    })();
-    return () => sub?.unsubscribe();
-  }, []);
-
-  const gbcp =
-    cardStyle === "gbcp" &&
-    (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
-
-  const image = gbcp
-    ? GBImages.get(`${key}_full`) ??
-    GBImages.get(`${key}_gbcp_front`) ??
-    GBImages.get(`${key}_front`)
-    : GBImages.get(`${key}_front`) ??
-    GBImages.get(`${key}_full`) ??
-    GBImages.get(`${key}_gbcp_front`);
+  const image = GBImages.get(`${key}_front`);
 
   return (
     <div
       lang={lang}
-      className={cx('card-front', key, { gbcp: gbcp }, props.className)}
+      className={cx('card-front', key, props.className)}
       style={{
         "--team-color": model.guild1.color,
-        /* not the best way to do this */
-        // "--gbcp-color": Color(model.guild2 ? model.guild2.color : guild1.color).mix(
-        //   Color.rgb(240, 230, 210),
-        //   0.9
-        // ),
-        "--gbcp-color": Color(model.guild1.shadow ?? model.guild1.color)
-          .mix(Color.rgb(254, 246, 227), 0.9)
-          .string(),
         "--guild1-color": model.guild1.color,
         "--guild2-color": model.guild2 ? model.guild2.color : undefined,
         "--mom-color": model.guild1.shadow,
@@ -88,14 +53,14 @@ const CardFront = (props: CardFrontProps) => {
         ...props.style,
       }}
     >
-      <div className={cx('overlay', { "gbcp": gbcp })}>
+      <div className={cx('overlay')}>
         <div className="font-top-box">
           <NamePlate model={model} guild={model.guild1} />
           <StatBox model={model} />
         </div>
-        <Playbook model={model} gbcp={gbcp} />
+        <Playbook model={model} />
         <div className="character-plays-wrapper">
-          <CharacterPlays model={model} gbcp={gbcp} />
+          <CharacterPlays model={model} />
         </div>
         <HealthBoxes model={model} health$={props.health$} />
       </div>
@@ -113,7 +78,6 @@ const NamePlate = ({
   <div className="name-plate">
     <div className="guild-icon">
       <GBIcon id="guild-icon" icon={guild.name} />
-      {/* <GBIcon id="guild-icon-gbcp" icon={`${guild.name}-GBCP`} /> */}
     </div>
     <div className="name-plate-right">
       <div className="name">
@@ -159,10 +123,8 @@ const HealthBoxes = ({
 
 const Playbook = ({
   model,
-  gbcp = false,
 }: {
   model: GBModelExpanded;
-  gbcp?: boolean;
 }) => (
   <div className="playbook">
     {model.playbook?.map((row, index) => {
@@ -176,19 +138,16 @@ const Playbook = ({
               {
                 "--col": col,
                 display: "flex",
-                flexDirection: gbcp ? "row" : "column",
+                flexDirection: "row",
                 // 0.15 is always safe; (sqrt(2)-1)/(2*sqrt(2))
                 // padding: "0.15em",
                 padding: "0.10em",
-                gap: gbcp ? 0 : "0.05em",
+                gap: "0.05em",
               } as CSSProperties
             }
           >
             {pb
               ? pb.split(",").map((p, index) => {
-                p = gbcp
-                  ? p.replace(/^CP$/, "CP-gbcp").replace(/^CP2$/, "CP2-gbcp")
-                  : p;
                 return <PB icon={p} key={index} />;
               })
               : null}
@@ -233,10 +192,8 @@ function CPName({ text }: { text: string }) {
 
 const CharacterPlays = ({
   model,
-  gbcp = false,
 }: {
   model: GBModelExpanded;
-  gbcp?: boolean;
 }) => (
   <div className="character-plays">
     <div className="header">
@@ -267,11 +224,11 @@ const CharacterPlays = ({
                   {idx > 0 && "/"}
                   {{
                     CP:
-                      <GBIcon icon={gbcp ? "ball" : "GB"} size='1em'
+                      <GBIcon icon={"GB"} size='1em'
                         style={{ verticalAlign: '-3px', }}
                       />,
                     CP2:
-                      <GBIcon icon={gbcp ? "trophy" : "GBT"} size='1em'
+                      <GBIcon icon={"GBT"} size='1em'
                         style={{ verticalAlign: '-3px', }}
                       />
                   }[s] || s}
