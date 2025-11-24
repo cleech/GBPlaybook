@@ -7,8 +7,6 @@ import "./CardBack.css";
 import "./CardQuirks.css";
 import "./Lumberjacks.css";
 
-import Color from "color";
-
 import { GBCardCSS } from "./CardFront";
 import { GBModelExpanded } from "../models/gbdbTypes";
 import { Subscription } from "rxjs";
@@ -29,7 +27,6 @@ const CardBack = (props: CardBackProps) => {
   const model = props.model;
   const key = model.id;
 
-  const [cardStyle, setStyle] = useState<"sfg" | "gbcp">("sfg");
   const [readable, setReadable] = useState<boolean>(false);
 
   useEffect(() => {
@@ -37,47 +34,32 @@ const CardBack = (props: CardBackProps) => {
     (async () => {
       const setting$ = await getSettings();
       sub = setting$.subscribe((s) => {
-        setStyle(s?.toJSON().data.cardPreferences.preferredStyle || "sfg");
         setReadable(s?.toJSON().data.cardPreferences.improveReadability || false);
       });
     })();
     return () => sub?.unsubscribe();
   }, []);
 
-  const gbcp =
-    cardStyle === "gbcp" &&
-    (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
-
-  const image = gbcp
-    ? GBImages.get(`${key}_full`) ??
-    GBImages.get(`${key}_gbcp_back`) ??
-    GBImages.get(`${key}_back`)
-    : GBImages.get(`${key}_back`) ??
-    GBImages.get(`${key}_full`) ??
-    GBImages.get(`${key}_gbcp_back`);
+  const image = GBImages.get(`${key}_back`);
 
   const clean_back = new URL("../assets/cards/clean_back.png", import.meta.url).href;
   const background = props.noBackground ? undefined :
-    ((!gbcp && readable) ? `url(${clean_back}), url(${image})` : `url(${image})`);
+    ((readable) ? `url(${clean_back}), url(${image})` : `url(${image})`);
 
   return (
     <div
       lang={lang}
-      className={cx('card-back', key, { 'gbcp': gbcp }, props.className)}
+      className={cx('card-back', key, props.className)}
       // ref={targetRef}
       style={{
         "--team-color": model.guild1.color,
-        "--gbcp-color": Color(model.guild1.shadow ?? model.guild1.color).mix(
-          Color.rgb(254, 246, 227),
-          0.9
-        ),
         "--mom-color": model.guild1.shadow,
         "--mom-border-color": model.guild1.darkColor,
         backgroundImage: background,
         ...props.style,
       }}
     >
-      <div className={cx('overlay', { 'gbcp': gbcp })}>
+      <div className={cx('overlay')}>
         <div className="container">
           <div className="name-plate">
             <div className="guild-icon">
@@ -97,7 +79,7 @@ const CardBack = (props: CardBackProps) => {
           <div className="tags">{model.types}</div>
           <div className="right">
             <div className="icons">
-              <FooterIcon icon={gbcp ? "gbcp" : "GB"} />
+              <FooterIcon icon={"GB"} />
               <div className="icon wrapper">
                 <div
                   style={{
@@ -132,7 +114,7 @@ const CardBack = (props: CardBackProps) => {
             fontSize: "calc(5pt * 200/96)",
             textAlign: "center",
             color: "white",
-            display: (model.guild1.name === "Lamplighters" || gbcp) ? "none" : "block",
+            display: (model.guild1.name === "Lamplighters") ? "none" : "block",
           }}
         >
           ™ & © Steamforged Games LTD 2025

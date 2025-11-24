@@ -1,37 +1,14 @@
-import {
-  useState,
-  JSX,
-  useEffect,
-} from "react";
+import { JSX, } from "react";
 import { CardFront } from "./CardFront";
 import { CardBack } from "./CardBack";
-import GBImages from "../utils/GBImages";
 import { GBModelExpanded } from "../models/gbdbTypes";
-import { Subscription } from "rxjs";
-import { getSettings } from "../models/settings";
 import useScaleRef from "../hooks/useScaleRef";
 
 export function DoubleCard({ model }: { model: GBModelExpanded }): JSX.Element {
-  const [cardStyle, setStyle] = useState<"sfg" | "gbcp">("sfg");
-
-  useEffect(() => {
-    let sub: Subscription | undefined;
-    (async () => {
-      const setting$ = await getSettings();
-      sub = setting$.subscribe((s) => {
-        setStyle(s?.toJSON().data.cardPreferences.preferredStyle || "sfg");
-      });
-    })();
-    return () => sub?.unsubscribe();
-  }, []);
 
   const [scale, layoutRef] = useScaleRef<HTMLDivElement>(1000, 700);
 
-  const key = model.id;
-  const gbcp =
-    cardStyle === "gbcp" &&
-    (GBImages.has(`${key}_gbcp_front`) || GBImages.has(`${key}_full`));
-  const image = gbcp ? GBImages.get(`${key}_full`) ?? undefined : undefined;
+  const image = undefined;
 
   return (
     <div

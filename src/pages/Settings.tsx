@@ -191,25 +191,6 @@ const Settings = () => {
         })} />
 
       <p />
-      <Typography>Prefered Card Layout:</Typography>
-      <Typography variant="subtitle2">
-        (Only applies to updated cards, where both styles are available)
-      </Typography>
-
-      <FormControl>
-        <Select
-          value={settingsDoc?.toJSON().data.cardPreferences.preferredStyle}
-          onChange={(event: SelectChangeEvent) => {
-            settingsDoc?.incrementalModify((s) => {
-              s.cardPreferences.preferredStyle = event.target.value as "sfg" | "gbcp";
-              return s;
-            });
-          }}
-        >
-          <MenuItem value="sfg">Steamforged</MenuItem>
-          <MenuItem value="gbcp">Community</MenuItem>
-        </Select>
-      </FormControl>
     </Box>
   );
 };
