@@ -42,23 +42,6 @@ div.card-back.bleed > .overlay {
   right: calc(25px * var(--scale));
 }
 
-/* no print bleed on these */
-div.card-back.gbcp {
-  box-sizing: border-box;
-  background-size: 100%;
-  background-origin: content-box;
-}
-div.card-back.gbcp > .overlay {
-  box-sizing: content-box;
-}
-div.card-back.gbcp.bleed {
-  padding: calc(25px * var(--scale));
-  background-color: var(--mom-color, var(--team-color));
-}
-div.card-back.gbcp.double.bleed {
-  padding-left: unset;
-}
-
 .card-back .container {
   position: absolute;
   top: 23px;
@@ -72,29 +55,11 @@ div.card-back.gbcp.double.bleed {
   flex-direction: column;
 }
 
-.card-back.gbcp .container {
-  position: absolute;
-  top: 16px;
-  margin-left: 91px;
-  margin-right: 9px;
-  width: unset;
-  height: unset;
-  min-height: 565px;
-  padding: 5px 4px 0;
-  border: 2px solid black;
-  border-radius: 5px;
-  background-color: var(--gbcp-color);
-}
-
 .card-back .name-plate {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 40px;
-}
-
-.card-back.gbcp .name-plate {
-  display: none;
 }
 
 /* icon placement and styling */
@@ -256,29 +221,11 @@ div.card-back.gbcp.double.bleed {
   justify-content: space-between;
 }
 
-.card-back.gbcp .footer {
-  position: absolute;
-  top: 612px;
-  left: 91px;
-  right: 9px;
-  bottom: 16px;
-  height: unset;
-  width: unset;
-  padding: 0 4px;
-  border: 2px solid black;
-  border-radius: 5px;
-  background-color: var(--gbcp-color);
-}
-
 .card-back .footer .tags {
   margin-top: 3px;
   line-height: 1em;
   text-align: left;
   white-space: pre-wrap;
-}
-
-.card-back.gbcp .footer .tags {
-  font-size: 18px;
 }
 
 .card-back .footer .right {
@@ -307,10 +254,6 @@ div.card-back.gbcp.double.bleed {
   display: flex;
   place-content: center;
   place-items: center;
-}
-
-.card-back.gbcp .footer .icons .wrapper {
-  background-color: transparent;
 }
 
 .card-back .footer .icons svg {
