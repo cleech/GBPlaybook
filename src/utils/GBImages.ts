@@ -17,7 +17,7 @@ const Order_back = new URL("../assets/cards/Order/Order_back.jpg", import.meta.u
 const Ratcatchers_back = new URL("../assets/cards/Ratcatchers/GB-S4-Ratcatchers-19-08-03.jpg", import.meta.url).href;
 const Shepherds_back = new URL("../assets/cards/Shepherds/GB-S4-Shepherds-20-03-03.jpg", import.meta.url).href;
 const Union_back = new URL("../assets/cards/Union/GB-S4-Union-20-03-03.jpg", import.meta.url).href;
-const Lamps_back = new URL("../assets/cards/Lamps_Backs/Lamplighters_back.png", import.meta.url).href;
+const Lamps_back = new URL("../assets/cards/Lamps_Backs/Lamplighters_back.jpg", import.meta.url).href;
 
 const GBImages: Map<string, string> = new Map([
   [
@@ -1094,19 +1094,19 @@ const GBImages: Map<string, string> = new Map([
   ["Tinder_front", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Tinder.png", import.meta.url).href],
 
   /* Lamplighters in SFG style */
-  ["Beacon_front", new URL("../assets/cards/Lamps_Backs/Lamplighters_Beacon.png", import.meta.url).href],
+  ["Beacon_front", new URL("../assets/cards/Lamps_Backs/Lamplighters_Beacon.jpg", import.meta.url).href],
   ["Beacon_back", Lamps_back],
-  ["Heat_front", new URL("../assets/cards/Lamps_Backs/Lamplighters_Heat.png", import.meta.url).href],
+  ["Heat_front", new URL("../assets/cards/Lamps_Backs/Lamplighters_Heat.jpg", import.meta.url).href],
   ["Heat_back", Lamps_back],
-  ["Nightlight_front", new URL("../assets/cards/Lamps_Backs/Lamplighters_Nightlight.png", import.meta.url).href],
+  ["Nightlight_front", new URL("../assets/cards/Lamps_Backs/Lamplighters_Nightlight.jpg", import.meta.url).href],
   // ["Nightlight_front", new URL("../assets/cards/Lamps_Backs/nightlight_smallbox.jpg", import.meta.url).href],
   ["Nightlight_back", Lamps_back],
-  ["Phosphor_front", new URL("../assets/cards/Lamps_Backs/Lamplighters_Phosphor.png", import.meta.url).href],
+  ["Phosphor_front", new URL("../assets/cards/Lamps_Backs/Lamplighters_Phosphor.jpg", import.meta.url).href],
   // ["Phosphor_front", new URL("../assets/cards/Lamps_Backs/phosphor_smallbox.jpg", import.meta.url).href],
   ["Phosphor_back", Lamps_back],
-  ["Soot_front", new URL("../assets/cards/Lamps_Backs/Lamplighters_Soot.png", import.meta.url).href],
+  ["Soot_front", new URL("../assets/cards/Lamps_Backs/Lamplighters_Soot.jpg", import.meta.url).href],
   ["Soot_back", Lamps_back],
-  ["Wick_front", new URL("../assets/cards/Lamps_Backs/Lamplighters_Wick.png", import.meta.url).href],
+  ["Wick_front", new URL("../assets/cards/Lamps_Backs/Lamplighters_Wick.jpg", import.meta.url).href],
   ["Wick_back", Lamps_back],
 ]);
 export default GBImages;
