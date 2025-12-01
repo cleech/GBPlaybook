@@ -274,7 +274,7 @@ div.card-back.gbcp.double.bleed {
   margin-top: 3px;
   line-height: 1em;
   text-align: left;
-  white-space: pre-wrap;
+  white-space: pre;
 }
 
 .card-back.gbcp .footer .tags {
