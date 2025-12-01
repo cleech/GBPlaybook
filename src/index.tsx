@@ -37,6 +37,7 @@ const Roster = lazy(() => import("./pages/Library/Roster"));
 
 const Settings = lazy(() => import("./pages/Settings"));
 const CardPrintScreen = lazy(() => import("./pages/Print"));
+const DataScreen = lazy(() => import("./pages/DataTable"));
 
 import type { SettingsDoc } from "./models/settings";
 import { defaultSettings } from "./models/defaultSettings";
@@ -174,6 +175,20 @@ const router = createBrowserRouter(
               return async () => {
                 const { gbdb: db } = await initializeAppData();
                 return await sortedGuilds(db);
+              }
+            }
+          }
+        },
+        {
+          path: "data", element: <DataScreen />,
+          lazy: {
+            loader: async () => {
+              const initializeAppData = (await import("./components/appData")).initializeAppData;
+              return async () => {
+                const { gbdb: db } = await initializeAppData();
+                const _models = await db.models.find().exec();
+                const models = await Promise.all(_models.map((m) => m.expand()));
+                return models;
               }
             }
           }
