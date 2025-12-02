@@ -172,7 +172,7 @@ export default function DownloadDialog() {
   </>)
 }
 
-import workerUrl from 'modern-screenshot/worker?url';
+// import workerUrl from 'modern-screenshot/worker?url';
 
 async function getCanvasBlob(canvas: HTMLCanvasElement, type?: string): Promise<Blob> {
   return new Promise((resolve, reject) => {
@@ -222,8 +222,8 @@ async function downloadCards(
 
   const context = await ScreenShot.createContext(container, {
     debug: debug,
-    workerUrl,
-    workerNumber: 1,
+    // workerUrl,
+    // workerNumber: 1,
     scale: (height / (withBleed ? 750 : 700)),
   })
   context.svgStyleElement?.appendChild(document.createTextNode(
