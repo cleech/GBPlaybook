@@ -226,13 +226,15 @@ async function downloadCards(
     // workerNumber: 1,
     scale: (height / (withBleed ? 750 : 700)),
   })
-  context.svgStyleElement?.appendChild(document.createTextNode(
-    '.dropcap span::first-letter { vertical-align: -7.5%; }'
-  ));
 
   const zip = new JSZip();
 
   for (let i = 0; i < elements.length; i += windowSize) {
+
+    context.svgStyleElement?.appendChild(document.createTextNode(
+      '.dropcap span::first-letter { vertical-align: -7.5%; }'
+    ));
+
     const window = elements.slice(i, i + windowSize);
 
     for (const el of window) {
