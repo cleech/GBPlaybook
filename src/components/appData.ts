@@ -270,8 +270,15 @@ export async function initializeAppData(): Promise<
     const gbdb = await getGBDatabase();
     await bulkLoadDB(finalFilenameToLoad, manifest, dataFile);
 
-    const gameplansFile = manifest.gameplans[0].filename;
-    const gameplanYear = manifest.gameplans[0].version;
+    const gameplansEntry = manifest.gameplans[0];
+    const gameplanYear = gameplansEntry.version;
+    let gameplansFile = gameplansEntry.filename;
+
+    if (effectiveLanguage && gameplansEntry.translations?.[effectiveLanguage]) {
+      console.log(`Using translated gameplans file (${effectiveLanguage})`);
+      gameplansFile = gameplansEntry.translations[effectiveLanguage].filename;
+    }
+
     const gameplans: Gameplan[] = await readFile(gameplansFile);
 
     console.log("Application data initialization complete.");
