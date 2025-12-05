@@ -51,41 +51,32 @@ for dataFile in "$@"; do
          def update_entry($ts; $sh):
            (.timestamp |= ($ts|todate) | .sha256 |= $sh);
 
+         # Define a function to update an array of entries (datafiles or gameplans)
+         def update_array:
+           map(
+             if .filename == $dataFile then
+               update_entry($mtime; $sha)
+             elif (.translations | type == "object") then
+               .translations |= map_values(
+                 if .filename == $dataFile then
+                   update_entry($mtime; $sha)
+                 else
+                   .
+                 end
+               )
+             else
+               .
+             end
+           );
+
          # 1. Update the top-level timestamp
          (.timestamp |= (now|todate)) |
 
          # 2. Conditionally process either the gameplans or datafiles array
          if ($dataFile | test("^gameplans-.*\\.json$")) then
-           (.gameplans |= map(
-             if .filename == $dataFile then
-               update_entry($mtime; $sha)
-             else
-               .
-             end
-           ))
+           .gameplans |= update_array
          else
-           (.datafiles |= map(
-             # Check if the top-level filename matches
-             if .filename == $dataFile then
-               # Update this top-level entry
-               update_entry($mtime; $sha)
-             # Else, check if translations exist and is an object
-             elif (.translations | type == "object") then
-               # Try to update within the translations map
-               .translations |= map_values(
-                 if .filename == $dataFile then
-                   # Update this translation entry
-                   update_entry($mtime; $sha)
-                 else
-                   # Keep other translations unchanged
-                   .
-                 end
-               )
-             # Else, no match found here, keep the entry unchanged
-             else
-               .
-             end
-           ))
+           .datafiles |= update_array
          end
        ' \
        manifest.json > "${TMP}"
