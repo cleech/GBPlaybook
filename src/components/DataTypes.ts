@@ -87,6 +87,13 @@ export interface Manifest {
     filename: string;
     sha256: string;
     timestamp: string;
+    translations?: {
+      [key: string]: {
+        filename: string;
+        sha256: string;
+        timestamp: string;
+      };
+    };
   }[];
 }
 

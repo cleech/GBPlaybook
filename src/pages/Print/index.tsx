@@ -53,8 +53,12 @@ import PrintSettingsMenu from "./components/PrintSettingsMenu";
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { GroupAddTwoTone } from "@mui/icons-material";
 
+const titleToId = (title: string) => {
+  return 'id-' + Array.from(title).map(c => c.charCodeAt(0).toString(16)).join('');
+}
+
 export default function CardPrintScreen() {
-  const { gbdb: db, manifest } = useData();
+  const { gbdb: db, manifest, lang } = useData();
   const ref = useRef<{
     models: Map<string, ModelCheckBoxRef>;
     guilds: Map<string, GuildCheckBoxRef>;
@@ -122,8 +126,12 @@ export default function CardPrintScreen() {
       const results: { year: number; cards: Gameplan[] }[] = [];
       for (const gp of manifest.gameplans) {
         try {
-          const res = await fetch(`/data/${gp.filename}`);
-          if (!res.ok) throw new Error(`Failed to fetch ${gp.filename}`);
+          let filename = gp.filename;
+          if (lang && gp.translations && gp.translations[lang]) {
+            filename = gp.translations[lang].filename;
+          }
+          const res = await fetch(`/data/${filename}`);
+          if (!res.ok) throw new Error(`Failed to fetch ${filename}`);
           const cards = await res.json();
           if (!canceled) {
             results.push({ year: gp.version, cards });
@@ -141,7 +149,7 @@ export default function CardPrintScreen() {
     return () => {
       canceled = true;
     };
-  }, [manifest]);
+  }, [manifest, lang]);
 
   useEffect(() => {
     if (!db) {
@@ -715,7 +723,7 @@ const GameplanCheckBox = (props: { g: Gameplan, year: number, ref: React.Ref<Gam
       setChecked: (value: boolean) => {
         if (checked !== value) {
           setChecked(value);
-          DisplayModel(props.g.title.replace(/[^a-zA-Z0-9]+/g, ""));
+          DisplayModel(titleToId(props.g.title));
         }
       },
     }),
@@ -733,7 +741,7 @@ const GameplanCheckBox = (props: { g: Gameplan, year: number, ref: React.Ref<Gam
       className={cl(
         modelCheckbox,
         `gameplans-${year}`,
-        g.title.replace(/[^a-zA-Z0-9]/g, ""),
+        titleToId(g.title),
         hide
       )}
       style={
@@ -744,7 +752,7 @@ const GameplanCheckBox = (props: { g: Gameplan, year: number, ref: React.Ref<Gam
       }
       onChange={() => {
         setChecked(!checked);
-        DisplayModel(props.g.title.replace(/[^a-zA-Z0-9]+/g, ""));
+        DisplayModel(titleToId(props.g.title));
       }}
     />
   );
@@ -1228,7 +1236,7 @@ const GameplanPrintCard = (props: { gameplan: Gameplan; year: number; bleed: boo
     <div
       ref={ref}
       className={cl('card', { 'bleed': bleed }, { [hide]: !inView })}
-      id={gameplan.title.replace(/[^A-Za-z0-9]+/g, "")}
+      id={titleToId(gameplan.title)}
       style={{
         width: width,
         height: height,
