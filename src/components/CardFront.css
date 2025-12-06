@@ -257,7 +257,7 @@ div.card-front.bleed > .overlay {
   }
 }
 
-.card-front[lang|="zh"] .character-plays em {
+.card-front:lang(zh) .character-plays em {
   font-style: normal;
 }
 
@@ -321,7 +321,7 @@ div.card-front.bleed > .overlay {
   }
 }
 
-.card-front[lang|="zh"] .character-plays .play .text {
+.card-front:lang(zh) .character-plays .play .text {
   font-size: var(--zh-font-size);
   line-height: var(--zh-line-height);
   letter-spacing: unset;

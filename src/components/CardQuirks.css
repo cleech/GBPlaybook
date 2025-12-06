@@ -15,87 +15,87 @@
 
 /* Make play and trait text fit */
 
-.Midas[lang|="en"] .MidasTouch .text {
+.Midas:lang(en) .MidasTouch .text {
   ::first-line { letter-spacing: normal }
   letter-spacing: -0.2px;
 }
-.Smoke[lang|="en"] .Infuse .text,
-.Smoke[lang|="fr"] .Infuse .text {
+.Smoke:lang(en) .Infuse .text,
+.Smoke:lang(fr) .Infuse .text {
   ::first-line { letter-spacing: -0.5px; }
   letter-spacing: -1px;
 }
 
-.Burnish[lang="fr"] .character-plays .flex-space {
+.Burnish:lang(fr) .character-plays .flex-space {
   max-height: 0.1em !important;
 }
 
-.Siren[lang="fr"] .character-plays .flex-space {
+.Siren:lang(fr) .character-plays .flex-space {
   max-height: 0.1em !important;
 }
 
-.Skatha[lang|="fr"] .ColdSnap .text {
+.Skatha:lang(fr) .ColdSnap .text {
   ::first-line { letter-spacing: normal; }
   letter-spacing: -0.2px;
 }
 
-.Nightlight[lang="fr"] .character-trait .text {
+.Nightlight:lang(fr) .character-trait .text {
   letter-spacing: -0.2px;
 }
 
-.Oak[lang|="en"] .CaberToss .text {
+.Oak:lang(en) .CaberToss .text {
   letter-spacing: -0.2px;
 }
-.Oak[lang|="fr"] .CaberToss .text {
+.Oak:lang(fr) .CaberToss .text {
   font-size: calc(6.7pt * 200/96);
   letter-spacing: -0.2px;
 }
-.Itsa[lang|="fr"] .MarkedforFelling .text {
+.Itsa:lang(fr) .MarkedforFelling .text {
   letter-spacing: -0.2px;
 }
-.Tinder[lang|="en"] .SwipeRight .text {
+.Tinder:lang(en) .SwipeRight .text {
   letter-spacing: -0.2px;
 }
 
-.Casket[lang="fr"] .HeavyBurden .text {
+.Casket:lang(fr) .HeavyBurden .text {
   letter-spacing: -0.2px;
 }
-.Silence[lang|="en"] .character-plays .text {
+.Silence:lang(en) .character-plays .text {
   font-size: calc(6.7pt * 200/96);
 }
-.Silence[lang|="en"] .FireBlast .text {
+.Silence:lang(en) .FireBlast .text {
   ::first-line { letter-spacing: normal; }
   letter-spacing: -0.4px;
 }
-.Silence[lang|="fr"] .character-plays .text {
+.Silence:lang(fr) .character-plays .text {
   font-size: calc(6.7pt * 200/96);
   letter-spacing: -0.2px;
 }
 
-.Smoke[lang|="zh"] .character-plays .play .text {
+.Smoke:lang(zh) .character-plays .play .text {
   font-size: calc(6.6pt * 200/96);
   line-height: 1.5;
 }
-.Skatha[lang|="zh"].card-front .character-plays .text {
+.Skatha:lang(zh).card-front .character-plays .text {
   font-size: calc(6.8pt * 200/96);
 }
-.Hammer[lang|="zh"].card-front .flex-space {
+.Hammer:lang(zh).card-front .flex-space {
   max-height: 0.2em !important;
 }
-.Hammer[lang|="zh"].card-back :is(.text, .legendary) {
+.Hammer:lang(zh).card-back :is(.text, .legendary) {
   font-size: calc(6.7pt * 200/96);
   line-height: 1.4;
 }
-.Mourn[lang|="zh"].card-front .flex-space {
+.Mourn:lang(zh).card-front .flex-space {
   max-height: 0.2em !important;
 }
-.Casket[lang|="zh"].card-front .flex-space {
+.Casket:lang(zh).card-front .flex-space {
   max-height: 0.2em !important;
 }
-.vRage[lang|="zh"].card-back :is(.text, .heroic, .legendary) {
+.vRage:lang(zh).card-back :is(.text, .heroic, .legendary) {
   font-size: calc(6.7pt * 200/96);
   line-height: 1.4;
 }
-.Bucker[lang|="zh"].card-front .flex-space {
+.Bucker:lang(zh).card-front .flex-space {
   max-height: 0.2em !important;
 }
 
