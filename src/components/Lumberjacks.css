@@ -1,103 +1,103 @@
 /* while waiting on better cards ... */
 
-.Oak.card-front:not([lang="en"]) {
+.Oak.card-front:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_front.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-Oak.png)
     !important;
 }
-.Oak.card-back:not([lang="en"]) {
+.Oak.card-back:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_back.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-Oak2.png)
     !important;
 }
-.Chipper.card-front:not([lang="en"]) {
+.Chipper.card-front:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_front_short.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-Chipper.png)
     !important;
 }
-.Chipper.card-back:not([lang="en"]) {
+.Chipper.card-back:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_back.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-Chipper2.png)
     !important;
 }
-.Bucker.card-front:not([lang="en"]) {
+.Bucker.card-front:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_front_short.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-Bucker.png)
     !important;
 }
-.Bucker.card-back:not([lang="en"]) {
+.Bucker.card-back:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_back.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-Bucker2.png)
     !important;
 }
-.CrossCut.card-front:not([lang="en"]) {
+.CrossCut.card-front:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_front_short.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-CrossCut.png)
     !important;
 }
-.CrossCut.card-back:not([lang="en"]) {
+.CrossCut.card-back:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_back.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-CrossCut2.png)
     !important;
 }
-.Cross.card-front:not([lang="en"]) {
+.Cross.card-front:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_front_short.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-Cross.png)
     !important;
 }
-.Cross.card-back:not([lang="en"]) {
+.Cross.card-back:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_back.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-Cross2.png)
     !important;
 }
-.Cut.card-front:not([lang="en"]) {
+.Cut.card-front:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_front_short.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-Cut.png)
     !important;
 }
-.Cut.card-back:not([lang="en"]) {
+.Cut.card-back:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_back.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-Cut2.png)
     !important;
 }
-.Itsa.card-front:not([lang="en"]) {
+.Itsa.card-front:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_front.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-Itsa.png)
     !important;
 }
-.Itsa.card-back:not([lang="en"]) {
+.Itsa.card-back:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_back.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-Itsa2.png)
     !important;
 }
-.Tinder.card-front:not([lang="en"]) {
+.Tinder.card-front:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_front.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-Tinder.png)
     !important;
 }
-.Tinder.card-back:not([lang="en"]) {
+.Tinder.card-back:not(:lang(en)) {
   background-image:
     url(/src/assets/cards/clean_back.png),
     url(/src/assets/cards/Lumberjacks/GB-S4-Lumberjacks-Tinder2.png)
     !important;
 }
 
-:is(.Oak,.Chipper,.Bucker,.CrossCut,.Cross,.Cut,.Itsa,.Tinder)[lang="en"] {
+:is(.Oak,.Chipper,.Bucker,.CrossCut,.Cross,.Cut,.Itsa,.Tinder):lang(en) {
   .overlay > :not(.health) {
     /* color: red; */
     display: none !important;
