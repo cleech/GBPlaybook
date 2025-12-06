@@ -1,5 +1,5 @@
 DATAFILES := $(wildcard GB-Playbook-*.json)
-GAMEPLANS := gameplans-2018.json gameplans-2019.json gameplans-2025.json
+GAMEPLANS := $(wildcard gameplans-*.json)
 
 all: manifest.yaml $(GAMEPLANS)
 
