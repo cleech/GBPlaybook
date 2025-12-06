@@ -12,6 +12,7 @@ import useScaleRef from "../hooks/useScaleRef";
 import { css, cx } from '@emotion/css';
 
 import Markdown from "react-markdown";
+import { useData } from "../hooks/useData";
 
 interface CardCSS extends CSSProperties {
   "--scale"?: number | string;
@@ -30,9 +31,11 @@ export const GameplanFront = (props: {
 }) => {
   const gameplan = props.gameplan;
   const nf = new Intl.NumberFormat("en-US", { signDisplay: "always" });
+  const { lang } = useData();
 
   return (
     <div
+      lang={lang}
       className={cx('card-front', { 'bleed': props.bleed })}
       style={{
         width: "100%",
@@ -54,13 +57,13 @@ export const GameplanFront = (props: {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            fontFamily: "Calluna-Regular",
+            fontFamily: "Calluna-Regular, Noto Serif SC",
             // letterSpacing: "-1px",
           }}
         >
           <div
             className={css({
-              fontFamily: "IM Fell Great Primer SC",
+              fontFamily: "IM Fell Great Primer SC, Noto Serif SC",
               letterSpacing: "-1px",
               fontSize: "33.33pt",
               display: "flex",
@@ -103,6 +106,12 @@ export const GameplanFront = (props: {
               '.detail#WHATASTRIKE': { fontSize: 'calc(8.5pt * 200/96)' },
               p: { margin: '0.5em' },
               ul: { margin: 0, display: 'flex', flexDirection: 'column' },
+              '&:lang(zh)': {
+                p: { margin: '0.25em 0.5em' },
+                fontSize: "var(--zh-font-size)",
+                lineHeight: "1.4",
+                letterSpacing: "unset",
+              },
             })}
           >
             <div
