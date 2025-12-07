@@ -4,6 +4,7 @@ import { AppBarContent } from "../AppContent";
 
 import {
   MaterialReactTable,
+  MRT_FilterFns,
   useMaterialReactTable,
   type MRT_ColumnDef,
 } from 'material-react-table';
@@ -65,15 +66,14 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
         </div >
         {`  (${row.subRows?.length})`}
       </span>
-    )
+    ),
   },
   {
     header: 'HP',
     accessorKey: 'hp',
     size: 116,
     aggregationFn: 'median',
-    AggregatedCell: ({ cell }) => `Average: ${cell.getValue<number>().toFixed(0)}`
-    ,
+    AggregatedCell: ({ cell }) => `Average: ${cell.getValue<number>().toFixed(0)}`,
   },
   {
     header: 'Recovery',
@@ -104,7 +104,18 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
     Cell: ({ cell }) => {
       const [jog, sprint] = cell.getValue<number[]>();
       return `${jog}" / ${sprint}"`;
+    },
+    filterVariant: 'range-slider',
+    filterFn: (row, _id, filterValues: [number, number, number, number]) => {
+      console.dir(filterValues);
+      const jog = row.original.jog;
+      const sprint = row.original.sprint;
+      return (
+        (jog >= filterValues[0] && jog <= filterValues[1]) &&
+        (sprint >= filterValues[2] && sprint <= filterValues[3])
+      );
     }
+    // muiFilterSliderProps: { },
   },
   {
     header: 'TAC',
