@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Typography, useMediaQuery } from "@mui/material";
 import { useLoaderData } from "react-router-dom";
 import { AppBarContent } from "../AppContent";
 
@@ -221,6 +221,13 @@ const fuzzyArrIncludes: FilterFn<any> = (row, columnId, filterValue, addMeta) =>
 
 export default function DataScreen() {
   const data = useLoaderData<GBModelExpanded[]>();
+
+  /* these need to match material-data-table/MRT_TopToolbar */
+  const isTablet = useMediaQuery('(max-width:1024px)');
+  const isMobile = useMediaQuery('(max-width:720px)');
+  /* had to figure this out one myself */
+  const willSearchWrap = useMediaQuery('(max-width:551px)');
+
   const table = useMaterialReactTable({
     data,
     columns,
@@ -236,8 +243,6 @@ export default function DataScreen() {
     enableColumnOrdering: true,
     enableStickyHeader: true,
 
-    // enableRowVirtualization: true,
-
     /* Things I want off */
     enablePagination: false,
     enableBottomToolbar: false,
@@ -250,7 +255,8 @@ export default function DataScreen() {
 
     initialState: {
       sorting: [{ id: 'name', desc: false }],
-      // grouping: ['guild'], expanded: true,
+      // grouping: ['guild'],
+      // expanded: true,
       columnPinning: { left: ['mrt-row-expand', 'name'] },
       columnVisibility: {
         'playbook': false,
@@ -262,19 +268,34 @@ export default function DataScreen() {
       },
     },
 
-    muiTableContainerProps: ({ table }) => (
-      table.getState().isFullScreen ?
-        { sx: { height: 'calc(100dvh - 56px)' } } :
-        { sx: { height: 'calc(100dvh - 104px - 2rem)' } }
-    ),
     muiTablePaperProps: ({ table }) => (
-      table.getState().isFullScreen ? {} : { sx: { borderRadius: '1em' } }
+      table.getState().isFullScreen ? {} : {
+        sx: {
+          margin: '1rem',
+          borderRadius: '1em',
+        }
+      }
     ),
-    muiToolbarAlertBannerProps: { slotProps: { message: { sx: { padding: 0 } } } },
+    muiTableContainerProps: ({ table }) => {
+      const state = table.getState();
+      /* I really hate this */
+      let toolbarHeight = 56;
+      if (state.showAlertBanner || state.grouping.length) {
+        toolbarHeight += 8;
+        if (isMobile || (isTablet && state.showGlobalFilter)) {
+          toolbarHeight += 56;
+        }
+      }
+      if (state.showGlobalFilter && willSearchWrap) { toolbarHeight += 48; }
+      return table.getState().isFullScreen ? {} : {
+        sx: { maxHeight: `calc(100dvh - 48px - ${toolbarHeight}px - 2rem)`, }
+      }
+    },
+    // muiToolbarAlertBannerProps: { slotProps: { message: { sx: { padding: 0 } } } },
   });
 
   return (
-    <Box component={"main"} sx={{ padding: '1rem' }} >
+    <Box component={"main"}>
       <AppBarContent>
         <Breadcrumbs>
           <Typography>Data Table</Typography>
