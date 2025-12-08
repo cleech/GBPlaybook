@@ -6,17 +6,22 @@ interface DoubleRangeSliderProps<TData extends Record<string, any>> {
   column: MRT_Column<TData>;
   table: MRT_TableInstance<TData>;
   labels?: [string, string];
+  manualRanges?: [[number, number], [number, number]];
 }
 
 export const DoubleRangeSlider = <TData extends Record<string, any>>({
   column,
   table,
   labels = ['Range 1', 'Range 2'],
+  manualRanges,
 }: DoubleRangeSliderProps<TData>) => {
   const { getPreFilteredRowModel } = table;
   const { id: columnId } = column;
 
   const [min1, max1, min2, max2] = useMemo(() => {
+    if (manualRanges) {
+      return [manualRanges[0][0], manualRanges[0][1], manualRanges[1][0], manualRanges[1][1]];
+    }
     let min1 = Infinity, max1 = -Infinity;
     let min2 = Infinity, max2 = -Infinity;
 
@@ -29,7 +34,7 @@ export const DoubleRangeSlider = <TData extends Record<string, any>>({
     });
     return [min1, max1, min2, max2];
 
-  }, [getPreFilteredRowModel, columnId]);
+  }, [getPreFilteredRowModel, columnId, manualRanges]);
 
   const columnFilterValue = column.getFilterValue() as [number, number, number, number] | undefined;
 

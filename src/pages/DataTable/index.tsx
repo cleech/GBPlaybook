@@ -9,6 +9,12 @@ import {
   type MRT_ColumnDef,
 } from 'material-react-table';
 
+declare module 'material-react-table' {
+  interface MRT_ColumnDef<TData extends Record<string, any>> {
+    manualRanges?: [[number, number], [number, number]];
+  }
+}
+
 import { FilterFn } from '@tanstack/react-table';
 import { rankItem } from '@tanstack/match-sorter-utils';
 
@@ -106,7 +112,8 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
       const [jog, sprint] = cell.getValue<number[]>();
       return `${jog}" / ${sprint}"`;
     },
-    Filter: (props) => <DoubleRangeSlider {...props} labels={['Jog', 'Sprint']} />,
+    manualRanges: [[0, 10], [0, 12]],
+    Filter: (props) => <DoubleRangeSlider {...props} labels={['Jog', 'Sprint']} manualRanges={props.column.columnDef.manualRanges} />,
     filterFn: (row, _id, filterValues: [number, number, number, number]) => {
       const jog = row.original.jog;
       const sprint = row.original.sprint;
@@ -132,7 +139,8 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
       const [kickdice, kickdist] = cell.getValue<number[]>();
       return `${kickdice} / ${kickdist}"`;
     },
-    Filter: (props) => <DoubleRangeSlider {...props} labels={['Kick Dice', 'Kick Dist']} />,
+    manualRanges: [[1, 6], [1, 12]],
+    Filter: (props) => <DoubleRangeSlider {...props} labels={['Kick Dice', 'Kick Dist']} manualRanges={props.column.columnDef.manualRanges} />,
     filterFn: (row, _id, filterValues: [number, number, number, number]) => {
       const kickdice = row.original.kickdice;
       const kickdist = row.original.kickdist;
@@ -166,7 +174,8 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
       const [inf, infmax] = cell.getValue<number[]>();
       return `${inf} / ${infmax}`;
     },
-    Filter: (props) => <DoubleRangeSlider {...props} labels={['Inf', 'Inf Max']} />,
+    manualRanges: [[0, 8], [0, 8]],
+    Filter: (props) => <DoubleRangeSlider {...props} labels={['Inf', 'Inf Max']} manualRanges={props.column.columnDef.manualRanges} />,
     filterFn: (row, _id, filterValues: [number, number, number, number]) => {
       const inf = row.original.inf;
       const infmax = row.original.infmax;
