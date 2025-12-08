@@ -18,11 +18,12 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import { Portal, Typography } from "@mui/material";
+import { ListItemIcon, Portal, Typography } from "@mui/material";
 import { map, Observable } from "rxjs";
 import { AppBarContext } from "../utils/contexts";
 import { SettingsDoc } from "../models/settings";
 import { DataProvider } from "../components/DataContext";
+import { ScienceTwoTone } from "@mui/icons-material";
 
 export const AppBarContent = (props: { children?: ReactNode }) => {
   const containerRef = use(AppBarContext);
@@ -86,6 +87,10 @@ const mainNavItems: DrawerItem[] = [
   { type: "nav", text: "Card Printer", to: "/print", defaultTo: "/print" },
   { type: "nav", text: "Settings", to: "/settings", defaultTo: "/settings" },
   { type: "about", text: "About", href: "https://github.com/cleech/GBPlaybook/blob/pwa/README.md" },
+];
+
+const labNavItems: NavItem[] = [
+  { type: "nav", text: "Data Explorer", to: "/data", defaultTo: "/data" }
 ];
 
 const rulesLinks: ExternalLinkItem[] = [
@@ -161,6 +166,24 @@ function AppDrawerContent(props: {
       <Divider />
       <List>
         <ListItem>
+          <ListItemIcon> <ScienceTwoTone /> </ListItemIcon>
+          <ListItemText>
+            Experimental Tools
+          </ListItemText>
+        </ListItem>
+        {labNavItems.map((item, index) =>
+          <DrawerNavigationButton
+            key={index}
+            to={item.defaultTo}
+            onClick={() => setDrawer(false)}
+          >
+            <ListItemText>{item.text}</ListItemText>
+          </DrawerNavigationButton>
+        )}
+      </List>
+      <Divider />
+      <List>
+        <ListItem>
           <ListItemText>Rules Documents:</ListItemText>
         </ListItem>
         <LinkList items={rulesLinks} />
@@ -204,7 +227,7 @@ function AppDrawer(props: {
       onClose={() => setDrawer(false)}
       ModalProps={{ keepMounted: true }}
       slotProps={{
-        paper: { sx: { width: "275px" } }
+        paper: { sx: { width: "300px" } }
       }}
     >
       <AppDrawerContent

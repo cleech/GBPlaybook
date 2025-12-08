@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Slider, Box, Typography } from '@mui/material';
+import { useEffect, useMemo, useState } from 'react';
+import { Slider, Typography, Stack, SliderProps } from '@mui/material';
 import { type MRT_Column, type MRT_TableInstance } from 'material-react-table';
 
 interface DoubleRangeSliderProps<TData extends Record<string, any>> {
@@ -7,6 +7,7 @@ interface DoubleRangeSliderProps<TData extends Record<string, any>> {
   table: MRT_TableInstance<TData>;
   labels?: [string, string];
   manualRanges?: [[number, number], [number, number]];
+  muiSliderProps?: [SliderProps, SliderProps];
 }
 
 export const DoubleRangeSlider = <TData extends Record<string, any>>({
@@ -14,6 +15,7 @@ export const DoubleRangeSlider = <TData extends Record<string, any>>({
   table,
   labels = ['Range 1', 'Range 2'],
   manualRanges,
+  muiSliderProps,
 }: DoubleRangeSliderProps<TData>) => {
   const { getPreFilteredRowModel } = table;
   const { id: columnId } = column;
@@ -61,32 +63,41 @@ export const DoubleRangeSlider = <TData extends Record<string, any>>({
     }
     setFilterValues(newFilterValues);
   };
-  
+
   const handleApplyFilter = () => {
     column.setFilterValue(filterValues);
   };
 
   return (
-    <Box sx={{ p: 2, width: 250 }}>
-      <Typography>{labels[0]}</Typography>
+    <Stack>
       <Slider
+        size='small'
+        disableSwap
         value={[filterValues[0], filterValues[1]]}
-        onChange={(event, value) => handleSliderChange(0, value)}
+        onChange={(_event, value) => handleSliderChange(0, value)}
         onChangeCommitted={handleApplyFilter}
         valueLabelDisplay="auto"
         min={min1}
         max={max1}
+        {...(muiSliderProps?.[0] ?? {})}
+        sx={{
+          m: 'auto',
+          mt: '10px',
+        }}
       />
-      <Typography>{labels[1]}</Typography>
+      <Typography variant='subtitle2'>{labels[0]} / {labels[1]}</Typography>
       <Slider
+        size='small'
+        disableSwap
         value={[filterValues[2], filterValues[3]]}
-        onChange={(event, value) => handleSliderChange(1, value)}
+        onChange={(_event, value) => handleSliderChange(1, value)}
         onChangeCommitted={handleApplyFilter}
         valueLabelDisplay="auto"
         min={min2}
         max={max2}
+        {...(muiSliderProps?.[1] ?? {})}
       />
-    </Box>
+    </Stack>
   );
 };
 

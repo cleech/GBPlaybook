@@ -4,7 +4,6 @@ import { AppBarContent } from "../AppContent";
 
 import {
   MaterialReactTable,
-  MRT_FilterFns,
   useMaterialReactTable,
   type MRT_ColumnDef,
 } from 'material-react-table';
@@ -33,11 +32,12 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
       const m = row.original;
       return <>{renderedCellValue} {`${(m.veteran ? ' (v)' : (m.seasoned ? ' (s)' : ''))}`}</>
     },
+    filterVariant: 'autocomplete',
   },
   {
     header: 'Guild',
     id: 'guild',
-    size: 130,
+    // size: 130,
     accessorFn: m => [m.guild1.name, m.guild2?.name].filter(Boolean),
     Cell: ({ cell }) => (
       <div style={{
@@ -78,14 +78,197 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
   {
     header: 'HP',
     accessorKey: 'hp',
-    size: 116,
+    // size: 116,
+    filterVariant: 'range-slider',
+    filterFn: 'betweenInclusive',
+    muiFilterSliderProps: { size: 'small' },
     aggregationFn: 'median',
     AggregatedCell: ({ cell }) => `Average: ${cell.getValue<number>().toFixed(0)}`,
   },
   {
     header: 'Recovery',
     accessorKey: 'recovery',
-    size: 156,
+    // size: 156,
+    filterVariant: 'range-slider',
+    filterFn: 'betweenInclusive',
+    muiFilterSliderProps: { size: 'small' },
+  },
+  {
+    header: 'MOV',
+    id: 'mov',
+    // size: 128,
+    accessorFn: m => [m.jog, m.sprint],
+    Cell: ({ cell }) => {
+      const [jog, sprint] = cell.getValue<number[]>();
+      return `${jog}" / ${sprint}"`;
+    },
+    // manualRanges: [[0, 10], [0, 12]],
+    Filter: (props) => <DoubleRangeSlider {...props} labels={['Jog', 'Sprint']}
+      manualRanges={props.column.columnDef.manualRanges}
+      muiSliderProps={[
+        { valueLabelFormat: (value) => `${value}"` },
+        { valueLabelFormat: (value) => `${value}"` }
+      ]}
+    />,
+    filterFn: (row, _id, filterValues: [number, number, number, number]) => {
+      const jog = row.original.jog;
+      const sprint = row.original.sprint;
+      return (
+        (jog >= filterValues[0] && jog <= filterValues[1]) &&
+        (sprint >= filterValues[2] && sprint <= filterValues[3])
+      );
+    }
+  },
+  {
+    header: 'TAC',
+    accessorKey: 'tac',
+    // size: 128,
+    filterVariant: 'range-slider',
+    filterFn: 'betweenInclusive',
+    muiFilterSliderProps: { size: 'small' },
+    aggregationFn: 'median',
+    AggregatedCell: ({ cell }) => `Average: ${cell.getValue<number>().toFixed(0)}`
+  },
+  {
+    header: 'KICK',
+    id: 'kick',
+    // size: 130,
+    accessorFn: m => [m.kickdice, m.kickdist],
+    Cell: ({ cell }) => {
+      const [kickdice, kickdist] = cell.getValue<number[]>();
+      return `${kickdice} / ${kickdist}"`;
+    },
+    // manualRanges: [[1, 5], [4, 8]],
+    Filter: (props) => <DoubleRangeSlider {...props} labels={['Dice', 'Dist']} manualRanges={props.column.columnDef.manualRanges}
+      muiSliderProps={[{},
+      { valueLabelFormat: (value) => `${value}"` }
+      ]}
+    />,
+    filterFn: (row, _id, filterValues: [number, number, number, number]) => {
+      const kickdice = row.original.kickdice;
+      const kickdist = row.original.kickdist;
+      return (
+        (kickdice >= filterValues[0] && kickdice <= filterValues[1]) &&
+        (kickdist >= filterValues[2] && kickdist <= filterValues[3])
+      );
+    }
+  },
+  {
+    header: 'DEF',
+    accessorKey: 'def',
+    // size: 128,
+    Cell: ({ renderedCellValue }) => <>{renderedCellValue}+</>,
+    filterVariant: 'range-slider',
+    filterFn: 'betweenInclusive',
+    muiFilterSliderProps: {
+      size: 'small',
+      valueLabelFormat: (value) => `${value}+`,
+    },
+    aggregationFn: 'median',
+    AggregatedCell: ({ cell }) => `Average: ${cell.getValue<number>().toFixed(0)}`
+  },
+  {
+    header: 'ARM',
+    accessorKey: 'arm',
+    // size: 128,
+    filterVariant: 'range-slider',
+    filterFn: 'betweenInclusive',
+    muiFilterSliderProps: { size: 'small' },
+    aggregationFn: 'median',
+    AggregatedCell: ({ cell }) => `Average: ${cell.getValue<number>().toFixed(0)}`
+  },
+  {
+    header: 'INF',
+    id: 'inf',
+    // size: 128,
+    accessorFn: m => [m.inf, m.infmax],
+    Cell: ({ cell }) => {
+      const [inf, infmax] = cell.getValue<number[]>();
+      return `${inf} / ${infmax}`;
+    },
+    // manualRanges: [[0, 6], [0, 7]],
+    Filter: (props) => <DoubleRangeSlider {...props} labels={['Pool', 'Max']} manualRanges={props.column.columnDef.manualRanges} />,
+    filterFn: (row, _id, filterValues: [number, number, number, number]) => {
+      const inf = row.original.inf;
+      const infmax = row.original.infmax;
+      return (
+        (inf >= filterValues[0] && inf <= filterValues[1]) &&
+        (infmax >= filterValues[2] && infmax <= filterValues[3])
+      );
+    }
+  },
+  {
+    header: 'Melee',
+    id: 'melee',
+    // size: 136,
+    accessorFn: m => m.reach ? 2 : 1,
+    Cell: ({ renderedCellValue }) => <>{renderedCellValue}"</>,
+    filterVariant: 'range-slider',
+    filterFn: 'betweenInclusive',
+    muiFilterSliderProps: {
+      size: 'small',
+      valueLabelFormat: (value) => `${value}"`,
+    },
+  },
+  {
+    header: 'Base',
+    accessorKey: 'base',
+    // size: 130,
+    Cell: ({ renderedCellValue }) => <>{renderedCellValue} mm</>,
+    filterVariant: 'range-slider',
+    filterFn: 'betweenInclusive',
+    muiFilterSliderProps: {
+      size: 'small', max: 50, min: 30, step: 10,
+      valueLabelFormat: (value) => `${value} mm`,
+    },
+  },
+  {
+    header: 'Plays',
+    id: 'plays',
+    size: 215,
+    enableGrouping: false,
+    accessorFn: m => m.character_plays.map(cp => cp.name),
+    filterFn: 'fuzzyArrIncludes',
+    Cell: ({ cell }) => (<>
+      {cell.getValue<string[]>().map((s, i) => <div key={`${cell.id}-${i}`}>{s}</div>)}
+    </>)
+  },
+  {
+    header: 'Traits',
+    id: 'traits',
+    size: 240,
+    enableGrouping: false,
+    accessorFn: m => m.character_traits.map(cp => cp.name),
+    filterFn: 'fuzzyArrIncludes',
+    Cell: ({ cell }) => (<>
+      {cell.getValue<string[]>().map((s, i) => <div key={`${cell.id}-${i}`}>{s}</div>)}
+    </>)
+  },
+  {
+    header: 'Heroic',
+    id: 'heroic',
+    size: 215,
+    enableGrouping: false,
+    accessorFn: m => m.heroic?.split('\n', 1)[0]?.replace(/ \[.*\]/, ''),
+  },
+  {
+    header: 'Legendary',
+    id: 'legendary',
+    size: 245,
+    enableGrouping: false,
+    accessorFn: m => m.legendary?.split('\n', 1)[0]?.replace(/ \[.*\]/, ''),
+  },
+  {
+    header: 'tags',
+    id: 'tags',
+    size: 250,
+    enableGrouping: false,
+    // accessorFn: m => m.types.split(/, |,\n/),
+    accessorFn: m => m.types.split(/\n/),
+    filterFn: 'fuzzyArrIncludes',
+    Cell: ({ cell }) => (<>
+      {cell.getValue<string[]>().map((s, i) => <div key={`${cell.id}-${i}`}>{s}</div>)}
+    </>)
   },
   {
     header: 'Playbook',
@@ -102,144 +285,6 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
         </div>
       )
     }
-  },
-  {
-    header: 'MOV',
-    id: 'mov',
-    size: 128,
-    accessorFn: m => [m.jog, m.sprint],
-    Cell: ({ cell }) => {
-      const [jog, sprint] = cell.getValue<number[]>();
-      return `${jog}" / ${sprint}"`;
-    },
-    manualRanges: [[0, 10], [0, 12]],
-    Filter: (props) => <DoubleRangeSlider {...props} labels={['Jog', 'Sprint']} manualRanges={props.column.columnDef.manualRanges} />,
-    filterFn: (row, _id, filterValues: [number, number, number, number]) => {
-      const jog = row.original.jog;
-      const sprint = row.original.sprint;
-      return (
-        (jog >= filterValues[0] && jog <= filterValues[1]) &&
-        (sprint >= filterValues[2] && sprint <= filterValues[3])
-      );
-    }
-  },
-  {
-    header: 'TAC',
-    accessorKey: 'tac',
-    size: 128,
-    aggregationFn: 'median',
-    AggregatedCell: ({ cell }) => `Average: ${cell.getValue<number>().toFixed(0)}`
-  },
-  {
-    header: 'KICK',
-    id: 'kick',
-    size: 130,
-    accessorFn: m => [m.kickdice, m.kickdist],
-    Cell: ({ cell }) => {
-      const [kickdice, kickdist] = cell.getValue<number[]>();
-      return `${kickdice} / ${kickdist}"`;
-    },
-    manualRanges: [[1, 6], [1, 12]],
-    Filter: (props) => <DoubleRangeSlider {...props} labels={['Kick Dice', 'Kick Dist']} manualRanges={props.column.columnDef.manualRanges} />,
-    filterFn: (row, _id, filterValues: [number, number, number, number]) => {
-      const kickdice = row.original.kickdice;
-      const kickdist = row.original.kickdist;
-      return (
-        (kickdice >= filterValues[0] && kickdice <= filterValues[1]) &&
-        (kickdist >= filterValues[2] && kickdist <= filterValues[3])
-      );
-    }
-  },
-  {
-    header: 'DEF',
-    accessorKey: 'def',
-    size: 128,
-    Cell: ({ renderedCellValue }) => <>{renderedCellValue}+</>,
-    aggregationFn: 'median',
-    AggregatedCell: ({ cell }) => `Average: ${cell.getValue<number>().toFixed(0)}`
-  },
-  {
-    header: 'ARM',
-    accessorKey: 'arm',
-    size: 128,
-    aggregationFn: 'median',
-    AggregatedCell: ({ cell }) => `Average: ${cell.getValue<number>().toFixed(0)}`
-  },
-  {
-    header: 'INF',
-    id: 'inf',
-    size: 128,
-    accessorFn: m => [m.inf, m.infmax],
-    Cell: ({ cell }) => {
-      const [inf, infmax] = cell.getValue<number[]>();
-      return `${inf} / ${infmax}`;
-    },
-    manualRanges: [[0, 8], [0, 8]],
-    Filter: (props) => <DoubleRangeSlider {...props} labels={['Inf', 'Inf Max']} manualRanges={props.column.columnDef.manualRanges} />,
-    filterFn: (row, _id, filterValues: [number, number, number, number]) => {
-      const inf = row.original.inf;
-      const infmax = row.original.infmax;
-      return (
-        (inf >= filterValues[0] && inf <= filterValues[1]) &&
-        (infmax >= filterValues[2] && infmax <= filterValues[3])
-      );
-    }
-  },
-  {
-    header: 'Melee',
-    id: 'melee',
-    size: 136,
-    accessorFn: m => m.reach ? 2 : 1,
-    Cell: ({ renderedCellValue }) => <>{renderedCellValue}"</>,
-  },
-  {
-    header: 'Base',
-    accessorKey: 'base',
-    size: 130,
-    Cell: ({ renderedCellValue }) => <>{renderedCellValue} mm</>,
-  },
-  {
-    header: 'Plays',
-    id: 'plays',
-    enableGrouping: false,
-    accessorFn: m => m.character_plays.map(cp => cp.name),
-    filterFn: 'fuzzyArrIncludes',
-    Cell: ({ cell }) => (<>
-      {cell.getValue<string[]>().map((s, i) => <div key={`${cell.id}-${i}`}>{s}</div>)}
-    </>)
-  },
-  {
-    header: 'Traits',
-    id: 'traits',
-    enableGrouping: false,
-    accessorFn: m => m.character_traits.map(cp => cp.name),
-    filterFn: 'fuzzyArrIncludes',
-    Cell: ({ cell }) => (<>
-      {cell.getValue<string[]>().map((s, i) => <div key={`${cell.id}-${i}`}>{s}</div>)}
-    </>)
-  },
-  {
-    header: 'Heroic',
-    id: 'heroic',
-    enableGrouping: false,
-    accessorFn: m => m.heroic?.split('\n', 1)[0]?.replace(/ \[.*\]/, ''),
-  },
-  {
-    header: 'Legendary',
-    id: 'legendary',
-    enableGrouping: false,
-    accessorFn: m => m.legendary?.split('\n', 1)[0]?.replace(/ \[.*\]/, ''),
-  },
-  {
-    header: 'tags',
-    id: 'tags',
-    enableGrouping: false,
-    // accessorFn: m => m.types.split(/, |,\n/),
-    accessorFn: m => m.types.split(/\n/),
-    filterFn: 'fuzzyArrIncludes',
-    Cell: ({ cell }) => (<>
-      {cell.getValue<string[]>().map((s, i) => <div key={`${cell.id}-${i}`}>{s}</div>)}
-    </>)
   },
 ];
 
@@ -269,7 +314,15 @@ export default function DataScreen() {
     data,
     columns,
     // layoutMode: 'grid-no-grow',
-    renderDetailPanel: ({ row }) => <DoubleCard model={row.original} />,
+    renderDetailPanel: ({ row }) => (
+      <Box sx={{ position: 'sticky', left: '16px', zIndex: 1, width: 'fit-content', }}>
+        <DoubleCard model={row.original} />
+      </Box>
+    ),
+
+    defaultColumn: {
+      size: 0,
+    },
 
     /* Things I want on */
     enableSorting: true,
@@ -279,6 +332,8 @@ export default function DataScreen() {
     enableColumnPinning: true,
     enableColumnOrdering: true,
     enableStickyHeader: true,
+    enableFacetedValues: true,
+    // enableColumnFilterModes: true,
 
     /* Things I want off */
     enablePagination: false,
@@ -294,7 +349,7 @@ export default function DataScreen() {
       sorting: [{ id: 'name', desc: false }],
       // grouping: ['guild'],
       // expanded: true,
-      columnPinning: { left: ['mrt-row-expand', 'name'] },
+      columnPinning: { left: ['mrt-row-expand'] },
       columnVisibility: {
         'playbook': false,
         'plays': false,
