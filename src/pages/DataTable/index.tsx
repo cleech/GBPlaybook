@@ -15,6 +15,7 @@ import { rankItem } from '@tanstack/match-sorter-utils';
 import GBIcon from "../../components/GBIcon";
 import { GBModelExpanded } from "../../models/gbdbTypes";
 import { DoubleCard } from '../../components/DoubleCard';
+import { DoubleRangeSlider } from './components/DoubleRangeSlider';
 
 const columns: MRT_ColumnDef<GBModelExpanded>[] = [
   {
@@ -105,9 +106,8 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
       const [jog, sprint] = cell.getValue<number[]>();
       return `${jog}" / ${sprint}"`;
     },
-    filterVariant: 'range-slider',
+    Filter: (props) => <DoubleRangeSlider {...props} labels={['Jog', 'Sprint']} />,
     filterFn: (row, _id, filterValues: [number, number, number, number]) => {
-      console.dir(filterValues);
       const jog = row.original.jog;
       const sprint = row.original.sprint;
       return (
@@ -115,7 +115,6 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
         (sprint >= filterValues[2] && sprint <= filterValues[3])
       );
     }
-    // muiFilterSliderProps: { },
   },
   {
     header: 'TAC',
@@ -132,6 +131,15 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
     Cell: ({ cell }) => {
       const [kickdice, kickdist] = cell.getValue<number[]>();
       return `${kickdice} / ${kickdist}"`;
+    },
+    Filter: (props) => <DoubleRangeSlider {...props} labels={['Kick Dice', 'Kick Dist']} />,
+    filterFn: (row, _id, filterValues: [number, number, number, number]) => {
+      const kickdice = row.original.kickdice;
+      const kickdist = row.original.kickdist;
+      return (
+        (kickdice >= filterValues[0] && kickdice <= filterValues[1]) &&
+        (kickdist >= filterValues[2] && kickdist <= filterValues[3])
+      );
     }
   },
   {
@@ -157,6 +165,15 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
     Cell: ({ cell }) => {
       const [inf, infmax] = cell.getValue<number[]>();
       return `${inf} / ${infmax}`;
+    },
+    Filter: (props) => <DoubleRangeSlider {...props} labels={['Inf', 'Inf Max']} />,
+    filterFn: (row, _id, filterValues: [number, number, number, number]) => {
+      const inf = row.original.inf;
+      const infmax = row.original.infmax;
+      return (
+        (inf >= filterValues[0] && inf <= filterValues[1]) &&
+        (infmax >= filterValues[2] && infmax <= filterValues[3])
+      );
     }
   },
   {
