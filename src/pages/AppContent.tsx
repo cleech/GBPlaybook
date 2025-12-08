@@ -101,10 +101,9 @@ const rulesLinks: ExternalLinkItem[] = [
 
 const communityLinks: ExternalLinkItem[] = [
   { type: "external", text: "Steamforged Games", href: "https://steamforged.com/pages/guild-ball" },
-  { type: "external", text: "Guild Ball Community Project", href: "https://discord.gg/fvpFSfm976" },
-  { type: "external", text: "Longshanks", href: "https://www.longshanks.org/systems/guildball/" },
+  { type: "external", text: "Guild Ball Community Discord", href: "https://discord.gg/fvpFSfm976" },
+  { type: "external", text: "Longshanks", href: "https://guildball.longshanks.org" },
 ];
-
 
 // Helper to resolve dynamic routes
 const resolveRoute = (to: NavItem['to'], props: { gamePlayRoute?: string; libraryRoute?: string; }): string | undefined => typeof to === 'function' ? to(props) : to;
