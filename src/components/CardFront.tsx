@@ -138,7 +138,7 @@ const Playbook = ({
               {
                 "--col": col,
                 display: "flex",
-                flexDirection: "row",
+                flexDirection: "column",
                 // 0.15 is always safe; (sqrt(2)-1)/(2*sqrt(2))
                 // padding: "0.15em",
                 padding: "0.10em",
