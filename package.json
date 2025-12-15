@@ -22,7 +22,7 @@
     "@fontsource/im-fell-great-primer-sc": "^5.2.6",
     "@fontsource/noto-sans-symbols-2": "^5.2.8",
     "@fontsource/noto-serif-sc": "^5.2.8",
-    "@khmyznikov/pwa-install": "^0.5.8",
+    "@khmyznikov/pwa-install": "^0.6.0",
     "@mui/icons-material": "^7.3.6",
     "@mui/material": "^7.3.6",
     "@react-hook/debounce": "^4.0.0",
@@ -48,7 +48,7 @@
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.10.1",
     "rehype-raw": "^7.0.0",
-    "rooks": "^9.4.1",
+    "rooks": "^9.5.0",
     "rxdb": "^16.21.1",
     "rxjs": "^7.8.2",
     "uuid": "^13.0.0"
