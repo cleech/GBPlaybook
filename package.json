@@ -54,17 +54,17 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.17.0",
-    "@eslint/js": "^9.39.1",
+    "@cloudflare/vite-plugin": "^1.17.1",
+    "@eslint/js": "^9.39.2",
     "@types/color": "^4.2.0",
     "@types/file-saver": "^2.0.7",
     "@types/react": "^19.2.7",
     "@types/react-detect-offline": "^2.4.6",
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react": "^5.1.2",
-    "eslint": "^9.39.1",
+    "eslint": "^9.39.2",
     "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.4.24",
+    "eslint-plugin-react-refresh": "^0.4.25",
     "globals": "^16.5.0",
     "rollup-plugin-visualizer": "^6.0.5",
     "typescript": "^5.9.3",
@@ -74,7 +74,7 @@
     "vite-plugin-pwa": "^1.2.0",
     "workbox-build": "^7.4.0",
     "workbox-window": "^7.4.0",
-    "wrangler": "^4.53.0"
+    "wrangler": "^4.54.0"
   },
   "resolutions": {
     "sharp": "0.32.6",
