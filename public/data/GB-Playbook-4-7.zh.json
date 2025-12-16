@@ -439,7 +439,7 @@
         "Midas Touch",
         "Unpredictable Movement"
       ],
-      "legendary": "Magnum Opus [6\" Pulse]\n在此脉冲范围内的敌方模型受到燃烧和中毒状态.且在此脉冲范围内的友方模型获得‘’Fulmination‘’.",
+      "legendary": "Magnum Opus [6\" Pulse]\n在此脉冲范围内的敌方模型受到燃烧和中毒状态,同时在此脉冲范围内的友方模型获得 Fulmination",
       "types": "Valentian, Human, Male,\nStriker,\nCaptain",
       "playbook": [
         [
@@ -494,7 +494,7 @@
         "Unpredictable Movement",
         "Watch The World Burn [4\" Pulse]"
       ],
-      "legendary": "Chemical Shower [6\" Pulse]\n在此脉冲范围内的持有燃烧或中毒状态的敌方模型受到3点状态DMG.",
+      "legendary": "Chemical Shower [6\" Pulse]\n在此脉冲范围内遭受燃烧或中毒状态的敌方模型受到3点状态DMG",
       "types": "Ethraynnian, Human, Female,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -548,7 +548,7 @@
         "Burning Spirit [2\" Aura]",
         "Gimme Fuel..."
       ],
-      "legendary": "Gimme Fire! [6\" Pulse]\n此脉冲范围内的敌方模型受到燃烧状态.使用Pneuma属性卡替换此模型的属性卡.",
+      "legendary": "Gimme Fire! [6\" Pulse]\n此脉冲范围内的敌方模型受到燃烧状态,将此模型的详情卡替换为Pneuma的详情卡",
       "types": "Unknown, Human, Unknown,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -1129,7 +1129,7 @@
         "Secretion",
         "Venomous Strike"
       ],
-      "heroic": "Coagulation [3\" Pulse]\n在此脉冲范围内受到中毒的敌方模型遭受3点状态DMG.",
+      "heroic": "Coagulation [3\" Pulse]\n在此脉冲范围内受到中毒状态的敌方模型遭受3点状态DMG",
       "types": "Valentian, Human, Male,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -1180,7 +1180,7 @@
       "character_traits": [
         "I've Been Burnt Before..."
       ],
-      "heroic": "Face Your Fear [4\" Pulse]\n在此脉冲范围内的敌方模型遭受燃烧状态.",
+      "heroic": "Face Your Fear [4\" Pulse]\n在此脉冲范围内的敌方模型遭受燃烧状态",
       "types": "Skaldic, Human, Female,\nStriker,\nSquaddie",
       "playbook": [
         [
@@ -1286,7 +1286,7 @@
         "Sentinel [1\" Aura]",
         "Tough Hide"
       ],
-      "legendary": "Tested Mettle [6\" Aura]\n此模型获得Stoic.\n\n如果该模型具有队长模型类别,则在此光环内的其他友方大师模型获得Stoic,友方学徒模型获得厚皮.\n{{trait 'Stoic'}}",
+      "legendary": "Tested Mettle [6\" Aura]\n此模型获得Stoic\n\n如果此模型具有队长模型类别,则在此光环内的其他友方大师模型获得Stoic,友方学徒模型获得Tough Hide\n{{trait 'Stoic'}}",
       "types": "Mald, Human, Male,\nCentre Back,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1339,7 +1339,7 @@
         "Reduction",
         "Reinforced Plating [1\" Aura]"
       ],
-      "legendary": "Covering Fire\n该模型在可以在本次激活中使用一次无需消耗影响力的角色表演.\n\n如果此模型具有队长模型类别，“Reinforced Plating”将变为6\"光环，并且可以使用两次而不是一次.",
+      "legendary": "Covering Fire\n该模型可以在激活期间使用一次无需消耗影响力的角色技巧\n\n如果此模型具有队长模型类别，Reinforced Plating 将变为6\"光环，并且可以使用两次而不是一次",
       "types": "Numasai, Human, Male,\nDefensive Midfielder,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1391,7 +1391,7 @@
       "character_traits": [
         "Quench [1\" Aura]"
       ],
-      "legendary": "Batten Down The Hatches [6\" Pulse]\n在此脉冲范围内的友方模型可以移除任意他们受到的状态。.\n\n如果此模型具有队长模型类别,在此脉冲范围内的友方模型可以恢复3点HP.",
+      "legendary": "Batten Down The Hatches [6\" Pulse]\n在此脉冲范围内的友方模型可以移除他们目前遭受的任意状态\n\n如果此模型具有队长模型类别,在此脉冲范围内的友方模型可以恢复3点HP",
       "types": "Sultarish, Human, Female,\nGoalkeeper,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1444,7 +1444,7 @@
         "Give It a Whack",
         "Sentinel [1\" Aura]"
       ],
-      "legendary": "Ride Off [6\" Aura]\n此模型获得 +1/+0” KICK且此次激活中可以进行一次无需消耗影响力的踢球.\n\n如果此模型拥有队长模型类别,在此光环范围内的友方模型获得 +1/+0” KICK且此次激活中可以进行一次无需消耗影响力的踢球.",
+      "legendary": "Ride Off [6\" Aura]\n此模型获得 +1/+0\" KICK且在此次激活中可以进行一次无需消耗影响力的Kick\n\n如果此模型具有队长模型类别,在此光环范围内的友方模型获得 +1/+0\" KICK且在他们的激活期间可以进行一次无需消耗影响力的Kick",
       "types": "Sultarish, Human, Female,\nAttacking Midfielder,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1497,7 +1497,7 @@
       "character_traits": [
         "Get Over Here [Iron]"
       ],
-      "legendary": "Tong in Cheek [6\" Pulse]\n此模型获得 +2”/+2” MOV.\n\n如果此模型具有队长模型类别，在此脉冲范围内的友方模型获得 +2”/+2” MOV.",
+      "legendary": "Tong in Cheek [6\" Pulse]\n此模型获得 +2\"/+2\" MOV\n\n如果此模型具有队长模型类别，在此脉冲范围内的友方模型获得 +2\"/+2\" MOV",
       "types": "Raed, Human, Female,\nStriker,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1550,7 +1550,7 @@
         "Searing Strike",
         "Sentinel [1\" Aura]"
       ],
-      "legendary": "Tempered Steel [6\" Aura]\n此模型获得+1TAC.\n\n如果此模型具有队长模型类别，在此光环范围内的友方模型获得+1TAC和Searing Strike.",
+      "legendary": "Tempered Steel [6\" Aura]\n此模型获得+1TAC\n\n如果此模型具有队长模型类别，在此光环范围内的友方模型获得+1 TAC和Searing Strike",
       "types": "Piert, Human, Male,\nCentral Midfielder,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1603,7 +1603,7 @@
         "Match Experience [4\" Aura]",
         "Sturdy"
       ],
-      "legendary": "Armoury [6\" Aura]\n此模型的近战区变为 3\".\n\n如果此模型具有队长模型类别，此模型在此次激活中可以使用三次无需影响力的角色表演，且在此光环范围内的友方模型近战区变为 2’\".",
+      "legendary": "Armoury [6\" Aura]\n此模型的近战范围变为 3\"\n\n如果此模型具有队长模型类别，此模型在激活期间可以使用三次无需影响力的 Instruction，且在此光环范围内的友方模型近战范围变为 2\"",
       "types": "Skald, Human, Female,\nCentre Back,\nMaster, Squaddie",
       "playbook": [
         [
@@ -2076,7 +2076,7 @@
         "Barroom Brawl",
         "Tough Hide"
       ],
-      "heroic": "Old Jake's\n分配2个影响力给予 8”范围内的其他友方公会模型.",
+      "heroic": "Old Jake's\n分配2点影响力给 8\"内的其他友方公会模型",
       "types": "Mald, Human, Male,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -2130,7 +2130,7 @@
         "Resilience",
         "Aria [6\" Aura]"
       ],
-      "heroic": "Soothing Voice [4\" Pulse]\n在此脉冲范围内的友方模型移除受到的所有状态。.",
+      "heroic": "Soothing Voice [4\" Pulse]\n在此脉冲范围内的友方模型移除正在遭受的所有状态",
       "types": "Eisnoran, Human, Female,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -2184,7 +2184,7 @@
         "Spit and Sawdust",
         "Legless Drunk"
       ],
-      "heroic": "Free Bar [4\" Pulse]\n在这个脉冲范围内的友方非吉祥物公会模型获得一个啤酒指示物.",
+      "heroic": "Free Bar [4\" Pulse]\n在此脉冲范围内的友方非吉祥物公会模型获得一个beer token",
       "types": "Mald, Human, Male,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -2338,7 +2338,7 @@
         "Anatomical Precision",
         "Tough Hide"
       ],
-      "heroic": "Duellist's Lunge\n每当此模型成功命中攻击目标时,此模型可以进行一次径直接近此次攻击目标的 1\" 闪避.",
+      "heroic": "Duellist's Lunge\n每当此模型进行一次成功的攻击时,此模型可以进行一次径直接近攻击目标的 1\" 闪避",
       "types": "Erskirii, Human, Female,\nAttacking Midfielder,\nVeteran, Squaddie",
       "playbook": [
         [
@@ -2391,7 +2391,7 @@
         "Get Over Here [Scum, Quaff]",
         "Who's a Good Boy [Scum, Quaff]"
       ],
-      "heroic": "Animal Treat [Scum, Quaff]\n指定 4\" 范围内的友方模型目标获得 +2 TAC.",
+      "heroic": "Animal Treat [Scum, Quaff]\n4\" 内的友方指定模型目标获得 +2 TAC",
       "types": "Indar, Human, Male,\nDefensive Midfielder\nSquaddie",
       "playbook": [
         [
@@ -2444,7 +2444,7 @@
         "Get Over Here [Scum]",
         "Shadow Like"
       ],
-      "heroic": "I Shoot Better After a Beer...\n此模型获得 +1/+2\" KICK,且在受到借机攻击时获得 +1 DEF.",
+      "heroic": "I Shoot Better After a Beer...\n此模型获得 +1/+2\" KICK,且在成为借机攻击的目标时获得 +1 DEF",
       "types": "Mald, Human, Female,\nStriker,\nSquaddie",
       "playbook": [
         [
@@ -2497,7 +2497,7 @@
         "Tough Hide",
         "Shove the Boot In"
       ],
-      "heroic": "True Grit\n移除该模型身上的所有状态,该模型获得 +2 TAC.",
+      "heroic": "True Grit\n移除该模型身上的所有状态,该模型获得+2 TAC",
       "types": "Mald, Human, Male,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2549,7 +2549,7 @@
         "Resilience",
         "Tough Hide"
       ],
-      "heroic": "Batter Up\n在此模型的激活中可以进行一次无需影响力的传球.此次传球期间获得 +0/+4\" KICK.",
+      "heroic": "Batter Up\n此模型可以在激活期间进行一次无需消耗影响力的传球.此次传球获得 +0/+4\" KICK",
       "types": "Eisnoran, Human, Male,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2603,7 +2603,7 @@
         "Six Pack",
         "Taunt"
       ],
-      "heroic": "Come On, Then!\n此模型下一次被敌方攻击命中或成为角色表演的目标时，在触发其他能力前，将此次攻击或角色表演视为未命中且无效.",
+      "heroic": "Come On, Then!\n当下一次此模型被敌方攻击命中或成为敌方模型角色技巧的目标时，在触发其他能力前，此次攻击或角色技巧视为未成功并忽略命中",
       "types": "Mald, Human, Male,\nCentral Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2655,7 +2655,7 @@
         "Floored",
         "Tough Hide"
       ],
-      "heroic": "Time's Called [4\" Aura]\n每当一名友方模型在此光环范围内开始激活，其获得 +2\"/+2\" MOV.",
+      "heroic": "Time's Called [4\" Aura]\n当一名友方公会模型在此光环范围内开始进行移动时，其获得 +2\"/+2\" MOV",
       "types": "Raed, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2708,7 +2708,7 @@
         "Close Control",
         "Football Legend [4\" Aura]"
       ],
-      "heroic": "Back to His Best\n此模型获得 +2\"/+2\" MOV.在其激活中此模型每回合可以进行一次无需影响力的踢球.",
+      "heroic": "Back to His Best\n此模型获得 +2\"/+2\" MOV.在其激活中此模型每回合可以进行一次无需消耗影响力的踢球",
       "types": "Raed, Human, Male,\nStriker,\nVeteran, Squaddie",
       "playbook": [
         [
@@ -2760,7 +2760,7 @@
         "Battering Ram",
         "Tough Hide"
       ],
-      "heroic": "Explosive Brew\n在此次激活中，此模型可以无需影响力使用一次Lob Barrel.",
+      "heroic": "Explosive Brew\n在激活期间，此模型可以无需消耗影响力使用Lob Barrel",
       "types": "Mald, Human, Male,\nCentre Back,\nSquaddie",
       "playbook": [
         [
@@ -2814,7 +2814,7 @@
         "Magical Brew",
         "Searing Strike"
       ],
-      "heroic": "Human Ball of Fire\n此模型获得 +1\"/+1\" MOV。在此模型移动时,与其底盘接触的模型受到燃烧状态.",
+      "heroic": "Human Ball of Fire\n此模型获得 +1\"/+1\" MOV。在此模型移动期间,与其底盘接触的模型受到燃烧状态",
       "types": "Eisnoran, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2867,7 +2867,7 @@
         "Stack the Deck",
         "Tough Hide"
       ],
-      "heroic": "Raise the Stakes\n此模型可以进行一次 4” 闪避。在此次闪避结算后,敌方队伍可以选择一名敌方模型进行一次 2” 闪避.",
+      "heroic": "Raise the Stakes\n此模型可以进行一次 4\"闪避。在此次闪避结算后,你的对手可以选择一名敌方队员模型受到一次 2\" 推挤",
       "types": "Valentian, Human, Male,\nCentral Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -14027,7 +14027,7 @@
     },
     {
       "name": "Careless Whisper",
-      "text": "在目标敌方模型上放置一个耳语标记。\n友方非队长模型攻击带有窃听标记的敌方模型时获得+2 TAC。\n只有当目标模型受到击倒状态时才会移除窃听标记。",
+      "text": "在目标敌方模型上放置一个耳语标记。\n友方非队长模型攻击带有窃听标记的敌方模型时获得+2 TAC。\n只有当目标模型受到移除状态时才会移除窃听标记。",
       "CST": "2,CP",
       "RNG": 7,
       "SUS": false,
@@ -14275,7 +14275,7 @@
     {
       "name": "Inferno",
       "active": false,
-      "text": "当此模型进行一次成功的攻击时，目标敌方模型受到燃烧状态。然后在此模型2”范围内的受到燃烧状态的敌方模型受到1状态伤害。"
+      "text": "当此模型进行一次成功的攻击时，目标敌方模型受到燃烧状态。然后在此模型2”范围内的受到燃烧状态的敌方模型受到1点状态伤害。"
     },
     {
       "name": "Waning Light",
@@ -14325,7 +14325,7 @@
     {
       "name": "Chemical Admixture",
       "active": false,
-      "text": "受到此模型伤害的敌方模型受到中毒状态和燃烧状态"
+      "text": "受到此模型伤害的敌方模型受到中毒状态和燃烧状态。"
     },
     {
       "name": "Covalence",
@@ -14335,7 +14335,7 @@
     {
       "name": "Anatomical Precision",
       "active": false,
-      "text": "此模型攻击时，目标敌方模型受到 -1 ARM。"
+      "text": "此模型攻击期间，目标敌方模型受到 -1 ARM。"
     },
     {
       "name": "Deadeye",
@@ -14345,7 +14345,7 @@
     {
       "name": "Elusive",
       "active": true,
-      "text": "每回合一次，在此模型的激活中，可以移除一个4” 内目标其他模型上的燃烧状态或中毒状态。如果执行了此行动，将此模型与该模型底盘接触放置。"
+      "text": "每回合一次，在此模型的激活中，可以移除一个4” 内其他模型上的燃烧状态或中毒状态。如果执行了此行动，将此模型与目标模型底盘接触放置。"
     },
     {
       "name": "Burning Effigy",
@@ -14360,22 +14360,22 @@
     {
       "name": "Pyromaniac",
       "active": false,
-      "text": "回合开始时此模型受到燃烧状态，回合结束时此模型受到燃烧状态。"
+      "text": "游戏开始时此模型受到燃烧状态。结束阶段开始时，在结算状态之前，此模型受到燃烧状态。"
     },
     {
       "name": "Burst of Fumes",
       "active": false,
-      "text": "当此模型在激活内进行了一次成功的攻击后，在此模型2” 内受到燃烧状态或中毒状态的敌方模型受到 2状态DMG。"
+      "text": "当此模型在激活中进行了一次成功的攻击后，在此模型2” 内受到燃烧状态或中毒状态的敌方模型受到 2点状态伤害。"
     },
     {
       "name": "Toxicity",
       "active": false,
-      "text": "如果敌方模型激活结束时与此模型接战，该敌方模型受到2状态DMG和中毒状态:"
+      "text": "如果敌方模型激活结束时与此模型接战，该敌方模型受到2点状态伤害和中毒状态。"
     },
     {
       "name": "Witness Me!",
       "active": false,
-      "text": "每回合一次，在此模型激活期间，当此模型将一个敌方模型移出后，友方队伍获得额外的2 MP。"
+      "text": "每回合一次，在此模型的激活中，当此模型将一个敌方模型移出后，友方队伍获得额外的2 MP。"
     },
     {
       "name": "Debilitating Strike",
@@ -14385,32 +14385,32 @@
     {
       "name": "Melting Body",
       "active": false,
-      "text": "此模型受到中 毒状态时获得 +1 ARM。"
+      "text": "此模型受到中毒状态时获得 +1 ARM。"
     },
     {
       "name": "Secretion",
       "active": true,
-      "text": "每回合一次，当此模型开始激活时可以受到中毒状态"
+      "text": "每回合一次，在此模型的激活中，可以受到中毒状态。"
     },
     {
       "name": "I've Been Burnt Before...",
       "active": true,
-      "text": "每回合一次，在此模型的激活中，可以移除一个4'内目标模型上的燃烧状态或中毒状态。如果执行了此行动。此模型可以进行一次免费的长跑或冲锋"
+      "text": "每回合一次，在此模型的激活中，可以移除一个4” 内目标其他模型上的燃烧状态或中毒状态。如果执行了此行动，此模型可以进行一次无需影响力的长跑或冲锋。"
     },
     {
       "name": "Noxious Death",
       "active": false,
-      "text": "当此模型在激活阶段被移除时，此脉冲范围内的敌方模型受到3 DMG和中 毒。"
+      "text": "当此模型在激活阶段被移除时，此脉冲范围内的敌方模型受到3 DMG和中毒状态。"
     },
     {
       "name": "Resilience",
       "active": false,
-      "text": "此模型免疫每回合受到的第一次攻击或角色技巧影响，"
+      "text": "每回合受到的第一次以此模型为目标的攻击或角色技巧，在触发其他任何能力之前，该攻击或角色技巧失败，忽视这次命中。"
     },
     {
       "name": "Rush Keeper",
       "active": true,
-      "text": "当此模型在友方球门 4” 内时，每回合一次，当敌方模型在模型的 6” 内结束移动时，此模型可以对该敌方模型进行一次免费的冲锋"
+      "text": "当此模型在友方球门 4” 内时，每回合一次，当敌方模型在此模型的 6” 内结束行进时，此模型可以对该敌方模型进行一次无需影响力的冲锋。"
     },
     {
       "name": "Sentinel",
@@ -14425,7 +14425,7 @@
     {
       "name": "Reduction",
       "active": true,
-      "text": "此模型的激活中每回合一次，在此模型2”范围内放置一个AOE，在此AOE范围内的友方模型移除所有受到的状态。"
+      "text": "每回合一次，此模型的激活中，在此模型2”范围内放置一个AOE，在此AOE范围内的友方模型移除所有受到的状态。"
     },
     {
       "name": "Reinforced Plating",
@@ -14435,72 +14435,72 @@
     {
       "name": "Quench",
       "active": true,
-      "text": "当一名在此光环范围内的友方模型受到来自敌方角色技巧的伤害后，在此次角色技巧结算后，该友方模型可以恢复1HP"
+      "text": "当一名在此光环范围内的友方模型受到来自敌方角色技巧的伤害后，在此次角色技巧结算后，该友方模型可以恢复1 HP。"
     },
     {
       "name": "Give It a Whack",
       "active": false,
-      "text": "当此模型激活中近战区内拥有一个自由球时，此模型可以进行一次踢球视同其拥有该自由球，此次踢球的起点和球的路径由自由球的原点决定。"
+      "text": "当此模型激活中，其近战区范围内有一个自由球时，此模型可以进行一次踢球，视同其拥有该自由球，此次踢球的起点和球的路径由自由球的原点决定。"
     },
     {
       "name": "Get Over Here",
       "active": true,
-      "text": "在此模型激活时每回合一次，如果指定友方模型在此模型10”范围内，则该友方模型可以朝向此模型进行一次等同于基础MOV的闪避。"
+      "text": "每回合一次，在此模型的激活中，如果指定友方模型在此模型10”范围内，则该友方模型可以朝向此模型进行一次等同于基础MOV的闪避。"
     },
     {
       "name": "Searing Strike",
       "active": false,
-      "text": "受到此模型伤害的敌方模型受到-1ARM直到此回合结束并受到燃烧状态。"
+      "text": "受到此模型伤害的敌方模型受到-1 ARM直到此回合结束并受到燃烧状态。"
     },
     {
       "name": "Match Experience",
       "active": true,
-      "text": "当一名友方模型在此光环范围内使用传跑联动时，作为选择一名模型进行闪避的替代，接球模型和踢球模型可以都进行一次4”闪避。"
+      "text": "当一个友方模型在此光环范围内使用传跑联动时，接球模型和踢球模型可以都进行一次4” 闪避（而不是只有其中一个可以进行闪避）。"
     },
     {
       "name": "Sturdy",
       "active": false,
-      "text": "此模型忽视每回合受到的第一个击倒状态"
+      "text": "此模型忽视每回合受到的第一个击倒状态。"
     },
     {
       "name": "Back to the Shadows",
       "active": true,
-      "text": "在此模型结束激活时，如果此模型在此次激活中造成了伤害，此模型可以进行一次4”闪避。"
+      "text": "在此模型结束激活时，如果此模型在此次激活中造成了伤害，此模型可以进行一次4” 闪避。"
     },
     {
       "name": "Arsenal",
       "active": true,
-      "text": "如果此模型在指定友方模型6”内开始激活，则此模型获得 一项所选增益直到回合结束:\n- 2”  Melee\n- Instruction\n{{play 'Instruction'}}"
+      "text": "如果此模型在指定友方模型6” 内开始激活，则此模型获得 一项所选增益直到回合结束:\n- 2” 近战区域\n- Instruction\n{{play 'Instruction'}}"
     },
     {
       "name": "Stamina",
       "active": true,
-      "text": "如果此模型在指定友方模型6”内开始激活，则此模型获得 一项所选增益直到回合结束:+1/+0”KICK"
+      "text": "每回合一次，在此模型的激活开始时，其可以进行一次小跑。"
     },
     {
       "name": "Tutelage",
       "active": false,
-      "text": "如果此模型在指定友方模型6”内开始激活，则该模型可以在激活期间使用一次无需影响力的角色技巧。"
+      "text": "如果此模型在指定友方模型6” 内开始激活，则此模型可以在激活期间使用一次无需影响力的角色技巧。"
     },
     {
       "name": "Burning Passion",
       "active": false,
-      "text": "此模型在攻击受到燃烧状态的敌方模型时战术手册伤害结果获得+1DMG。"
+      "text": "此模型在攻击受到燃烧状态的敌方模型时战术手册伤害结果获得+1 DMG。"
     },
     {
       "name": "Bright Shields",
       "active": false,
-      "text": "对此模型宣布反击的敌方模型在进行反击时受到-1TAC。"
+      "text": "对此模型宣布反击的敌方模型在此次反击期间受到-1 TAC。"
     },
     {
       "name": "Swift Strikes",
       "active": false,
-      "text": "在此模型的激活中，每当对一名或多名敌方模型造成伤害后，此模型可以进行一次2”闪避，"
+      "text": "在此模型的激活中，每当对一名或多名敌方模型造成伤害后，此模型可以进行一次2” 闪避。"
     },
     {
       "name": "Far Strike",
       "active": true,
-      "text": "此模型的激活中每回合一次，如果此模型拥有对名6”内敌方模型的视线，则此模型可以宣布一次对该敌方模型的攻击视同正在接战。"
+      "text": "每回合一次，在此模型的激活中，如果一个敌方模型在此模型的6” 内，且此模型拥有对该敌方模型的视线，则此模型可以宣布一次对该敌方模型的攻击，视同正在接战。"
     },
     {
       "name": "Kindled",
@@ -14510,7 +14510,7 @@
     {
       "name": "Grim Vengeance",
       "active": true,
-      "text": "此模型的激活中每回合一次，如果此模型使一名敌方模型进入退场状态，此模型可以选择进行一次2”闪避、或下一次的攻击或踢球行动无需影响力。"
+      "text": "每回合一次，在此模型的激活中，如果此模型使一名敌方模型进入退场状态，此模型可以选择进行一次2”闪避、或下一次的攻击或踢球行动无需影响力。"
     },
     {
       "name": "Sweeping Charge",
