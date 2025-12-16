@@ -89,7 +89,7 @@
 - title: Match Fixing
   text: |-
     你可以预测对手本回合第一次获得
-    VP 是通过进球还是击倒模型。当
+    VP 是通过进球还是移出模型。当
     你预测正确时，你可以在至多两个
     友方模型上分配两点影响力。
   initiative: 4
@@ -113,8 +113,8 @@
   influence: 0
 - title: Rushed Back
   text: |-
-    第一个在移除击倒状态后回到球场
-    上的敌方模型受到流血。
+    第一个在移除 Taken out 状态后
+    回 到球场上的敌方模型受到流血。
   initiative: 6
   influence: 0
 - title: WHAT A STRIKE!
