@@ -18,6 +18,7 @@ const Ratcatchers_back = new URL("../assets/cards/Ratcatchers/GB-S4-Ratcatchers-
 const Shepherds_back = new URL("../assets/cards/Shepherds/GB-S4-Shepherds-20-03-03.jpg", import.meta.url).href;
 const Union_back = new URL("../assets/cards/Union/GB-S4-Union-20-03-03.jpg", import.meta.url).href;
 const Lamps_back = new URL("../assets/cards/Lamps_Backs/Lamplighters_back.jpg", import.meta.url).href;
+const Lumberjacks_back = new URL("../assets/cards/Lumberjacks/Lumberjacks_Back.jpg", import.meta.url).href;
 
 const GBImages: Map<string, string> = new Map([
   [
@@ -723,8 +724,8 @@ const GBImages: Map<string, string> = new Map([
     "Zarola_front",
     new URL("../assets/cards/Hunters/GB-S4-Hunters-19-08-32.jpg", import.meta.url).href,
   ],
-  ["Masons_back", new URL("../assets/cards/Masons/GB-S4-Masons-zGuildIntro2.png", import.meta.url).href],
-  ["Masons_front", new URL("../assets/cards/Masons/GB-S4-Masons-zGuildIntro.png", import.meta.url).href],
+  ["Masons_back", new URL("../assets/cards/GuildCards/Masons_Back.png", import.meta.url).href],
+  ["Masons_front", new URL("../assets/cards/GuildCards/Masons_Front.png", import.meta.url).href],
   ["Honour_back", Masons_back],
   ["Honour_front", new URL("../assets/cards/Masons/GB-S4-Masons-19-08-02.jpg", import.meta.url).href],
   ["Hammer_back", Masons_back],
@@ -1074,24 +1075,24 @@ const GBImages: Map<string, string> = new Map([
   ["Lamplighters_back", new URL("../assets/cards/Lamps_Backs/Lamplighters_guild_back.png", import.meta.url).href],
 
   /* Lumberjacks */
-  ["Lumberjacks_back", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-zGuildIntro2.png", import.meta.url).href],
-  ["Lumberjacks_front", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-zGuildIntro.png", import.meta.url).href],
-  ["Oak_back", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Oak2.png", import.meta.url).href],
-  ["Oak_front", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Oak.png", import.meta.url).href],
-  ["Chipper_back", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Chipper2.png", import.meta.url).href],
-  ["Chipper_front", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Chipper.png", import.meta.url).href],
-  ["Bucker_back", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Bucker2.png", import.meta.url).href],
-  ["Bucker_front", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Bucker.png", import.meta.url).href],
-  ["CrossCut_back", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-CrossCut2.png", import.meta.url).href],
-  ["CrossCut_front", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-CrossCut.png", import.meta.url).href],
-  ["Cross_back", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Cross2.png", import.meta.url).href],
-  ["Cross_front", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Cross.png", import.meta.url).href],
-  ["Cut_back", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Cut2.png", import.meta.url).href],
-  ["Cut_front", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Cut.png", import.meta.url).href],
-  ["Itsa_back", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Itsa2.png", import.meta.url).href],
-  ["Itsa_front", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Itsa.png", import.meta.url).href],
-  ["Tinder_back", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Tinder2.png", import.meta.url).href],
-  ["Tinder_front", new URL("../assets/cards/Lumberjacks/GB-S4-Lumberjacks-Tinder.png", import.meta.url).href],
+  ["Lumberjacks_back", new URL("../assets/cards/GuildCards/Lumberjacks_Back.png", import.meta.url).href],
+  ["Lumberjacks_front", new URL("../assets/cards/GuildCards/Lumberjacks_Front.png", import.meta.url).href],
+  ["Oak_back", Lumberjacks_back],
+  ["Oak_front", new URL("../assets/cards/Lumberjacks/Lumberjacks_Oak.jpg", import.meta.url).href],
+  ["Chipper_back", Lumberjacks_back],
+  ["Chipper_front", new URL("../assets/cards/Lumberjacks/Lumberjacks_Chipper.jpg", import.meta.url).href],
+  ["Bucker_back", Lumberjacks_back],
+  ["Bucker_front", new URL("../assets/cards/Lumberjacks/Lumberjacks_Bucker.jpg", import.meta.url).href],
+  ["CrossCut_back", Lumberjacks_back],
+  ["CrossCut_front", new URL("../assets/cards/Lumberjacks/Lumberjacks_CrossCut.jpg", import.meta.url).href],
+  ["Cross_back", Lumberjacks_back],
+  ["Cross_front", new URL("../assets/cards/Lumberjacks/Lumberjacks_Cross.jpg", import.meta.url).href],
+  ["Cut_back", Lumberjacks_back],
+  ["Cut_front", new URL("../assets/cards/Lumberjacks/Lumberjacks_Cut.jpg", import.meta.url).href],
+  ["Itsa_back", Lumberjacks_back],
+  ["Itsa_front", new URL("../assets/cards/Lumberjacks/Lumberjacks_Itsa.jpg", import.meta.url).href],
+  ["Tinder_back", Lumberjacks_back],
+  ["Tinder_front", new URL("../assets/cards/Lumberjacks/Lumberjacks_Tinder.jpg", import.meta.url).href],
 
   /* Lamplighters in SFG style */
   ["Beacon_front", new URL("../assets/cards/Lamps_Backs/Lamplighters_Beacon.jpg", import.meta.url).href],

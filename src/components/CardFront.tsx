@@ -5,7 +5,6 @@ import GBImages from "../utils/GBImages";
 import GBIcon, { PB } from "./GBIcon";
 import "./CardFront.css";
 import "./CardQuirks.css";
-import "./Lumberjacks.css";
 
 import { toClassName, CardText } from "./CardUtils";
 

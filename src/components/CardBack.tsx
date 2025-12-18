@@ -5,7 +5,6 @@ import GBImages from "../utils/GBImages";
 import GBIcon from "./GBIcon";
 import "./CardBack.css";
 import "./CardQuirks.css";
-import "./Lumberjacks.css";
 
 import { GBCardCSS } from "./CardFront";
 import { GBModelExpanded } from "../models/gbdbTypes";
