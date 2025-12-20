@@ -3,40 +3,40 @@
     你的对手可以选择你的一个模型。
     然后你可以选择另外两个模型。
     这些模型获得 +1 TAC 并可以不用
-    消耗影响力进行 Sprint。
+    消耗影响力进行长跑。
   initiative: 1
   influence: 0
 - title: Feign Injury
   text: |-
     在这个回合中一次，当你选择一个
     友方模型激活时，如果一个或更多
-    友方模型遭受 Taken-out 状态并
-    且在本回合没有激活过，你可以让
-    对手选择一个敌方模型来激活代替。
-    当你完成这项操作后，选择一名友
-    方模型回复 4 HP。
+    友方模型遭受离场状态并且在本回
+    合没有激活过，你可以让对手选择
+    一个敌方模型来激活代替。当你完
+    成这项操作后，选择一名友方模型
+    回复 4 HP。
   initiative: 1
   influence: 0
 - title: Set Me Up
   text: |-
     一个友方模型立刻对另一个友方模
     型进行一次传球。模型不能通过这
-    次传球获得 MP，使用 Pass &
-    Move 或是进行 Snap Shot。
+    次传球获得 MP，使用传跑联动或
+    是进行凌空抽射。
   initiative: 2
   influence: 1
 - title: Pep Talk
   text: |-
     每次激活期间一次，友方模型可以
-    不消耗 MP 使用 Bonus Time。
+    不消耗 MP 使用奖励时间。
   initiative: 2
   influence: -1
 - title: Lost Focus
   text: |-
     选择以下一项：
-    - 当第一次有敌方模型进行
-      Kick 时，该模型在这次行动中受
-      到 -1/-2" KICK。
+    - 当第一次有敌方模型进行踢球时，
+      该模型在这次行动中受到
+      -1/-2" KICK。
     - 当第一次有友方模型受到敌方攻
       击或表演的伤害时，该友方模型可
       以在这次行动结算后回复 3 HP。
@@ -44,16 +44,16 @@
   influence: 0
 - title: High Press
   text: |-
-    至多两个友方队员模型可以朝
-    着敌方球门进行 2" Dodge。
+    至多两个友方队员模型可以朝着敌
+    方球门柱进行 2" 闪避。
   initiative: 3
   influence: 0
 - title: Home Advantage
   text: |-
     当一个敌方模型进球后，友方队伍
     获得 2 MP。在敌方模型进球后，
-    友方队伍进行 Goal-Kick 时，
-    你可以花费 1 MP 重投偏移。
+    友方队伍进行开球时，你可以花费
+    1 MP 重投偏移。
   initiative: 3
   influence: 1
 - title: No Guts, No Glory
@@ -65,14 +65,14 @@
 - title: Adrenaline Rush
   text: |-
     在这个回合中一次，一个友方模型
-    可以不消耗MP使用 Rest。
+    可以不消耗 MP 使用休息。
   initiative: 4
   influence: 0
 - title: Big Rivals
   text: |-
     选择一个友方模型和一个敌方模型。
-    被选择的模型受到径直朝着对方 1"
-    的 Push。
+    被选择的模型受到径直朝着对方
+    1" 的推移。
   initiative: 4
   influence: 0
 - title: Man Marking
@@ -89,16 +89,16 @@
 - title: Match Fixing
   text: |-
     你可以预测对手本回合第一次获得
-    VP 是通过进球还是移出模型。当
-    你预测正确时，你可以在至多两个
-    友方模型上分配两点影响力。
+    VP 是通过进球还是使模型离场。
+    当你预测正确时，你可以在至多两
+    个友方模型上分配两点影响力。
   initiative: 4
   influence: 0
 - title: Nowhere to Hide
   text: |-
     选择一个在球场上的障碍物，障碍
     或森林。被选择的地形在该回合中
-    不再提供 Cover。
+    不再提供掩护。
   initiative: 5
   influence: 0
 - title: Catenaccio
@@ -113,8 +113,8 @@
   influence: 0
 - title: Rushed Back
   text: |-
-    第一个在移除 Taken out 状态后
-    回 到球场上的敌方模型受到流血。
+    第一个在移除离场状态后回到球场
+    上的敌方模型受到流血状态。
   initiative: 6
   influence: 0
 - title: WHAT A STRIKE!
@@ -130,7 +130,7 @@
   text: |-
     当你第一次选择一个模型激活时，
     你的对手可以选择让该模型受到
-    -1/-1" MOV 或者 -1 Tac。
+    -1/-1" MOV 或者 -1 TAC。
   initiative: 7
   influence: 0
 - title: Gengenpress

@@ -1,43 +1,43 @@
 [
   {
     "title": "Extra Shot",
-    "text": "你的对手可以选择你的一个模型。\n然后你可以选择另外两个模型。\n这些模型获得 +1 TAC 并可以不用\n消耗影响力进行 Sprint。",
+    "text": "你的对手可以选择你的一个模型。\n然后你可以选择另外两个模型。\n这些模型获得 +1 TAC 并可以不用\n消耗影响力进行长跑。",
     "initiative": 1,
     "influence": 0
   },
   {
     "title": "Feign Injury",
-    "text": "在这个回合中一次，当你选择一个\n友方模型激活时，如果一个或更多\n友方模型遭受 Taken-out 状态并\n且在本回合没有激活过，你可以让\n对手选择一个敌方模型来激活代替。\n当你完成这项操作后，选择一名友\n方模型回复 4 HP。",
+    "text": "在这个回合中一次，当你选择一个\n友方模型激活时，如果一个或更多\n友方模型遭受离场状态并且在本回\n合没有激活过，你可以让对手选择\n一个敌方模型来激活代替。当你完\n成这项操作后，选择一名友方模型\n回复 4 HP。",
     "initiative": 1,
     "influence": 0
   },
   {
     "title": "Set Me Up",
-    "text": "一个友方模型立刻对另一个友方模\n型进行一次传球。模型不能通过这\n次传球获得 MP，使用 Pass &\nMove 或是进行 Snap Shot。",
+    "text": "一个友方模型立刻对另一个友方模\n型进行一次传球。模型不能通过这\n次传球获得 MP，使用传跑联动或\n是进行凌空抽射。",
     "initiative": 2,
     "influence": 1
   },
   {
     "title": "Pep Talk",
-    "text": "每次激活期间一次，友方模型可以\n不消耗 MP 使用 Bonus Time。",
+    "text": "每次激活期间一次，友方模型可以\n不消耗 MP 使用奖励时间。",
     "initiative": 2,
     "influence": -1
   },
   {
     "title": "Lost Focus",
-    "text": "选择以下一项：\n- 当第一次有敌方模型进行\n  Kick 时，该模型在这次行动中受\n  到 -1/-2\" KICK。\n- 当第一次有友方模型受到敌方攻\n  击或表演的伤害时，该友方模型可\n  以在这次行动结算后回复 3 HP。",
+    "text": "选择以下一项：\n- 当第一次有敌方模型进行踢球时，\n  该模型在这次行动中受到\n  -1/-2\" KICK。\n- 当第一次有友方模型受到敌方攻\n  击或表演的伤害时，该友方模型可\n  以在这次行动结算后回复 3 HP。",
     "initiative": 3,
     "influence": 0
   },
   {
     "title": "High Press",
-    "text": "至多两个友方队员模型可以朝\n着敌方球门进行 2\" Dodge。",
+    "text": "至多两个友方队员模型可以朝着敌\n方球门柱进行 2\" 闪避。",
     "initiative": 3,
     "influence": 0
   },
   {
     "title": "Home Advantage",
-    "text": "当一个敌方模型进球后，友方队伍\n获得 2 MP。在敌方模型进球后，\n友方队伍进行 Goal-Kick 时，\n你可以花费 1 MP 重投偏移。",
+    "text": "当一个敌方模型进球后，友方队伍\n获得 2 MP。在敌方模型进球后，\n友方队伍进行开球时，你可以花费\n1 MP 重投偏移。",
     "initiative": 3,
     "influence": 1
   },
@@ -49,13 +49,13 @@
   },
   {
     "title": "Adrenaline Rush",
-    "text": "在这个回合中一次，一个友方模型\n可以不消耗MP使用 Rest。",
+    "text": "在这个回合中一次，一个友方模型\n可以不消耗 MP 使用休息。",
     "initiative": 4,
     "influence": 0
   },
   {
     "title": "Big Rivals",
-    "text": "选择一个友方模型和一个敌方模型。\n被选择的模型受到径直朝着对方 1\"\n的 Push。",
+    "text": "选择一个友方模型和一个敌方模型。\n被选择的模型受到径直朝着对方\n1\" 的推移。",
     "initiative": 4,
     "influence": 0
   },
@@ -68,13 +68,13 @@
   },
   {
     "title": "Match Fixing",
-    "text": "你可以预测对手本回合第一次获得\nVP 是通过进球还是移出模型。当\n你预测正确时，你可以在至多两个\n友方模型上分配两点影响力。",
+    "text": "你可以预测对手本回合第一次获得\nVP 是通过进球还是使模型离场。\n当你预测正确时，你可以在至多两\n个友方模型上分配两点影响力。",
     "initiative": 4,
     "influence": 0
   },
   {
     "title": "Nowhere to Hide",
-    "text": "选择一个在球场上的障碍物，障碍\n或森林。被选择的地形在该回合中\n不再提供 Cover。",
+    "text": "选择一个在球场上的障碍物，障碍\n或森林。被选择的地形在该回合中\n不再提供掩护。",
     "initiative": 5,
     "influence": 0
   },
@@ -87,7 +87,7 @@
   },
   {
     "title": "Rushed Back",
-    "text": "第一个在移除 Taken out 状态后\n回 到球场上的敌方模型受到流血。",
+    "text": "第一个在移除离场状态后回到球场\n上的敌方模型受到流血状态。",
     "initiative": 6,
     "influence": 0
   },
@@ -100,7 +100,7 @@
   },
   {
     "title": "Brown Envelope",
-    "text": "当你第一次选择一个模型激活时，\n你的对手可以选择让该模型受到\n-1/-1\" MOV 或者 -1 Tac。",
+    "text": "当你第一次选择一个模型激活时，\n你的对手可以选择让该模型受到\n-1/-1\" MOV 或者 -1 TAC。",
     "initiative": 7,
     "influence": 0
   },
