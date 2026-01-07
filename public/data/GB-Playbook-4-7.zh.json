@@ -439,7 +439,7 @@
         "Midas Touch",
         "Unpredictable Movement"
       ],
-      "legendary": "Magnum Opus [6\" Pulse]\n在此脉冲范围内的敌方模型受到燃烧和中毒状态,同时在此脉冲范围内的友方模型获得 Fulmination",
+      "legendary": "Magnum Opus [6\" Pulse]\n在此脉冲范围内的敌方模型受到燃烧和中毒状态,同时在此脉冲范围内的友方模型获得 Fulmination。",
       "types": "Valentian, Human, Male,\nStriker,\nCaptain",
       "playbook": [
         [
@@ -494,7 +494,7 @@
         "Unpredictable Movement",
         "Watch The World Burn [4\" Pulse]"
       ],
-      "legendary": "Chemical Shower [6\" Pulse]\n在此脉冲范围内遭受燃烧或中毒状态的敌方模型受到3点状态DMG",
+      "legendary": "Chemical Shower [6\" Pulse]\n在此脉冲范围内遭受燃烧或中毒状态的敌方模型受到3点状态DMG。",
       "types": "Ethraynnian, Human, Female,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -548,7 +548,7 @@
         "Burning Spirit [2\" Aura]",
         "Gimme Fuel..."
       ],
-      "legendary": "Gimme Fire! [6\" Pulse]\n此脉冲范围内的敌方模型受到燃烧状态,将此模型的详情卡替换为Pneuma的详情卡",
+      "legendary": "Gimme Fire! [6\" Pulse]\n此脉冲范围内的敌方模型受到燃烧状态,将此模型的详情卡替换为Pneuma的详情卡。",
       "types": "Unknown, Human, Unknown,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -1129,7 +1129,7 @@
         "Secretion",
         "Venomous Strike"
       ],
-      "heroic": "Coagulation [3\" Pulse]\n在此脉冲范围内受到中毒状态的敌方模型遭受3点状态DMG",
+      "heroic": "Coagulation [3\" Pulse]\n在此脉冲范围内受到中毒状态的敌方模型遭受3点状态DMG。",
       "types": "Valentian, Human, Male,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -1180,7 +1180,7 @@
       "character_traits": [
         "I've Been Burnt Before..."
       ],
-      "heroic": "Face Your Fear [4\" Pulse]\n在此脉冲范围内的敌方模型遭受燃烧状态",
+      "heroic": "Face Your Fear [4\" Pulse]\n在此脉冲范围内的敌方模型遭受燃烧状态。",
       "types": "Skaldic, Human, Female,\nStriker,\nSquaddie",
       "playbook": [
         [
@@ -1286,7 +1286,7 @@
         "Sentinel [1\" Aura]",
         "Tough Hide"
       ],
-      "legendary": "Tested Mettle [6\" Aura]\n此模型获得Stoic\n\n如果此模型具有队长模型类别,则在此光环内的其他友方大师模型获得Stoic,友方学徒模型获得Tough Hide\n{{trait 'Stoic'}}",
+      "legendary": "Tested Mettle [6\" Aura]\n此模型获得Stoic\n\n如果此模型具有队长模型类别,则在此光环内的其他友方大师模型获得Stoic,友方学徒模型获得Tough Hide。\n{{trait 'Stoic'}}",
       "types": "Mald, Human, Male,\nCentre Back,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1339,7 +1339,7 @@
         "Reduction",
         "Reinforced Plating [1\" Aura]"
       ],
-      "legendary": "Covering Fire\n该模型可以在激活期间使用一次无需消耗影响力的角色技巧\n\n如果此模型具有队长模型类别，Reinforced Plating 将变为6\"光环，并且可以使用两次而不是一次",
+      "legendary": "Covering Fire\n该模型可以在激活期间使用一次无需消耗影响力的角色技巧\n\n如果此模型具有队长模型类别，Reinforced Plating 将变为6\"光环，并且可以使用两次而不是一次。",
       "types": "Numasai, Human, Male,\nDefensive Midfielder,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1391,7 +1391,7 @@
       "character_traits": [
         "Quench [1\" Aura]"
       ],
-      "legendary": "Batten Down The Hatches [6\" Pulse]\n在此脉冲范围内的友方模型可以移除他们目前遭受的任意状态\n\n如果此模型具有队长模型类别,在此脉冲范围内的友方模型可以恢复3点HP",
+      "legendary": "Batten Down The Hatches [6\" Pulse]\n在此脉冲范围内的友方模型可以移除他们目前遭受的任意状态。\n\n如果此模型具有队长模型类别,在此脉冲范围内的友方模型可以恢复3点HP。",
       "types": "Sultarish, Human, Female,\nGoalkeeper,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1444,7 +1444,7 @@
         "Give It a Whack",
         "Sentinel [1\" Aura]"
       ],
-      "legendary": "Ride Off [6\" Aura]\n此模型获得 +1/+0\" KICK且在此次激活中可以进行一次无需消耗影响力的Kick\n\n如果此模型具有队长模型类别,在此光环范围内的友方模型获得 +1/+0\" KICK且在他们的激活期间可以进行一次无需消耗影响力的Kick",
+      "legendary": "Ride Off [6\" Aura]\n此模型获得 +1/+0\" KICK且在此次激活中可以进行一次无需消耗影响力的Kick。\n\n如果此模型具有队长模型类别,在此光环范围内的友方模型获得 +1/+0\" KICK且在他们的激活期间可以进行一次无需消耗影响力的Kick。",
       "types": "Sultarish, Human, Female,\nAttacking Midfielder,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1497,7 +1497,7 @@
       "character_traits": [
         "Get Over Here [Iron]"
       ],
-      "legendary": "Tong in Cheek [6\" Pulse]\n此模型获得 +2\"/+2\" MOV\n\n如果此模型具有队长模型类别，在此脉冲范围内的友方模型获得 +2\"/+2\" MOV",
+      "legendary": "Tong in Cheek [6\" Pulse]\n此模型获得 +2\"/+2\" MOV。\n\n如果此模型具有队长模型类别，在此脉冲范围内的友方模型获得 +2\"/+2\" MOV。",
       "types": "Raed, Human, Female,\nStriker,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1550,7 +1550,7 @@
         "Searing Strike",
         "Sentinel [1\" Aura]"
       ],
-      "legendary": "Tempered Steel [6\" Aura]\n此模型获得+1TAC\n\n如果此模型具有队长模型类别，在此光环范围内的友方模型获得+1 TAC和Searing Strike",
+      "legendary": "Tempered Steel [6\" Aura]\n此模型获得+1TAC。\n\n如果此模型具有队长模型类别，在此光环范围内的友方模型获得+1 TAC和Searing Strike。",
       "types": "Piert, Human, Male,\nCentral Midfielder,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1603,7 +1603,7 @@
         "Match Experience [4\" Aura]",
         "Sturdy"
       ],
-      "legendary": "Armoury [6\" Aura]\n此模型的近战范围变为 3\"\n\n如果此模型具有队长模型类别，此模型在激活期间可以使用三次无需影响力的 Instruction，且在此光环范围内的友方模型近战范围变为 2\"",
+      "legendary": "Armoury [6\" Aura]\n此模型的近战范围变为 3\" 。\n\n如果此模型具有队长模型类别，此模型在激活期间可以使用三次无需影响力的 Instruction，且在此光环范围内的友方模型近战范围变为 2\" 。",
       "types": "Skald, Human, Female,\nCentre Back,\nMaster, Squaddie",
       "playbook": [
         [
@@ -2076,7 +2076,7 @@
         "Barroom Brawl",
         "Tough Hide"
       ],
-      "heroic": "Old Jake's\n分配2点影响力给 8\"内的其他友方公会模型",
+      "heroic": "Old Jake's\n分配2点影响力给 8\"内的其他友方公会模型。",
       "types": "Mald, Human, Male,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -2130,7 +2130,7 @@
         "Resilience",
         "Aria [6\" Aura]"
       ],
-      "heroic": "Soothing Voice [4\" Pulse]\n在此脉冲范围内的友方模型移除正在遭受的所有状态",
+      "heroic": "Soothing Voice [4\" Pulse]\n在此脉冲范围内的友方模型移除正在遭受的所有状态。",
       "types": "Eisnoran, Human, Female,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -2184,7 +2184,7 @@
         "Spit and Sawdust",
         "Legless Drunk"
       ],
-      "heroic": "Free Bar [4\" Pulse]\n在此脉冲范围内的友方非吉祥物公会模型获得一个beer token",
+      "heroic": "Free Bar [4\" Pulse]\n在此脉冲范围内的友方非吉祥物公会模型获得一个beer token。",
       "types": "Mald, Human, Male,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -2338,7 +2338,7 @@
         "Anatomical Precision",
         "Tough Hide"
       ],
-      "heroic": "Duellist's Lunge\n每当此模型进行一次成功的攻击时,此模型可以进行一次径直接近攻击目标的 1\" 闪避",
+      "heroic": "Duellist's Lunge\n每当此模型进行一次成功的攻击时,此模型可以进行一次径直接近攻击目标的 1\" 闪避。",
       "types": "Erskirii, Human, Female,\nAttacking Midfielder,\nVeteran, Squaddie",
       "playbook": [
         [
@@ -2391,7 +2391,7 @@
         "Get Over Here [Scum, Quaff]",
         "Who's a Good Boy [Scum, Quaff]"
       ],
-      "heroic": "Animal Treat [Scum, Quaff]\n4\" 内的友方指定模型目标获得 +2 TAC",
+      "heroic": "Animal Treat [Scum, Quaff]\n4\" 内的友方指定模型目标获得 +2 TAC。",
       "types": "Indar, Human, Male,\nDefensive Midfielder\nSquaddie",
       "playbook": [
         [
@@ -2444,7 +2444,7 @@
         "Get Over Here [Scum]",
         "Shadow Like"
       ],
-      "heroic": "I Shoot Better After a Beer...\n此模型获得 +1/+2\" KICK,且在成为借机攻击的目标时获得 +1 DEF",
+      "heroic": "I Shoot Better After a Beer...\n此模型获得 +1/+2\" KICK,且在成为借机攻击的目标时获得 +1 DEF。",
       "types": "Mald, Human, Female,\nStriker,\nSquaddie",
       "playbook": [
         [
@@ -2497,7 +2497,7 @@
         "Tough Hide",
         "Shove the Boot In"
       ],
-      "heroic": "True Grit\n移除该模型身上的所有状态,该模型获得+2 TAC",
+      "heroic": "True Grit\n移除该模型身上的所有状态,该模型获得+2 TAC。",
       "types": "Mald, Human, Male,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2549,7 +2549,7 @@
         "Resilience",
         "Tough Hide"
       ],
-      "heroic": "Batter Up\n此模型可以在激活期间进行一次无需消耗影响力的传球.此次传球获得 +0/+4\" KICK",
+      "heroic": "Batter Up\n此模型可以在激活期间进行一次无需消耗影响力的传球.此次传球获得 +0/+4\" KICK。",
       "types": "Eisnoran, Human, Male,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2603,7 +2603,7 @@
         "Six Pack",
         "Taunt"
       ],
-      "heroic": "Come On, Then!\n当下一次此模型被敌方攻击命中或成为敌方模型角色技巧的目标时，在触发其他能力前，此次攻击或角色技巧视为未成功并忽略命中",
+      "heroic": "Come On, Then!\n当下一次此模型被敌方攻击命中或成为敌方模型角色技巧的目标时，在触发其他能力前，此次攻击或角色技巧视为未成功并忽略命中。",
       "types": "Mald, Human, Male,\nCentral Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2655,7 +2655,7 @@
         "Floored",
         "Tough Hide"
       ],
-      "heroic": "Time's Called [4\" Aura]\n当一名友方公会模型在此光环范围内开始进行移动时，其获得 +2\"/+2\" MOV",
+      "heroic": "Time's Called [4\" Aura]\n当一名友方公会模型在此光环范围内开始进行移动时，其获得 +2\"/+2\" MOV。",
       "types": "Raed, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2708,7 +2708,7 @@
         "Close Control",
         "Football Legend [4\" Aura]"
       ],
-      "heroic": "Back to His Best\n此模型获得 +2\"/+2\" MOV.在其激活中此模型每回合可以进行一次无需消耗影响力的踢球",
+      "heroic": "Back to His Best\n此模型获得 +2\"/+2\" MOV.在其激活中此模型每回合可以进行一次无需消耗影响力的踢球。",
       "types": "Raed, Human, Male,\nStriker,\nVeteran, Squaddie",
       "playbook": [
         [
@@ -2760,7 +2760,7 @@
         "Battering Ram",
         "Tough Hide"
       ],
-      "heroic": "Explosive Brew\n在激活期间，此模型可以无需消耗影响力使用Lob Barrel",
+      "heroic": "Explosive Brew\n在激活期间，此模型可以无需消耗影响力使用Lob Barrel。",
       "types": "Mald, Human, Male,\nCentre Back,\nSquaddie",
       "playbook": [
         [
@@ -2814,7 +2814,7 @@
         "Magical Brew",
         "Searing Strike"
       ],
-      "heroic": "Human Ball of Fire\n此模型获得 +1\"/+1\" MOV。在此模型移动期间,与其底盘接触的模型受到燃烧状态",
+      "heroic": "Human Ball of Fire\n此模型获得 +1\"/+1\" MOV。在此模型移动期间,与其底盘接触的模型受到燃烧状态。",
       "types": "Eisnoran, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2867,7 +2867,7 @@
         "Stack the Deck",
         "Tough Hide"
       ],
-      "heroic": "Raise the Stakes\n此模型可以进行一次 4\"闪避。在此次闪避结算后,你的对手可以选择一名敌方队员模型受到一次 2\" 推移",
+      "heroic": "Raise the Stakes\n此模型可以进行一次 4\"闪避。在此次闪避结算后,你的对手可以选择一名敌方队员模型受到一次 2\" 推移。",
       "types": "Valentian, Human, Male,\nCentral Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2919,7 +2919,7 @@
       "character_traits": [
         "The Owner [6\" Aura]"
       ],
-      "legendary": "Get 'Em Lads! [6\" Aura]\n在此光环范围内的友方公会模型角色技巧和战术手册伤害结果获得 +1 DMG\n在此光环范围内的敌方模型受到 -1 ARM",
+      "legendary": "Get 'Em Lads! [6\" Aura]\n在此光环范围内的友方公会模型角色技巧和战术手册伤害结果获得 +1 DMG。\n在此光环范围内的敌方模型受到 -1 ARM。",
       "types": "Skaldic, Human, Male,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -2973,7 +2973,7 @@
         "Haemophilia [6\" Aura]",
         "Smell Blood"
       ],
-      "legendary": "Exsanguinate [6\" Pulse]\n在此脉冲范围内已受到流血状态的敌方模型受到3点状态伤害",
+      "legendary": "Exsanguinate [6\" Pulse]\n在此脉冲范围内已受到流血状态的敌方模型受到3点状态伤害。",
       "types": "Valentian, Human, Female,\nStriker,\nCaptain",
       "playbook": [
         [
@@ -3027,7 +3027,7 @@
         "Blood Lust [6\" Aura]",
         "Furious"
       ],
-      "legendary": "Chop Chop! [6\" Aura]\n在这个光环范围内的其他友方模型获得Furious",
+      "legendary": "Chop Chop! [6\" Aura]\n在这个光环范围内的其他友方模型获得Furious。",
       "types": "Skaldic, Human, Male,\nAttacking Midfielder,\nVeteran, Captain",
       "playbook": [
         [
@@ -3496,7 +3496,7 @@
       "character_traits": [
         "Hooked"
       ],
-      "heroic": "Sanguine Pool [3\" Pulse]\n在此脉冲范围内且遭受流血状态的敌方模型受到 -4\"/-4\"MOV",
+      "heroic": "Sanguine Pool [3\" Pulse]\n在此脉冲范围内且遭受流血状态的敌方模型受到 -4\"/-4\"MOV。",
       "types": "Erskirii, Human, Female,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -3706,7 +3706,7 @@
         "Momentous Inspiration [4\" Aura]",
         "Tough Hide"
       ],
-      "legendary": "Breach!\n在此次激活中，此模型获得 +0/+4\" KICK且可以进行一次无需消耗影响力的踢球。当该模型进行这次踢球时，踢球无视阻挡的模型",
+      "legendary": "Breach!\n在此次激活中，此模型获得 +0/+4\" KICK且可以进行一次无需消耗影响力的踢球。当该模型进行这次踢球时，踢球无视阻挡的模型。",
       "types": "Figeon, Human, Male,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -3813,7 +3813,7 @@
         "Follow My Lead",
         "Tow"
       ],
-      "heroic": "Protect Those Close [4\" Aura]\n在此光环范围内友方模型获得Sturdy\n{{trait 'Sturdy'}}",
+      "heroic": "Protect Those Close [4\" Aura]\n在此光环范围内友方模型获得Sturdy。\n{{trait 'Sturdy'}}",
       "types": "Valentian, Human, Female,\nCentre Back,\nCaptain",
       "playbook": [
         [
@@ -4076,7 +4076,7 @@
         "Sturdy",
         "True Replication [6\" Aura]"
       ],
-      "heroic": "Locked & Loaded\n在此次激活中，此模型可以无需消耗影响力使用一次角色技巧",
+      "heroic": "Locked & Loaded\n在此次激活中，此模型可以无需消耗影响力使用一次角色技巧。",
       "types": "Erskirii, Mechanica,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -4183,7 +4183,7 @@
         "Roulette",
         "Unpredictable Movement"
       ],
-      "legendary": "Wherever I May Roam\n选择 4\" 范围内的一个地形,此模型可以立即放置在与被选择地形底盘接触的位置",
+      "legendary": "Wherever I May Roam\n选择 4\" 范围内的一个地形,此模型可以立即放置在与被选择地形底盘接触的位置。",
       "types": "Raed, Human, Male,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -4236,7 +4236,7 @@
       "character_traits": [
         "Fixer"
       ],
-      "heroic": "Overclocked\n选择 4\" 范围内一个友方具有Mechanica类别的模型。在被选择模型下一次激活期间，该模型可以不消耗影响力进行冲刺或冲锋",
+      "heroic": "Overclocked\n选择 4\" 范围内一个友方具有Mechanica类别的模型。在被选择模型下一次激活期间，该模型可以不消耗影响力进行冲刺或冲锋。",
       "types": "Indar, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -4290,7 +4290,7 @@
       "character_traits": [
         "Swift Strikes"
       ],
-      "heroic": "Locked & Loaded\n在此次激活中，此模型可以无需消耗影响力使用一次角色技巧",
+      "heroic": "Locked & Loaded\n在此次激活中，此模型可以无需消耗影响力使用一次角色技巧。",
       "types": "Ethraynnian, Human, Male,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -4446,7 +4446,7 @@
         "Crow Scarer",
         "Don't Fear The..."
       ],
-      "legendary": "Against the Grain [6\" Pulse]\n在此次激活期间，此模型可以无需消耗影响力使用一次角色技巧。在此脉冲范围内的友方模型将获得Life Drinker\n{{trait 'Life Drinker'}}",
+      "legendary": "Against the Grain [6\" Pulse]\n在此次激活期间，此模型可以无需消耗影响力使用一次角色技巧。在此脉冲范围内的友方模型将获得Life Drinker。\n{{trait 'Life Drinker'}}",
       "types": "Mald, Human, Male,\nAttacking Midfielder,\nReaper, Captain",
       "playbook": [
         [
@@ -4499,7 +4499,7 @@
         "For the Family [4\" Aura]",
         "Planting Master"
       ],
-      "legendary": "Huge Tracts of Land [6\" Aura]\n此模型可以立即在此光环范围内放置至多两个收成标记。在这个光环范围内，友方模型获得Sturdy\n{{trait 'Sturdy'}}",
+      "legendary": "Huge Tracts of Land [6\" Aura]\n此模型可以立即在此光环范围内放置至多两个收成标记。在这个光环范围内，友方模型获得Sturdy。\n{{trait 'Sturdy'}}",
       "types": "Piert, Human, Male,\nDefensive Midfielder,\nPlanter, Captain",
       "playbook": [
         [
@@ -4553,7 +4553,7 @@
         "Harvest Supper",
         "Planting Master"
       ],
-      "legendary": "Line Dancing [6\" Pulse]\n选择球场的任意一个边缘。在此脉冲范围内的友方模型受到一个径直靠近所选边缘的5\"推移",
+      "legendary": "Line Dancing [6\" Pulse]\n选择球场的任意一个边缘。在此脉冲范围内的友方模型受到一个径直靠近所选边缘的5\"推移。",
       "types": "Piert, Human, Female,\nCoach,\nPlanter, Captain",
       "playbook": [
         [
@@ -4605,7 +4605,7 @@
       "character_traits": [
         "Pain Response"
       ],
-      "heroic": "When the Cock Crows...\n在此模型 2\"内放置一个收成标记",
+      "heroic": "When the Cock Crows...\n在此模型 2\"内放置一个收成标记。",
       "types": "Raed, Animal,\nMascot, Planter",
       "playbook": [
         [
@@ -4919,7 +4919,7 @@
         "Fields of Wheat [4\" Aura]",
         "Planting Season"
       ],
-      "heroic": "Surpassing Strategy\n 目标4\"内非队长友方模型获得Faithful Protector。被选择的模型可以立即进行一次 4\" 闪避",
+      "heroic": "Surpassing Strategy\n 目标4\"内非队长友方模型获得Faithful Protector。被选择的模型可以立即进行一次 4\" 闪避。",
       "types": "Castellyian, Human, Female,\nCoach,\nPlanter, Veteran, Squaddie",
       "playbook": [
         [
@@ -5233,7 +5233,7 @@
         "Light Footed",
         "Showboater"
       ],
-      "legendary": "Caught in a Net [6\" Pulse]\n此脉冲范围内的敌方模型受到 -4\"/-4\"MOV",
+      "legendary": "Caught in a Net [6\" Pulse]\n此脉冲范围内的敌方模型受到 -4\"/-4\"MOV。",
       "types": "Eisnoran, Human, Male,\nStriker,\nCaptain",
       "playbook": [
         [
@@ -5287,7 +5287,7 @@
         "Sturdy",
         "Tough Hide"
       ],
-      "legendary": "Hook, Line, and Sinker [6\" Pulse]\n在此脉冲范围内的敌方模型受到径直朝着该模型的6\"推移",
+      "legendary": "Hook, Line, and Sinker [6\" Pulse]\n在此脉冲范围内的敌方模型受到径直朝着该模型的6\" 推移。",
       "types": "Indar, Human, Male,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -5340,7 +5340,7 @@
         "Last Cast Catches the Most",
         "Beating Wings Over Water"
       ],
-      "legendary": "Cormorant’s Calling\n选择此模型10\"内一个未接战的其他友方模型,将被选择的模型放置在此模型10\"内",
+      "legendary": "Cormorant’s Calling\n选择此模型10\" 内一个未接战的其他友方模型,将被选择的模型放置在此模型10\" 内。",
       "types": "Numasai, Human,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -5602,7 +5602,7 @@
         "Shadow Like",
         "Talisman"
       ],
-      "legendary": "Call of the Sea [4\" Pulse]\n每有一个其他模型在此脉冲范围内，该模型便受到1DMG。在此脉冲范围内的敌方模型受到 2\" 推移,其余友方模型可以进行 2\" 的闪避",
+      "legendary": "Call of the Sea [4\" Pulse]\n每有一个其他模型在此脉冲范围内，该模型便受到1DMG。在此脉冲范围内的敌方模型受到 2\" 推移,其余友方模型可以进行 2\" 的闪避。",
       "types": "Numasai, Human, Female,\nCentral Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -5654,7 +5654,7 @@
         "Battering Ram",
         "Resolute"
       ],
-      "heroic": "Trident Tested [3\" Pulse]\n在此脉冲范围内的模型受到一个径直远离此模型的 2\"推移",
+      "heroic": "Trident Tested [3\" Pulse]\n在此脉冲范围内的模型受到一个径直远离此模型的 2\"推移。",
       "types": "Skaldic, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -6024,7 +6024,7 @@
         "Light Footed",
         "Nature's Growth"
       ],
-      "heroic": "Blessing of the Sun Father \n在此模型激活中限一次，目标6\" 内的一名友方模型可以无需消耗影响力使用一次角色技巧",
+      "heroic": "Blessing of the Sun Father \n在此模型激活中限一次，目标6\" 内的一名友方模型可以无需消耗影响力使用一次角色技巧。",
       "types": "Raed, Human, Male,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6078,7 +6078,7 @@
         "Light Footed",
         "Nature's Chill"
       ],
-      "legendary": "Winter's Night [6\" Aura]\n每当一名友方模型在此光环范围内进行一次成功的攻击时，该友方模型可以在战术手册结果中添加一个 {{d}}",
+      "legendary": "Winter's Night [6\" Aura]\n每当一名友方模型在此光环范围内进行一次成功的攻击时，该友方模型可以在战术手册结果中添加一个 {{d}} 。",
       "types": "Erskirii, Human, Female,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6132,7 +6132,7 @@
         "Bring Them Down",
         "Expert Trapper"
       ],
-      "legendary": "Perfect Positioning [6\" Pulse]\n此模型可以在此脉冲范围内放置至多五个友方Trap Marker",
+      "legendary": "Perfect Positioning [6\" Pulse]\n此模型可以在此脉冲范围内放置至多五个友方Trap Marker。",
       "types": "Indar, Human, Female,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6449,7 +6449,7 @@
         "Light Footed",
         "Nature's Blessing"
       ],
-      "heroic": "Blessing of the Sun Father\n在此模型激活中限一次，目标6\" 内的一名友方模型可以无需消耗影响力使用一次角色技巧",
+      "heroic": "Blessing of the Sun Father\n在此模型激活中限一次，6\" 内的目标友方模型可以无需消耗影响力使用一次角色技巧。",
       "types": "Unknown, Human, Male,\nCentre Back,\nSquaddie",
       "playbook": [
         [
@@ -6608,7 +6608,7 @@
         "Big Game Traps",
         "Heightened Senses"
       ],
-      "heroic": "Blessing of the Sun Father\n在此模型激活中限一次，目标6\" 内的一名友方模型可以无需消耗影响力使用一次角色技巧",
+      "heroic": "Blessing of the Sun Father\n在此模型激活中限一次，目标6\" 内的一名友方模型可以无需消耗影响力使用一次角色技巧。",
       "types": "Unknown, Female,\nAttacking Midfielder,\nVeteran, Squaddie",
       "playbook": [
         [
@@ -6766,7 +6766,7 @@
         "Linked [Fahad]",
         "Unpredictable Movement"
       ],
-      "legendary": "The Power of Voodoo\n目标 6\" 内的友方模型可以立即进行一次小跑",
+      "legendary": "The Power of Voodoo\n6\" 内的目标友方模型可以立即进行一次小跑。",
       "types": "Eisnoran, Human, Female,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -6820,7 +6820,7 @@
         "Linked [Harmony]",
         "Poised"
       ],
-      "legendary": "Topping Out! [6\" Pulse]\n选择一项效果：\n- 在此脉冲范围的友方模型获得+1 ARM\n- 在此脉冲范围内的友方模型获得1影响力",
+      "legendary": "Topping Out! [6\" Pulse]\n选择一项效果：\n- 在此脉冲范围的友方模型获得+1 ARM。\n- 在此脉冲范围内的友方模型获得1影响力。",
       "types": "Castellyian, Human, Female,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6875,7 +6875,7 @@
         "Repointing [6\" Aura]",
         "Tough Hide"
       ],
-      "legendary": "Hammer Time! [6\" Pulse]\n每一个在此脉冲范围内的其他友方模型可以选择以下一项效果来受益：\n- +2\"/+2\" MOV\n- 战术手册伤害结果+1 DMG",
+      "legendary": "Hammer Time! [6\" Pulse]\n每一个在此脉冲范围内的其他友方模型可以选择以下一项效果来受益：\n- +2\"/+2\" MOV。\n- 战术手册伤害结果+1 DMG。",
       "types": "Raed, Human, Male,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6929,7 +6929,7 @@
         "Close Control",
         "Making Space"
       ],
-      "legendary": "Playing the Game\n选择一个此模型 6\" 内的自由球。此模型立刻获得该自由球的控制权",
+      "legendary": "Playing the Game\n选择一个此模型 6\" 内的自由球。此模型立刻获得该自由球的控制权。",
       "types": "Figeon, Human, Male,\nStriker,\nCaptain",
       "playbook": [
         [
@@ -7186,7 +7186,7 @@
       "character_traits": [
         "Revelling"
       ],
-      "heroic": "Intensity\n此激活期间一次，该模型可以无需消耗影响力使用一次角色技巧",
+      "heroic": "Intensity\n此激活期间一次，该模型可以无需消耗影响力使用一次角色技巧。",
       "types": "Valentian, Human, Female,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -7552,7 +7552,7 @@
         "Floored",
         "Knockback"
       ],
-      "heroic": "Protect Those Close [4\" Aura]\n在此光环范围内友方模型获得Sturdy\n{{trait 'Sturdy'}}",
+      "heroic": "Protect Those Close [4\" Aura]\n在此光环范围内友方模型获得Sturdy。\n{{trait 'Sturdy'}}",
       "types": "Castellyian, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -7606,7 +7606,7 @@
         "Shadow Like",
         "Unpredictable Movement"
       ],
-      "legendary": "Rigor Mortis\n敌方队伍失去当前所有MP，而友方队伍获得等于敌方队伍所失数量的MP",
+      "legendary": "Rigor Mortis\n敌方队伍失去当前所有MP，而友方队伍获得等于敌方队伍所失数量的MP。",
       "types": "Figeon, Human, Male,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -7659,7 +7659,7 @@
         "Anatomical Precision",
         "Voodoo Strings [6\" Aura]"
       ],
-      "heroic": "Unnatural Stamina\n激活期间一次，此模型可以无需消耗影响力使用Second Wind",
+      "heroic": "Unnatural Stamina\n激活期间一次，此模型可以无需消耗影响力使用Second Wind。",
       "types": "Sultarish, Human, Female,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -7714,7 +7714,7 @@
         "Grave Candle [6\" Aura]",
         "Creeping Dread"
       ],
-      "legendary": "Haunting Gaze [6\" Aura]\n当敌方模型在此光环范围内开始行进时,只能靠近此模型进行行进",
+      "legendary": "Haunting Gaze [6\" Aura]\n当敌方模型在此光环范围内开始行进时,只能靠近此模型进行行进。",
       "types": "Figeon, Human, Female,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -7872,7 +7872,7 @@
         "Stamina",
         "Wraith Walk"
       ],
-      "heroic": "Grave Wind\n下一次该模型推挤敌方模型时，被推挤的模型受到倒地状态",
+      "heroic": "Grave Wind\n下一次该模型推挤敌方模型时，被推挤的模型受到倒地状态。",
       "types": "Piert, Human, Male,\nStriker,\nSquaddie",
       "playbook": [
         [
@@ -8031,7 +8031,7 @@
         "Reanimate",
         "Tough Hide"
       ],
-      "legendary": "Casket Time\n下一次该模型使敌方具有Human类别的模型受到离场状态时,友方队伍获得额外的2VP。该离场模型在下一个维持阶段不能返回球场",
+      "legendary": "Casket Time\n下一次该模型使敌方具有Human类别的模型受到离场状态时,友方队伍获得额外的2VP。该离场模型在下一个维持阶段不能返回球场。",
       "types": "Piert, Human, Male,\nCentre Back,\nSquaddie",
       "playbook": [
         [
@@ -8136,7 +8136,7 @@
       "character_traits": [
         "The Knowledge"
       ],
-      "legendary": "Handy Listener, Such As You Are\n移除在球场上的任意数量呢喃标记。每移除一个呢喃标记，就在球场上的敌方模型上放置一个呢喃标记",
+      "legendary": "Handy Listener, Such As You Are\n移除在球场上的任意数量呢喃标记。每移除一个呢喃标记，就在球场上的敌方模型上放置一个呢喃标记。",
       "types": "Piert, Human, Male,\nCoach,\nSquaddie",
       "playbook": [
         [
@@ -8292,7 +8292,7 @@
       "character_traits": [
         "Close Control"
       ],
-      "heroic": "Packmaster [Squeak, Vileswarm]\n目标4\" 内的指定友方模型获得2点影响力",
+      "heroic": "Packmaster [Squeak, Vileswarm]\n目标4\" 内的指定友方模型获得2点影响力。",
       "types": "Raed, Human, Male,\nDefensive Midfielder,\nVeteran, Squaddie",
       "playbook": [
         [
@@ -8345,7 +8345,7 @@
         "Dark Doubts",
         "Soul Seer"
       ],
-      "legendary": "The Power of Voodoo\n目标该模型 6\" 内的友方模型可以立即进行一次小跑",
+      "legendary": "The Power of Voodoo\n目标该模型 6\" 内的友方模型可以立即进行一次小跑。",
       "types": "Eisnoran, Human, Female,\nDefensive Midfielder,\nVeteran, Squaddie",
       "playbook": [
         [
@@ -8451,7 +8451,7 @@
       "character_traits": [
         "Shadow Like"
       ],
-      "legendary": "Strike from the Shadows [6\" Pulse]\n选择一项效果：\n- 在此脉冲范围内的友方模型获得+1 DEF\n- 在此脉冲范围内的友方模型可以进行一次2\" 闪避",
+      "legendary": "Strike from the Shadows [6\" Pulse]\n选择一项效果：\n- 在此脉冲范围内的友方模型获得+1 DEF。\n- 在此脉冲范围内的友方模型可以进行一次2\" 闪避。",
       "types": "Sultarish, Human, Male,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -8505,8 +8505,8 @@
         "Furious",
         "Rising Anger"
       ],
-      "heroic": "Bloody Coin\n选择该模型4\"内一个友方模型,目标友方模型在攻击与另一个友方模型接战的敌方模型时获得+1 TAC和战术手册伤害结果+1 DMG",
-      "legendary": "My Gang [6\" Aura]\n在此光环范围内的友方模型在攻击一名与另一名友方模型接战的敌方模型时，获得+1 TAC和战术手册伤害结果+1 DMG\n此效果不与Bloody Coin叠加",
+      "heroic": "Bloody Coin\n选择该模型4\"内一个友方模型,目标友方模型在攻击与另一个友方模型接战的敌方模型时获得+1 TAC和战术手册伤害结果+1 DMG。",
+      "legendary": "My Gang [6\" Aura]\n在此光环范围内的友方模型在攻击一名与另一名友方模型接战的敌方模型时，获得+1 TAC和战术手册伤害结果+1 DMG。\n此效果不与Bloody Coin叠加。",
       "types": "Castellyian, Human, Male,\nAttacking Midfielder,\nCaptain, Veteran",
       "playbook": [
         [
@@ -8872,7 +8872,7 @@
         "Foul Odour [3\" Aura]",
         "Resilience"
       ],
-      "heroic": "Fangtooth Unleashed\n此模型受到4 DMG并获得 +2\"/+2\" MOV和角色技巧及战术手册伤害结果+1 DMG",
+      "heroic": "Fangtooth Unleashed\n此模型受到4 DMG并获得 +2\"/+2\" MOV和角色技巧及战术手册伤害结果+1 DMG。",
       "types": "Ethraynnian, Human, Male,\nCentre Back,\nSquaddie",
       "playbook": [
         [
@@ -9084,7 +9084,7 @@
         "Crucial Artery",
         "Furious"
       ],
-      "heroic": "Intensity\n在此激活期间一次，此模型可以无需消耗影响力使用一次角色技巧",
+      "heroic": "Intensity\n在此激活期间一次，此模型可以无需消耗影响力使用一次角色技巧。",
       "types": "Castellyian, Human, Male,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -9190,7 +9190,7 @@
         "Guild Rule: Intimidation",
         "Scathing Rebuke"
       ],
-      "legendary": "Master Chef [Aura 6\"]\n当在此光环范围内时，每个友方模型可以在其激活期间使用一次不消耗影响力的角色技巧",
+      "legendary": "Master Chef [Aura 6\"]\n当在此光环范围内时，每个友方模型可以在其激活期间使用一次不消耗影响力的角色技巧。",
       "types": "Piert, Human, Male,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -9509,7 +9509,7 @@
         "Assist [Frelsi]",
         "Death from Above"
       ],
-      "legendary": "Daughter of Falcons [6\" Pulse]\n在此脉冲范围内的敌方模型受到 3 DMG和捕获状态",
+      "legendary": "Daughter of Falcons [6\" Pulse]\n在此脉冲范围内的敌方模型受到 3 DMG和捕获状态。",
       "types": "Figeon, Human, Female,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -9824,7 +9824,7 @@
         "Guild Rule: Secret Tunnel",
         "Tough Hide"
       ],
-      "legendary": "We’re Going Underground [6\" pulse]\n将此脉冲范围内的友方模型放置于其当前位置 2\" 内",
+      "legendary": "We’re Going Underground [6\" pulse]\n将此脉冲范围内的友方模型放置于其当前位置 2\" 内。",
       "types": "Indar, Human, Male,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -9929,7 +9929,7 @@
         "Guild Rule: Secret Tunnel",
         "You're Coming With Me"
       ],
-      "legendary": "Tremor Mine\n选择该模型 8\" 内的一个自由球并将其从球场移除。此模型的控制方进行一次开球",
+      "legendary": "Tremor Mine\n选择该模型 8\" 内的一个自由球并将其从球场移除。此模型的控制方进行一次开球。",
       "types": "Numasai, Mechanica, Human, Female,\nCentre Back,\nSquaddie",
       "playbook": [
         [
@@ -10143,7 +10143,7 @@
         "Guild Rule: Precise Calculations",
         "Stormwind"
       ],
-      "legendary": "Perfect Course [6\" Pulse]\n此脉冲范围内每有一个敌方模型，就可以选择一个此脉冲范围内的友方模型进行一次 4\" 闪避，每个友方模型只能被此效果选择一次",
+      "legendary": "Perfect Course [6\" Pulse]\n此脉冲范围内每有一个敌方模型，就可以选择一个此脉冲范围内的友方模型进行一次 4\" 闪避，每个友方模型只能被此效果选择一次。",
       "types": "Sultarish, Human, Female,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -10358,7 +10358,7 @@
         "Light Footed",
         "Linked [Angel]"
       ],
-      "heroic": "Waverunner\n如果此模型在一个或多个地形的1\"内，则此模型可以立即进行一次 4\" 闪避",
+      "heroic": "Waverunner\n如果此模型在一个或多个地形的1\"内，则此模型可以立即进行一次 4\" 闪避。",
       "types": "Numasai, Human, Female,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -10465,7 +10465,7 @@
         "Scores for Fun",
         "Unpredictable Movement"
       ],
-      "legendary": "Worthy Sacrifice [6\" Aura]\n将此模型放置在6\"内另一个友方模型底盘接触的位置，被选择的友方模型在此之后进行一次6\"闪避",
+      "legendary": "Worthy Sacrifice [6\" Aura]\n将此模型放置在6\"内另一个友方模型底盘接触的位置，被选择的友方模型在此之后进行一次6\"闪避。",
       "types": "Valentian, Human, Female,\nStriker,\nCaptain, Seasoned",
       "playbook": [
         [
@@ -10676,7 +10676,7 @@
         "Impart Faith [6\" Aura]",
         "Talisman"
       ],
-      "legendary": "Reclamation\n如果友方队伍拥有Ball of Light效果，此模型立刻获得友方Ball of light的控制权",
+      "legendary": "Reclamation\n如果友方队伍拥有Ball of Light效果，此模型立刻获得友方Ball of light的控制权。",
       "types": "Piert, Human, Female,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -10834,7 +10834,7 @@
         "Close Control",
         "Floored"
       ],
-      "heroic": "Reading the Game\n目标 6\" 内的友方模型可以立即进行一次无需消耗影响力的传球",
+      "heroic": "Reading the Game\n目标 6\" 内的友方模型可以立即进行一次无需消耗影响力的传球。",
       "types": "Raed, Human, Male,\nAttacking Midfielder,\nSeasoned, Squaddie",
       "playbook": [
         [
@@ -10886,8 +10886,8 @@
       "character_traits": [
         "Haunting Melody"
       ],
-      "heroic": "Distracting Tune\n选择一名4\"内的敌方模型，被选择的模型受到一个 2\" 推移.",
-      "legendary": "Swarm’s Obedience [8\" Pulse]\n选择友方或敌方球门柱。在此脉冲范围内的模型受到一个径直靠近球门柱的 3\" 推移",
+      "heroic": "Distracting Tune\n选择一名4\"内的敌方模型，被选择的模型受到一个 2\" 推移。",
+      "legendary": "Swarm’s Obedience [8\" Pulse]\n选择友方或敌方球门柱。在此脉冲范围内的模型受到一个径直靠近球门柱的 3\" 推移。",
       "types": "Mald, Human, Male,\nStriker,\nCaptain",
       "playbook": [
         [
@@ -10939,7 +10939,7 @@
         "Predatory Instinct",
         "Tag Along"
       ],
-      "legendary": "The Rat King\n选一个在 8\" 内的自由球并将其从球场上移除。此模型的控制者进行一次开球",
+      "legendary": "The Rat King\n选一个在 8\" 内的自由球并将其从球场上移除。此模型的控制者进行一次开球 。",
       "types": "Mald, Animal,\nMascot",
       "playbook": [
         [
@@ -11205,7 +11205,7 @@
         "Protect the Ball [6\" Pulse]",
         "Sheep Become the Shepherds"
       ],
-      "legendary": "Rest Up!\n选择此模型 4\" 内的另一个友方模型。这个友方模型受到离场状态。敌方队伍不会因此次离场获得VP",
+      "legendary": "Rest Up!\n选择此模型 4\" 内的另一个友方模型。这个友方模型受到离场状态。敌方队伍不会因此次离场获得VP。",
       "types": "Piert, Human, Female,\nReaper, Central Midfielder,\nCaptain",
       "playbook": [
         [
@@ -11581,7 +11581,7 @@
         "Blinded by the Light",
         "Flare Out"
       ],
-      "legendary": "Eternal Flame [6\" Pulse]\n在此脉冲范围内的全部模型受到燃烧状态,敌方模型受到3点伤害",
+      "legendary": "Eternal Flame [6\" Pulse]\n在此脉冲范围内的全部模型受到燃烧状态，敌方模型受到3点伤害。",
       "types": "Valentian, Human, Female,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -11900,7 +11900,7 @@
         "Bends... But Never Breaks",
         "Caber Toss"
       ],
-      "legendary": "Fell Swing [8\" Pulse]\n在此脉冲范围内并位于友方木堆标记1\"内的友方模型可以宣布一次不用消耗影响力的攻击。然后将至多两个在球场上的友方木堆标记放置在脉冲范围内",
+      "legendary": "Fell Swing [8\" Pulse]\n在此脉冲范围内并位于友方木堆标记1\"内的友方模型可以宣布一次不用消耗影响力的攻击。然后将至多两个在球场上的友方木堆标记放置在脉冲范围内。",
       "types": "Skald, Human, Female,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -12112,7 +12112,7 @@
       "character_traits": [
         "Matched Pair [Cut]"
       ],
-      "heroic": "It's Bucking Time!\n如果友方模型Cut位于本模型4\" 内，将CrossCut以全额HP状态放置在本模型或Cut底盘接触位置。然后移除任意数量位于本模型和Cut上的影响力并分配给CrossCut.在此之后将本模型和Cut从球场上移除，并将本模型和Cut的角色卡替换为CrossCut的角色卡",
+      "heroic": "It's Bucking Time!\n如果友方模型Cut位于本模型4\" 内，将CrossCut以全额HP状态放置在本模型或Cut底盘接触位置。然后移除任意数量位于本模型和Cut上的影响力并分配给CrossCut.在此之后将本模型和Cut从球场上移除，并将本模型和Cut的角色卡替换为CrossCut的角色卡。",
       "types": "Mald, Human, Male,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -12272,7 +12272,7 @@
         "Synchronised [Flint]",
         "Putting Out Fires"
       ],
-      "legendary": "This Should Be Overtime...\n选择一个在场上的友方木堆标记将其放置在本模型4\"内",
+      "legendary": "This Should Be Overtime...\n选择一个在场上的友方木堆标记将其放置在本模型4\" 内。",
       "types": "Eisnoran, Human, Male,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -13427,7 +13427,7 @@
     },
     {
       "name": "Boom Box",
-      "text": "目标敌方模型受到一个径直远离此模型的 \" 推移和 4 DMG。",
+      "text": "目标敌方模型受到一个径直远离此模型的4\" 推移和 4 DMG。",
       "CST": 3,
       "RNG": 6,
       "SUS": false,
