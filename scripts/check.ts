@@ -151,7 +151,31 @@ for (const fileEntry of files) {
   }
 }
 
+const gameplanFiles: {
+  filename: string;
+  version: number;
+  sha256: string;
+  timestamp: string;
+}[] = [];
+
 for (const fileEntry of manifest.gameplans ?? []) {
+  gameplanFiles.push({
+    filename: fileEntry.filename,
+    version: fileEntry.version,
+    sha256: fileEntry.sha256,
+    timestamp: fileEntry.timestamp,
+  });
+  for (const language in fileEntry.translations) {
+    gameplanFiles.push({
+      filename: fileEntry.translations[language].filename,
+      version: fileEntry.version,
+      sha256: fileEntry.translations[language].sha256,
+      timestamp: fileEntry.translations[language].timestamp,
+    });
+  }
+}
+
+for (const fileEntry of gameplanFiles) {
   const dataFile = fileEntry.filename;
 
   console.log(`\n\n--- Processing: ${dataFile} ---`);
