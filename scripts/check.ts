@@ -131,15 +131,41 @@ for (const fileEntry of files) {
   }
 
   // Unused Character Traits
+  const allPlays = await db.character_plays.find().exec();
+  const allTraits = await db.character_traits.find().exec();
   const unusedCT: string[] = [];
-  for (const ct of await db.character_traits.find().exec()) {
-    let count = 0;
+  for (const ct of allTraits) {
+    let isUsed = false;
+
+    // 1. Check if used by a model
     for (const m of expanded || []) {
       if (m.character_traits.some((t) => t.name === ct.name)) {
-        count += 1;
+        isUsed = true;
+        break;
       }
     }
-    if (!count) {
+    if (isUsed) continue;
+
+    const template = `{{trait '${ct.name}'}}`;
+
+    // 2. Check if referenced in another trait's text
+    for (const otherCT of allTraits) {
+      if (otherCT.name !== ct.name && otherCT.text?.includes(template)) {
+        isUsed = true;
+        break;
+      }
+    }
+    if (isUsed) continue;
+
+    // 3. Check if referenced in a play's text
+    for (const cp of allPlays) {
+      if (cp.text?.includes(template)) {
+        isUsed = true;
+        break;
+      }
+    }
+
+    if (!isUsed) {
       unusedCT.push(ct.name);
     }
   }
