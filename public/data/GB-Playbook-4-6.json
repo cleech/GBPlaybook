@@ -12150,7 +12150,7 @@
     },
     {
       "name": "Shield Throw",
-      "text": "If target enemy model is in possession of the ball, it loses possession of the ball. Then perform a circular scatter with the template centred on that model.",
+      "text": "If target model is in possession of the ball, it loses possession of the ball. Then perform a circular scatter with the template centred on that model.",
       "CST": "1,CP",
       "RNG": 6,
       "SUS": false,
