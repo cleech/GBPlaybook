@@ -2,274 +2,281 @@
 
 import fs from "node:fs/promises";
 import crypto from "node:crypto";
-
-import { Manifest } from "../src/components/DataTypes";
-import { GBModelExpanded, PartialError } from "../src/models/gbdbTypes";
-import { clearGBDatabase, getGBDatabase, loadGBDatabase } from "./gbdb";
 import path from "node:path";
+import { Manifest } from "../src/components/DataTypes";
+import { GBModelExpanded, PartialError, GBDatabase } from "../src/models/gbdbTypes";
+import { clearGBDatabase, getGBDatabase, loadGBDatabase } from "./gbdb";
 
-const db = await getGBDatabase();
-const dataDir = path.resolve(__dirname, "../public/data");
+// --- Types & Constants ---
 
-const manifestPath = path.resolve(dataDir, "manifest.json");
-console.log(`\n# Loading manifest from ${manifestPath}`);
-const manifest: Manifest = await fs
-  .readFile(manifestPath, "utf8")
-  .then(JSON.parse);
+const DATA_DIR = path.resolve(__dirname, "../public/data");
+const MANIFEST_PATH = path.resolve(DATA_DIR, "manifest.json");
+const PADDING_WIDTH = 48;
 
-let hadError = false;
-
-function printTest(label: string, ok: boolean) {
-  const width = 48;
-  const padded = label.padEnd(width, ".");
-  console.log(`${padded} ${ok ? "✅" : "❌"}`);
-  if (!ok) hadError = true;
+interface ValidationResult {
+  label: string;
+  ok: boolean;
+  message?: string;
+  type: "error" | "warning" | "success";
 }
 
-// Check manifest timestamp
-const manifestTimestamp = new Date(manifest.timestamp);
-let latestEntryTimestamp = new Date(0);
-let latestEntryFile = "";
+interface FileTask {
+  filename: string;
+  version: number;
+  expectedHash: string;
+  expectedTimestamp?: string;
+  isGameplan: boolean;
+  content?: string;
+  actualHash?: string;
+}
 
-for (const entry of manifest.datafiles) {
-  const entryTS = new Date(entry.timestamp);
-  if (entryTS > latestEntryTimestamp) {
-    latestEntryTimestamp = entryTS;
-    latestEntryFile = entry.filename;
-  }
-  for (const lang in entry.translations) {
-    const transTS = new Date(entry.translations[lang].timestamp);
-    if (transTS > latestEntryTimestamp) {
-      latestEntryTimestamp = transTS;
-      latestEntryFile = entry.translations[lang].filename;
+// --- Reporter ---
+
+class Reporter {
+  private results: ValidationResult[] = [];
+  hadError = false;
+
+  log(label: string, ok: boolean, message?: string, isWarning = false) {
+    const padded = label.padEnd(PADDING_WIDTH, ".");
+    const emoji = ok ? "✅" : isWarning ? "⚠️" : "❌";
+    console.log(`${padded} ${emoji}`);
+    
+    if (message) {
+      console.log(`  ${message.replace(/\n/g, "\n  ")}`);
+    }
+
+    if (!ok) {
+      if (isWarning) {
+        this.results.push({ label, ok, message, type: "warning" });
+      } else {
+        this.hadError = true;
+        this.results.push({ label, ok, message, type: "error" });
+      }
+    } else {
+      this.results.push({ label, ok, message, type: "success" });
     }
   }
+
+  printSummary() {
+    const errors = this.results.filter(r => r.type === "error");
+    const warnings = this.results.filter(r => r.type === "warning");
+
+    console.log("\n" + "=".repeat(PADDING_WIDTH + 4));
+    console.log("CHECK SUMMARY");
+    console.log("-".repeat(PADDING_WIDTH + 4));
+    console.log(`Total Checks: ${this.results.length}`);
+    console.log(`Errors:       ${errors.length}`);
+    console.log(`Warnings:     ${warnings.length}`);
+    
+    if (this.hadError) {
+      console.log("\nFAILED checks:");
+      errors.forEach(e => console.log(`  ❌ ${e.label}${e.message ? `: ${e.message.split('\n')[0]}` : ""}`));
+    }
+    
+    if (warnings.length) {
+      console.log("\nWARNINGS:");
+      warnings.forEach(w => console.log(`  ⚠️ ${w.label}${w.message ? `: ${w.message.split('\n')[0]}` : ""}`));
+    }
+    
+    console.log("=".repeat(PADDING_WIDTH + 4));
+  }
 }
 
-for (const entry of manifest.gameplans ?? []) {
-  const entryTS = new Date(entry.timestamp);
-  if (entryTS > latestEntryTimestamp) {
-    latestEntryTimestamp = entryTS;
-    latestEntryFile = entry.filename;
-  }
-  if (entry.translations) {
+const reporter = new Reporter();
+
+// --- Utilities ---
+
+async function getFileHash(content: string) {
+  return crypto.createHash("sha256").update(content).digest("hex");
+}
+
+function flattenManifest(manifest: Manifest): FileTask[] {
+  const tasks: FileTask[] = [];
+
+  // Datafiles
+  for (const entry of manifest.datafiles) {
+    tasks.push({
+      filename: entry.filename,
+      version: entry.version,
+      expectedHash: entry.sha256,
+      expectedTimestamp: entry.timestamp,
+      isGameplan: false,
+    });
     for (const lang in entry.translations) {
-      const transTS = new Date(entry.translations[lang].timestamp);
-      if (transTS > latestEntryTimestamp) {
-        latestEntryTimestamp = transTS;
-        latestEntryFile = entry.translations[lang].filename;
+      const trans = entry.translations[lang];
+      tasks.push({
+        filename: trans.filename,
+        version: entry.version,
+        expectedHash: trans.sha256,
+        expectedTimestamp: trans.timestamp,
+        isGameplan: false,
+      });
+    }
+  }
+
+  // Gameplans
+  for (const entry of manifest.gameplans ?? []) {
+    tasks.push({
+      filename: entry.filename,
+      version: entry.version,
+      expectedHash: entry.sha256,
+      expectedTimestamp: entry.timestamp,
+      isGameplan: true,
+    });
+    if (entry.translations) {
+      for (const lang in entry.translations) {
+        const trans = entry.translations[lang];
+        tasks.push({
+          filename: trans.filename,
+          version: entry.version,
+          expectedHash: trans.sha256,
+          expectedTimestamp: trans.timestamp,
+          isGameplan: true,
+        });
       }
     }
   }
+
+  return tasks;
 }
 
-printTest(
-  "# Checking manifest timestamp is current",
-  manifestTimestamp >= latestEntryTimestamp
-);
-if (manifestTimestamp < latestEntryTimestamp) {
-  console.log(`  Manifest timestamp:     ${manifest.timestamp}`);
-  console.log(
-    `  Latest entry timestamp: ${latestEntryTimestamp.toISOString()} (${latestEntryFile})`
-  );
-}
+// --- Validation Logic ---
 
-const files: { filename: string; version: number; sha256: string }[] = [];
+function checkManifestTimestamp(manifest: Manifest, tasks: FileTask[]) {
+  const manifestTimestamp = new Date(manifest.timestamp);
+  let latestEntryTimestamp = new Date(0);
+  let latestEntryFile = "";
 
-for (const fileEntry of manifest.datafiles) {
-  files.push({
-    filename: fileEntry.filename,
-    version: fileEntry.version,
-    sha256: fileEntry.sha256,
-  });
-  for (const language in fileEntry.translations) {
-    files.push({
-      filename: fileEntry.translations[language].filename,
-      version: fileEntry.version,
-      sha256: fileEntry.translations[language].sha256,
-    });
+  for (const task of tasks) {
+    if (task.expectedTimestamp) {
+      const entryTS = new Date(task.expectedTimestamp);
+      if (entryTS > latestEntryTimestamp) {
+        latestEntryTimestamp = entryTS;
+        latestEntryFile = task.filename;
+      }
+    }
   }
+
+  const ok = manifestTimestamp >= latestEntryTimestamp;
+  let msg;
+  if (!ok) {
+    msg = `Manifest timestamp:     ${manifest.timestamp}\nLatest entry timestamp: ${latestEntryTimestamp.toISOString()} (${latestEntryFile})`;
+  }
+  reporter.log("# Checking manifest timestamp is current", ok, msg);
 }
 
-for (const fileEntry of files) {
-  const dataFile = fileEntry.filename;
+async function validateFile(db: GBDatabase, task: FileTask) {
+  console.log(`\n\n--- Processing: ${task.filename} ---`);
+  console.log(`# Type: ${task.isGameplan ? "Gameplan" : "Season"} v${task.version}`);
 
-  console.log(`\n\n--- Processing: ${dataFile} ---`);
-  console.log(`# Season: ${fileEntry.version}`);
+  // 1. Hash check
+  const hashOk = task.actualHash === task.expectedHash;
+  reporter.log("# Checking SHA256 hash", hashOk, hashOk ? undefined : `Expected ${task.expectedHash}\nActual   ${task.actualHash}`);
 
-  // Clear data from previous file
+  if (task.isGameplan) return; // Gameplans only check hash for now
+
+  // 2. Schema Load
   await clearGBDatabase(db);
-
-  const file = await fs.readFile(path.resolve(dataDir, dataFile), "utf8");
-  const hash = crypto.createHash("sha256").update(file).digest("hex");
-
-  if (hash !== fileEntry.sha256) {
-    printTest("# Checking SHA256 hash", false);
-    console.log(`  Expected ${fileEntry.sha256}`);
-    console.log(`  Actual   ${hash}`);
-  } else {
-    printTest("# Checking SHA256 hash", true);
-  }
-
   let schemaOk = true;
   let schemaErr;
   try {
-    await loadGBDatabase(db, fileEntry, dataDir);
+    await loadGBDatabase(db, task, DATA_DIR);
   } catch (err) {
     schemaErr = err;
     schemaOk = false;
   }
-  printTest(`# Loading with schema validation`, schemaOk);
-  if (!schemaOk) {
-    console.error(schemaErr);
-    // move on to the next file
-    continue;
-  }
+  reporter.log("# Loading with schema validation", schemaOk, schemaErr?.toString());
+  if (!schemaOk) return;
 
-  // Play and trait expansion
-  let expansionOk = true;
+  // 3. Expansion Check
   const models = await db.models.find().exec();
-  const errors: Error[] = [];
-  const expanded = (
-    await Promise.all(
-      models.map((m) =>
-        m.expand().catch((err) => {
-          errors.push(err);
-          if (err instanceof Error) {
-            if (err.cause instanceof AggregateError) {
-              err.cause.errors.forEach((err) => {
-                if (err instanceof Error) {
-                  err.message = `\t${err.message}`;
-                  errors.push(err);
-                }
-              });
-            } else if (err.cause instanceof Error) {
-              err.message = `\t${err.message}`;
-              errors.push(err.cause);
-            }
-          }
-          expansionOk = false;
-          if (err instanceof PartialError) {
-            return err.partialResult as GBModelExpanded;
-          }
-        })
-      )
-    )
-  ).filter((m) => m !== undefined);
-  printTest("# Testing play and trait expansion", expansionOk);
-  errors.forEach((err) => {
-    console.log(`  ${err.message}`);
-  });
+  const expansionErrors: string[] = [];
+  const expanded: GBModelExpanded[] = [];
 
-  // Unused Character Plays
-  const unusedCP: string[] = [];
-  for (const cp of await db.character_plays.find().exec()) {
-    let count = 0;
-    for (const m of models || []) {
-      if (m.character_plays.includes(cp.name)) {
-        count += 1;
+  await Promise.all(models.map(async (m) => {
+    try {
+      expanded.push(await m.expand());
+    } catch (err) {
+      if (err instanceof PartialError) {
+        expanded.push(err.partialResult as GBModelExpanded);
+      }
+      if (err instanceof Error) {
+        expansionErrors.push(err.message);
+        if (err.cause instanceof AggregateError) {
+          err.cause.errors.forEach(e => expansionErrors.push(`  ${e.message}`));
+        } else if (err.cause instanceof Error) {
+          expansionErrors.push(`  ${err.cause.message}`);
+        }
       }
     }
-    if (!count) {
-      unusedCP.push(cp.name);
-    }
-  }
-  printTest("# Checking for unused Charater Plays", unusedCP.length === 0);
-  if (unusedCP.length) {
-    for (const name of unusedCP) {
-      console.log(`  ${name.padEnd(46, ".")} ⚠️`);
-    }
-  }
+  }));
 
-  // Unused Character Traits
+  reporter.log("# Testing play and trait expansion", expansionErrors.length === 0, expansionErrors.join("\n"));
+
+  // 4. Unused Resources Check (Optimized)
   const allPlays = await db.character_plays.find().exec();
   const allTraits = await db.character_traits.find().exec();
-  const unusedCT: string[] = [];
-  for (const ct of allTraits) {
-    let isUsed = false;
 
-    // 1. Check if used by a model
-    for (const m of expanded || []) {
-      if (m.character_traits.some((t) => t.name === ct.name)) {
-        isUsed = true;
-        break;
-      }
-    }
-    if (isUsed) continue;
+  const usedPlays = new Set<string>();
+  const usedTraits = new Set<string>();
 
-    const template = `{{trait '${ct.name}'}}`;
-
-    // 2. Check if referenced in another trait's text
-    for (const otherCT of allTraits) {
-      if (otherCT.name !== ct.name && otherCT.text?.includes(template)) {
-        isUsed = true;
-        break;
-      }
-    }
-    if (isUsed) continue;
-
-    // 3. Check if referenced in a play's text
-    for (const cp of allPlays) {
-      if (cp.text?.includes(template)) {
-        isUsed = true;
-        break;
-      }
-    }
-
-    if (!isUsed) {
-      unusedCT.push(ct.name);
-    }
-  }
-  printTest("# Checking for unused Character Traits", unusedCT.length === 0);
-  if (unusedCT.length) {
-    for (const name of unusedCT) {
-      console.log(`  ${name.padEnd(46, ".")} ⚠️`);
-    }
-  }
-}
-
-const gameplanFiles: {
-  filename: string;
-  version: number;
-  sha256: string;
-}[] = [];
-
-for (const fileEntry of manifest.gameplans ?? []) {
-  gameplanFiles.push({
-    filename: fileEntry.filename,
-    version: fileEntry.version,
-    sha256: fileEntry.sha256,
+  // Collect references from models
+  expanded.forEach(m => {
+    m.character_plays.forEach(p => usedPlays.add(p.name));
+    m.character_traits.forEach(t => usedTraits.add(t.name));
   });
-  for (const language in fileEntry.translations) {
-    gameplanFiles.push({
-      filename: fileEntry.translations[language].filename,
-      version: fileEntry.version,
-      sha256: fileEntry.translations[language].sha256,
-    });
-  }
+
+  // Collect references from plays and traits (cross-references)
+  const traitRefRegex = /\{\{trait '([^']+)'\}\}/g;
+  
+  const scanText = (text?: string) => {
+    if (!text) return;
+    let match;
+    while ((match = traitRefRegex.exec(text)) !== null) {
+      usedTraits.add(match[1]);
+    }
+  };
+
+  allPlays.forEach(p => scanText(p.text));
+  allTraits.forEach(t => scanText(t.text));
+
+  // Find unused
+  const unusedPlays = allPlays.filter(p => !usedPlays.has(p.name)).map(p => p.name);
+  const unusedTraits = allTraits.filter(t => !usedTraits.has(t.name)).map(t => t.name);
+
+  reporter.log("# Checking for unused Character Plays", unusedPlays.length === 0, unusedPlays.length ? unusedPlays.join("\n") : undefined, true);
+  reporter.log("# Checking for unused Character Traits", unusedTraits.length === 0, unusedTraits.length ? unusedTraits.join("\n") : undefined, true);
 }
 
-for (const fileEntry of gameplanFiles) {
-  const dataFile = fileEntry.filename;
+// --- Main ---
 
-  console.log(`\n\n--- Processing: ${dataFile} ---`);
-  console.log(`# Gameplan: ${fileEntry.version}`);
+async function main() {
+  console.log(`\n# Loading manifest from ${MANIFEST_PATH}`);
+  const manifestContent = await fs.readFile(MANIFEST_PATH, "utf8");
+  const manifest: Manifest = JSON.parse(manifestContent);
 
-  const filePath = path.resolve(dataDir, dataFile);
-  const file = await fs.readFile(filePath, "utf8");
-  const hash = crypto.createHash("sha256").update(file).digest("hex");
+  const tasks = flattenManifest(manifest);
 
-  if (hash !== fileEntry.sha256) {
-    printTest("# Checking SHA256 hash", false);
-    console.log(`  Expected ${fileEntry.sha256}`);
-    console.log(`  Actual   ${hash}`);
-  } else {
-    printTest("# Checking SHA256 hash", true);
+  // Parallel file reading and hashing
+  await Promise.all(tasks.map(async (task) => {
+    task.content = await fs.readFile(path.resolve(DATA_DIR, task.filename), "utf8");
+    task.actualHash = await getFileHash(task.content);
+  }));
+
+  // Global checks
+  checkManifestTimestamp(manifest, tasks);
+
+  // File-by-file checks
+  const db = await getGBDatabase();
+  for (const task of tasks) {
+    await validateFile(db, task);
   }
+
+  reporter.printSummary();
+  process.exit(reporter.hadError ? 1 : 0);
 }
 
-if (hadError) {
+main().catch(err => {
+  console.error("FATAL ERROR:", err);
   process.exit(1);
-} else {
-  process.exit(0);
-}
+});
