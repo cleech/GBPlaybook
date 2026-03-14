@@ -17,8 +17,64 @@ const manifest: Manifest = await fs
   .readFile(manifestPath, "utf8")
   .then(JSON.parse);
 
-const files: { filename: string; version: number; sha256: string }[] = [];
 let hadError = false;
+
+function printTest(label: string, ok: boolean) {
+  const width = 48;
+  const padded = label.padEnd(width, ".");
+  console.log(`${padded} ${ok ? "✅" : "❌"}`);
+  if (!ok) hadError = true;
+}
+
+// Check manifest timestamp
+const manifestTimestamp = new Date(manifest.timestamp);
+let latestEntryTimestamp = new Date(0);
+let latestEntryFile = "";
+
+for (const entry of manifest.datafiles) {
+  const entryTS = new Date(entry.timestamp);
+  if (entryTS > latestEntryTimestamp) {
+    latestEntryTimestamp = entryTS;
+    latestEntryFile = entry.filename;
+  }
+  for (const lang in entry.translations) {
+    const transTS = new Date(entry.translations[lang].timestamp);
+    if (transTS > latestEntryTimestamp) {
+      latestEntryTimestamp = transTS;
+      latestEntryFile = entry.translations[lang].filename;
+    }
+  }
+}
+
+for (const entry of manifest.gameplans ?? []) {
+  const entryTS = new Date(entry.timestamp);
+  if (entryTS > latestEntryTimestamp) {
+    latestEntryTimestamp = entryTS;
+    latestEntryFile = entry.filename;
+  }
+  if (entry.translations) {
+    for (const lang in entry.translations) {
+      const transTS = new Date(entry.translations[lang].timestamp);
+      if (transTS > latestEntryTimestamp) {
+        latestEntryTimestamp = transTS;
+        latestEntryFile = entry.translations[lang].filename;
+      }
+    }
+  }
+}
+
+printTest(
+  "# Checking manifest timestamp is current",
+  manifestTimestamp >= latestEntryTimestamp
+);
+if (manifestTimestamp < latestEntryTimestamp) {
+  console.log(`  Manifest timestamp:     ${manifest.timestamp}`);
+  console.log(
+    `  Latest entry timestamp: ${latestEntryTimestamp.toISOString()} (${latestEntryFile})`
+  );
+}
+
+const files: { filename: string; version: number; sha256: string }[] = [];
 
 for (const fileEntry of manifest.datafiles) {
   files.push({
@@ -33,13 +89,6 @@ for (const fileEntry of manifest.datafiles) {
       sha256: fileEntry.translations[language].sha256,
     });
   }
-}
-
-function printTest(label: string, ok: boolean) {
-  const width = 48;
-  const padded = label.padEnd(width, ".");
-  console.log(`${padded} ${ok ? "✅" : "❌"}`);
-  if (!ok) hadError = true;
 }
 
 for (const fileEntry of files) {
@@ -183,7 +232,6 @@ const gameplanFiles: {
   filename: string;
   version: number;
   sha256: string;
-  timestamp: string;
 }[] = [];
 
 for (const fileEntry of manifest.gameplans ?? []) {
@@ -191,14 +239,12 @@ for (const fileEntry of manifest.gameplans ?? []) {
     filename: fileEntry.filename,
     version: fileEntry.version,
     sha256: fileEntry.sha256,
-    timestamp: fileEntry.timestamp,
   });
   for (const language in fileEntry.translations) {
     gameplanFiles.push({
       filename: fileEntry.translations[language].filename,
       version: fileEntry.version,
       sha256: fileEntry.translations[language].sha256,
-      timestamp: fileEntry.translations[language].timestamp,
     });
   }
 }
@@ -219,17 +265,6 @@ for (const fileEntry of gameplanFiles) {
     console.log(`  Actual   ${hash}`);
   } else {
     printTest("# Checking SHA256 hash", true);
-  }
-
-  const stats = await fs.stat(filePath);
-  const mtime = stats.mtime.toISOString().split(".")[0] + "Z";
-
-  if (mtime !== fileEntry.timestamp) {
-    printTest("# Checking timestamp", false);
-    console.log(`  Expected ${fileEntry.timestamp}`);
-    console.log(`  Actual   ${mtime}`);
-  } else {
-    printTest("# Checking timestamp", true);
   }
 }
 
