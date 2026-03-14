@@ -18,6 +18,7 @@ const manifest: Manifest = await fs
   .then(JSON.parse);
 
 const files: { filename: string; version: number; sha256: string }[] = [];
+let hadError = false;
 
 for (const fileEntry of manifest.datafiles) {
   files.push({
@@ -38,6 +39,7 @@ function printTest(label: string, ok: boolean) {
   const width = 48;
   const padded = label.padEnd(width, ".");
   console.log(`${padded} ${ok ? "✅" : "❌"}`);
+  if (!ok) hadError = true;
 }
 
 for (const fileEntry of files) {
@@ -231,4 +233,8 @@ for (const fileEntry of gameplanFiles) {
   }
 }
 
-process.exit(0);
+if (hadError) {
+  process.exit(1);
+} else {
+  process.exit(0);
+}
