@@ -87,9 +87,10 @@ const darkTheme = createTheme({
             // "linear-gradient(20deg, black, #121a22, #1d506f, #121a22, black)",
             // "linear-gradient(120deg, black, #221a22, #5f405f, #221a22, black)",
             // "linear-gradient(45deg, black, #5a1616, #734930, #5a1616, black)",
-            "repeating-linear-gradient(45deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5) 70px, transparent 0px, transparent 140px)," +
-            "repeating-linear-gradient(-45deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6) 70px, transparent 0px, transparent 140px)," +
-            "linear-gradient(-45deg, #c33, 10%, #400, 90%, #c33)",
+            // "repeating-linear-gradient(45deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5) 70px, transparent 0px, transparent 140px)," +
+            // "repeating-linear-gradient(-45deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6) 70px, transparent 0px, transparent 140px)," +
+            // "linear-gradient(-45deg, #c33, 10%, #400, 90%, #c33)",
+            "radial-gradient(circle at top left, #221a22 10%, #5f405f 60%, #1e3c6e 90%, #221a22 100%)",
         },
         "@media print": {
           body: {
