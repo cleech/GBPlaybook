@@ -25,13 +25,13 @@
   },
   {
     "title": "Lost Focus",
-    "text": "Choose one of the following:\n- The first time an enemy model\nmakes a __Kick__, they suffer –1/–2\"\nKICK for the duration of the action.\n- The first time a friendly model is\ndamaged by an enemy attack or play,\nthe friendly model may recover 3 HP\nafter the action is resolved.",
+    "text": "Choose one of the following:\n- The first time an enemy model\nmakes a __Kick__, they suffer –1/–2″\nKICK for the duration of the action.\n- The first time a friendly model is\ndamaged by an enemy attack or play,\nthe friendly model may recover 3 HP\nafter the action is resolved.",
     "initiative": 3,
     "influence": 0
   },
   {
     "title": "High Press",
-    "text": "Up to two friendly Squaddie models\nmay make a 2\" __Dodge__ towards the\nenemy __goal-post__.",
+    "text": "Up to two friendly Squaddie models\nmay make a 2″ __Dodge__ towards the\nenemy __goal-post__.",
     "initiative": 3,
     "influence": 0
   },
@@ -55,14 +55,14 @@
   },
   {
     "title": "Big Rivals",
-    "text": "Choose a friendly model and an\nenemy model. The chosen models\nsuffer a 1\" __Push__ directly towards each\nother.",
+    "text": "Choose a friendly model and an\nenemy model. The chosen models\nsuffer a 1″ __Push__ directly towards each\nother.",
     "initiative": 4,
     "influence": 0
   },
   {
     "title": "Man Marking",
     "text": "Choose an enemy Squaddie model.\nThe chosen model suffers _Marked_\n_Target_.",
-    "detail": "Marked Target: When a friendly\nmodel charges target enemy model, the\nfriendly model gains +0\"/+2\" MOV for\nthe duration of the charge.",
+    "detail": "Marked Target: When a friendly\nmodel charges target enemy model, the\nfriendly model gains +0″/+2″ MOV for\nthe duration of the charge.",
     "initiative": 4,
     "influence": 0
   },
@@ -100,7 +100,7 @@
   },
   {
     "title": "Brown Envelope",
-    "text": "The first time you select a model to\nactivate, the opposing player chooses\n–1\"/–1\" MOV or –1 TAC. The\nselected model suffers the chosen\neffect.",
+    "text": "The first time you select a model to\nactivate, the opposing player chooses\n–1″/–1″ MOV or –1 TAC. The\nselected model suffers the chosen\neffect.",
     "initiative": 7,
     "influence": 0
   },
