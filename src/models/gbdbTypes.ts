@@ -316,9 +316,9 @@ const gbModelDocMethods: GBModelMethods = {
       // or CrossCut
       _inf: ((this.id === "Pneuma") || (this.id === "CrossCut")) ? 0 : undefined,
       // mini-statline display
-      statLine: `${this.jog}"/${this.sprint}" | ${this.tac} | ${this.kickdice
-        }/${this.kickdist}" | ${this.def}+ | ${this.arm} | ${this.inf}/${this.infmax
-        } | ${this.reach ? 2 : 1}"`,
+      statLine: `${this.jog}″/${this.sprint}″ | ${this.tac} | ${this.kickdice
+        }/${this.kickdist}″ | ${this.def}+ | ${this.arm} | ${this.inf}/${this.infmax
+        } | ${this.reach ? 2 : 1}″`,
       // get errata level from db metadata
       version: dbSettings?.get("version"),
     });
