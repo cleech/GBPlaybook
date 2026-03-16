@@ -439,7 +439,7 @@
         "Midas Touch",
         "Unpredictable Movement"
       ],
-      "legendary": "Magnum Opus [6\" Pulse]\nEnemy models within this pulse suffer the burning and poison conditions. Friendly models within this pulse gain Fulmination.",
+      "legendary": "Magnum Opus [6″ Pulse]\nEnemy models within this pulse suffer the burning and poison conditions. Friendly models within this pulse gain Fulmination.",
       "types": "Valentian, Human, Male,\nStriker,\nCaptain",
       "playbook": [
         [
@@ -492,9 +492,9 @@
       "character_traits": [
         "Cloud Jumper",
         "Unpredictable Movement",
-        "Watch The World Burn [4\" Pulse]"
+        "Watch The World Burn [4″ Pulse]"
       ],
-      "legendary": "Chemical Shower [6\" Pulse]\nEnemy models within this pulse suffering the burning or poison condition suffer 3 condition DMG.",
+      "legendary": "Chemical Shower [6″ Pulse]\nEnemy models within this pulse suffering the burning or poison condition suffer 3 condition DMG.",
       "types": "Ethraynnian, Human, Female,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -545,10 +545,10 @@
         "Raging Fire"
       ],
       "character_traits": [
-        "Burning Spirit [2\" Aura]",
+        "Burning Spirit [2″ Aura]",
         "Gimme Fuel..."
       ],
-      "legendary": "Gimme Fire! [6\" Pulse]\nEnemy models within this pulse suffer the burning condition. Replace this model’s stat card with Pneuma’s stat card.",
+      "legendary": "Gimme Fire! [6″ Pulse]\nEnemy models within this pulse suffer the burning condition. Replace this model’s stat card with Pneuma’s stat card.",
       "types": "Unknown, Human, Unknown,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -599,7 +599,7 @@
         "Backdraft",
         "Furious",
         "Inferno",
-        "Waning Light [6\" Pulse]"
+        "Waning Light [6″ Pulse]"
       ],
       "types": "Unknown, Human, Unknown,\nAttacking Midfielder,\nCaptain",
       "playbook": [
@@ -651,7 +651,7 @@
       "character_traits": [
         "Beaker Keeper",
         "Light Footed",
-        "Overheat [3\" Pulse]"
+        "Overheat [3″ Pulse]"
       ],
       "types": "Indar, Mechanica,\nMascot",
       "playbook": [
@@ -754,7 +754,7 @@
         "Noxious Blast"
       ],
       "character_traits": [
-        "Poisonous Fumes [2\" Aura]",
+        "Poisonous Fumes [2″ Aura]",
         "Reactive Solution"
       ],
       "types": "Ethryannian, Human, Female,\nCentral Midfielder,\nSquaddie",
@@ -808,7 +808,7 @@
       "character_traits": [
         "Toxicity",
         "Extraction",
-        "Noxious Death [3\" Pulse]"
+        "Noxious Death [3″ Pulse]"
       ],
       "types": "Ethraynnian, Human, Female,\nWinger,\nVeteran, Squaddie",
       "playbook": [
@@ -861,7 +861,7 @@
       ],
       "character_traits": [
         "Chemical Admixture",
-        "Covalence [4\" Aura]",
+        "Covalence [4″ Aura]",
         "Reactive Solution"
       ],
       "types": "Numasai, Human, Female,\nAttacking Midfielder,\nSquaddie",
@@ -1072,9 +1072,9 @@
         "Fire Ball"
       ],
       "character_traits": [
-        "Burning Spirit [2\" Aura]",
+        "Burning Spirit [2″ Aura]",
         "Fission",
-        "Fusion [4\" Pulse]"
+        "Fusion [4″ Pulse]"
       ],
       "types": "Ethraynnian, Human, Male,\nCentral Midfielder,\nSquaddie",
       "playbook": [
@@ -1129,7 +1129,7 @@
         "Secretion",
         "Venomous Strike"
       ],
-      "heroic": "Coagulation [3\" Pulse]\nEnemy models within this pulse that are suffering the poison condition suffer 3 condition DMG.",
+      "heroic": "Coagulation [3″ Pulse]\nEnemy models within this pulse that are suffering the poison condition suffer 3 condition DMG.",
       "types": "Valentian, Human, Male,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -1180,7 +1180,7 @@
       "character_traits": [
         "I've Been Burnt Before..."
       ],
-      "heroic": "Face Your Fear [4\" Pulse]\nEnemy models within this pulse suffer the burning condition.",
+      "heroic": "Face Your Fear [4″ Pulse]\nEnemy models within this pulse suffer the burning condition.",
       "types": "Skaldic, Human, Female,\nStriker,\nSquaddie",
       "playbook": [
         [
@@ -1230,7 +1230,7 @@
         "Horrific Odour"
       ],
       "character_traits": [
-        "Noxious Death [3\" Pulse]",
+        "Noxious Death [3″ Pulse]",
         "Resilience",
         "Rush Keeper"
       ],
@@ -1283,10 +1283,10 @@
         "While the Iron is Hot"
       ],
       "character_traits": [
-        "Sentinel [1\" Aura]",
+        "Sentinel [1″ Aura]",
         "Tough Hide"
       ],
-      "legendary": "Tested Mettle [6\" Aura]\nThis model gains Stoic.\n\nIf this model has the Captain model type, while within this aura other friendly Master models gain Stoic and friendly Apprentice models gain Tough Hide.\n{{trait 'Stoic'}}",
+      "legendary": "Tested Mettle [6″ Aura]\nThis model gains Stoic.\n\nIf this model has the Captain model type, while within this aura other friendly Master models gain Stoic and friendly Apprentice models gain Tough Hide.\n{{trait 'Stoic'}}",
       "types": "Mald, Human, Male,\nCentre Back,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1337,9 +1337,9 @@
       ],
       "character_traits": [
         "Reduction",
-        "Reinforced Plating [1\" Aura]"
+        "Reinforced Plating [1″ Aura]"
       ],
-      "legendary": "Covering Fire\nThis model may use a character play once during its activation without spending influence.\n\nIf this model has the Captain model type, its Reinforced Plating becomes a 6\" aura and may be used twice instead of only once.",
+      "legendary": "Covering Fire\nThis model may use a character play once during its activation without spending influence.\n\nIf this model has the Captain model type, its Reinforced Plating becomes a 6″ aura and may be used twice instead of only once.",
       "types": "Numasai, Human, Male,\nDefensive Midfielder,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1389,9 +1389,9 @@
         "Get In the Goal!"
       ],
       "character_traits": [
-        "Quench [1\" Aura]"
+        "Quench [1″ Aura]"
       ],
-      "legendary": "Batten Down The Hatches [6\" Pulse]\nFriendly models within this pulse may remove any conditions they're currently suffering.\n\nIf this model has the Captain model type, friendly models within this pulse may recover 3 HP.",
+      "legendary": "Batten Down The Hatches [6″ Pulse]\nFriendly models within this pulse may remove any conditions they're currently suffering.\n\nIf this model has the Captain model type, friendly models within this pulse may recover 3 HP.",
       "types": "Sultarish, Human, Female,\nGoalkeeper,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1442,9 +1442,9 @@
       ],
       "character_traits": [
         "Give It a Whack",
-        "Sentinel [1\" Aura]"
+        "Sentinel [1″ Aura]"
       ],
-      "legendary": "Ride Off [6\" Aura]\nThis model gains +1/+0\" KICK and once during its activation may make a kick without spending influence.\n\nIf this model has the Captain model type, while within this aura, friendly models gain +1/+0\" KICK and may make a kick once during their activations without spending influence.",
+      "legendary": "Ride Off [6″ Aura]\nThis model gains +1/+0″ KICK and once during its activation may make a kick without spending influence.\n\nIf this model has the Captain model type, while within this aura, friendly models gain +1/+0″ KICK and may make a kick once during their activations without spending influence.",
       "types": "Sultarish, Human, Female,\nAttacking Midfielder,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1497,7 +1497,7 @@
       "character_traits": [
         "Get Over Here [Iron]"
       ],
-      "legendary": "Tong in Cheek [6\" Pulse]\nThis model gains +2\"/+2\" MOV.\n\nIf this model has the Captain model type, friendly models within this pulse also gain +2\"/+2\" MOV.",
+      "legendary": "Tong in Cheek [6″ Pulse]\nThis model gains +2″/+2″ MOV.\n\nIf this model has the Captain model type, friendly models within this pulse also gain +2″/+2″ MOV.",
       "types": "Raed, Human, Female,\nStriker,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1548,9 +1548,9 @@
       ],
       "character_traits": [
         "Searing Strike",
-        "Sentinel [1\" Aura]"
+        "Sentinel [1″ Aura]"
       ],
-      "legendary": "Tempered Steel [6\" Aura]\nThis model gains +1 TAC.\n\nIf this model has the Captain model type, while within this aura other friendly models gain +1 TAC and Searing Strike.",
+      "legendary": "Tempered Steel [6″ Aura]\nThis model gains +1 TAC.\n\nIf this model has the Captain model type, while within this aura other friendly models gain +1 TAC and Searing Strike.",
       "types": "Piert, Human, Male,\nCentral Midfielder,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1600,10 +1600,10 @@
         "Use This!"
       ],
       "character_traits": [
-        "Match Experience [4\" Aura]",
+        "Match Experience [4″ Aura]",
         "Sturdy"
       ],
-      "legendary": "Armoury [6\" Aura]\nThis model’s melee zone is 3\".\n\nIf this model has the Captain model type, it may use Instruction three times during its activation without spending influence, and while within this aura other friendly models’ melee zones are 2\".",
+      "legendary": "Armoury [6″ Aura]\nThis model’s melee zone is 3″.\n\nIf this model has the Captain model type, it may use Instruction three times during its activation without spending influence, and while within this aura other friendly models’ melee zones are 2″.",
       "types": "Skald, Human, Female,\nCentre Back,\nMaster, Squaddie",
       "playbook": [
         [
@@ -2076,7 +2076,7 @@
         "Barroom Brawl",
         "Tough Hide"
       ],
-      "heroic": "Old Jake's\nAllocate 2 influence between other friendly guild models within 8\".",
+      "heroic": "Old Jake's\nAllocate 2 influence between other friendly guild models within 8″.",
       "types": "Mald, Human, Male,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -2128,9 +2128,9 @@
       ],
       "character_traits": [
         "Resilience",
-        "Aria [6\" Aura]"
+        "Aria [6″ Aura]"
       ],
-      "heroic": "Soothing Voice [4\" Pulse]\nFriendly models within this pulse remove all conditions they're suffering.",
+      "heroic": "Soothing Voice [4″ Pulse]\nFriendly models within this pulse remove all conditions they're suffering.",
       "types": "Eisnoran, Human, Female,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -2184,7 +2184,7 @@
         "Spit and Sawdust",
         "Legless Drunk"
       ],
-      "heroic": "Free Bar [4\" Pulse]\nFriendly non-mascot guild models within this pulse gain a beer token.",
+      "heroic": "Free Bar [4″ Pulse]\nFriendly non-mascot guild models within this pulse gain a beer token.",
       "types": "Mald, Human, Male,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -2338,7 +2338,7 @@
         "Anatomical Precision",
         "Tough Hide"
       ],
-      "heroic": "Duellist's Lunge\nWhen this model makes a successful attack, it may then make a 1\" dodge directly towards the target of the attack.",
+      "heroic": "Duellist's Lunge\nWhen this model makes a successful attack, it may then make a 1″ dodge directly towards the target of the attack.",
       "types": "Erskirii, Human, Female,\nAttacking Midfielder,\nVeteran, Squaddie",
       "playbook": [
         [
@@ -2391,7 +2391,7 @@
         "Get Over Here [Scum, Quaff]",
         "Who's a Good Boy [Scum, Quaff]"
       ],
-      "heroic": "Animal Treat [Scum, Quaff]\nTarget named friendly model within 4\" gains +2 TAC.",
+      "heroic": "Animal Treat [Scum, Quaff]\nTarget named friendly model within 4″ gains +2 TAC.",
       "types": "Indar, Human, Male,\nDefensive Midfielder\nSquaddie",
       "playbook": [
         [
@@ -2444,7 +2444,7 @@
         "Get Over Here [Scum]",
         "Shadow Like"
       ],
-      "heroic": "I Shoot Better After a Beer...\nThis model gains +1/+2\" KICK. During a parting blow that targets it, this model gains +1 DEF.",
+      "heroic": "I Shoot Better After a Beer...\nThis model gains +1/+2″ KICK. During a parting blow that targets it, this model gains +1 DEF.",
       "types": "Mald, Human, Female,\nStriker,\nSquaddie",
       "playbook": [
         [
@@ -2549,7 +2549,7 @@
         "Resilience",
         "Tough Hide"
       ],
-      "heroic": "Batter Up\nOnce during this model’s activation this model may make a pass without spending influence.\nThe pass gains +0/+4\" KICK.",
+      "heroic": "Batter Up\nOnce during this model’s activation this model may make a pass without spending influence.\nThe pass gains +0/+4″ KICK.",
       "types": "Eisnoran, Human, Male,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2655,7 +2655,7 @@
         "Floored",
         "Tough Hide"
       ],
-      "heroic": "Time's Called [4\" Aura]\nWhen a friendly guild model starts an advance within this aura, it gains +2\"/+2\" MOV.",
+      "heroic": "Time's Called [4″ Aura]\nWhen a friendly guild model starts an advance within this aura, it gains +2″/+2″ MOV.",
       "types": "Raed, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2706,9 +2706,9 @@
       ],
       "character_traits": [
         "Close Control",
-        "Football Legend [4\" Aura]"
+        "Football Legend [4″ Aura]"
       ],
-      "heroic": "Back to His Best\nThis model gains +2\"/+2\" MOV. Once per turn during its activation, this model may make a kick without spending influence.",
+      "heroic": "Back to His Best\nThis model gains +2″/+2″ MOV. Once per turn during its activation, this model may make a kick without spending influence.",
       "types": "Raed, Human, Male,\nStriker,\nVeteran, Squaddie",
       "playbook": [
         [
@@ -2814,7 +2814,7 @@
         "Magical Brew",
         "Searing Strike"
       ],
-      "heroic": "Human Ball of Fire\nThis model gains +1\"/+1\" MOV. During this model's advances, models whose bases are touched by its base suffer the burning condition.",
+      "heroic": "Human Ball of Fire\nThis model gains +1″/+1″ MOV. During this model's advances, models whose bases are touched by its base suffer the burning condition.",
       "types": "Eisnoran, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2867,7 +2867,7 @@
         "Stack the Deck",
         "Tough Hide"
       ],
-      "heroic": "Raise the Stakes\nThis model may make a 4” dodge. After this dodge\nis resolved, the opposing player may choose another\nenemy squaddie model to suffer a 2” push.",
+      "heroic": "Raise the Stakes\nThis model may make a 4″ dodge. After this dodge\nis resolved, the opposing player may choose another\nenemy squaddie model to suffer a 2″ push.",
       "types": "Valentian, Human, Male,\nCentral Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2917,9 +2917,9 @@
         "Butchery"
       ],
       "character_traits": [
-        "The Owner [6\" Aura]"
+        "The Owner [6″ Aura]"
       ],
-      "legendary": "Get 'Em Lads! [6\" Aura]\nWhile within this aura, friendly guild models gain +1 DMG to character plays that cause damage and to playbook damage results.\nWhile within this aura, enemy models suffer -1 ARM.",
+      "legendary": "Get 'Em Lads! [6″ Aura]\nWhile within this aura, friendly guild models gain +1 DMG to character plays that cause damage and to playbook damage results.\nWhile within this aura, enemy models suffer -1 ARM.",
       "types": "Skaldic, Human, Male,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -2970,10 +2970,10 @@
         "Quick Foot"
       ],
       "character_traits": [
-        "Haemophilia [6\" Aura]",
+        "Haemophilia [6″ Aura]",
         "Smell Blood"
       ],
-      "legendary": "Exsanguinate [6\" Pulse]\nEnemy models within this pulse suffering the bleed condition suffer 3 condition DMG.",
+      "legendary": "Exsanguinate [6″ Pulse]\nEnemy models within this pulse suffering the bleed condition suffer 3 condition DMG.",
       "types": "Valentian, Human, Female,\nStriker,\nCaptain",
       "playbook": [
         [
@@ -3024,10 +3024,10 @@
       ],
       "character_traits": [
         "Berserk",
-        "Blood Lust [6\" Aura]",
+        "Blood Lust [6″ Aura]",
         "Furious"
       ],
-      "legendary": "Chop Chop! [6\" Aura]\nWhile within this aura, other friendly models gain Furious.",
+      "legendary": "Chop Chop! [6″ Aura]\nWhile within this aura, other friendly models gain Furious.",
       "types": "Skaldic, Human, Male,\nAttacking Midfielder,\nVeteran, Captain",
       "playbook": [
         [
@@ -3336,7 +3336,7 @@
         "Jagged Blade"
       ],
       "character_traits": [
-        "Field Medic [4\" Aura]",
+        "Field Medic [4″ Aura]",
         "Pragmatic",
         "Unpredictable Movement"
       ],
@@ -3496,7 +3496,7 @@
       "character_traits": [
         "Hooked"
       ],
-      "heroic": "Sanguine Pool [3\" Pulse]\nEnemy models within this pulse suffering the bleed condition suffer -4\"/-4\" MOV.",
+      "heroic": "Sanguine Pool [3″ Pulse]\nEnemy models within this pulse suffering the bleed condition suffer -4″/-4″ MOV.",
       "types": "Erskirii, Human, Female,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -3703,10 +3703,10 @@
         "Second Wind"
       ],
       "character_traits": [
-        "Momentous Inspiration [4\" Aura]",
+        "Momentous Inspiration [4″ Aura]",
         "Tough Hide"
       ],
-      "legendary": "Breach!\nDuring its activation, this model gains +0/+4\" KICK and may make a kick without spending influence. When this model makes a kick, the kick ignores intervening models.",
+      "legendary": "Breach!\nDuring its activation, this model gains +0/+4″ KICK and may make a kick without spending influence. When this model makes a kick, the kick ignores intervening models.",
       "types": "Figeon, Human, Male,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -3813,7 +3813,7 @@
         "Follow My Lead",
         "Tow"
       ],
-      "heroic": "Protect Those Close [4\" Aura]\nWhile within this aura, friendly models gain Sturdy.\n{{trait 'Sturdy'}}",
+      "heroic": "Protect Those Close [4″ Aura]\nWhile within this aura, friendly models gain Sturdy.\n{{trait 'Sturdy'}}",
       "types": "Valentian, Human, Female,\nCentre Back,\nCaptain",
       "playbook": [
         [
@@ -3864,7 +3864,7 @@
       ],
       "character_traits": [
         "Launch Control",
-        "Overheat [3\" Pulse]"
+        "Overheat [3″ Pulse]"
       ],
       "types": "Indar, Mechanica,\nMascot",
       "playbook": [
@@ -4023,7 +4023,7 @@
       ],
       "character_traits": [
         "If You Can Dodge a Wrench...",
-        "Inspiring Hat [4\" Aura]",
+        "Inspiring Hat [4″ Aura]",
         "Learn From The Best [Captain]"
       ],
       "types": "Ethraynnian, Human, Female,\nDefensive Midfielder,\nVeteran, Squaddie",
@@ -4074,7 +4074,7 @@
       "character_traits": [
         "Reanimate",
         "Sturdy",
-        "True Replication [6\" Aura]"
+        "True Replication [6″ Aura]"
       ],
       "heroic": "Locked & Loaded\nOnce during its activation, this model may use a character play without spending influence.",
       "types": "Erskirii, Mechanica,\nAttacking Midfielder,\nSquaddie",
@@ -4183,7 +4183,7 @@
         "Roulette",
         "Unpredictable Movement"
       ],
-      "legendary": "Wherever I May Roam\nChoose a terrain piece within 4\". This model is immediately placed in base contact with the chosen terrain piece.",
+      "legendary": "Wherever I May Roam\nChoose a terrain piece within 4″. This model is immediately placed in base contact with the chosen terrain piece.",
       "types": "Raed, Human, Male,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -4236,7 +4236,7 @@
       "character_traits": [
         "Fixer"
       ],
-      "heroic": "Overclocked\nChoose a friendly Mechanica model within 4\". During its next activation, the chosen model may sprint or charge without spending influence.",
+      "heroic": "Overclocked\nChoose a friendly Mechanica model within 4″. During its next activation, the chosen model may sprint or charge without spending influence.",
       "types": "Indar, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -4446,7 +4446,7 @@
         "Crow Scarer",
         "Don't Fear The..."
       ],
-      "legendary": "Against the Grain [6\" Pulse]\nOnce during this model’s activation, it may use a character play without spending influence. Friendly models within this pulse gain Life Drinker.\n{{trait 'Life Drinker'}}",
+      "legendary": "Against the Grain [6″ Pulse]\nOnce during this model’s activation, it may use a character play without spending influence. Friendly models within this pulse gain Life Drinker.\n{{trait 'Life Drinker'}}",
       "types": "Mald, Human, Male,\nAttacking Midfielder,\nReaper, Captain",
       "playbook": [
         [
@@ -4496,10 +4496,10 @@
         "Help 'Em Out"
       ],
       "character_traits": [
-        "For the Family [4\" Aura]",
+        "For the Family [4″ Aura]",
         "Planting Master"
       ],
-      "legendary": "Huge Tracts of Land [6\" Aura]\nThis model may immediately place up to two friendly harvest markers within this aura. While within this aura, friendly guild models gain Sturdy.\n{{trait 'Sturdy'}}",
+      "legendary": "Huge Tracts of Land [6″ Aura]\nThis model may immediately place up to two friendly harvest markers within this aura. While within this aura, friendly guild models gain Sturdy.\n{{trait 'Sturdy'}}",
       "types": "Piert, Human, Male,\nDefensive Midfielder,\nPlanter, Captain",
       "playbook": [
         [
@@ -4553,7 +4553,7 @@
         "Harvest Supper",
         "Planting Master"
       ],
-      "legendary": "Line Dancing [6\" Pulse]\nChoose an edge of the pitch. Friendly models within this pulse suffer a 5\" push directly towards the chosen edge.",
+      "legendary": "Line Dancing [6″ Pulse]\nChoose an edge of the pitch. Friendly models within this pulse suffer a 5″ push directly towards the chosen edge.",
       "types": "Piert, Human, Female,\nCoach,\nPlanter, Captain",
       "playbook": [
         [
@@ -4605,7 +4605,7 @@
       "character_traits": [
         "Pain Response"
       ],
-      "heroic": "When the Cock Crows...\nPlace a friendly harvest marker within 2\" of this model.",
+      "heroic": "When the Cock Crows...\nPlace a friendly harvest marker within 2″ of this model.",
       "types": "Raed, Animal,\nMascot, Planter",
       "playbook": [
         [
@@ -4705,7 +4705,7 @@
       ],
       "character_traits": [
         "Left Boot",
-        "One of Our Own [6\" Aura]"
+        "One of Our Own [6″ Aura]"
       ],
       "types": "Mald, Human, Female,\nAttacking Midfielder,\nReaper, Squaddie",
       "playbook": [
@@ -4808,7 +4808,7 @@
         "Get Stuck In!"
       ],
       "character_traits": [
-        "Between a Rock... [4\" Aura]",
+        "Between a Rock... [4″ Aura]",
         "Making Hay",
         "Protective Instinct",
         "With Age Comes Wisdom"
@@ -4864,7 +4864,7 @@
       ],
       "character_traits": [
         "Planting Season",
-        "Rejuvenation [6\" Aura]"
+        "Rejuvenation [6″ Aura]"
       ],
       "types": "Piert, Human, Male,\nDefensive Midfielder,\nPlanter, Squaddie",
       "playbook": [
@@ -4916,10 +4916,10 @@
       ],
       "character_traits": [
         "Faithful Protector",
-        "Fields of Wheat [4\" Aura]",
+        "Fields of Wheat [4″ Aura]",
         "Planting Season"
       ],
-      "heroic": "Surpassing Strategy\nTarget friendly non-captain model within 4\" gains Faithful Protector. That model may immediately make a 4\" dodge.",
+      "heroic": "Surpassing Strategy\nTarget friendly non-captain model within 4″ gains Faithful Protector. That model may immediately make a 4″ dodge.",
       "types": "Castellyian, Human, Female,\nCoach,\nPlanter, Veteran, Squaddie",
       "playbook": [
         [
@@ -5023,7 +5023,7 @@
       "character_traits": [
         "Battering Ram",
         "Planting Season",
-        "Take One for the Team [6\" Aura]"
+        "Take One for the Team [6″ Aura]"
       ],
       "types": "Mald, Human, Female,\nCentre Back,\nPlanter, Squaddie",
       "playbook": [
@@ -5073,9 +5073,9 @@
         "Broken Earth"
       ],
       "character_traits": [
-        "Fertile Soil [4\" Aura]",
+        "Fertile Soil [4″ Aura]",
         "Planting Season",
-        "True Path [6\" Aura]"
+        "True Path [6″ Aura]"
       ],
       "types": "Piert, Human, Male,\nCentral Midfielder,\nPlanter, Squaddie",
       "playbook": [
@@ -5233,7 +5233,7 @@
         "Light Footed",
         "Showboater"
       ],
-      "legendary": "Caught in a Net [6\" Pulse]\nEnemy models within this pulse suffer -4\"/-4\" MOV.",
+      "legendary": "Caught in a Net [6″ Pulse]\nEnemy models within this pulse suffer -4″/-4″ MOV.",
       "types": "Eisnoran, Human, Male,\nStriker,\nCaptain",
       "playbook": [
         [
@@ -5283,11 +5283,11 @@
         "Rough Seas"
       ],
       "character_traits": [
-        "Coup de Grâce [6\" Aura]",
+        "Coup de Grâce [6″ Aura]",
         "Sturdy",
         "Tough Hide"
       ],
-      "legendary": "Hook, Line, and Sinker [6\" Pulse]\nEnemy models within this pulse suffer a 6\" push directly towards this model.",
+      "legendary": "Hook, Line, and Sinker [6″ Pulse]\nEnemy models within this pulse suffer a 6″ push directly towards this model.",
       "types": "Indar, Human, Male,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -5340,7 +5340,7 @@
         "Last Cast Catches the Most",
         "Beating Wings Over Water"
       ],
-      "legendary": "Cormorant’s Calling\nChoose another unengaged friendly model within 10\" of this model. Place the chosen model within 10\" of this model.",
+      "legendary": "Cormorant’s Calling\nChoose another unengaged friendly model within 10″ of this model. Place the chosen model within 10″ of this model.",
       "types": "Numasai, Human,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -5602,7 +5602,7 @@
         "Shadow Like",
         "Talisman"
       ],
-      "legendary": "Call of the Sea [4\" Pulse]\nThis model suffers 1 DMG for each other model within this pulse. Enemy models within this pulse suffer a 2\" push. Other friendly models within this pulse may make a 2\" dodge.",
+      "legendary": "Call of the Sea [4″ Pulse]\nThis model suffers 1 DMG for each other model within this pulse. Enemy models within this pulse suffer a 2″ push. Other friendly models within this pulse may make a 2″ dodge.",
       "types": "Numasai, Human, Female,\nCentral Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -5654,7 +5654,7 @@
         "Battering Ram",
         "Resolute"
       ],
-      "heroic": "Trident Tested [3\" Pulse]\nModels within this pulse suffer a 2\" push directly away from this model.",
+      "heroic": "Trident Tested [3″ Pulse]\nModels within this pulse suffer a 2″ push directly away from this model.",
       "types": "Skaldic, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -5705,7 +5705,7 @@
       "character_traits": [
         "Backfield Presence",
         "Close Ranks",
-        "Lightning Reflexes [6\" Aura]",
+        "Lightning Reflexes [6″ Aura]",
         "Resilience"
       ],
       "types": "Numasai, Human, Male,\nDefensive Midfielder,\nSquaddie",
@@ -6024,7 +6024,7 @@
         "Light Footed",
         "Nature's Growth"
       ],
-      "heroic": "Blessing of the Sun Father\nOnce during its activation, target friendly model within 6\" may use a character play without spending influence.",
+      "heroic": "Blessing of the Sun Father\nOnce during its activation, target friendly model within 6″ may use a character play without spending influence.",
       "types": "Raed, Human, Male,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6078,7 +6078,7 @@
         "Light Footed",
         "Nature's Chill"
       ],
-      "legendary": "Winter's Night [6\" Aura]\nWhen a friendly model within this aura makes a successful attack, the friendly model may add an additional {{d}} playbook result.",
+      "legendary": "Winter's Night [6″ Aura]\nWhen a friendly model within this aura makes a successful attack, the friendly model may add an additional {{d}} playbook result.",
       "types": "Erskirii, Human, Female,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6132,7 +6132,7 @@
         "Bring Them Down",
         "Expert Trapper"
       ],
-      "legendary": "Perfect Positioning [6\" Pulse]\nThis model may place up to 5 friendly trap markers within this pulse.",
+      "legendary": "Perfect Positioning [6″ Pulse]\nThis model may place up to 5 friendly trap markers within this pulse.",
       "types": "Indar, Human, Female,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6233,7 +6233,7 @@
         "Feral Instincts"
       ],
       "character_traits": [
-        "Pack Mentality [6\" Aura]",
+        "Pack Mentality [6″ Aura]",
         "Loved Creature"
       ],
       "types": "Erskirii, Animal,\nMascot",
@@ -6449,7 +6449,7 @@
         "Light Footed",
         "Nature's Blessing"
       ],
-      "heroic": "Blessing of the Sun Father\nOnce during its activation, target friendly model within 6\" may use a character play without spending influence.",
+      "heroic": "Blessing of the Sun Father\nOnce during its activation, target friendly model within 6″ may use a character play without spending influence.",
       "types": "Unknown, Human, Male,\nCentre Back,\nSquaddie",
       "playbook": [
         [
@@ -6608,7 +6608,7 @@
         "Big Game Traps",
         "Heightened Senses"
       ],
-      "heroic": "Blessing of the Sun Father\nOnce during its activation, target friendly model within 6\" may use a character play without spending influence.",
+      "heroic": "Blessing of the Sun Father\nOnce during its activation, target friendly model within 6″ may use a character play without spending influence.",
       "types": "Unknown, Female,\nAttacking Midfielder,\nVeteran, Squaddie",
       "playbook": [
         [
@@ -6766,7 +6766,7 @@
         "Linked [Fahad]",
         "Unpredictable Movement"
       ],
-      "legendary": "The Power of Voodoo\nTarget friendly model within 6\" may immediately make a jog.",
+      "legendary": "The Power of Voodoo\nTarget friendly model within 6″ may immediately make a jog.",
       "types": "Eisnoran, Human, Female,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -6820,7 +6820,7 @@
         "Linked [Harmony]",
         "Poised"
       ],
-      "legendary": "Topping Out! [6\" Pulse]\nChoose one effect:\n- Friendly models within this pulse gain +1 ARM\n- Friendly models within this pulse are allocated 1 influence",
+      "legendary": "Topping Out! [6″ Pulse]\nChoose one effect:\n- Friendly models within this pulse gain +1 ARM\n- Friendly models within this pulse are allocated 1 influence",
       "types": "Castellyian, Human, Female,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6872,10 +6872,10 @@
       ],
       "character_traits": [
         "Knockback",
-        "Repointing [6\" Aura]",
+        "Repointing [6″ Aura]",
         "Tough Hide"
       ],
-      "legendary": "Hammer Time! [6\" Pulse]\nEach other friendly model within the pulse may choose one of the following benefits:\n- +2\"/+2\" MOV\n- +1 DMG to Playbook damage results",
+      "legendary": "Hammer Time! [6″ Pulse]\nEach other friendly model within the pulse may choose one of the following benefits:\n- +2″/+2″ MOV\n- +1 DMG to Playbook damage results",
       "types": "Raed, Human, Male,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6929,7 +6929,7 @@
         "Close Control",
         "Making Space"
       ],
-      "legendary": "Playing the Game\nChoose a free ball within 6\" of this model. This model immediately gains possession of the free ball.",
+      "legendary": "Playing the Game\nChoose a free ball within 6″ of this model. This model immediately gains possession of the free ball.",
       "types": "Figeon, Human, Male,\nStriker,\nCaptain",
       "playbook": [
         [
@@ -7235,8 +7235,8 @@
         "Squad Tactics"
       ],
       "character_traits": [
-        "Adaptive Strategy [6\" Pulse]",
-        "Take One for the Team [6\" Aura]"
+        "Adaptive Strategy [6″ Pulse]",
+        "Take One for the Team [6″ Aura]"
       ],
       "types": "Valentian, Human, Female,\nDefensive Midfielder,\nVeteran, Squaddie",
       "playbook": [
@@ -7338,7 +7338,7 @@
         "Broken Earth"
       ],
       "character_traits": [
-        "Between a Rock... [4\" Aura]",
+        "Between a Rock... [4″ Aura]",
         "Close Ranks",
         "Sturdy"
       ],
@@ -7444,8 +7444,8 @@
       ],
       "character_traits": [
         "Animosity [Honour]",
-        "Field Medic [4\" Aura]",
-        "Team Player [4\" Aura]"
+        "Field Medic [4″ Aura]",
+        "Team Player [4″ Aura]"
       ],
       "types": "Castellyian, Human, Female,\nAttacking Midfielder,\nVeteran, Squaddie",
       "playbook": [
@@ -7498,7 +7498,7 @@
       ],
       "character_traits": [
         "Extended Reach",
-        "Football Legend [4\" Aura]",
+        "Football Legend [4″ Aura]",
         "Forceful Blow"
       ],
       "types": "Raed, Human, Male,\nDefensive Midfielder,\nSquaddie",
@@ -7552,7 +7552,7 @@
         "Floored",
         "Knockback"
       ],
-      "heroic": "Protect Those Close [4\" Aura]\nWhile within this aura, friendly models gain Sturdy.\n{{trait 'Sturdy'}}",
+      "heroic": "Protect Those Close [4″ Aura]\nWhile within this aura, friendly models gain Sturdy.\n{{trait 'Sturdy'}}",
       "types": "Castellyian, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -7657,7 +7657,7 @@
       ],
       "character_traits": [
         "Anatomical Precision",
-        "Voodoo Strings [6\" Aura]"
+        "Voodoo Strings [6″ Aura]"
       ],
       "heroic": "Unnatural Stamina\nOnce during its activation, this model may use Second Wind without spending influence.",
       "types": "Sultarish, Human, Female,\nAttacking Midfielder,\nCaptain",
@@ -7711,10 +7711,10 @@
       ],
       "character_traits": [
         "Control Strings",
-        "Grave Candle [6\" Aura]",
+        "Grave Candle [6″ Aura]",
         "Creeping Dread"
       ],
-      "legendary": "Haunting Gaze [6\" Aura]\nEnemy models that begin an advance within this aura may only move towards this model during that advance.",
+      "legendary": "Haunting Gaze [6″ Aura]\nEnemy models that begin an advance within this aura may only move towards this model during that advance.",
       "types": "Figeon, Human, Female,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -7815,9 +7815,9 @@
         "Scatter"
       ],
       "character_traits": [
-        "Noxious Death [3\" Pulse]",
+        "Noxious Death [3″ Pulse]",
         "Rabid Frenzy",
-        "Verminthirst [3\" Aura]"
+        "Verminthirst [3″ Aura]"
       ],
       "types": "Raed, Animal,\nMascot",
       "playbook": [
@@ -8027,7 +8027,7 @@
         "Heavy Burden"
       ],
       "character_traits": [
-        "Foul Odour [3\" Aura]",
+        "Foul Odour [3″ Aura]",
         "Reanimate",
         "Tough Hide"
       ],
@@ -8292,7 +8292,7 @@
       "character_traits": [
         "Close Control"
       ],
-      "heroic": "Packmaster [Squeak, Vileswarm]\nTarget named friendly model within 4\" is allocated 2 influence.",
+      "heroic": "Packmaster [Squeak, Vileswarm]\nTarget named friendly model within 4″ is allocated 2 influence.",
       "types": "Raed, Human, Male,\nDefensive Midfielder,\nVeteran, Squaddie",
       "playbook": [
         [
@@ -8345,7 +8345,7 @@
         "Dark Doubts",
         "Soul Seer"
       ],
-      "legendary": "The Power of Voodoo\nTarget friendly model within 6\" may immediately make a jog.",
+      "legendary": "The Power of Voodoo\nTarget friendly model within 6″ may immediately make a jog.",
       "types": "Eisnoran, Human, Female,\nDefensive Midfielder,\nVeteran, Squaddie",
       "playbook": [
         [
@@ -8451,7 +8451,7 @@
       "character_traits": [
         "Shadow Like"
       ],
-      "legendary": "Strike from the Shadows [6\" Pulse]\nChoose one effect:\n- Friendly models within this pulse gain +1 DEF.\n- Friendly models within this pulse make a 2\" dodge.",
+      "legendary": "Strike from the Shadows [6″ Pulse]\nChoose one effect:\n- Friendly models within this pulse gain +1 DEF.\n- Friendly models within this pulse make a 2″ dodge.",
       "types": "Sultarish, Human, Male,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -8505,8 +8505,8 @@
         "Furious",
         "Rising Anger"
       ],
-      "heroic": "Bloody Coin\nTarget friendly model within 4\" gains +1 TAC and +1 DMG to playbook damage results while attacking an enemy model that’s engaged by another friendly model.",
-      "legendary": "My Gang [6\" Aura]\nWhile within this aura, friendly models gain +1 TAC and +1 DMG to playbook damage results while attacking an enemy model that’s engaged by another friendly model.\nMy Gang isn't cumulative with Bloody Coin.",
+      "heroic": "Bloody Coin\nTarget friendly model within 4″ gains +1 TAC and +1 DMG to playbook damage results while attacking an enemy model that’s engaged by another friendly model.",
+      "legendary": "My Gang [6″ Aura]\nWhile within this aura, friendly models gain +1 TAC and +1 DMG to playbook damage results while attacking an enemy model that’s engaged by another friendly model.\nMy Gang isn't cumulative with Bloody Coin.",
       "types": "Castellyian, Human, Male,\nAttacking Midfielder,\nCaptain, Veteran",
       "playbook": [
         [
@@ -8558,7 +8558,7 @@
       "character_traits": [
         "Do the Thing!",
         "Lance",
-        "Shelling Out [4\" Aura]",
+        "Shelling Out [4″ Aura]",
         "Trusty Steed"
       ],
       "types": "Raed, Human, Male,\nCentral Midfielder,\nCaptain, Mascot, Veteran",
@@ -8661,7 +8661,7 @@
       ],
       "character_traits": [
         "Confidence",
-        "Shelling Out [4\" Aura]",
+        "Shelling Out [4″ Aura]",
         "Tag Along"
       ],
       "types": "Sultarish, Animal,\nMascot",
@@ -8869,10 +8869,10 @@
         "The Unmasking"
       ],
       "character_traits": [
-        "Foul Odour [3\" Aura]",
+        "Foul Odour [3″ Aura]",
         "Resilience"
       ],
-      "heroic": "Fangtooth Unleashed\nThis model suffers 4 DMG and gains +2\"/+2\" MOV and +1 DMG to character plays that cause damage and to playbook damage results.",
+      "heroic": "Fangtooth Unleashed\nThis model suffers 4 DMG and gains +2″/+2″ MOV and +1 DMG to character plays that cause damage and to playbook damage results.",
       "types": "Ethraynnian, Human, Male,\nCentre Back,\nSquaddie",
       "playbook": [
         [
@@ -9190,7 +9190,7 @@
         "Guild Rule: Intimidation",
         "Scathing Rebuke"
       ],
-      "legendary": "Master Chef [Aura 6\"]\nWhile within this aura each friendly model may use a character play once during its activation without spending influence.",
+      "legendary": "Master Chef [Aura 6″]\nWhile within this aura each friendly model may use a character play once during its activation without spending influence.",
       "types": "Piert, Human, Male,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -9509,7 +9509,7 @@
         "Assist [Frelsi]",
         "Death from Above"
       ],
-      "legendary": "Daughter of Falcons [6\" Pulse]\nEnemy models within this pulse suffer 3 DMG and the snared condition.",
+      "legendary": "Daughter of Falcons [6″ Pulse]\nEnemy models within this pulse suffer 3 DMG and the snared condition.",
       "types": "Figeon, Human, Female,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -9718,7 +9718,7 @@
       ],
       "character_traits": [
         "Feathered Friends",
-        "Nocturnal Hunting [6\" Aura]"
+        "Nocturnal Hunting [6″ Aura]"
       ],
       "types": "Sultarish, Human, Female,\nWinger,\nSquaddie",
       "playbook": [
@@ -9824,7 +9824,7 @@
         "Guild Rule: Secret Tunnel",
         "Tough Hide"
       ],
-      "legendary": "We’re Going Underground [6\" pulse]\nFriendly models within this pulse may be placed within 2\" of their current location.",
+      "legendary": "We’re Going Underground [6″ pulse]\nFriendly models within this pulse may be placed within 2″ of their current location.",
       "types": "Indar, Human, Male,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -9929,7 +9929,7 @@
         "Guild Rule: Secret Tunnel",
         "You're Coming With Me"
       ],
-      "legendary": "Tremor Mine\nChoose a free ball within 8\" of this model and remove it from the pitch. This model’s controlling player resolves a goal kick.",
+      "legendary": "Tremor Mine\nChoose a free ball within 8″ of this model and remove it from the pitch. This model’s controlling player resolves a goal kick.",
       "types": "Numasai, Mechanica, Human, Female,\nCentre Back,\nSquaddie",
       "playbook": [
         [
@@ -10143,7 +10143,7 @@
         "Guild Rule: Precise Calculations",
         "Stormwind"
       ],
-      "legendary": "Perfect Course [6\" Pulse]\nFor each enemy model within this pulse, a friendly model within this pulse may make a 4\" dodge. Each friendly model can move only once as a result of Perfect Course.",
+      "legendary": "Perfect Course [6″ Pulse]\nFor each enemy model within this pulse, a friendly model within this pulse may make a 4″ dodge. Each friendly model can move only once as a result of Perfect Course.",
       "types": "Sultarish, Human, Female,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -10301,8 +10301,8 @@
       "character_traits": [
         "Guild Rule: Precise Calculations",
         "Blessings of Old",
-        "True Path [6\" Aura]",
-        "Sharp Eyes [4\" Aura]"
+        "True Path [6″ Aura]",
+        "Sharp Eyes [4″ Aura]"
       ],
       "types": "Unknown, Human, Male,\nCentral Midfielder,\nSquaddie",
       "playbook": [
@@ -10358,7 +10358,7 @@
         "Light Footed",
         "Linked [Angel]"
       ],
-      "heroic": "Waverunner\nIf this model is within 1\" of one or more pieces of terrain it may immediately make a 4\" dodge.",
+      "heroic": "Waverunner\nIf this model is within 1″ of one or more pieces of terrain it may immediately make a 4″ dodge.",
       "types": "Numasai, Human, Female,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -10465,7 +10465,7 @@
         "Scores for Fun",
         "Unpredictable Movement"
       ],
-      "legendary": "Worthy Sacrifice [6\" Aura]\nPlace this model in base contact with another friendly model within 6\". The other friendly model may then make a 6\" dodge.",
+      "legendary": "Worthy Sacrifice [6″ Aura]\nPlace this model in base contact with another friendly model within 6″. The other friendly model may then make a 6″ dodge.",
       "types": "Valentian, Human, Female,\nStriker,\nCaptain, Seasoned",
       "playbook": [
         [
@@ -10567,9 +10567,9 @@
         "Stand Firm"
       ],
       "character_traits": [
-        "Playmaker [6\" Aura]",
+        "Playmaker [6″ Aura]",
         "Poised",
-        "Rapid Growth [6\" Aura]"
+        "Rapid Growth [6″ Aura]"
       ],
       "types": "Piert, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
@@ -10673,7 +10673,7 @@
         "Quick Foot"
       ],
       "character_traits": [
-        "Impart Faith [6\" Aura]",
+        "Impart Faith [6″ Aura]",
         "Talisman"
       ],
       "legendary": "Reclamation\nIf Ball of Light is in effect for the friendly team, this model gains possession of the friendly Ball of Light.",
@@ -10727,7 +10727,7 @@
         "Singled Out"
       ],
       "character_traits": [
-        "Inspiring Hat [4\" Aura]",
+        "Inspiring Hat [4″ Aura]",
         "Rising Anger"
       ],
       "types": "Unknown, Human, Male,\nAttacking Midfielder,\nSquaddie",
@@ -10834,7 +10834,7 @@
         "Close Control",
         "Floored"
       ],
-      "heroic": "Reading the Game\nTarget friendly model within 6\" may immediately make a pass without spending influence.",
+      "heroic": "Reading the Game\nTarget friendly model within 6″ may immediately make a pass without spending influence.",
       "types": "Raed, Human, Male,\nAttacking Midfielder,\nSeasoned, Squaddie",
       "playbook": [
         [
@@ -10886,8 +10886,8 @@
       "character_traits": [
         "Haunting Melody"
       ],
-      "heroic": "Distracting Tune\nChoose an enemy model within 4\". The chosen model suffers a 2\" push.",
-      "legendary": "Swarm’s Obedience [8\" Pulse]\nChoose either the friendly or the enemy goalpost. Models within this pulse suffer a 3\" push directly towards the chosen goalpost.",
+      "heroic": "Distracting Tune\nChoose an enemy model within 4″. The chosen model suffers a 2″ push.",
+      "legendary": "Swarm’s Obedience [8″ Pulse]\nChoose either the friendly or the enemy goalpost. Models within this pulse suffer a 3″ push directly towards the chosen goalpost.",
       "types": "Mald, Human, Male,\nStriker,\nCaptain",
       "playbook": [
         [
@@ -10939,7 +10939,7 @@
         "Predatory Instinct",
         "Tag Along"
       ],
-      "legendary": "The Rat King\nChoose a free ball within 8\" of this model and remove it from the pitch. This model’s controlling player resolves a goal kick.",
+      "legendary": "The Rat King\nChoose a free ball within 8″ of this model and remove it from the pitch. This model’s controlling player resolves a goal kick.",
       "types": "Mald, Animal,\nMascot",
       "playbook": [
         [
@@ -10990,8 +10990,8 @@
       ],
       "character_traits": [
         "Carrier",
-        "Salve [6\" Aura]",
-        "Virulent Strain [6\" Aura]"
+        "Salve [6″ Aura]",
+        "Virulent Strain [6″ Aura]"
       ],
       "types": "Figeon, Human, Female,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
@@ -11042,7 +11042,7 @@
         "Singled Out"
       ],
       "character_traits": [
-        "Cloak of Rats [2\" Pulse]",
+        "Cloak of Rats [2″ Pulse]",
         "Empathy",
         "Grim Caress",
         "Killer [Male]"
@@ -11151,7 +11151,7 @@
       ],
       "character_traits": [
         "Follow Up",
-        "Lightning Reflexes [6\" Aura]",
+        "Lightning Reflexes [6″ Aura]",
         "Poised"
       ],
       "types": "Figeon, Human, Male,\nGoalkeeper,\nSquaddie",
@@ -11202,10 +11202,10 @@
         "On My Mark"
       ],
       "character_traits": [
-        "Protect the Ball [6\" Pulse]",
+        "Protect the Ball [6″ Pulse]",
         "Sheep Become the Shepherds"
       ],
-      "legendary": "Rest Up!\nChoose another friendly model within 4\". The friendly model suffers the taken out condition. The enemy team does not gain VP from this take out.",
+      "legendary": "Rest Up!\nChoose another friendly model within 4″. The friendly model suffers the taken out condition. The enemy team does not gain VP from this take out.",
       "types": "Piert, Human, Female,\nReaper, Central Midfielder,\nCaptain",
       "playbook": [
         [
@@ -11257,7 +11257,7 @@
       "character_traits": [
         "Heartless Brute!",
         "Loved Creature",
-        "Pack Mentality [6\" Aura]"
+        "Pack Mentality [6″ Aura]"
       ],
       "types": "Raed, Animal, Planter,\nMascot",
       "playbook": [
@@ -11471,7 +11471,7 @@
       ],
       "character_traits": [
         "Baa-ttering Ram",
-        "Flock [4\" Pulse]",
+        "Flock [4″ Pulse]",
         "Have You Any Wool?",
         "Planting Season"
       ],
@@ -11525,7 +11525,7 @@
       ],
       "character_traits": [
         "All About The Game",
-        "Football Legend [4\" Aura]",
+        "Football Legend [4″ Aura]",
         "Shearing"
       ],
       "types": "Raed, Human, Male,\nStriker, Reaper,\nSquaddie",
@@ -11581,7 +11581,7 @@
         "Blinded by the Light",
         "Flare Out"
       ],
-      "legendary": "Eternal Flame [6\" Pulse]\nAll models within this pulse suffer the Burning condition.\nEnemy models within this pulse suffer 3 damage.",
+      "legendary": "Eternal Flame [6″ Pulse]\nAll models within this pulse suffer the Burning condition.\nEnemy models within this pulse suffer 3 damage.",
       "types": "Valentian, Human, Female,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -11736,7 +11736,7 @@
       ],
       "character_traits": [
         "Extraction",
-        "Ring of Fire [4\" Pulse]",
+        "Ring of Fire [4″ Pulse]",
         "Spotlight"
       ],
       "types": "Ethraynnian, Human,\nStriker,\nSquaddie",
@@ -11789,7 +11789,7 @@
         "Flame Jet"
       ],
       "character_traits": [
-        "Afterglow [6\" Aura]",
+        "Afterglow [6″ Aura]",
         "Now You See Me...",
         "Reactive Solution"
       ],
@@ -11843,9 +11843,9 @@
         "Fulcrum"
       ],
       "character_traits": [
-        "Clumsy [2\" Aura]",
+        "Clumsy [2″ Aura]",
         "Flame On",
-        "Flash Point [4\" Pulse]"
+        "Flash Point [4″ Pulse]"
       ],
       "types": "Ethraynnian, Human, Male,\nCentral Midfielder,\nSquaddie",
       "playbook": [
@@ -11896,11 +11896,11 @@
         "Cut Em Down"
       ],
       "character_traits": [
-        "Between a Rock... [4\" Aura]",
+        "Between a Rock... [4″ Aura]",
         "Bends... But Never Breaks",
         "Caber Toss"
       ],
-      "legendary": "Fell Swing [8\" Pulse]\nFriendly models within this pulse and within 1\" of a friendly log pile marker may declare an attack without spending influence. Then choose up to two friendly log pile markers on the pitch. Place the chosen log pile markers within this pulse.",
+      "legendary": "Fell Swing [8″ Pulse]\nFriendly models within this pulse and within 1″ of a friendly log pile marker may declare an attack without spending influence. Then choose up to two friendly log pile markers on the pitch. Place the chosen log pile markers within this pulse.",
       "types": "Skald, Human, Female,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -12112,7 +12112,7 @@
       "character_traits": [
         "Matched Pair [Cut]"
       ],
-      "heroic": "It's Bucking Time!\nIf the friendly Cut is within 4\" of this model, place CrossCut with full HP in base contact with this model or Cut. Then remove any influence from this model and Cut and allocate it to CrossCut. Then remove this model and Cut from the pitch. Then replace this model's and Cut's stat cards with CrossCut's stat card.",
+      "heroic": "It's Bucking Time!\nIf the friendly Cut is within 4″ of this model, place CrossCut with full HP in base contact with this model or Cut. Then remove any influence from this model and Cut and allocate it to CrossCut. Then remove this model and Cut from the pitch. Then replace this model's and Cut's stat cards with CrossCut's stat card.",
       "types": "Mald, Human, Male,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -12272,7 +12272,7 @@
         "Synchronised [Flint]",
         "Putting Out Fires"
       ],
-      "legendary": "This Should Be Overtime...\nChoose a friendly log pile marker on the pitch and place it within 4\" of this model.",
+      "legendary": "This Should Be Overtime...\nChoose a friendly log pile marker on the pitch and place it within 4″ of this model.",
       "types": "Eisnoran, Human, Male,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -12299,7 +12299,7 @@
   "Character Plays": [
     {
       "name": "Where'd They Go?",
-      "text": "This model may make a 4\" dodge.",
+      "text": "This model may make a 4″ dodge.",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": false,
@@ -12315,7 +12315,7 @@
     },
     {
       "name": "Chemical Breeze",
-      "text": "Choose one:\n- Enemy models within 3\" of target friendly guild model suffer the burning condition.\n- Enemy models within 3\" of target friendly guild model suffer the poison condition.",
+      "text": "Choose one:\n- Enemy models within 3″ of target friendly guild model suffer the burning condition.\n- Enemy models within 3″ of target friendly guild model suffer the poison condition.",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -12339,7 +12339,7 @@
     },
     {
       "name": "Nitro!",
-      "text": "6\" Pulse. Friendly guild models within this pulse may make any number of 1” dodges, up to a total of 6” of movement between all friendly guild models.",
+      "text": "6″ Pulse. Friendly guild models within this pulse may make any number of 1″ dodges, up to a total of 6″ of movement between all friendly guild models.",
       "CST": 3,
       "RNG": "S",
       "SUS": false,
@@ -12363,7 +12363,7 @@
     },
     {
       "name": "Blind",
-      "text": "Target enemy model suffers -2 TAC, -2/-2\" KICK, and -2\"/-2\" MOV.",
+      "text": "Target enemy model suffers -2 TAC, -2/-2″ KICK, and -2″/-2″ MOV.",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -12379,7 +12379,7 @@
     },
     {
       "name": "Sticky Bomb",
-      "text": "Position an ongoing effect AOE within range.\nEnemy models hit suffer -2\"/-2\" MOV and the\npoison condition. Models entering or ending\ntheir activations within this AOE suffer the\npoison condition.",
+      "text": "Position an ongoing effect AOE within range.\nEnemy models hit suffer -2″/-2″ MOV and the\npoison condition. Models entering or ending\ntheir activations within this AOE suffer the\npoison condition.",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": true,
@@ -12387,7 +12387,7 @@
     },
     {
       "name": "Acrobatic",
-      "text": "This model may make a 2\" dodge.",
+      "text": "This model may make a 2″ dodge.",
       "CST": 1,
       "RNG": "S",
       "SUS": false,
@@ -12419,7 +12419,7 @@
     },
     {
       "name": "External Combustion",
-      "text": "Target enemy model suffers a 4\" push directly away from this model and 3 DMG, and then enemy models within 3\" of the target model suffer the burning condition.",
+      "text": "Target enemy model suffers a 4″ push directly away from this model and 3 DMG, and then enemy models within 3″ of the target model suffer the burning condition.",
       "CST": "CP2",
       "RNG": "P",
       "SUS": false,
@@ -12427,7 +12427,7 @@
     },
     {
       "name": "Ground Pound",
-      "text": "Models within this model’s melee zone suffer a 2\" push directly away from this model, 2 DMG, and the knocked down condition.",
+      "text": "Models within this model’s melee zone suffer a 2″ push directly away from this model, 2 DMG, and the knocked down condition.",
       "CST": "3,CP2",
       "RNG": "S",
       "SUS": false,
@@ -12451,7 +12451,7 @@
     },
     {
       "name": "Acid Rain",
-      "text": "3\" pulse. Enemy models within this pulse suffer the poison condition.",
+      "text": "3″ pulse. Enemy models within this pulse suffer the poison condition.",
       "CST": "CP",
       "RNG": "S",
       "SUS": false,
@@ -12467,7 +12467,7 @@
     },
     {
       "name": "Horrific Odour",
-      "text": "6\" aura. While within this aura, enemy models must spend 1 additional influence to make a kick.",
+      "text": "6″ aura. While within this aura, enemy models must spend 1 additional influence to make a kick.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12483,7 +12483,7 @@
     },
     {
       "name": "While the Iron is Hot",
-      "text": "6\" pulse. Choose either the friendly or the enemy goalpost. Friendly models within this pulse may make a 2\" dodge directly toward the chosen goalpost.",
+      "text": "6″ pulse. Choose either the friendly or the enemy goalpost. Friendly models within this pulse may make a 2″ dodge directly toward the chosen goalpost.",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": false,
@@ -12523,7 +12523,7 @@
     },
     {
       "name": "Quick Foot",
-      "text": "Target friendly model gains +2\"/+2\" MOV.",
+      "text": "Target friendly model gains +2″/+2″ MOV.",
       "CST": 2,
       "RNG": 4,
       "SUS": true,
@@ -12547,7 +12547,7 @@
     },
     {
       "name": "One at a Time Lads!",
-      "text": "While within 2\" of target friendly guild model, friendly models ignore the crowding out penalty.",
+      "text": "While within 2″ of target friendly guild model, friendly models ignore the crowding out penalty.",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -12571,7 +12571,7 @@
     },
     {
       "name": "Use This!",
-      "text": "Target friendly guild model’s melee zone is 2\".",
+      "text": "Target friendly guild model’s melee zone is 2″.",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -12595,7 +12595,7 @@
     },
     {
       "name": "Shoemerang",
-      "text": "Target other model suffers 2 DMG. Choose an enemy model within 4\" of the target model to suffer the knocked down condition.",
+      "text": "Target other model suffers 2 DMG. Choose an enemy model within 4″ of the target model to suffer the knocked down condition.",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -12659,7 +12659,7 @@
     },
     {
       "name": "Impetus",
-      "text": "This model gains +2\"/+2\" MOV.",
+      "text": "This model gains +2″/+2″ MOV.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12667,7 +12667,7 @@
     },
     {
       "name": "Long Bomb",
-      "text": "When this model makes a pass, it gains +0/+4\" KICK for the duration of the action. This pass can’t be intercepted.",
+      "text": "When this model makes a pass, it gains +0/+4″ KICK for the duration of the action. This pass can’t be intercepted.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12683,7 +12683,7 @@
     },
     {
       "name": "Commanding Aura",
-      "text": "4\" aura. While within this aura, friendly guild models gain +1 TAC and +1 DMG to playbook damage results.",
+      "text": "4″ aura. While within this aura, friendly guild models gain +1 TAC and +1 DMG to playbook damage results.",
       "CST": "2,CP2",
       "RNG": "S",
       "SUS": true,
@@ -12691,7 +12691,7 @@
     },
     {
       "name": "Marked Target",
-      "text": "When a friendly model charges target enemy model, the friendly model gains +0\"/+2\" MOV for the duration of the charge.",
+      "text": "When a friendly model charges target enemy model, the friendly model gains +0″/+2″ MOV for the duration of the charge.",
       "CST": "1,CP",
       "RNG": 10,
       "SUS": true,
@@ -12699,7 +12699,7 @@
     },
     {
       "name": "Voice of Command",
-      "text": "4\" pulse. Friendly models within this pulse suffer a 3\" push away from this model.",
+      "text": "4″ pulse. Friendly models within this pulse suffer a 3″ push away from this model.",
       "CST": 2,
       "RNG": "S",
       "SUS": false,
@@ -12731,7 +12731,7 @@
     },
     {
       "name": "Second Wind",
-      "text": "The next time target friendly guild model ends an activation, it may make a 4\" dodge.",
+      "text": "The next time target friendly guild model ends an activation, it may make a 4″ dodge.",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12739,7 +12739,7 @@
     },
     {
       "name": "Smashed Shins",
-      "text": "Target enemy model suffers -4/-4\" KICK.",
+      "text": "Target enemy model suffers -4/-4″ KICK.",
       "CST": "CP",
       "RNG": "P",
       "SUS": true,
@@ -12747,7 +12747,7 @@
     },
     {
       "name": "Howzat!?",
-      "text": "Target enemy model suffers a 4\" push directly away from this model and the knocked down condition.",
+      "text": "Target enemy model suffers a 4″ push directly away from this model and the knocked down condition.",
       "CST": "CP",
       "RNG": "P",
       "SUS": false,
@@ -12787,7 +12787,7 @@
     },
     {
       "name": "Lob Barrel",
-      "text": "Position an AOE within range. Models hit suffer a 3\" push directly away from the centre of this AOE and the knocked down condition.",
+      "text": "Position an AOE within range. Models hit suffer a 3″ push directly away from the centre of this AOE and the knocked down condition.",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -12835,7 +12835,7 @@
     },
     {
       "name": "Blood Rain",
-      "text": "Target enemy model suffers 2 DMG. Enemy models within 3\" of the target model suffer the bleed condition.",
+      "text": "Target enemy model suffers 2 DMG. Enemy models within 3″ of the target model suffer the bleed condition.",
       "CST": "CP2",
       "RNG": "P",
       "SUS": false,
@@ -12851,7 +12851,7 @@
     },
     {
       "name": "Rabid Animal",
-      "text": "Target enemy model suffers -4\"/-4\" MOV and the poison condition.",
+      "text": "Target enemy model suffers -4″/-4″ MOV and the poison condition.",
       "CST": "CP2",
       "RNG": "P",
       "SUS": true,
@@ -12867,7 +12867,7 @@
     },
     {
       "name": "Super Shot",
-      "text": "This model gains +1/+2\" KICK.",
+      "text": "This model gains +1/+2″ KICK.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12875,7 +12875,7 @@
     },
     {
       "name": "Quick Time",
-      "text": "Target friendly model may make a 2\" dodge.",
+      "text": "Target friendly model may make a 2″ dodge.",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -12899,7 +12899,7 @@
     },
     {
       "name": "Whirling Chains",
-      "text": "4\" pulse. Enemy models within this pulse suffer a 4\" push directly towards this model.",
+      "text": "4″ pulse. Enemy models within this pulse suffer a 4″ push directly towards this model.",
       "CST": "2,CP2",
       "RNG": "S",
       "SUS": false,
@@ -12915,7 +12915,7 @@
     },
     {
       "name": "Chef's Special",
-      "text": "While within 4” of target friendly model, friendly guild models gain +1 DMG to character plays that cause damage and to playbook damage results.",
+      "text": "While within 4″ of target friendly model, friendly guild models gain +1 DMG to character plays that cause damage and to playbook damage results.",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12923,7 +12923,7 @@
     },
     {
       "name": "Get Set, BAKE!",
-      "text": "When starting an advance while within 2\" of target friendly model, friendly models gain +2\"/+2\" MOV.",
+      "text": "When starting an advance while within 2″ of target friendly model, friendly models gain +2″/+2″ MOV.",
       "CST": 2,
       "RNG": 4,
       "SUS": true,
@@ -12931,7 +12931,7 @@
     },
     {
       "name": "Get It While It's Hot",
-      "text": "While within 2\" of target friendly model, friendly models spend 1 less influence to charge.",
+      "text": "While within 2″ of target friendly model, friendly models spend 1 less influence to charge.",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12939,7 +12939,7 @@
     },
     {
       "name": "Turn Up the Heat",
-      "text": "3\" pulse. Enemy models within the pulse suffer the burning condition.",
+      "text": "3″ pulse. Enemy models within the pulse suffer the burning condition.",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": false,
@@ -12947,7 +12947,7 @@
     },
     {
       "name": "Intensify",
-      "text": "3\" pulse. Enemy models that are suffering conditions and are within the pulse suffer 2 DMG.",
+      "text": "3″ pulse. Enemy models that are suffering conditions and are within the pulse suffer 2 DMG.",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": false,
@@ -12963,7 +12963,7 @@
     },
     {
       "name": "Deadbolt",
-      "text": "Target enemy model suffers a 2\" push directly away from this model, the knocked down condition, and 3 DMG.",
+      "text": "Target enemy model suffers a 2″ push directly away from this model, the knocked down condition, and 3 DMG.",
       "CST": 2,
       "RNG": 8,
       "SUS": false,
@@ -12971,7 +12971,7 @@
     },
     {
       "name": "Minefield",
-      "text": "4\" aura. Enemy models starting an advance within this aura or entering it as part of an advance suffer 4 DMG. This aura triggers only once per advance.",
+      "text": "4″ aura. Enemy models starting an advance within this aura or entering it as part of an advance suffer 4 DMG. This aura triggers only once per advance.",
       "CST": "1,CP2",
       "RNG": "S",
       "SUS": true,
@@ -12987,7 +12987,7 @@
     },
     {
       "name": "Alternator",
-      "text": "Target friendly guild model gains +2\"/+2\" MOV.",
+      "text": "Target friendly guild model gains +2″/+2″ MOV.",
       "CST": 2,
       "RNG": 6,
       "SUS": true,
@@ -13027,7 +13027,7 @@
     },
     {
       "name": "Unexpected Arrival",
-      "text": "3\" pulse. Enemy models within this pulse suffer a 4\" push directly away from this model.",
+      "text": "3″ pulse. Enemy models within this pulse suffer a 4″ push directly away from this model.",
       "CST": "CP2",
       "RNG": "S",
       "SUS": false,
@@ -13043,7 +13043,7 @@
     },
     {
       "name": "Destructive Impulse",
-      "text": "Target enemy model suffers 2 DMG and a 2\" push.",
+      "text": "Target enemy model suffers 2 DMG and a 2″ push.",
       "CST": 2,
       "RNG": 8,
       "SUS": false,
@@ -13075,7 +13075,7 @@
     },
     {
       "name": "Arrow to the Knee",
-      "text": "Target enemy model suffers -2/-2\" KICK and 2 DMG.",
+      "text": "Target enemy model suffers -2/-2″ KICK and 2 DMG.",
       "CST": 2,
       "RNG": 8,
       "SUS": true,
@@ -13107,7 +13107,7 @@
     },
     {
       "name": "Air Mail",
-      "text": "This model may make a pass without spending influence. This pass gains +0/+6\" KICK.",
+      "text": "This model may make a pass without spending influence. This pass gains +0/+6″ KICK.",
       "CST": 1,
       "RNG": "S",
       "SUS": false,
@@ -13115,7 +13115,7 @@
     },
     {
       "name": "Deadly Wings",
-      "text": "Choose a friendly Harrier AOE. The chosen AOE may be positioned within 4\" of its current location.",
+      "text": "Choose a friendly Harrier AOE. The chosen AOE may be positioned within 4″ of its current location.",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -13139,7 +13139,7 @@
     },
     {
       "name": "Taking Flight",
-      "text": "This model may make a jog. It gains +2\"/+2\" MOV for the duration of the advance.",
+      "text": "This model may make a jog. It gains +2″/+2″ MOV for the duration of the advance.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13155,7 +13155,7 @@
     },
     {
       "name": "Constitution",
-      "text": "4\" aura. While within this aura, friendly models gain Tough Hide.\n{{trait 'Tough Hide'}}",
+      "text": "4″ aura. While within this aura, friendly models gain Tough Hide.\n{{trait 'Tough Hide'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13163,7 +13163,7 @@
     },
     {
       "name": "Help 'Em Out",
-      "text": "4” aura. While within this aura, friendly models gain Close Ranks.\n{{trait 'Close Ranks'}}",
+      "text": "4″ aura. While within this aura, friendly models gain Close Ranks.\n{{trait 'Close Ranks'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13171,7 +13171,7 @@
     },
     {
       "name": "Scything March",
-      "text": "This model’s melee zone is 3\".",
+      "text": "This model’s melee zone is 3″.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13179,7 +13179,7 @@
     },
     {
       "name": "Hare in the Field",
-      "text": "Position an AOE within range. Other friendly models within this AOE may make a 2” dodge.",
+      "text": "Position an AOE within range. Other friendly models within this AOE may make a 2″ dodge.",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -13219,7 +13219,7 @@
     },
     {
       "name": "Sow the Seeds",
-      "text": "This model may place a friendly harvest marker within 2\".",
+      "text": "This model may place a friendly harvest marker within 2″.",
       "CST": "CP",
       "RNG": "S",
       "SUS": false,
@@ -13243,7 +13243,7 @@
     },
     {
       "name": "Broken Earth",
-      "text": "4\" aura. Enemy models treat this aura as rough terrain.",
+      "text": "4″ aura. Enemy models treat this aura as rough terrain.",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13267,7 +13267,7 @@
     },
     {
       "name": "Tidal Surge",
-      "text": "Target model may make a 4\" dodge. The target model is a friendly model during this action.",
+      "text": "Target model may make a 4″ dodge. The target model is a friendly model during this action.",
       "CST": "2,CP2",
       "RNG": 6,
       "SUS": false,
@@ -13275,7 +13275,7 @@
     },
     {
       "name": "Drag",
-      "text": "Target enemy model suffers a 6\" push directly towards this model.",
+      "text": "Target enemy model suffers a 6″ push directly towards this model.",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": false,
@@ -13291,7 +13291,7 @@
     },
     {
       "name": "Swirling Waters",
-      "text": "Target friendly model may make a 2\" dodge. A model can be affected by this character play only once per turn.",
+      "text": "Target friendly model may make a 2″ dodge. A model can be affected by this character play only once per turn.",
       "CST": "1,CP",
       "RNG": 6,
       "SUS": false,
@@ -13299,7 +13299,7 @@
     },
     {
       "name": "Break the Surface",
-      "text": "Target enemy model or free ball within range. Place the target model or free ball within 4\" of its current location.",
+      "text": "Target enemy model or free ball within range. Place the target model or free ball within 4″ of its current location.",
       "CST": 2,
       "RNG": 6,
       "SUS": false,
@@ -13307,7 +13307,7 @@
     },
     {
       "name": "Fisher's Reel",
-      "text": "Target other friendly model may make a 2\" dodge. A model can be affected by this character play only once per turn.",
+      "text": "Target other friendly model may make a 2″ dodge. A model can be affected by this character play only once per turn.",
       "CST": "1,CP",
       "RNG": 4,
       "SUS": false,
@@ -13331,7 +13331,7 @@
     },
     {
       "name": "Raise the Black Flag",
-      "text": "Target enemy model suffers -2\"/-2\" MOV. Choose a friendly model within 6\". The chosen model gains +2\"/+2\" MOV.",
+      "text": "Target enemy model suffers -2″/-2″ MOV. Choose a friendly model within 6″. The chosen model gains +2″/+2″ MOV.",
       "CST": "CP",
       "RNG": 6,
       "SUS": true,
@@ -13355,7 +13355,7 @@
     },
     {
       "name": "Dread Gaze",
-      "text": "Target enemy model suffers a 2\" push directly away from this model and the knocked down condition.",
+      "text": "Target enemy model suffers a 2″ push directly away from this model and the knocked down condition.",
       "CST": 2,
       "RNG": 6,
       "SUS": false,
@@ -13363,7 +13363,7 @@
     },
     {
       "name": "Fair Wind",
-      "text": "Target free ball is placed within 4\" of its current location.",
+      "text": "Target free ball is placed within 4″ of its current location.",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -13411,7 +13411,7 @@
     },
     {
       "name": "Bait",
-      "text": "Position an AOE within range. This model may place two friendly trap markers within the AOE. Enemy models hit suffer a 1\" push.",
+      "text": "Position an AOE within range. This model may place two friendly trap markers within the AOE. Enemy models hit suffer a 1″ push.",
       "CST": "2,CP",
       "RNG": 3,
       "SUS": false,
@@ -13427,7 +13427,7 @@
     },
     {
       "name": "Boom Box",
-      "text": "Target enemy model suffers a 4\" push directly away from this model and 4 DMG.",
+      "text": "Target enemy model suffers a 4″ push directly away from this model and 4 DMG.",
       "CST": 3,
       "RNG": 6,
       "SUS": false,
@@ -13443,7 +13443,7 @@
     },
     {
       "name": "Flurry",
-      "text": "Models within 2\" of target enemy model suffer 2 DMG.",
+      "text": "Models within 2″ of target enemy model suffer 2 DMG.",
       "CST": 2,
       "RNG": 8,
       "SUS": false,
@@ -13459,7 +13459,7 @@
     },
     {
       "name": "Gut & String",
-      "text": "Target enemy model suffers -2\"/-2\" MOV and -1 DEF.",
+      "text": "Target enemy model suffers -2″/-2″ MOV and -1 DEF.",
       "CST": "CP",
       "RNG": "P",
       "SUS": true,
@@ -13467,7 +13467,7 @@
     },
     {
       "name": "Marked for Death",
-      "text": "A friendly model that declares a charge against an enemy model that’s within this model’s melee zone spends 1 less influence and gains +0\"/+2\" MOV for the duration of the charge.",
+      "text": "A friendly model that declares a charge against an enemy model that’s within this model’s melee zone spends 1 less influence and gains +0″/+2″ MOV for the duration of the charge.",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": true,
@@ -13475,7 +13475,7 @@
     },
     {
       "name": "More Teeth!",
-      "text": "This model may place a friendly trap marker within 2\".",
+      "text": "This model may place a friendly trap marker within 2″.",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
@@ -13483,7 +13483,7 @@
     },
     {
       "name": "The Mauling",
-      "text": "2\" pulse. Other models within this pulse suffer a 4\" push directly away from this model and 3 DMG.",
+      "text": "2″ pulse. Other models within this pulse suffer a 4″ push directly away from this model and 3 DMG.",
       "CST": "CP2",
       "RNG": "S",
       "SUS": false,
@@ -13507,7 +13507,7 @@
     },
     {
       "name": "Dummy Pass",
-      "text": "Target other friendly guild model may make a 4\" dodge.",
+      "text": "Target other friendly guild model may make a 4″ dodge.",
       "CST": 1,
       "RNG": 8,
       "SUS": false,
@@ -13515,7 +13515,7 @@
     },
     {
       "name": "Towering Presence",
-      "text": "4\" aura. While within this aura, other friendly guild models may spend 1 less MP to use Pass & Move or make a Snap Shot.",
+      "text": "4″ aura. While within this aura, other friendly guild models may spend 1 less MP to use Pass & Move or make a Snap Shot.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13523,7 +13523,7 @@
     },
     {
       "name": "Fulcrum",
-      "text": "6\" aura. While within this aura, friendly models gain Poised.\n{{trait 'Poised'}}",
+      "text": "6″ aura. While within this aura, friendly models gain Poised.\n{{trait 'Poised'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13547,7 +13547,7 @@
     },
     {
       "name": "Lodestone",
-      "text": "Choose one:\n- Other models within 4\" of target enemy  model suffer a 2\" push directly towards target  enemy model.\n- Other models within 4\" of target enemy  model suffer a 2\" push directly away from  target enemy model.",
+      "text": "Choose one:\n- Other models within 4″ of target enemy  model suffer a 2″ push directly towards target  enemy model.\n- Other models within 4″ of target enemy  model suffer a 2″ push directly away from  target enemy model.",
       "CST": "2,CP2",
       "RNG": 8,
       "SUS": false,
@@ -13555,7 +13555,7 @@
     },
     {
       "name": "Diggy Hole",
-      "text": "This model may be placed within 2\" of its current location.",
+      "text": "This model may be placed within 2″ of its current location.",
       "CST": 1,
       "RNG": "S",
       "SUS": false,
@@ -13571,7 +13571,7 @@
     },
     {
       "name": "Sinkhole",
-      "text": "3\" pulse. Enemy models within this pulse suffer a 3\" push directly towards this model. This model may then be placed within 2” of its current location.",
+      "text": "3″ pulse. Enemy models within this pulse suffer a 3″ push directly towards this model. This model may then be placed within 2″ of its current location.",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": false,
@@ -13579,7 +13579,7 @@
     },
     {
       "name": "Clear!",
-      "text": "Position an AOE within range. Enemy models hit are placed within 1\" of their current location.",
+      "text": "Position an AOE within range. Enemy models hit are placed within 1″ of their current location.",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -13587,7 +13587,7 @@
     },
     {
       "name": "Under the Lines",
-      "text": "Choose an enemy model within 3\". Place this model in base contact with the chosen enemy model.",
+      "text": "Choose an enemy model within 3″. Place this model in base contact with the chosen enemy model.",
       "CST": 1,
       "RNG": "S",
       "SUS": false,
@@ -13595,7 +13595,7 @@
     },
     {
       "name": "Lockdown",
-      "text": "Target enemy model suffers -4\"/-4\" MOV.",
+      "text": "Target enemy model suffers -4″/-4″ MOV.",
       "CST": "CP",
       "RNG": "P",
       "SUS": true,
@@ -13603,7 +13603,7 @@
     },
     {
       "name": "Throw",
-      "text": "Target enemy model is placed within 1\" of its current location.",
+      "text": "Target enemy model is placed within 1″ of its current location.",
       "CST": "CP",
       "RNG": "P",
       "SUS": false,
@@ -13611,7 +13611,7 @@
     },
     {
       "name": "Misdirection",
-      "text": "Target enemy model with at least 1 influence loses 1 influence. Allocate 1 influence to another friendly guild model within 4\" of this model.",
+      "text": "Target enemy model with at least 1 influence loses 1 influence. Allocate 1 influence to another friendly guild model within 4″ of this model.",
       "CST": 2,
       "RNG": 8,
       "SUS": false,
@@ -13627,7 +13627,7 @@
     },
     {
       "name": "Spirit Bomb",
-      "text": "Position an AOE within range. Enemy models hit suffer 2 DMG and a 2\" push.",
+      "text": "Position an AOE within range. Enemy models hit suffer 2 DMG and a 2″ push.",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": false,
@@ -13651,7 +13651,7 @@
     },
     {
       "name": "Scatter",
-      "text": "1\" pulse. All models within the pulse suffer 1 DMG. Then place this model within 1\".",
+      "text": "1″ pulse. All models within the pulse suffer 1 DMG. Then place this model within 1″.",
       "CST": 1,
       "RNG": "S",
       "SUS": false,
@@ -13659,7 +13659,7 @@
     },
     {
       "name": "Spirit Strings",
-      "text": "Target enemy model suffers a 2\" push. This model may then make a 2\" dodge towards the enemy model. Each enemy model can be targeted by Spirit Strings only once per turn.",
+      "text": "Target enemy model suffers a 2″ push. This model may then make a 2″ dodge towards the enemy model. Each enemy model can be targeted by Spirit Strings only once per turn.",
       "CST": "CP",
       "RNG": 4,
       "SUS": false,
@@ -13667,7 +13667,7 @@
     },
     {
       "name": "Puppet Show [Memory]",
-      "text": "Target named friendly model may either declare an attack without spending influence or make a 2\" dodge.",
+      "text": "Target named friendly model may either declare an attack without spending influence or make a 2″ dodge.",
       "CST": 1,
       "RNG": 8,
       "SUS": false,
@@ -13683,7 +13683,7 @@
     },
     {
       "name": "Ghostly Visage",
-      "text": "Position an ongoing effect AOE within range.\nWhen an enemy model declares a charge against a friendly model within this AOE, the enemy model suffers -0\"/-4\" MOV and -2 TAC for the duration of the charge.",
+      "text": "Position an ongoing effect AOE within range.\nWhen an enemy model declares a charge against a friendly model within this AOE, the enemy model suffers -0″/-4″ MOV and -2 TAC for the duration of the charge.",
       "CST": 1,
       "RNG": 2,
       "SUS": true,
@@ -13691,7 +13691,7 @@
     },
     {
       "name": "Heavy Burden",
-      "text": "Target enemy model suffers -4\"/-4\" MOV and -2 to its dice pool when making character plays.",
+      "text": "Target enemy model suffers -4″/-4″ MOV and -2 to its dice pool when making character plays.",
       "CST": "1,CP",
       "RNG": 6,
       "SUS": true,
@@ -13715,7 +13715,7 @@
     },
     {
       "name": "The Unmasking",
-      "text": "3\" pulse. Other models within this pulse suffer a 4\" push directly away from this model and 3 DMG.",
+      "text": "3″ pulse. Other models within this pulse suffer a 4″ push directly away from this model and 3 DMG.",
       "CST": "CP2",
       "RNG": "S",
       "SUS": false,
@@ -13723,7 +13723,7 @@
     },
     {
       "name": "Exhaustion",
-      "text": "4\" aura. While within this aura, enemy models spend +1 MP to declare a Counter-Attack.",
+      "text": "4″ aura. While within this aura, enemy models spend +1 MP to declare a Counter-Attack.",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13755,7 +13755,7 @@
     },
     {
       "name": "Guide",
-      "text": "Target friendly model may make a 4\" dodge towards this model.",
+      "text": "Target friendly model may make a 4″ dodge towards this model.",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -13763,7 +13763,7 @@
     },
     {
       "name": "Full Speed Ahead",
-      "text": "Target friendly model gains +0\"/+2\" MOV and may sprint or charge without spending influence during its activation.",
+      "text": "Target friendly model gains +0″/+2″ MOV and may sprint or charge without spending influence during its activation.",
       "CST": 2,
       "RNG": 4,
       "SUS": true,
@@ -13779,7 +13779,7 @@
     },
     {
       "name": "Grasping Earth",
-      "text": "Target enemy model suffers -2\"/-2\" MOV.",
+      "text": "Target enemy model suffers -2″/-2″ MOV.",
       "CST": "1,CP",
       "RNG": 6,
       "SUS": true,
@@ -13803,7 +13803,7 @@
     },
     {
       "name": "Predatory Gaze",
-      "text": "While this model is within 10\" of a friendly goalpost, enemy models must spend 1 additional influence to make a Shot.",
+      "text": "While this model is within 10″ of a friendly goalpost, enemy models must spend 1 additional influence to make a Shot.",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13835,7 +13835,7 @@
     },
     {
       "name": "Pay the Piper",
-      "text": "6\" aura. When an enemy model spends MP while within this aura, the friendly team gains 1 MP.",
+      "text": "6″ aura. When an enemy model spends MP while within this aura, the friendly team gains 1 MP.",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13859,7 +13859,7 @@
     },
     {
       "name": "Erupting Sores",
-      "text": "2\" pulse. The opposing player chooses one of the following:\n- Enemy models within this pulse suffer 2 DMG and the poison condition.\n- Enemy models within this pulse suffer 2 DMG and the bleed condition.",
+      "text": "2″ pulse. The opposing player chooses one of the following:\n- Enemy models within this pulse suffer 2 DMG and the poison condition.\n- Enemy models within this pulse suffer 2 DMG and the bleed condition.",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": false,
@@ -13875,7 +13875,7 @@
     },
     {
       "name": "Pest Control",
-      "text": "While within this model’s melee zone, enemy models suffer -1/-2\" KICK.",
+      "text": "While within this model’s melee zone, enemy models suffer -1/-2″ KICK.",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13891,7 +13891,7 @@
     },
     {
       "name": "Baa Ram Ewe",
-      "text": "Target enemy model suffers a 2\" push.",
+      "text": "Target enemy model suffers a 2″ push.",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -13899,7 +13899,7 @@
     },
     {
       "name": "Droppings",
-      "text": "This model may place a friendly harvest marker within 2\".",
+      "text": "This model may place a friendly harvest marker within 2″.",
       "CST": 1,
       "RNG": "S",
       "SUS": false,
@@ -13907,7 +13907,7 @@
     },
     {
       "name": "Away to Me",
-      "text": "This model may make a 4\" dodge away from the friendly Hook.",
+      "text": "This model may make a 4″ dodge away from the friendly Hook.",
       "CST": 1,
       "RNG": "S",
       "SUS": false,
@@ -13915,7 +13915,7 @@
     },
     {
       "name": "Come Bye",
-      "text": "This model may make a 4\" dodge away from the friendly Crook.",
+      "text": "This model may make a 4″ dodge away from the friendly Crook.",
       "CST": 1,
       "RNG": "S",
       "SUS": false,
@@ -13939,7 +13939,7 @@
     },
     {
       "name": "Forward, Minions!",
-      "text": "6\" aura. When a friendly model starts an advance within this aura, it gains +2\"/+2\" MOV for the duration of the advance.",
+      "text": "6″ aura. When a friendly model starts an advance within this aura, it gains +2″/+2″ MOV for the duration of the advance.",
       "CST": 3,
       "RNG": "S",
       "SUS": true,
@@ -13947,7 +13947,7 @@
     },
     {
       "name": "Persuasion",
-      "text": "Target other model suffers a 2\" push. Each model may only be affected by this character play once per turn.",
+      "text": "Target other model suffers a 2″ push. Each model may only be affected by this character play once per turn.",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -13955,7 +13955,7 @@
     },
     {
       "name": "Constrict",
-      "text": "Target enemy model suffers -4\"/-4\" MOV.",
+      "text": "Target enemy model suffers -4″/-4″ MOV.",
       "CST": "CP",
       "RNG": "P",
       "SUS": true,
@@ -13963,7 +13963,7 @@
     },
     {
       "name": "Chain Grab",
-      "text": "Target enemy model suffers a 6\" push directly towards this model.",
+      "text": "Target enemy model suffers a 6″ push directly towards this model.",
       "CST": "CP2",
       "RNG": 6,
       "SUS": false,
@@ -13979,7 +13979,7 @@
     },
     {
       "name": "Relight the Fire",
-      "text": "Models within 3\" of target friendly model suffer the burning condition.",
+      "text": "Models within 3″ of target friendly model suffer the burning condition.",
       "CST": "1,CP",
       "RNG": 6,
       "SUS": false,
@@ -14003,7 +14003,7 @@
     },
     {
       "name": "Go Get 'Em! [Scum, Quaff]",
-      "text": "Target named friendly model may either declare an attack without spending influence or make a 2\" dodge.",
+      "text": "Target named friendly model may either declare an attack without spending influence or make a 2″ dodge.",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -14019,7 +14019,7 @@
     },
     {
       "name": "Pig Stickin'",
-      "text": "Target enemy model suffers 2 DMG and a 4\" push directly towards this model.",
+      "text": "Target enemy model suffers 2 DMG and a 4″ push directly towards this model.",
       "CST": "CP",
       "RNG": 6,
       "SUS": false,
@@ -14043,7 +14043,7 @@
     },
     {
       "name": "Bladework",
-      "text": "Target enemy model suffers 2 DMG. This model may then make a 2\" dodge towards the enemy model. Each enemy model can be targeted by Bladework only once per turn.",
+      "text": "Target enemy model suffers 2 DMG. This model may then make a 2″ dodge towards the enemy model. Each enemy model can be targeted by Bladework only once per turn.",
       "CST": "CP",
       "RNG": 4,
       "SUS": false,
@@ -14059,7 +14059,7 @@
     },
     {
       "name": "Pick of the Crop",
-      "text": "When a friendly model charges target enemy model, the friendly model gains +0\"/+2\" MOV and may move over harvest markers without removing them for the duration of the charge.",
+      "text": "When a friendly model charges target enemy model, the friendly model gains +0″/+2″ MOV and may move over harvest markers without removing them for the duration of the charge.",
       "CST": "1,CP",
       "RNG": 10,
       "SUS": true,
@@ -14083,7 +14083,7 @@
     },
     {
       "name": "Forest Grove",
-      "text": "Position a 3\" AOE within range and not in contact with terrain. The AOE is forest terrain and is removed in the End Phase.",
+      "text": "Position a 3″ AOE within range and not in contact with terrain. The AOE is forest terrain and is removed in the End Phase.",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -14123,7 +14123,7 @@
     },
     {
       "name": "Aqua Tofana",
-      "text": "4\" aura. While within this aura, enemy models suffering the poison condition suffer -1 TAC and suffer 3 DMG from poison in the End Phase instead of 2 DMG.",
+      "text": "4″ aura. While within this aura, enemy models suffering the poison condition suffer -1 TAC and suffer 3 DMG from poison in the End Phase instead of 2 DMG.",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -14139,7 +14139,7 @@
     },
     {
       "name": "Cut Em Down",
-      "text": "While within this model's melee zone, enemy models suffer -1 DEF and -2\"/-2\" MOV.",
+      "text": "While within this model's melee zone, enemy models suffer -1 DEF and -2″/-2″ MOV.",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
@@ -14147,7 +14147,7 @@
     },
     {
       "name": "Hoisting and Hauling",
-      "text": "Choose a friendly log pile marker within range and place it within 1\" of this model.",
+      "text": "Choose a friendly log pile marker within range and place it within 1″ of this model.",
       "CST": "1,CP",
       "RNG": 4,
       "SUS": false,
@@ -14163,7 +14163,7 @@
     },
     {
       "name": "Marked for Felling",
-      "text": "When a friendly model charges target enemy model, the friendly model gains +0/+2\" MOV and may move over obstructions for the duration of the charge. The friendly model can't end its movement overlapping an obstruction.",
+      "text": "When a friendly model charges target enemy model, the friendly model gains +0/+2″ MOV and may move over obstructions for the duration of the charge. The friendly model can't end its movement overlapping an obstruction.",
       "CST": "1,CP",
       "RNG": 10,
       "SUS": true,
@@ -14171,7 +14171,7 @@
     },
     {
       "name": "Reconnaissance",
-      "text": "6\" aura. While within this aura, friendly models don't suffer the -1 TAC penalty for attacking an enemy model benefitting from cover.",
+      "text": "6″ aura. While within this aura, friendly models don't suffer the -1 TAC penalty for attacking an enemy model benefitting from cover.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -14179,7 +14179,7 @@
     },
     {
       "name": "Swipe Right",
-      "text": "Target enemy model suffers a 2\" push. Then you may choose a friendly log pile marker within range and place it within 1\" of this model.",
+      "text": "Target enemy model suffers a 2″ push. Then you may choose a friendly log pile marker within range and place it within 1″ of this model.",
       "CST": "CP",
       "RNG": 4,
       "SUS": false,
@@ -14187,7 +14187,7 @@
     },
     {
       "name": "Skidding",
-      "text": "Target friendly model may make a 2\" dodge towards a friendly log pile marker. Each model may be affected by this character play only once per turn.",
+      "text": "Target friendly model may make a 2″ dodge towards a friendly log pile marker. Each model may be affected by this character play only once per turn.",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": false,
@@ -14195,7 +14195,7 @@
     },
     {
       "name": "Dam Builder",
-      "text": "Choose a friendly log pile marker within range and place it within 4\" of its current location.",
+      "text": "Choose a friendly log pile marker within range and place it within 4″ of its current location.",
       "CST": "1,CP",
       "RNG": 1,
       "SUS": false,
@@ -14203,7 +14203,7 @@
     },
     {
       "name": "Crumb Boss [Cut]",
-      "text": "If the target named friendly model is within 4\" of a friendly log pile marker, it's allocated 2 influence and gains +1\"/+1\" MOV.",
+      "text": "If the target named friendly model is within 4″ of a friendly log pile marker, it's allocated 2 influence and gains +1″/+1″ MOV.",
       "CST": "CP",
       "RNG": 4,
       "SUS": true,
@@ -14211,7 +14211,7 @@
     },
     {
       "name": "Steel Toecaps",
-      "text": "Target friendly model gains +1 ARM and +0/+2\" KICK.",
+      "text": "Target friendly model gains +1 ARM and +0/+2″ KICK.",
       "CST": 2,
       "RNG": 4,
       "SUS": true,
@@ -14219,7 +14219,7 @@
     },
     {
       "name": "The Bigger They Are...",
-      "text": "Target enemy model suffers condition damage equal to half of its current health, rounded down. Then, if there is a friendly log pile marker within 4\" of this model, you may place this model in base contact with it.",
+      "text": "Target enemy model suffers condition damage equal to half of its current health, rounded down. Then, if there is a friendly log pile marker within 4″ of this model, you may place this model in base contact with it.",
       "CST": "CP2",
       "RNG": "P",
       "SUS": false,
@@ -14230,7 +14230,7 @@
     {
       "name": "Fulmination",
       "active": false,
-      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4\". If it does, for the remainder of the turn when this model makes a successful attack, it may add an additional {{d}} playbook result."
+      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4″. If it does, for the remainder of the turn when this model makes a successful attack, it may add an additional {{d}} playbook result."
     },
     {
       "name": "Midas Touch",
@@ -14240,12 +14240,12 @@
     {
       "name": "Unpredictable Movement",
       "active": true,
-      "text": "Once per turn when an enemy model ends an advance within this model’s melee zone, this model may immediately make a 2\" dodge."
+      "text": "Once per turn when an enemy model ends an advance within this model’s melee zone, this model may immediately make a 2″ dodge."
     },
     {
       "name": "Cloud Jumper",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose an ongoing effect AOE within 4\" and be placed anywhere within the chosen AOE."
+      "text": "Once per turn during this model’s activation, it may choose an ongoing effect AOE within 4″ and be placed anywhere within the chosen AOE."
     },
     {
       "name": "Watch The World Burn",
@@ -14275,7 +14275,7 @@
     {
       "name": "Inferno",
       "active": false,
-      "text": "When this model makes a successful attack, the target enemy model suffers the burning condition. Then enemy models within 2\" of this model suffering the burning condition suffer 1 condition damage."
+      "text": "When this model makes a successful attack, the target enemy model suffers the burning condition. Then enemy models within 2″ of this model suffering the burning condition suffer 1 condition damage."
     },
     {
       "name": "Waning Light",
@@ -14285,7 +14285,7 @@
     {
       "name": "Beaker Keeper",
       "active": true,
-      "text": "Once per turn during this model’s activation, choose a friendly non-Captain guild model within 4\". The friendly model may use a CST 1 or 2 character play without spending influence once during its activation."
+      "text": "Once per turn during this model’s activation, choose a friendly non-Captain guild model within 4″. The friendly model may use a CST 1 or 2 character play without spending influence once during its activation."
     },
     {
       "name": "Light Footed",
@@ -14300,7 +14300,7 @@
     {
       "name": "Test Subject",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4\". If it does, this model may then make an attack or use a character play once during its activation without spending influence."
+      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4″. If it does, this model may then make an attack or use a character play once during its activation without spending influence."
     },
     {
       "name": "Venomous Strike",
@@ -14315,12 +14315,12 @@
     {
       "name": "Reactive Solution",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4\". If it does, this model may then use a character play once during its activation without spending influence."
+      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4″. If it does, this model may then use a character play once during its activation without spending influence."
     },
     {
       "name": "Extraction",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4\". This model may then immediately make a 4\" dodge."
+      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4″. This model may then immediately make a 4″ dodge."
     },
     {
       "name": "Chemical Admixture",
@@ -14345,7 +14345,7 @@
     {
       "name": "Elusive",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4\". If it does, immediately place this model in base contact with the other model."
+      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4″. If it does, immediately place this model in base contact with the other model."
     },
     {
       "name": "Burning Effigy",
@@ -14365,7 +14365,7 @@
     {
       "name": "Burst of Fumes",
       "active": false,
-      "text": "After this model resolves a successful attack during its activation, enemy models within 2\" that are suffering the burning or poison condition suffer 1 condition DMG."
+      "text": "After this model resolves a successful attack during its activation, enemy models within 2″ that are suffering the burning or poison condition suffer 1 condition DMG."
     },
     {
       "name": "Toxicity",
@@ -14395,7 +14395,7 @@
     {
       "name": "I've Been Burnt Before...",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4\". If it does so, if it then makes a sprint or charge during its activation it may do so without spending influence."
+      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4″. If it does so, if it then makes a sprint or charge during its activation it may do so without spending influence."
     },
     {
       "name": "Noxious Death",
@@ -14410,7 +14410,7 @@
     {
       "name": "Rush Keeper",
       "active": true,
-      "text": "While this model is within 4\" of a friendly goalpost, once per turn when an enemy model ends an advance within 6\" of this model, this model may immediately declare a charge targeting the enemy model without spending influence."
+      "text": "While this model is within 4″ of a friendly goalpost, once per turn when an enemy model ends an advance within 6″ of this model, this model may immediately declare a charge targeting the enemy model without spending influence."
     },
     {
       "name": "Sentinel",
@@ -14425,7 +14425,7 @@
     {
       "name": "Reduction",
       "active": true,
-      "text": "Once per turn during this model’s activation, position an AOE within 2\" of this model. Friendly models within this AOE remove all conditions they’re suffering."
+      "text": "Once per turn during this model’s activation, position an AOE within 2″ of this model. Friendly models within this AOE remove all conditions they’re suffering."
     },
     {
       "name": "Reinforced Plating",
@@ -14445,7 +14445,7 @@
     {
       "name": "Get Over Here",
       "active": true,
-      "text": "Once during this model’s activation, if the named friendly model is within 10\" of this model, the named friendly model may make a dodge up to its base-move towards this model."
+      "text": "Once during this model’s activation, if the named friendly model is within 10″ of this model, the named friendly model may make a dodge up to its base-move towards this model."
     },
     {
       "name": "Searing Strike",
@@ -14455,7 +14455,7 @@
     {
       "name": "Match Experience",
       "active": true,
-      "text": "When a friendly model within this aura uses Pass & Move, both the receiving and the kicking models may make a 4\" dodge instead of only one being able to do so."
+      "text": "When a friendly model within this aura uses Pass & Move, both the receiving and the kicking models may make a 4″ dodge instead of only one being able to do so."
     },
     {
       "name": "Sturdy",
@@ -14465,12 +14465,12 @@
     {
       "name": "Back to the Shadows",
       "active": true,
-      "text": "At the end of this model’s activation, if it caused damage during the activation, it may make a 4\" dodge."
+      "text": "At the end of this model’s activation, if it caused damage during the activation, it may make a 4″ dodge."
     },
     {
       "name": "Arsenal",
       "active": true,
-      "text": "If this model starts its activation within 6\" of the named friendly model, this model gains a benefit for the remainder of the turn.\nChoose one of the following benefits:\n- 2\" Melee\n- Instruction\n{{play 'Instruction'}}"
+      "text": "If this model starts its activation within 6″ of the named friendly model, this model gains a benefit for the remainder of the turn.\nChoose one of the following benefits:\n- 2″ Melee\n- Instruction\n{{play 'Instruction'}}"
     },
     {
       "name": "Stamina",
@@ -14480,7 +14480,7 @@
     {
       "name": "Tutelage",
       "active": false,
-      "text": "If it starts its activation within 6\" of the named friendly model, this model may use a character play once during its activation without spending influence."
+      "text": "If it starts its activation within 6″ of the named friendly model, this model may use a character play once during its activation without spending influence."
     },
     {
       "name": "Burning Passion",
@@ -14495,22 +14495,22 @@
     {
       "name": "Swift Strikes",
       "active": false,
-      "text": "During this model’s activation, when it damages one or more enemy models it may make a 2\" dodge."
+      "text": "During this model’s activation, when it damages one or more enemy models it may make a 2″ dodge."
     },
     {
       "name": "Far Strike",
       "active": true,
-      "text": "Once per turn during this model’s activation, if an enemy model is within 6\" of this model and in its line of sight, this model may declare an attack against the enemy model as if engaging it."
+      "text": "Once per turn during this model’s activation, if an enemy model is within 6″ of this model and in its line of sight, this model may declare an attack against the enemy model as if engaging it."
     },
     {
       "name": "Kindled",
       "active": false,
-      "text": "If it starts its activation within 6\" of the named friendly model, this model may make an attack once during its activation without spending influence."
+      "text": "If it starts its activation within 6″ of the named friendly model, this model may make an attack once during its activation without spending influence."
     },
     {
       "name": "Grim Vengeance",
       "active": true,
-      "text": "Once per turn during this model’s activation, when it inflicts the taken out condition on an enemy model, this model may make a 2\" dodge, a kick, or an attack as its next action without spending influence."
+      "text": "Once per turn during this model’s activation, when it inflicts the taken out condition on an enemy model, this model may make a 2″ dodge, a kick, or an attack as its next action without spending influence."
     },
     {
       "name": "Sweeping Charge",
@@ -14520,12 +14520,12 @@
     {
       "name": "Quick Off the Line",
       "active": true,
-      "text": "When an enemy model declares a Shot, before the Shot is resolved, this model may make a 2\" dodge."
+      "text": "When an enemy model declares a Shot, before the Shot is resolved, this model may make a 2″ dodge."
     },
     {
       "name": "Battering Ram",
       "active": false,
-      "text": "During this model’s advances, models whose bases are touched by its base immediately suffer a 2\" push directly away from it. This model can only push each model once per turn with Battering Ram."
+      "text": "During this model’s advances, models whose bases are touched by its base immediately suffer a 2″ push directly away from it. This model can only push each model once per turn with Battering Ram."
     },
     {
       "name": "Close Control",
@@ -14535,7 +14535,7 @@
     {
       "name": "Tryhard",
       "active": false,
-      "text": "When this model makes a Shot while within 2\" of the enemy goalpost, the TN is reduced by 1."
+      "text": "When this model makes a Shot while within 2″ of the enemy goalpost, the TN is reduced by 1."
     },
     {
       "name": "Powerful Charge",
@@ -14560,7 +14560,7 @@
     {
       "name": "Legless Drunk",
       "active": true,
-      "text": "The first time each turn this model suffers damage, except while making an advance, it suffers a push D6\" in a direction chosen by its controlling player."
+      "text": "The first time each turn this model suffers damage, except while making an advance, it suffers a push D6″ in a direction chosen by its controlling player."
     },
     {
       "name": "Feral",
@@ -14570,12 +14570,12 @@
     {
       "name": "Shadow Like",
       "active": true,
-      "text": "At the start of this model’s activation, it may make a 2\" dodge."
+      "text": "At the start of this model’s activation, it may make a 2″ dodge."
     },
     {
       "name": "Pick Me Up",
       "active": true,
-      "text": "Once per turn during this model’s activation, target friendly non-Captain model within 4\" gains +1 TAC for the remainder of the turn."
+      "text": "Once per turn during this model’s activation, target friendly non-Captain model within 4″ gains +1 TAC for the remainder of the turn."
     },
     {
       "name": "Loved Creature",
@@ -14590,7 +14590,7 @@
     {
       "name": "Defence Support",
       "active": false,
-      "text": "While within 4\" of the named friendly model, this model gains +1 DEF."
+      "text": "While within 4″ of the named friendly model, this model gains +1 DEF."
     },
     {
       "name": "Shove the Boot In",
@@ -14610,7 +14610,7 @@
     {
       "name": "Taunt",
       "active": true,
-      "text": "When this model ends an advance, choose an enemy model within 2\" of this model. The enemy model suffers a 1\" push directly towards this model."
+      "text": "When this model ends an advance, choose an enemy model within 2″ of this model. The enemy model suffers a 1″ push directly towards this model."
     },
     {
       "name": "Floored",
@@ -14620,7 +14620,7 @@
     {
       "name": "Football Legend",
       "active": false,
-      "text": "While within this aura, friendly models gain +1/+1\" KICK."
+      "text": "While within this aura, friendly models gain +1/+1″ KICK."
     },
     {
       "name": "Magical Brew",
@@ -14645,7 +14645,7 @@
     {
       "name": "Smell Blood",
       "active": false,
-      "text": "When it charges an enemy model suffering the bleed condition, this model gains +2\"/+2\" MOV for the duration of the charge. When it attacks an enemy model suffering the bleed condition, this model gains +1 DMG to playbook damage results."
+      "text": "When it charges an enemy model suffering the bleed condition, this model gains +2″/+2″ MOV for the duration of the charge. When it attacks an enemy model suffering the bleed condition, this model gains +1 DMG to playbook damage results."
     },
     {
       "name": "Berserk",
@@ -14695,12 +14695,12 @@
     {
       "name": "Bleed the Cleats",
       "active": false,
-      "text": "Each time this model inflicts damage on an enemy model, this model gains +1/+0\" KICK for the remainder of the turn."
+      "text": "Each time this model inflicts damage on an enemy model, this model gains +1/+0″ KICK for the remainder of the turn."
     },
     {
       "name": "Get On With It, Boy!",
       "active": true,
-      "text": "If this model begins its activation within 6\" of the named friendly model, this model may immediately use a character play without spending influence or remove all conditions it is currently suffering."
+      "text": "If this model begins its activation within 6″ of the named friendly model, this model may immediately use a character play without spending influence or remove all conditions it is currently suffering."
     },
     {
       "name": "Magic Touch",
@@ -14720,22 +14720,22 @@
     {
       "name": "The Old Ways",
       "active": false,
-      "text": "Once per turn, when this model inflicts the taken out condition on an enemy model, this model gains The Owner [6\" Aura] for the remainder of the turn.\n{{trait 'The Owner'}}"
+      "text": "Once per turn, when this model inflicts the taken out condition on an enemy model, this model gains The Owner [6″ Aura] for the remainder of the turn.\n{{trait 'The Owner'}}"
     },
     {
       "name": "Damaged Target",
       "active": false,
-      "text": "When this model declares a charge against a damaged enemy model, it gains +0\"/+2\" MOV for the duration of the charge."
+      "text": "When this model declares a charge against a damaged enemy model, it gains +0″/+2″ MOV for the duration of the charge."
     },
     {
       "name": "Dead Meat",
       "active": true,
-      "text": "While this model is within 4” of a friendly goalpost, when an enemy model scores a goal it gains a payback token. During its activation, when a friendly model damages an enemy model with a payback token with an attack, the friendly team gains 1 MP. Payback tokens are only removed from a model when it suffers the taken out condition."
+      "text": "While this model is within 4″ of a friendly goalpost, when an enemy model scores a goal it gains a payback token. During its activation, when a friendly model damages an enemy model with a payback token with an attack, the friendly team gains 1 MP. Payback tokens are only removed from a model when it suffers the taken out condition."
     },
     {
       "name": "Goal Defence",
       "active": false,
-      "text": "Enemy models suffer +1 TN to Shots while this model is within 4\" of a friendly goalpost."
+      "text": "Enemy models suffer +1 TN to Shots while this model is within 4″ of a friendly goalpost."
     },
     {
       "name": "Guild Rule: Intimidation",
@@ -14745,17 +14745,17 @@
     {
       "name": "Scathing Rebuke",
       "active": true,
-      "text": "Once per turn during this model’s activation, target other friendly model within 6\" of this model may make a 2\" dodge and remove any conditions it is currently suffering."
+      "text": "Once per turn during this model’s activation, target other friendly model within 6″ of this model may make a 2″ dodge and remove any conditions it is currently suffering."
     },
     {
       "name": "Big Belly",
       "active": true,
-      "text": "When an enemy model damages this model with one or more playbook damage results, after the attack is resolved the enemy model suffers a 1\" push directly away from this model."
+      "text": "When an enemy model damages this model with one or more playbook damage results, after the attack is resolved the enemy model suffers a 1″ push directly away from this model."
     },
     {
       "name": "Icing on the Cake",
       "active": false,
-      "text": "This model gains +2/+2\" KICK when making a snap shot."
+      "text": "This model gains +2/+2″ KICK when making a snap shot."
     },
     {
       "name": "Momentous Inspiration",
@@ -14780,7 +14780,7 @@
     {
       "name": "Tow",
       "active": true,
-      "text": "At the end of an advance made by this model during its activation, friendly models that this model moved within 2\" of during the advance may make a jog directly towards this model."
+      "text": "At the end of an advance made by this model during its activation, friendly models that this model moved within 2″ of during the advance may make a jog directly towards this model."
     },
     {
       "name": "Launch Control",
@@ -14790,17 +14790,17 @@
     {
       "name": "Spider Nests",
       "active": true,
-      "text": "Once per turn during its activation, this model may place a friendly 30mm nest marker within 4\". A player may have up to three friendly nest markers on the pitch at once. When a model moves into base contact with a nest marker during a sprint or charge, the nest marker is removed from the pitch."
+      "text": "Once per turn during its activation, this model may place a friendly 30mm nest marker within 4″. A player may have up to three friendly nest markers on the pitch at once. When a model moves into base contact with a nest marker during a sprint or charge, the nest marker is removed from the pitch."
     },
     {
       "name": "Spiderlings",
       "active": false,
-      "text": "While within 1\" of one or more friendly nest markers, enemy models suffer the crowding out penalty."
+      "text": "While within 1″ of one or more friendly nest markers, enemy models suffer the crowding out penalty."
     },
     {
       "name": "Webbing",
       "active": true,
-      "text": "Once per turn during this model’s activation, if there is a friendly nest marker within 4\" of this model and within 2\" of a free ball this model may gain possession of the ball."
+      "text": "Once per turn during this model’s activation, if there is a friendly nest marker within 4″ of this model and within 2″ of a free ball this model may gain possession of the ball."
     },
     {
       "name": "Stoic",
@@ -14820,17 +14820,17 @@
     {
       "name": "Learn From The Best",
       "active": false,
-      "text": "When it starts its activation within 4\" of a friendly model of the named type, this model may use a character play once during the activation without spending influence."
+      "text": "When it starts its activation within 4″ of a friendly model of the named type, this model may use a character play once during the activation without spending influence."
     },
     {
       "name": "True Replication",
       "active": true,
-      "text": "This model may use the character plays of friendly non-Captain models within this aura as though they were on this model's stat card. When this model uses a character play that inflicts damage, it becomes OPT ✔ and its RNG is reduced by 2\"."
+      "text": "This model may use the character plays of friendly non-Captain models within this aura as though they were on this model's stat card. When this model uses a character play that inflicts damage, it becomes OPT ✔ and its RNG is reduced by 2″."
     },
     {
       "name": "Gravity Well",
       "active": true,
-      "text": "When an enemy model ends an advance engaging this model, the enemy model immediately suffers a 2\" push directly towards this model."
+      "text": "When an enemy model ends an advance engaging this model, the enemy model immediately suffers a 2″ push directly towards this model."
     },
     {
       "name": "Goal of the Month",
@@ -14840,12 +14840,12 @@
     {
       "name": "Roulette",
       "active": true,
-      "text": "At the start of this model’s activation, choose one effect. The chosen effect lasts until the end of this model’s activation.\n- This model gains +1\"/+1\" MOV.\n- This model gains +1 TAC.\n- This model gains +0/+2\" KICK."
+      "text": "At the start of this model’s activation, choose one effect. The chosen effect lasts until the end of this model’s activation.\n- This model gains +1″/+1″ MOV.\n- This model gains +1 TAC.\n- This model gains +0/+2″ KICK."
     },
     {
       "name": "Fixer",
       "active": true,
-      "text": "Once per turn during this model’s activation, target friendly model within 4\" of this model may remove all conditions it’s suffering."
+      "text": "Once per turn during this model’s activation, target friendly model within 4″ of this model may remove all conditions it’s suffering."
     },
     {
       "name": "Lend a Hand",
@@ -14855,7 +14855,7 @@
     {
       "name": "Death from Above",
       "active": true,
-      "text": "During its activation, if an enemy model is within 6\" of this model, in this model’s line of sight, and within a friendly Harrier AOE, this model may declare an attack against the enemy model as if engaging it. This attack gains +5 TAC. After this attack is resolved, remove this Harrier AOE from the pitch."
+      "text": "During its activation, if an enemy model is within 6″ of this model, in this model’s line of sight, and within a friendly Harrier AOE, this model may declare an attack against the enemy model as if engaging it. This attack gains +5 TAC. After this attack is resolved, remove this Harrier AOE from the pitch."
     },
     {
       "name": "Flying",
@@ -14875,7 +14875,7 @@
     {
       "name": "Hawk Eye",
       "active": true,
-      "text": "Once per turn during this model’s activation, if an enemy model is within 6\" of this model and in its line of sight, this model may declare an attack without spending influence against the enemy model as if engaging it."
+      "text": "Once per turn during this model’s activation, if an enemy model is within 6″ of this model and in its line of sight, this model may declare an attack without spending influence against the enemy model as if engaging it."
     },
     {
       "name": "Nocturnal Hunting",
@@ -14885,22 +14885,22 @@
     {
       "name": "For the Family",
       "active": false,
-      "text": "While within this aura, friendly guild models gain +1/+2\" KICK."
+      "text": "While within this aura, friendly guild models gain +1/+2″ KICK."
     },
     {
       "name": "Planting Master",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may place up to two friendly harvest markers within 4\"."
+      "text": "Once per turn during this model’s activation, it may place up to two friendly harvest markers within 4″."
     },
     {
       "name": "Crow Scarer",
       "active": false,
-      "text": "While this model is within 2\" of a friendly harvest marker, it gains Poised.\n{{trait 'Poised'}}"
+      "text": "While this model is within 2″ of a friendly harvest marker, it gains Poised.\n{{trait 'Poised'}}"
     },
     {
       "name": "Don't Fear The...",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove it from the pitch. If it does, models within its melee zone suffer 3 DMG."
+      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2″ and remove it from the pitch. If it does, models within its melee zone suffer 3 DMG."
     },
     {
       "name": "Harvest Supper",
@@ -14915,17 +14915,17 @@
     {
       "name": "Ass Kicking",
       "active": true,
-      "text": "Once per turn when this model makes a successful attack, after resolving playbook results, the target enemy model suffers a 4\" push directly away from this model."
+      "text": "Once per turn when this model makes a successful attack, after resolving playbook results, the target enemy model suffers a 4″ push directly away from this model."
     },
     {
       "name": "Carrot & Stick",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove it from the pitch. If it does, it may immediately make an additional jog."
+      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2″ and remove it from the pitch. If it does, it may immediately make an additional jog."
     },
     {
       "name": "Left Boot",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove it from the pitch. If it does, this model gains +1/+2\" KICK and may make a kick during its activation without spending influence."
+      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2″ and remove it from the pitch. If it does, this model gains +1/+2″ KICK and may make a kick during its activation without spending influence."
     },
     {
       "name": "One of Our Own",
@@ -14935,7 +14935,7 @@
     {
       "name": "Cabbage Punt",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove that marker from the pitch. If it does, this model may then use a character play once during its activation without spending influence."
+      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2″ and remove that marker from the pitch. If it does, this model may then use a character play once during its activation without spending influence."
     },
     {
       "name": "Between a Rock...",
@@ -14945,7 +14945,7 @@
     {
       "name": "Making Hay",
       "active": true,
-      "text": "At the start of this model’s activation, it may remove any number of friendly harvest markers from the pitch that are within 4\". This model is allocated 2 influence for each friendly harvest marker removed in this way."
+      "text": "At the start of this model’s activation, it may remove any number of friendly harvest markers from the pitch that are within 4″. This model is allocated 2 influence for each friendly harvest marker removed in this way."
     },
     {
       "name": "Protective Instinct",
@@ -14960,7 +14960,7 @@
     {
       "name": "Planting Season",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may place a friendly harvest marker within 2\"."
+      "text": "Once per turn during this model’s activation, it may place a friendly harvest marker within 2″."
     },
     {
       "name": "Rapid Growth",
@@ -14980,12 +14980,12 @@
     {
       "name": "If I Only Had a Brain",
       "active": true,
-      "text": "Once per turn during its activation, this model may choose a friendly harvest marker or friendly goalpost within 4\". Place this model in base contact with the chosen harvest marker or goalpost."
+      "text": "Once per turn during its activation, this model may choose a friendly harvest marker or friendly goalpost within 4″. Place this model in base contact with the chosen harvest marker or goalpost."
     },
     {
       "name": "The Last Straw",
       "active": true,
-      "text": "At the end of its activation, this model may choose a friendly harvest marker within 4\". Place this model in base contact with the chosen harvest marker."
+      "text": "At the end of its activation, this model may choose a friendly harvest marker within 4″. Place this model in base contact with the chosen harvest marker."
     },
     {
       "name": "Take One for the Team",
@@ -15005,7 +15005,7 @@
     {
       "name": "Fork Off!",
       "active": true,
-      "text": "Once per turn when an enemy model ends an advance within 6\" of this model, if this model isn't engaged it may immediately remove a friendly harvest marker within 2\" to declare a charge targeting the enemy model without spending influence."
+      "text": "Once per turn when an enemy model ends an advance within 6″ of this model, if this model isn't engaged it may immediately remove a friendly harvest marker within 2″ to declare a charge targeting the enemy model without spending influence."
     },
     {
       "name": "Make It Rain",
@@ -15015,7 +15015,7 @@
     {
       "name": "Big Breakfast",
       "active": true,
-      "text": "Once per turn at the start of this model’s activation, it may choose a friendly harvest marker within 2\" and remove that marker from the pitch. If it does, this model is allocated 1 influence and gains +2\"/+2\" MOV for the remainder of the turn."
+      "text": "Once per turn at the start of this model’s activation, it may choose a friendly harvest marker within 2″ and remove that marker from the pitch. If it does, this model is allocated 1 influence and gains +2″/+2″ MOV for the remainder of the turn."
     },
     {
       "name": "Empathy",
@@ -15035,7 +15035,7 @@
     {
       "name": "Beating Wings Over Water",
       "active": true,
-      "text": "Once per turn during this model’s activation, choose another friendly model within 8\". The chosen model gains Flying.\n{{trait 'Flying'}}"
+      "text": "Once per turn during this model’s activation, choose another friendly model within 8″. The chosen model gains Flying.\n{{trait 'Flying'}}"
     },
     {
       "name": "Tag Along",
@@ -15075,7 +15075,7 @@
     {
       "name": "Cover of Darkness",
       "active": false,
-      "text": "When this model starts an advance while benefitting from cover, it gains +2\"/+2\" MOV for the duration of the advance."
+      "text": "When this model starts an advance while benefitting from cover, it gains +2″/+2″ MOV for the duration of the advance."
     },
     {
       "name": "Poised",
@@ -15085,32 +15085,32 @@
     {
       "name": "Bag of Coffers",
       "active": true,
-      "text": "Once per turn during this model’s activation, choose a friendly non-Captain model within 4\". The chosen model is allocated 1 influence and may use Bonus Time once during its activation without spending MP."
+      "text": "Once per turn during this model’s activation, choose a friendly non-Captain model within 4″. The chosen model is allocated 1 influence and may use Bonus Time once during its activation without spending MP."
     },
     {
       "name": "Beautiful",
       "active": false,
-      "text": "Enemy character plays targeting this model suffer -5\" RNG."
+      "text": "Enemy character plays targeting this model suffer -5″ RNG."
     },
     {
       "name": "Protected",
       "active": false,
-      "text": "While within 4\" of the named friendly model, this model gains +1 ARM."
+      "text": "While within 4″ of the named friendly model, this model gains +1 ARM."
     },
     {
       "name": "Escaping Fate",
       "active": true,
-      "text": "Once per turn when this model is reduced to 0 HP, except while making an advance, before suffering the taken out condition it may recover 1 HP, remove all conditions on it, and make a 2\" dodge."
+      "text": "Once per turn when this model is reduced to 0 HP, except while making an advance, before suffering the taken out condition it may recover 1 HP, remove all conditions on it, and make a 2″ dodge."
     },
     {
       "name": "Nature's Growth",
       "active": true,
-      "text": "At the start of this model’s activation, it may position an AOE within 8\" and not in contact with terrain. The AOE is forest terrain and is removed in the End Phase."
+      "text": "At the start of this model’s activation, it may position an AOE within 8″ and not in contact with terrain. The AOE is forest terrain and is removed in the End Phase."
     },
     {
       "name": "Nature's Chill",
       "active": true,
-      "text": "At the start of this model’s activation, it may position an AOE within 8\" and not in base contact with terrain. This AOE is fast terrain and is removed from the pitch in the End Phase."
+      "text": "At the start of this model’s activation, it may position an AOE within 8″ and not in base contact with terrain. This AOE is fast terrain and is removed from the pitch in the End Phase."
     },
     {
       "name": "Bring Them Down",
@@ -15135,12 +15135,12 @@
     {
       "name": "Pack Mentality",
       "active": true,
-      "text": "When another friendly model within this aura that isn't suffering the knocked down condition suffers damage from an enemy attack or play, it may make a 1\" dodge directly towards this model."
+      "text": "When another friendly model within this aura that isn't suffering the knocked down condition suffers damage from an enemy attack or play, it may make a 1″ dodge directly towards this model."
     },
     {
       "name": "Big Game Traps",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may place a friendly trap marker within 2\"."
+      "text": "Once per turn during this model’s activation, it may place a friendly trap marker within 2″."
     },
     {
       "name": "Mud Concealer",
@@ -15160,22 +15160,22 @@
     {
       "name": "Nature's Blessing",
       "active": true,
-      "text": "Once per turn during its activation, this model may choose a piece of forest terrain within 4\". This model may be placed anywhere within the chosen forest terrain."
+      "text": "Once per turn during its activation, this model may choose a piece of forest terrain within 4″. This model may be placed anywhere within the chosen forest terrain."
     },
     {
       "name": "Last Light",
       "active": true,
-      "text": "Once per turn during this model's activation, choose a friendly model within 6\". The chosen model may spend MP instead of influence to pay the CST of a character play once this turn."
+      "text": "Once per turn during this model's activation, choose a friendly model within 6″. The chosen model may spend MP instead of influence to pay the CST of a character play once this turn."
     },
     {
       "name": "Lunar Eclipse",
       "active": true,
-      "text": "Each time this model hits an enemy model with an attack or character play, after the action is resolved this model may be placed within 1\" of the enemy model."
+      "text": "Each time this model hits an enemy model with an attack or character play, after the action is resolved this model may be placed within 1″ of the enemy model."
     },
     {
       "name": "Winter's Blessing",
       "active": false,
-      "text": "When this model makes an advance, it ignores the MOV penalty for rough terrain. When this model moves within one or more pieces of rough terrain during an advance, it gains +2\"/+2\" MOV for the remainder of the advance."
+      "text": "When this model makes an advance, it ignores the MOV penalty for rough terrain. When this model moves within one or more pieces of rough terrain during an advance, it gains +2″/+2″ MOV for the remainder of the advance."
     },
     {
       "name": "Heightened Senses",
@@ -15190,22 +15190,22 @@
     {
       "name": "Lone Hunter",
       "active": false,
-      "text": "While not within 4\" of another friendly model, this model may spend 1 less influence to charge."
+      "text": "While not within 4″ of another friendly model, this model may spend 1 less influence to charge."
     },
     {
       "name": "Knockback",
       "active": false,
-      "text": "When this model makes a successful attack, after resolving playbook results, the target enemy model suffers a 1\" push directly away from this model. This model may then make a 1\" dodge directly towards the enemy model."
+      "text": "When this model makes a successful attack, after resolving playbook results, the target enemy model suffers a 1″ push directly away from this model. This model may then make a 1″ dodge directly towards the enemy model."
     },
     {
       "name": "Making Space",
       "active": true,
-      "text": "While this model on the pitch, once per activation when a friendly guild model declares a pass, before choosing a target, another friendly guild model may make a 4\" dodge. Each friendly model can only dodge once per turn as a result of this trait."
+      "text": "While this model on the pitch, once per activation when a friendly guild model declares a pass, before choosing a target, another friendly guild model may make a 4″ dodge. Each friendly model can only dodge once per turn as a result of this trait."
     },
     {
       "name": "Counter-Charge",
       "active": false,
-      "text": "Once per turn when an enemy model ends an advance within 6\" of this model, this model may immediately declare a charge targeting the enemy model without spending influence."
+      "text": "Once per turn when an enemy model ends an advance within 6″ of this model, this model may immediately declare a charge targeting the enemy model without spending influence."
     },
     {
       "name": "Follow Up",
@@ -15230,7 +15230,7 @@
     {
       "name": "Family",
       "active": true,
-      "text": "If this model starts an activation within 8\" of the named friendly model, this model may replace its TAC and KICK with the named model’s unmodified TAC and KICK values for the remainder of the turn."
+      "text": "If this model starts an activation within 8″ of the named friendly model, this model may replace its TAC and KICK with the named model’s unmodified TAC and KICK values for the remainder of the turn."
     },
     {
       "name": "Animosity",
@@ -15245,22 +15245,22 @@
     {
       "name": "Extended Reach",
       "active": false,
-      "text": "During its activation this model’s melee zone is 3\"."
+      "text": "During its activation this model’s melee zone is 3″."
     },
     {
       "name": "Forceful Blow",
       "active": false,
-      "text": "When this model makes a successful attack during a charge, after resolving playbook results, the target enemy model suffers a 2\" push directly away from this model and 2 DMG."
+      "text": "When this model makes a successful attack during a charge, after resolving playbook results, the target enemy model suffers a 2″ push directly away from this model and 2 DMG."
     },
     {
       "name": "Guild Rule: Secret Tunnel",
       "active": true,
-      "text": "At the start of this model’s activation, it may be placed within 2\" of its current location."
+      "text": "At the start of this model’s activation, it may be placed within 2″ of its current location."
     },
     {
       "name": "Stop, Drop, and Mole",
       "active": true,
-      "text": "Once per turn during this model’s activation, target friendly model within 4\" may remove all conditions it’s suffering."
+      "text": "Once per turn during this model’s activation, target friendly model within 4″ may remove all conditions it’s suffering."
     },
     {
       "name": "You're Coming With Me",
@@ -15270,7 +15270,7 @@
     {
       "name": "Remote Detonation",
       "active": true,
-      "text": "Once per turn during this model’s activation, if there is a free ball within 6\" of this model, this model may make a kick as if it was in possession of the ball. The kick distance and ball path of this kick are measured from the current location of the free ball."
+      "text": "Once per turn during this model’s activation, if there is a free ball within 6″ of this model, this model may make a kick as if it was in possession of the ball. The kick distance and ball path of this kick are measured from the current location of the free ball."
     },
     {
       "name": "Sapper's Instincts",
@@ -15280,12 +15280,12 @@
     {
       "name": "Voodoo Strings",
       "active": true,
-      "text": "During this model’s activation, when it damages an enemy model with one or more playbook damage results, choose a model within this aura to suffer a 2\" push. Each model can be pushed by Voodoo Strings only once per turn."
+      "text": "During this model’s activation, when it damages an enemy model with one or more playbook damage results, choose a model within this aura to suffer a 2″ push. Each model can be pushed by Voodoo Strings only once per turn."
     },
     {
       "name": "Control Strings",
       "active": true,
-      "text": "At the start of each friendly model’s activation, this model may make a 2\" dodge."
+      "text": "At the start of each friendly model’s activation, this model may make a 2″ dodge."
     },
     {
       "name": "Grave Candle",
@@ -15310,12 +15310,12 @@
     {
       "name": "One, Two!",
       "active": false,
-      "text": "When this model makes a pass that targets the named friendly model, this model gains +2/+2\" KICK for the duration of the pass. When the named friendly model receives a successful pass from this model, it may spend 1 less MP to use Pass & Move or to make a Snap Shot."
+      "text": "When this model makes a pass that targets the named friendly model, this model gains +2/+2″ KICK for the duration of the pass. When the named friendly model receives a successful pass from this model, it may spend 1 less MP to use Pass & Move or to make a Snap Shot."
     },
     {
       "name": "Thought",
       "active": true,
-      "text": "At the start of this model’s activation, if the named friendly model is suffering the taken out condition, remove the taken out condition from it and place it within 2\" of this model with full HP."
+      "text": "At the start of this model’s activation, if the named friendly model is suffering the taken out condition, remove the taken out condition from it and place it within 2″ of this model with full HP."
     },
     {
       "name": "Benched",
@@ -15335,7 +15335,7 @@
     {
       "name": "The Knowledge",
       "active": true,
-      "text": "Once per turn during this model’s activation, choose a friendly model within 6\". The chosen friendly model gains +0/+2\" KICK for the remainder of the turn."
+      "text": "Once per turn during this model’s activation, choose a friendly model within 6″. The chosen friendly model gains +0/+2″ KICK for the remainder of the turn."
     },
     {
       "name": "Rising Anger",
@@ -15350,7 +15350,7 @@
     {
       "name": "Kick Support",
       "active": false,
-      "text": "While within 4\" of the named friendly model, this model gains +1/+1\" KICK."
+      "text": "While within 4″ of the named friendly model, this model gains +1/+1″ KICK."
     },
     {
       "name": "Tenacity",
@@ -15395,7 +15395,7 @@
     {
       "name": "Stellar Navigation",
       "active": true,
-      "text": "Once per turn during its activation, this model may make a 5\" dodge."
+      "text": "Once per turn during its activation, this model may make a 5″ dodge."
     },
     {
       "name": "Scores for Fun",
@@ -15410,7 +15410,7 @@
     {
       "name": "Flagellant",
       "active": true,
-      "text": "Once per turn during this model’s activation, this model may choose a friendly model within 4\". The chosen model removes all conditions on it and this model suffers 4 DMG."
+      "text": "Once per turn during this model’s activation, this model may choose a friendly model within 4″. The chosen model removes all conditions on it and this model suffers 4 DMG."
     },
     {
       "name": "Potbellied Pass",
@@ -15430,7 +15430,7 @@
     {
       "name": "Haunting Melody",
       "active": true,
-      "text": "Once per turn during this model’s activation, this model may choose an enemy model within 8\". The opposing player chooses one of the following:\n- This model makes a jog towards the chosen model.\n- The chosen model makes a jog towards this model and is a friendly model for the duration of this action."
+      "text": "Once per turn during this model’s activation, this model may choose an enemy model within 8″. The opposing player chooses one of the following:\n- This model makes a jog towards the chosen model.\n- The chosen model makes a jog towards this model and is a friendly model for the duration of this action."
     },
     {
       "name": "Predatory Instinct",
@@ -15480,7 +15480,7 @@
     {
       "name": "Protect the Ball",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove it from the pitch. If it does, friendly models within the pulse gain Close Control for the remainder of the turn.\n{{trait 'Close Control'}}"
+      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2″ and remove it from the pitch. If it does, friendly models within the pulse gain Close Control for the remainder of the turn.\n{{trait 'Close Control'}}"
     },
     {
       "name": "Sheep Become the Shepherds",
@@ -15495,7 +15495,7 @@
     {
       "name": "Herding",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove it from the pitch. If it does, choose an enemy model within 3\". The chosen enemy model suffers a 3\" push."
+      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2″ and remove it from the pitch. If it does, choose an enemy model within 3″. The chosen enemy model suffers a 3″ push."
     },
     {
       "name": "Littermates",
@@ -15515,12 +15515,12 @@
     {
       "name": "Baa-ttering Ram",
       "active": false,
-      "text": "During this model’s advances, models whose bases are touched by its base immediately suffer a 4\" push directly away from it. This model can only push each model once per turn with Baa-ttering Ram."
+      "text": "During this model’s advances, models whose bases are touched by its base immediately suffer a 4″ push directly away from it. This model can only push each model once per turn with Baa-ttering Ram."
     },
     {
       "name": "Flock",
       "active": true,
-      "text": "When this model ends an advance, one other friendly model within this pulse may make a 2\" dodge."
+      "text": "When this model ends an advance, one other friendly model within this pulse may make a 2″ dodge."
     },
     {
       "name": "Have You Any Wool?",
@@ -15530,12 +15530,12 @@
     {
       "name": "All About The Game",
       "active": false,
-      "text": "If this model suffers the taken out condition friendly models gain +1/+1\" KICK for the remainder of the turn."
+      "text": "If this model suffers the taken out condition friendly models gain +1/+1″ KICK for the remainder of the turn."
     },
     {
       "name": "Shearing",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove it from the pitch. If it does, this model may make a 4\" dodge."
+      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2″ and remove it from the pitch. If it does, this model may make a 4″ dodge."
     },
     {
       "name": "Do the Thing!",
@@ -15570,7 +15570,7 @@
     {
       "name": "Thuggery",
       "active": false,
-      "text": "While this model is within 1\" of the named friendly model, this model gains +1 DMG to playbook damage results and may add a {{KD}} playbook result to each successful attack it makes."
+      "text": "While this model is within 1″ of the named friendly model, this model gains +1 DMG to playbook damage results and may add a {{KD}} playbook result to each successful attack it makes."
     },
     {
       "name": "Pick Up",
@@ -15585,7 +15585,7 @@
     {
       "name": "Back to Black",
       "active": true,
-      "text": "Once per turn, during this model's activation, it may remove the burning condition from a friendly model within 6\". If it does so, that model may immediately make a 4\" dodge."
+      "text": "Once per turn, during this model's activation, it may remove the burning condition from a friendly model within 6″. If it does so, that model may immediately make a 4″ dodge."
     },
     {
       "name": "Blinded by the Light",
@@ -15595,7 +15595,7 @@
     {
       "name": "Flare Out",
       "active": false,
-      "text": "While this model is on the pitch, friendly models which are suffering the burning condition gain Overheat.\n{{trait 'Overheat' '3\" Pulse'}}"
+      "text": "While this model is on the pitch, friendly models which are suffering the burning condition gain Overheat.\n{{trait 'Overheat' '3″ Pulse'}}"
     },
     {
       "name": "The Ladderman Cometh",
@@ -15610,7 +15610,7 @@
     {
       "name": "Light Goes Off",
       "active": false,
-      "text": "At the end of this model's activation, it may remove the burning condition from itself and then immediately make a 4\" dodge."
+      "text": "At the end of this model's activation, it may remove the burning condition from itself and then immediately make a 4″ dodge."
     },
     {
       "name": "Ring of Fire",
@@ -15640,7 +15640,7 @@
     {
       "name": "Flash Point",
       "active": false,
-      "text": "Remove the Burning condition from this model. If you do, enemy models within this pulse suffer -1\"/-1\" MOV."
+      "text": "Remove the Burning condition from this model. If you do, enemy models within this pulse suffer -1″/-1″ MOV."
     },
     {
       "name": "Who's a Good Boy",
@@ -15670,7 +15670,7 @@
     {
       "name": "Fusion",
       "active": false,
-      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4\". If it does, models within this pulse suffer the burning condition."
+      "text": "Once per turn during this model’s activation, it may remove the burning or poison condition from another model within 4″. If it does, models within this pulse suffer the burning condition."
     },
     {
       "name": "Rejuvenation",
@@ -15700,7 +15700,7 @@
     {
       "name": "Confidence",
       "active": true,
-      "text": "Once during this model's activation, you may choose a friendly model within 4\". The chosen model may reroll any number of dice during its next TN test this turn."
+      "text": "Once during this model's activation, you may choose a friendly model within 4″. The chosen model may reroll any number of dice during its next TN test this turn."
     },
     {
       "name": "Rabid Frenzy",
@@ -15715,12 +15715,12 @@
     {
       "name": "Stealthy",
       "active": false,
-      "text": "Enemy character plays targeting this model suffer –5\" RNG."
+      "text": "Enemy character plays targeting this model suffer –5″ RNG."
     },
     {
       "name": "Poisoner",
       "active": false,
-      "text": "Each time this model dodges, after the current action is resolved, choose an enemy model within 4\". The chosen model suffers the poison condition."
+      "text": "Each time this model dodges, after the current action is resolved, choose an enemy model within 4″. The chosen model suffers the poison condition."
     },
     {
       "name": "Chameleon",
@@ -15730,32 +15730,32 @@
     {
       "name": "Subsistence",
       "active": true,
-      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2\" and remove that marker from the pitch. If it does, this model may recover 4 HP."
+      "text": "Once per turn during this model’s activation, it may choose a friendly harvest marker within 2″ and remove that marker from the pitch. If it does, this model may recover 4 HP."
     },
     {
       "name": "Bends... But Never Breaks",
       "active": false,
-      "text": "While this model is within 1\" of a friendly log pile marker, it gains Stoic. {{trait 'Stoic'}}"
+      "text": "While this model is within 1″ of a friendly log pile marker, it gains Stoic. {{trait 'Stoic'}}"
     },
     {
       "name": "Caber Toss",
       "active": true,
-      "text": "Once per turn during this model's activation, you may choose a friendly log pile marker within 1\" of this model. Place the chosen log pile marker within 4\" of this model."
+      "text": "Once per turn during this model's activation, you may choose a friendly log pile marker within 1″ of this model. Place the chosen log pile marker within 4″ of this model."
     },
     {
       "name": "Splitting Strikes",
       "active": false,
-      "text": "While within 1\" of a friendly log pile marker, when this model makes a successful attack and selects one or more playbook damage results, choose another enemy model within this model's melee zone. The chosen model suffers 2 DMG."
+      "text": "While within 1″ of a friendly log pile marker, when this model makes a successful attack and selects one or more playbook damage results, choose another enemy model within this model's melee zone. The chosen model suffers 2 DMG."
     },
     {
       "name": "Hew Do They Think They Are",
       "active": false,
-      "text": "While this model is within 1\" of the named friendly model or a friendly log pile marker, this model gains Poised.\n{{trait 'Poised'}}"
+      "text": "While this model is within 1″ of the named friendly model or a friendly log pile marker, this model gains Poised.\n{{trait 'Poised'}}"
     },
     {
       "name": "Eye of the Sun Father",
       "active": false,
-      "text": "Once per turn during this model's activation, if there is a friendly log pile marker within 4\" of this model, this model may make a pass or use a character play without spending influence."
+      "text": "Once per turn during this model's activation, if there is a friendly log pile marker within 4″ of this model, this model may make a pass or use a character play without spending influence."
     },
     {
       "name": "Synchronised",
@@ -15765,22 +15765,22 @@
     {
       "name": "Putting Out Fires",
       "active": true,
-      "text": "Once per turn during this model's activation, choose a friendly log pile marker and remove any amount of influence from friendly models within 4\" of it. Then, allocate the removed influence to other friendly models within 4\" of the chosen log pile marker."
+      "text": "Once per turn during this model's activation, choose a friendly log pile marker and remove any amount of influence from friendly models within 4″ of it. Then, allocate the removed influence to other friendly models within 4″ of the chosen log pile marker."
     },
     {
       "name": "Den Protector",
       "active": false,
-      "text": "When this model declares a charge against an enemy model that's within 1\" of a friendly log pile marker, it may do so without spending influence."
+      "text": "When this model declares a charge against an enemy model that's within 1″ of a friendly log pile marker, it may do so without spending influence."
     },
     {
       "name": "Hunker Down",
       "active": false,
-      "text": "Once per turn, while this model is within 1\" of a friendly logpile marker, it may use Encourage without spending MP."
+      "text": "Once per turn, while this model is within 1″ of a friendly logpile marker, it may use Encourage without spending MP."
     },
     {
       "name": "Sibling Rivalry",
       "active": false,
-      "text": "Once per turn during their activation, this model or the named friendly model may make a pass without spending influence if the kicking model is within 1\" of a friendly log pile marker."
+      "text": "Once per turn during their activation, this model or the named friendly model may make a pass without spending influence if the kicking model is within 1″ of a friendly log pile marker."
     },
     {
       "name": "Specialised Equipment",
@@ -15790,7 +15790,7 @@
     {
       "name": "Early Risers",
       "active": false,
-      "text": "At the start of this model's activation, it may be placed within 1\" of its current location."
+      "text": "At the start of this model's activation, it may be placed within 1″ of its current location."
     },
     {
       "name": "Job's a Good'un",

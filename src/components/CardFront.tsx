@@ -86,7 +86,7 @@ const NamePlate = ({
           ))}
         </div>
       </div>
-      <div className="reach">Melee Zone {model.reach ? 2 : 1}"</div>
+      <div className="reach">Melee Zone {model.reach ? 2 : 1}″</div>
     </div>
   </div>
 );
@@ -165,9 +165,9 @@ const StatBox = ({ model }: { model: GBModelExpanded }) => (
     <span>DEF</span>
     <span>ARM</span>
     <span>INF</span>
-    <span>{`${model.jog}"/${model.sprint}"`}</span>
+    <span>{`${model.jog}″/${model.sprint}″`}</span>
     <span>{model.tac}</span>
-    <span>{`${model.kickdice}/${model.kickdist}"`}</span>
+    <span>{`${model.kickdice}/${model.kickdist}″`}</span>
     <span>{`${model.def}+`}</span>
     <span>{model.arm}</span>
     <span>{`${model.inf}/${model.infmax}`}</span>
@@ -236,7 +236,7 @@ const CharacterPlays = ({
           </span>
           <span>
             {cp.RNG}
-            {typeof cp.RNG === "number" && '"'}
+            {typeof cp.RNG === "number" && '″'}
           </span>
           <span>
             <BooleanIcon test={cp.SUS} />
