@@ -100,14 +100,14 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
     accessorFn: m => [m.jog, m.sprint],
     Cell: ({ cell }) => {
       const [jog, sprint] = cell.getValue<number[]>();
-      return `${jog}" / ${sprint}"`;
+      return `${jog}″ / ${sprint}″`;
     },
     // manualRanges: [[0, 10], [0, 12]],
     Filter: (props) => <DoubleRangeSlider {...props} labels={['Jog', 'Sprint']}
       manualRanges={props.column.columnDef.manualRanges}
       muiSliderProps={[
-        { valueLabelFormat: (value) => `${value}"` },
-        { valueLabelFormat: (value) => `${value}"` }
+        { valueLabelFormat: (value) => `${value}″` },
+        { valueLabelFormat: (value) => `${value}″` }
       ]}
     />,
     filterFn: (row, _id, filterValues: [number, number, number, number]) => {
@@ -136,12 +136,12 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
     accessorFn: m => [m.kickdice, m.kickdist],
     Cell: ({ cell }) => {
       const [kickdice, kickdist] = cell.getValue<number[]>();
-      return `${kickdice} / ${kickdist}"`;
+      return `${kickdice} / ${kickdist}″`;
     },
     // manualRanges: [[1, 5], [4, 8]],
     Filter: (props) => <DoubleRangeSlider {...props} labels={['Dice', 'Dist']} manualRanges={props.column.columnDef.manualRanges}
       muiSliderProps={[{},
-      { valueLabelFormat: (value) => `${value}"` }
+      { valueLabelFormat: (value) => `${value}″` }
       ]}
     />,
     filterFn: (row, _id, filterValues: [number, number, number, number]) => {
@@ -202,12 +202,12 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
     id: 'melee',
     // size: 136,
     accessorFn: m => m.reach ? 2 : 1,
-    Cell: ({ renderedCellValue }) => <>{renderedCellValue}"</>,
+    Cell: ({ renderedCellValue }) => <>{renderedCellValue}″</>,
     filterVariant: 'range-slider',
     filterFn: 'betweenInclusive',
     muiFilterSliderProps: {
       size: 'small',
-      valueLabelFormat: (value) => `${value}"`,
+      valueLabelFormat: (value) => `${value}″`,
     },
   },
   {
