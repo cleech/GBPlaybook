@@ -3,7 +3,7 @@
     Starting with the Player that has the
     Initiative, both Players can choose [1]
     friendly model to immediately make
-    a [4”] __Dodge__.
+    a [4″] __Dodge__.
   initiative: 7
   influence: 0
 - title: Sell it to the Crowd
@@ -14,7 +14,7 @@
   detail: |-
     After scoring a goal the active model
     may spend [1] MP to immediately
-    make a [4”] __Dodge__; this __Dodge__ takes
+    make a [4″] __Dodge__; this __Dodge__ takes
     place prior to the Goal Kick.
   initiative: 6
   influence: -1
@@ -71,20 +71,20 @@
     from the Pitch, any Influence
     currently on the friendly model may
     be allocated to one other friendly
-    model within [8”].
+    model within [8″].
   initiative: 4
   influence: 0
 - title: Get Back in There
   text: |-
     Friendly models that return to
     the Pitch due to Icy Sponge gain
-    [+2”/+2”] MOV.
+    [+2″/+2″] MOV.
   initiative: 3
   influence: 0
 - title: Full-Back
   text: |-
     The first time a friendly model
-    declares a __Charge__ while within [8”]
+    declares a __Charge__ while within [8″]
     of an edge of the Pitch, the friendly
     model spends [1] less Influence.
   initiative: 5
@@ -98,12 +98,12 @@
   influence: 0
 - title: Midfield General
   text: |-
-    Friendly models gain [+1”/+1”] MOV.
+    Friendly models gain [+1″/+1″] MOV.
   initiative: 3
   influence: 0
 - title: Keep the Ball Moving
   text: |-
-    Friendly models gain [+1/+0”] KICK.
+    Friendly models gain [+1/+0″] KICK.
   initiative: 4
   influence: 0
 - title: Keep Your Chin Up!
@@ -113,7 +113,7 @@
   detail: |-
     During its activation, a model may spend
     [2] MP to target an other friendly model
-    within [8”]. The target friendly model
+    within [8″]. The target friendly model
     recovers [4] HP or removes all conditions.
     A model may only benefit from Come on
     Mate! once per turn.
@@ -132,11 +132,11 @@
 - title: Wing Backs
   text: |-
     Each time a friendly model activates
-    within [8”] of an edge of the Pitch,
+    within [8″] of an edge of the Pitch,
     the friendly model gains _Shadow Like_.
   detail: |-
     At the start of this model’s activation
-    it may make a [2”] __Dodge__.
+    it may make a [2″] __Dodge__.
   initiative: 4
   influence: 0
 - title: Stick to the Plan

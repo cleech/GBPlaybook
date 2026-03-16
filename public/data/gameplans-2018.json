@@ -1,14 +1,14 @@
 [
   {
     "title": "Seize the Initiative",
-    "text": "Starting with the Player that has the\nInitiative, both Players can choose [1]\nfriendly model to immediately make\na [4”] __Dodge__.",
+    "text": "Starting with the Player that has the\nInitiative, both Players can choose [1]\nfriendly model to immediately make\na [4″] __Dodge__.",
     "initiative": 7,
     "influence": 0
   },
   {
     "title": "Sell it to the Crowd",
     "text": "Each time a friendly model scores\na goal, it can use _Run The Length!_\nwithout spending MP.",
-    "detail": "After scoring a goal the active model\nmay spend [1] MP to immediately\nmake a [4”] __Dodge__; this __Dodge__ takes\nplace prior to the Goal Kick.",
+    "detail": "After scoring a goal the active model\nmay spend [1] MP to immediately\nmake a [4″] __Dodge__; this __Dodge__ takes\nplace prior to the Goal Kick.",
     "initiative": 6,
     "influence": -1
   },
@@ -46,19 +46,19 @@
   },
   {
     "title": "Back in the Game",
-    "text": "The first time a friendly model\nsuffers the __taken-out__ condition,\nbefore removing the friendly model\nfrom the Pitch, any Influence\ncurrently on the friendly model may\nbe allocated to one other friendly\nmodel within [8”].",
+    "text": "The first time a friendly model\nsuffers the __taken-out__ condition,\nbefore removing the friendly model\nfrom the Pitch, any Influence\ncurrently on the friendly model may\nbe allocated to one other friendly\nmodel within [8″].",
     "initiative": 4,
     "influence": 0
   },
   {
     "title": "Get Back in There",
-    "text": "Friendly models that return to\nthe Pitch due to Icy Sponge gain\n[+2”/+2”] MOV.",
+    "text": "Friendly models that return to\nthe Pitch due to Icy Sponge gain\n[+2″/+2″] MOV.",
     "initiative": 3,
     "influence": 0
   },
   {
     "title": "Full-Back",
-    "text": "The first time a friendly model\ndeclares a __Charge__ while within [8”]\nof an edge of the Pitch, the friendly\nmodel spends [1] less Influence.",
+    "text": "The first time a friendly model\ndeclares a __Charge__ while within [8″]\nof an edge of the Pitch, the friendly\nmodel spends [1] less Influence.",
     "initiative": 5,
     "influence": 0
   },
@@ -70,20 +70,20 @@
   },
   {
     "title": "Midfield General",
-    "text": "Friendly models gain [+1”/+1”] MOV.",
+    "text": "Friendly models gain [+1″/+1″] MOV.",
     "initiative": 3,
     "influence": 0
   },
   {
     "title": "Keep the Ball Moving",
-    "text": "Friendly models gain [+1/+0”] KICK.",
+    "text": "Friendly models gain [+1/+0″] KICK.",
     "initiative": 4,
     "influence": 0
   },
   {
     "title": "Keep Your Chin Up!",
     "text": "The first time a friendly model uses _Come on_\n_Mate!_, it may do so without spending MP.",
-    "detail": "During its activation, a model may spend\n[2] MP to target an other friendly model\nwithin [8”]. The target friendly model\nrecovers [4] HP or removes all conditions.\nA model may only benefit from Come on\nMate! once per turn.",
+    "detail": "During its activation, a model may spend\n[2] MP to target an other friendly model\nwithin [8″]. The target friendly model\nrecovers [4] HP or removes all conditions.\nA model may only benefit from Come on\nMate! once per turn.",
     "initiative": 4,
     "influence": 0
   },
@@ -96,8 +96,8 @@
   },
   {
     "title": "Wing Backs",
-    "text": "Each time a friendly model activates\nwithin [8”] of an edge of the Pitch,\nthe friendly model gains _Shadow Like_.",
-    "detail": "At the start of this model’s activation\nit may make a [2”] __Dodge__.",
+    "text": "Each time a friendly model activates\nwithin [8″] of an edge of the Pitch,\nthe friendly model gains _Shadow Like_.",
+    "detail": "At the start of this model’s activation\nit may make a [2″] __Dodge__.",
     "initiative": 4,
     "influence": 0
   },
