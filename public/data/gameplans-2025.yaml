@@ -41,7 +41,7 @@
   text: |-
     Choose one of the following:
     - The first time an enemy model
-    makes a __Kick__, they suffer –1/–2"
+    makes a __Kick__, they suffer –1/–2″
     KICK for the duration of the action.
     - The first time a friendly model is
     damaged by an enemy attack or play,
@@ -52,7 +52,7 @@
 - title: High Press
   text: |-
     Up to two friendly Squaddie models
-    may make a 2" __Dodge__ towards the
+    may make a 2″ __Dodge__ towards the
     enemy __goal-post__.
   initiative: 3
   influence: 0
@@ -82,7 +82,7 @@
   text: |-
     Choose a friendly model and an
     enemy model. The chosen models
-    suffer a 1" __Push__ directly towards each
+    suffer a 1″ __Push__ directly towards each
     other.
   initiative: 4
   influence: 0
@@ -94,7 +94,7 @@
   detail: |-
     Marked Target: When a friendly
     model charges target enemy model, the
-    friendly model gains +0"/+2" MOV for
+    friendly model gains +0″/+2″ MOV for
     the duration of the charge.
   initiative: 4
   influence: 0
@@ -148,7 +148,7 @@
   text: |-
     The first time you select a model to
     activate, the opposing player chooses
-    –1"/–1" MOV or –1 TAC. The
+    –1″/–1″ MOV or –1 TAC. The
     selected model suffers the chosen
     effect.
   initiative: 7

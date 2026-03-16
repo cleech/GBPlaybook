@@ -1,7 +1,7 @@
 [
   {
     "title": "Caught out of Position",
-    "text": "Starting with the player that has the\nInitiative, both players may choose\n1 enemy model and make a 2\" __Dodge__\nwith that model. The chosen model\nis a friendly model during this action.",
+    "text": "Starting with the player that has the\nInitiative, both players may choose\n1 enemy model and make a 2″ __Dodge__\nwith that model. The chosen model\nis a friendly model during this action.",
     "initiative": 7,
     "influence": -1
   },
@@ -19,7 +19,7 @@
   },
   {
     "title": "Pick up the Pace!",
-    "text": "Starting with the player that has the\nInitiative, both players may choose\n1 friendly Squaddie model.\nThe chosen models gain +2\"/+2\" MOV.",
+    "text": "Starting with the player that has the\nInitiative, both players may choose\n1 friendly Squaddie model.\nThe chosen models gain +2″/+2″ MOV.",
     "initiative": 6,
     "influence": 0
   },
@@ -45,13 +45,13 @@
   {
     "title": "Form a Wall!",
     "text": "Friendly models gain _Goal Defence_.",
-    "detail": "Enemy models suffer +1 TN to __Shots__\nwhile this model is within 4\" of a\nfriendly __goal-post__.",
+    "detail": "Enemy models suffer +1 TN to __Shots__\nwhile this model is within 4″ of a\nfriendly __goal-post__.",
     "initiative": 4,
     "influence": 0
   },
   {
     "title": "Sidestep",
-    "text": "The player that has the Initiative\nmay choose 1-3 friendly models.\nEach chosen model may make a 2\"\n__Dodge__. Then the other player may\nchoose up to the same number of\nfriendly models. Each chosen model\nmay make a 2\" __Dodge__.",
+    "text": "The player that has the Initiative\nmay choose 1-3 friendly models.\nEach chosen model may make a 2″\n__Dodge__. Then the other player may\nchoose up to the same number of\nfriendly models. Each chosen model\nmay make a 2″ __Dodge__.",
     "initiative": 4,
     "influence": 0
   },
