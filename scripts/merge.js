@@ -2,6 +2,7 @@
 
 const fileMap = {
   en: "GB-Playbook-4-8.json",
+  es: "GB-Playbook-4-8.es.json",
   fr: "GB-Playbook-4-8.fr.json",
   zh: "GB-Playbook-4-8.zh.json",
 }

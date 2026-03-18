@@ -24,6 +24,11 @@ i18n
           "Guild Ball": "Guild Ball",
         },
       },
+      es: {
+        translation: {
+          "Guild Ball": "Guild Ball",
+        },
+      },
       fr: {
         translation: {
           "Guild Ball": "Guild Ball",
