@@ -40,7 +40,7 @@ class Reporter {
     const padded = label.padEnd(PADDING_WIDTH, ".");
     const emoji = ok ? "✅" : isWarning ? "⚠️" : "❌";
     console.log(`${padded} ${emoji}`);
-    
+
     if (message) {
       console.log(`  ${message.replace(/\n/g, "\n  ")}`);
     }
@@ -67,17 +67,17 @@ class Reporter {
     console.log(`Total Checks: ${this.results.length}`);
     console.log(`Errors:       ${errors.length}`);
     console.log(`Warnings:     ${warnings.length}`);
-    
+
     if (this.hadError) {
       console.log("\nFAILED checks:");
       errors.forEach(e => console.log(`  ❌ ${e.label}${e.message ? `: ${e.message.split('\n')[0]}` : ""}`));
     }
-    
+
     if (warnings.length) {
       console.log("\nWARNINGS:");
       warnings.forEach(w => console.log(`  ⚠️ ${w.label}${w.message ? `: ${w.message.split('\n')[0]}` : ""}`));
     }
-    
+
     console.log("=".repeat(PADDING_WIDTH + 4));
   }
 }
@@ -186,7 +186,10 @@ async function validateFile(db: GBDatabase, task: FileTask) {
     schemaOk = false;
   }
   reporter.log("# Loading with schema validation", schemaOk, schemaErr?.toString());
-  if (!schemaOk) return;
+  if (!schemaOk) {
+    console.dir(schemaErr);
+    return
+  }
 
   // 3. Expansion Check
   const models = await db.models.find().exec();
@@ -228,22 +231,48 @@ async function validateFile(db: GBDatabase, task: FileTask) {
 
   // Collect references from plays and traits (cross-references)
   const traitRefRegex = /\{\{trait '([^']+)'\}\}/g;
-  
-  const scanText = (text?: string) => {
+  const playRefRegex = /\{\{play '([^']+)'\}\}/g;
+
+  const allPlayNames = new Set(allPlays.map(p => p.name));
+  const allTraitNames = new Set(allTraits.map(t => t.name));
+
+  const missingPlays = new Set<string>();
+  const missingTraits = new Set<string>();
+
+  const scanText = (text: string | undefined, source: string) => {
     if (!text) return;
+
+    // Reset regex lastIndex to ensure we start from the beginning of each string
+    traitRefRegex.lastIndex = 0;
+    playRefRegex.lastIndex = 0;
+
     let match;
     while ((match = traitRefRegex.exec(text)) !== null) {
-      usedTraits.add(match[1]);
+      const traitName = match[1];
+      usedTraits.add(traitName);
+      if (!allTraitNames.has(traitName)) {
+        missingTraits.add(`'${traitName}' (referenced in '${source}')`);
+      }
+    }
+
+    while ((match = playRefRegex.exec(text)) !== null) {
+      const playName = match[1];
+      usedPlays.add(playName);
+      if (!allPlayNames.has(playName)) {
+        missingPlays.add(`'${playName}' (referenced in '${source}')`);
+      }
     }
   };
 
-  allPlays.forEach(p => scanText(p.text));
-  allTraits.forEach(t => scanText(t.text));
+  allPlays.forEach(p => scanText(p.text, p.name));
+  allTraits.forEach(t => scanText(t.text, t.name));
 
   // Find unused
   const unusedPlays = allPlays.filter(p => !usedPlays.has(p.name)).map(p => p.name);
   const unusedTraits = allTraits.filter(t => !usedTraits.has(t.name)).map(t => t.name);
 
+  reporter.log("# Checking for missing referenced Plays", missingPlays.size === 0, missingPlays.size ? Array.from(missingPlays).join("\n") : undefined);
+  reporter.log("# Checking for missing referenced Traits", missingTraits.size === 0, missingTraits.size ? Array.from(missingTraits).join("\n") : undefined);
   reporter.log("# Checking for unused Character Plays", unusedPlays.length === 0, unusedPlays.length ? unusedPlays.join("\n") : undefined, true);
   reporter.log("# Checking for unused Character Traits", unusedTraits.length === 0, unusedTraits.length ? unusedTraits.join("\n") : undefined, true);
 }
