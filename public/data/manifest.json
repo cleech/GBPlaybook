@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-16T23:01:50Z",
+  "timestamp": "2026-03-18T19:16:05Z",
   "datafiles": [
     {
       "version": 4.7,
@@ -12,6 +12,11 @@
           "filename": "GB-Playbook-4-7.fr.json",
           "sha256": "22c83d7f3431980edc6366661328fba0a19e5974aa4f86ad591d6ed437c744b3",
           "timestamp": "2025-11-23T21:17:43Z"
+        },
+        "sp": {
+          "filename": "GB-Playbook-4-7.sp.json",
+          "sha256": "960153db1ca419a508ec95886685604c30d74d18c1edf27701ce110ef15c25bd",
+          "timestamp": "2026-03-18T19:15:51Z"
         },
         "zh": {
           "filename": "GB-Playbook-4-7.zh.json",
@@ -74,7 +79,7 @@
       "version": 2019,
       "filename": "gameplans-2019.json",
       "sha256": "ff89bf24c2175d1d56510ac98ecb51039baff6f0a72b656275de4be564cde58f",
-      "timestamp": "2026-03-16T23:01:50Z"
+      "timestamp": "2026-03-18T18:45:15Z"
     },
     {
       "version": 2018,
