@@ -186,7 +186,10 @@ async function validateFile(db: GBDatabase, task: FileTask) {
     schemaOk = false;
   }
   reporter.log("# Loading with schema validation", schemaOk, schemaErr?.toString());
-  if (!schemaOk) return;
+  if (!schemaOk) {
+    console.dir(schemaErr);
+    return
+  }
 
   // 3. Expansion Check
   const models = await db.models.find().exec();
