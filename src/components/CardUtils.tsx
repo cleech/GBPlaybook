@@ -12,9 +12,16 @@ const hb = asyncHelpers(Handlebars);
 hb.registerHelper("d", () => new hb.SafeString('<gb-icon icon="D"></gb-icon>'));
 hb.registerHelper("dd", () => new hb.SafeString('<gb-icon icon="DD"></gb-icon>'));
 hb.registerHelper("p", () => new hb.SafeString('<gb-icon icon="P"></gb-icon>'));
+hb.registerHelper("pp", () => new hb.SafeString('<gb-icon icon="PP"></gb-icon>'));
 hb.registerHelper("T", () => new hb.SafeString('<gb-icon icon="T"></gb-icon>'));
 hb.registerHelper("KD", () => new hb.SafeString('<gb-icon icon="KD"></gb-icon>'));
 hb.registerHelper("GB", () => new hb.SafeString('<gb-icon icon="CP"></gb-icon>'));
+hb.registerHelper("1", () => new hb.SafeString('<gb-icon icon="1"></gb-icon>'));
+hb.registerHelper("2", () => new hb.SafeString('<gb-icon icon="2"></gb-icon>'));
+hb.registerHelper("3", () => new hb.SafeString('<gb-icon icon="3"></gb-icon>'));
+hb.registerHelper("4", () => new hb.SafeString('<gb-icon icon="4"></gb-icon>'));
+hb.registerHelper("5", () => new hb.SafeString('<gb-icon icon="5"></gb-icon>'));
+hb.registerHelper("6", () => new hb.SafeString('<gb-icon icon="6"></gb-icon>'));
 
 hb.registerHelper("trait", async (name: string, ...rest: any[]) => {
   const gbdb = await getGBDatabase();

@@ -815,7 +815,7 @@ const GBImages: Map<string, string> = new Map([
   ["Mourn_back", Morticians_back],
   [
     "Mourn_front",
-    new URL("../assets/cards/Morticians/GB-S4-Morticians-19-08-08.jpg", import.meta.url).href,
+    new URL("../assets/cards/Morticians/mourn-front-large-box.jpg", import.meta.url).href,
   ],
   ["Dirge_back", Morticians_back],
   [
@@ -871,7 +871,7 @@ const GBImages: Map<string, string> = new Map([
   ["vGraves_back", Morticians_back],
   [
     "vGraves_front",
-    new URL("../assets/cards/Morticians/GB-S4-Morticians-19-08-30.jpg", import.meta.url).href,
+    new URL("../assets/cards/Morticians/vgraves-front-large-box.jpg", import.meta.url).href,
   ],
   ["vHemlocke_back", Morticians_back],
   [
