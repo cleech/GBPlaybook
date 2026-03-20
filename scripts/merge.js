@@ -1,9 +1,9 @@
 #!/usr/bin/env bun
 
 const fileMap = {
-  en: "GB-Playbook-4-7.json",
-  fr: "GB-Playbook-4-7.fr.json",
-  zh: "GB-Playbook-4-7.zh.json",
+  en: "GB-Playbook-4-8.json",
+  fr: "GB-Playbook-4-8.fr.json",
+  zh: "GB-Playbook-4-8.zh.json",
 }
 
 async function main(lang) {
