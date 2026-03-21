@@ -1550,7 +1550,7 @@
         "Searing Strike",
         "Sentinel [1″ Aura]"
       ],
-      "legendary": "Tempered Steel [6″ Aura]\n此模型获得+1TAC。\n\n如果此模型具有队长模型类别，在此光环范围内的友方模型获得+1 TAC和Searing Strike。",
+      "legendary": "Tempered Steel [6″ Aura]\n此模型获得+1 TAC。\n\n如果此模型具有队长模型类别，在此光环范围内的友方模型获得+1 TAC和Searing Strike。",
       "types": "Piert, Human, Male,\nCentral Midfielder,\nMaster, Squaddie",
       "playbook": [
         [
@@ -5602,7 +5602,7 @@
         "Shadow Like",
         "Talisman"
       ],
-      "legendary": "Call of the Sea [4″ Pulse]\n每有一个其他模型在此脉冲范围内，该模型便受到1DMG。在此脉冲范围内的敌方模型受到 2″ 推移,其余友方模型可以进行 2″ 的闪避。",
+      "legendary": "Call of the Sea [4″ Pulse]\n每有一个其他模型在此脉冲范围内，该模型便受到1 DMG。在此脉冲范围内的敌方模型受到 2″ 推移,其余友方模型可以进行 2″ 的闪避。",
       "types": "Numasai, Human, Female,\nCentral Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -6024,7 +6024,7 @@
         "Light Footed",
         "Nature's Growth"
       ],
-      "heroic": "Blessing of the Sun Father \n在此模型激活中限一次，目标6″ 内的一名友方模型可以无需消耗影响力使用一次角色技巧。",
+      "heroic": "Blessing of the Sun Father\n在此模型激活中限一次，目标6″ 内的一名友方模型可以无需消耗影响力使用一次角色技巧。",
       "types": "Raed, Human, Male,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -13139,7 +13139,7 @@
     },
     {
       "name": "Taking Flight",
-      "text": "此模型可以进行一次小跑，在此次行进的过程中获得 +2″ /+2″  MOV 。",
+      "text": "此模型可以进行一次小跑，在此次行进的过程中获得 +2″ /+2″ MOV 。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13403,7 +13403,7 @@
     },
     {
       "name": "Snowball",
-      "text": "在此模型的控制下放置一个额外的球。当此球被用于射门得分时，友方队伍获得1VP而不是4VP。在此模型的激活结束时，将此球从场上移除。",
+      "text": "在此模型的控制下放置一个额外的球。当此球被用于射门得分时，友方队伍获得1 VP而不是4VP。在此模型的激活结束时，将此球从场上移除。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13515,7 +13515,7 @@
     },
     {
       "name": "Towering Presence",
-      "text": "4″ 光环。在此光环范围内的其他友方公会模型进行传跑联动或凌空抽射时可以少花费1MP。",
+      "text": "4″ 光环。在此光环范围内的其他友方公会模型进行传跑联动或凌空抽射时可以少花费1 MP。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13723,7 +13723,7 @@
     },
     {
       "name": "Exhaustion",
-      "text": "4″ 光环。在此光环范围内时，敌方模型必须额外花费1MP以进行反击。",
+      "text": "4″ 光环。在此光环范围内时，敌方模型必须额外花费1 MP以进行反击。",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13835,7 +13835,7 @@
     },
     {
       "name": "Pay the Piper",
-      "text": "6″ 光环。每当在此光环范围内的敌方模型使用MP时，友方队伍获得1MP。",
+      "text": "6″ 光环。每当在此光环范围内的敌方模型使用MP时，友方队伍获得1 MP。",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13859,7 +13859,7 @@
     },
     {
       "name": "Erupting Sores",
-      "text": "2″ 脉冲。敌方玩家选择以下一项: \n- 在此脉冲范围内的敌方模型受到2 DMG和中毒状态。\n- 在此脉冲范围内的敌方模型受到2 DMG和流血状态。",
+      "text": "2″ 脉冲。敌方玩家选择以下一项:\n- 在此脉冲范围内的敌方模型受到2 DMG和中毒状态。\n- 在此脉冲范围内的敌方模型受到2 DMG和流血状态。",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": false,
@@ -14415,12 +14415,12 @@
     {
       "name": "Sentinel",
       "active": false,
-      "text": "在此光环范围内，友方学徒模型获得+1ARM。"
+      "text": "在此光环范围内，友方学徒模型获得+1 ARM。"
     },
     {
       "name": "Tough Hide",
       "active": false,
-      "text": "此模型受到的敌方角色技巧和战术手册伤害结果-1DMG。"
+      "text": "此模型受到的敌方角色技巧和战术手册伤害结果-1 DMG。"
     },
     {
       "name": "Reduction",
@@ -14580,7 +14580,7 @@
     {
       "name": "Loved Creature",
       "active": false,
-      "text": "当此模型每回合第一次受到来自敌方的攻击或角色技巧伤害后，其他友方模型在此回合剩下的时间内获得+1TAC。"
+      "text": "当此模型每回合第一次受到来自敌方的攻击或角色技巧伤害后，其他友方模型在此回合剩下的时间内获得+1 TAC。"
     },
     {
       "name": "Assist",
@@ -14635,17 +14635,17 @@
     {
       "name": "The Owner",
       "active": false,
-      "text": "在此光环范围内的友方公会模型角色技巧和战术手册伤害结果获得+1DMG。"
+      "text": "在此光环范围内的友方公会模型角色技巧和战术手册伤害结果获得+1 DMG。"
     },
     {
       "name": "Haemophilia",
       "active": false,
-      "text": "在结束阶段，结算状态前。在此光环范围内每有一名受到流血状态的敌方模型，此模型恢复1HP。"
+      "text": "在结束阶段，结算状态前。在此光环范围内每有一名受到流血状态的敌方模型，此模型恢复1 HP。"
     },
     {
       "name": "Smell Blood",
       "active": false,
-      "text": "每当此模型冲锋一名受到流血状态的敌方模型时，此模型在此次冲锋中获得+0″/+2″MOV。每当此模型攻击一名受到流血状态的敌方模型时，此模型的战术手册伤害结果获得+1DMG。"
+      "text": "每当此模型冲锋一名受到流血状态的敌方模型时，此模型在此次冲锋中获得+0″/+2″MOV。每当此模型攻击一名受到流血状态的敌方模型时，此模型的战术手册伤害结果获得+1 DMG。"
     },
     {
       "name": "Berserk",
@@ -14660,7 +14660,7 @@
     {
       "name": "Vicious",
       "active": false,
-      "text": "此模型进行借机攻击时获得+2TAC且战术手册伤害结果获得+1DMG。"
+      "text": "此模型进行借机攻击时获得+2TAC且战术手册伤害结果获得+1 DMG。"
     },
     {
       "name": "Vindictive",
@@ -14670,7 +14670,7 @@
     {
       "name": "Life Drinker",
       "active": false,
-      "text": "每当此模型通过一个或多个战术手册伤害结果对敌方模型造成伤害时，此模型可以恢复1HP。"
+      "text": "每当此模型通过一个或多个战术手册伤害结果对敌方模型造成伤害时，此模型可以恢复1 HP。"
     },
     {
       "name": "Crucial Artery",
@@ -14720,7 +14720,7 @@
     {
       "name": "The Old Ways",
       "active": false,
-      "text": "每回合一次，当此模型造成一名敌方模型受到退场状态后，此模型获得The Owner [6″  Aura] 直到回合结束\n{{trait 'The Owner'}}"
+      "text": "每回合一次，当此模型造成一名敌方模型受到退场状态后，此模型获得The Owner [6″ Aura] 直到回合结束\n{{trait 'The Owner'}}"
     },
     {
       "name": "Damaged Target",
@@ -14730,7 +14730,7 @@
     {
       "name": "Dead Meat",
       "active": true,
-      "text": "当此模型位于友方球门柱4″内时，每当一名敌方模型进球得分时，该敌方模型获得一个报复指示物。在友方模型的激活期间，每当该友方模型对一名拥有报复指示物的敌方模型造成伤害时，友方队伍获得1MP。拥有报复指示物的模型仅在退场时移除其上的报复指示物。"
+      "text": "当此模型位于友方球门柱4″内时，每当一名敌方模型进球得分时，该敌方模型获得一个报复指示物。在友方模型的激活期间，每当该友方模型对一名拥有报复指示物的敌方模型造成伤害时，友方队伍获得1 MP。拥有报复指示物的模型仅在退场时移除其上的报复指示物。"
     },
     {
       "name": "Goal Defence",
@@ -14760,12 +14760,12 @@
     {
       "name": "Momentous Inspiration",
       "active": false,
-      "text": "在此光环范围内的友方模型在使用角色技巧命中一个或多个敌方模型并造成伤害后，友方队伍获得1MP。在此光环范围内的友方模型可以每次使用角色技巧时可以无需MP使用一次奖励时间。"
+      "text": "在此光环范围内的友方模型在使用角色技巧命中一个或多个敌方模型并造成伤害后，友方队伍获得1 MP。在此光环范围内的友方模型可以每次使用角色技巧时可以无需MP使用一次奖励时间。"
     },
     {
       "name": "Reanimate",
       "active": true,
-      "text": "此模型每回合第一次降到0HP时，在受到离场状态前，此模型可以恢复3 HP并移除受到的所有状态。"
+      "text": "此模型每回合第一次降到0 HP时，在受到离场状态前，此模型可以恢复3 HP并移除受到的所有状态。"
     },
     {
       "name": "Well Oiled Machine",
@@ -14815,7 +14815,7 @@
     {
       "name": "Inspiring Hat",
       "active": false,
-      "text": "在此光环范围内的其他友方模型使用传跑联动或凌空抽射时少花费1MP"
+      "text": "在此光环范围内的其他友方模型使用传跑联动或凌空抽射时少花费1 MP"
     },
     {
       "name": "Learn From The Best",
@@ -14840,7 +14840,7 @@
     {
       "name": "Roulette",
       "active": true,
-      "text": "此模型激活开始时，选择一项以下效果，此效果持续至此次激活结束:\n- 此模型获得 +1″ /+1″  MOV。\n- 此模型获得 +1 TAC。\n- 此模型获得 +0/+2″  KICK。"
+      "text": "此模型激活开始时，选择一项以下效果，此效果持续至此次激活结束:\n- 此模型获得 +1″ /+1″ MOV。\n- 此模型获得 +1 TAC。\n- 此模型获得 +0/+2″ KICK。"
     },
     {
       "name": "Fixer",
@@ -14955,7 +14955,7 @@
     {
       "name": "With Age Comes Wisdom",
       "active": false,
-      "text": "每当一名其他友方模型开始激活时，此模型获得+1TAC直到回合结束。"
+      "text": "每当一名其他友方模型开始激活时，此模型获得+1 TAC直到回合结束。"
     },
     {
       "name": "Planting Season",
@@ -14970,7 +14970,7 @@
     {
       "name": "Faithful Protector",
       "active": false,
-      "text": "在攻击此模型时敌方模型受到-1TAC。"
+      "text": "在攻击此模型时敌方模型受到-1 TAC。"
     },
     {
       "name": "Fields of Wheat",
@@ -15075,7 +15075,7 @@
     {
       "name": "Cover of Darkness",
       "active": false,
-      "text": "当此模型在从掩护中获得增益时开始进行行进，此模型会在行进期间获得 +2″ /+2″  MOV。"
+      "text": "当此模型在从掩护中获得增益时开始进行行进，此模型会在行进期间获得 +2″ /+2″ MOV。"
     },
     {
       "name": "Poised",
@@ -15100,7 +15100,7 @@
     {
       "name": "Escaping Fate",
       "active": true,
-      "text": "每回合一次，当此模型HP变为0时，除非在行进过程中，在此模型受到离场状态前，此模型可以恢复1HP并移除身上所有的状态，并进行一次2″闪避。"
+      "text": "每回合一次，当此模型HP变为0时，除非在行进过程中，在此模型受到离场状态前，此模型可以恢复1 HP并移除身上所有的状态，并进行一次2″闪避。"
     },
     {
       "name": "Nature's Growth",
@@ -15185,7 +15185,7 @@
     {
       "name": "Ambush",
       "active": false,
-      "text": "当受到此模型冲锋时，敌方模型必须额外花费1MP来使用防御姿态。"
+      "text": "当受到此模型冲锋时，敌方模型必须额外花费1 MP来使用防御姿态。"
     },
     {
       "name": "Lone Hunter",
@@ -15310,7 +15310,7 @@
     {
       "name": "One, Two!",
       "active": false,
-      "text": "当此模型进行一次以指定友方模型为目标的传球时，此次传球中此模型获得+2/+2″KICK。当指定友方模型收到来自此模型的传球时，该指定模型可以少花费1MP进行传跑联动或凌空抽射。"
+      "text": "当此模型进行一次以指定友方模型为目标的传球时，此次传球中此模型获得+2/+2″KICK。当指定友方模型收到来自此模型的传球时，该指定模型可以少花费1 MP进行传跑联动或凌空抽射。"
     },
     {
       "name": "Thought",
@@ -15390,7 +15390,7 @@
     {
       "name": "Don't Get Cocky",
       "active": false,
-      "text": "当此模型受到离场状态时，敌方获得1VP而不是2VP。当此模型重新上场时，此模型可以将敌方部署区视为已方部署区来进场。"
+      "text": "当此模型受到离场状态时，敌方获得1 VP而不是2VP。当此模型重新上场时，此模型可以将敌方部署区视为已方部署区来进场。"
     },
     {
       "name": "Stellar Navigation",
@@ -15415,7 +15415,7 @@
     {
       "name": "Potbellied Pass",
       "active": true,
-      "text": "每回合一次，当此模型接到一次成功的传球时，此模型可以花费1MP进行一次无需消耗影响力的传球来代替使用传跑联动或凌空抽射。"
+      "text": "每回合一次，当此模型接到一次成功的传球时，此模型可以花费1 MP进行一次无需消耗影响力的传球来代替使用传跑联动或凌空抽射。"
     },
     {
       "name": "Impart Faith",
@@ -15450,7 +15450,7 @@
     {
       "name": "Virulent Strain",
       "active": false,
-      "text": "在此光环范围内遭受疫病状态的敌方模型受到-1DEF和-1TAC。"
+      "text": "在此光环范围内遭受疫病状态的敌方模型受到-1 DEF和-1 TAC。"
     },
     {
       "name": "Cloak of Rats",
@@ -15465,7 +15465,7 @@
     {
       "name": "Killer",
       "active": false,
-      "text": "此模型在攻击拥有指定类别的模型时战术手册伤害结果获得+1DMG。"
+      "text": "此模型在攻击拥有指定类别的模型时战术手册伤害结果获得+1 DMG。"
     },
     {
       "name": "Good Feet, for a Big Man",
@@ -15475,7 +15475,7 @@
     {
       "name": "Plague Ridden",
       "active": false,
-      "text": "当此模型遭受疫病状态时，此模型的战术手册伤害结果获得+1DMG。"
+      "text": "当此模型遭受疫病状态时，此模型的战术手册伤害结果获得+1 DMG。"
     },
     {
       "name": "Protect the Ball",
@@ -15570,7 +15570,7 @@
     {
       "name": "Thuggery",
       "active": false,
-      "text": "当该模型在指定友方模型 1″  内时，该模型获得+1 DMG战术手册伤害结果，并在每次成功的攻击中增加一个 {{KD}} 结果。"
+      "text": "当该模型在指定友方模型 1″ 内时，该模型获得+1 DMG战术手册伤害结果，并在每次成功的攻击中增加一个 {{KD}} 结果。"
     },
     {
       "name": "Pick Up",
@@ -15595,7 +15595,7 @@
     {
       "name": "Flare Out",
       "active": false,
-      "text": "当此模型在场上时，处于燃烧状态的友方模型获得 Overheat。\n{{trait 'Overheat' '3″  Pulse'}}"
+      "text": "当此模型在场上时，处于燃烧状态的友方模型获得 Overheat。\n{{trait 'Overheat' '3″ Pulse'}}"
     },
     {
       "name": "The Ladderman Cometh",
@@ -15760,7 +15760,7 @@
     {
       "name": "Synchronised",
       "active": false,
-      "text": "当指定友方模型成功接收到来自本模型的传球时，目标模型可以少消耗1MP来进行一次传跑联动或是进行一次凌空抽射。"
+      "text": "当指定友方模型成功接收到来自本模型的传球时，目标模型可以少消耗1 MP来进行一次传跑联动或是进行一次凌空抽射。"
     },
     {
       "name": "Putting Out Fires",
