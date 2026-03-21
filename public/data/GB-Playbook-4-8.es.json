@@ -1391,7 +1391,7 @@
       "character_traits": [
         "Quench [1″ Aura]"
       ],
-      "legendary": "Batten Down The Hatches [Pulso de 6″]\nLos modelos aliados dentro de este pulso pueden quitarse todas las condiciones que tengan.\n\nSi este modelo es el Capitán, los modelos aliados dentro de este pulso pueden sanar 3 PS.",
+      "legendary": "Batten Down The Hatches [Pulso de 6″]\nLos modelos aliados dentro de este pulso pueden quitarse todas las condiciones que tengan.\n\nSi este modelo es el Capitán, los modelos aliados dentro de este pulso pueden sanar 3 HP.",
       "types": "Sultarish, Humano, Mujer, \nArquero,\nMaestro, Seguidor",
       "playbook": [
         [
@@ -2075,7 +2075,7 @@
       "character_traits": [
         "Tough Hide"
       ],
-      "heroic": "Old Jake's\nAloca 2 influencias a otros modelos aliados del gremio dentro de 8″.",
+      "heroic": "Old Jake's\nAsigna 2 influencias a otros modelos aliados del gremio dentro de 8″.",
       "types": "Mald, Humano, Hombre, \nArmador,\nCapitán",
       "playbook": [
         [
@@ -2129,7 +2129,7 @@
         "Resilience",
         "Aria [6″ Aura]"
       ],
-      "heroic": "Soothing Voice [Pulso de 4″]\nLos modelos aliados dentro de este pulso se remueven todas las condiciones que tengan.",
+      "heroic": "Soothing Voice [Pulso de 4″]\nLos modelos aliados dentro de este pulso se quitan todas las condiciones que tengan.",
       "types": "Eisnoran, Humano, Mujer, \nArmador,\nCapitán",
       "playbook": [
         [
@@ -2183,7 +2183,7 @@
         "Spit and Sawdust",
         "Legless Drunk"
       ],
-      "heroic": "Free Bar [Pulso de 4″]\nLos otros modelos aliados que no sean Mascota dentro de este pulso ganan un marcador de cerveza.",
+      "heroic": "Free Bar [Pulso de 4″]\nLos otros modelos aliados del gremio que no sean Mascota dentro de este pulso obtienen un marcador de cerveza.",
       "types": "Mald, Humano, Hombre, \nEnganche,\nCapitán",
       "playbook": [
         [
@@ -2390,7 +2390,7 @@
         "Get Over Here [Scum, Quaff]",
         "Who's a Good Boy [Scum, Quaff]"
       ],
-      "heroic": "Animal Treat [Scum, Quaff]\nEl modelo mascota mencionado a 4″ obtiene +2 TAC.",
+      "heroic": "Animal Treat [Scum, Quaff]\nEl modelo aliado mencionado objetivo dentro de 4″ obtiene +2 TAC.",
       "types": "Indar, Humano, Hombre, \nZaguero\nSeguidor",
       "playbook": [
         [
@@ -2496,7 +2496,7 @@
         "Tough Hide",
         "Shove the Boot In"
       ],
-      "heroic": "True Grit\nremueve todas las condiciones de este modelo. Este modelo obtiene +2 TAC.",
+      "heroic": "True Grit\nquita todas las condiciones de este modelo. Este modelo obtiene +2 TAC.",
       "types": "Mald, Humano, Hombre, \nEnganche,\nSeguidor",
       "playbook": [
         [
@@ -2548,7 +2548,7 @@
         "Resilience",
         "Tough Hide"
       ],
-      "heroic": "Batter Up\nUna vez durante la activación de este modelo, este modelo puede hacer un pase sin gastar influencia.\nEl pase gana +0/+4″ KICK.",
+      "heroic": "Batter Up\nUna vez durante la activación de este modelo, este modelo puede hacer un pase sin gastar influencia.\nEl pase obtiene +0/+4″ KICK.",
       "types": "Eisnoran, Humano, Hombre, \nEnganche,\nSeguidor",
       "playbook": [
         [
@@ -2602,7 +2602,7 @@
         "Six Pack",
         "Taunt"
       ],
-      "heroic": "Come On, Then!\nLa próxima vez que este modelo vaya a ser impactado por un ataque o Character Play, antes de activar cualquier otra habilidad, el ataque o Character Play se considera fallada y el impacto es ignorado.",
+      "heroic": "Come On, Then!\nLa próxima vez que este modelo vaya a ser impactado por un ataque o Character Play enemiga, antes de activar cualquier otra habilidad, el ataque o Character Play se considera fallada y el impacto es ignorado.",
       "types": "Mald, Humano, Hombre, \nArmador,\nSeguidor",
       "playbook": [
         [
@@ -4236,7 +4236,7 @@
       "character_traits": [
         "Fixer"
       ],
-      "heroic": "Overclocked\nElige un modelo Mechanica dentro de 4″. Durante su próxima activación, el modelo elegido puede hacer un Sprint o cargar sin gastar influencia.",
+      "heroic": "Overclocked\nElige un modelo Mechanica aliado dentro de 4″. Durante su próxima activación, el modelo elegido puede hacer un Sprint o cargar sin gastar influencia.",
       "types": "Indar, Humano, Hombre, \nZaguero,\nSeguidor",
       "playbook": [
         [
@@ -4605,7 +4605,7 @@
       "character_traits": [
         "Pain Response"
       ],
-      "heroic": "When the Cock Crows...\nColoca un Harvest Marker dentro de 2″ de este modelo.",
+      "heroic": "When the Cock Crows...\nColoca un Harvest Marker aliado dentro de 2″ de este modelo.",
       "types": "Raed, Animal,\nMascota, Planter",
       "playbook": [
         [
@@ -6821,7 +6821,7 @@
         "Linked [Harmony]",
         "Poised"
       ],
-      "legendary": "Topping Out! [Pulso de 6″]\nElige un efecto:\n- Los modelos aliados dentro de este pulso obtienen +1 ARM.\n- Cada modelo aliado dentro de este pulso es alocado 1 influencia.",
+      "legendary": "Topping Out! [Pulso de 6″]\nElige un efecto:\n- Los modelos aliados dentro de este pulso obtienen +1 ARM.\n- Cada modelo aliado dentro de este pulso es asignado 1 influencia.",
       "types": "Castellyian, Humano, Mujer, \nArmador,\nCapitán",
       "playbook": [
         [
@@ -8136,7 +8136,7 @@
       "character_traits": [
         "The Knowledge"
       ],
-      "legendary": "Handy Listener, Such As You Are\nRemueve la cantidad de marcadores de susurro que quieras de modelos enemigos que estén en la cancha. Por cada marcador de susurro removido de esta forma, pon un marcador de susurro en un modelo enemigo en la cancha.",
+      "legendary": "Handy Listener, Such As You Are\nQuita la cantidad de marcadores de susurro que quieras de modelos enemigos que estén en la cancha. Por cada marcador de susurro quitado de esta forma, pon un marcador de susurro en un modelo enemigo en la cancha.",
       "types": "Piert, Humano, Hombre, \nD.T.,\nSeguidor",
       "playbook": [
         [
@@ -8292,7 +8292,7 @@
         "They Ain't Tough!"
       ],
       "character_traits": [],
-      "heroic": "Packmaster [Squeak, Vileswarm]\nEl modelo aliado mencionado objetivo dentro de 4″ es alocado 2 influencias.",
+      "heroic": "Packmaster [Squeak, Vileswarm]\nEl modelo aliado mencionado objetivo dentro de 4″ es asignado 2 influencias.",
       "types": "Raed, Humano, Hombre, \nZaguero,\nVeterano, Seguidor",
       "playbook": [
         [
@@ -10887,7 +10887,7 @@
       "character_traits": [
         "Haunting Melody"
       ],
-      "heroic": "Distracting Tune\nElige un modelo enemigo dentro de 4″. El modelo elegido sufre un Push de 2″.",
+      "heroic": "Distracting Tune\nElige un modelo enemigo dentro de 4″. El modelo elegido recibe un Push de 2″.",
       "legendary": "Swarm's Obedience [Pulso de 8″]\nElige el arco aliado o enemigo. Los modelos dentro del pulso reciben un Push de 3″ directamente hacia el arco elegido.",
       "types": "Mald, Humano, Hombre, \nDelantero,\nCapitán",
       "playbook": [
@@ -12113,7 +12113,7 @@
       "character_traits": [
         "Matched Pair [Cut]"
       ],
-      "heroic": "It's Bucking Time!\nSi el modelo aliado Cut está dentro de 4″ de este modelo, Posiciona a CrossCut con todos sus HP en contacto base con base con este modelo o Cut. Después, remueve toda la influencia de este modelo y de Cut y alócaselas a CrossCut. Después, retira este modelo y a Cut de la cancha. Después, reemplaza la carta de este modelo y de Cut por la carta de CrossCut.",
+      "heroic": "It's Bucking Time!\nSi el modelo aliado Cut está dentro de 4″ de este modelo, Posiciona a CrossCut con todos sus HP en contacto base con base con este modelo o Cut. Después, quita toda la influencia de este modelo y de Cut y asígnaselas a CrossCut. Después, retira este modelo y a Cut de la cancha. Después, reemplaza la carta de este modelo y de Cut por la carta de CrossCut.",
       "types": "Mald, Humano, Hombre, \nPuntero,\nSeguidor",
       "playbook": [
         [
@@ -12273,7 +12273,7 @@
         "Synchronised [Flint]",
         "Putting Out Fires"
       ],
-      "legendary": "This Should Be Overtime...\nElige una Log Pile en la cancha y posiciónala a 4″ de este modelo.",
+      "legendary": "This Should Be Overtime...\nElige un Log Pile aliado en la cancha y posiciónalo a 4″ de este modelo.",
       "types": "Eisnoran, Humano, Hombre, \nPuntero,\nSeguidor",
       "playbook": [
         [
@@ -12332,7 +12332,7 @@
     },
     {
       "name": "Smoke Bomb",
-      "text": "Posiciona una AOE duradera dentro del alcance. Mientras que estén dentro de esta AOE, los modelos ganan cobertura.",
+      "text": "Posiciona una AOE duradera dentro del alcance.\nMientras que estén dentro de esta AOE, los modelos obtienen cobertura.",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -12364,7 +12364,7 @@
     },
     {
       "name": "Blind",
-      "text": "El modelo objetivo enemigo recibe -2 TAC, -2/-2″ KICK, y -2″/-2″ MOV.",
+      "text": "El modelo enemigo objetivo recibe -2 TAC, -2/-2″ KICK, y -2″/-2″ MOV.",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -12380,7 +12380,7 @@
     },
     {
       "name": "Sticky Bomb",
-      "text": "Posiciona una AOE duradera dentro del alcance. Los modelos enemigos impactados reciben -2″/-2″ MOV y la condición de Poison. Los modelos entrando o que terminen su activación dentro de esta AOE reciben la condición de Poison.",
+      "text": "Posiciona una AOE duradera dentro del alcance.\nLos modelos enemigos impactados reciben -2″/-2″ MOV y la condición de Poison.\nLos modelos entrando o que terminen su activación dentro de esta AOE reciben la condición de Poison.",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": true,
@@ -12420,7 +12420,7 @@
     },
     {
       "name": "External Combustion",
-      "text": "El modelo enemigo objetivo recibe un Push de 4″ alejándose directamente de este modelo y 3 DAÑO, y luego los modelos dentro de 3″ del modelo objetivo reciben la condición de Burning.",
+      "text": "El modelo enemigo objetivo recibe un Push de 4″ alejándose directamente de este modelo y 3 DAÑO, y luego los modelos enemigos dentro de 3″ del modelo objetivo reciben la condición de Burning.",
       "CST": "CP2",
       "RNG": "P",
       "SUS": false,
@@ -12436,7 +12436,7 @@
     },
     {
       "name": "Fire Blast",
-      "text": "Posiciona una AOE duradera dentro del alcance. Los modelos impactados sufre 2 DAÑO y la condición de Burning. Los modelos que entren o terminen su activación dentro de esta AOE durante reciben la condición de Burning.",
+      "text": "Posiciona una AOE duradera dentro del alcance.\nLos modelos impactados reciben 2 DAÑO y la condición de Burning. Los modelos que entren o terminen su activación dentro de esta AOE reciben la condición de Burning.",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": false,
@@ -12460,7 +12460,7 @@
     },
     {
       "name": "Clone",
-      "text": "La próxima vez que este modelo vaya a ser impactado por un ataque o Character Play, antes de activar cualquier otra habilidad, el ataque o Character Play se considera fallada y el impacto es ignorado.",
+      "text": "La próxima vez que este modelo vaya a ser impactado por un ataque o Character Play enemiga, antes de activar cualquier otra habilidad, el ataque o Character Play se considera fallada y el impacto es ignorado.",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": true,
@@ -12476,7 +12476,7 @@
     },
     {
       "name": "Singled Out",
-      "text": "Los modelos aliados reciben +2 TAC cuando hacen un ataque contra el modelo objetivo.",
+      "text": "Los modelos aliados reciben +2 TAC cuando hacen un ataque contra el modelo enemigo objetivo.",
       "CST": "CP",
       "RNG": "P",
       "SUS": true,
@@ -12500,7 +12500,7 @@
     },
     {
       "name": "Eye Spy",
-      "text": "Los modelos aliados reciben +2 TAC cuando hacen un ataque contra el modelo objetivo.",
+      "text": "Los modelos aliados reciben +2 TAC cuando hacen un ataque contra el modelo enemigo objetivo.",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": true,
@@ -12612,7 +12612,7 @@
     },
     {
       "name": "Shield Throw",
-      "text": "Si el modelo enemigo objetivo tiene la posesión de la pelota, pierde la posesión de la pelota. Después, realiza un desvío circular con la plantilla centrada en el modelo objetivo.",
+      "text": "Si el modelo objetivo tiene la posesión de la pelota, pierde la posesión de la pelota. Después, realiza un desvío circular con la plantilla centrada en el modelo objetivo.",
       "CST": "1,CP",
       "RNG": 6,
       "SUS": false,
@@ -12628,7 +12628,7 @@
     },
     {
       "name": "Decoy",
-      "text": "Este modelo obtiene +2 DEF contra el próximo ataque o Character Play que reciba.",
+      "text": "Este modelo obtiene +2 DEF contra el próximo ataque o Character Play enemiga que reciba.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13116,7 +13116,7 @@
     },
     {
       "name": "Deadly Wings",
-      "text": "Elige una AOE de Harrier. La AOE elegida puede ser posicionada dentro de 4″ de su posición actual.",
+      "text": "Elige una AOE de Harrier aliada. La AOE elegida puede ser posicionada dentro de 4″ de su posición actual.",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -13260,7 +13260,7 @@
     },
     {
       "name": "Snack Break",
-      "text": "Este modelo se cura 6 PS.",
+      "text": "Este modelo se cura 6 HP.",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": false,
@@ -13292,7 +13292,7 @@
     },
     {
       "name": "Swirling Waters",
-      "text": "El modelo aliado objetivo puede hacer un Dodge de 2″. Un modelo sólo puede verse afectado por esta Character Play una vez por turno.",
+      "text": "El modelo aliado objetivo puede hacer un Dodge de 2″. Un modelo sólo puede verse impactado por esta Character Play una vez por turno.",
       "CST": "1,CP",
       "RNG": 6,
       "SUS": false,
@@ -13308,7 +13308,7 @@
     },
     {
       "name": "Fisher's Reel",
-      "text": "Otro modelo objetivo puede hacer un Dodge de 2″. Un modelo sólo puede verse afectado por esta Character Play una vez por turno.",
+      "text": "Otro modelo aliado objetivo puede hacer un Dodge de 2″. Un modelo sólo puede verse impactado por esta Character Play una vez por turno.",
       "CST": "1,CP",
       "RNG": 4,
       "SUS": false,
@@ -13404,7 +13404,7 @@
     },
     {
       "name": "Snowball",
-      "text": "Posiciona una pelota adicional en posesión de este modelo. Si metés un gol con esta pelota, el equipo aliado gana 1 VP en vez de 4 VP. Al fina de la activación de este modelo, remueve la pelota adicional de la cancha.",
+      "text": "Posiciona una pelota adicional en posesión de este modelo. Si se hace un gol con esta pelota, el equipo aliado obtiene 1 VP en vez de 4 VP. Al final de la activación de este modelo, quita la pelota adicional de la cancha.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13412,7 +13412,7 @@
     },
     {
       "name": "Bait",
-      "text": "Posiciona una AOE dentro del alcance. Este modelo puede posicionar dos marcadores de trampa dentro de la AOE. Los modelos enemigos impactados reciben un Push de 1″.",
+      "text": "Posiciona una AOE dentro del alcance. Este modelo puede posicionar dos marcadores de trampa aliados dentro de la AOE. Los modelos enemigos impactados reciben un Push de 1″.",
       "CST": "2,CP",
       "RNG": 3,
       "SUS": false,
@@ -13476,7 +13476,7 @@
     },
     {
       "name": "More Teeth!",
-      "text": "Este modelo puede colocar un Trap Marker dentro de 2″.",
+      "text": "Este modelo puede colocar un Trap Marker aliado dentro de 2″.",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
@@ -13564,7 +13564,7 @@
     },
     {
       "name": "Grinding Tracks",
-      "text": "Cuando este modelo avanza, los modelos enemigos cuya peana quede en contacto base con base con la peana de este modelo reciben la condición de Knocked Down. Cada modelo sólo recibe la condición de Knocked Down una vez por turno por efecto de Grinding Tracks.",
+      "text": "Cuando este modelo avanza, los modelos enemigos cuya peana quede en contacto base con base con la peana de este modelo reciben la condición de Knocked Down. Cada modelo enemigo sólo recibe la condición de Knocked Down una vez por turno por efecto de Grinding Tracks.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13612,7 +13612,7 @@
     },
     {
       "name": "Misdirection",
-      "text": "El modelo enemigo objetivo con al menos 1 influencia pierde 1 influencia. Aloca 1 influencia a otro modelo aliado del gremio dentro de 4″ de este modelo.",
+      "text": "El modelo enemigo objetivo con al menos 1 influencia pierde 1 influencia. Asigna 1 influencia a otro modelo aliado del gremio dentro de 4″ de este modelo.",
       "CST": 2,
       "RNG": 8,
       "SUS": false,
@@ -13620,7 +13620,7 @@
     },
     {
       "name": "Puppet Master",
-      "text": "Aloca 1 influencia a este modelo. El modelo objetivo puede hacer un Jog, hacer un pase, o hacer un ataque sin gastar influencia. El modelo objetivo se considera aliado durante esta acción.",
+      "text": "Asigna 1 influencia a este modelo. El modelo objetivo puede hacer un Jog, hacer un pase, o hacer un ataque sin gastar influencia. El modelo objetivo se considera aliado durante esta acción.",
       "CST": 4,
       "RNG": 8,
       "SUS": false,
@@ -13660,7 +13660,7 @@
     },
     {
       "name": "Spirit Strings",
-      "text": "El modelo enemigo objetivo recibe un Push de 2″. Este modelo puede luego hacer un Dodge de 2″ hacia el modelo enemigo objetivo. Cada modelo puede ser objetivo de Spirit Strings solo una vez por turno.",
+      "text": "El modelo enemigo objetivo recibe un Push de 2″. Este modelo puede luego hacer un Dodge de 2″ hacia el modelo enemigo objetivo. Cada modelo enemigo puede ser objetivo de Spirit Strings sólo una vez por turno.",
       "CST": "CP",
       "RNG": 4,
       "SUS": false,
@@ -13796,7 +13796,7 @@
     },
     {
       "name": "With Aplomb",
-      "text": "La próxima vez que este modelo haga un gol, el equipo aliado gana +1 VP.",
+      "text": "La próxima vez que este modelo haga un gol, el equipo aliado obtiene +1 VP.",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
@@ -13804,7 +13804,7 @@
     },
     {
       "name": "Predatory Gaze",
-      "text": "Mientras que este modelo esté dentro de 10″ del arco aliado, los modelos enemigos deben gastar una influencia adicional para hacer un Shot.",
+      "text": "Mientras que este modelo esté dentro de 10″ del arco aliado, los modelos enemigos deben gastar 1 influencia adicional para hacer un Shot.",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13812,7 +13812,7 @@
     },
     {
       "name": "Braced",
-      "text": "Este modelo obtiene +2 ARM contra el próximo ataque que reciba.",
+      "text": "Este modelo obtiene +2 ARM contra el próximo ataque enemigo que reciba.",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13828,7 +13828,7 @@
     },
     {
       "name": "Healing Light",
-      "text": "Posiciona una AOE dentro del alcance. Los modelos aliados dentro de esta AOE recupera 3 PS.",
+      "text": "Posiciona una AOE dentro del alcance. Los modelos aliados dentro de esta AOE recuperan 3 HP.",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -13836,7 +13836,7 @@
     },
     {
       "name": "Pay the Piper",
-      "text": "Aura de 6″. Cuando un modelo enemigo dentro de esta aura gasta MP, el equipo aliado gana 1 MP.",
+      "text": "Aura de 6″. Cuando un modelo enemigo dentro de esta aura gasta MP, el equipo aliado obtiene 1 MP.",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13924,7 +13924,7 @@
     },
     {
       "name": "Warming Oven",
-      "text": "El modelo aliado objetivo recupera 4 PS.",
+      "text": "El modelo aliado objetivo recupera 4 HP.",
       "CST": "1,CP",
       "RNG": 4,
       "SUS": false,
@@ -13948,7 +13948,7 @@
     },
     {
       "name": "Persuasion",
-      "text": "Otro modelo objetivo recibe un Push de 2″. Cada modelo sólo puede ser afectado por esta Character Play una vez por turno.",
+      "text": "Otro modelo objetivo recibe un Push de 2″. Cada modelo sólo puede ser impactado por esta Character Play una vez por turno.",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -13972,7 +13972,7 @@
     },
     {
       "name": "Lens Flare",
-      "text": "Cuando el modelo enemigo objetivo vaya a hacer una tirada de dados para un ataque o una Kick, los modificadores que apliquen y el dado extra de Tiempo Extra no pueden causar que la tirada contenga más dados que el TAC o el KICK impreso en la carta del modelo.",
+      "text": "Cuando el modelo enemigo objetivo vaya a hacer una tirada de dados para un ataque o una Kick, los modificadores que apliquen y el dado extra de Bonus Time no pueden causar que la tirada contenga más dados que el TAC o el KICK impreso en la carta del modelo.",
       "CST": "CP",
       "RNG": 4,
       "SUS": true,
@@ -14028,7 +14028,7 @@
     },
     {
       "name": "Careless Whisper",
-      "text": "Coloca un marcador de susurro en el modelo enemigo objetivo. Los modelos aliados que no sean Capitán obtienen +2 TAC cuando ataquen a un modelo con un marcador de susurro. Los marcadores de susurro sólo se remueven del modelo objetivo cuando recibe la condición de Taken Out.",
+      "text": "Coloca un marcador de susurro en el modelo enemigo objetivo.\nLos modelos aliados que no sean Capitán obtienen +2 TAC cuando ataquen a un modelo enemigo con un marcador de susurro.\nLos marcadores de susurro sólo se quitan del modelo objetivo cuando recibe la condición de Taken Out.",
       "CST": "2,CP",
       "RNG": 7,
       "SUS": false,
@@ -14084,7 +14084,7 @@
     },
     {
       "name": "Forest Grove",
-      "text": "Posiciona una AOE de 3″ dentro del alcance y sin estar en contacto con otra pieza de escenografía. El AOE se considera un bosque y se remueve en la Fase Final.",
+      "text": "Posiciona una AOE de 3″ dentro del alcance y sin estar en contacto con otra pieza de escenografía. El AOE se considera un bosque y se quita en la Fase Final.",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -14100,7 +14100,7 @@
     },
     {
       "name": "Freemason",
-      "text": "Otro modelo objetivo hace una carga sin gastar influencia.",
+      "text": "Otro modelo aliado objetivo hace una carga sin gastar influencia.",
       "CST": 2,
       "RNG": 6,
       "SUS": false,
@@ -14148,7 +14148,7 @@
     },
     {
       "name": "Hoisting and Hauling",
-      "text": "Elige un Log Pile dentro del alcance y posiciónalo dentro de 1″ de este modelo.",
+      "text": "Elige un Log Pile aliado dentro del alcance y posiciónalo dentro de 1″ de este modelo.",
       "CST": "1,CP",
       "RNG": 4,
       "SUS": false,
@@ -14172,7 +14172,7 @@
     },
     {
       "name": "Reconnaissance",
-      "text": "Aura de 6″. Los modelos aliados dentro de esta aura no reciben la penalización de -1 TAC por atacar un modelo en cobertura.",
+      "text": "Aura de 6″. Los modelos aliados dentro de esta aura no reciben la penalización de -1 TAC por atacar un modelo enemigo en cobertura.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -14180,7 +14180,7 @@
     },
     {
       "name": "Swipe Right",
-      "text": "El modelo enemigo objetivo recibe un Push de 2″. Luego puedes elegir un Log Pile en el alcance y posicionarlo dentro de 1″ de este modelo.",
+      "text": "El modelo enemigo objetivo recibe un Push de 2″. Luego puede elegir un Log Pile aliado dentro del alcance y posicionarlo dentro de 1″ de este modelo.",
       "CST": "CP",
       "RNG": 4,
       "SUS": false,
@@ -14188,7 +14188,7 @@
     },
     {
       "name": "Skidding",
-      "text": "El modelo aliado objetivo pueden hacer un Dodge de 2″ hacia un Log Pile aliado. Cada modelo sólo puede ser afectado por Character Play una vez por turno.",
+      "text": "El modelo aliado objetivo puede hacer un Dodge de 2″ hacia un Log Pile aliado. Cada modelo sólo puede ser impactado por Character Play una vez por turno.",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": false,
@@ -14196,7 +14196,7 @@
     },
     {
       "name": "Dam Builder",
-      "text": "Elige un Log Pile dentro del alcance y posiciónalo dentro de 4″ de su posición actual.",
+      "text": "Elige un Log Pile aliado dentro del alcance y posiciónalo dentro de 4″ de su posición actual.",
       "CST": "1,CP",
       "RNG": 1,
       "SUS": false,
@@ -14204,7 +14204,7 @@
     },
     {
       "name": "Crumb Boss [Cut]",
-      "text": "Si el modelo aliado mencionado objetivo está dentro de 4″ de un Log Pile aliado, se aloca 2 influencia y obtiene +1″/+1″ MOV.",
+      "text": "Si el modelo aliado mencionado objetivo está dentro de 4″ de un Log Pile aliado, se asigna 2 influencia y obtiene +1″/+1″ MOV.",
       "CST": "CP",
       "RNG": 4,
       "SUS": true,
@@ -14220,7 +14220,7 @@
     },
     {
       "name": "The Bigger They Are...",
-      "text": "El modelo enemigo objetivo recibe daño de condición igual a la mitad de su salud actual, redondeando hacia abajo. Luego, si hay un Log Pile aliado dentro de 4″ de este modelo, puedes posicionar este modelo en contacto base con base con ese Log Pile.",
+      "text": "El modelo enemigo objetivo recibe daño de condición igual a la mitad de su salud actual, redondeando hacia abajo. Luego, si hay un Log Pile aliado dentro de 4″ de este modelo, puede posicionar este modelo en contacto base con base con ese Log Pile.",
       "CST": "CP2",
       "RNG": "P",
       "SUS": false,
@@ -14236,7 +14236,7 @@
     },
     {
       "name": "Spring the Trap",
-      "text": "Elige un Trap Marker dentro del alcance. Los modelos enemigos dentro de 1″ del Trap Marker elegido reciben la condición de Snared. Luego, remueve el Trap Marker de la cancha.",
+      "text": "Elige un Trap Marker aliado dentro del alcance. Los modelos enemigos dentro de 1″ del Trap Marker elegido reciben la condición de Snared. Luego, quita el Trap Marker de la cancha.",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -14317,12 +14317,12 @@
     {
       "name": "Gimme Fuel...",
       "active": false,
-      "text": "Mientras que este modelo esté en la cancha, cuando un modelo aliado hace un ataque a un modelo enemigo que tenga la condición de Burning, el modelo aliado puede ganar +2 TAC por la duración del ataque. Cada modelo aliado sólo puede beneficiarse de Gimme Fuel... una vez por turno."
+      "text": "Mientras que este modelo esté en la cancha, cuando un modelo aliado hace un ataque a un modelo enemigo que tenga la condición de Burning, el modelo aliado puede obtener +2 TAC por la duración del ataque. Cada modelo aliado sólo puede beneficiarse de Gimme Fuel... una vez por turno."
     },
     {
       "name": "Backdraft",
       "active": true,
-      "text": "Este modelo obtiene +2 TAC cuando ataca a un modelo que tenga la condición de Burning."
+      "text": "Este modelo obtiene +2 TAC cuando ataca a un modelo enemigo que tenga la condición de Burning."
     },
     {
       "name": "Furious",
@@ -14337,12 +14337,12 @@
     {
       "name": "Waning Light",
       "active": false,
-      "text": "Este modelo no puede curarse PS. Cuando este modelo reciba la condición de Taken Out, los modelos enemigos dentro de este pulso reciben 3 DAÑO de condición y la condición de Burning. Después de remover a este modelo de la cancha, reemplaza la carta de este modelo por la carta de Soma."
+      "text": "Este modelo no puede curarse HP. Cuando este modelo reciba la condición de Taken Out, los modelos enemigos dentro de este pulso reciben 3 DAÑO de condición y la condición de Burning. Después de quitar a este modelo de la cancha, reemplaza la carta de este modelo por la carta de Soma."
     },
     {
       "name": "Beaker Keeper",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, elige un modelo aliado que no sea Capitán dentro de 4″. El modelo aliado puede usar una Character Play de CST 1 o 2 sin gastar influencia una vez durante su activación."
+      "text": "Una vez por turno durante la activación de este modelo, elige un modelo aliado del gremio que no sea Capitán dentro de 4″. El modelo aliado puede usar una Character Play de CST 1 o 2 sin gastar influencia una vez durante su activación."
     },
     {
       "name": "Light Footed",
@@ -14357,7 +14357,7 @@
     {
       "name": "Test Subject",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede remover la condición de Burning o la condición de Poison de otro modelo dentro de 4″. Si lo hace, este modelo puede hacer un ataque o una Character Play una vez durante su activación sin gastar influencia."
+      "text": "Una vez por turno durante la activación de este modelo, puede quitar la condición de Burning o la condición de Poison de otro modelo dentro de 4″. Si lo hace, este modelo puede hacer un ataque o una Character Play una vez durante su activación sin gastar influencia."
     },
     {
       "name": "Venomous Strike",
@@ -14372,12 +14372,12 @@
     {
       "name": "Reactive Solution",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede remover la condición de Burning o la condición de Poison de otro modelo dentro de 4″. Si lo hace, este modelo puede usar una Character Play una vez durante su activación sin gastar influencia."
+      "text": "Una vez por turno durante la activación de este modelo, puede quitar la condición de Burning o la condición de Poison de otro modelo dentro de 4″. Si lo hace, este modelo puede usar una Character Play una vez durante su activación sin gastar influencia."
     },
     {
       "name": "Extraction",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede remover la condición de Burning o la condición de Poison de otro modelo dentro de 4″. Si lo hace, este modelo puede hacer inmediatamente un Dodge de 4″."
+      "text": "Una vez por turno durante la activación de este modelo, puede quitar la condición de Burning o la condición de Poison de otro modelo dentro de 4″. Si lo hace, este modelo puede hacer inmediatamente un Dodge de 4″."
     },
     {
       "name": "Chemical Admixture",
@@ -14402,7 +14402,7 @@
     {
       "name": "Elusive",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede remover la condición de Burning o la condición de Poison de otro modelo dentro de 4″. Si lo hace, Posiciona inmediatamente este modelo en contacto base con base del otro."
+      "text": "Una vez por turno durante la activación de este modelo, puede quitar la condición de Burning o la condición de Poison de otro modelo dentro de 4″. Si lo hace, Posiciona inmediatamente este modelo en contacto base con base del otro."
     },
     {
       "name": "Burning Effigy",
@@ -14452,7 +14452,7 @@
     {
       "name": "I've Been Burnt Before...",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede remover la condición de Burning o la condición de Poison de otro modelo dentro de 4″. Si lo hace, durante su activación puede hacer un Sprint o cargar sin gastar influencia, si no cargó o hizo un Sprint antes de usar esta habilidad."
+      "text": "Una vez por turno durante la activación de este modelo, puede quitar la condición de Burning o la condición de Poison de otro modelo dentro de 4″. Si lo hace, si luego hace un Sprint o carga durante su activación, lo puede hacer sin gastar influencia."
     },
     {
       "name": "Noxious Death",
@@ -14477,7 +14477,7 @@
     {
       "name": "Tough Hide",
       "active": false,
-      "text": "Este modelo recibe -1 DAÑO de Character Plays que causan daño y resultados de daño de la Playbook."
+      "text": "Este modelo recibe -1 DAÑO de Character Plays enemigas que causan daño y resultados de daño de la Playbook."
     },
     {
       "name": "Reduction",
@@ -14492,7 +14492,7 @@
     {
       "name": "Quench",
       "active": true,
-      "text": "Cuando un modelo aliado dentro de esta aura recibe daño de una Character Play enemiga, luego que la Character Play se resuelva, el modelo aliado puede curarse 1 PS."
+      "text": "Cuando un modelo aliado dentro de esta aura recibe daño de una Character Play enemiga, luego que la Character Play se resuelva, el modelo aliado puede curarse 1 HP."
     },
     {
       "name": "Give It a Whack",
@@ -14572,7 +14572,7 @@
     {
       "name": "Sweeping Charge",
       "active": false,
-      "text": "Cuando este modelo hace una carga durante su activación, si elige uno o más resultados daño de la Playbook, los modelos dentro de la Melee Zone de este modelo reciben 3 DAÑO."
+      "text": "Cuando este modelo hace una carga durante su activación, además de uno o más resultados de daño de la Playbook, los modelos dentro de la Melee Zone de este modelo reciben 3 DAÑO."
     },
     {
       "name": "Quick Off the Line",
@@ -14582,7 +14582,7 @@
     {
       "name": "Battering Ram",
       "active": false,
-      "text": "Cuando este modelo realiza un avance, los modelos cuyas peanas queden en contacto base con base con la peana de este modelo reciben inmediatamente un Push de 2″ alejándose directamente de este modelo. Este modelo solo puede hacer Push a cada modelo una vez por turno con Battering Ram."
+      "text": "Cuando este modelo realiza un avance, los modelos cuyas peanas queden en contacto base con base con la peana de este modelo reciben inmediatamente un Push de 2″ alejándose directamente de este modelo. Este modelo sólo puede hacer Push a cada modelo una vez por turno con Battering Ram."
     },
     {
       "name": "Close Control",
@@ -14592,7 +14592,7 @@
     {
       "name": "Tryhard",
       "active": false,
-      "text": "Cuando este modelo hace un Shot dentro de 2″ del arco enemigo, el TN se reduce en 1."
+      "text": "Cuando este modelo hace un Shot dentro de 2″ del arco enemigo, el DT se reduce en 1."
     },
     {
       "name": "Powerful Charge",
@@ -14647,7 +14647,7 @@
     {
       "name": "Shove the Boot In",
       "active": false,
-      "text": "Este modelo obtiene +1 DAÑO a los resultados de daño de la Playbook cuando ataque a un modelo que tenga la condición de Knocked Down."
+      "text": "Este modelo obtiene +1 DAÑO a los resultados de daño de la Playbook cuando ataque a un modelo enemigo que tenga la condición de Knocked Down."
     },
     {
       "name": "Rowdy",
@@ -14667,7 +14667,7 @@
     {
       "name": "Floored",
       "active": false,
-      "text": "Este modelo obtiene +2 TAC cuando realice un ataque contra un modelo que tenga la condición de Knocked Down."
+      "text": "Este modelo obtiene +2 TAC cuando realice un ataque contra un modelo enemigo que tenga la condición de Knocked Down."
     },
     {
       "name": "Football Legend",
@@ -14677,12 +14677,12 @@
     {
       "name": "Magical Brew",
       "active": false,
-      "text": "Al comienzo de la activación de este modelo, este modelo se saca todas las condiciones que tenga. Este modelo se cura 2 PS."
+      "text": "Al comienzo de la activación de este modelo, este modelo se saca todas las condiciones que tenga. Este modelo se cura 2 HP."
     },
     {
       "name": "Stack the Deck",
       "active": false,
-      "text": "Una vez por turno al comienzo de la activación de este modelo, si el equipo enemigo tiene la iniciativa, este modelo se aloca 1 influencia."
+      "text": "Una vez por turno al comienzo de la activación de este modelo, si el equipo enemigo tiene la iniciativa, este modelo se asigna 1 influencia."
     },
     {
       "name": "The Owner",
@@ -14692,7 +14692,7 @@
     {
       "name": "Haemophilia",
       "active": false,
-      "text": "En la Fase Final, antes que se resuelvan las condiciones, este modelo puede curarse 1 PS por cada modelo enemigo que tenga la condición de Bleed."
+      "text": "En la Fase Final, antes que se resuelvan las condiciones, este modelo puede curarse 1 HP por cada modelo enemigo que tenga la condición de Bleed."
     },
     {
       "name": "Smell Blood",
@@ -14702,7 +14702,7 @@
     {
       "name": "Berserk",
       "active": false,
-      "text": "Durante su activación, si este modelo le hace daños a un modelo enemigo con un ataque, este modelo puede hacer un ataque sin gastar influencia. Esta habilidad sólo puede generar un ataque por si misma."
+      "text": "Durante su activación, si este modelo le hace daños a un modelo enemigo con un ataque, este modelo puede hacer un ataque sin gastar influencia. Esta habilidad no puede generar un ataque adicional por sí misma."
     },
     {
       "name": "Blood Lust",
@@ -14722,7 +14722,7 @@
     {
       "name": "Life Drinker",
       "active": false,
-      "text": "Cuando este modelo dañe a un modelo enemigo con uno o más resultados de daño de la Playbook, este modelo puede curarse 1 PS."
+      "text": "Cuando este modelo dañe a un modelo enemigo con uno o más resultados de daño de la Playbook, este modelo puede curarse 1 HP."
     },
     {
       "name": "Crucial Artery",
@@ -14782,7 +14782,7 @@
     {
       "name": "Goal Defence",
       "active": false,
-      "text": "Los modelos enemigos reciben +1 TN a los Shots mientras que este modelo esté a 4″ del arco aliado."
+      "text": "Los modelos enemigos reciben +1 DT a los Shots mientras que este modelo esté a 4″ del arco aliado."
     },
     {
       "name": "Guild Rule: Intimidation",
@@ -14807,12 +14807,12 @@
     {
       "name": "Momentous Inspiration",
       "active": false,
-      "text": "Cuando un modelo aliado dentro de esta aura impacte a un modelo enemigo con una Character Play que causa daño, luego de resolver la Character Play el equipo aliado recibe 1 MP. Los modelos aliados dentro de esta aura pueden usar Tiempo Extra sin gastar MP una vez por Character Play."
+      "text": "Cuando un modelo aliado dentro de esta aura impacte a un modelo enemigo con una Character Play que causa daño, luego de resolver la Character Play el equipo aliado recibe 1 MP. Los modelos aliados dentro de esta aura pueden usar Bonus Time sin gastar MP una vez por Character Play."
     },
     {
       "name": "Reanimate",
       "active": true,
-      "text": "Una vez por turno cuando los PS de este modelo lleguen a 0, antes de recibir la condición de Taken Out, puede curarse 3 PS y quitarse todas las condiciones que tenga."
+      "text": "Una vez por turno cuando los HP de este modelo lleguen a 0, antes de recibir la condición de Taken Out, puede curarse 3 HP y quitarse todas las condiciones que tenga."
     },
     {
       "name": "Well Oiled Machine",
@@ -14842,7 +14842,7 @@
     {
       "name": "Spiderlings",
       "active": false,
-      "text": "Los modelos enemigos que estén dentro de 1″ de uno o más marcadores de nido reciben la penalización de encierro."
+      "text": "Los modelos enemigos que estén dentro de 1″ de uno o más marcadores de nido aliados reciben la penalización de encierro."
     },
     {
       "name": "Webbing",
@@ -14902,7 +14902,7 @@
     {
       "name": "Death from Above",
       "active": true,
-      "text": "Durante su activación, si un modelo enemigo está dentro de 6″ de este modelo, en la línea de visión de este modelo, y dentro de una AOE de Harrier, este modelo puede hacer un ataque contra el modelo enemigo como si estuviese trabado en combate. Este ataque obtiene +5 TAC. Después de resolver este ataque, remueve el AOE de Harrier de la cancha."
+      "text": "Durante su activación, si un modelo enemigo está dentro de 6″ de este modelo, en la línea de visión de este modelo, y dentro de una AOE de Harrier aliada, este modelo puede hacer un ataque contra el modelo enemigo como si estuviese trabado en combate. Este ataque obtiene +5 TAC. Después de resolver este ataque, quita el AOE de Harrier de la cancha."
     },
     {
       "name": "Flying",
@@ -14942,12 +14942,12 @@
     {
       "name": "Crow Scarer",
       "active": false,
-      "text": "Este modelo gana Poised mientras esté dentro de 2″ de un Harvest Marker aliado.\n{{trait 'Poised'}}"
+      "text": "Este modelo obtiene Poised mientras esté dentro de 2″ de un Harvest Marker aliado.\n{{trait 'Poised'}}"
     },
     {
       "name": "Don't Fear The...",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y removerlo de la cancha. Si lo hacen los modelos dentro de la Melee Zone de este modelo reciben 3 DAÑO."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, los modelos dentro de la Melee Zone de este modelo reciben 3 DAÑO."
     },
     {
       "name": "Harvest Supper",
@@ -14967,12 +14967,12 @@
     {
       "name": "Carrot & Stick",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y removerlo de la cancha. Si lo hace, este modelo puede inmediatamente hacer un Jog adicional."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo puede inmediatamente hacer un Jog adicional."
     },
     {
       "name": "Left Boot",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y removerlo de la cancha. Si lo hace, este modelo obtiene +1/+2″ KICK y puede hacer una Kick durante su activación sin gastar influencia."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo obtiene +1/+2″ KICK y puede hacer una Kick durante su activación sin gastar influencia."
     },
     {
       "name": "One of Our Own",
@@ -14982,7 +14982,7 @@
     {
       "name": "Cabbage Punt",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y removerlo de la cancha. Si lo hace, este modelo puede usar una Character Play una vez durante su activación sin gastar influencia."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo puede usar una Character Play una vez durante su activación sin gastar influencia."
     },
     {
       "name": "Between a Rock...",
@@ -14992,7 +14992,7 @@
     {
       "name": "Making Hay",
       "active": true,
-      "text": "Al comienzo de la activación de este modelo, puede remover cualquier cantidad de marcadores de cosecha aliados de la cancha que estén dentro de 4″. Este modelo es alocado 2 influencia por cada Harvest Marker aliado removido de esta forma."
+      "text": "Al comienzo de la activación de este modelo, puede quitar cualquier cantidad de marcadores de cosecha aliados de la cancha que estén dentro de 4″. Este modelo es asignado 2 influencia por cada Harvest Marker aliado quitado de esta forma."
     },
     {
       "name": "Protective Instinct",
@@ -15012,7 +15012,7 @@
     {
       "name": "Rapid Growth",
       "active": false,
-      "text": "Durante la Fase Final, antes que se resuelvan las condiciones, los modelos aliados dentro de esta aura pueden curarse 2 PS."
+      "text": "Durante la Fase Final, antes que se resuelvan las condiciones, los modelos aliados dentro de esta aura pueden curarse 2 HP."
     },
     {
       "name": "Faithful Protector",
@@ -15022,7 +15022,7 @@
     {
       "name": "Fields of Wheat",
       "active": true,
-      "text": "Una vez por turno durante la activación de un modelo aliado, cuando un Harvest Marker aliado sea removido de la cancha, Posiciona un Harvest Marker aliado dentro de esta aura."
+      "text": "Una vez por turno durante la activación de un modelo aliado, cuando un Harvest Marker aliado sea quitado de la cancha, Posiciona un Harvest Marker aliado dentro de esta aura."
     },
     {
       "name": "If I Only Had a Brain",
@@ -15047,12 +15047,12 @@
     {
       "name": "True Path",
       "active": false,
-      "text": "Los modelos aliados dentro de esta aura puede usar Patinar sin gastar MP."
+      "text": "Los modelos aliados dentro de esta aura pueden usar Gliding sin gastar MP."
     },
     {
       "name": "Fork Off!",
       "active": true,
-      "text": "Una vez por turno cuando un modelo enemigo termina un avance dentro de 6″ de este modelo, si este modelo no está trabado en combate puede inmediatamente remover un Harvest Marker aliado dentro de 2″ para declarar una carga al modelo enemigo sin gastar influencia."
+      "text": "Una vez por turno cuando un modelo enemigo termina un avance dentro de 6″ de este modelo, si este modelo no está trabado en combate puede inmediatamente quitar un Harvest Marker aliado dentro de 2″ para declarar una carga al modelo enemigo sin gastar influencia."
     },
     {
       "name": "Make It Rain",
@@ -15062,7 +15062,7 @@
     {
       "name": "Big Breakfast",
       "active": true,
-      "text": "Una vez por turno al comienzo de la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y removerlo de la cancha. Si lo hace, este modelo es alocado 1 influencia y obtiene +2″/+2″ MOV hasta el final del turno."
+      "text": "Una vez por turno al comienzo de la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo es asignado 1 influencia y obtiene +2″/+2″ MOV hasta el final del turno."
     },
     {
       "name": "Empathy",
@@ -15087,7 +15087,7 @@
     {
       "name": "Tag Along",
       "active": true,
-      "text": "Una vez por turnodespuésde que un modelo aliado termina un avance que haya hecho que salga la Melee Zone de este modelo, este modelo puede inmediatamente hacer un Jog directamente hacia ese modelo."
+      "text": "Una vez por turno después de que un modelo aliado termina un avance que haya hecho que salga la Melee Zone de este modelo, este modelo puede inmediatamente hacer un Jog directamente hacia ese modelo."
     },
     {
       "name": "Fear",
@@ -15102,12 +15102,12 @@
     {
       "name": "Resolute",
       "active": false,
-      "text": "Este modelo obtiene +2 TAC cuando hace un contraataque."
+      "text": "Cuando este modelo hace un contraataque contra un modelo enemigo, este modelo obtiene +2 TAC durante la duración del contraataque."
     },
     {
       "name": "Backfield Presence",
       "active": false,
-      "text": "Este modelo obtiene +2 TA cuando ataca a un modelo en posesión de la pelota."
+      "text": "Este modelo obtiene +2 TAC cuando ataca a un modelo en posesión de la pelota."
     },
     {
       "name": "Close Ranks",
@@ -15132,12 +15132,12 @@
     {
       "name": "Bag of Coffers",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, elige un modelo aliado que no sea Capitán dentro de 4″. El modelo elegido es alocado 1 influencia y puede usar Tiempo Extra una vez durante su activación sin gastar MP."
+      "text": "Una vez por turno durante la activación de este modelo, elige un modelo aliado que no sea Capitán dentro de 4″. El modelo elegido es asignado 1 influencia y puede usar Bonus Time una vez durante su activación sin gastar MP."
     },
     {
       "name": "Beautiful",
       "active": false,
-      "text": "Las Character Plays que hagan objetivo a este modelo reciben -5″ RNG."
+      "text": "Las Character Plays enemigas que hagan objetivo a este modelo reciben -5″ RNG."
     },
     {
       "name": "Protected",
@@ -15147,17 +15147,17 @@
     {
       "name": "Escaping Fate",
       "active": true,
-      "text": "Una vez por turno cuando los PS de este modelo lleguen a 0, excepto mientras hace un avance, antes de recibir la condición de Taken Out pueden curarse 1 PS, quitarse todas las condiciones, y hacer un Dodge de 2″."
+      "text": "Una vez por turno cuando los HP de este modelo lleguen a 0, excepto mientras hace un avance, antes de recibir la condición de Taken Out pueden curarse 1 HP, quitarse todas las condiciones, y hacer un Dodge de 2″."
     },
     {
       "name": "Nature's Growth",
       "active": true,
-      "text": "Al comienzo de la activación de este modelo, puede posicionar una AOE dentro de 8″ sin posicionarla en contacto con una pieza de escenografía. La AOE es un bosque y es removida durante la Fase Final."
+      "text": "Al comienzo de la activación de este modelo, puede posicionar una AOE dentro de 8″ sin posicionarla en contacto con una pieza de escenografía. La AOE es un bosque y es quitada durante la Fase Final."
     },
     {
       "name": "Nature's Chill",
       "active": true,
-      "text": "Al comienzo de la activación de este modelo, puede posicionar una AOE dentro de 8″ sin posicionarla en contacto con una pieza de escenografía. La AOE es un terreno rápido y es removida durante la Fase Final."
+      "text": "Al comienzo de la activación de este modelo, puede posicionar una AOE dentro de 8″ sin posicionarla en contacto con una pieza de escenografía. La AOE es un terreno rápido y es quitada durante la Fase Final."
     },
     {
       "name": "Bring Them Down",
@@ -15177,7 +15177,7 @@
     {
       "name": "Linked",
       "active": true,
-      "text": "Cuando la activación de este modelo termina, el modelo mencionado puede activar inmediatamente en caso de que pueda."
+      "text": "Cuando la activación de este modelo termina, el modelo aliado mencionado puede activar inmediatamente en caso de que pueda."
     },
     {
       "name": "Pack Mentality",
@@ -15187,12 +15187,12 @@
     {
       "name": "Big Game Traps",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede posicionar un Trap Marker dentro de 2″."
+      "text": "Una vez por turno durante la activación de este modelo, puede posicionar un Trap Marker aliado dentro de 2″."
     },
     {
       "name": "Unorthodox",
       "active": false,
-      "text": "Cuando este modelo hace un ataque exitoso contra un modelo que tenga la condición de Snared, puede agregar un {{dd}} a los resultados de la Playbook."
+      "text": "Cuando este modelo hace un ataque exitoso contra un modelo enemigo que tenga la condición de Snared, puede agregar un {{dd}} a los resultados de la Playbook."
     },
     {
       "name": "Mirage",
@@ -15227,7 +15227,7 @@
     {
       "name": "Ambush",
       "active": false,
-      "text": "Cuando sean cargados por este modelo, los modelos enemigos deben gastar un +1 MP para usar Postura Defensiva."
+      "text": "Cuando sean cargados por este modelo, los modelos enemigos deben gastar un +1 MP para usar Defensive Stance."
     },
     {
       "name": "Lone Hunter",
@@ -15242,7 +15242,7 @@
     {
       "name": "Making Space",
       "active": true,
-      "text": "Mientras que este modelo esté en la cancha, una vez por activación cuando un modelo aliado del gremio hace un pase, antes de elegir el receptor, otro modelo aliado del gremio puede hacer un Dodge de 4″. Cada modelo aliado solo puede hacer un Dodge una vez por turno por efecto de Making Space."
+      "text": "Mientras que este modelo esté en la cancha, una vez por activación cuando un modelo aliado del gremio hace un pase, antes de elegir el receptor, otro modelo aliado del gremio puede hacer un Dodge de 4″. Cada modelo aliado sólo puede hacer un Dodge una vez por turno por efecto de Making Space."
     },
     {
       "name": "Counter-Charge",
@@ -15257,7 +15257,7 @@
     {
       "name": "Put Me Back In, Coach!",
       "active": true,
-      "text": "Una vez por turno cuando este modelo recibe la condición de Taken Out, este modelo puede inmediatamente remover la condición de Taken Out y volver a la cancha como si fuera la Fase de Mantenimiento."
+      "text": "Una vez por turno cuando este modelo recibe la condición de Taken Out, este modelo puede inmediatamente quitar la condición de Taken Out y volver a la cancha como si fuera la Fase de Mantenimiento."
     },
     {
       "name": "Revelling",
@@ -15267,7 +15267,7 @@
     {
       "name": "Adaptive Strategy",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, elige otro modelo aliado dentro de este pulso. Remueve cualquier cantidad de influencia de un modelo aliado y alócala en el modelo elegido."
+      "text": "Una vez por turno durante la activación de este modelo, elige otro modelo aliado dentro de este pulso. Quita cualquier cantidad de influencia de un modelo aliado y asígnala en el modelo elegido."
     },
     {
       "name": "Family",
@@ -15282,7 +15282,7 @@
     {
       "name": "Team Player",
       "active": false,
-      "text": "Cuando un modelo aliado dentro de esta aura reciba daño, este modelo puede recibir el daño en su lugar. Cuando este modelo reciba daño por usar Team Player, todo el daño que exceda los PS de este modelo se le hace al modelo que recibió el ataque."
+      "text": "Cuando un modelo aliado dentro de esta aura reciba daño, este modelo puede recibir el daño en su lugar. Cuando este modelo reciba daño por usar Team Player, todo el daño que exceda los HP de este modelo se le hace al modelo que recibió el ataque."
     },
     {
       "name": "Extended Reach",
@@ -15332,7 +15332,7 @@
     {
       "name": "Grave Candle",
       "active": true,
-      "text": "Cuando un modelo aliado dentro de esta aura es reducido a 0 PS, antes de recibir la condición de Taken Out puede quitarse todas las condiciones y recuperar PS hasta su nivel de recuperación. Si lo hace, el equipo enemigo gana 2 VP."
+      "text": "Cuando un modelo aliado dentro de esta aura es reducido a 0 HP, antes de recibir la condición de Taken Out puede quitarse todas las condiciones y recuperar HP hasta su nivel de recuperación. Si lo hace, el equipo enemigo obtiene 2 VP."
     },
     {
       "name": "Creeping Dread",
@@ -15352,22 +15352,22 @@
     {
       "name": "One, Two!",
       "active": false,
-      "text": "Cuando este modelo hace un pase al modelo aliado mencionado, este modelo obtiene +2/+2″ KICK mientras haga el pase. Cuando el modelo mencionado recibe un pase exitoso de este modelo, el modelo mencionado puede gastar 1 MP menos para usar Pass & Move o hacer un Snap Shot."
+      "text": "Cuando este modelo hace un pase al modelo aliado mencionado, este modelo obtiene +2/+2″ KICK mientras haga el pase. Cuando el modelo aliado mencionado recibe un pase exitoso de este modelo, el modelo mencionado puede gastar 1 MP menos para usar Pass & Move o hacer un Snap Shot."
     },
     {
       "name": "Thought",
       "active": true,
-      "text": "Al comienzo de la activación de este modelo, si el modelo aliado mencionado tiene la condición de Taken Out sácale la condición de Taken Out y posiciónalo dentro de 2″ de este modelo con todos los PS."
+      "text": "Al comienzo de la activación de este modelo, si el modelo aliado mencionado tiene la condición de Taken Out sácale la condición de Taken Out y posiciónalo dentro de 2″ de este modelo con todos los HP."
     },
     {
       "name": "Benched",
       "active": false,
-      "text": "Este modelo no puede ser elegido para el equipo pero es añadido automáticamente cuando el modelo mencionado es elegido para el equipo. Este modelo no cuenta para el tamaño máximo del equipo."
+      "text": "Este modelo no puede ser elegido para el equipo pero es añadido automáticamente cuando el modelo aliado mencionado es elegido para el equipo. Este modelo no cuenta para el tamaño máximo del equipo."
     },
     {
       "name": "Inanimate Object",
       "active": false,
-      "text": "Este modelo no tiene una activación. Este modelo no genera VP cuando sufre la condición de Taken Out. Este modelo no vuelve al juego durante la Fase de Mantenimiento si tiene la condición de Taken Out."
+      "text": "Este modelo no tiene una activación. Este modelo no genera VP cuando recibe la condición de Taken Out. Este modelo no vuelve al juego durante la Fase de Mantenimiento si tiene la condición de Taken Out."
     },
     {
       "name": "Foul Odour",
@@ -15442,7 +15442,7 @@
     {
       "name": "Scores for Fun",
       "active": false,
-      "text": "Cuando este modelo hace un Shot durante su activación, el TN se reduce en 1."
+      "text": "Cuando este modelo hace un Shot durante su activación, el DT se reduce en 1."
     },
     {
       "name": "Playmaker",
@@ -15467,7 +15467,7 @@
     {
       "name": "Skilled within Shadow",
       "active": false,
-      "text": "Este modelo obtiene +2 TAC cuando ataca a un modelo que tenga cobertura."
+      "text": "Mientras que ataque a un modelo enemigo que se beneficie de cobertura, este modelo obtiene +2 TAC durante la duración del ataque."
     },
     {
       "name": "Haunting Melody",
@@ -15477,7 +15477,7 @@
     {
       "name": "Predatory Instinct",
       "active": false,
-      "text": "Cuando este modelo hace un ataque, si tiene más PS que el modelo al que ataca, el ataque recibe +1 impacto neto."
+      "text": "Cuando este modelo hace un ataque, si tiene más HP que el modelo al que ataca, el ataque recibe +1 impacto neto."
     },
     {
       "name": "Carrier",
@@ -15522,12 +15522,12 @@
     {
       "name": "Protect the Ball",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y removerlo de la cancha. Si lo hace, los modelos aliados dentro del pulso obtienen Close Control hasta el final del turno.\n{{trait 'Close Control'}}"
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, los modelos aliados dentro del pulso obtienen Close Control hasta el final del turno.\n{{trait 'Close Control'}}"
     },
     {
       "name": "Sheep Become the Shepherds",
       "active": false,
-      "text": "Si este modelo recibe la condición de Taken Out durante la Fase de Activación, los modelos aliados son alocados influencia hasta su máxima INF."
+      "text": "Si este modelo recibe la condición de Taken Out durante la Fase de Activación, los modelos aliados son asignados influencia hasta su máxima INF."
     },
     {
       "name": "Heartless Brute!",
@@ -15537,7 +15537,7 @@
     {
       "name": "Herding",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y removerlo de la cancha. Si lo hace, elige un modelo enemigo dentro de 3″. El modelo elegido sufre un Push de 3″."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, elige un modelo enemigo dentro de 3″. El modelo elegido recibe un Push de 3″."
     },
     {
       "name": "Littermates",
@@ -15547,7 +15547,7 @@
     {
       "name": "Matched Pair",
       "active": false,
-      "text": "Este modelo y el modelo aliado mencionado son tratados como un sólo Seguidor durante la selección del equipo. Mientras el modelo mencionado esté en la cancha, este modelo activa en simultáneo con el modelo mencionado. Cuando este modelo recibe la condición de Taken Out, el equipo enemigo obtiene 1 VP en vez de 2 VP."
+      "text": "Este modelo y el modelo aliado mencionado son tratados como un sólo Seguidor durante la selección del equipo. Mientras el modelo aliado mencionado esté en la cancha, este modelo activa en simultáneo con el modelo mencionado. Cuando este modelo recibe la condición de Taken Out, el equipo enemigo obtiene 1 VP en vez de 2 VP."
     },
     {
       "name": "Workhorse",
@@ -15557,7 +15557,7 @@
     {
       "name": "Baa-ttering Ram",
       "active": false,
-      "text": "Cuando este modelo realiza un avance, los modelos cuyas peanas queden en contacto base con base con la peana de este modelo reciben inmediatamente un Push de 4″ alejándose directamente de este modelo. Este modelo solo puede hacer Push a cada modelo una vez por turno con Baa-ttering Ram."
+      "text": "Cuando este modelo realiza un avance, los modelos cuyas peanas queden en contacto base con base con la peana de este modelo reciben inmediatamente un Push de 4″ alejándose directamente de este modelo. Este modelo sólo puede hacer Push a cada modelo una vez por turno con Baa-ttering Ram."
     },
     {
       "name": "Flock",
@@ -15577,7 +15577,7 @@
     {
       "name": "Shearing",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y removerlo de la cancha. Si lo hace, este modelo puede hacer un Dodge de 4″."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo puede hacer un Dodge de 4″."
     },
     {
       "name": "Do the Thing!",
@@ -15597,12 +15597,12 @@
     {
       "name": "Trusty Steed",
       "active": false,
-      "text": "Este modelo es tanto el Capitán como la Mascota de tu equipo. Este modelo da 2 VPs cuando recibe la condición de Taken Out. Avarisse no puede ser seleccionado como parte de tu equipo si este modelo es tu Capitán."
+      "text": "Este modelo es tanto el Capitán como la Mascota de su equipo. Este modelo da 2 VPs cuando recibe la condición de Taken Out. Avarisse no puede ser seleccionado como parte de su equipo si este modelo es su Capitán."
     },
     {
       "name": "Contract",
       "active": false,
-      "text": "Este modelo y el modelo aliado mencioando se consideran un solo Seguidor durante la selección del equipo. Mientras que el modelo aliado mencionado esté en la cancha, este modelo activa en simultáneo con él."
+      "text": "Este modelo y el modelo aliado mencionado se consideran un solo Seguidor durante la selección del equipo. Mientras que el modelo aliado mencionado esté en la cancha, este modelo activa en simultáneo con él."
     },
     {
       "name": "Drop Off",
@@ -15617,12 +15617,12 @@
     {
       "name": "Pick Up",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, si este modelo no tiene posesión de la pelota y esta en contacto base con base con el modelo Avarisse aliado, este modelo puede quitarse todas las condiciones que tenga y removerse de la cancha."
+      "text": "Una vez por turno durante la activación de este modelo, si este modelo no tiene posesión de la pelota y está en contacto base con base con el modelo Avarisse aliado, este modelo puede quitarse todas las condiciones que tenga y quitarse de la cancha."
     },
     {
       "name": "Ready to Go",
       "active": false,
-      "text": "Este modelo puede ser alocado influencia mientras que no esté en la cancha, y no es desplegado al comienzo de la partida."
+      "text": "Este modelo puede ser asignado influencia mientras que no esté en la cancha, y no es desplegado al comienzo de la partida."
     },
     {
       "name": "Back to Black",
@@ -15667,7 +15667,7 @@
     {
       "name": "Afterglow",
       "active": true,
-      "text": "Si este modelo tiene la condición de Burning, cuando un modelo aliado dentro de esta aura gasta MP, ese modelo puede curarse 2 PS. Cada modelo sólo puede curarse PS por efecto de Afterglow una vez por turno."
+      "text": "Si este modelo tiene la condición de Burning, cuando un modelo aliado dentro de esta aura gasta MP, ese modelo puede curarse 2 HP. Cada modelo sólo puede curarse HP por efecto de Afterglow una vez por turno."
     },
     {
       "name": "Now You See Me...",
@@ -15682,7 +15682,7 @@
     {
       "name": "Flash Point",
       "active": false,
-      "text": "Quita la condición de Burning de este modelo. Si lo haces, los modelos enemigos dentro de este pulso reciben -1″/-1″ MOV."
+      "text": "Quita la condición de Burning de este modelo. Si lo hace, los modelos enemigos dentro de este pulso reciben -1″/-1″ MOV."
     },
     {
       "name": "Who's a Good Boy",
@@ -15692,7 +15692,7 @@
     {
       "name": "Prodigy",
       "active": true,
-      "text": "Una vez por turno cuando este modelo obtiene posesión de la pelota este modelo es alocado 1 influencia."
+      "text": "Una vez por turno cuando este modelo obtiene posesión de la pelota este modelo es asignado 1 influencia."
     },
     {
       "name": "Untouchable",
@@ -15712,12 +15712,12 @@
     {
       "name": "Fusion",
       "active": false,
-      "text": "Una vez por turno durante la activación de este modelo, puede remover la condición de Burning o la condición de Poison de otro modelo dentro de 4″. Si lo hace, los modelos dentro de este pulso reciben la condición de Burning."
+      "text": "Una vez por turno durante la activación de este modelo, puede quitar la condición de Burning o la condición de Poison de otro modelo dentro de 4″. Si lo hace, los modelos dentro de este pulso reciben la condición de Burning."
     },
     {
       "name": "Rejuvenation",
       "active": false,
-      "text": "Cuando un modelo aliado dentro de esta aura se cura PS, se cura 1 PS adicional."
+      "text": "Cuando un modelo aliado dentro de esta aura se cura HP, se cura 1 HP adicional."
     },
     {
       "name": "Showboater",
@@ -15727,7 +15727,7 @@
     {
       "name": "Repointing",
       "active": false,
-      "text": "Este modelo puede gastar influencia alocada en otros modelos aliados dentro de esta aura para pagar el CST de Character Play."
+      "text": "Este modelo puede gastar influencia asignada en otros modelos aliados dentro de esta aura para pagar el CST de Character Play."
     },
     {
       "name": "Dread Omen",
@@ -15742,7 +15742,7 @@
     {
       "name": "Confidence",
       "active": true,
-      "text": "Una vez durante la activación de este modelo, puedes elegir un modelo aliado dentro de 4″. El modelo elegido puede volver a tirar cualquier cantidad de dados de la próxima tirada que haga el modelo este turno."
+      "text": "Una vez durante la activación de este modelo, puede elegir un modelo aliado dentro de 4″. El modelo elegido puede volver a tirar cualquier cantidad de dados de la próxima tirada que haga el modelo este turno."
     },
     {
       "name": "Rabid Frenzy",
@@ -15752,7 +15752,7 @@
     {
       "name": "Verminthirst",
       "active": false,
-      "text": "Cuando otro modelo recibe la condición de Taken Out dentro de esta aura, después de que la acción actual sea resuelta, este modelo puede curarse 2 PS."
+      "text": "Cuando otro modelo recibe la condición de Taken Out dentro de esta aura, después de que la acción actual sea resuelta, este modelo puede curarse 2 HP."
     },
     {
       "name": "Stealthy",
@@ -15762,7 +15762,7 @@
     {
       "name": "Poisoner",
       "active": false,
-      "text": "Cada vez que este modelo haga un dodge, después de la que la acción sea resuelta, elige un modelo enemigo dentro de 4″. El modelo elegido recibe la condición de Poison."
+      "text": "Cada vez que este modelo haga un dodge, después de que la acción sea resuelta, elige un modelo enemigo dentro de 4″. El modelo elegido recibe la condición de Poison."
     },
     {
       "name": "Chameleon",
@@ -15772,7 +15772,7 @@
     {
       "name": "Subsistence",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y removerlo de la cancha. Si lo hace, este modelo puede curarse 4 PS."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo puede curarse 4 HP."
     },
     {
       "name": "Bends... But Never Breaks",
@@ -15782,7 +15782,7 @@
     {
       "name": "Caber Toss",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puedes elegir un Log Pile aliado dentro de 1″ de este modelo. Posiciona el otro Log Pile dentro de 4″ de este modelo."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Log Pile aliado dentro de 1″ de este modelo. Posiciona el otro Log Pile dentro de 4″ de este modelo."
     },
     {
       "name": "Splitting Strikes",
@@ -15807,7 +15807,7 @@
     {
       "name": "Putting Out Fires",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, elige un Log Pile aliado y remueve cualquier cantidad de influencia de modelos aliados dentro de 4″ del Log Pile elegido. Luego, aloca la influencia removida entre otros modelos aliados dentro de 4″ del Log Pile elegido."
+      "text": "Una vez por turno durante la activación de este modelo, elige un Log Pile aliado y quita cualquier cantidad de influencia de modelos aliados dentro de 4″ del Log Pile elegido. Luego, asigna la influencia quitada entre otros modelos aliados dentro de 4″ del Log Pile elegido."
     },
     {
       "name": "Den Protector",
@@ -15817,7 +15817,7 @@
     {
       "name": "Hunker Down",
       "active": false,
-      "text": "Una vez por turno, mientras este modelo esté dentro de 1″ de un Log Pile, puede usar Encourage sin gastar MP."
+      "text": "Una vez por turno, mientras este modelo esté dentro de 1″ de un Log Pile aliado, puede usar Encourage sin gastar MP."
     },
     {
       "name": "Sibling Rivalry",
@@ -15827,7 +15827,7 @@
     {
       "name": "Specialised Equipment",
       "active": false,
-      "text": "Este modelo no puede ser elegido para el equipo pero es añadido automáticamente cuando los modelos mencionados son elegidos para el equipo. Este modelo no cuenta para el tamaño máximo del equipo."
+      "text": "Este modelo no puede ser elegido para el equipo pero es añadido automáticamente cuando los modelos aliados mencionados son elegidos para el equipo. Este modelo no cuenta para el tamaño máximo del equipo."
     },
     {
       "name": "Early Risers",
@@ -15837,12 +15837,12 @@
     {
       "name": "Job's a Good'un",
       "active": false,
-      "text": "Cuando este modelo recibe la condición de Taken Out como resultado de un ataque o Character Play, los modelos enemigos dentro de la Melee Zone reciben la condición de Knocked Down. Después de remover a este modelo de la cancha, reemplaza la carta de este modelo por las cartas de Cross y Cut."
+      "text": "Cuando este modelo recibe la condición de Taken Out como resultado de un ataque o Character Play enemiga, los modelos enemigos dentro de la Melee Zone reciben la condición de Knocked Down. Después de quitar a este modelo de la cancha, reemplaza la carta de este modelo por las cartas de Cross y Cut."
     },
     {
       "name": "Victory Toast",
       "active": true,
-      "text": "Cuando este modelo hace un gol, obtiene un Beer Token. Además, este modelo puede usar Beer Tokens para usar Rest."
+      "text": "Cuando este modelo hace un gol, obtiene 1 Beer Token. Además, este modelo puede usar Beer Tokens para usar Rest."
     },
     {
       "name": "Brute Force",
@@ -15862,7 +15862,7 @@
     {
       "name": "Take the Lead",
       "active": false,
-      "text": "Una vez por turno cuando este modelo es hecho objetivo de un pase o Play, este modelo es alocado 1 influencia."
+      "text": "Una vez por turno cuando este modelo es hecho objetivo de un pase o Play aliado, este modelo es asignado 1 influencia."
     },
     {
       "name": "Poltergeists",
@@ -15877,7 +15877,7 @@
     {
       "name": "Brutal",
       "active": false,
-      "text": "Cuando este modelo hace una carga, el este modelo puede agregar un {{2}} adicional a los resultados de la Playbook."
+      "text": "Cuando este modelo hace una carga, este modelo puede agregar un {{2}} adicional a los resultados de la Playbook."
     },
     {
       "name": "Finisher",
