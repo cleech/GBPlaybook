@@ -28,6 +28,7 @@ interface FileTask {
   isGameplan: boolean;
   content?: string;
   actualHash?: string;
+  baseFilename?: string;
 }
 
 // --- Reporter ---
@@ -95,8 +96,9 @@ function flattenManifest(manifest: Manifest): FileTask[] {
 
   // Datafiles
   for (const entry of manifest.datafiles) {
+    const baseFilename = entry.filename;
     tasks.push({
-      filename: entry.filename,
+      filename: baseFilename,
       version: entry.version,
       expectedHash: entry.sha256,
       expectedTimestamp: entry.timestamp,
@@ -110,14 +112,16 @@ function flattenManifest(manifest: Manifest): FileTask[] {
         expectedHash: trans.sha256,
         expectedTimestamp: trans.timestamp,
         isGameplan: false,
+        baseFilename,
       });
     }
   }
 
   // Gameplans
   for (const entry of manifest.gameplans ?? []) {
+    const baseFilename = entry.filename;
     tasks.push({
-      filename: entry.filename,
+      filename: baseFilename,
       version: entry.version,
       expectedHash: entry.sha256,
       expectedTimestamp: entry.timestamp,
@@ -132,6 +136,7 @@ function flattenManifest(manifest: Manifest): FileTask[] {
           expectedHash: trans.sha256,
           expectedTimestamp: trans.timestamp,
           isGameplan: true,
+          baseFilename,
         });
       }
     }
@@ -165,7 +170,76 @@ function checkManifestTimestamp(manifest: Manifest, tasks: FileTask[]) {
   reporter.log("# Checking manifest timestamp is current", ok, msg);
 }
 
-async function validateFile(db: GBDatabase, task: FileTask) {
+async function validateTranslation(task: FileTask, tasks: FileTask[]) {
+  const baseTask = tasks.find(t => t.filename === task.baseFilename);
+  if (!baseTask || !baseTask.content || !task.content) return;
+
+  const baseJson = JSON.parse(baseTask.content);
+  const transJson = JSON.parse(task.content);
+  const diffs: string[] = [];
+
+  const compareObjects = (base: any, trans: any, path: string, localizableFields: string[]) => {
+    if (!base || !trans || typeof base !== 'object' || typeof trans !== 'object') {
+      if (base !== trans) {
+        diffs.push(`Value mismatch at ${path}: expected ${base}, got ${trans}`);
+      }
+      return;
+    }
+
+    const baseKeys = Object.keys(base).sort();
+    const transKeys = Object.keys(trans).sort();
+
+    if (JSON.stringify(baseKeys) !== JSON.stringify(transKeys)) {
+      diffs.push(`Keys mismatch at ${path}: expected [${baseKeys}], got [${transKeys}]`);
+      return;
+    }
+
+    for (const key of baseKeys) {
+      const currentPath = path ? `${path}.${key}` : key;
+      const baseVal = base[key];
+      const transVal = trans[key];
+
+      if (localizableFields.includes(key)) {
+        if (typeof baseVal !== typeof transVal) {
+          diffs.push(`Type mismatch at ${currentPath}: expected ${typeof baseVal}, got ${typeof transVal}`);
+        }
+        continue;
+      }
+
+      if (typeof baseVal !== typeof transVal) {
+        diffs.push(`Type mismatch at ${currentPath}: expected ${typeof baseVal}, got ${typeof transVal}`);
+      } else if (Array.isArray(baseVal)) {
+        if (!Array.isArray(transVal) || baseVal.length !== transVal.length) {
+          diffs.push(`Array length mismatch at ${currentPath}: expected ${baseVal.length}, got ${transVal?.length}`);
+        } else {
+          baseVal.forEach((v, i) => {
+            if (typeof v === 'object' && v !== null) {
+              compareObjects(v, transVal[i], `${currentPath}[${i}]`, localizableFields);
+            } else if (v !== transVal[i]) {
+              diffs.push(`Value mismatch at ${currentPath}[${i}]: expected ${v}, got ${transVal[i]}`);
+            }
+          });
+        }
+      } else if (typeof baseVal === 'object' && baseVal !== null) {
+        compareObjects(baseVal, transVal, currentPath, localizableFields);
+      } else if (baseVal !== transVal) {
+        diffs.push(`Value mismatch at ${currentPath}: expected ${baseVal}, got ${transVal}`);
+      }
+    }
+  };
+
+  if (task.isGameplan) {
+    compareObjects(baseJson, transJson, "", ["title", "text", "detail"]);
+  } else {
+    // Season data localizable fields
+    const localFields = ["text", "legendary", "heroic", "types", "detail"];
+    compareObjects(baseJson, transJson, "", localFields);
+  }
+
+  reporter.log(`# Validating translation integrity against ${task.baseFilename}`, diffs.length === 0, diffs.join("\n"));
+}
+
+async function validateFile(db: GBDatabase, task: FileTask, tasks: FileTask[]) {
   console.log(`\n\n--- Processing: ${task.filename} ---`);
   console.log(`# Type: ${task.isGameplan ? "Gameplan" : "Season"} v${task.version}`);
 
@@ -173,7 +247,12 @@ async function validateFile(db: GBDatabase, task: FileTask) {
   const hashOk = task.actualHash === task.expectedHash;
   reporter.log("# Checking SHA256 hash", hashOk, hashOk ? undefined : `Expected ${task.expectedHash}\nActual   ${task.actualHash}`);
 
-  if (task.isGameplan) return; // Gameplans only check hash for now
+  // 2. Translation Integrity Check
+  if (task.baseFilename) {
+    await validateTranslation(task, tasks);
+  }
+
+  if (task.isGameplan) return; // Gameplans only check hash and translation integrity for now
 
   // 2. Schema Load
   await clearGBDatabase(db);
@@ -298,7 +377,7 @@ async function main() {
   // File-by-file checks
   const db = await getGBDatabase();
   for (const task of tasks) {
-    await validateFile(db, task);
+    await validateFile(db, task, tasks);
   }
 
   reporter.printSummary();

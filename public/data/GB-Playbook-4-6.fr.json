@@ -13351,7 +13351,7 @@
     {
       "name": "With Aplomb",
       "text": "La prochaine fois que ce modèle marque un but, l'équipe alliée marquera +1 VP.",
-      "CST": "CP2",
+      "CST": "CP",
       "RNG": "S",
       "SUS": true,
       "OPT": true
