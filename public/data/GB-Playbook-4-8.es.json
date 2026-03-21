@@ -1497,7 +1497,7 @@
       "character_traits": [
         "Get Over Here [Iron]"
       ],
-      "legendary": "Tong in Cheek [Pulso de 6″]\nEste modelo obtiene +2″ /+2″ MOV.\n\nSi este modelo es el Capitán, los modelos aliados dentro de este pulso también obtienen +2″ /+2″ MOV.",
+      "legendary": "Tong in Cheek [Pulso de 6″]\nEste modelo obtiene +2″/+2″ MOV.\n\nSi este modelo es el Capitán, los modelos aliados dentro de este pulso también obtienen +2″/+2″ MOV.",
       "types": "Raed, Humano, Mujer, \nDelantero,\nMaestro, Seguidor",
       "playbook": [
         [
@@ -2707,7 +2707,7 @@
         "Close Control",
         "Football Legend [4″ Aura]"
       ],
-      "heroic": "Back to His Best\nEste modelo obtiene +2″ /+2″ MOV. Una vez por turno durante su activación, este modelo puede hacer un pase sin gastar influencia.",
+      "heroic": "Back to His Best\nEste modelo obtiene +2″/+2″ MOV. Una vez por turno durante su activación, este modelo puede hacer un pase sin gastar influencia.",
       "types": "Raed, Humano, Hombre, \nDelantero,\nVeterano, Seguidor",
       "playbook": [
         [
@@ -3496,7 +3496,7 @@
       "character_traits": [
         "Hooked"
       ],
-      "heroic": "Sanguine Pool [Pulso de 3″]\nLos modelos enemigos dentro de este pulso que tengan la condición de Bleed obtienen -4″ /-4″ MOV.",
+      "heroic": "Sanguine Pool [Pulso de 3″]\nLos modelos enemigos dentro de este pulso que tengan la condición de Bleed obtienen -4″/-4″ MOV.",
       "types": "Erskirii, Humano, Mujer, \nEnganche,\nSeguidor",
       "playbook": [
         [
@@ -5233,7 +5233,7 @@
         "Light Footed",
         "Showboater"
       ],
-      "legendary": "Caught in a Net [Pulso de 6″]\nLos modelos enemigos dentro de este pulso reciben -4″ /-4″ MOV.",
+      "legendary": "Caught in a Net [Pulso de 6″]\nLos modelos enemigos dentro de este pulso reciben -4″/-4″ MOV.",
       "types": "Eisnoran, Humano, Hombre, \nDelantero,\nCapitán",
       "playbook": [
         [
@@ -8872,7 +8872,7 @@
         "Foul Odour [3″ Aura]",
         "Resilience"
       ],
-      "heroic": "Fangtooth Unleashed\nEste modelo recibe 4 DAÑO y obtiene +2″ /+2″ MOV y +1 DAÑO a las Character Plays que causan daño y a los resultados de daño de la Playbook.",
+      "heroic": "Fangtooth Unleashed\nEste modelo recibe 4 DAÑO y obtiene +2″/+2″ MOV y +1 DAÑO a las Character Plays que causan daño y a los resultados de daño de la Playbook.",
       "types": "Ethraynnian, Humano, Hombre, \nVolante,\nSeguidor",
       "playbook": [
         [
@@ -12348,7 +12348,7 @@
     },
     {
       "name": "Raging Fire",
-      "text": "El modelo aliado del gremio objetivo obtiene Inferno.",
+      "text": "El modelo aliado del gremio objetivo obtiene Inferno.\n{{trait 'Inferno'}}",
       "CST": 2,
       "RNG": 6,
       "SUS": true,
@@ -12364,7 +12364,7 @@
     },
     {
       "name": "Blind",
-      "text": "El modelo objetivo enemigo recibe -2 TAC, -2/-2″ KICK, y -2″ /-2″ MOV.",
+      "text": "El modelo objetivo enemigo recibe -2 TAC, -2/-2″ KICK, y -2″/-2″ MOV.",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -12372,7 +12372,7 @@
     },
     {
       "name": "Noxious Blast",
-      "text": "Posiciona una AOE duradera dentro del alcance.\nLos modelos impactados reciben 2 DAÑO y la condición de Poison.\nLos modelos entrando o que terminen su activación dentro de esta AOE reciben la condición de Poison.",
+      "text": "Posiciona una AOE duradera dentro del alcance. Los modelos impactados reciben 2 DAÑO y la condición de Poison. Los modelos entrando o que terminen su activación dentro de esta AOE reciben la condición de Poison.",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": false,
@@ -12380,7 +12380,7 @@
     },
     {
       "name": "Sticky Bomb",
-      "text": "Posiciona una AOE duradera dentro del alcance.\nLos modelos enemigos impactados reciben -2″ /-2″ MOV y la condición de Poison.\nLos modelos entrando o que terminen su activación dentro de esta AOE reciben la condición de Poison.",
+      "text": "Posiciona una AOE duradera dentro del alcance. Los modelos enemigos impactados reciben -2″/-2″ MOV y la condición de Poison. Los modelos entrando o que terminen su activación dentro de esta AOE reciben la condición de Poison.",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": true,
@@ -12436,7 +12436,7 @@
     },
     {
       "name": "Fire Blast",
-      "text": "Posiciona una AOE duradera dentro del alcance.\nLos modelos impactados sufre 2 DAÑO y la condición de Burning. Los modelos que entren o terminen su activación dentro de esta AOE durante reciben la condición de Burning.",
+      "text": "Posiciona una AOE duradera dentro del alcance. Los modelos impactados sufre 2 DAÑO y la condición de Burning. Los modelos que entren o terminen su activación dentro de esta AOE durante reciben la condición de Burning.",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": false,
@@ -12492,7 +12492,7 @@
     },
     {
       "name": "Flame Belch",
-      "text": "Posiciona una AOE duradera dentro del alcance.\nLos modelos impactados reciben 4 DAÑO y la condición de Burning.\nLos modelos entrando o que terminen su activación dentro de esta AOE reciben la condición de Burning.",
+      "text": "Posiciona una AOE duradera dentro del alcance. Los modelos impactados reciben 4 DAÑO y la condición de Burning.\nLos modelos entrando o que terminen su activación dentro de esta AOE reciben la condición de Burning.",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -12524,7 +12524,7 @@
     },
     {
       "name": "Quick Foot",
-      "text": "El modelo objetivo aliado obtiene +2″ /+2″ MOV.",
+      "text": "El modelo objetivo aliado obtiene +2″/+2″ MOV.",
       "CST": 2,
       "RNG": 4,
       "SUS": true,
@@ -12660,7 +12660,7 @@
     },
     {
       "name": "Impetus",
-      "text": "Este modelo obtiene +2″ /+2″ MOV.",
+      "text": "Este modelo obtiene +2″/+2″ MOV.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12692,7 +12692,7 @@
     },
     {
       "name": "Marked Target",
-      "text": "Cuando un modelo aliado hace una carga contra el modelo enemigo objetivo, el modelo aliado obtiene +0″ /+2″ MOV mientras hace la carga.",
+      "text": "Cuando un modelo aliado hace una carga contra el modelo enemigo objetivo, el modelo aliado obtiene +0″/+2″ MOV mientras hace la carga.",
       "CST": "1,CP",
       "RNG": 10,
       "SUS": true,
@@ -12852,7 +12852,7 @@
     },
     {
       "name": "Rabid Animal",
-      "text": "El modelo enemigo objetivo recibe -4″ /-4″ MOV y la condición de Poison.",
+      "text": "El modelo enemigo objetivo recibe -4″/-4″ MOV y la condición de Poison.",
       "CST": "CP2",
       "RNG": "P",
       "SUS": true,
@@ -12924,7 +12924,7 @@
     },
     {
       "name": "Get Set, BAKE!",
-      "text": "Los modelos aliados que empiecen un avance a 2″ del modelo aliado objetivo obtienen +2″ /+2″ MOV.",
+      "text": "Los modelos aliados que empiecen un avance a 2″ del modelo aliado objetivo obtienen +2″/+2″ MOV.",
       "CST": 2,
       "RNG": 4,
       "SUS": true,
@@ -13140,7 +13140,7 @@
     },
     {
       "name": "Taking Flight",
-      "text": "Este modelo puede hacer un Jog y recibe +2″ /+2″ MOV mientras que dure el avance.",
+      "text": "Este modelo puede hacer un Jog y recibe +2″/+2″ MOV mientras que dure el avance.",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13332,7 +13332,7 @@
     },
     {
       "name": "Raise the Black Flag",
-      "text": "El modelo enemigo objetivo recibe -2″ /-2″ MOV. Elige un modelo aliado dentro de 6″. El modelo aliado elegido obtiene +2″ /+2″ MOV.",
+      "text": "El modelo enemigo objetivo recibe -2″/-2″ MOV. Elige un modelo aliado dentro de 6″. El modelo aliado elegido obtiene +2″/+2″ MOV.",
       "CST": "CP",
       "RNG": 6,
       "SUS": true,
@@ -13460,7 +13460,7 @@
     },
     {
       "name": "Gut & String",
-      "text": "El modelo enemigo objetivo recibe -2″ /-2″ MOV y -1 DEF.",
+      "text": "El modelo enemigo objetivo recibe -2″/-2″ MOV y -1 DEF.",
       "CST": "CP",
       "RNG": "P",
       "SUS": true,
@@ -13596,7 +13596,7 @@
     },
     {
       "name": "Lockdown",
-      "text": "El modelo enemigo objetivo recibe -4″ /-4″ MOV.",
+      "text": "El modelo enemigo objetivo recibe -4″/-4″ MOV.",
       "CST": "CP",
       "RNG": "P",
       "SUS": true,
@@ -13692,7 +13692,7 @@
     },
     {
       "name": "Heavy Burden",
-      "text": "El modelo enemigo objetivo recibe -4″ /-4″ MOV y -2 a dados a la tirada cuando haga Character Plays.",
+      "text": "El modelo enemigo objetivo recibe -4″/-4″ MOV y -2 a dados a la tirada cuando haga Character Plays.",
       "CST": "1,CP",
       "RNG": 6,
       "SUS": true,
@@ -13764,7 +13764,7 @@
     },
     {
       "name": "Full Speed Ahead",
-      "text": "El modelo objetivo aliado obtiene +0″ /+2″ MOV y puede hacer un Sprint o cargar sin gastar influencia durante su activación.",
+      "text": "El modelo objetivo aliado obtiene +0″/+2″ MOV y puede hacer un Sprint o cargar sin gastar influencia durante su activación.",
       "CST": 2,
       "RNG": 4,
       "SUS": true,
@@ -13780,7 +13780,7 @@
     },
     {
       "name": "Grasping Earth",
-      "text": "El modelo enemigo objetivo recibe -2″ /-2″ MOV.",
+      "text": "El modelo enemigo objetivo recibe -2″/-2″ MOV.",
       "CST": "1,CP",
       "RNG": 6,
       "SUS": true,
@@ -13956,7 +13956,7 @@
     },
     {
       "name": "Constrict",
-      "text": "El modelo enemigo objetivo recibe -4″ /-4″ MOV.",
+      "text": "El modelo enemigo objetivo recibe -4″/-4″ MOV.",
       "CST": "CP",
       "RNG": "P",
       "SUS": true,
@@ -14060,7 +14060,7 @@
     },
     {
       "name": "Pick of the Crop",
-      "text": "Cuando un modelo aliado hace una carga contra el modelo enemigo objetivo, el modelo aliado obtiene +0″ /+2″ MOV y puede mover por sobre marcadores de cosecha sin quitarlos de la cancha.",
+      "text": "Cuando un modelo aliado hace una carga contra el modelo enemigo objetivo, el modelo aliado obtiene +0″/+2″ MOV y puede mover por sobre marcadores de cosecha sin quitarlos de la cancha.",
       "CST": "1,CP",
       "RNG": 10,
       "SUS": true,
@@ -14140,7 +14140,7 @@
     },
     {
       "name": "Cut Em Down",
-      "text": "Los modelos enemigos que estén dentro de la Melee Zone de este modelo reciben -1 DEF y -2″ /-2″ MOV.",
+      "text": "Los modelos enemigos que estén dentro de la Melee Zone de este modelo reciben -1 DEF y -2″/-2″ MOV.",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
@@ -14204,7 +14204,7 @@
     },
     {
       "name": "Crumb Boss [Cut]",
-      "text": "Si el modelo aliado mencionado objetivo está dentro de 4″ de un Log Pile aliado, se aloca 2 influencia y obtiene +1″ /+1″ MOV.",
+      "text": "Si el modelo aliado mencionado objetivo está dentro de 4″ de un Log Pile aliado, se aloca 2 influencia y obtiene +1″/+1″ MOV.",
       "CST": "CP",
       "RNG": 4,
       "SUS": true,
@@ -14777,7 +14777,7 @@
     {
       "name": "Damaged Target",
       "active": false,
-      "text": "Este modelo obtiene +0″ /+2″ MOV durante la duración de la carga cuando cargue a un enemigo que esté dañado."
+      "text": "Este modelo obtiene +0″/+2″ MOV durante la duración de la carga cuando cargue a un enemigo que esté dañado."
     },
     {
       "name": "Goal Defence",
@@ -14887,7 +14887,7 @@
     {
       "name": "Roulette",
       "active": true,
-      "text": "Al comienzo de la activación de este modelo, elige un efecto. El efecto elegido dura hasta el final de la activación de este modelo.\n- Este modelo obtiene +1″ /+1″ MOV.\n- Este modelo obtiene +1 TAC.\n- Este modelo obtiene +0/+2″ KICK."
+      "text": "Al comienzo de la activación de este modelo, elige un efecto. El efecto elegido dura hasta el final de la activación de este modelo.\n- Este modelo obtiene +1″/+1″ MOV.\n- Este modelo obtiene +1 TAC.\n- Este modelo obtiene +0/+2″ KICK."
     },
     {
       "name": "Fixer",
@@ -15062,7 +15062,7 @@
     {
       "name": "Big Breakfast",
       "active": true,
-      "text": "Una vez por turno al comienzo de la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y removerlo de la cancha. Si lo hace, este modelo es alocado 1 influencia y obtiene +2″ /+2″ MOV hasta el final del turno."
+      "text": "Una vez por turno al comienzo de la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y removerlo de la cancha. Si lo hace, este modelo es alocado 1 influencia y obtiene +2″/+2″ MOV hasta el final del turno."
     },
     {
       "name": "Empathy",
@@ -15122,7 +15122,7 @@
     {
       "name": "Cover of Darkness",
       "active": false,
-      "text": "Cuando este modelo empiece un avance moentras esté en cobertura, obtiene +2″ /+2″ MOV por la duración del avance."
+      "text": "Cuando este modelo empiece un avance moentras esté en cobertura, obtiene +2″/+2″ MOV por la duración del avance."
     },
     {
       "name": "Poised",
@@ -15217,7 +15217,7 @@
     {
       "name": "Winter's Blessing",
       "active": false,
-      "text": "Cuando este modelo hace un avance, ignora la penalización al MOV por terreno difícil. Cuando este modelo se mueve dentro de una o más terrenos difíciles en un avance, obtiene +2″ /+2″ MOV mientras dure el avance."
+      "text": "Cuando este modelo hace un avance, ignora la penalización al MOV por terreno difícil. Cuando este modelo se mueve dentro de una o más terrenos difíciles en un avance, obtiene +2″/+2″ MOV mientras dure el avance."
     },
     {
       "name": "Heightened Senses",
@@ -15682,7 +15682,7 @@
     {
       "name": "Flash Point",
       "active": false,
-      "text": "Quita la condición de Burning de este modelo. Si lo haces, los modelos enemigos dentro de este pulso reciben -1″ /-1″ MOV."
+      "text": "Quita la condición de Burning de este modelo. Si lo haces, los modelos enemigos dentro de este pulso reciben -1″/-1″ MOV."
     },
     {
       "name": "Who's a Good Boy",
