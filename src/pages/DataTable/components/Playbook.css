@@ -1,0 +1,65 @@
+.vpb-container {
+  --size: 30px;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* padding: 4px; */
+}
+
+.vpb-grid {
+  font-size: var(--size);
+  grid-template-columns: repeat(7, var(--size));
+  gap: calc(var(--size) / 10);
+  display: grid;
+}
+
+.vpb-result {
+  width: var(--size);
+  height: var(--size);
+  border-radius: 25%;
+  box-sizing: border-box;
+  border: 1px solid black;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.1em;
+  gap: 0.05em;
+  flex-direction: column;
+}
+
+.vpb-result svg {
+  fill: black;
+}
+
+.vpb-result.vpb-momentus {
+  border-color: var(--mom-border-color, black);
+  background-color: var(--mom-color, var(--team-color));
+}
+
+.vpb-result.vpb-momentus svg {
+  fill: white;
+}
+
+.vpb-result.vpb-spacer {
+  border: none;
+  background-color: transparent;
+}
+
+/* Compound/Lucky playbook gradients */
+
+.vpb-container.Compound .vpb-result.vpb-momentus {
+  background-image: linear-gradient(
+    to right,
+    var(--guild1-color) calc((1 - var(--col)) * 100%),
+    var(--guild2-color) calc((5 - var(--col)) * 100%)
+  );
+}
+
+.vpb-container.Lucky .vpb-result.vpb-momentus {
+  background-image: linear-gradient(
+    to right,
+    var(--guild2-color) calc((0 - var(--col)) * 100%),
+    var(--guild1-color) calc((4 - var(--col)) * 100%)
+  );
+}

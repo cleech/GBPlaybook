@@ -21,6 +21,7 @@ import GBIcon from "../../components/GBIcon";
 import { GBModelExpanded } from "../../models/gbdbTypes";
 import { DoubleCard } from '../../components/DoubleCard';
 import { DoubleRangeSlider } from './components/DoubleRangeSlider';
+import { Playbook } from "./components/Playbook";
 
 const columns: MRT_ColumnDef<GBModelExpanded>[] = [
   {
@@ -274,17 +275,7 @@ const columns: MRT_ColumnDef<GBModelExpanded>[] = [
     header: 'Playbook',
     id: 'playbook',
     accessorKey: 'playbook',
-    Cell: ({ cell }) => {
-      const pb = cell.getValue<string[][]>();
-      return (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(7, 4em)',
-        }}>
-          {pb.flat().map((result, i) => <span key={`${cell.id}-${i}`}>{result}</span>)}
-        </div>
-      )
-    }
+    Cell: ({ row }) => <Playbook model={row.original} size={30} />,
   },
 ];
 
