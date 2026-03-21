@@ -14028,7 +14028,7 @@
     },
     {
       "name": "Careless Whisper",
-      "text": "Place a whisper token on target enemy model.\nFriendly non-Captain models gain +2 TAC when attacking an enemy model with a whisper token.\nWhisper tokens are only removed when the target model suffers the taken out condition",
+      "text": "Place a whisper token on target enemy model.\nFriendly non-Captain models gain +2 TAC when attacking an enemy model with a whisper token.\nWhisper tokens are only removed when the target model suffers the taken out condition.",
       "CST": "2,CP",
       "RNG": 7,
       "SUS": false,
