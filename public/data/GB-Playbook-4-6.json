@@ -13486,7 +13486,7 @@
     },
     {
       "name": "Guard the Flock",
-      "text": "Target friendly model gains Protective Instinct.\n(While engaging this model, an enemy model can't declare an attack against any other friendly model.)",
+      "text": "Target friendly model gains Protective Instinct.\n{{trait 'Protective Instinct'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,

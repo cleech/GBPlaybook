@@ -10,7 +10,7 @@
 
 /* Like We Practised is a super long title */
 .Flea .LikeWePractised .name {
-  font-size: calc(6.7pt * 200/96);
+  font-size: calc(6.5pt * 200/96);
 }
 
 /* Make play and trait text fit */
@@ -99,3 +99,95 @@
   max-height: 0.2em !important;
 }
 
+/* !!!!!! */
+.Smoke:lang(es) .character-plays .text {
+  font-size: calc(6.5pt * 200/96);
+  letter-spacing: -0.7px;
+}
+.Burnish:lang(es) .character-plays {
+  & .flex-space {
+    max-height: 0.2em !important;
+  }
+}
+.Cutlass:lang(es) .character-plays .text {
+  font-size: calc(6.8pt * 200/96);
+}
+.Tapper:lang(es) .character-plays {
+  & .flex-space {
+    max-height: 0.1em !important;
+  }
+}
+.vSpigot:lang(es) .character-plays {
+  & .flex-space {
+    max-height: 0.2em !important;
+  }
+}
+.Ballista:lang(es) .Minefield .text {
+  font-size: calc(6.8pt *200/96);
+  letter-spacing: -0.2px;
+}
+.Peck:lang(es) .character-plays {
+  & .flex-space {
+    max-height: 0.2em !important;
+  }
+}
+.Theron:lang(es) .character-plays .text {
+  font-size: calc(6.8pt *200/96);
+}
+.Skatha:lang(es) .character-plays .text {
+  font-size: calc(6.6pt * 200/96);
+  letter-spacing: -0.5px;
+}
+.Chaska:lang(es) .character-plays {
+  & .flex-space {
+    max-height: 0.2em !important;
+  }
+}
+.Nightlight:lang(es) {
+  & .character-trait .text {
+    font-size: calc(6.6pt * 200/96);
+    letter-spacing: -0.5px;
+  }
+  & .legendary > span {
+    font-size: calc(6.6pt * 200/96);
+    letter-spacing: -0.5px;
+  }
+}
+.Oak:lang(es) {
+  & .character-trait .text {
+    font-size: calc(6.8pt * 200/96);
+    letter-spacing: -0.4px;
+  }
+  & .legendary > span {
+    font-size: calc(6.8pt * 200/96);
+  }
+}
+.Itsa:lang(es) .QuickTime .text {
+  font-size: calc(6.5pt * 200/96);
+  letter-spacing: -0.5px;
+}
+.Casket:lang(es) .character-plays {
+  & .flex-space {
+    max-height: 0.2em !important;
+  }
+}
+.Silence:lang(es) .character-plays .text {
+  font-size: calc(6.3pt * 200/96);
+  letter-spacing: -1px;
+}
+.Pride:lang(es) .character-plays {
+  & .text {
+  font-size: calc(6.9pt * 200/96);
+  }
+  & .flex-space {
+    max-height: 0.1em !important;
+  }
+}
+.vRage:lang(es) {
+  & .character-trait .text {
+    font-size: calc(6.7pt * 200/96);
+  }
+  & .legendary > span {
+    font-size: calc(6.7pt * 200/96);
+  }
+}

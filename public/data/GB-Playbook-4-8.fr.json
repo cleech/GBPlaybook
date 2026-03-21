@@ -13532,7 +13532,7 @@
     },
     {
       "name": "Hold the Ball!",
-      "text": "Le modèle allié ciblé gagne Close Control. (Ce modèle peut ignorer le premier résultat Tacle de playbook qu'il subit chaque tour)",
+      "text": "Le modèle allié ciblé gagne Close Control.\n{{trait 'Close Control'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,

@@ -139,6 +139,9 @@ div.card-back.bleed > .overlay {
 /* } */
 
 .card-back .character-trait .trait > :first-child > :nth-child(3) {
+  &::before {
+    content: '\202f'
+  }
   font-weight: bold;
   font-style: normal;
   line-height: 1.1em;
@@ -199,6 +202,9 @@ div.card-back.bleed > .overlay {
 }
 
 .card-back :is(.legendary, .heroic) > :first-child > :nth-child(3) {
+  &::before {
+    content: '\202f'
+  }
   font-weight: bold;
   font-style: normal;
   font-size-adjust: ch-width 0.55;

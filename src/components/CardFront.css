@@ -305,6 +305,9 @@ div.card-front.bleed > .overlay {
 .card-front .character-plays .play .name > span:first-child {
   font-style: italic;
   letter-spacing: -0.3px;
+  &::after{
+    content: '\202f'
+  }
 }
 
 .card-front .character-plays .play .text {
