@@ -1,10 +1,10 @@
-timestamp: "2026-03-30T03:45:54Z"
+timestamp: "2026-03-30T03:47:10Z"
 datafiles:
   - version: 4.8
     description: Steamforged Guild Ball 4.8
     filename: GB-Playbook-4-8.json
-    sha256: 4b91c75aa20261ed8d260eb83d15b616d1a3f445527beaa926f24d05697c37f7
-    timestamp: "2026-03-26T23:43:55Z"
+    sha256: f7c255e26cb312d10ced575b725b606327ac37f8cb86e1f97b81841fa5b2783a
+    timestamp: "2026-03-30T03:46:01Z"
     translations:
       es:
         filename: GB-Playbook-4-8.es.json
@@ -12,51 +12,51 @@ datafiles:
         timestamp: "2026-03-28T07:00:46Z"
       fr:
         filename: GB-Playbook-4-8.fr.json
-        sha256: cbbafaef5ca8a9c96a39f86fa8e4b1b965806bcbf184e74adb40d32edd0b447d
-        timestamp: "2026-03-21T03:33:34Z"
+        sha256: 734c887be032760d174d6673587c9c9036756c3fc9250ba097e81756966e96dc
+        timestamp: "2026-03-30T03:46:01Z"
       zh:
         filename: GB-Playbook-4-8.zh.json
-        sha256: 4ae2a6622a6b65d00785d030ed027ea99bc8bff3d0f0b14ea98694ae5e138b9a
-        timestamp: "2026-03-30T03:45:40Z"
+        sha256: a647e38d27fa821d27c1c196cb6ee473b1ac7463f0b4ee599ee1d547ceb15f61
+        timestamp: "2026-03-30T03:46:01Z"
   - version: 4.7
     description: Steamforged Guild Ball 4.7
     filename: GB-Playbook-4-7.json
-    sha256: 80e798ddf71e36ef0e9b884948dc0a3c09e7ef55ca7a0278c45b04d6c11898fd
-    timestamp: "2026-03-20T01:09:19Z"
+    sha256: b378d4fd122b01c6036b1dc8c2a2f4547b73817e4cf0278452c9360545927085
+    timestamp: "2026-03-30T03:46:01Z"
     translations:
       fr:
         filename: GB-Playbook-4-7.fr.json
-        sha256: 9563895d0a926d3e5436360335f8ee54dfd3761fb2b9b6a1e246fc8121d6b439
-        timestamp: "2026-03-21T03:33:10Z"
+        sha256: 6b8b1fbe65954593ec336b256d4959c5fe05acb3dec395fa74707091ad56ecb9
+        timestamp: "2026-03-30T03:46:01Z"
       zh:
         filename: GB-Playbook-4-7.zh.json
-        sha256: 17b790f3fecbc541a336eb0feaf624a6d846966cb06894e154937e697fa4eb5c
-        timestamp: "2026-03-30T03:45:40Z"
+        sha256: 4e2401c629cf07355985f4b8e00de4f042b47112512d8ef3da3d69b73084a9ed
+        timestamp: "2026-03-30T03:46:01Z"
   - version: 4.6
     description: Steamforged Guild Ball 4.6
     filename: GB-Playbook-4-6.json
-    sha256: be0c010504c3f378a77e9bf7a1c2fa04de3f512e3d75a25341a43aeb39e25d77
-    timestamp: "2026-03-21T03:39:01Z"
+    sha256: efeafcfc084fac357ca1b0ec9dd60820787c4d6478b3f8674e2d62eea1f73e0c
+    timestamp: "2026-03-30T03:46:01Z"
     translations:
       fr:
         filename: GB-Playbook-4-6.fr.json
-        sha256: ed0e29e6e4af2e315cbdecdd44ab0fa460ab5469f79511ed61e71b02e44dadf0
-        timestamp: "2026-03-21T23:02:19Z"
+        sha256: e16041da1616c8552e7381169e5ce8bb5e7702ba1fee00656639a74d13b031a4
+        timestamp: "2026-03-30T03:46:01Z"
   - version: 4.5
     description: Guild Ball Community Project 4.5
     filename: GB-Playbook-4-5.json
-    sha256: 9ce72665e571d45d8afc3cd8f95d2dc4d9f855ab8033ab39f5549fbbf95d48d7
-    timestamp: "2025-11-17T00:49:01Z"
+    sha256: d56a32a569c71f20b2583432684e9de2a0c3e9fc4ee8cdf46d265de0811e023d
+    timestamp: "2026-03-30T03:46:01Z"
   - version: 4.4
     description: Guild Ball Community Project 4.4
     filename: GB-Playbook-4-4.json
-    sha256: 8d8bcc365d61e9ee5a3a927039ca7d74b9492925b9be6f5ce9cb344acf0253ec
-    timestamp: "2025-11-17T00:49:01Z"
+    sha256: 41364d59e9a3cf9679d63f620c2baa111f742e5abcd443dc1d27d9bd2faaf7d5
+    timestamp: "2026-03-30T03:46:01Z"
   - version: 4.3
     description: Steamforged Guild Ball 4.3
     filename: GB-Playbook-4-3.json
-    sha256: e8ac97738e4d485b06964b3b2928835fac037f6acd2c10edb0f07d7b353a07ca
-    timestamp: "2025-11-17T00:49:01Z"
+    sha256: abbc6f7e3dc0d713ec0b90ab22117c7bb0cd49e69981584397a339efd079e5ac
+    timestamp: "2026-03-30T03:46:01Z"
 gameplans:
   - version: 2025
     filename: gameplans-2025.json
