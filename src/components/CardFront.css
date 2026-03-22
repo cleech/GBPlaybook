@@ -324,7 +324,7 @@ div.card-front.bleed > .overlay {
   }
 }
 
-.card-front:lang(zh) .character-plays .play .text {
+.card-front:lang(zh) .character-plays .text {
   font-size: var(--zh-font-size);
   line-height: var(--zh-line-height);
   letter-spacing: unset;
