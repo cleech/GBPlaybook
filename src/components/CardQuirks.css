@@ -71,14 +71,21 @@
   letter-spacing: -0.2px;
 }
 
-.Smoke:lang(zh) .character-plays .play .text {
-  font-size: calc(6.6pt * 200/96);
-  line-height: 1.5;
+.Smoke:lang(zh) .character-plays {
+  & .ChemicalBreeze .text li {
+    font-size: calc(6.5pt * 200/96);
+  }
+}
+.Burnish:lang(zh) .character-plays .flex-space {
+  max-height: 0.2em !important;
 }
 .Skatha:lang(zh).card-front .character-plays .text {
   font-size: calc(6.8pt * 200/96);
 }
-.Hammer:lang(zh).card-front .flex-space {
+.Chaska:lang(zh).card-front .character-plays .flex-space {
+  max-height: 0.2em !important;
+}
+.Bucker:lang(zh).card-front .flex-space {
   max-height: 0.2em !important;
 }
 .Hammer:lang(zh).card-back :is(.text, .legendary) {
@@ -91,12 +98,9 @@
 .Casket:lang(zh).card-front .flex-space {
   max-height: 0.2em !important;
 }
-.vRage:lang(zh).card-back :is(.text, .heroic, .legendary) {
+.vRage:lang(zh).card-back :is(.text, .heroic, .legendary) span {
   font-size: calc(6.7pt * 200/96);
   line-height: 1.4;
-}
-.Bucker:lang(zh).card-front .flex-space {
-  max-height: 0.2em !important;
 }
 
 /* !!!!!! */

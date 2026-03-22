@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-28T07:00:54Z",
+  "timestamp": "2026-03-30T03:45:54Z",
   "datafiles": [
     {
       "version": 4.8,
@@ -20,8 +20,8 @@
         },
         "zh": {
           "filename": "GB-Playbook-4-8.zh.json",
-          "sha256": "dbf4d3415cad08fc18361f3f639188d524f7d19fa793ff5cdf3ba1a4e390a41b",
-          "timestamp": "2026-03-21T23:02:02Z"
+          "sha256": "4ae2a6622a6b65d00785d030ed027ea99bc8bff3d0f0b14ea98694ae5e138b9a",
+          "timestamp": "2026-03-30T03:45:40Z"
         }
       }
     },
@@ -39,8 +39,8 @@
         },
         "zh": {
           "filename": "GB-Playbook-4-7.zh.json",
-          "sha256": "2144d103a62b29970ddcbc0b2a19e7f1d3a17aeb6972b35168bfb2a6edc96c41",
-          "timestamp": "2026-03-21T22:05:20Z"
+          "sha256": "17b790f3fecbc541a336eb0feaf624a6d846966cb06894e154937e697fa4eb5c",
+          "timestamp": "2026-03-30T03:45:40Z"
         }
       }
     },
