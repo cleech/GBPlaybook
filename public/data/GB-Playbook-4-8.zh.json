@@ -494,7 +494,7 @@
         "Unpredictable Movement",
         "Watch The World Burn [4″ Pulse]"
       ],
-      "legendary": "Chemical Shower [6″ Pulse]\n在此脉冲范围内遭受燃烧或中毒状态的敌方模型受到3点状态DMG。",
+      "legendary": "Chemical Shower [6″ Pulse]\n在此脉冲范围内遭受燃烧或中毒状态的敌方模型受到 3 点状态 DMG。",
       "types": "Ethraynnian, Human, Female,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -548,7 +548,7 @@
         "Burning Spirit [2″ Aura]",
         "Gimme Fuel..."
       ],
-      "legendary": "Gimme Fire! [6″ Pulse]\n此脉冲范围内的敌方模型受到燃烧状态,将此模型的详情卡替换为Pneuma的详情卡。",
+      "legendary": "Gimme Fire! [6″ Pulse]\n此脉冲范围内的敌方模型受到燃烧状态,将此模型的详情卡替换为 Pneuma 的详情卡。",
       "types": "Unknown, Human, Unknown,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -1129,7 +1129,7 @@
         "Secretion",
         "Venomous Strike"
       ],
-      "heroic": "Coagulation [3″ Pulse]\n在此脉冲范围内受到中毒状态的敌方模型遭受3点状态DMG。",
+      "heroic": "Coagulation [3″ Pulse]\n在此脉冲范围内受到中毒状态的敌方模型遭受 3 点状态 DMG。",
       "types": "Valentian, Human, Male,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -1286,7 +1286,7 @@
         "Sentinel [1″ Aura]",
         "Tough Hide"
       ],
-      "legendary": "Tested Mettle [6″ Aura]\n此模型获得Stoic\n\n如果此模型具有队长模型类别,则在此光环内的其他友方大师模型获得Stoic,友方学徒模型获得Tough Hide。\n{{trait 'Stoic'}}",
+      "legendary": "Tested Mettle [6″ Aura]\n此模型获得 Stoic\n\n如果此模型具有队长模型类别,则在此光环内的其他友方大师模型获得 Stoic,友方学徒模型获得 Tough Hide。\n{{trait 'Stoic'}}",
       "types": "Mald, Human, Male,\nCentre Back,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1339,7 +1339,7 @@
         "Reduction",
         "Reinforced Plating [1″ Aura]"
       ],
-      "legendary": "Covering Fire\n该模型可以在激活期间使用一次无需消耗影响力的角色技巧\n\n如果此模型具有队长模型类别，Reinforced Plating 将变为6″光环，并且可以使用两次而不是一次。",
+      "legendary": "Covering Fire\n该模型可以在激活期间使用一次无需消耗影响力的角色技巧\n\n如果此模型具有队长模型类别，Reinforced Plating 将变为 6″ 光环，并且可以使用两次而不是一次。",
       "types": "Numasai, Human, Male,\nDefensive Midfielder,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1391,7 +1391,7 @@
       "character_traits": [
         "Quench [1″ Aura]"
       ],
-      "legendary": "Batten Down The Hatches [6″ Pulse]\n在此脉冲范围内的友方模型可以移除他们目前遭受的任意状态。\n\n如果此模型具有队长模型类别,在此脉冲范围内的友方模型可以恢复3点HP。",
+      "legendary": "Batten Down The Hatches [6″ Pulse]\n在此脉冲范围内的友方模型可以移除他们目前遭受的任意状态。\n\n如果此模型具有队长模型类别,在此脉冲范围内的友方模型可以恢复 3 点 HP。",
       "types": "Sultarish, Human, Female,\nGoalkeeper,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1444,7 +1444,7 @@
         "Give It a Whack",
         "Sentinel [1″ Aura]"
       ],
-      "legendary": "Ride Off [6″ Aura]\n此模型获得 +1/+0″ KICK且在此次激活中可以进行一次无需消耗影响力的Kick。\n\n如果此模型具有队长模型类别,在此光环范围内的友方模型获得 +1/+0″ KICK且在他们的激活期间可以进行一次无需消耗影响力的Kick。",
+      "legendary": "Ride Off [6″ Aura]\n此模型获得 +1/+0″ KICK 且在此次激活中可以进行一次无需消耗影响力的 Kick。\n\n如果此模型具有队长模型类别,在此光环范围内的友方模型获得 +1/+0″ KICK 且在他们的激活期间可以进行一次无需消耗影响力的 Kick。",
       "types": "Sultarish, Human, Female,\nAttacking Midfielder,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1550,7 +1550,7 @@
         "Searing Strike",
         "Sentinel [1″ Aura]"
       ],
-      "legendary": "Tempered Steel [6″ Aura]\n此模型获得+1 TAC。\n\n如果此模型具有队长模型类别，在此光环范围内的友方模型获得+1 TAC和Searing Strike。",
+      "legendary": "Tempered Steel [6″ Aura]\n此模型获得 +1 TAC。\n\n如果此模型具有队长模型类别，在此光环范围内的友方模型获得 +1 TAC 和 Searing Strike。",
       "types": "Piert, Human, Male,\nCentral Midfielder,\nMaster, Squaddie",
       "playbook": [
         [
@@ -1603,7 +1603,7 @@
         "Match Experience [4″ Aura]",
         "Sturdy"
       ],
-      "legendary": "Armoury [6″ Aura]\n此模型的近战范围变为 3″ 。\n\n如果此模型具有队长模型类别，此模型在激活期间可以使用三次无需影响力的 Instruction，且在此光环范围内的友方模型近战范围变为 2″ 。",
+      "legendary": "Armoury [6″ Aura]\n此模型的近战范围变为 3″。\n\n如果此模型具有队长模型类别，此模型在激活期间可以使用三次无需影响力的 Instruction，且在此光环范围内的友方模型近战范围变为 2″。",
       "types": "Skald, Human, Female,\nCentre Back,\nMaster, Squaddie",
       "playbook": [
         [
@@ -2075,7 +2075,7 @@
       "character_traits": [
         "Tough Hide"
       ],
-      "heroic": "Old Jake's\n分配2点影响力给 8″内的其他友方公会模型。",
+      "heroic": "Old Jake's\n分配 2 点影响力给 8″ 内的其他友方公会模型。",
       "types": "Mald, Human, Male,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -2183,7 +2183,7 @@
         "Spit and Sawdust",
         "Legless Drunk"
       ],
-      "heroic": "Free Bar [4″ Pulse]\n在此脉冲范围内的友方非吉祥物公会模型获得一个beer token。",
+      "heroic": "Free Bar [4″ Pulse]\n在此脉冲范围内的友方非吉祥物公会模型获得一个 beer token。",
       "types": "Mald, Human, Male,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -2496,7 +2496,7 @@
         "Tough Hide",
         "Shove the Boot In"
       ],
-      "heroic": "True Grit\n移除该模型身上的所有状态,该模型获得+2 TAC。",
+      "heroic": "True Grit\n移除该模型身上的所有状态,该模型获得 +2 TAC。",
       "types": "Mald, Human, Male,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2759,7 +2759,7 @@
         "Battering Ram",
         "Tough Hide"
       ],
-      "heroic": "Explosive Brew\n在激活期间，此模型可以无需消耗影响力使用Lob Barrel。",
+      "heroic": "Explosive Brew\n在激活期间，此模型可以无需消耗影响力使用 Lob Barrel。",
       "types": "Mald, Human, Male,\nCentre Back,\nSquaddie",
       "playbook": [
         [
@@ -2866,7 +2866,7 @@
         "Stack the Deck",
         "Tough Hide"
       ],
-      "heroic": "Raise the Stakes\n此模型可以进行一次 4″闪避。在此次闪避结算后,你的对手可以选择一名敌方队员模型受到一次 2″ 推移。",
+      "heroic": "Raise the Stakes\n此模型可以进行一次 4″ 闪避。在此次闪避结算后,你的对手可以选择一名敌方队员模型受到一次 2″ 推移。",
       "types": "Valentian, Human, Male,\nCentral Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -2972,7 +2972,7 @@
         "Haemophilia [6″ Aura]",
         "Smell Blood"
       ],
-      "legendary": "Exsanguinate [6″ Pulse]\n在此脉冲范围内已受到流血状态的敌方模型受到3点状态伤害。",
+      "legendary": "Exsanguinate [6″ Pulse]\n在此脉冲范围内已受到流血状态的敌方模型受到 3 点状态伤害。",
       "types": "Valentian, Human, Female,\nStriker,\nCaptain",
       "playbook": [
         [
@@ -3026,7 +3026,7 @@
         "Blood Lust [6″ Aura]",
         "Furious"
       ],
-      "legendary": "Chop Chop! [6″ Aura]\n在这个光环范围内的其他友方模型获得Furious。",
+      "legendary": "Chop Chop! [6″ Aura]\n在这个光环范围内的其他友方模型获得 Furious。",
       "types": "Skaldic, Human, Male,\nAttacking Midfielder,\nVeteran, Captain",
       "playbook": [
         [
@@ -3496,7 +3496,7 @@
       "character_traits": [
         "Hooked"
       ],
-      "heroic": "Sanguine Pool [3″ Pulse]\n在此脉冲范围内且遭受流血状态的敌方模型受到 -4″/-4″MOV。",
+      "heroic": "Sanguine Pool [3″ Pulse]\n在此脉冲范围内且遭受流血状态的敌方模型受到 -4″/-4″ MOV。",
       "types": "Erskirii, Human, Female,\nAttacking Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -3706,7 +3706,7 @@
         "Momentous Inspiration [4″ Aura]",
         "Tough Hide"
       ],
-      "legendary": "Breach!\n在此次激活中，此模型获得 +0/+4″ KICK且可以进行一次无需消耗影响力的踢球。当该模型进行这次踢球时，踢球无视阻挡的模型。",
+      "legendary": "Breach!\n在此次激活中，此模型获得 +0/+4″ KICK 且可以进行一次无需消耗影响力的踢球。当该模型进行这次踢球时，踢球无视阻挡的模型。",
       "types": "Figeon, Human, Male,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -3813,7 +3813,7 @@
         "Follow My Lead",
         "Tow"
       ],
-      "heroic": "Protect Those Close [4″ Aura]\n在此光环范围内友方模型获得Sturdy。\n{{trait 'Sturdy'}}",
+      "heroic": "Protect Those Close [4″ Aura]\n在此光环范围内友方模型获得 Sturdy。\n{{trait 'Sturdy'}}",
       "types": "Valentian, Human, Female,\nCentre Back,\nCaptain",
       "playbook": [
         [
@@ -4236,7 +4236,7 @@
       "character_traits": [
         "Fixer"
       ],
-      "heroic": "Overclocked\n选择 4″ 范围内一个友方具有Mechanica类别的模型。在被选择模型下一次激活期间，该模型可以不消耗影响力进行冲刺或冲锋。",
+      "heroic": "Overclocked\n选择 4″ 范围内一个友方具有 Mechanica 类别的模型。在被选择模型下一次激活期间，该模型可以不消耗影响力进行冲刺或冲锋。",
       "types": "Indar, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -4446,7 +4446,7 @@
         "Crow Scarer",
         "Don't Fear The..."
       ],
-      "legendary": "Against the Grain [6″ Pulse]\n在此次激活期间，此模型可以无需消耗影响力使用一次角色技巧。在此脉冲范围内的友方模型将获得Life Drinker。\n{{trait 'Life Drinker'}}",
+      "legendary": "Against the Grain [6″ Pulse]\n在此次激活期间，此模型可以无需消耗影响力使用一次角色技巧。在此脉冲范围内的友方模型将获得 Life Drinker。\n{{trait 'Life Drinker'}}",
       "types": "Mald, Human, Male,\nAttacking Midfielder,\nReaper, Captain",
       "playbook": [
         [
@@ -4499,7 +4499,7 @@
         "For the Family [4″ Aura]",
         "Planting Master"
       ],
-      "legendary": "Huge Tracts of Land [6″ Aura]\n此模型可以立即在此光环范围内放置至多两个收成标记。在这个光环范围内，友方模型获得Sturdy。\n{{trait 'Sturdy'}}",
+      "legendary": "Huge Tracts of Land [6″ Aura]\n此模型可以立即在此光环范围内放置至多两个收成标记。在这个光环范围内，友方模型获得 Sturdy。\n{{trait 'Sturdy'}}",
       "types": "Piert, Human, Male,\nDefensive Midfielder,\nPlanter, Captain",
       "playbook": [
         [
@@ -4553,7 +4553,7 @@
         "Harvest Supper",
         "Planting Master"
       ],
-      "legendary": "Line Dancing [6″ Pulse]\n选择球场的任意一个边缘。在此脉冲范围内的友方模型受到一个径直靠近所选边缘的5″推移。",
+      "legendary": "Line Dancing [6″ Pulse]\n选择球场的任意一个边缘。在此脉冲范围内的友方模型受到一个径直靠近所选边缘的 5″ 推移。",
       "types": "Piert, Human, Female,\nCoach,\nPlanter, Captain",
       "playbook": [
         [
@@ -4605,7 +4605,7 @@
       "character_traits": [
         "Pain Response"
       ],
-      "heroic": "When the Cock Crows...\n在此模型 2″内放置一个收成标记。",
+      "heroic": "When the Cock Crows...\n在此模型 2″ 内放置一个收成标记。",
       "types": "Raed, Animal,\nMascot, Planter",
       "playbook": [
         [
@@ -4919,7 +4919,7 @@
         "Fields of Wheat [4″ Aura]",
         "Planting Season"
       ],
-      "heroic": "Surpassing Strategy\n 目标4″内非队长友方模型获得Faithful Protector。被选择的模型可以立即进行一次 4″ 闪避。",
+      "heroic": "Surpassing Strategy\n 目标 4″ 内非队长友方模型获得 Faithful Protector。被选择的模型可以立即进行一次 4″ 闪避。",
       "types": "Castellyian, Human, Female,\nCoach,\nPlanter, Veteran, Squaddie",
       "playbook": [
         [
@@ -5233,7 +5233,7 @@
         "Light Footed",
         "Showboater"
       ],
-      "legendary": "Caught in a Net [6″ Pulse]\n此脉冲范围内的敌方模型受到 -4″/-4″MOV。",
+      "legendary": "Caught in a Net [6″ Pulse]\n此脉冲范围内的敌方模型受到 -4″/-4″ MOV。",
       "types": "Eisnoran, Human, Male,\nStriker,\nCaptain",
       "playbook": [
         [
@@ -5287,7 +5287,7 @@
         "Sturdy",
         "Tough Hide"
       ],
-      "legendary": "Hook, Line, and Sinker [6″ Pulse]\n在此脉冲范围内的敌方模型受到径直朝着该模型的6″ 推移。",
+      "legendary": "Hook, Line, and Sinker [6″ Pulse]\n在此脉冲范围内的敌方模型受到径直朝着该模型的 6″ 推移。",
       "types": "Indar, Human, Male,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -5340,7 +5340,7 @@
         "Last Cast Catches the Most",
         "Beating Wings Over Water"
       ],
-      "legendary": "Cormorant’s Calling\n选择此模型10″ 内一个未接战的其他友方模型,将被选择的模型放置在此模型10″ 内。",
+      "legendary": "Cormorant’s Calling\n选择此模型 10″ 内一个未接战的其他友方模型,将被选择的模型放置在此模型 10″ 内。",
       "types": "Numasai, Human,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -5603,7 +5603,7 @@
         "Shadow Like",
         "Talisman"
       ],
-      "legendary": "Call of the Sea [4″ Pulse]\n每有一个其他模型在此脉冲范围内，该模型便受到1 DMG。在此脉冲范围内的敌方模型受到 2″ 推移,其余友方模型可以进行 2″ 的闪避。",
+      "legendary": "Call of the Sea [4″ Pulse]\n每有一个其他模型在此脉冲范围内，该模型便受到 1 DMG。在此脉冲范围内的敌方模型受到 2″ 推移,其余友方模型可以进行 2″ 的闪避。",
       "types": "Numasai, Human, Female,\nCentral Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -5655,7 +5655,7 @@
         "Battering Ram",
         "Resolute"
       ],
-      "heroic": "Trident Tested [3″ Pulse]\n在此脉冲范围内的模型受到一个径直远离此模型的 2″推移。",
+      "heroic": "Trident Tested [3″ Pulse]\n在此脉冲范围内的模型受到一个径直远离此模型的 2″ 推移。",
       "types": "Skaldic, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -6025,7 +6025,7 @@
         "Light Footed",
         "Nature's Growth"
       ],
-      "heroic": "Blessing of the Sun Father\n在此模型激活中限一次，目标6″ 内的一名友方模型可以无需消耗影响力使用一次角色技巧。",
+      "heroic": "Blessing of the Sun Father\n在此模型激活中限一次，目标 6″ 内的一名友方模型可以无需消耗影响力使用一次角色技巧。",
       "types": "Raed, Human, Male,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6079,7 +6079,7 @@
         "Light Footed",
         "Nature's Chill"
       ],
-      "legendary": "Winter's Night [6″ Aura]\n每当一名友方模型在此光环范围内进行一次成功的攻击时，该友方模型可以在战术手册结果中添加一个 {{d}} 。",
+      "legendary": "Winter's Night [6″ Aura]\n每当一名友方模型在此光环范围内进行一次成功的攻击时，该友方模型可以在战术手册结果中添加一个 {{d}}。",
       "types": "Erskirii, Human, Female,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6133,7 +6133,7 @@
         "Bring Them Down",
         "Expert Trapper"
       ],
-      "legendary": "Perfect Positioning [6″ Pulse]\n此模型可以在此脉冲范围内放置至多五个友方Trap Marker。",
+      "legendary": "Perfect Positioning [6″ Pulse]\n此模型可以在此脉冲范围内放置至多五个友方 Trap Marker。",
       "types": "Indar, Human, Female,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6609,7 +6609,7 @@
         "Big Game Traps",
         "Heightened Senses"
       ],
-      "heroic": "Blessing of the Sun Father\n在此模型激活中限一次，目标6″ 内的一名友方模型可以无需消耗影响力使用一次角色技巧。",
+      "heroic": "Blessing of the Sun Father\n在此模型激活中限一次，目标 6″ 内的一名友方模型可以无需消耗影响力使用一次角色技巧。",
       "types": "Unknown, Female,\nAttacking Midfielder,\nVeteran, Squaddie",
       "playbook": [
         [
@@ -6821,7 +6821,7 @@
         "Linked [Harmony]",
         "Poised"
       ],
-      "legendary": "Topping Out! [6″ Pulse]\n选择一项效果：\n- 在此脉冲范围的友方模型获得+1 ARM。\n- 在此脉冲范围内的友方模型获得1影响力。",
+      "legendary": "Topping Out! [6″ Pulse]\n选择一项效果：\n- 在此脉冲范围的友方模型获得 +1 ARM。\n- 在此脉冲范围内的友方模型获得 1 影响力。",
       "types": "Castellyian, Human, Female,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -6876,7 +6876,7 @@
         "Repointing [6″ Aura]",
         "Tough Hide"
       ],
-      "legendary": "Hammer Time! [6″ Pulse]\n每一个在此脉冲范围内的其他友方模型可以选择以下一项效果来受益：\n- +2″/+2″ MOV。\n- 战术手册伤害结果+1 DMG。",
+      "legendary": "Hammer Time! [6″ Pulse]\n每一个在此脉冲范围内的其他友方模型可以选择以下一项效果来受益：\n- +2″/+2″ MOV。\n- 战术手册伤害结果 +1 DMG。",
       "types": "Raed, Human, Male,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -7553,7 +7553,7 @@
         "Floored",
         "Knockback"
       ],
-      "heroic": "Protect Those Close [4″ Aura]\n在此光环范围内友方模型获得Sturdy。\n{{trait 'Sturdy'}}",
+      "heroic": "Protect Those Close [4″ Aura]\n在此光环范围内友方模型获得 Sturdy。\n{{trait 'Sturdy'}}",
       "types": "Castellyian, Human, Male,\nDefensive Midfielder,\nSquaddie",
       "playbook": [
         [
@@ -7607,7 +7607,7 @@
         "Shadow Like",
         "Unpredictable Movement"
       ],
-      "legendary": "Rigor Mortis\n敌方队伍失去当前所有MP，而友方队伍获得等于敌方队伍所失数量的MP。",
+      "legendary": "Rigor Mortis\n敌方队伍失去当前所有 MP，而友方队伍获得等于敌方队伍所失数量的 MP。",
       "types": "Figeon, Human, Male,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -7660,7 +7660,7 @@
         "Anatomical Precision",
         "Voodoo Strings [6″ Aura]"
       ],
-      "heroic": "Vulnerable Prey\n在本回合中，下一次该模型对一个5″内没有其他敌方模型的敌方模型造成战术手册伤害结果时，该敌方模型额外受到3 DMG。",
+      "heroic": "Vulnerable Prey\n在本回合中，下一次该模型对一个 5″ 内没有其他敌方模型的敌方模型造成战术手册伤害结果时，该敌方模型额外受到 3 DMG。",
       "types": "Sultarish, Human, Female,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -8031,7 +8031,7 @@
         "Reanimate",
         "Tough Hide"
       ],
-      "legendary": "Casket Time\n下一次该模型使敌方具有Human类别的模型受到离场状态时,友方队伍获得额外的2VP。该离场模型在下一个维持阶段不能返回球场。",
+      "legendary": "Casket Time\n下一次该模型使敌方具有 Human 类别的模型受到离场状态时,友方队伍获得额外的 2VP。该离场模型在下一个维持阶段不能返回球场。",
       "types": "Piert, Human, Male,\nCentre Back,\nSquaddie",
       "playbook": [
         [
@@ -8292,7 +8292,7 @@
         "They Ain't Tough!"
       ],
       "character_traits": [],
-      "heroic": "Packmaster [Squeak, Vileswarm]\n目标4″ 内的指定友方模型获得2点影响力。",
+      "heroic": "Packmaster [Squeak, Vileswarm]\n目标 4″ 内的指定友方模型获得 2 点影响力。",
       "types": "Raed, Human, Male,\nDefensive Midfielder,\nVeteran, Squaddie",
       "playbook": [
         [
@@ -8451,7 +8451,7 @@
       "character_traits": [
         "Shadow Like"
       ],
-      "legendary": "Strike from the Shadows [6″ Pulse]\n选择一项效果：\n- 在此脉冲范围内的友方模型获得+1 DEF。\n- 在此脉冲范围内的友方模型可以进行一次2″ 闪避。",
+      "legendary": "Strike from the Shadows [6″ Pulse]\n选择一项效果：\n- 在此脉冲范围内的友方模型获得 +1 DEF。\n- 在此脉冲范围内的友方模型可以进行一次 2″ 闪避。",
       "types": "Sultarish, Human, Male,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -8505,8 +8505,8 @@
         "Furious",
         "Rising Anger"
       ],
-      "heroic": "Bloody Coin\n选择该模型4″内一个友方模型,目标友方模型在攻击与另一个友方模型接战的敌方模型时获得+1 TAC和战术手册伤害结果+1 DMG。",
-      "legendary": "My Gang [6″ Aura]\n在此光环范围内的友方模型在攻击一名与另一名友方模型接战的敌方模型时，获得+1 TAC和战术手册伤害结果+1 DMG。\n此效果不与Bloody Coin叠加。",
+      "heroic": "Bloody Coin\n选择该模型 4″ 内一个友方模型,目标友方模型在攻击与另一个友方模型接战的敌方模型时获得 +1 TAC 和战术手册伤害结果 +1 DMG。",
+      "legendary": "My Gang [6″ Aura]\n在此光环范围内的友方模型在攻击一名与另一名友方模型接战的敌方模型时，获得 +1 TAC 和战术手册伤害结果 +1 DMG。\n此效果不与 Bloody Coin 叠加。",
       "types": "Castellyian, Human, Male,\nAttacking Midfielder,\nCaptain, Veteran",
       "playbook": [
         [
@@ -8872,7 +8872,7 @@
         "Foul Odour [3″ Aura]",
         "Resilience"
       ],
-      "heroic": "Fangtooth Unleashed\n此模型受到4 DMG并获得 +2″/+2″ MOV和角色技巧及战术手册伤害结果+1 DMG。",
+      "heroic": "Fangtooth Unleashed\n此模型受到 4 DMG 并获得 +2″/+2″ MOV 和角色技巧及战术手册伤害结果 +1 DMG。",
       "types": "Ethraynnian, Human, Male,\nCentre Back,\nSquaddie",
       "playbook": [
         [
@@ -9509,7 +9509,7 @@
         "Assist [Frelsi]",
         "Death from Above"
       ],
-      "legendary": "Daughter of Falcons [6″ Pulse]\n在此脉冲范围内的敌方模型受到 3 DMG和捕获状态。",
+      "legendary": "Daughter of Falcons [6″ Pulse]\n在此脉冲范围内的敌方模型受到 3 DMG 和捕获状态。",
       "types": "Figeon, Human, Female,\nCentral Midfielder,\nCaptain",
       "playbook": [
         [
@@ -10358,7 +10358,7 @@
         "Light Footed",
         "Linked [Angel]"
       ],
-      "heroic": "Waverunner\n如果此模型在一个或多个地形的1″内，则此模型可以立即进行一次 4″ 闪避。",
+      "heroic": "Waverunner\n如果此模型在一个或多个地形的 1″ 内，则此模型可以立即进行一次 4″ 闪避。",
       "types": "Numasai, Human, Female,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -10465,7 +10465,7 @@
         "Scores for Fun",
         "Unpredictable Movement"
       ],
-      "legendary": "Worthy Sacrifice [6″ Aura]\n将此模型放置在6″内另一个友方模型底盘接触的位置，被选择的友方模型在此之后进行一次6″闪避。",
+      "legendary": "Worthy Sacrifice [6″ Aura]\n将此模型放置在 6″ 内另一个友方模型底盘接触的位置，被选择的友方模型在此之后进行一次 6″ 闪避。",
       "types": "Valentian, Human, Female,\nStriker,\nCaptain, Seasoned",
       "playbook": [
         [
@@ -10676,7 +10676,7 @@
         "Impart Faith [6″ Aura]",
         "Talisman"
       ],
-      "legendary": "Reclamation\n如果友方队伍拥有Ball of Light效果，此模型立刻获得友方Ball of light的控制权。",
+      "legendary": "Reclamation\n如果友方队伍拥有 Ball of Light 效果，此模型立刻获得友方 Ball of light 的控制权。",
       "types": "Piert, Human, Female,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -10783,7 +10783,7 @@
         "Shadow Like",
         "Skilled within Shadow"
       ],
-      "heroic": "Shroud of Darkness\n2″光环。在此模型激活期间，在此光环内的模型获得Cover。",
+      "heroic": "Shroud of Darkness\n2″ 光环。在此模型激活期间，在此光环内的模型获得 Cover。",
       "types": "Unknown, Human, Male\nStriker\nSquaddie",
       "playbook": [
         [
@@ -10887,7 +10887,7 @@
       "character_traits": [
         "Haunting Melody"
       ],
-      "heroic": "Distracting Tune\n选择一名4″内的敌方模型，被选择的模型受到一个 2″ 推移。",
+      "heroic": "Distracting Tune\n选择一名 4″ 内的敌方模型，被选择的模型受到一个 2″ 推移。",
       "legendary": "Swarm’s Obedience [8″ Pulse]\n选择友方或敌方球门柱。在此脉冲范围内的模型受到一个径直靠近球门柱的 3″ 推移。",
       "types": "Mald, Human, Male,\nStriker,\nCaptain",
       "playbook": [
@@ -10940,7 +10940,7 @@
         "Predatory Instinct",
         "Tag Along"
       ],
-      "legendary": "The Rat King\n选一个在 8″ 内的自由球并将其从球场上移除。此模型的控制者进行一次开球 。",
+      "legendary": "The Rat King\n选一个在 8″ 内的自由球并将其从球场上移除。此模型的控制者进行一次开球。",
       "types": "Mald, Animal,\nMascot",
       "playbook": [
         [
@@ -11206,7 +11206,7 @@
         "Protect the Ball [6″ Pulse]",
         "Sheep Become the Shepherds"
       ],
-      "legendary": "Rest Up!\n选择此模型 4″ 内的另一个友方模型。这个友方模型受到离场状态。敌方队伍不会因此次离场获得VP。",
+      "legendary": "Rest Up!\n选择此模型 4″ 内的另一个友方模型。这个友方模型受到离场状态。敌方队伍不会因此次离场获得 VP。",
       "types": "Piert, Human, Female,\nReaper, Central Midfielder,\nCaptain",
       "playbook": [
         [
@@ -11582,7 +11582,7 @@
         "Blinded by the Light",
         "Flare Out"
       ],
-      "legendary": "Eternal Flame [6″ Pulse]\n在此脉冲范围内的全部模型受到燃烧状态，敌方模型受到3点伤害。",
+      "legendary": "Eternal Flame [6″ Pulse]\n在此脉冲范围内的全部模型受到燃烧状态，敌方模型受到 3 点伤害。",
       "types": "Valentian, Human, Female,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -11901,7 +11901,7 @@
         "Bends... But Never Breaks",
         "Caber Toss"
       ],
-      "legendary": "Fell Swing [8″ Pulse]\n在此脉冲范围内并位于友方木堆标记1″内的友方模型可以宣布一次不用消耗影响力的攻击。然后将至多两个在球场上的友方木堆标记放置在脉冲范围内。",
+      "legendary": "Fell Swing [8″ Pulse]\n在此脉冲范围内并位于友方木堆标记 1″ 内的友方模型可以宣布一次不用消耗影响力的攻击。然后将至多两个在球场上的友方木堆标记放置在脉冲范围内。",
       "types": "Skald, Human, Female,\nDefensive Midfielder,\nCaptain",
       "playbook": [
         [
@@ -12113,7 +12113,7 @@
       "character_traits": [
         "Matched Pair [Cut]"
       ],
-      "heroic": "It's Bucking Time!\n如果友方模型Cut位于本模型4″ 内，将CrossCut以全额HP状态放置在本模型或Cut底盘接触位置。然后移除任意数量位于本模型和Cut上的影响力并分配给CrossCut.在此之后将本模型和Cut从球场上移除，并将本模型和Cut的角色卡替换为CrossCut的角色卡。",
+      "heroic": "It's Bucking Time!\n如果友方模型 Cut 位于本模型 4″ 内，将 CrossCut 以全额 HP 状态放置在本模型或 Cut 底盘接触位置。然后移除任意数量位于本模型和 Cut 上的影响力并分配给 CrossCut.在此之后将本模型和 Cut 从球场上移除，并将本模型和 Cut 的角色卡替换为 CrossCut 的角色卡。",
       "types": "Mald, Human, Male,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -12273,7 +12273,7 @@
         "Synchronised [Flint]",
         "Putting Out Fires"
       ],
-      "legendary": "This Should Be Overtime...\n选择一个在场上的友方木堆标记将其放置在本模型4″ 内。",
+      "legendary": "This Should Be Overtime...\n选择一个在场上的友方木堆标记将其放置在本模型 4″ 内。",
       "types": "Eisnoran, Human, Male,\nWinger,\nSquaddie",
       "playbook": [
         [
@@ -12316,7 +12316,7 @@
     },
     {
       "name": "Chemical Breeze",
-      "text": "选择一项:\n- 目标友方模型3″ 内的敌方模型受到燃烧状态。\n- 目标友方模型3″ 内的敌方模型受到中毒状态。",
+      "text": "选择一项:\n- 目标友方模型 3″ 内的敌方模型受到燃烧状态。\n- 目标友方模型 3″ 内的敌方模型受到中毒状态。",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -12324,7 +12324,7 @@
     },
     {
       "name": "Infuse",
-      "text": "目标具有燃烧状态或中毒状态的敌方模型受到3状态伤害。",
+      "text": "目标具有燃烧状态或中毒状态的敌方模型受到 3 状态伤害。",
       "CST": 2,
       "RNG": 6,
       "SUS": false,
@@ -12332,7 +12332,7 @@
     },
     {
       "name": "Smoke Bomb",
-      "text": "在此范围内放置一个持续效果AOE。在此AOE范围内的模型获得掩护。",
+      "text": "在此范围内放置一个持续效果 AOE。在此 AOE 范围内的模型获得掩护。",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -12340,7 +12340,7 @@
     },
     {
       "name": "Nitro!",
-      "text": "6″ 脉冲，此脉冲范围内的友方模型可以做出任意数量的1″ 躲避动作，所有友方模型一共可以累计移动 6″ 。",
+      "text": "6″ 脉冲，此脉冲范围内的友方模型可以做出任意数量的 1″ 躲避动作，所有友方模型一共可以累计移动 6″。",
       "CST": 3,
       "RNG": "S",
       "SUS": false,
@@ -12348,7 +12348,7 @@
     },
     {
       "name": "Raging Fire",
-      "text": "目标友方模型获得Inferno。\n{{trait 'Inferno'}}",
+      "text": "目标友方模型获得 Inferno。\n{{trait 'Inferno'}}",
       "CST": 2,
       "RNG": 6,
       "SUS": true,
@@ -12356,7 +12356,7 @@
     },
     {
       "name": "Hypnosis",
-      "text": "下次目标敌方模型在花费影响力进行攻击、冲锋或角色技巧时，该敌方模型需要额外支付1点影响力。",
+      "text": "下次目标敌方模型在花费影响力进行攻击、冲锋或角色技巧时，该敌方模型需要额外支付 1 点影响力。",
       "CST": "1,CP",
       "RNG": 6,
       "SUS": true,
@@ -12364,7 +12364,7 @@
     },
     {
       "name": "Blind",
-      "text": "目标敌方模型受到 -2 TAC，  -2/-2″ KICK和 -2″ /-2″ MOV。",
+      "text": "目标敌方模型受到 -2 TAC，  -2/-2″ KICK 和 -2″ /-2″ MOV。",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -12372,7 +12372,7 @@
     },
     {
       "name": "Noxious Blast",
-      "text": "在此范围内放置一个持续效果AOE。被命中的模型受到 2 DMG和中毒状态。进入或在此AOE范围内结束激活的模型受到中毒状态。",
+      "text": "在此范围内放置一个持续效果 AOE。被命中的模型受到 2 DMG 和中毒状态。进入或在此 AOE 范围内结束激活的模型受到中毒状态。",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": false,
@@ -12380,7 +12380,7 @@
     },
     {
       "name": "Sticky Bomb",
-      "text": "在此范围内放置一个持续效果AOE。被命中的敌方模型受到 -2″ /-2″ MOV和中毒状态。进入或在此AOE范围内结束激活的模型受到中毒状态。",
+      "text": "在此范围内放置一个持续效果 AOE。被命中的敌方模型受到 -2″ /-2″ MOV 和中毒状态。进入或在此 AOE 范围内结束激活的模型受到中毒状态。",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": true,
@@ -12404,7 +12404,7 @@
     },
     {
       "name": "Chemical Ordnance",
-      "text": "选择中毒状态或燃烧状态。目标敌方模型受到1状态伤害和所选状态。",
+      "text": "选择中毒状态或燃烧状态。目标敌方模型受到 1 状态伤害和所选状态。",
       "CST": "CP",
       "RNG": 4,
       "SUS": false,
@@ -12420,7 +12420,7 @@
     },
     {
       "name": "External Combustion",
-      "text": "目标敌方模型受到一个径直远离此模型的 4″ 推移并受到3 DMG，然后在目标模型3″ 内的敌方模型受到燃烧状态。",
+      "text": "目标敌方模型受到一个径直远离此模型的 4″ 推移并受到 3 DMG，然后在目标模型 3″ 内的敌方模型受到燃烧状态。",
       "CST": "CP2",
       "RNG": "P",
       "SUS": false,
@@ -12428,7 +12428,7 @@
     },
     {
       "name": "Ground Pound",
-      "text": "在此模型近战范围内的模型受到一个径直远离此模型的 2″推移，2 DMG，以及击倒状态。",
+      "text": "在此模型近战范围内的模型受到一个径直远离此模型的 2″ 推移，2 DMG，以及击倒状态。",
       "CST": "3,CP2",
       "RNG": "S",
       "SUS": false,
@@ -12436,7 +12436,7 @@
     },
     {
       "name": "Fire Blast",
-      "text": "在此范围内放置一个持续效果AOE。被命中的模型受到2 DMG和燃烧状态。进入或在此AOE范围内结束激活的模型受到燃烧状态。",
+      "text": "在此范围内放置一个持续效果 AOE。被命中的模型受到 2 DMG 和燃烧状态。进入或在此 AOE 范围内结束激活的模型受到燃烧状态。",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": false,
@@ -12444,7 +12444,7 @@
     },
     {
       "name": "Fire Ball",
-      "text": "目标敌方模型受到2 DMG和燃烧状态。",
+      "text": "目标敌方模型受到 2 DMG 和燃烧状态。",
       "CST": "CP",
       "RNG": 6,
       "SUS": false,
@@ -12468,7 +12468,7 @@
     },
     {
       "name": "Horrific Odour",
-      "text": "6″ 光环。在此光环范围内的敌方模型在踢球时需要额外花费1点影响力。",
+      "text": "6″ 光环。在此光环范围内的敌方模型在踢球时需要额外花费 1 点影响力。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12476,7 +12476,7 @@
     },
     {
       "name": "Singled Out",
-      "text": "友方模型在攻击目标敌方模型时获得+2 TAC。",
+      "text": "友方模型在攻击目标敌方模型时获得 +2 TAC。",
       "CST": "CP",
       "RNG": "P",
       "SUS": true,
@@ -12484,7 +12484,7 @@
     },
     {
       "name": "While the Iron is Hot",
-      "text": "6″ 脉冲。选择友方或敌方球门柱。在此脉冲范围内的友方模型可以径直朝向所选球门柱进行一次2″ 闪避。",
+      "text": "6″ 脉冲。选择友方或敌方球门柱。在此脉冲范围内的友方模型可以径直朝向所选球门柱进行一次 2″ 闪避。",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": false,
@@ -12492,7 +12492,7 @@
     },
     {
       "name": "Flame Belch",
-      "text": "在此范围内放置一个持续效果AOE。被命中的模型受到4 DMG且获得燃烧状态。进入或在此AOE范围内结束激活的模型获得燃烧状态。",
+      "text": "在此范围内放置一个持续效果 AOE。被命中的模型受到 4 DMG 且获得燃烧状态。进入或在此 AOE 范围内结束激活的模型获得燃烧状态。",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -12500,7 +12500,7 @@
     },
     {
       "name": "Eye Spy",
-      "text": "友方模型在攻击目标敌方模型时获得+2 TAC。",
+      "text": "友方模型在攻击目标敌方模型时获得 +2 TAC。",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": true,
@@ -12508,7 +12508,7 @@
     },
     {
       "name": "Get In the Goal!",
-      "text": "目标友方模型获得Goal Defence。\n{{trait 'Goal Defence'}}",
+      "text": "目标友方模型获得 Goal Defence。\n{{trait 'Goal Defence'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12516,7 +12516,7 @@
     },
     {
       "name": "Stagger",
-      "text": "目标敌方模型受到-1 DEF。",
+      "text": "目标敌方模型受到 -1 DEF。",
       "CST": "CP",
       "RNG": "P",
       "SUS": true,
@@ -12524,7 +12524,7 @@
     },
     {
       "name": "Quick Foot",
-      "text": "目标友方模型获得+2″/+2″MOV。",
+      "text": "目标友方模型获得 +2″/+2″ MOV。",
       "CST": 2,
       "RNG": 4,
       "SUS": true,
@@ -12532,7 +12532,7 @@
     },
     {
       "name": "Disarm",
-      "text": "目标敌方模型受到-2 TAC。",
+      "text": "目标敌方模型受到 -2 TAC。",
       "CST": "CP",
       "RNG": "P",
       "SUS": true,
@@ -12540,7 +12540,7 @@
     },
     {
       "name": "Weak Point",
-      "text": "目标敌方模型受到-1 ARM。",
+      "text": "目标敌方模型受到 -1 ARM。",
       "CST": "CP",
       "RNG": "P",
       "SUS": true,
@@ -12548,7 +12548,7 @@
     },
     {
       "name": "One at a Time Lads!",
-      "text": "在目标友方公会模型2″ 内的友方模型忽视挤出惩罚。",
+      "text": "在目标友方公会模型 2″ 内的友方模型忽视挤出惩罚。",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -12556,7 +12556,7 @@
     },
     {
       "name": "Tooled Up",
-      "text": "目标友方公会模型角色技巧伤害和战术手册伤害结果获得+1 DMG。",
+      "text": "目标友方公会模型角色技巧伤害和战术手册伤害结果获得 +1 DMG。",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12564,7 +12564,7 @@
     },
     {
       "name": "Instruction",
-      "text": "目标友方学徒模型的下一次攻击获得+2成功命中。",
+      "text": "目标友方学徒模型的下一次攻击获得 +2 成功命中。",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -12572,7 +12572,7 @@
     },
     {
       "name": "Use This!",
-      "text": "目标友方公会模型的近战范围变为2″。",
+      "text": "目标友方公会模型的近战范围变为 2″。",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -12580,7 +12580,7 @@
     },
     {
       "name": "Dirty Knives",
-      "text": "目标敌方模型受到-1 DEF，1 DMG和中毒状态。",
+      "text": "目标敌方模型受到 -1 DEF，1 DMG 和中毒状态。",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": true,
@@ -12596,7 +12596,7 @@
     },
     {
       "name": "Shoemerang",
-      "text": "目标其他模型受到2 DMG。选择一名位于该目标模型4″ 内的敌方模型受到击倒状态。",
+      "text": "目标其他模型受到 2 DMG。选择一名位于该目标模型 4″ 内的敌方模型受到击倒状态。",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -12604,7 +12604,7 @@
     },
     {
       "name": "Shield Glare",
-      "text": "目标敌方模型受到-1 TAC和-1 DEF。",
+      "text": "目标敌方模型受到 -1 TAC 和 -1 DEF。",
       "CST": "CP",
       "RNG": 6,
       "SUS": true,
@@ -12628,7 +12628,7 @@
     },
     {
       "name": "Decoy",
-      "text": "此模型在下一次敌方模型对此模型的角色技巧或攻击中获得+2 DEF。",
+      "text": "此模型在下一次敌方模型对此模型的角色技巧或攻击中获得 +2 DEF。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12636,7 +12636,7 @@
     },
     {
       "name": "Impale",
-      "text": "目标敌方模型受到3 DMG。",
+      "text": "目标敌方模型受到 3 DMG。",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": false,
@@ -12644,7 +12644,7 @@
     },
     {
       "name": "Broadside",
-      "text": "此技巧的范围从友方Culverin开始计算。在此范围内放置两个持续效果AOE。被命中的的模型受到2 DMG。此AOE是困难地形。",
+      "text": "此技巧的范围从友方 Culverin 开始计算。在此范围内放置两个持续效果 AOE。被命中的的模型受到 2 DMG。此 AOE 是困难地形。",
       "CST": 2,
       "RNG": 6,
       "SUS": false,
@@ -12652,7 +12652,7 @@
     },
     {
       "name": "Chain Shot",
-      "text": "此技巧的范围从友方Culverin开始计算。目标敌方模型受到3 DMG和击倒状态。",
+      "text": "此技巧的范围从友方 Culverin 开始计算。目标敌方模型受到 3 DMG 和击倒状态。",
       "CST": 2,
       "RNG": 8,
       "SUS": false,
@@ -12660,7 +12660,7 @@
     },
     {
       "name": "Impetus",
-      "text": "此模型获得+2″ /+2″ MOV。",
+      "text": "此模型获得 +2″ /+2″ MOV。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12668,7 +12668,7 @@
     },
     {
       "name": "Long Bomb",
-      "text": "当此模型传球时，其在此次传球中获得+0/+4″ KICK，且此次传球无法被拦截。",
+      "text": "当此模型传球时，其在此次传球中获得 +0/+4″ KICK，且此次传球无法被拦截。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12676,7 +12676,7 @@
     },
     {
       "name": "Piledriver",
-      "text": "此模型的下一次攻击获得+3成功命中。",
+      "text": "此模型的下一次攻击获得 +3 成功命中。",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -12684,7 +12684,7 @@
     },
     {
       "name": "Commanding Aura",
-      "text": "4″ 光环。在此光环范围内的友方公会模型获得+1 TAC和战术手册伤害结果+1 DMG。",
+      "text": "4″ 光环。在此光环范围内的友方公会模型获得 +1 TAC 和战术手册伤害结果 +1 DMG。",
       "CST": "2,CP2",
       "RNG": "S",
       "SUS": true,
@@ -12692,7 +12692,7 @@
     },
     {
       "name": "Marked Target",
-      "text": "每当友方模型对目标敌方模型进行冲锋时，该友方模型在此次冲锋中获得+0″ /+2″ MOV。",
+      "text": "每当友方模型对目标敌方模型进行冲锋时，该友方模型在此次冲锋中获得 +0″ /+2″ MOV。",
       "CST": "1,CP",
       "RNG": 10,
       "SUS": true,
@@ -12700,7 +12700,7 @@
     },
     {
       "name": "Voice of Command",
-      "text": "4″ 脉冲。在此脉冲范围内的友方模型受到一个远离此模型的3″ 推移。",
+      "text": "4″ 脉冲。在此脉冲范围内的友方模型受到一个远离此模型的 3″ 推移。",
       "CST": 2,
       "RNG": "S",
       "SUS": false,
@@ -12708,7 +12708,7 @@
     },
     {
       "name": "Iron Fist",
-      "text": "此模型的战术手册伤害结果获得+1 DMG。",
+      "text": "此模型的战术手册伤害结果获得 +1 DMG。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12716,7 +12716,7 @@
     },
     {
       "name": "Tough Skin",
-      "text": "目标友方模型获得+1 ARM。",
+      "text": "目标友方模型获得 +1 ARM。",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12732,7 +12732,7 @@
     },
     {
       "name": "Second Wind",
-      "text": "目标友方公会模型下一次结束激活时，其可以进行一次4″ 闪避。",
+      "text": "目标友方公会模型下一次结束激活时，其可以进行一次 4″ 闪避。",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12748,7 +12748,7 @@
     },
     {
       "name": "Howzat!?",
-      "text": "目标敌方模型受到一个径直远离此模型的4″ 推移和击倒状态。",
+      "text": "目标敌方模型受到一个径直远离此模型的 4″ 推移和击倒状态。",
       "CST": "CP",
       "RNG": "P",
       "SUS": false,
@@ -12756,7 +12756,7 @@
     },
     {
       "name": "Concussion",
-      "text": "目标敌方模型失去1点影响力。",
+      "text": "目标敌方模型失去 1 点影响力。",
       "CST": "CP2",
       "RNG": "P",
       "SUS": false,
@@ -12764,7 +12764,7 @@
     },
     {
       "name": "Smashing Face",
-      "text": "在此模型近战范围内的模型受到2 DMG和流血状态。",
+      "text": "在此模型近战范围内的模型受到 2 DMG 和流血状态。",
       "CST": 2,
       "RNG": "S",
       "SUS": false,
@@ -12788,7 +12788,7 @@
     },
     {
       "name": "Lob Barrel",
-      "text": "在此范围内放置一个AOE。被命中的模型受到一个径直远离此AOE中心点的3″ 推移和击倒状态。",
+      "text": "在此范围内放置一个 AOE。被命中的模型受到一个径直远离此 AOE 中心点的 3″ 推移和击倒状态。",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -12796,7 +12796,7 @@
     },
     {
       "name": "Molotov",
-      "text": "在此范围内放置一个持续效果AOE。被命中的模型受到燃烧状态。进入或在此AOE 范围内结束激活的模型受到燃烧状态。",
+      "text": "在此范围内放置一个持续效果 AOE。被命中的模型受到燃烧状态。进入或在此 AOE 范围内结束激活的模型受到燃烧状态。",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -12804,7 +12804,7 @@
     },
     {
       "name": "Flame Jet",
-      "text": "目标敌方模型受到3 DMG和燃烧状态。",
+      "text": "目标敌方模型受到 3 DMG 和燃烧状态。",
       "CST": 2,
       "RNG": 6,
       "SUS": false,
@@ -12828,7 +12828,7 @@
     },
     {
       "name": "Butchery",
-      "text": "友方模型在攻击目标敌方模型时战术手册伤害结果获得+1 DMG。",
+      "text": "友方模型在攻击目标敌方模型时战术手册伤害结果获得 +1 DMG。",
       "CST": "2,CP2",
       "RNG": 6,
       "SUS": true,
@@ -12836,7 +12836,7 @@
     },
     {
       "name": "Blood Rain",
-      "text": "目标敌方模型受到2 DMG。在该目标敌方模型3″ 内的敌方模型受到流血状态。",
+      "text": "目标敌方模型受到 2 DMG。在该目标敌方模型 3″ 内的敌方模型受到流血状态。",
       "CST": "CP2",
       "RNG": "P",
       "SUS": false,
@@ -12844,7 +12844,7 @@
     },
     {
       "name": "Pain Circle",
-      "text": "在此范围内放置一个持续效果AOE。被命中的模型受到1 DMG和流血状态。进入或在此AOE范围内结束激活的模型受到流血状态。",
+      "text": "在此范围内放置一个持续效果 AOE。被命中的模型受到 1 DMG 和流血状态。进入或在此 AOE 范围内结束激活的模型受到流血状态。",
       "CST": 2,
       "RNG": 6,
       "SUS": false,
@@ -12852,7 +12852,7 @@
     },
     {
       "name": "Rabid Animal",
-      "text": "目标敌方模型受到-4″ /-4″ MOV和中毒状态。",
+      "text": "目标敌方模型受到 -4″ /-4″ MOV 和中毒状态。",
       "CST": "CP2",
       "RNG": "P",
       "SUS": true,
@@ -12860,7 +12860,7 @@
     },
     {
       "name": "Axe Throw",
-      "text": "目标敌方模型受到3 DMG。",
+      "text": "目标敌方模型受到 3 DMG。",
       "CST": 2,
       "RNG": 6,
       "SUS": false,
@@ -12868,7 +12868,7 @@
     },
     {
       "name": "Super Shot",
-      "text": "此模型获得+1/+2″ KICK。",
+      "text": "此模型获得 +1/+2″ KICK。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -12876,7 +12876,7 @@
     },
     {
       "name": "Quick Time",
-      "text": "目标友方模型可以进行一次2″ 闪避。",
+      "text": "目标友方模型可以进行一次 2″ 闪避。",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -12892,7 +12892,7 @@
     },
     {
       "name": "Scything Blow",
-      "text": "在此模型近战范围中的模型受到3 DMG。",
+      "text": "在此模型近战范围中的模型受到 3 DMG。",
       "CST": "CP",
       "RNG": "S",
       "SUS": false,
@@ -12900,7 +12900,7 @@
     },
     {
       "name": "Whirling Chains",
-      "text": "4″ 脉冲。在此脉冲范围内的敌方模型受到径直朝向此模型的4″推移 。",
+      "text": "4″ 脉冲。在此脉冲范围内的敌方模型受到径直朝向此模型的 4″ 推移。",
       "CST": "2,CP2",
       "RNG": "S",
       "SUS": false,
@@ -12908,7 +12908,7 @@
     },
     {
       "name": "Thousand Cuts",
-      "text": "目标敌方模型受到-2 DEF和1 DMG。",
+      "text": "目标敌方模型受到 -2 DEF 和 1 DMG。",
       "CST": "3,CP2",
       "RNG": 6,
       "SUS": true,
@@ -12916,7 +12916,7 @@
     },
     {
       "name": "Chef's Special",
-      "text": "当位于目标友方模型4″ 内时，友方模型的角色技巧与战术手册伤害结果获得+1 DMG。",
+      "text": "当位于目标友方模型 4″ 内时，友方模型的角色技巧与战术手册伤害结果获得 +1 DMG。",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12924,7 +12924,7 @@
     },
     {
       "name": "Get Set, BAKE!",
-      "text": "当在目标友方模型2″ 内开始行进时，友方模型获得+2″ /+2″ MOV。",
+      "text": "当在目标友方模型 2″ 内开始行进时，友方模型获得 +2″ /+2″ MOV。",
       "CST": 2,
       "RNG": 4,
       "SUS": true,
@@ -12932,7 +12932,7 @@
     },
     {
       "name": "Get It While It's Hot",
-      "text": "当在目标友方模型2″ 内时，友方模型可以少花费1点影响力进行冲锋。",
+      "text": "当在目标友方模型 2″ 内时，友方模型可以少花费 1 点影响力进行冲锋。",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -12948,7 +12948,7 @@
     },
     {
       "name": "Intensify",
-      "text": "3″ 脉冲。在此脉冲范围内受到燃烧状态的敌方模型受到2 DMG。",
+      "text": "3″ 脉冲。在此脉冲范围内受到燃烧状态的敌方模型受到 2 DMG。",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": false,
@@ -12956,7 +12956,7 @@
     },
     {
       "name": "Chilli Cook Out",
-      "text": "在此范围内放置一个持续效果AOE。被命中的模型受到4 DMG且受到燃烧状态。进入或在此AOE内结束激活的模型受到燃烧状态。",
+      "text": "在此范围内放置一个持续效果 AOE。被命中的模型受到 4 DMG 且受到燃烧状态。进入或在此 AOE 内结束激活的模型受到燃烧状态。",
       "CST": "2,CP",
       "RNG": 2,
       "SUS": false,
@@ -12964,7 +12964,7 @@
     },
     {
       "name": "Deadbolt",
-      "text": "目标敌方模型受到一个径直远离此模型的2″ 推移，击倒状态和3 DMG。",
+      "text": "目标敌方模型受到一个径直远离此模型的 2″ 推移，击倒状态和 3 DMG。",
       "CST": 2,
       "RNG": 8,
       "SUS": false,
@@ -12972,7 +12972,7 @@
     },
     {
       "name": "Minefield",
-      "text": "4″ 光环。在此光环范围内开始行进或在行进过程中进入范围的敌方模型受到4 DMG。此光环每次行进只会触发一次。",
+      "text": "4″ 光环。在此光环范围内开始行进或在行进过程中进入范围的敌方模型受到 4 DMG。此光环每次行进只会触发一次。",
       "CST": "1,CP2",
       "RNG": "S",
       "SUS": true,
@@ -12988,7 +12988,7 @@
     },
     {
       "name": "Alternator",
-      "text": "目标友方公会模型获得+2″ /+2″ MOV。",
+      "text": "目标友方公会模型获得 +2″ /+2″ MOV。",
       "CST": 2,
       "RNG": 6,
       "SUS": true,
@@ -12996,7 +12996,7 @@
     },
     {
       "name": "Deletion",
-      "text": "目标友方公会模型战术手册伤害结果+1 DMG。",
+      "text": "目标友方公会模型战术手册伤害结果 +1 DMG。",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -13028,7 +13028,7 @@
     },
     {
       "name": "Unexpected Arrival",
-      "text": "3″ 脉冲。在此脉冲范围内的敌方模型受到径直远离此模型的4″ 推移。",
+      "text": "3″ 脉冲。在此脉冲范围内的敌方模型受到径直远离此模型的 4″ 推移。",
       "CST": "CP2",
       "RNG": "S",
       "SUS": false,
@@ -13036,7 +13036,7 @@
     },
     {
       "name": "Sucker Punch",
-      "text": "目标敌方模型受到2 DMG。",
+      "text": "目标敌方模型受到 2 DMG。",
       "CST": 2,
       "RNG": 8,
       "SUS": false,
@@ -13044,7 +13044,7 @@
     },
     {
       "name": "Destructive Impulse",
-      "text": "目标敌方模型受到2 DMG和2″ 推移。",
+      "text": "目标敌方模型受到 2 DMG 和 2″ 推移。",
       "CST": 2,
       "RNG": 8,
       "SUS": false,
@@ -13060,7 +13060,7 @@
     },
     {
       "name": "Spark",
-      "text": "目标敌方模型受到2 DMG和-1 ARM。",
+      "text": "目标敌方模型受到 2 DMG 和 -1 ARM。",
       "CST": 2,
       "RNG": 6,
       "SUS": true,
@@ -13068,7 +13068,7 @@
     },
     {
       "name": "Blast Earth",
-      "text": "在此范围内放置一个持续效果AOE。被命中的模型受到2 DMG。此AOE是困难地形。",
+      "text": "在此范围内放置一个持续效果 AOE。被命中的模型受到 2 DMG。此 AOE 是困难地形。",
       "CST": 2,
       "RNG": 6,
       "SUS": false,
@@ -13076,7 +13076,7 @@
     },
     {
       "name": "Arrow to the Knee",
-      "text": "目标敌方模型受到-2/-2″ KICK和2 DMG。",
+      "text": "目标敌方模型受到 -2/-2″ KICK 和 2 DMG。",
       "CST": 2,
       "RNG": 8,
       "SUS": true,
@@ -13084,7 +13084,7 @@
     },
     {
       "name": "Floored Bolt",
-      "text": "目标敌方模型受到击倒状态和2 DMG。",
+      "text": "目标敌方模型受到击倒状态和 2 DMG。",
       "CST": 2,
       "RNG": 8,
       "SUS": false,
@@ -13100,7 +13100,7 @@
     },
     {
       "name": "Nimble",
-      "text": "此模型获得+1 DEF。",
+      "text": "此模型获得 +1 DEF。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13108,7 +13108,7 @@
     },
     {
       "name": "Air Mail",
-      "text": "此模型可以进行一次无需消耗影响力的传球。 此次传球获得+0/+6″ KICK。",
+      "text": "此模型可以进行一次无需消耗影响力的传球。此次传球获得 +0/+6″ KICK。",
       "CST": 1,
       "RNG": "S",
       "SUS": false,
@@ -13116,7 +13116,7 @@
     },
     {
       "name": "Deadly Wings",
-      "text": "选择目标友方猎场 AOE。 将该AOE放置于当前位置的4″ 内。",
+      "text": "选择目标友方猎场 AOE。将该 AOE 放置于当前位置的 4″ 内。",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -13132,7 +13132,7 @@
     },
     {
       "name": "Harrier",
-      "text": "在此范围内放置一个持续效果AOE。 在此AOE范围内的敌方模型受到的角色技巧和战术手册的伤害结果受到+1 DMG。",
+      "text": "在此范围内放置一个持续效果 AOE。在此 AOE 范围内的敌方模型受到的角色技巧和战术手册的伤害结果受到 +1 DMG。",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": false,
@@ -13140,7 +13140,7 @@
     },
     {
       "name": "Taking Flight",
-      "text": "此模型可以进行一次小跑，在此次行进的过程中获得 +2″ /+2″ MOV 。",
+      "text": "此模型可以进行一次小跑，在此次行进的过程中获得 +2″ /+2″ MOV。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13148,7 +13148,7 @@
     },
     {
       "name": "Snap Fire",
-      "text": "目标敌方模型受到1 DMG。",
+      "text": "目标敌方模型受到 1 DMG。",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -13156,7 +13156,7 @@
     },
     {
       "name": "Constitution",
-      "text": "4″ 光环。在此光环范围内的友方模型获得Tough Hide。\n{{trait 'Tough Hide'}}",
+      "text": "4″ 光环。在此光环范围内的友方模型获得 Tough Hide。\n{{trait 'Tough Hide'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13164,7 +13164,7 @@
     },
     {
       "name": "Help 'Em Out",
-      "text": "4″ 光环。在此光环范围内的友方模型获得Close Ranks。\n{{trait 'Close Ranks'}}",
+      "text": "4″ 光环。在此光环范围内的友方模型获得 Close Ranks。\n{{trait 'Close Ranks'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13172,7 +13172,7 @@
     },
     {
       "name": "Scything March",
-      "text": "此模型的近战范围变为3″ 。",
+      "text": "此模型的近战范围变为 3″。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13180,7 +13180,7 @@
     },
     {
       "name": "Hare in the Field",
-      "text": "在此范围内放置一个AOE。在此AOE范围内的其他友方模型可以进行一次2″ 闪避。",
+      "text": "在此范围内放置一个 AOE。在此 AOE 范围内的其他友方模型可以进行一次 2″ 闪避。",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -13212,7 +13212,7 @@
     },
     {
       "name": "Get Stuck In!",
-      "text": "此模型获得获得Rowdy。\n{{trait 'Rowdy'}}",
+      "text": "此模型获得获得 Rowdy。\n{{trait 'Rowdy'}}",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
@@ -13220,7 +13220,7 @@
     },
     {
       "name": "Sow the Seeds",
-      "text": "此模型可以在2″ 内放置一个收成标记。",
+      "text": "此模型可以在 2″ 内放置一个收成标记。",
       "CST": "CP",
       "RNG": "S",
       "SUS": false,
@@ -13236,7 +13236,7 @@
     },
     {
       "name": "Crop Dusting",
-      "text": "在此范围内放置一个AOE。被命中的模型受到2 DMG，然后在此AOE范围内放置两个友方收成标记。",
+      "text": "在此范围内放置一个 AOE。被命中的模型受到 2 DMG，然后在此 AOE 范围内放置两个友方收成标记。",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -13260,7 +13260,7 @@
     },
     {
       "name": "Snack Break",
-      "text": "此模型恢复6 HP。",
+      "text": "此模型恢复 6 HP。",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": false,
@@ -13268,7 +13268,7 @@
     },
     {
       "name": "Tidal Surge",
-      "text": "目标模型可以进行一次4″ 的闪避，这个目标模型在进行这个动作时视为友方模型。",
+      "text": "目标模型可以进行一次 4″ 的闪避，这个目标模型在进行这个动作时视为友方模型。",
       "CST": "2,CP2",
       "RNG": 6,
       "SUS": false,
@@ -13276,7 +13276,7 @@
     },
     {
       "name": "Drag",
-      "text": "目标敌方模型受到一个径直靠近此模型的6″ 推移。",
+      "text": "目标敌方模型受到一个径直靠近此模型的 6″ 推移。",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": false,
@@ -13292,7 +13292,7 @@
     },
     {
       "name": "Swirling Waters",
-      "text": "目标友方模型可以立即进行2″ 闪避。每个模型每回合只能受该角色技巧的效果影响一次。",
+      "text": "目标友方模型可以立即进行 2″ 闪避。每个模型每回合只能受该角色技巧的效果影响一次。",
       "CST": "1,CP",
       "RNG": 6,
       "SUS": false,
@@ -13308,7 +13308,7 @@
     },
     {
       "name": "Fisher's Reel",
-      "text": "目标其他友方模型可以进行2″ 的闪避，一个模型一个回合只能受到此角色技巧影响一次。",
+      "text": "目标其他友方模型可以进行 2″ 的闪避，一个模型一个回合只能受到此角色技巧影响一次。",
       "CST": "1,CP",
       "RNG": 4,
       "SUS": false,
@@ -13332,7 +13332,7 @@
     },
     {
       "name": "Raise the Black Flag",
-      "text": "目标敌方模型受到–2″ /–2″ MOV。 选择一个在6″ 内的友方模型，被选择的模型获得+2″ /+2″ MOV。",
+      "text": "目标敌方模型受到–2″ /–2″ MOV。选择一个在 6″ 内的友方模型，被选择的模型获得 +2″ /+2″ MOV。",
       "CST": "CP",
       "RNG": 6,
       "SUS": true,
@@ -13356,7 +13356,7 @@
     },
     {
       "name": "Dread Gaze",
-      "text": "目标敌方模型受到一个径直远离这个模型的2″ 推移并且受到击倒状态。",
+      "text": "目标敌方模型受到一个径直远离这个模型的 2″ 推移并且受到击倒状态。",
       "CST": 2,
       "RNG": 6,
       "SUS": false,
@@ -13364,7 +13364,7 @@
     },
     {
       "name": "Fair Wind",
-      "text": "将目标自由球放置到其当前位置的4″ 内。",
+      "text": "将目标自由球放置到其当前位置的 4″ 内。",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -13372,7 +13372,7 @@
     },
     {
       "name": "Pinned",
-      "text": "目标敌方模型受到2 DMG。只要此模型在场上，目标敌方模型只能径直朝向此模型行进。",
+      "text": "目标敌方模型受到 2 DMG。只要此模型在场上，目标敌方模型只能径直朝向此模型行进。",
       "CST": 2,
       "RNG": 8,
       "SUS": true,
@@ -13380,7 +13380,7 @@
     },
     {
       "name": "Sun Strike",
-      "text": "当目标友方模型使用角色技巧命中一名或多名敌方模型时，在技巧结算后，友方队伍获得1 MP。",
+      "text": "当目标友方模型使用角色技巧命中一名或多名敌方模型时，在技巧结算后，友方队伍获得 1 MP。",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -13396,7 +13396,7 @@
     },
     {
       "name": "Cold Snap",
-      "text": "在此范围内放置一个AOE。被命中的模型受到2 DMG和捕获状态。",
+      "text": "在此范围内放置一个 AOE。被命中的模型受到 2 DMG 和捕获状态。",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": false,
@@ -13404,7 +13404,7 @@
     },
     {
       "name": "Snowball",
-      "text": "在此模型的控制下放置一个额外的球。当此球被用于射门得分时，友方队伍获得1 VP而不是4VP。在此模型的激活结束时，将此球从场上移除。",
+      "text": "在此模型的控制下放置一个额外的球。当此球被用于射门得分时，友方队伍获得 1 VP 而不是 4VP。在此模型的激活结束时，将此球从场上移除。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13412,7 +13412,7 @@
     },
     {
       "name": "Bait",
-      "text": "在此范围内放置一个AOE。此模型可以在此AOE范围内放置两个友方陷阱标记。被命中的敌方模型受到一个1″ 推移。",
+      "text": "在此范围内放置一个 AOE。此模型可以在此 AOE 范围内放置两个友方陷阱标记。被命中的敌方模型受到一个 1″ 推移。",
       "CST": "2,CP",
       "RNG": 3,
       "SUS": false,
@@ -13420,7 +13420,7 @@
     },
     {
       "name": "Feral Instincts",
-      "text": "目标友方模型获得Anatomical Precision。\n{{trait 'Anatomical Precision'}}",
+      "text": "目标友方模型获得 Anatomical Precision。\n{{trait 'Anatomical Precision'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13432,7 +13432,7 @@
       "RNG": 2,
       "SUS": false,
       "OPT": true,
-      "text": "在此范围内放置一个AOE。被命中的其他模型受到4DMG和一次径直远离此模型的4″推移。"
+      "text": "在此范围内放置一个 AOE。被命中的其他模型受到 4DMG 和一次径直远离此模型的 4″ 推移。"
     },
     {
       "name": "Entangle",
@@ -13444,7 +13444,7 @@
     },
     {
       "name": "Flurry",
-      "text": "位于目标敌方模型2″ 内的模型受到2 DMG。",
+      "text": "位于目标敌方模型 2″ 内的模型受到 2 DMG。",
       "CST": 2,
       "RNG": 8,
       "SUS": false,
@@ -13452,7 +13452,7 @@
     },
     {
       "name": "Skewered",
-      "text": "目标敌方模型受到3 DMG和捕获状态。",
+      "text": "目标敌方模型受到 3 DMG 和捕获状态。",
       "CST": "2,CP2",
       "RNG": 6,
       "SUS": false,
@@ -13460,7 +13460,7 @@
     },
     {
       "name": "Gut & String",
-      "text": "目标敌方模型受到-2″ /-2″ MOV和-1 DEF。",
+      "text": "目标敌方模型受到 -2″ /-2″ MOV 和 -1 DEF。",
       "CST": "CP",
       "RNG": "P",
       "SUS": true,
@@ -13468,7 +13468,7 @@
     },
     {
       "name": "Marked for Death",
-      "text": "友方模型在冲锋一名位于此模型近战范围内的敌方模型时少花费1点影响力且在此次冲锋期间获得+0″ /+2″ MOV。",
+      "text": "友方模型在冲锋一名位于此模型近战范围内的敌方模型时少花费 1 点影响力且在此次冲锋期间获得 +0″ /+2″ MOV。",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": true,
@@ -13476,7 +13476,7 @@
     },
     {
       "name": "More Teeth!",
-      "text": "此模型可以在2″ 内放置一个友方陷阱标记。",
+      "text": "此模型可以在 2″ 内放置一个友方陷阱标记。",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
@@ -13484,7 +13484,7 @@
     },
     {
       "name": "The Mauling",
-      "text": "2″ 脉冲。在此脉冲范围内的其他模型受到一个径直远离此模型的4″ 推移和3 DMG。",
+      "text": "2″ 脉冲。在此脉冲范围内的其他模型受到一个径直远离此模型的 4″ 推移和 3 DMG。",
       "CST": "CP2",
       "RNG": "S",
       "SUS": false,
@@ -13508,7 +13508,7 @@
     },
     {
       "name": "Dummy Pass",
-      "text": "目标其他友方公会模型可以进行一次4″ 闪避。",
+      "text": "目标其他友方公会模型可以进行一次 4″ 闪避。",
       "CST": 1,
       "RNG": 8,
       "SUS": false,
@@ -13516,7 +13516,7 @@
     },
     {
       "name": "Towering Presence",
-      "text": "4″ 光环。在此光环范围内的其他友方公会模型进行传跑联动或凌空抽射时可以少花费1 MP。",
+      "text": "4″ 光环。在此光环范围内的其他友方公会模型进行传跑联动或凌空抽射时可以少花费 1 MP。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13524,7 +13524,7 @@
     },
     {
       "name": "Fulcrum",
-      "text": "6″ 光环。在此光环范围内的友方模型获得Poised。\n{{trait 'Poised'}}",
+      "text": "6″ 光环。在此光环范围内的友方模型获得 Poised。\n{{trait 'Poised'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13532,7 +13532,7 @@
     },
     {
       "name": "Hold the Ball!",
-      "text": "目标友方模型获得Close Control。\n{{trait 'Close Control'}}",
+      "text": "目标友方模型获得 Close Control。\n{{trait 'Close Control'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13540,7 +13540,7 @@
     },
     {
       "name": "Squad Tactics",
-      "text": "目标其他友方公会模型获得Assist [Chisel]。\n{{trait 'Assist' 'Chisel'}}",
+      "text": "目标其他友方公会模型获得 Assist [Chisel]。\n{{trait 'Assist' 'Chisel'}}",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -13548,7 +13548,7 @@
     },
     {
       "name": "Lodestone",
-      "text": "选择一项:\n在目标敌方模型4″ 内的其他模型受到一个径直朝向该敌方模型的2″ 推移。\n在目标敌方模型4″ 内的其他模型受到一个径直远离该敌方模型的2″ 推移。",
+      "text": "选择一项:\n在目标敌方模型 4″ 内的其他模型受到一个径直朝向该敌方模型的 2″ 推移。\n在目标敌方模型 4″ 内的其他模型受到一个径直远离该敌方模型的 2″ 推移。",
       "CST": "2,CP2",
       "RNG": 8,
       "SUS": false,
@@ -13572,7 +13572,7 @@
     },
     {
       "name": "Sinkhole",
-      "text": "3″ 脉冲。在此脉冲范围的敌方模型受到一个径直朝向此模型的3″ 推移。在此之后，此模型可以被放置于当前位置2″ 内。",
+      "text": "3″ 脉冲。在此脉冲范围的敌方模型受到一个径直朝向此模型的 3″ 推移。在此之后，此模型可以被放置于当前位置 2″ 内。",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": false,
@@ -13580,7 +13580,7 @@
     },
     {
       "name": "Clear!",
-      "text": "在此范围内放置一个AOE。将被命中的敌方模型放置于其当前位置1″ 内。",
+      "text": "在此范围内放置一个 AOE。将被命中的敌方模型放置于其当前位置 1″ 内。",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -13588,7 +13588,7 @@
     },
     {
       "name": "Under the Lines",
-      "text": "选择一名位于此模型3″ 内的敌方模型。将此模型放置在与所选模型底盘接触位置。",
+      "text": "选择一名位于此模型 3″ 内的敌方模型。将此模型放置在与所选模型底盘接触位置。",
       "CST": 1,
       "RNG": "S",
       "SUS": false,
@@ -13596,7 +13596,7 @@
     },
     {
       "name": "Lockdown",
-      "text": "目标敌方模型受到-4″ /-4″ MOV。",
+      "text": "目标敌方模型受到 -4″ /-4″ MOV。",
       "CST": "CP",
       "RNG": "P",
       "SUS": true,
@@ -13604,7 +13604,7 @@
     },
     {
       "name": "Throw",
-      "text": "将目标敌方模型放置于其当前位置1″ 内。",
+      "text": "将目标敌方模型放置于其当前位置 1″ 内。",
       "CST": "CP",
       "RNG": "P",
       "SUS": false,
@@ -13612,7 +13612,7 @@
     },
     {
       "name": "Misdirection",
-      "text": "目标至少拥有1点影响力的敌方模型失去1点影响力。将1点影响力分配给此模型4″ 内的其他友方公会模型。",
+      "text": "目标至少拥有 1 点影响力的敌方模型失去 1 点影响力。将 1 点影响力分配给此模型 4″ 内的其他友方公会模型。",
       "CST": 2,
       "RNG": 8,
       "SUS": false,
@@ -13620,7 +13620,7 @@
     },
     {
       "name": "Puppet Master",
-      "text": "此模型获得1点影响力。目标模型可以无需消耗影响力进行一次小跑、传球或攻击。在此行动中目标模型视为友方模型。",
+      "text": "此模型获得 1 点影响力。目标模型可以无需消耗影响力进行一次小跑、传球或攻击。在此行动中目标模型视为友方模型。",
       "CST": 4,
       "RNG": 8,
       "SUS": false,
@@ -13628,7 +13628,7 @@
     },
     {
       "name": "Spirit Bomb",
-      "text": "在此范围内放置一个AOE。被命中的敌方模型受到2 DMG和2″ 推移。",
+      "text": "在此范围内放置一个 AOE。被命中的敌方模型受到 2 DMG 和 2″ 推移。",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": false,
@@ -13636,7 +13636,7 @@
     },
     {
       "name": "Malice",
-      "text": "目标友方模型获得+2 TAC。",
+      "text": "目标友方模型获得 +2 TAC。",
       "CST": 1,
       "RNG": 6,
       "SUS": true,
@@ -13644,7 +13644,7 @@
     },
     {
       "name": "Hollowed",
-      "text": "目标友方模型获得Empathy。\n{{trait 'Empathy'}}",
+      "text": "目标友方模型获得 Empathy。\n{{trait 'Empathy'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13652,7 +13652,7 @@
     },
     {
       "name": "Scatter",
-      "text": "1″ 脉冲。在此脉冲范围内的所有模型受到 1 DMG，之后将此模型放置于当前位置1″ 内。",
+      "text": "1″ 脉冲。在此脉冲范围内的所有模型受到 1 DMG，之后将此模型放置于当前位置 1″ 内。",
       "CST": 1,
       "RNG": "S",
       "SUS": false,
@@ -13668,7 +13668,7 @@
     },
     {
       "name": "Puppet Show [Memory]",
-      "text": "目标指定友方模型可以选择进行一次无需消耗影响力的攻击或进行一次2″ 闪避。",
+      "text": "目标指定友方模型可以选择进行一次无需消耗影响力的攻击或进行一次 2″ 闪避。",
       "CST": 1,
       "RNG": 8,
       "SUS": false,
@@ -13684,7 +13684,7 @@
     },
     {
       "name": "Ghostly Visage",
-      "text": "在此范围内放置一个持续效果AOE。每当一名敌方模型宣布对一名位于此AOE范围内的友方模型冲锋时，该敌方模型在此次冲锋期间受到-0″ /-4″ MOV和-2 TAC。",
+      "text": "在此范围内放置一个持续效果 AOE。每当一名敌方模型宣布对一名位于此 AOE 范围内的友方模型冲锋时，该敌方模型在此次冲锋期间受到 -0″ /-4″ MOV 和 -2 TAC。",
       "CST": 1,
       "RNG": 2,
       "SUS": true,
@@ -13692,7 +13692,7 @@
     },
     {
       "name": "Heavy Burden",
-      "text": "目标敌方模型受到-4″ /-4″ MOV且进行角色技巧时骰子池总数-2。",
+      "text": "目标敌方模型受到 -4″ /-4″ MOV 且进行角色技巧时骰子池总数 -2。",
       "CST": "1,CP",
       "RNG": 6,
       "SUS": true,
@@ -13716,7 +13716,7 @@
     },
     {
       "name": "The Unmasking",
-      "text": "3″ 脉冲。在此脉冲范围内的其他模型受到径直远离此模型的4″ 推移和3 DMG。",
+      "text": "3″ 脉冲。在此脉冲范围内的其他模型受到径直远离此模型的 4″ 推移和 3 DMG。",
       "CST": "CP2",
       "RNG": "S",
       "SUS": false,
@@ -13724,7 +13724,7 @@
     },
     {
       "name": "Exhaustion",
-      "text": "4″ 光环。在此光环范围内时，敌方模型必须额外花费1 MP以进行反击。",
+      "text": "4″ 光环。在此光环范围内时，敌方模型必须额外花费 1 MP 以进行反击。",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13732,7 +13732,7 @@
     },
     {
       "name": "Smelling Salts",
-      "text": "在此范围内放置一个AOE。在此AOE范围内的友方模型移除受到的任意状态。",
+      "text": "在此范围内放置一个 AOE。在此 AOE 范围内的友方模型移除受到的任意状态。",
       "CST": 2,
       "RNG": 2,
       "SUS": false,
@@ -13756,7 +13756,7 @@
     },
     {
       "name": "Guide",
-      "text": "目标友方模型可以进行一次接近此模型的4″ 闪避。",
+      "text": "目标友方模型可以进行一次接近此模型的 4″ 闪避。",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -13764,7 +13764,7 @@
     },
     {
       "name": "Full Speed Ahead",
-      "text": "目标友方模型获得+0″ /+2″ MOV，该友方模型在激活期内可以进行一次无需消耗影响力的长跑或冲锋。",
+      "text": "目标友方模型获得 +0″ /+2″ MOV，该友方模型在激活期内可以进行一次无需消耗影响力的长跑或冲锋。",
       "CST": 2,
       "RNG": 4,
       "SUS": true,
@@ -13788,7 +13788,7 @@
     },
     {
       "name": "Sprung a Leak",
-      "text": "在此范围内放置一个AOE。被命中的模型受到2 DMG和-2 ARM。",
+      "text": "在此范围内放置一个 AOE。被命中的模型受到 2 DMG 和 -2 ARM。",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": true,
@@ -13796,7 +13796,7 @@
     },
     {
       "name": "With Aplomb",
-      "text": "此模型下一次射门得分时，友方队伍额外获得1 VP。",
+      "text": "此模型下一次射门得分时，友方队伍额外获得 1 VP。",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
@@ -13804,7 +13804,7 @@
     },
     {
       "name": "Predatory Gaze",
-      "text": "此模型位于友方球门柱10″ 内时，敌方模型必须额外花费1点影响力进行射门。",
+      "text": "此模型位于友方球门柱 10″ 内时，敌方模型必须额外花费 1 点影响力进行射门。",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13812,7 +13812,7 @@
     },
     {
       "name": "Braced",
-      "text": "此模型在下一次敌方模型对此模型的攻击中获得+2 ARM。",
+      "text": "此模型在下一次敌方模型对此模型的攻击中获得 +2 ARM。",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13820,7 +13820,7 @@
     },
     {
       "name": "Stand Firm",
-      "text": "目标友方模型获得Sturdy。\n{{trait 'Sturdy'}}",
+      "text": "目标友方模型获得 Sturdy。\n{{trait 'Sturdy'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13828,7 +13828,7 @@
     },
     {
       "name": "Healing Light",
-      "text": "在此范围内放置一个AOE。在此AOE范围内的友方模型恢复3 HP。",
+      "text": "在此范围内放置一个 AOE。在此 AOE 范围内的友方模型恢复 3 HP。",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -13836,7 +13836,7 @@
     },
     {
       "name": "Pay the Piper",
-      "text": "6″ 光环。每当在此光环范围内的敌方模型使用MP时，友方队伍获得1 MP。",
+      "text": "6″ 光环。每当在此光环范围内的敌方模型使用 MP 时，友方队伍获得 1 MP。",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13860,7 +13860,7 @@
     },
     {
       "name": "Erupting Sores",
-      "text": "2″ 脉冲。敌方玩家选择以下一项:\n- 在此脉冲范围内的敌方模型受到2 DMG和中毒状态。\n- 在此脉冲范围内的敌方模型受到2 DMG和流血状态。",
+      "text": "2″ 脉冲。敌方玩家选择以下一项:\n- 在此脉冲范围内的敌方模型受到 2 DMG 和中毒状态。\n- 在此脉冲范围内的敌方模型受到 2 DMG 和流血状态。",
       "CST": "2,CP",
       "RNG": "S",
       "SUS": false,
@@ -13868,7 +13868,7 @@
     },
     {
       "name": "Rataclysm",
-      "text": "在此范围内放置一个AOE。被命中的模型受到3 DMG和疫病状态。",
+      "text": "在此范围内放置一个 AOE。被命中的模型受到 3 DMG 和疫病状态。",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -13876,7 +13876,7 @@
     },
     {
       "name": "Pest Control",
-      "text": "在此模型近战范围内，敌方模型受到-1/-2″KICK。",
+      "text": "在此模型近战范围内，敌方模型受到 -1/-2″ KICK。",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -13892,7 +13892,7 @@
     },
     {
       "name": "Baa Ram Ewe",
-      "text": "目标敌方模型受到2″ 推移。",
+      "text": "目标敌方模型受到 2″ 推移。",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -13900,7 +13900,7 @@
     },
     {
       "name": "Droppings",
-      "text": "该模型可在2″ 范围内放置一个友方收成标记。",
+      "text": "该模型可在 2″ 范围内放置一个友方收成标记。",
       "CST": 1,
       "RNG": "S",
       "SUS": false,
@@ -13924,7 +13924,7 @@
     },
     {
       "name": "Warming Oven",
-      "text": "目标友方模型恢复4点HP。",
+      "text": "目标友方模型恢复 4 点 HP。",
       "CST": "1,CP",
       "RNG": 4,
       "SUS": false,
@@ -13932,7 +13932,7 @@
     },
     {
       "name": "Guard the Flock",
-      "text": "目标友方模型获得Protective Instinct。\n{{trait 'Protective Instinct'}}",
+      "text": "目标友方模型获得 Protective Instinct。\n{{trait 'Protective Instinct'}}",
       "CST": 1,
       "RNG": 4,
       "SUS": true,
@@ -13948,7 +13948,7 @@
     },
     {
       "name": "Persuasion",
-      "text": "目标其他模型受到2″ 推移。每个模型每回合只受此效果影响一次。",
+      "text": "目标其他模型受到 2″ 推移。每个模型每回合只受此效果影响一次。",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -13972,7 +13972,7 @@
     },
     {
       "name": "Lens Flare",
-      "text": "当目标敌方模型生成TN骰子池时，修正值和奖励时间不会使总骰子池超过模型的:\n- 未经修正的 TAC， 在进行一次攻击时。\n- 未经修正的 KICK， 在进行一次踢球时。",
+      "text": "当目标敌方模型生成 TN 骰子池时，修正值和奖励时间不会使总骰子池超过模型的:\n- 未经修正的 TAC， 在进行一次攻击时。\n- 未经修正的 KICK， 在进行一次踢球时。",
       "CST": "CP",
       "RNG": 4,
       "SUS": true,
@@ -13996,7 +13996,7 @@
     },
     {
       "name": "Alchemical Bomb",
-      "text": "在此范围内放置一个AOE。被命中的模型受到1 状态伤害，并且受到燃烧状态和中毒状态。",
+      "text": "在此范围内放置一个 AOE。被命中的模型受到 1 状态伤害，并且受到燃烧状态和中毒状态。",
       "CST": "CP",
       "RNG": 2,
       "SUS": false,
@@ -14020,7 +14020,7 @@
     },
     {
       "name": "Pig Stickin'",
-      "text": "目标敌方模型受到2 DMG，并受到径直远离此模型的4″推移。",
+      "text": "目标敌方模型受到 2 DMG，并受到径直远离此模型的 4″ 推移。",
       "CST": "CP",
       "RNG": 6,
       "SUS": false,
@@ -14028,7 +14028,7 @@
     },
     {
       "name": "Careless Whisper",
-      "text": "在目标敌方模型上放置一个呢喃标记。\n友方非队长模型攻击带有呢喃标记的敌方模型时获得+2 TAC。\n只有当目标模型受到离场状态时才会移除呢喃标记。",
+      "text": "在目标敌方模型上放置一个呢喃标记。\n友方非队长模型攻击带有呢喃标记的敌方模型时获得 +2 TAC。\n只有当目标模型受到离场状态时才会移除呢喃标记。",
       "CST": "2,CP",
       "RNG": 7,
       "SUS": false,
@@ -14044,7 +14044,7 @@
     },
     {
       "name": "Bladework",
-      "text": "目标敌方模型受到2 DMG。然后此模型可以进行一次靠近该敌方模型的 2″ 闪避。每个敌方模型每回合只能被该角色技巧设为目标一次。",
+      "text": "目标敌方模型受到 2 DMG。然后此模型可以进行一次靠近该敌方模型的 2″ 闪避。每个敌方模型每回合只能被该角色技巧设为目标一次。",
       "CST": "CP",
       "RNG": 4,
       "SUS": false,
@@ -14052,7 +14052,7 @@
     },
     {
       "name": "Jagged Blade",
-      "text": "目标敌方模型受到2 DMG 和流血状态。",
+      "text": "目标敌方模型受到 2 DMG 和流血状态。",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": false,
@@ -14076,7 +14076,7 @@
     },
     {
       "name": "Annoyance",
-      "text": "该模型获得Protective Instinct。\n{{trait 'Protective Instinct'}}",
+      "text": "该模型获得 Protective Instinct。\n{{trait 'Protective Instinct'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -14084,7 +14084,7 @@
     },
     {
       "name": "Forest Grove",
-      "text": "在此范围内放置一个不与其他地形接触的 3″ AOE。该AOE是森林地形且在结束阶段移除该AOE。",
+      "text": "在此范围内放置一个不与其他地形接触的 3″ AOE。该 AOE 是森林地形且在结束阶段移除该 AOE。",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -14096,7 +14096,7 @@
       "RNG": 4,
       "SUS": true,
       "OPT": true,
-      "text": "选择一项效果：\n- 目标友方动物模型获得+1 TAC。\n- 目标友方动物模型获得+0″/+2″ MOV。"
+      "text": "选择一项效果：\n- 目标友方动物模型获得 +1 TAC。\n- 目标友方动物模型获得 +0″/+2″ MOV。"
     },
     {
       "name": "Freemason",
@@ -14108,7 +14108,7 @@
     },
     {
       "name": "Quoining",
-      "text": "该模型获得Protective Instinct。\n{{trait 'Protective Instinct'}}",
+      "text": "该模型获得 Protective Instinct。\n{{trait 'Protective Instinct'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -14116,7 +14116,7 @@
     },
     {
       "name": "Tortoise Power",
-      "text": "此模型获得Battering Ram。\n{{trait 'Battering Ram'}}",
+      "text": "此模型获得 Battering Ram。\n{{trait 'Battering Ram'}}",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -14124,7 +14124,7 @@
     },
     {
       "name": "Aqua Tofana",
-      "text": "4″ 光环。在此光环中受到中毒状态的敌方模型会受到-1 TAC，并且在结束阶段会因中毒状态受到3 DMG而不是2 DMG。",
+      "text": "4″ 光环。在此光环中受到中毒状态的敌方模型会受到 -1 TAC，并且在结束阶段会因中毒状态受到 3 DMG 而不是 2 DMG。",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -14132,7 +14132,7 @@
     },
     {
       "name": "Bull of the Woods",
-      "text": "本模型获得Lend a Hand。\n{{trait 'Lend a Hand'}}",
+      "text": "本模型获得 Lend a Hand。\n{{trait 'Lend a Hand'}}",
       "CST": "1,CP",
       "RNG": "S",
       "SUS": true,
@@ -14140,7 +14140,7 @@
     },
     {
       "name": "Cut Em Down",
-      "text": "在此模型近战范围内的敌方模型受到-1 DEF和-2″/-2″ MOV。",
+      "text": "在此模型近战范围内的敌方模型受到 -1 DEF 和 -2″/-2″ MOV。",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
@@ -14148,7 +14148,7 @@
     },
     {
       "name": "Hoisting and Hauling",
-      "text": "选择一个范围内的友方木堆标记将其放置在本模型1″内。",
+      "text": "选择一个范围内的友方木堆标记将其放置在本模型 1″ 内。",
       "CST": "1,CP",
       "RNG": 4,
       "SUS": false,
@@ -14164,7 +14164,7 @@
     },
     {
       "name": "Marked for Felling",
-      "text": "当友方模型向目标敌方模型冲锋时，在此次冲锋期间友方模型获得+0/+2″ MOV并可以越过障碍。该友方模型不可以在障碍上结束移动。",
+      "text": "当友方模型向目标敌方模型冲锋时，在此次冲锋期间友方模型获得 +0/+2″ MOV 并可以越过障碍。该友方模型不可以在障碍上结束移动。",
       "CST": "1,CP",
       "RNG": 10,
       "SUS": true,
@@ -14172,7 +14172,7 @@
     },
     {
       "name": "Reconnaissance",
-      "text": "6″ 光环。在此光环中友方模型攻击具有掩护的敌方模型时不再受到-1 TAC惩罚。",
+      "text": "6″ 光环。在此光环中友方模型攻击具有掩护的敌方模型时不再受到 -1 TAC 惩罚。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -14180,7 +14180,7 @@
     },
     {
       "name": "Swipe Right",
-      "text": "目标敌方模型受到2″推移。然后你可以选择一个范围内的友方木堆标记并将其放置在本模型1″内。",
+      "text": "目标敌方模型受到 2″ 推移。然后你可以选择一个范围内的友方木堆标记并将其放置在本模型 1″ 内。",
       "CST": "CP",
       "RNG": 4,
       "SUS": false,
@@ -14188,7 +14188,7 @@
     },
     {
       "name": "Skidding",
-      "text": "目标友方模型可以进行一次朝向友方木堆标记的2″闪避，每个模型每回合只可以被该效果影响一次。",
+      "text": "目标友方模型可以进行一次朝向友方木堆标记的 2″ 闪避，每个模型每回合只可以被该效果影响一次。",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": false,
@@ -14196,7 +14196,7 @@
     },
     {
       "name": "Dam Builder",
-      "text": "选择一个范围内的友方木堆标记并将其放置在当前位置的4″内。",
+      "text": "选择一个范围内的友方木堆标记并将其放置在当前位置的 4″ 内。",
       "CST": "1,CP",
       "RNG": 1,
       "SUS": false,
@@ -14204,7 +14204,7 @@
     },
     {
       "name": "Crumb Boss [Cut]",
-      "text": "如果目标指定友方模型位于一个友方木堆标记4″内，它获得2点影响力和+1″/+1″ MOV。",
+      "text": "如果目标指定友方模型位于一个友方木堆标记 4″ 内，它获得 2 点影响力和 +1″/+1″ MOV。",
       "CST": "CP",
       "RNG": 4,
       "SUS": true,
@@ -14212,7 +14212,7 @@
     },
     {
       "name": "Steel Toecaps",
-      "text": "目标友方模型获得+1 ARM和+0/+2″ KICK。",
+      "text": "目标友方模型获得 +1 ARM 和 +0/+2″ KICK。",
       "CST": 2,
       "RNG": 4,
       "SUS": true,
@@ -14220,7 +14220,7 @@
     },
     {
       "name": "The Bigger They Are...",
-      "text": "目标敌方模型受到当前生命值一半的状态伤害（向下取整）。然后，如果一个友方木堆标记位于此模型4″ 内，你可以将此模型与其底盘接触放置。",
+      "text": "目标敌方模型受到当前生命值一半的状态伤害（向下取整）。然后，如果一个友方木堆标记位于此模型 4″ 内，你可以将此模型与其底盘接触放置。",
       "CST": "CP2",
       "RNG": "P",
       "SUS": false,
@@ -14228,7 +14228,7 @@
     },
     {
       "name": "Sliced Tendon",
-      "text": "目标地方模型受到 –2/–2″ KICK和3 DMG。",
+      "text": "目标地方模型受到 –2/–2″ KICK 和 3 DMG。",
       "CST": 2,
       "RNG": 4,
       "SUS": true,
@@ -14236,7 +14236,7 @@
     },
     {
       "name": "Spring the Trap",
-      "text": "选择范围内的目标友方陷阱标记。标记1″ 内的敌方模型遭受捕获状态，然后将该陷阱标记从场上移除。",
+      "text": "选择范围内的目标友方陷阱标记。标记 1″ 内的敌方模型遭受捕获状态，然后将该陷阱标记从场上移除。",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -14260,7 +14260,7 @@
     },
     {
       "name": "Go For The Throat",
-      "text": "该模型近战范围内的模型受到1 DMG和流血状态。",
+      "text": "该模型近战范围内的模型受到 1 DMG 和流血状态。",
       "CST": "CP",
       "RNG": "S",
       "SUS": false,
@@ -14268,7 +14268,7 @@
     },
     {
       "name": "Mischief’s Call",
-      "text": "该模型获得Linked [Vileswarm, Squeak]。\n{{trait 'Linked'}}",
+      "text": "该模型获得 Linked [Vileswarm, Squeak]。\n{{trait 'Linked'}}",
       "CST": 2,
       "RNG": "S",
       "SUS": true,
@@ -14276,7 +14276,7 @@
     },
     {
       "name": "Gang Fighting",
-      "text": "该模型4″内的一个友方模型受到一次朝向目标敌方模型的2″推移。",
+      "text": "该模型 4″ 内的一个友方模型受到一次朝向目标敌方模型的 2″ 推移。",
       "CST": "CP",
       "RNG": "P",
       "SUS": false,
@@ -14287,7 +14287,7 @@
     {
       "name": "Fulmination",
       "active": false,
-      "text": "每回合一次，在此模型的激活中，可以移除一个4″ 内目标其他模型上的燃烧状态或中毒状态。如果执行了此行动，此模型在本回合剩余时间的每次成功的攻击都可以增加一个 {{d}} 战术手册结果。"
+      "text": "每回合一次，在此模型的激活中，可以移除一个 4″ 内目标其他模型上的燃烧状态或中毒状态。如果执行了此行动，此模型在本回合剩余时间的每次成功的攻击都可以增加一个 {{d}} 战术手册结果。"
     },
     {
       "name": "Midas Touch",
@@ -14297,17 +14297,17 @@
     {
       "name": "Unpredictable Movement",
       "active": true,
-      "text": "每回合一次，当敌方模型在此模型的近战范围内结束移动时，此模型可以立即进行一次2″ 闪避。"
+      "text": "每回合一次，当敌方模型在此模型的近战范围内结束移动时，此模型可以立即进行一次 2″ 闪避。"
     },
     {
       "name": "Cloud Jumper",
       "active": true,
-      "text": "每回合一次，在激活期间，此模型可以选择一个4″ 内的持续效果AOE，并将此模型放置于该AOE范围内的任意位置。"
+      "text": "每回合一次，在激活期间，此模型可以选择一个 4″ 内的持续效果 AOE，并将此模型放置于该 AOE 范围内的任意位置。"
     },
     {
       "name": "Watch The World Burn",
       "active": false,
-      "text": "在此模型激活结束时，此脉冲范围内每有一个受到燃烧状态或中毒状态的敌方模型，就获得1 MP。"
+      "text": "在此模型激活结束时，此脉冲范围内每有一个受到燃烧状态或中毒状态的敌方模型，就获得 1 MP。"
     },
     {
       "name": "Burning Spirit",
@@ -14317,12 +14317,12 @@
     {
       "name": "Gimme Fuel...",
       "active": false,
-      "text": "当此模型在场上，一个友方模型对目标受到燃烧状态的敌方模型发起攻击时，该友方模型在这次攻击中获得+2 TAC。每个友方模型每回合可以从Gimme Fuel中受益一次。"
+      "text": "当此模型在场上，一个友方模型对目标受到燃烧状态的敌方模型发起攻击时，该友方模型在这次攻击中获得 +2 TAC。每个友方模型每回合可以从 Gimme Fuel 中受益一次。"
     },
     {
       "name": "Backdraft",
       "active": true,
-      "text": "此模型攻击受到燃烧状态的敌方模型时获得+2 TAC。"
+      "text": "此模型攻击受到燃烧状态的敌方模型时获得 +2 TAC。"
     },
     {
       "name": "Furious",
@@ -14332,17 +14332,17 @@
     {
       "name": "Inferno",
       "active": false,
-      "text": "当此模型进行一次成功的攻击后，目标敌方模型受到燃烧状态。然后在此模型2″范围内的遭受燃烧状态的敌方模型受到1点状态伤害。"
+      "text": "当此模型进行一次成功的攻击后，目标敌方模型受到燃烧状态。然后在此模型 2″ 范围内的遭受燃烧状态的敌方模型受到 1 点状态伤害。"
     },
     {
       "name": "Waning Light",
       "active": false,
-      "text": "此模型无法恢复HP。当此模型受到离场状态时，该脉冲范围内的敌方模型会受到3点状态伤害和燃烧状态。在从场上移除此模型后，用Soma的角色卡替换此模型的角色卡。"
+      "text": "此模型无法恢复 HP。当此模型受到离场状态时，该脉冲范围内的敌方模型会受到 3 点状态伤害和燃烧状态。在从场上移除此模型后，用 Soma 的角色卡替换此模型的角色卡。"
     },
     {
       "name": "Beaker Keeper",
       "active": true,
-      "text": "每回合一次，在此模型的激活中，选择一个4″ 内的非队长友方公会模型，该模型在激活期间可以免费使用一次 CST 1或2的角色技巧。"
+      "text": "每回合一次，在此模型的激活中，选择一个 4″ 内的非队长友方公会模型，该模型在激活期间可以免费使用一次 CST 1 或 2 的角色技巧。"
     },
     {
       "name": "Light Footed",
@@ -14352,12 +14352,12 @@
     {
       "name": "Overheat",
       "active": false,
-      "text": "当此模型在激活阶段受到离场状态时，此脉冲范围内的敌方模型受到3 DMG和燃烧状态。"
+      "text": "当此模型在激活阶段受到离场状态时，此脉冲范围内的敌方模型受到 3 DMG 和燃烧状态。"
     },
     {
       "name": "Test Subject",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，可以移除一个4″ 内目标其他模型上的燃烧状态或中毒状态。如果执行了此行动，此模型可以无需消耗影响力进行一次攻击或使用一次角色技巧。"
+      "text": "每回合一次，在此模型的激活期间，可以移除一个 4″ 内目标其他模型上的燃烧状态或中毒状态。如果执行了此行动，此模型可以无需消耗影响力进行一次攻击或使用一次角色技巧。"
     },
     {
       "name": "Venomous Strike",
@@ -14372,12 +14372,12 @@
     {
       "name": "Reactive Solution",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，可以移除一个4″ 内目标其他模型上的燃烧状态或中毒状态。如果执行了此行动，此模型可以无需消耗影响力使用一次角色技巧。"
+      "text": "每回合一次，在此模型的激活期间，可以移除一个 4″ 内目标其他模型上的燃烧状态或中毒状态。如果执行了此行动，此模型可以无需消耗影响力使用一次角色技巧。"
     },
     {
       "name": "Extraction",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，可以移除一个4″ 内目标其他模型上的燃烧状态或中毒状态。如果执行了此行动，此模型可以进行一次4″ 闪避。"
+      "text": "每回合一次，在此模型的激活期间，可以移除一个 4″ 内目标其他模型上的燃烧状态或中毒状态。如果执行了此行动，此模型可以进行一次 4″ 闪避。"
     },
     {
       "name": "Chemical Admixture",
@@ -14387,7 +14387,7 @@
     {
       "name": "Covalence",
       "active": false,
-      "text": "在此光环内处于燃烧或中毒状态的敌方模型，其使用休息或成为鼓励的目标时需额外耗费1 MP。"
+      "text": "在此光环内处于燃烧或中毒状态的敌方模型，其使用休息或成为鼓励的目标时需额外耗费 1 MP。"
     },
     {
       "name": "Anatomical Precision",
@@ -14402,12 +14402,12 @@
     {
       "name": "Elusive",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，可以移除一个4″ 内其他模型上的燃烧状态或中毒状态。如果执行了此行动，将此模型放置在与目标模型底盘接触位置。"
+      "text": "每回合一次，在此模型的激活期间，可以移除一个 4″ 内其他模型上的燃烧状态或中毒状态。如果执行了此行动，将此模型放置在与目标模型底盘接触位置。"
     },
     {
       "name": "Burning Effigy",
       "active": false,
-      "text": "当此模型受到燃烧状态时，此模型获得 +2 TAC并忽略燃烧状态的 MOV惩罚。"
+      "text": "当此模型受到燃烧状态时，此模型获得 +2 TAC 并忽略燃烧状态的 MOV 惩罚。"
     },
     {
       "name": "Burning Strike",
@@ -14422,22 +14422,22 @@
     {
       "name": "Burst of Fumes",
       "active": false,
-      "text": "当此模型在激活中结算了一次成功的攻击后，在此模型2″ 内受到燃烧状态或中毒状态的敌方模型受到 1点状态伤害。"
+      "text": "当此模型在激活中结算了一次成功的攻击后，在此模型 2″ 内受到燃烧状态或中毒状态的敌方模型受到 1 点状态伤害。"
     },
     {
       "name": "Toxicity",
       "active": false,
-      "text": "如果敌方模型激活结束时与此模型接战，该敌方模型受到2点状态伤害和中毒状态。"
+      "text": "如果敌方模型激活结束时与此模型接战，该敌方模型受到 2 点状态伤害和中毒状态。"
     },
     {
       "name": "Witness Me!",
       "active": false,
-      "text": "每回合一次，在此模型的激活期间，当此模型造成一个敌方模型受到离场状态后，友方队伍额外获得2 MP。"
+      "text": "每回合一次，在此模型的激活期间，当此模型造成一个敌方模型受到离场状态后，友方队伍额外获得 2 MP。"
     },
     {
       "name": "Debilitating Strike",
       "active": false,
-      "text": "此模型在攻击受到中毒状态的模型时获得+2 TAC"
+      "text": "此模型在攻击受到中毒状态的模型时获得 +2 TAC"
     },
     {
       "name": "Melting Body",
@@ -14452,12 +14452,12 @@
     {
       "name": "I've Been Burnt Before...",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，可以移除一个4″ 内目标其他模型上的燃烧状态或中毒状态。如果执行了此行动，此模型可以在剩余的激活期内进行一次无需消耗影响力的长跑或冲锋。"
+      "text": "每回合一次，在此模型的激活期间，可以移除一个 4″ 内目标其他模型上的燃烧状态或中毒状态。如果执行了此行动，此模型可以在剩余的激活期内进行一次无需消耗影响力的长跑或冲锋。"
     },
     {
       "name": "Noxious Death",
       "active": false,
-      "text": "当此模型在激活阶段受到离场状态时，此脉冲范围内的敌方模型受到3 DMG和中毒状态。"
+      "text": "当此模型在激活阶段受到离场状态时，此脉冲范围内的敌方模型受到 3 DMG 和中毒状态。"
     },
     {
       "name": "Resilience",
@@ -14472,17 +14472,17 @@
     {
       "name": "Sentinel",
       "active": false,
-      "text": "在此光环范围内，友方学徒模型获得+1 ARM。"
+      "text": "在此光环范围内，友方学徒模型获得 +1 ARM。"
     },
     {
       "name": "Tough Hide",
       "active": false,
-      "text": "此模型受到的敌方角色技巧和战术手册伤害结果-1 DMG。"
+      "text": "此模型受到的敌方角色技巧和战术手册伤害结果 -1 DMG。"
     },
     {
       "name": "Reduction",
       "active": true,
-      "text": "每回合一次，此模型的激活期间，在此模型2″内放置一个AOE，在此AOE范围内的友方模型移除受到的所有状态。"
+      "text": "每回合一次，此模型的激活期间，在此模型 2″ 内放置一个 AOE，在此 AOE 范围内的友方模型移除受到的所有状态。"
     },
     {
       "name": "Reinforced Plating",
@@ -14492,7 +14492,7 @@
     {
       "name": "Quench",
       "active": true,
-      "text": "当一名在此光环范围内的友方模型受到来自敌方角色技巧的伤害后，在此次角色技巧结算后，该友方模型可以恢复1 HP。"
+      "text": "当一名在此光环范围内的友方模型受到来自敌方角色技巧的伤害后，在此次角色技巧结算后，该友方模型可以恢复 1 HP。"
     },
     {
       "name": "Give It a Whack",
@@ -14502,17 +14502,17 @@
     {
       "name": "Get Over Here",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，如果指定友方模型在此模型10″内，则该友方模型可以靠近此模型进行一次等同于基础MOV的闪避。"
+      "text": "每回合一次，在此模型的激活期间，如果指定友方模型在此模型 10″ 内，则该友方模型可以靠近此模型进行一次等同于基础 MOV 的闪避。"
     },
     {
       "name": "Searing Strike",
       "active": false,
-      "text": "受到此模型伤害的敌方模型受到-1 ARM直到此回合结束并受到燃烧状态。"
+      "text": "受到此模型伤害的敌方模型受到 -1 ARM 直到此回合结束并受到燃烧状态。"
     },
     {
       "name": "Match Experience",
       "active": true,
-      "text": "当一个友方模型在此光环范围内使用传跑联动时，接球模型和踢球模型可以都进行一次4″ 闪避而不是只有其中一个可以进行。"
+      "text": "当一个友方模型在此光环范围内使用传跑联动时，接球模型和踢球模型可以都进行一次 4″ 闪避而不是只有其中一个可以进行。"
     },
     {
       "name": "Sturdy",
@@ -14522,12 +14522,12 @@
     {
       "name": "Back to the Shadows",
       "active": true,
-      "text": "在此模型结束激活时，如果此模型在此次激活中造成了伤害，此模型可以进行一次4″ 闪避。"
+      "text": "在此模型结束激活时，如果此模型在此次激活中造成了伤害，此模型可以进行一次 4″ 闪避。"
     },
     {
       "name": "Arsenal",
       "active": true,
-      "text": "如果此模型在指定友方模型6″ 内开始激活，则此模型获得以下一项所选增益直到回合结束:\n- 2″ 近战范围\n- Instruction\n{{play 'Instruction'}}"
+      "text": "如果此模型在指定友方模型 6″ 内开始激活，则此模型获得以下一项所选增益直到回合结束:\n- 2″ 近战范围\n- Instruction\n{{play 'Instruction'}}"
     },
     {
       "name": "Stamina",
@@ -14537,52 +14537,52 @@
     {
       "name": "Tutelage",
       "active": false,
-      "text": "如果此模型在指定友方模型6″ 内开始激活，则此模型可以在激活期间使用一次无需消耗影响力的角色技巧。"
+      "text": "如果此模型在指定友方模型 6″ 内开始激活，则此模型可以在激活期间使用一次无需消耗影响力的角色技巧。"
     },
     {
       "name": "Burning Passion",
       "active": false,
-      "text": "此模型在攻击受到燃烧状态的敌方模型时战术手册伤害结果获得+1 DMG。"
+      "text": "此模型在攻击受到燃烧状态的敌方模型时战术手册伤害结果获得 +1 DMG。"
     },
     {
       "name": "Bright Shields",
       "active": false,
-      "text": "对此模型宣布反击的敌方模型在此次反击中受到-1 TAC。"
+      "text": "对此模型宣布反击的敌方模型在此次反击中受到 -1 TAC。"
     },
     {
       "name": "Swift Strikes",
       "active": false,
-      "text": "在此模型的激活期间，每当对一名或多名敌方模型造成伤害后，此模型可以进行一次2″ 闪避。"
+      "text": "在此模型的激活期间，每当对一名或多名敌方模型造成伤害后，此模型可以进行一次 2″ 闪避。"
     },
     {
       "name": "Far Strike",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，如果一个敌方模型在此模型的6″ 内，且此模型拥有对该敌方模型的视线，则此模型可以宣布一次视同与该敌方模型接战的攻击。"
+      "text": "每回合一次，在此模型的激活期间，如果一个敌方模型在此模型的 6″ 内，且此模型拥有对该敌方模型的视线，则此模型可以宣布一次视同与该敌方模型接战的攻击。"
     },
     {
       "name": "Kindled",
       "active": false,
-      "text": "如果此模型在指定友方模型6″内开始激活，此模型可以在此次激活期间进行一次无需消耗影响力的攻击。"
+      "text": "如果此模型在指定友方模型 6″ 内开始激活，此模型可以在此次激活期间进行一次无需消耗影响力的攻击。"
     },
     {
       "name": "Grim Vengeance",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，如果此模型造成一名敌方模型受到退场状态，此模型可以选择进行一次2″闪避、或下一次的攻击或踢球无需消耗影响力。"
+      "text": "每回合一次，在此模型的激活期间，如果此模型造成一名敌方模型受到退场状态，此模型可以选择进行一次 2″ 闪避、或下一次的攻击或踢球无需消耗影响力。"
     },
     {
       "name": "Sweeping Charge",
       "active": false,
-      "text": "当此模型在其激活期间进行冲锋时，在一个或更多战术手册伤害结果后，在此模型近战范围内的模型受到3DMG。"
+      "text": "当此模型在其激活期间进行冲锋时，在一个或更多战术手册伤害结果后，在此模型近战范围内的模型受到 3DMG。"
     },
     {
       "name": "Quick Off the Line",
       "active": true,
-      "text": "当一名敌方模型宣布进行射门时，在射门结算前，此模型可以进行一次2″闪避。"
+      "text": "当一名敌方模型宣布进行射门时，在射门结算前，此模型可以进行一次 2″ 闪避。"
     },
     {
       "name": "Battering Ram",
       "active": false,
-      "text": "在此模型行进期间，与此模型底盘接触的模型立刻受到一次2″推移，每个模型每回合只会受此效果影响一次。"
+      "text": "在此模型行进期间，与此模型底盘接触的模型立刻受到一次 2″ 推移，每个模型每回合只会受此效果影响一次。"
     },
     {
       "name": "Close Control",
@@ -14592,7 +14592,7 @@
     {
       "name": "Tryhard",
       "active": false,
-      "text": "当此模型位于敌方球门柱2″内进行射门时，TN要求-1。"
+      "text": "当此模型位于敌方球门柱 2″ 内进行射门时，TN 要求 -1。"
     },
     {
       "name": "Powerful Charge",
@@ -14602,7 +14602,7 @@
     {
       "name": "Aria",
       "active": false,
-      "text": "在此光环范围内的其他友方公会模型可以无需MP使用英雄技巧。"
+      "text": "在此光环范围内的其他友方公会模型可以无需 MP 使用英雄技巧。"
     },
     {
       "name": "Spit and Sawdust",
@@ -14612,7 +14612,7 @@
     {
       "name": "Legless Drunk",
       "active": true,
-      "text": "每回合此模型第一次受到伤害时，除非此模型正在行进，否则其受到一个方向由其控制玩家决定的D6″ 推移。"
+      "text": "每回合此模型第一次受到伤害时，除非此模型正在行进，否则其受到一个方向由其控制玩家决定的 D6″ 推移。"
     },
     {
       "name": "Feral",
@@ -14622,32 +14622,32 @@
     {
       "name": "Shadow Like",
       "active": true,
-      "text": "此模型的激活开始时，其可以进行一次2″ 闪避"
+      "text": "此模型的激活开始时，其可以进行一次 2″ 闪避"
     },
     {
       "name": "Pick Me Up",
       "active": true,
-      "text": "每回合一次,此模型的激活期间，目标4″内的友方非队长模型在此回合剩下的时间内获得+1 TAC。"
+      "text": "每回合一次,此模型的激活期间，目标 4″ 内的友方非队长模型在此回合剩下的时间内获得 +1 TAC。"
     },
     {
       "name": "Loved Creature",
       "active": false,
-      "text": "当此模型每回合第一次受到来自敌方的攻击或角色技巧伤害后，其他友方模型在此回合剩下的时间内获得+1 TAC。"
+      "text": "当此模型每回合第一次受到来自敌方的攻击或角色技巧伤害后，其他友方模型在此回合剩下的时间内获得 +1 TAC。"
     },
     {
       "name": "Assist",
       "active": false,
-      "text": "攻击与指定友方模型接战的敌方模型时，此模型获得+1 TAC和战术手册伤害结果 +1 DMG。"
+      "text": "攻击与指定友方模型接战的敌方模型时，此模型获得 +1 TAC 和战术手册伤害结果 +1 DMG。"
     },
     {
       "name": "Defence Support",
       "active": false,
-      "text": "位于指定友方模型4″ 内时，此模型获得+1 DEF"
+      "text": "位于指定友方模型 4″ 内时，此模型获得 +1 DEF"
     },
     {
       "name": "Shove the Boot In",
       "active": false,
-      "text": "此模型攻击遭受击倒状态的敌方模型时，战术手册伤害结果+1 DMG。"
+      "text": "此模型攻击遭受击倒状态的敌方模型时，战术手册伤害结果 +1 DMG。"
     },
     {
       "name": "Rowdy",
@@ -14662,42 +14662,42 @@
     {
       "name": "Taunt",
       "active": true,
-      "text": "在此模型结束一次行进时，选择一名位于此模型2″ 内的敌方模型。该敌方模型受到一个径直靠近此模型的1″ 推移。"
+      "text": "在此模型结束一次行进时，选择一名位于此模型 2″ 内的敌方模型。该敌方模型受到一个径直靠近此模型的 1″ 推移。"
     },
     {
       "name": "Floored",
       "active": false,
-      "text": "此模型攻击遭受击倒状态的敌方模型时，此模型获得+2 TAC"
+      "text": "此模型攻击遭受击倒状态的敌方模型时，此模型获得 +2 TAC"
     },
     {
       "name": "Football Legend",
       "active": false,
-      "text": "在此光环范围内的友方模型获得+1/+1″ KICK"
+      "text": "在此光环范围内的友方模型获得 +1/+1″ KICK"
     },
     {
       "name": "Magical Brew",
       "active": false,
-      "text": "此模型的激活开始时，移除其受到的所有状态，然后此模型恢复2 HP。"
+      "text": "此模型的激活开始时，移除其受到的所有状态，然后此模型恢复 2 HP。"
     },
     {
       "name": "Stack the Deck",
       "active": false,
-      "text": "每回合一次,在此模型开始激活时，如果敌方队伍拥有先手，此模型获得1影响力。"
+      "text": "每回合一次,在此模型开始激活时，如果敌方队伍拥有先手，此模型获得 1 影响力。"
     },
     {
       "name": "The Owner",
       "active": false,
-      "text": "在此光环范围内的友方公会模型角色技巧和战术手册伤害结果获得+1 DMG。"
+      "text": "在此光环范围内的友方公会模型角色技巧和战术手册伤害结果获得 +1 DMG。"
     },
     {
       "name": "Haemophilia",
       "active": false,
-      "text": "在结束阶段，结算状态前。在此光环范围内每有一名受到流血状态的敌方模型，此模型恢复1 HP。"
+      "text": "在结束阶段，结算状态前。在此光环范围内每有一名受到流血状态的敌方模型，此模型恢复 1 HP。"
     },
     {
       "name": "Smell Blood",
       "active": false,
-      "text": "每当此模型冲锋一名受到流血状态的敌方模型时，此模型在此次冲锋中获得+0″/+2″MOV。每当此模型攻击一名受到流血状态的敌方模型时，此模型的战术手册伤害结果获得+1 DMG。"
+      "text": "每当此模型冲锋一名受到流血状态的敌方模型时，此模型在此次冲锋中获得 +0″/+2″ MOV。每当此模型攻击一名受到流血状态的敌方模型时，此模型的战术手册伤害结果获得 +1 DMG。"
     },
     {
       "name": "Berserk",
@@ -14707,22 +14707,22 @@
     {
       "name": "Blood Lust",
       "active": false,
-      "text": "每回合一次，当另一名友方模型在此光环范围内开始激活时，该友方模型可以花费1影响力获得 Berserk直到回合结束。"
+      "text": "每回合一次，当另一名友方模型在此光环范围内开始激活时，该友方模型可以花费 1 影响力获得 Berserk 直到回合结束。"
     },
     {
       "name": "Vicious",
       "active": false,
-      "text": "此模型进行借机攻击时获得+2TAC且战术手册伤害结果获得+1 DMG。"
+      "text": "此模型进行借机攻击时获得 +2TAC 且战术手册伤害结果获得 +1 DMG。"
     },
     {
       "name": "Vindictive",
       "active": false,
-      "text": "此模型在激活中进行冲锋时可以少花费1影响力。"
+      "text": "此模型在激活中进行冲锋时可以少花费 1 影响力。"
     },
     {
       "name": "Life Drinker",
       "active": false,
-      "text": "每当此模型通过一个或多个战术手册伤害结果对敌方模型造成伤害时，此模型可以恢复1 HP。"
+      "text": "每当此模型通过一个或多个战术手册伤害结果对敌方模型造成伤害时，此模型可以恢复 1 HP。"
     },
     {
       "name": "Crucial Artery",
@@ -14732,7 +14732,7 @@
     {
       "name": "Above and Beyond",
       "active": false,
-      "text": "每当此模型成功进球时，此模型在此次游戏的剩余时间内获得+1/+0 INF。"
+      "text": "每当此模型成功进球时，此模型在此次游戏的剩余时间内获得 +1/+0 INF。"
     },
     {
       "name": "Field Medic",
@@ -14742,17 +14742,17 @@
     {
       "name": "Pragmatic",
       "active": false,
-      "text": "此模型激活期间冲锋或进行传球时可以少消耗1点影响力。"
+      "text": "此模型激活期间冲锋或进行传球时可以少消耗 1 点影响力。"
     },
     {
       "name": "Bleed the Cleats",
       "active": false,
-      "text": "每当此模型对一名敌方模型造成伤害后，此模型获得+1/+0″ KICK直到回合结束。"
+      "text": "每当此模型对一名敌方模型造成伤害后，此模型获得 +1/+0″ KICK 直到回合结束。"
     },
     {
       "name": "Get On With It, Boy!",
       "active": true,
-      "text": "如果此模型在指定友方模型6″内开始激活，则此模型可以立即使用一次无需消耗影响力的角色技巧或移除受到的所有状态"
+      "text": "如果此模型在指定友方模型 6″ 内开始激活，则此模型可以立即使用一次无需消耗影响力的角色技巧或移除受到的所有状态"
     },
     {
       "name": "Magic Touch",
@@ -14767,52 +14767,52 @@
     {
       "name": "Lash Out",
       "active": false,
-      "text": "此模型结束激活时，在此模型近战范围内的敌方模型受到3DMG。"
+      "text": "此模型结束激活时，在此模型近战范围内的敌方模型受到 3DMG。"
     },
     {
       "name": "The Old Ways",
       "active": false,
-      "text": "每回合一次，当此模型造成一名敌方模型受到退场状态后，此模型获得The Owner [6″ Aura] 直到回合结束\n{{trait 'The Owner'}}"
+      "text": "每回合一次，当此模型造成一名敌方模型受到退场状态后，此模型获得 The Owner [6″ Aura] 直到回合结束\n{{trait 'The Owner'}}"
     },
     {
       "name": "Damaged Target",
       "active": false,
-      "text": "每当此模型对一名已受伤的敌方模型进行冲锋时，在此次冲锋中此模型获得+0″/+2″MOV。"
+      "text": "每当此模型对一名已受伤的敌方模型进行冲锋时，在此次冲锋中此模型获得 +0″/+2″ MOV。"
     },
     {
       "name": "Goal Defence",
       "active": false,
-      "text": "此模型位于友方球门柱4″内时，进行射门的敌方模型TN要求+1。"
+      "text": "此模型位于友方球门柱 4″ 内时，进行射门的敌方模型 TN 要求 +1。"
     },
     {
       "name": "Guild Rule: Intimidation",
       "active": false,
-      "text": "在此模型攻击时，受到攻击的敌方模型在本次攻击中受到-1 DEF。"
+      "text": "在此模型攻击时，受到攻击的敌方模型在本次攻击中受到 -1 DEF。"
     },
     {
       "name": "Scathing Rebuke",
       "active": true,
-      "text": "每回合一次,在此模型的激活期间，目标在此模型6″ 内的其他友方模型可以进行一次2″ 闪避且移除受到的任意状态。"
+      "text": "每回合一次,在此模型的激活期间，目标在此模型 6″ 内的其他友方模型可以进行一次 2″ 闪避且移除受到的任意状态。"
     },
     {
       "name": "Big Belly",
       "active": true,
-      "text": "当一个敌方模型对此模型以一个或多个战术手册伤害结果造成伤害时，在此攻击结算后，该敌方模型受到一个径直远离此模型的1″ 推挤。"
+      "text": "当一个敌方模型对此模型以一个或多个战术手册伤害结果造成伤害时，在此攻击结算后，该敌方模型受到一个径直远离此模型的 1″ 推挤。"
     },
     {
       "name": "Icing on the Cake",
       "active": false,
-      "text": "此模型进行凌空抽射时获得+2/+2″ KICK。"
+      "text": "此模型进行凌空抽射时获得 +2/+2″ KICK。"
     },
     {
       "name": "Momentous Inspiration",
       "active": false,
-      "text": "在此光环范围内的友方模型在使用角色技巧命中一个或多个敌方模型并造成伤害后，友方队伍获得1 MP。在此光环范围内的友方模型可以每次使用角色技巧时可以无需MP使用一次奖励时间。"
+      "text": "在此光环范围内的友方模型在使用角色技巧命中一个或多个敌方模型并造成伤害后，友方队伍获得 1 MP。在此光环范围内的友方模型可以每次使用角色技巧时可以无需 MP 使用一次奖励时间。"
     },
     {
       "name": "Reanimate",
       "active": true,
-      "text": "此模型每回合第一次降到0 HP时，在受到离场状态前，此模型可以恢复3 HP并移除受到的所有状态。"
+      "text": "此模型每回合第一次降到 0 HP 时，在受到离场状态前，此模型可以恢复 3 HP 并移除受到的所有状态。"
     },
     {
       "name": "Well Oiled Machine",
@@ -14822,12 +14822,12 @@
     {
       "name": "Follow My Lead",
       "active": false,
-      "text": "当此模型在场上时，友方队员模型获得+1 TAC"
+      "text": "当此模型在场上时，友方队员模型获得 +1 TAC"
     },
     {
       "name": "Tow",
       "active": true,
-      "text": "在此模型于激活期间结束一次行进时，此次行进路径2″ 内的友方模型可以进行一次径直靠近此模型的小跑。"
+      "text": "在此模型于激活期间结束一次行进时，此次行进路径 2″ 内的友方模型可以进行一次径直靠近此模型的小跑。"
     },
     {
       "name": "Launch Control",
@@ -14837,17 +14837,17 @@
     {
       "name": "Spider Nests",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，此模型可以在4″ 内放置一个30mm友方巢穴标记。一名玩家同时可以至多拥有三个在场上的友方巢穴标记。当一名模型长跑或冲锋过程中与一个巢穴标记底盘接触时，移除该巢穴标记。"
+      "text": "每回合一次，在此模型的激活期间，此模型可以在 4″ 内放置一个 30mm 友方巢穴标记。一名玩家同时可以至多拥有三个在场上的友方巢穴标记。当一名模型长跑或冲锋过程中与一个巢穴标记底盘接触时，移除该巢穴标记。"
     },
     {
       "name": "Spiderlings",
       "active": false,
-      "text": "在一个或多个友方巢穴标记1″ 内的敌方模型受到一个挤出惩罚。"
+      "text": "在一个或多个友方巢穴标记 1″ 内的敌方模型受到一个挤出惩罚。"
     },
     {
       "name": "Webbing",
       "active": true,
-      "text": "每回合一次，在激活期间，如果此模型在一个友方巢穴标记4″ 内且该巢穴标记在一个自由球2″ 内，此模型可以获得该自由球控制权。"
+      "text": "每回合一次，在激活期间，如果此模型在一个友方巢穴标记 4″ 内且该巢穴标记在一个自由球 2″ 内，此模型可以获得该自由球控制权。"
     },
     {
       "name": "Stoic",
@@ -14862,22 +14862,22 @@
     {
       "name": "Inspiring Hat",
       "active": false,
-      "text": "在此光环范围内的其他友方模型使用传跑联动或凌空抽射时少花费1 MP"
+      "text": "在此光环范围内的其他友方模型使用传跑联动或凌空抽射时少花费 1 MP"
     },
     {
       "name": "Learn From The Best",
       "active": false,
-      "text": "在指定友方模型4″ 内开始激活时，此模型在此次激活期间可以无需消耗影响力使用一次角色技巧。"
+      "text": "在指定友方模型 4″ 内开始激活时，此模型在此次激活期间可以无需消耗影响力使用一次角色技巧。"
     },
     {
       "name": "True Replication",
       "active": true,
-      "text": "此模型可使用此光环内的友方非队长模型的角色技巧就像这些角色技巧在该模型的角色卡上一样，当使用能造成伤害的角色技巧时，该角色技巧变成OPT ✔，其RNG变为2″ 。"
+      "text": "此模型可使用此光环内的友方非队长模型的角色技巧就像这些角色技巧在该模型的角色卡上一样，当使用能造成伤害的角色技巧时，该角色技巧变成 OPT ✔，其 RNG 变为 2″。"
     },
     {
       "name": "Gravity Well",
       "active": true,
-      "text": "当一名敌方模型结束行进时与此模型接战，该敌方模型受到一个径直接近此模型的2″推移。"
+      "text": "当一名敌方模型结束行进时与此模型接战，该敌方模型受到一个径直接近此模型的 2″ 推移。"
     },
     {
       "name": "Goal of the Month",
@@ -14892,22 +14892,22 @@
     {
       "name": "Fixer",
       "active": true,
-      "text": "每回合一次,在此模型的激活期间，此模型4″ 内的一名目标友方模型可以移除其受到的所有状态。"
+      "text": "每回合一次,在此模型的激活期间，此模型 4″ 内的一名目标友方模型可以移除其受到的所有状态。"
     },
     {
       "name": "Lend a Hand",
       "active": false,
-      "text": "当一名友方模型从此模型获得结伙效果增益时，该友方模型额外获得+1 TAC。"
+      "text": "当一名友方模型从此模型获得结伙效果增益时，该友方模型额外获得 +1 TAC。"
     },
     {
       "name": "Death from Above",
       "active": true,
-      "text": "在此模型的激活期间，如果目标敌方模型在此模型的6″ 内且此模型具有对该敌方模型的视线时， 如果该敌方模型处于友方Harrier AOE中，此模型可以对该模型进行一次视同接战的攻击。此次攻击获得+5 TAC。此次攻击结算后， 移除该友方Harrier AOE。"
+      "text": "在此模型的激活期间，如果目标敌方模型在此模型的 6″ 内且此模型具有对该敌方模型的视线时， 如果该敌方模型处于友方 Harrier AOE 中，此模型可以对该模型进行一次视同接战的攻击。此次攻击获得 +5 TAC。此次攻击结算后， 移除该友方 Harrier AOE。"
     },
     {
       "name": "Flying",
       "active": false,
-      "text": "当此模型移动时，可以忽略地形和其他模型的底盘。 此模型不可以在结束移动时停留在其他模型，障碍，障碍物的底盘上。"
+      "text": "当此模型移动时，可以忽略地形和其他模型的底盘。此模型不可以在结束移动时停留在其他模型，障碍，障碍物的底盘上。"
     },
     {
       "name": "Hunter's Prey",
@@ -14917,17 +14917,17 @@
     {
       "name": "Feathered Friends",
       "active": false,
-      "text": "当此模型处于友方Harrier AOE中时，此模型获得+1 TAC和掩护。"
+      "text": "当此模型处于友方 Harrier AOE 中时，此模型获得 +1 TAC 和掩护。"
     },
     {
       "name": "Hawk Eye",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，如果目标敌方模型在此模型的6″ 内且此模型具有对该敌方模型的视线， 则此模型可以对该敌方模型进行一次无需消耗影响力的视同接战的攻击。"
+      "text": "每回合一次，在此模型的激活期间，如果目标敌方模型在此模型的 6″ 内且此模型具有对该敌方模型的视线， 则此模型可以对该敌方模型进行一次无需消耗影响力的视同接战的攻击。"
     },
     {
       "name": "Nocturnal Hunting",
       "active": true,
-      "text": "当有一个敌方模型在此光环范围内受到离场效果时，在当前行动结束后，该模型可以免费使用1次鼓励。"
+      "text": "当有一个敌方模型在此光环范围内受到离场效果时，在当前行动结束后，该模型可以免费使用 1 次鼓励。"
     },
     {
       "name": "For the Family",
@@ -14937,17 +14937,17 @@
     {
       "name": "Planting Master",
       "active": true,
-      "text": "每回合一次,在此模型的激活期间，此模型可以在4″ 内放置至多两个收成标记。"
+      "text": "每回合一次,在此模型的激活期间，此模型可以在 4″ 内放置至多两个收成标记。"
     },
     {
       "name": "Crow Scarer",
       "active": false,
-      "text": "当此模型位于一个友方收成标记2″ 内时，此模型获得 Poised。\n{{trait 'Poised'}}"
+      "text": "当此模型位于一个友方收成标记 2″ 内时，此模型获得 Poised。\n{{trait 'Poised'}}"
     },
     {
       "name": "Don't Fear The...",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，此模型可以移除一个2″ 内的收成标记，如果以此法移除了一个标记，在此模型近战范围内的模型受到3 DMG。"
+      "text": "每回合一次，在此模型的激活期间，此模型可以移除一个 2″ 内的收成标记，如果以此法移除了一个标记，在此模型近战范围内的模型受到 3 DMG。"
     },
     {
       "name": "Harvest Supper",
@@ -14962,27 +14962,27 @@
     {
       "name": "Ass Kicking",
       "active": true,
-      "text": "每回合一次，当此模型进行了一次成功的攻击，在结算战术手册结果后，该敌方模型受到一个径直远离此模型的4″ 推移。"
+      "text": "每回合一次，当此模型进行了一次成功的攻击，在结算战术手册结果后，该敌方模型受到一个径直远离此模型的 4″ 推移。"
     },
     {
       "name": "Carrot & Stick",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，此模型可以移除一个2″ 内的收成标记，如果以此法移除了一个标记，此模型可以立刻进行一次额外的小跑。"
+      "text": "每回合一次，在此模型的激活期间，此模型可以移除一个 2″ 内的收成标记，如果以此法移除了一个标记，此模型可以立刻进行一次额外的小跑。"
     },
     {
       "name": "Left Boot",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，此模型可以移除个2″ 内的收成标记，如果以此法移除了一个标记，此模型获得+1/+2″ KICK且可以在激活期间进行一次无需消耗影响力的踢球。"
+      "text": "每回合一次，在此模型的激活期间，此模型可以移除个 2″ 内的收成标记，如果以此法移除了一个标记，此模型获得 +1/+2″ KICK 且可以在激活期间进行一次无需消耗影响力的踢球。"
     },
     {
       "name": "One of Our Own",
       "active": false,
-      "text": "每回合第一次当一名友方非吉祥物模型在此光环范围内受到离场状态时，此模型获得+2 TAC直到回合结束。"
+      "text": "每回合第一次当一名友方非吉祥物模型在此光环范围内受到离场状态时，此模型获得 +2 TAC 直到回合结束。"
     },
     {
       "name": "Cabbage Punt",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，此模型可以移除一个2″ 内的收成标记，如果以此法移除了一个标记，此模型可以在激活期间进行一次无需消耗影响力的角色技巧。"
+      "text": "每回合一次，在此模型的激活期间，此模型可以移除一个 2″ 内的收成标记，如果以此法移除了一个标记，此模型可以在激活期间进行一次无需消耗影响力的角色技巧。"
     },
     {
       "name": "Between a Rock...",
@@ -14992,7 +14992,7 @@
     {
       "name": "Making Hay",
       "active": true,
-      "text": "在此模型的激活开始时，此模型可以移除4″ 内任意数量的收成标记，每以此法移除一个标记，此模型获得2影响力。"
+      "text": "在此模型的激活开始时，此模型可以移除 4″ 内任意数量的收成标记，每以此法移除一个标记，此模型获得 2 影响力。"
     },
     {
       "name": "Protective Instinct",
@@ -15002,22 +15002,22 @@
     {
       "name": "With Age Comes Wisdom",
       "active": false,
-      "text": "每当一名其他友方模型开始激活时，此模型获得+1 TAC直到回合结束。"
+      "text": "每当一名其他友方模型开始激活时，此模型获得 +1 TAC 直到回合结束。"
     },
     {
       "name": "Planting Season",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，此模型可以在2″ 内放置一个收成标记。"
+      "text": "每回合一次，在此模型的激活期间，此模型可以在 2″ 内放置一个收成标记。"
     },
     {
       "name": "Rapid Growth",
       "active": false,
-      "text": "在结束阶段，状态结算前，在此光环范围内的友方模型可以恢复2 HP。"
+      "text": "在结束阶段，状态结算前，在此光环范围内的友方模型可以恢复 2 HP。"
     },
     {
       "name": "Faithful Protector",
       "active": false,
-      "text": "在攻击此模型时敌方模型受到-1 TAC。"
+      "text": "在攻击此模型时敌方模型受到 -1 TAC。"
     },
     {
       "name": "Fields of Wheat",
@@ -15027,12 +15027,12 @@
     {
       "name": "If I Only Had a Brain",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间。此模型可以选择一个4″ 内的友方收成标记或友方球门柱。将此模型放置在与目标友方收成标记或球门柱底盘接触位置。"
+      "text": "每回合一次，在此模型的激活期间。此模型可以选择一个 4″ 内的友方收成标记或友方球门柱。将此模型放置在与目标友方收成标记或球门柱底盘接触位置。"
     },
     {
       "name": "The Last Straw",
       "active": true,
-      "text": "在此模型的激活结束时。此模型可以选择一个在4″ 内的友方收成标记。将此模型放置在与目标友方收成标记底盘接触位置。"
+      "text": "在此模型的激活结束时。此模型可以选择一个在 4″ 内的友方收成标记。将此模型放置在与目标友方收成标记底盘接触位置。"
     },
     {
       "name": "Take One for the Team",
@@ -15047,12 +15047,12 @@
     {
       "name": "True Path",
       "active": false,
-      "text": "在此光环范围内的友方模型可以无需消耗MP使用滑行。"
+      "text": "在此光环范围内的友方模型可以无需消耗 MP 使用滑行。"
     },
     {
       "name": "Fork Off!",
       "active": true,
-      "text": "每回合一次，当一名敌方模型在此模型6″内结束行进时，如果此模型没有处于接战，则此模型可以立即移除一个2″内的友方收成标记来对该敌方模型进行一次无需消耗影响力的冲锋。"
+      "text": "每回合一次，当一名敌方模型在此模型 6″ 内结束行进时，如果此模型没有处于接战，则此模型可以立即移除一个 2″ 内的友方收成标记来对该敌方模型进行一次无需消耗影响力的冲锋。"
     },
     {
       "name": "Make It Rain",
@@ -15062,17 +15062,17 @@
     {
       "name": "Big Breakfast",
       "active": true,
-      "text": "每回合一次，在此模型的激活开始时，此模型可以移除一个2″ 内的收成标记，如果以此法移除了一个标记，此模型获得1影响力且获得+2″ /+2″ MOV直到回合结束。"
+      "text": "每回合一次，在此模型的激活开始时，此模型可以移除一个 2″ 内的收成标记，如果以此法移除了一个标记，此模型获得 1 影响力且获得 +2″ /+2″ MOV 直到回合结束。"
     },
     {
       "name": "Empathy",
       "active": false,
-      "text": "在攻击此模型时，战术手册伤害结果不会产生MP。"
+      "text": "在攻击此模型时，战术手册伤害结果不会产生 MP。"
     },
     {
       "name": "Coup de Grâce",
       "active": false,
-      "text": "每回合一次，当一名敌方模型在光环范围内受到离场状态后，友方队伍获得3MP。"
+      "text": "每回合一次，当一名敌方模型在光环范围内受到离场状态后，友方队伍获得 3MP。"
     },
     {
       "name": "Last Cast Catches the Most",
@@ -15102,7 +15102,7 @@
     {
       "name": "Resolute",
       "active": false,
-      "text": "当此模型对敌方模型反击时，此模型在这次反击中获得+2 TAC。"
+      "text": "当此模型对敌方模型反击时，此模型在这次反击中获得 +2 TAC。"
     },
     {
       "name": "Backfield Presence",
@@ -15112,7 +15112,7 @@
     {
       "name": "Close Ranks",
       "active": false,
-      "text": "当此模型使敌方模型受到挤出惩罚时，敌方模型的骰池额外-1。"
+      "text": "当此模型使敌方模型受到挤出惩罚时，敌方模型的骰池额外 -1。"
     },
     {
       "name": "Lightning Reflexes",
@@ -15127,12 +15127,12 @@
     {
       "name": "Poised",
       "active": true,
-      "text": "每回合一次，该模型可以进行一次不消耗MP的反击。"
+      "text": "每回合一次，该模型可以进行一次不消耗 MP 的反击。"
     },
     {
       "name": "Bag of Coffers",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，选择一名4″ 内的友方非队长模型。目标被选择的模型获得1点影响力并可以在其激活期间不消耗MP使用一次奖励时间。"
+      "text": "每回合一次，在此模型激活期间，选择一名 4″ 内的友方非队长模型。目标被选择的模型获得 1 点影响力并可以在其激活期间不消耗 MP 使用一次奖励时间。"
     },
     {
       "name": "Beautiful",
@@ -15142,22 +15142,22 @@
     {
       "name": "Protected",
       "active": false,
-      "text": "当在指定友方模型4″内时，此模型获得+1 ARM。"
+      "text": "当在指定友方模型 4″ 内时，此模型获得 +1 ARM。"
     },
     {
       "name": "Escaping Fate",
       "active": true,
-      "text": "每回合一次，当此模型HP变为0时，除非在行进过程中，在此模型受到离场状态前，此模型可以恢复1 HP并移除身上所有的状态，并进行一次2″闪避。"
+      "text": "每回合一次，当此模型 HP 变为 0 时，除非在行进过程中，在此模型受到离场状态前，此模型可以恢复 1 HP 并移除身上所有的状态，并进行一次 2″ 闪避。"
     },
     {
       "name": "Nature's Growth",
       "active": true,
-      "text": "在此模型的激活开始时，可以在8″ 内且不与其他地形接触位置放置一个AOE。此AOE视为森林且在结束阶段将其移除。"
+      "text": "在此模型的激活开始时，可以在 8″ 内且不与其他地形接触位置放置一个 AOE。此 AOE 视为森林且在结束阶段将其移除。"
     },
     {
       "name": "Nature's Chill",
       "active": true,
-      "text": "在此模型的激活开始时，可以在8″ 内且不与其他地形接触位置放置一个AOE。此AOE视为快速地形且在结束阶段将其移除。"
+      "text": "在此模型的激活开始时，可以在 8″ 内且不与其他地形接触位置放置一个 AOE。此 AOE 视为快速地形且在结束阶段将其移除。"
     },
     {
       "name": "Bring Them Down",
@@ -15172,7 +15172,7 @@
     {
       "name": "Isolated Target",
       "active": false,
-      "text": "此模型在攻击受到捕获状态的敌方模型时，战术手册伤害结果+1 DMG。"
+      "text": "此模型在攻击受到捕获状态的敌方模型时，战术手册伤害结果 +1 DMG。"
     },
     {
       "name": "Linked",
@@ -15182,12 +15182,12 @@
     {
       "name": "Pack Mentality",
       "active": true,
-      "text": "每当另一名在此光环范围内没有受到击倒状态的友方模型受到来自敌方攻击或角色技巧的伤害时，该友方模型可以进行一次径直朝向此模型进的1″ 闪避。"
+      "text": "每当另一名在此光环范围内没有受到击倒状态的友方模型受到来自敌方攻击或角色技巧的伤害时，该友方模型可以进行一次径直朝向此模型进的 1″ 闪避。"
     },
     {
       "name": "Big Game Traps",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，其可以在2″ 内放置一个友方陷阱标记。"
+      "text": "每回合一次，在此模型的激活期间，其可以在 2″ 内放置一个友方陷阱标记。"
     },
     {
       "name": "Unorthodox",
@@ -15202,52 +15202,52 @@
     {
       "name": "Nature's Blessing",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，此模型可以选择一个4″ 内的森林地形。此模型可以被放置于所选森林地形中任意位置。"
+      "text": "每回合一次，在此模型的激活期间，此模型可以选择一个 4″ 内的森林地形。此模型可以被放置于所选森林地形中任意位置。"
     },
     {
       "name": "Last Light",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，选择一名6″ 内的友方模型。被选择的模型可以在下一次使用MP代替影响力来支付角色技巧的CST。"
+      "text": "每回合一次，在此模型的激活期间，选择一名 6″ 内的友方模型。被选择的模型可以在下一次使用 MP 代替影响力来支付角色技巧的 CST。"
     },
     {
       "name": "Lunar Eclipse",
       "active": true,
-      "text": "每当此模型对一名敌方模型攻击或使用角色技巧造成伤害时，在此次行动结算后，此模型可以被放置于该敌方模型1″ 内。"
+      "text": "每当此模型对一名敌方模型攻击或使用角色技巧造成伤害时，在此次行动结算后，此模型可以被放置于该敌方模型 1″ 内。"
     },
     {
       "name": "Winter's Blessing",
       "active": false,
-      "text": "每当此模型进行行进时，其忽视困难地形的MOV惩罚。每当此模型行进通过一个或多个困难地形时，其在此次行进的剩余过程中获得+2″/+2″MOV。"
+      "text": "每当此模型进行行进时，其忽视困难地形的 MOV 惩罚。每当此模型行进通过一个或多个困难地形时，其在此次行进的剩余过程中获得 +2″/+2″ MOV。"
     },
     {
       "name": "Heightened Senses",
       "active": false,
-      "text": "受伤的模型攻击此模型时受到-1 TAC。"
+      "text": "受伤的模型攻击此模型时受到 -1 TAC。"
     },
     {
       "name": "Ambush",
       "active": false,
-      "text": "当受到此模型冲锋时，敌方模型必须额外花费1 MP来使用防御姿态。"
+      "text": "当受到此模型冲锋时，敌方模型必须额外花费 1 MP 来使用防御姿态。"
     },
     {
       "name": "Lone Hunter",
       "active": false,
-      "text": "在此模型4″ 内没有其他友方模型时，此模型可以少花费1影响力进行冲锋。"
+      "text": "在此模型 4″ 内没有其他友方模型时，此模型可以少花费 1 影响力进行冲锋。"
     },
     {
       "name": "Knockback",
       "active": false,
-      "text": "当此模型进行一次成功的攻击时，在结算战术手册结果后，目标敌方模型受到一个径直远离此模型的1″ 推移。然后此模型可以进行一次径直靠近该敌方模型的1″ 闪避。"
+      "text": "当此模型进行一次成功的攻击时，在结算战术手册结果后，目标敌方模型受到一个径直远离此模型的 1″ 推移。然后此模型可以进行一次径直靠近该敌方模型的 1″ 闪避。"
     },
     {
       "name": "Making Space",
       "active": true,
-      "text": "当此模型在场上时，每次激活一次，当一名友方公会模型宣布传球时，在选择目标前，另一名友方公会模型可以进行一次4″ 闪避。每名友方模型每回合只能因为该能力进行一次闪避。"
+      "text": "当此模型在场上时，每次激活一次，当一名友方公会模型宣布传球时，在选择目标前，另一名友方公会模型可以进行一次 4″ 闪避。每名友方模型每回合只能因为该能力进行一次闪避。"
     },
     {
       "name": "Counter-Charge",
       "active": false,
-      "text": "每回合一次，当一名敌方模型在此模型6″ 内结束一次行进时，此模型可以立即以该敌方模型为目标进行一次无需消耗影响力的冲锋。"
+      "text": "每回合一次，当一名敌方模型在此模型 6″ 内结束一次行进时，此模型可以立即以该敌方模型为目标进行一次无需消耗影响力的冲锋。"
     },
     {
       "name": "Follow Up",
@@ -15262,7 +15262,7 @@
     {
       "name": "Revelling",
       "active": false,
-      "text": "每回合一次，当此模型造成一名敌方模型受到离场状态时，此模型在此回合剩余期间获得+2 ARM。"
+      "text": "每回合一次，当此模型造成一名敌方模型受到离场状态时，此模型在此回合剩余期间获得 +2 ARM。"
     },
     {
       "name": "Adaptive Strategy",
@@ -15272,7 +15272,7 @@
     {
       "name": "Family",
       "active": true,
-      "text": "如果此模型在指定友方模型8″ 内开始激活，在此回合剩余期间此模型可以将其TAC和KICK属性替换为指定友方模型的TAC和KICK属性。"
+      "text": "如果此模型在指定友方模型 8″ 内开始激活，在此回合剩余期间此模型可以将其 TAC 和 KICK 属性替换为指定友方模型的 TAC 和 KICK 属性。"
     },
     {
       "name": "Animosity",
@@ -15282,27 +15282,27 @@
     {
       "name": "Team Player",
       "active": false,
-      "text": "在此光环范围内的友方模型受到伤害时，此模型可以代替其受到伤害。当此模型使用此能力受到伤害时，任何超过此模型剩余HP的伤害将由原模型受到对应伤害。"
+      "text": "在此光环范围内的友方模型受到伤害时，此模型可以代替其受到伤害。当此模型使用此能力受到伤害时，任何超过此模型剩余 HP 的伤害将由原模型受到对应伤害。"
     },
     {
       "name": "Extended Reach",
       "active": false,
-      "text": "在此模型的激活期间，此模型的近战范围变为3″。"
+      "text": "在此模型的激活期间，此模型的近战范围变为 3″。"
     },
     {
       "name": "Forceful Blow",
       "active": false,
-      "text": "当此模型在一次冲锋中进行一次成功攻击时，在结算战术手册结果后，目标敌方模型受到一个径直远离此模型的2″ 推移和2 DMG。"
+      "text": "当此模型在一次冲锋中进行一次成功攻击时，在结算战术手册结果后，目标敌方模型受到一个径直远离此模型的 2″ 推移和 2 DMG。"
     },
     {
       "name": "Guild Rule: Secret Tunnel",
       "active": true,
-      "text": "在此模型的激活开始时，此模型可以被放置于其当前位置2″内。"
+      "text": "在此模型的激活开始时，此模型可以被放置于其当前位置 2″ 内。"
     },
     {
       "name": "Stop, Drop, and Mole",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，目标4″内的友方模型可以移除受到的所有状态。"
+      "text": "每回合一次，在此模型的激活期间，目标 4″ 内的友方模型可以移除受到的所有状态。"
     },
     {
       "name": "You're Coming With Me",
@@ -15312,52 +15312,52 @@
     {
       "name": "Remote Detonation",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，如果此模型的6″内有一个自由球，此模型可以进行一次视作拥有该自由球控制权的踢球。此次踢球的路径和距离都从该自由球为原点进行测量。"
+      "text": "每回合一次，在此模型激活期间，如果此模型的 6″ 内有一个自由球，此模型可以进行一次视作拥有该自由球控制权的踢球。此次踢球的路径和距离都从该自由球为原点进行测量。"
     },
     {
       "name": "Sapper's Instincts",
       "active": false,
-      "text": "此模型在受到敌方角色技巧时获得+2 DEF。"
+      "text": "此模型在受到敌方角色技巧时获得 +2 DEF。"
     },
     {
       "name": "Voodoo Strings",
       "active": true,
-      "text": "在此模型激活期间，每当其通过一个或多个战术手册伤害结果对一名敌方模型造成伤害后，选择一名在此光环范围内的模型受到一次2″推移，每名模型每回合只能被此效果推移一次。"
+      "text": "在此模型激活期间，每当其通过一个或多个战术手册伤害结果对一名敌方模型造成伤害后，选择一名在此光环范围内的模型受到一次 2″ 推移，每名模型每回合只能被此效果推移一次。"
     },
     {
       "name": "Control Strings",
       "active": true,
-      "text": "在其他友方模型的激活开始时，此模型可以进行一次2″闪避。"
+      "text": "在其他友方模型的激活开始时，此模型可以进行一次 2″ 闪避。"
     },
     {
       "name": "Grave Candle",
       "active": true,
-      "text": "当在此光环范围内的友方模型生命值降为0时，在受到离场状态之前，它可以移除所有状态并将生命值回复至恢复水平。如果执行此操作，敌方队伍将获得2 VP。"
+      "text": "当在此光环范围内的友方模型生命值降为 0 时，在受到离场状态之前，它可以移除所有状态并将生命值回复至恢复水平。如果执行此操作，敌方队伍将获得 2 VP。"
     },
     {
       "name": "Creeping Dread",
       "active": false,
-      "text": "在此模型的激活开始时，友方队伍获得2MP"
+      "text": "在此模型的激活开始时，友方队伍获得 2MP"
     },
     {
       "name": "Dark Doubts",
       "active": false,
-      "text": "当此模型因敌方攻击或角色技巧受到离场状态时，在此次攻击或角色技巧结算后，敌方模型-2MP。"
+      "text": "当此模型因敌方攻击或角色技巧受到离场状态时，在此次攻击或角色技巧结算后，敌方模型 -2MP。"
     },
     {
       "name": "Slippery",
       "active": false,
-      "text": "此模型在受到借机攻击中获得+1 DEF。"
+      "text": "此模型在受到借机攻击中获得 +1 DEF。"
     },
     {
       "name": "One, Two!",
       "active": false,
-      "text": "当此模型进行一次以指定友方模型为目标的传球时，此次传球中此模型获得+2/+2″KICK。当指定友方模型收到来自此模型的传球时，该指定模型可以少花费1 MP进行传跑联动或凌空抽射。"
+      "text": "当此模型进行一次以指定友方模型为目标的传球时，此次传球中此模型获得 +2/+2″ KICK。当指定友方模型收到来自此模型的传球时，该指定模型可以少花费 1 MP 进行传跑联动或凌空抽射。"
     },
     {
       "name": "Thought",
       "active": true,
-      "text": "此模型激活开始时，如果指定友方模型受到离场状态，则移除该友方模型的离场状态并将其以满HP状态放置于此模型2″内。"
+      "text": "此模型激活开始时，如果指定友方模型受到离场状态，则移除该友方模型的离场状态并将其以满 HP 状态放置于此模型 2″ 内。"
     },
     {
       "name": "Benched",
@@ -15367,7 +15367,7 @@
     {
       "name": "Inanimate Object",
       "active": false,
-      "text": "此模型不会激活。此模型受到离场状态时不会产生VP。如果此模型受到离场状态，在维持阶段不会重新上场。"
+      "text": "此模型不会激活。此模型受到离场状态时不会产生 VP。如果此模型受到离场状态，在维持阶段不会重新上场。"
     },
     {
       "name": "Foul Odour",
@@ -15377,27 +15377,27 @@
     {
       "name": "The Knowledge",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，选择一名6″内的友方模型。被选择的模型在此回合剩余期间获得+0/+2″ KICK。"
+      "text": "每回合一次，在此模型激活期间，选择一名 6″ 内的友方模型。被选择的模型在此回合剩余期间获得 +0/+2″ KICK。"
     },
     {
       "name": "Rising Anger",
       "active": false,
-      "text": "此模型每回合第一次受到来自敌方模型的伤害时，友方队伍获得2MP。"
+      "text": "此模型每回合第一次受到来自敌方模型的伤害时，友方队伍获得 2MP。"
     },
     {
       "name": "Soul Seer",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，其可以受到3DMG以少花费1点影响力来使用一个角色技巧。"
+      "text": "每回合一次，在此模型激活期间，其可以受到 3DMG 以少花费 1 点影响力来使用一个角色技巧。"
     },
     {
       "name": "Kick Support",
       "active": false,
-      "text": "在指定友方模型4″内时，此模型获得+1/+1″KICK。"
+      "text": "在指定友方模型 4″ 内时，此模型获得 +1/+1″ KICK。"
     },
     {
       "name": "Tenacity",
       "active": false,
-      "text": "当此模型使用角色技巧时，其可以将此次角色技巧的CST变为1或2。"
+      "text": "当此模型使用角色技巧时，其可以将此次角色技巧的 CST 变为 1 或 2。"
     },
     {
       "name": "Guild Rule: Precise Calculations",
@@ -15412,7 +15412,7 @@
     {
       "name": "About Their Necks",
       "active": false,
-      "text": "该模型每回合第一次因为敌方攻击或角色技巧受到伤害时，敌方模型受到-1 TAC直到回合结束。"
+      "text": "该模型每回合第一次因为敌方攻击或角色技巧受到伤害时，敌方模型受到 -1 TAC 直到回合结束。"
     },
     {
       "name": "Gladiator",
@@ -15432,17 +15432,17 @@
     {
       "name": "Don't Get Cocky",
       "active": false,
-      "text": "当此模型受到离场状态时，敌方获得1 VP而不是2VP。当此模型重新上场时，此模型可以将敌方部署区视为已方部署区来进场。"
+      "text": "当此模型受到离场状态时，敌方获得 1 VP 而不是 2VP。当此模型重新上场时，此模型可以将敌方部署区视为已方部署区来进场。"
     },
     {
       "name": "Stellar Navigation",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，此模型可以进行一次5″闪避。"
+      "text": "每回合一次，在此模型激活期间，此模型可以进行一次 5″ 闪避。"
     },
     {
       "name": "Scores for Fun",
       "active": false,
-      "text": "此模型在激活期间进行射门时，TN降低1。"
+      "text": "此模型在激活期间进行射门时，TN 降低 1。"
     },
     {
       "name": "Playmaker",
@@ -15452,12 +15452,12 @@
     {
       "name": "Flagellant",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，此模型可以选择一名4″ 内的友方模型。所选模型移除受到的所有状态且此模型受到4 DMG。"
+      "text": "每回合一次，在此模型激活期间，此模型可以选择一名 4″ 内的友方模型。所选模型移除受到的所有状态且此模型受到 4 DMG。"
     },
     {
       "name": "Potbellied Pass",
       "active": true,
-      "text": "每回合一次，当此模型接到一次成功的传球时，此模型可以花费1 MP进行一次无需消耗影响力的传球来代替使用传跑联动或凌空抽射。"
+      "text": "每回合一次，当此模型接到一次成功的传球时，此模型可以花费 1 MP 进行一次无需消耗影响力的传球来代替使用传跑联动或凌空抽射。"
     },
     {
       "name": "Impart Faith",
@@ -15467,17 +15467,17 @@
     {
       "name": "Skilled within Shadow",
       "active": false,
-      "text": "攻击拥有掩护的敌方模型时，此模型在此次攻击中获得+2 TAC。"
+      "text": "攻击拥有掩护的敌方模型时，此模型在此次攻击中获得 +2 TAC。"
     },
     {
       "name": "Haunting Melody",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，此模型可以选择一名8″内的敌方模型，敌方玩家选择以下一项:\n- 此模型进行一次靠近所选模型的小跑。\n- 所选模型进行一次靠近此模型的小跑，在此次行进期间所选模型视为友方模型。"
+      "text": "每回合一次，在此模型激活期间，此模型可以选择一名 8″ 内的敌方模型，敌方玩家选择以下一项:\n- 此模型进行一次靠近所选模型的小跑。\n- 所选模型进行一次靠近此模型的小跑，在此次行进期间所选模型视为友方模型。"
     },
     {
       "name": "Predatory Instinct",
       "active": false,
-      "text": "每当此模型进行攻击时，如果此模型的当前HP高于受到攻击的模型，此次攻击获得+1成功命中。"
+      "text": "每当此模型进行攻击时，如果此模型的当前 HP 高于受到攻击的模型，此次攻击获得 +1 成功命中。"
     },
     {
       "name": "Carrier",
@@ -15492,7 +15492,7 @@
     {
       "name": "Virulent Strain",
       "active": false,
-      "text": "在此光环范围内遭受疫病状态的敌方模型受到-1 DEF和-1 TAC。"
+      "text": "在此光环范围内遭受疫病状态的敌方模型受到 -1 DEF 和 -1 TAC。"
     },
     {
       "name": "Cloak of Rats",
@@ -15502,12 +15502,12 @@
     {
       "name": "Grim Caress",
       "active": false,
-      "text": "当一名敌方模型结束激活时与此模型处于接战状态，该敌方模型受到3DMG。"
+      "text": "当一名敌方模型结束激活时与此模型处于接战状态，该敌方模型受到 3DMG。"
     },
     {
       "name": "Killer",
       "active": false,
-      "text": "此模型在攻击拥有指定类别的模型时战术手册伤害结果获得+1 DMG。"
+      "text": "此模型在攻击拥有指定类别的模型时战术手册伤害结果获得 +1 DMG。"
     },
     {
       "name": "Good Feet, for a Big Man",
@@ -15517,67 +15517,67 @@
     {
       "name": "Plague Ridden",
       "active": false,
-      "text": "当此模型遭受疫病状态时，此模型的战术手册伤害结果获得+1 DMG。"
+      "text": "当此模型遭受疫病状态时，此模型的战术手册伤害结果获得 +1 DMG。"
     },
     {
       "name": "Protect the Ball",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，选择一个2″内的友方收成标记并将其从场上移除。如果以此法移除了一个标记，脉冲范围内的友方模型在剩余的回合中获得 Close Control。\n{{trait 'Close Control'}}"
+      "text": "每回合一次，在此模型激活期间，选择一个 2″ 内的友方收成标记并将其从场上移除。如果以此法移除了一个标记，脉冲范围内的友方模型在剩余的回合中获得 Close Control。\n{{trait 'Close Control'}}"
     },
     {
       "name": "Sheep Become the Shepherds",
       "active": false,
-      "text": "如果此模型在激活阶段受到离场状态，友方模型将分配影响力至其最大INF。"
+      "text": "如果此模型在激活阶段受到离场状态，友方模型将分配影响力至其最大 INF。"
     },
     {
       "name": "Heartless Brute!",
       "active": false,
-      "text": "当敌方模型造成此模型受到离场状态时，敌方模型受到 Singled Out直到回合结束。\n{{play 'Singled Out'}}"
+      "text": "当敌方模型造成此模型受到离场状态时，敌方模型受到 Singled Out 直到回合结束。\n{{play 'Singled Out'}}"
     },
     {
       "name": "Herding",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，选择一个2″内的友方收成标记并将其从场上移除。如果以此法移除了一个标记，选择一名3″内的敌方模型受到一次3″推移。"
+      "text": "每回合一次，在此模型激活期间，选择一个 2″ 内的友方收成标记并将其从场上移除。如果以此法移除了一个标记，选择一名 3″ 内的敌方模型受到一次 3″ 推移。"
     },
     {
       "name": "Littermates",
       "active": false,
-      "text": "如果此模型受到离场状态，指定友方模型获得 Furious 和 +4 TAC直到回合结束。\n{{trait 'Furious'}}"
+      "text": "如果此模型受到离场状态，指定友方模型获得 Furious 和 +4 TAC 直到回合结束。\n{{trait 'Furious'}}"
     },
     {
       "name": "Matched Pair",
       "active": false,
-      "text": "此模型和指定友方模型在团队选择时被视为一个队员模型。当指定友方模型在场上时，此模型会同时激活。当此模型受到离场状态时，敌方队伍获得1 VP而不是2 VP。"
+      "text": "此模型和指定友方模型在团队选择时被视为一个队员模型。当指定友方模型在场上时，此模型会同时激活。当此模型受到离场状态时，敌方队伍获得 1 VP 而不是 2 VP。"
     },
     {
       "name": "Workhorse",
       "active": false,
-      "text": "如果此模型受到离场状态，在场上任意位置放置至多5个友方收成标记。"
+      "text": "如果此模型受到离场状态，在场上任意位置放置至多 5 个友方收成标记。"
     },
     {
       "name": "Baa-ttering Ram",
       "active": false,
-      "text": "在此模型行进期间，任何底盘与此模型接触的模型受到一次径直远离此模型的4″ 推移，每个模型每回合只会受此特性影响一次。"
+      "text": "在此模型行进期间，任何底盘与此模型接触的模型受到一次径直远离此模型的 4″ 推移，每个模型每回合只会受此特性影响一次。"
     },
     {
       "name": "Flock",
       "active": true,
-      "text": "当此模型结束一次行进时，脉冲范围内的另一个友方模型可以进行一次 2″闪避。"
+      "text": "当此模型结束一次行进时，脉冲范围内的另一个友方模型可以进行一次 2″ 闪避。"
     },
     {
       "name": "Have You Any Wool?",
       "active": false,
-      "text": "如果此模型受到离场状态，友方模型获得+2 ARM直到回合结束。"
+      "text": "如果此模型受到离场状态，友方模型获得 +2 ARM 直到回合结束。"
     },
     {
       "name": "All About The Game",
       "active": false,
-      "text": "如果此模型受到离场状态，友方模型获得 +1/+1″ KICK直到回合结束。"
+      "text": "如果此模型受到离场状态，友方模型获得 +1/+1″ KICK 直到回合结束。"
     },
     {
       "name": "Shearing",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，选择一个2″内的友方收成标记并将其从场上移除。如果以此法移除了一个标记，此模型进行一次4″闪避。"
+      "text": "每回合一次，在此模型激活期间，选择一个 2″ 内的友方收成标记并将其从场上移除。如果以此法移除了一个标记，此模型进行一次 4″ 闪避。"
     },
     {
       "name": "Do the Thing!",
@@ -15587,17 +15587,17 @@
     {
       "name": "Lance",
       "active": false,
-      "text": "当此模型冲锋时，此模型在此次冲锋中获得+2 TAC和 +1 DMG战术手册伤害结果。"
+      "text": "当此模型冲锋时，此模型在此次冲锋中获得 +2 TAC 和 +1 DMG 战术手册伤害结果。"
     },
     {
       "name": "Shelling Out",
       "active": false,
-      "text": "在此光环范围内的友方模型获得+1 TAC。当此光环范围内的友方模型对敌方模型造成离场状态时，友方队伍获得额外的1 MP。"
+      "text": "在此光环范围内的友方模型获得 +1 TAC。当此光环范围内的友方模型对敌方模型造成离场状态时，友方队伍获得额外的 1 MP。"
     },
     {
       "name": "Trusty Steed",
       "active": false,
-      "text": "此模型在团队中同时扮演着队长和吉祥物。当此模型受到离场状态时，敌方队伍只获得2VP。如果此模型是您的队长，则Avarisse不能选择进入队伍。"
+      "text": "此模型在团队中同时扮演着队长和吉祥物。当此模型受到离场状态时，敌方队伍只获得 2VP。如果此模型是您的队长，则 Avarisse 不能选择进入队伍。"
     },
     {
       "name": "Contract",
@@ -15612,12 +15612,12 @@
     {
       "name": "Thuggery",
       "active": false,
-      "text": "当该模型在指定友方模型 1″ 内时，该模型获得+1 DMG战术手册伤害结果，并在每次成功的攻击中增加一个 {{KD}} 结果。"
+      "text": "当该模型在指定友方模型 1″ 内时，该模型获得 +1 DMG 战术手册伤害结果，并在每次成功的攻击中增加一个 {{KD}} 结果。"
     },
     {
       "name": "Pick Up",
       "active": true,
-      "text": "每回合一次，在此模型的活期间，如果这个模型没有控制球并且与友方Avarisse 处于底盘接触，该模型可以移除受到的所有状态并将其从场上移除。"
+      "text": "每回合一次，在此模型的活期间，如果这个模型没有控制球并且与友方 Avarisse 处于底盘接触，该模型可以移除受到的所有状态并将其从场上移除。"
     },
     {
       "name": "Ready to Go",
@@ -15627,12 +15627,12 @@
     {
       "name": "Back to Black",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，可以移除一个6″内的友方模型身上的燃烧状态。如果执行了此行动。被选择的模型立即进行4″ 闪避。"
+      "text": "每回合一次，在此模型激活期间，可以移除一个 6″ 内的友方模型身上的燃烧状态。如果执行了此行动。被选择的模型立即进行 4″ 闪避。"
     },
     {
       "name": "Blinded by the Light",
       "active": false,
-      "text": "当此模型遭受燃烧状态时，敌方模型在攻击该模型时受到-1 TAC。"
+      "text": "当此模型遭受燃烧状态时，敌方模型在攻击该模型时受到 -1 TAC。"
     },
     {
       "name": "Flare Out",
@@ -15647,7 +15647,7 @@
     {
       "name": "Light Goes On",
       "active": false,
-      "text": "当此模型处于燃烧状态时，此模型获得+2的TAC和Searing Strike。\n{{trait 'Searing Strike'}}"
+      "text": "当此模型处于燃烧状态时，此模型获得 +2 的 TAC 和 Searing Strike。\n{{trait 'Searing Strike'}}"
     },
     {
       "name": "Light Goes Off",
@@ -15662,17 +15662,17 @@
     {
       "name": "Spotlight",
       "active": false,
-      "text": "如果此模型遭受燃烧状态，则此模型获得+1/+2″ KICK并在进行踢球时无视接战和阻挡惩罚。"
+      "text": "如果此模型遭受燃烧状态，则此模型获得 +1/+2″ KICK 并在进行踢球时无视接战和阻挡惩罚。"
     },
     {
       "name": "Afterglow",
       "active": true,
-      "text": "当此模型遭受燃烧状态时，当此光环范围内的友方模型花费MP时，其模型可以恢复2点HP。每回合每个模型只能受到此效果影响一次。"
+      "text": "当此模型遭受燃烧状态时，当此光环范围内的友方模型花费 MP 时，其模型可以恢复 2 点 HP。每回合每个模型只能受到此效果影响一次。"
     },
     {
       "name": "Now You See Me...",
       "active": false,
-      "text": "当本模型没有受到燃烧状态时， 该模型获得Unpredictable Movement。\n{{trait 'Unpredictable Movement'}}"
+      "text": "当本模型没有受到燃烧状态时， 该模型获得 Unpredictable Movement。\n{{trait 'Unpredictable Movement'}}"
     },
     {
       "name": "Clumsy",
@@ -15692,17 +15692,17 @@
     {
       "name": "Prodigy",
       "active": true,
-      "text": "每回合一次，当此模型获得球权时，该模型获得1点影响力。"
+      "text": "每回合一次，当此模型获得球权时，该模型获得 1 点影响力。"
     },
     {
       "name": "Untouchable",
       "active": true,
-      "text": "当该模型进球得分时，可以立即不消耗影响力来使用 Nimble 。"
+      "text": "当该模型进球得分时，可以立即不消耗影响力来使用 Nimble。"
     },
     {
       "name": "Flame On",
       "active": false,
-      "text": "当此模型遭受燃烧状态时，Alchemical Bomb造成2状态DMG而非1点。"
+      "text": "当此模型遭受燃烧状态时，Alchemical Bomb 造成 2 状态 DMG 而非 1 点。"
     },
     {
       "name": "Fission",
@@ -15717,42 +15717,42 @@
     {
       "name": "Rejuvenation",
       "active": false,
-      "text": "当此光环范围内的友方模型恢复HP时，额外恢复1点HP。"
+      "text": "当此光环范围内的友方模型恢复 HP 时，额外恢复 1 点 HP。"
     },
     {
       "name": "Showboater",
       "active": false,
-      "text": "每回合一次，当此模型对自己使用角色技巧时，该次角色技巧的CST降低1。"
+      "text": "每回合一次，当此模型对自己使用角色技巧时，该次角色技巧的 CST 降低 1。"
     },
     {
       "name": "Repointing",
       "active": false,
-      "text": "此模型可以使用范围内其他友方模型的影响力来支付角色技巧的CST。"
+      "text": "此模型可以使用范围内其他友方模型的影响力来支付角色技巧的 CST。"
     },
     {
       "name": "Dread Omen",
       "active": false,
-      "text": "当有模型受到离场状态时，此模型获得+2 TAC。"
+      "text": "当有模型受到离场状态时，此模型获得 +2 TAC。"
     },
     {
       "name": "Wraith Walk",
       "active": false,
-      "text": "当此模型通过行进或闪避移动时，此模型可以跨过其他模型的底盘。 此模型在结束移动时不能与其他模型的底盘重叠。"
+      "text": "当此模型通过行进或闪避移动时，此模型可以跨过其他模型的底盘。此模型在结束移动时不能与其他模型的底盘重叠。"
     },
     {
       "name": "Confidence",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，选择在4″ 范围内的一个友方模型。被选中的模型可以在本回合的下一次TN测试中重掷任意数量的骰子。"
+      "text": "每回合一次，在此模型激活期间，选择在 4″ 范围内的一个友方模型。被选中的模型可以在本回合的下一次 TN 测试中重掷任意数量的骰子。"
     },
     {
       "name": "Rabid Frenzy",
       "active": false,
-      "text": "当此模型在激活期间进行一次冲锋时，此模型可以选择不用消耗影响力来进行冲锋。如果执行了此行动，在激活结束时此模型受到4DMG。"
+      "text": "当此模型在激活期间进行一次冲锋时，此模型可以选择不用消耗影响力来进行冲锋。如果执行了此行动，在激活结束时此模型受到 4DMG。"
     },
     {
       "name": "Verminthirst",
       "active": false,
-      "text": "当有其他模型在此光环范围内受到离场状态时，在当前行动结算后，此模型可恢复2HP。"
+      "text": "当有其他模型在此光环范围内受到离场状态时，在当前行动结算后，此模型可恢复 2HP。"
     },
     {
       "name": "Stealthy",
@@ -15762,7 +15762,7 @@
     {
       "name": "Poisoner",
       "active": false,
-      "text": "每当这个模型进行闪避，在行动结算后，选择一个4″ 内的敌方模型。被选中的模型受到中毒状态。"
+      "text": "每当这个模型进行闪避，在行动结算后，选择一个 4″ 内的敌方模型。被选中的模型受到中毒状态。"
     },
     {
       "name": "Chameleon",
@@ -15772,57 +15772,57 @@
     {
       "name": "Subsistence",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，此模型可以移除一个 2″ 内的收成标记，如果以此法移除了一个标记，此模型恢复4 HP。"
+      "text": "每回合一次，在此模型激活期间，此模型可以移除一个 2″ 内的收成标记，如果以此法移除了一个标记，此模型恢复 4 HP。"
     },
     {
       "name": "Bends... But Never Breaks",
       "active": false,
-      "text": "当此模型在友方木堆标记1″ 内时，此模型获得 Stoic。\n{{trait 'Stoic'}}"
+      "text": "当此模型在友方木堆标记 1″ 内时，此模型获得 Stoic。\n{{trait 'Stoic'}}"
     },
     {
       "name": "Caber Toss",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，你可以选择一个1″ 内的友方木堆标记并将其放置在本模型4″ 内。"
+      "text": "每回合一次，在此模型激活期间，你可以选择一个 1″ 内的友方木堆标记并将其放置在本模型 4″ 内。"
     },
     {
       "name": "Splitting Strikes",
       "active": false,
-      "text": "当位于友方木堆标记1″ 内时，当此模型进行一次成功的攻击并选择了一个或更多的战术手册中的伤害结果时，选择另一个位于近战范围内的敌方模型，被选中的模型受到2 DMG。"
+      "text": "当位于友方木堆标记 1″ 内时，当此模型进行一次成功的攻击并选择了一个或更多的战术手册中的伤害结果时，选择另一个位于近战范围内的敌方模型，被选中的模型受到 2 DMG。"
     },
     {
       "name": "Hew Do They Think They Are",
       "active": false,
-      "text": "当此模型位于指定友方模型或友方木堆标记1″ 内时，此模型获得Poised\n{{trait 'Poised'}}"
+      "text": "当此模型位于指定友方模型或友方木堆标记 1″ 内时，此模型获得 Poised\n{{trait 'Poised'}}"
     },
     {
       "name": "Eye of the Sun Father",
       "active": false,
-      "text": "每回合一次，在本模型激活期间，如果一个友方木堆标记位于本模型4″ 内，本模型可以进行一次无需消耗影响力的传球或角色技巧。"
+      "text": "每回合一次，在本模型激活期间，如果一个友方木堆标记位于本模型 4″ 内，本模型可以进行一次无需消耗影响力的传球或角色技巧。"
     },
     {
       "name": "Synchronised",
       "active": false,
-      "text": "当指定友方模型成功接收到来自本模型的传球时，目标模型可以少消耗1 MP来进行一次传跑联动或是进行一次凌空抽射。"
+      "text": "当指定友方模型成功接收到来自本模型的传球时，目标模型可以少消耗 1 MP 来进行一次传跑联动或是进行一次凌空抽射。"
     },
     {
       "name": "Putting Out Fires",
       "active": true,
-      "text": "每回合一次，在本模型激活期间，选择一个友方木堆标记并移除它4″ 内友方模型上任意数量的影响力。然后将被移除的影响力分配到被选择的木堆标记4″ 内其余友方模型上。"
+      "text": "每回合一次，在本模型激活期间，选择一个友方木堆标记并移除它 4″ 内友方模型上任意数量的影响力。然后将被移除的影响力分配到被选择的木堆标记 4″ 内其余友方模型上。"
     },
     {
       "name": "Den Protector",
       "active": false,
-      "text": "此模型可以不消耗影响力对友方木堆标记1″ 内的敌方模型宣布冲锋。"
+      "text": "此模型可以不消耗影响力对友方木堆标记 1″ 内的敌方模型宣布冲锋。"
     },
     {
       "name": "Hunker Down",
       "active": false,
-      "text": "每回合一次，当此模型位于友方木堆标记1″ 内时，此模型可以不消耗MP使用一次鼓励。"
+      "text": "每回合一次，当此模型位于友方木堆标记 1″ 内时，此模型可以不消耗 MP 使用一次鼓励。"
     },
     {
       "name": "Sibling Rivalry",
       "active": false,
-      "text": "每回合一次，在此模型激活期间，此模型和指定友方模型可以不消耗影响力进行传球如果传球模型位于友方木堆标记1″ 内。"
+      "text": "每回合一次，在此模型激活期间，此模型和指定友方模型可以不消耗影响力进行传球如果传球模型位于友方木堆标记 1″ 内。"
     },
     {
       "name": "Specialised Equipment",
@@ -15832,47 +15832,47 @@
     {
       "name": "Early Risers",
       "active": false,
-      "text": "此模型激活开始时，它可以被放置在当前位置的1″ 内。"
+      "text": "此模型激活开始时，它可以被放置在当前位置的 1″ 内。"
     },
     {
       "name": "Job's a Good'un",
       "active": false,
-      "text": "当此模型因为一次敌方模型的攻击或角色技巧受到taken out状态时，此模型近战范围内的敌方模型受到击倒状态。当本模型被从场上移除时，将本模型的角色卡替换成Cross和Cut的角色卡。"
+      "text": "当此模型因为一次敌方模型的攻击或角色技巧受到 taken out 状态时，此模型近战范围内的敌方模型受到击倒状态。当本模型被从场上移除时，将本模型的角色卡替换成 Cross 和 Cut 的角色卡。"
     },
     {
       "name": "Victory Toast",
       "active": true,
-      "text": "当此模型进球时，它获得1啤酒标记。除此之外，此模型还可以使用啤酒标记来进行休息。"
+      "text": "当此模型进球时，它获得 1 啤酒标记。除此之外，此模型还可以使用啤酒标记来进行休息。"
     },
     {
       "name": "Brute Force",
       "active": false,
-      "text": "在此模型激活开始时，选择一个在此模型近战范围内的敌方模型，该敌方模型受到一个径直远离此模型的2″推移。"
+      "text": "在此模型激活开始时，选择一个在此模型近战范围内的敌方模型，该敌方模型受到一个径直远离此模型的 2″ 推移。"
     },
     {
       "name": "Nose Out of Joint",
       "active": false,
-      "text": "如果一个敌方模型在此模型位于友方球门柱4″内时进球，此模型在游戏剩余时间内获得Furious。\n{{trait 'Furious'}}"
+      "text": "如果一个敌方模型在此模型位于友方球门柱 4″ 内时进球，此模型在游戏剩余时间内获得 Furious。\n{{trait 'Furious'}}"
     },
     {
       "name": "Old Reliable",
       "active": false,
-      "text": "当此模型进行一次攻击或踢球时，它生成的骰子池不会被减少到低于它的基础TAC或KICK。除此之外，当此模型进行一次踢球时，它的踢球距离也不会被减少到它的基础踢球距离以下。"
+      "text": "当此模型进行一次攻击或踢球时，它生成的骰子池不会被减少到低于它的基础 TAC 或 KICK。除此之外，当此模型进行一次踢球时，它的踢球距离也不会被减少到它的基础踢球距离以下。"
     },
     {
       "name": "Take the Lead",
       "active": false,
-      "text": "每回合一次，当此模型成为友方模型传球或是技巧的目标时，它获得1点影响力。"
+      "text": "每回合一次，当此模型成为友方模型传球或是技巧的目标时，它获得 1 点影响力。"
     },
     {
       "name": "Poltergeists",
       "active": true,
-      "text": "在每个友方模型的激活开始时，一个在此光环范围内的友方模型可以进行一次2″闪避。其他模型每回合只能因为此效果闪避一次。"
+      "text": "在每个友方模型的激活开始时，一个在此光环范围内的友方模型可以进行一次 2″ 闪避。其他模型每回合只能因为此效果闪避一次。"
     },
     {
       "name": "Murder Spree",
       "active": true,
-      "text": "每回合一次，在此模型激活期内，当它对一个敌方模型造成离场状态时，此模型可以进行一次4″闪避或是使用一次无需消耗影响力的角色技巧作为下一个行动。"
+      "text": "每回合一次，在此模型激活期内，当它对一个敌方模型造成离场状态时，此模型可以进行一次 4″ 闪避或是使用一次无需消耗影响力的角色技巧作为下一个行动。"
     },
     {
       "name": "Brutal",
@@ -15882,7 +15882,7 @@
     {
       "name": "Finisher",
       "active": false,
-      "text": "生命值为9或更低的敌人在遭受此模型的攻击期间，受到-1 DEF。"
+      "text": "生命值为 9 或更低的敌人在遭受此模型的攻击期间，受到 -1 DEF。"
     }
   ]
 }
