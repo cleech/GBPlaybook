@@ -4499,7 +4499,7 @@
         "For the Family [Aura de 4″]",
         "Planting Master"
       ],
-      "legendary": "Huge Tracts of Land [Aura de 6″]\nEste modelo puede inmediatamente colocar hasta dos harvest markers aliados dentro de esta aura. Mientras estén dentro de esta aura, los modelos aliados del gremio obtienen Sturdy.\n{{trait 'Sturdy'}}",
+      "legendary": "Huge Tracts of Land [Aura de 6″]\nEste modelo puede inmediatamente colocar hasta dos Harvest Markers aliados dentro de esta aura. Mientras estén dentro de esta aura, los modelos aliados del gremio obtienen Sturdy.\n{{trait 'Sturdy'}}",
       "types": "Piert, Humano, Hombre,\nZaguero,\nSembrador, Capitán",
       "playbook": [
         [
@@ -4605,7 +4605,7 @@
       "character_traits": [
         "Pain Response"
       ],
-      "heroic": "When the Cock Crows...\nColoca un harvest marker aliado dentro de 2″ de este modelo.",
+      "heroic": "When the Cock Crows...\nColoca un Harvest Marker aliado dentro de 2″ de este modelo.",
       "types": "Raed, Animal,\nMascota, Sembrador",
       "playbook": [
         [
@@ -6133,7 +6133,7 @@
         "Bring Them Down",
         "Expert Trapper"
       ],
-      "legendary": "Perfect Positioning [Pulso de 6″]\nEste modelo puede colocar hasta 5 trap markers aliados dentro de este pulso.",
+      "legendary": "Perfect Positioning [Pulso de 6″]\nEste modelo puede colocar hasta 5 Trap Markers aliados dentro de este pulso.",
       "types": "Indar, Humano, Mujer,\nEnganche,\nCapitana",
       "playbook": [
         [
@@ -11901,7 +11901,7 @@
         "Bends... But Never Breaks",
         "Caber Toss"
       ],
-      "legendary": "Fell Swing [Pulso de 8″]\nLos modelos aliados dentro de este pulso y dentro de 1″ de un log pile marker aliado pueden declarar un ataque sin gastar influencia. Después, elige hasta 2 log pile markers aliados en la cancha. Coloca los log pile markers elegidos dentro de este pulso.",
+      "legendary": "Fell Swing [Pulso de 8″]\nLos modelos aliados dentro de este pulso y dentro de 1″ de un Log Pile Marker aliado pueden declarar un ataque sin gastar influencia. Después, elige hasta 2 Log Pile Markers aliados en la cancha. Coloca los Log Pile Markers elegidos dentro de este pulso.",
       "types": "Skald, Humano, Mujer,\nZaguera,\nCapitana",
       "playbook": [
         [
@@ -12273,7 +12273,7 @@
         "Synchronised [Flint]",
         "Putting Out Fires"
       ],
-      "legendary": "This Should Be Overtime...\nElige un log pile marker aliado en la cancha y colócalo dentro de 4″ de este modelo.",
+      "legendary": "This Should Be Overtime...\nElige un Log Pile Marker aliado en la cancha y colócalo dentro de 4″ de este modelo.",
       "types": "Eisnoran, Humano, Hombre,\nPuntero,\nSquaddie",
       "playbook": [
         [
@@ -13020,7 +13020,7 @@
     },
     {
       "name": "Burrow",
-      "text": "Coloca a este modelo en contacto de base con el nest marker objetivo aliado.",
+      "text": "Coloca a este modelo en contacto de base con el Nest Marker objetivo aliado.",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -13220,7 +13220,7 @@
     },
     {
       "name": "Sow the Seeds",
-      "text": "Este modelo puede colocar un harvest marker aliado dentro de 2″.",
+      "text": "Este modelo puede colocar un Harvest Marker aliado dentro de 2″.",
       "CST": "CP",
       "RNG": "S",
       "SUS": false,
@@ -13228,7 +13228,7 @@
     },
     {
       "name": "At Your Post",
-      "text": "Coloca este modelo en contacto de base con el harvest marker objetivo aliado.",
+      "text": "Coloca este modelo en contacto de base con el Harvest Marker objetivo aliado.",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -13236,7 +13236,7 @@
     },
     {
       "name": "Crop Dusting",
-      "text": "Coloca un AOE dentro del alcance. Los modelos impactados reciben 2 DAÑO. Este modelo puede colocar dos harvest markers aliados dentro del AOE.",
+      "text": "Coloca un AOE dentro del alcance. Los modelos impactados reciben 2 DAÑO. Este modelo puede colocar dos Harvest Markers aliados dentro del AOE.",
       "CST": 1,
       "RNG": 6,
       "SUS": false,
@@ -13412,7 +13412,7 @@
     },
     {
       "name": "Bait",
-      "text": "Coloca un AOE dentro del alcance. Este modelo puede colocar dos trap markers aliados dentro del AOE. Los modelos enemigos impactados reciben un Push de 1″.",
+      "text": "Coloca un AOE dentro del alcance. Este modelo puede colocar dos Trap Markers aliados dentro del AOE. Los modelos enemigos impactados reciben un Push de 1″.",
       "CST": "2,CP",
       "RNG": 3,
       "SUS": false,
@@ -13476,7 +13476,7 @@
     },
     {
       "name": "More Teeth!",
-      "text": "Este modelo puede colocar un trap marker aliado dentro de 2″.",
+      "text": "Este modelo puede colocar un Trap Marker aliado dentro de 2″.",
       "CST": "CP",
       "RNG": "S",
       "SUS": true,
@@ -13900,7 +13900,7 @@
     },
     {
       "name": "Droppings",
-      "text": "Este modelo puede colocar un harvest marker aliado dentro de 2″.",
+      "text": "Este modelo puede colocar un Harvest Marker aliado dentro de 2″.",
       "CST": 1,
       "RNG": "S",
       "SUS": false,
@@ -14060,7 +14060,7 @@
     },
     {
       "name": "Pick of the Crop",
-      "text": "Cuando un modelo aliado hace una carga contra el modelo objetivo enemigo, el modelo aliado obtiene +0″/+2″ MOV y puede mover por sobre harvest markers sin quitarlos por la duración de la carga.",
+      "text": "Cuando un modelo aliado hace una carga contra el modelo objetivo enemigo, el modelo aliado obtiene +0″/+2″ MOV y puede mover por sobre Harvest Markers sin quitarlos por la duración de la carga.",
       "CST": "1,CP",
       "RNG": 10,
       "SUS": true,
@@ -14148,7 +14148,7 @@
     },
     {
       "name": "Hoisting and Hauling",
-      "text": "Elige un log pile marker aliado dentro del alcance y colócalo dentro de 1″ de este modelo.",
+      "text": "Elige un Log Pile Marker aliado dentro del alcance y colócalo dentro de 1″ de este modelo.",
       "CST": "1,CP",
       "RNG": 4,
       "SUS": false,
@@ -14180,7 +14180,7 @@
     },
     {
       "name": "Swipe Right",
-      "text": "El modelo objetivo enemigo recibe un Push de 2″. Luego puedes elegir un log pile marker aliado dentro del alcance y colocarlo dentro de 1″ de este modelo.",
+      "text": "El modelo objetivo enemigo recibe un Push de 2″. Luego puedes elegir un Log Pile Marker aliado dentro del alcance y colocarlo dentro de 1″ de este modelo.",
       "CST": "CP",
       "RNG": 4,
       "SUS": false,
@@ -14188,7 +14188,7 @@
     },
     {
       "name": "Skidding",
-      "text": "El modelo objetivo aliado puede hacer un Dodge de 2″ hacia un log pile marker aliado. Cada modelo sólo puede ser afectado por esta Character Play una vez por turno.",
+      "text": "El modelo objetivo aliado puede hacer un Dodge de 2″ hacia un Log Pile Marker aliado. Cada modelo sólo puede ser afectado por esta Character Play una vez por turno.",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": false,
@@ -14196,7 +14196,7 @@
     },
     {
       "name": "Dam Builder",
-      "text": "Elige un log pile marker aliado dentro del alcance y colócalo dentro de 4″ de su posición actual.",
+      "text": "Elige un Log Pile Marker aliado dentro del alcance y colócalo dentro de 4″ de su posición actual.",
       "CST": "1,CP",
       "RNG": 1,
       "SUS": false,
@@ -14204,7 +14204,7 @@
     },
     {
       "name": "Crumb Boss [Cut]",
-      "text": "Si el modelo objetivo aliado mencionado está dentro de 4″ de un log pile marker aliado, se le asigna 2 influencia y obtiene +1″/+1″ MOV.",
+      "text": "Si el modelo objetivo aliado mencionado está dentro de 4″ de un Log Pile Marker aliado, se le asigna 2 influencia y obtiene +1″/+1″ MOV.",
       "CST": "CP",
       "RNG": 4,
       "SUS": true,
@@ -14220,7 +14220,7 @@
     },
     {
       "name": "The Bigger They Are...",
-      "text": "El modelo objetivo enemigo recibe DAÑO de condición igual a la mitad de su salud actual, redondeando hacia abajo. Luego, si hay un log pile marker aliado dentro de 4″ de este modelo, puedes colocar este modelo en contacto de base con ese log pile marker.",
+      "text": "El modelo objetivo enemigo recibe DAÑO de condición igual a la mitad de su salud actual, redondeando hacia abajo. Luego, si hay un Log Pile Marker aliado dentro de 4″ de este modelo, puedes colocar este modelo en contacto de base con ese Log Pile Marker.",
       "CST": "CP2",
       "RNG": "P",
       "SUS": false,
@@ -14236,7 +14236,7 @@
     },
     {
       "name": "Spring the Trap",
-      "text": "El trap marker objetivo aliado dentro del alcance. Los modelos enemigos dentro de 1″ del trap marker objetivo reciben la condición de Snared, y luego quita el trap marker de la cancha.",
+      "text": "El Trap Marker objetivo aliado dentro del alcance. Los modelos enemigos dentro de 1″ del Trap Marker objetivo reciben la condición de Snared, y luego quita el Trap Marker de la cancha.",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -14837,17 +14837,17 @@
     {
       "name": "Spider Nests",
       "active": true,
-      "text": "Una vez por turno durante su activación, este modelo puede colocar un nest marker aliado de 30mm dentro de 4″. Un jugador puede tener hasta tres nest markers aliados en la cancha al mismo tiempo. Cuando un modelo entra en contacto de base con un nest marker durante un Sprint o una carga, el nest marker se quita de la cancha."
+      "text": "Una vez por turno durante su activación, este modelo puede colocar un Nest Marker aliado de 30mm dentro de 4″. Un jugador puede tener hasta tres Nest Markers aliados en la cancha al mismo tiempo. Cuando un modelo entra en contacto de base con un Nest Marker durante un Sprint o una carga, el Nest Marker se quita de la cancha."
     },
     {
       "name": "Spiderlings",
       "active": false,
-      "text": "Mientras estén dentro de 1″ de uno o más nest markers aliados, los modelos enemigos reciben la penalización de Crowding Out."
+      "text": "Mientras estén dentro de 1″ de uno o más Nest Markers aliados, los modelos enemigos reciben la penalización de Crowding Out."
     },
     {
       "name": "Webbing",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, si hay un nest marker aliado dentro de 4″ de este modelo y dentro de 2″ de una pelota suelta, este modelo puede obtener posesión de la pelota."
+      "text": "Una vez por turno durante la activación de este modelo, si hay un Nest Marker aliado dentro de 4″ de este modelo y dentro de 2″ de una pelota suelta, este modelo puede obtener posesión de la pelota."
     },
     {
       "name": "Stoic",
@@ -14937,17 +14937,17 @@
     {
       "name": "Planting Master",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede colocar hasta dos harvest markers aliados dentro de 4″."
+      "text": "Una vez por turno durante la activación de este modelo, puede colocar hasta dos Harvest Markers aliados dentro de 4″."
     },
     {
       "name": "Crow Scarer",
       "active": false,
-      "text": "Mientras esté dentro de 2″ de un harvest marker aliado, este modelo obtiene Poised.\n{{trait 'Poised'}}"
+      "text": "Mientras esté dentro de 2″ de un Harvest Marker aliado, este modelo obtiene Poised.\n{{trait 'Poised'}}"
     },
     {
       "name": "Don't Fear The...",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un harvest marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, los modelos dentro del Melee Zone de este modelo reciben 3 DAÑO."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, los modelos dentro del Melee Zone de este modelo reciben 3 DAÑO."
     },
     {
       "name": "Harvest Supper",
@@ -14967,12 +14967,12 @@
     {
       "name": "Carrot & Stick",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un harvest marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo puede inmediatamente hacer un Jog adicional."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo puede inmediatamente hacer un Jog adicional."
     },
     {
       "name": "Left Boot",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un harvest marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo obtiene +1/+2″ KICK y puede hacer una patada durante su activación sin gastar influencia."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo obtiene +1/+2″ KICK y puede hacer una patada durante su activación sin gastar influencia."
     },
     {
       "name": "One of Our Own",
@@ -14982,7 +14982,7 @@
     {
       "name": "Cabbage Punt",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un harvest marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo puede usar una Character Play una vez durante su activación sin gastar influencia."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo puede usar una Character Play una vez durante su activación sin gastar influencia."
     },
     {
       "name": "Between a Rock...",
@@ -14992,7 +14992,7 @@
     {
       "name": "Making Hay",
       "active": true,
-      "text": "Al comienzo de la activación de este modelo, puede quitar cualquier cantidad de harvest markers aliados de la cancha que estén dentro de 4″. A este modelo se le asignan 2 influencias por cada harvest marker aliado quitado de esta forma."
+      "text": "Al comienzo de la activación de este modelo, puede quitar cualquier cantidad de Harvest Markers aliados de la cancha que estén dentro de 4″. A este modelo se le asignan 2 influencias por cada Harvest Marker aliado quitado de esta forma."
     },
     {
       "name": "Protective Instinct",
@@ -15007,7 +15007,7 @@
     {
       "name": "Planting Season",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede colocar un harvest marker aliado dentro de 2″."
+      "text": "Una vez por turno durante la activación de este modelo, puede colocar un Harvest Marker aliado dentro de 2″."
     },
     {
       "name": "Rapid Growth",
@@ -15022,17 +15022,17 @@
     {
       "name": "Fields of Wheat",
       "active": true,
-      "text": "Una vez por turno durante la activación de un modelo aliado, cuando un harvest marker aliado sea quitado de la cancha, coloca un harvest marker aliado dentro de esta aura."
+      "text": "Una vez por turno durante la activación de un modelo aliado, cuando un Harvest Marker aliado sea quitado de la cancha, coloca un Harvest Marker aliado dentro de esta aura."
     },
     {
       "name": "If I Only Had a Brain",
       "active": true,
-      "text": "Una vez por turno durante su activación, este modelo puede elegir un harvest marker aliado o el arco aliado dentro de 4″. Coloca este modelo en contacto de base con el harvest marker o arco elegido."
+      "text": "Una vez por turno durante su activación, este modelo puede elegir un Harvest Marker aliado o el arco aliado dentro de 4″. Coloca este modelo en contacto de base con el Harvest Marker o arco elegido."
     },
     {
       "name": "The Last Straw",
       "active": true,
-      "text": "Al final de su activación, este modelo puede elegir un harvest marker aliado dentro de 4″. Coloca este modelo en contacto de base con el harvest marker elegido."
+      "text": "Al final de su activación, este modelo puede elegir un Harvest Marker aliado dentro de 4″. Coloca este modelo en contacto de base con el Harvest Marker elegido."
     },
     {
       "name": "Take One for the Team",
@@ -15042,7 +15042,7 @@
     {
       "name": "Fertile Soil",
       "active": true,
-      "text": "Una vez por turno cuando un modelo aliado coloca uno o más harvest markers aliados dentro de esta aura, coloca un harvest marker aliado adicional dentro de esta aura."
+      "text": "Una vez por turno cuando un modelo aliado coloca uno o más Harvest Markers aliados dentro de esta aura, coloca un Harvest Marker aliado adicional dentro de esta aura."
     },
     {
       "name": "True Path",
@@ -15052,7 +15052,7 @@
     {
       "name": "Fork Off!",
       "active": true,
-      "text": "Una vez por turno cuando un modelo enemigo termina un Advance dentro de 6″ de este modelo, si este modelo no está trabado en combate puede inmediatamente quitar un harvest marker aliado dentro de 2″ para declarar una carga contra el modelo enemigo sin gastar influencia."
+      "text": "Una vez por turno cuando un modelo enemigo termina un Advance dentro de 6″ de este modelo, si este modelo no está trabado en combate puede inmediatamente quitar un Harvest Marker aliado dentro de 2″ para declarar una carga contra el modelo enemigo sin gastar influencia."
     },
     {
       "name": "Make It Rain",
@@ -15062,7 +15062,7 @@
     {
       "name": "Big Breakfast",
       "active": true,
-      "text": "Una vez por turno al comienzo de la activación de este modelo, puede elegir un harvest marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, a este modelo se le asigna 1 influencia y obtiene +2″/+2″ MOV hasta el final del turno."
+      "text": "Una vez por turno al comienzo de la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, a este modelo se le asigna 1 influencia y obtiene +2″/+2″ MOV hasta el final del turno."
     },
     {
       "name": "Empathy",
@@ -15167,7 +15167,7 @@
     {
       "name": "Expert Trapper",
       "active": false,
-      "text": "Mientras que este modelo esté en la cancha, cuando un modelo enemigo active un trap marker, elige un efecto adicional:\n- El modelo enemigo recibe Weak Point.\n- El modelo enemigo recibe la condición de Bleed."
+      "text": "Mientras que este modelo esté en la cancha, cuando un modelo enemigo active un Trap Marker, elige un efecto adicional:\n- El modelo enemigo recibe Weak Point.\n- El modelo enemigo recibe la condición de Bleed."
     },
     {
       "name": "Isolated Target",
@@ -15187,7 +15187,7 @@
     {
       "name": "Big Game Traps",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede colocar un trap marker aliado dentro de 2″."
+      "text": "Una vez por turno durante la activación de este modelo, puede colocar un Trap Marker aliado dentro de 2″."
     },
     {
       "name": "Unorthodox",
@@ -15522,7 +15522,7 @@
     {
       "name": "Protect the Ball",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un harvest marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, los modelos aliados dentro del pulso obtienen Close Control hasta el final del turno.\n{{trait 'Close Control'}}"
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, los modelos aliados dentro del pulso obtienen Close Control hasta el final del turno.\n{{trait 'Close Control'}}"
     },
     {
       "name": "Sheep Become the Shepherds",
@@ -15537,7 +15537,7 @@
     {
       "name": "Herding",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un harvest marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, elige un modelo enemigo dentro de 3″. El modelo enemigo elegido recibe un Push de 3″."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, elige un modelo enemigo dentro de 3″. El modelo enemigo elegido recibe un Push de 3″."
     },
     {
       "name": "Littermates",
@@ -15552,7 +15552,7 @@
     {
       "name": "Workhorse",
       "active": false,
-      "text": "Si este modelo recibe la condición de Taken Out puede colocar hasta 5 harvest markers aliados en cualquier lugar de la cancha."
+      "text": "Si este modelo recibe la condición de Taken Out puede colocar hasta 5 Harvest Markers aliados en cualquier lugar de la cancha."
     },
     {
       "name": "Baa-ttering Ram",
@@ -15577,7 +15577,7 @@
     {
       "name": "Shearing",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un harvest marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo puede hacer un Dodge de 4″."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo puede hacer un Dodge de 4″."
     },
     {
       "name": "Do the Thing!",
@@ -15772,32 +15772,32 @@
     {
       "name": "Subsistence",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puede elegir un harvest marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo puede recuperar 4 HP."
+      "text": "Una vez por turno durante la activación de este modelo, puede elegir un Harvest Marker aliado dentro de 2″ y quitarlo de la cancha. Si lo hace, este modelo puede recuperar 4 HP."
     },
     {
       "name": "Bends... But Never Breaks",
       "active": false,
-      "text": "Mientras esté dentro de 1″ de un log pile marker aliado, obtiene Stoic. {{trait 'Stoic'}}"
+      "text": "Mientras esté dentro de 1″ de un Log Pile Marker aliado, obtiene Stoic. {{trait 'Stoic'}}"
     },
     {
       "name": "Caber Toss",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, puedes elegir un log pile marker aliado dentro de 1″ de este modelo. Coloca el log pile marker elegido dentro de 4″ de este modelo."
+      "text": "Una vez por turno durante la activación de este modelo, puedes elegir un Log Pile Marker aliado dentro de 1″ de este modelo. Coloca el Log Pile Marker elegido dentro de 4″ de este modelo."
     },
     {
       "name": "Splitting Strikes",
       "active": false,
-      "text": "Mientras esté dentro de 1″ de un log pile marker aliado, cuando este modelo haga un ataque con éxito y elija uno o más resultados de daño del Playbook, elige otro modelo enemigo dentro del Melee Zone de este modelo. El modelo elegido recibe 2 DAÑO."
+      "text": "Mientras esté dentro de 1″ de un Log Pile Marker aliado, cuando este modelo haga un ataque con éxito y elija uno o más resultados de daño del Playbook, elige otro modelo enemigo dentro del Melee Zone de este modelo. El modelo elegido recibe 2 DAÑO."
     },
     {
       "name": "Hew Do They Think They Are",
       "active": false,
-      "text": "Mientras este modelo esté dentro de 1″ del modelo aliado mencionado o un log pile marker aliado, este modelo obtiene Poised.\n{{trait 'Poised'}}"
+      "text": "Mientras este modelo esté dentro de 1″ del modelo aliado mencionado o un Log Pile Marker aliado, este modelo obtiene Poised.\n{{trait 'Poised'}}"
     },
     {
       "name": "Eye of the Sun Father",
       "active": false,
-      "text": "Una vez por turno durante la activación de este modelo, si hay un log pile marker aliado dentro de 4″ de este modelo, este modelo puede hacer un pase o usar una Character Play sin gastar influencia."
+      "text": "Una vez por turno durante la activación de este modelo, si hay un Log Pile Marker aliado dentro de 4″ de este modelo, este modelo puede hacer un pase o usar una Character Play sin gastar influencia."
     },
     {
       "name": "Synchronised",
@@ -15807,22 +15807,22 @@
     {
       "name": "Putting Out Fires",
       "active": true,
-      "text": "Una vez por turno durante la activación de este modelo, elige un log pile marker aliado y quita cualquier cantidad de influencia de modelos aliados dentro de 4″ del log pile marker elegido. Luego, asigna la influencia quitada a otros modelos aliados dentro de 4″ del log pile marker elegido."
+      "text": "Una vez por turno durante la activación de este modelo, elige un Log Pile Marker aliado y quita cualquier cantidad de influencia de modelos aliados dentro de 4″ del Log Pile Marker elegido. Luego, asigna la influencia quitada a otros modelos aliados dentro de 4″ del Log Pile Marker elegido."
     },
     {
       "name": "Den Protector",
       "active": false,
-      "text": "Cuando este modelo declara una carga contra un modelo enemigo dentro de 1″ de un log pile marker aliado, puede hacerlo sin gastar influencia."
+      "text": "Cuando este modelo declara una carga contra un modelo enemigo dentro de 1″ de un Log Pile Marker aliado, puede hacerlo sin gastar influencia."
     },
     {
       "name": "Hunker Down",
       "active": false,
-      "text": "Una vez por turno, mientras este modelo esté dentro de 1″ de un log pile marker aliado, puede usar Encourage sin gastar MP."
+      "text": "Una vez por turno, mientras este modelo esté dentro de 1″ de un Log Pile Marker aliado, puede usar Encourage sin gastar MP."
     },
     {
       "name": "Sibling Rivalry",
       "active": false,
-      "text": "Una vez por turno durante su activación, este modelo o el modelo aliado mencionado puede hacer un pase sin gastar influencia si el modelo que hace el pase está dentro de 1″ de un log pile marker aliado."
+      "text": "Una vez por turno durante su activación, este modelo o el modelo aliado mencionado puede hacer un pase sin gastar influencia si el modelo que hace el pase está dentro de 1″ de un Log Pile Marker aliado."
     },
     {
       "name": "Specialised Equipment",
