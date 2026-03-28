@@ -1,63 +1,8 @@
-import { useEffect, useState } from "react";
-import Handlebars from "handlebars";
-import asyncHelpers from "handlebars-async-helpers-ts";
 import Markdown, { Components } from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import { visit } from "unist-util-visit";
 
-import { getGBDatabase } from "../models/gbdb";
 import { PB } from "./GBIcon";
-
-const hb = asyncHelpers(Handlebars);
-
-hb.registerHelper("d", () => new hb.SafeString('<gb-icon icon="D"></gb-icon>'));
-hb.registerHelper("dd", () => new hb.SafeString('<gb-icon icon="DD"></gb-icon>'));
-hb.registerHelper("p", () => new hb.SafeString('<gb-icon icon="P"></gb-icon>'));
-hb.registerHelper("pp", () => new hb.SafeString('<gb-icon icon="PP"></gb-icon>'));
-hb.registerHelper("T", () => new hb.SafeString('<gb-icon icon="T"></gb-icon>'));
-hb.registerHelper("KD", () => new hb.SafeString('<gb-icon icon="KD"></gb-icon>'));
-hb.registerHelper("GB", () => new hb.SafeString('<gb-icon icon="CP"></gb-icon>'));
-hb.registerHelper("1", () => new hb.SafeString('<gb-icon icon="1"></gb-icon>'));
-hb.registerHelper("2", () => new hb.SafeString('<gb-icon icon="2"></gb-icon>'));
-hb.registerHelper("3", () => new hb.SafeString('<gb-icon icon="3"></gb-icon>'));
-hb.registerHelper("4", () => new hb.SafeString('<gb-icon icon="4"></gb-icon>'));
-hb.registerHelper("5", () => new hb.SafeString('<gb-icon icon="5"></gb-icon>'));
-hb.registerHelper("6", () => new hb.SafeString('<gb-icon icon="6"></gb-icon>'));
-
-hb.registerHelper("trait", async (name: string, ...rest: any[]) => {
-  const gbdb = await getGBDatabase();
-  const trait = await gbdb?.character_traits.findOne(name).exec().then(doc => doc?.toJSON());
-  if (!trait) {
-    console.error(`can not find trait ${name}`);
-    return;
-  }
-  const qualifier = (rest.length > 1) ? rest[0] : undefined;
-  const depth = (rest[rest.length - 1].data.root.depth);
-  if (depth === 1) {
-    const template = hb.compile(trait?.text);
-    const text = await template({ depth: 2 });
-    return new hb.SafeString(`(_${trait?.name}${qualifier ? ` [${qualifier}]` : ''}: ${text}_)`);
-  } else {
-    return new hb.SafeString(`(_${trait?.name}${qualifier ? ` [${qualifier}]` : ''}: ${trait?.text}_)`);
-  }
-});
-
-hb.registerHelper("play", async (name: string, ...rest: any[]) => {
-  const gbdb = await getGBDatabase();
-  const play = await gbdb?.character_plays.findOne(name).exec().then(doc => doc?.toJSON());
-  if (!play) {
-    console.error(`can not find play ${name}`);
-    return;
-  }
-  const qualifier = (rest.length > 1) ? rest[0] : undefined;
-  const depth = (rest[rest.length - 1].data.root.depth);
-  if (depth === 1) {
-    const template = hb.compile(play?.text);
-    const text = await template({ depth: 2 });
-    return new hb.SafeString(`(_${play?.name}${qualifier ? ` [${qualifier}]` : ''}: ${text}_)`);
-  } else {
-    return new hb.SafeString(`(_${play?.name}${qualifier ? ` [${qualifier}]` : ''}: ${play?.text}_)`);
-  }
-});
 
 const InlinePBIcon = (props: { icon: string }) => (
   <span
@@ -99,24 +44,60 @@ const customComponents: Components = {
   }
 }
 
-export const CardText = (props: { children: string }) => {
-  const template = hb.compile(props.children);
+const iconMap: Record<string, string> = {
+  'GB': 'CP',
+  'd': 'D',
+  'dd': 'DD',
+  'p': 'P',
+  'pp': 'PP',
+  'T': 'T',
+  'KD': 'KD',
+};
 
-  const [text, setText] = useState<string>();
-  useEffect(() => {
-    const fetchData = async () => {
-      const text = await template({ depth: 1 });
-      setText(text);
-    }
-    fetchData();
-  }, [template]);
+function remarkGBIcons() {
+  return (tree: any) => {
+    visit(tree, 'text', (node: any, index: number | undefined, parent: any) => {
+      if (index === undefined) return;
+      const regex = /:([\w]+):/g;
+      const newNodes = [];
+      let lastIndex = 0;
+      let match;
+
+      while ((match = regex.exec(node.value)) !== null) {
+        if (match.index > lastIndex) {
+          newNodes.push({ type: 'text', value: node.value.slice(lastIndex, match.index) });
+        }
+        const icon = match[1];
+        const resolvedIcon = iconMap[icon] || icon.toUpperCase();
+        
+        newNodes.push({ 
+          type: 'html', 
+          value: `<gb-icon icon="${resolvedIcon}"></gb-icon>`
+        });
+        lastIndex = regex.lastIndex;
+      }
+
+      if (newNodes.length > 0) {
+        if (lastIndex < node.value.length) {
+          newNodes.push({ type: 'text', value: node.value.slice(lastIndex) });
+        }
+        parent.children.splice(index, 1, ...newNodes);
+        return index + newNodes.length;
+      }
+    });
+  };
+}
+
+export const CardText = (props: { children: string | undefined }) => {
+  if (!props.children) return null;
 
   return (
     <Markdown
       components={customComponents}
+      remarkPlugins={[remarkGBIcons]}
       rehypePlugins={[rehypeRaw]}
     >
-      {text}
+      {props.children}
     </Markdown>
   );
 }
