@@ -100,17 +100,35 @@
 }
 
 /* !!!!!! */
-.Smoke:lang(es) .character-plays .text {
-  font-size: calc(6.5pt * 200/96);
-  letter-spacing: -0.7px;
+.Smoke:lang(es) {
+  & .character-plays .text {
+    font-size: calc(6.5pt * 200/96);
+  }
+  & .ChemicalBreeze .text li {
+    letter-spacing: -0.2px;
+    &::first-line { letter-spacing: -1px; }
+  }
+}
+.Soma:lang(es) {
+  & .character-plays .text {
+    font-size: calc(6.5pt * 200/96);
+  }
+  & .RagingFire .text {
+    & ::first-line { letter-spacing: -0.3px; }
+    & em {
+      font-size: calc(6.4pt * 200/96);
+    }
+  }
 }
 .Burnish:lang(es) .character-plays {
   & .flex-space {
-    max-height: 0.2em !important;
+    max-height: 0.1em !important;
   }
 }
-.Cutlass:lang(es) .character-plays .text {
-  font-size: calc(6.8pt * 200/96);
+.Cutlass:lang(es) .character-plays {
+  & .flex-space {
+    max-height: 0.2em !important;
+  }
 }
 .Tapper:lang(es) .character-plays {
   & .flex-space {
@@ -122,72 +140,106 @@
     max-height: 0.2em !important;
   }
 }
-.Ballista:lang(es) .Minefield .text {
-  font-size: calc(6.8pt *200/96);
-  letter-spacing: -0.2px;
+.Ballista:lang(es) .character-plays .text {
+  font-size: calc(6.8pt * 200/96);
+  letter-spacing: -0.3px;
 }
 .Peck:lang(es) .character-plays {
   & .flex-space {
     max-height: 0.2em !important;
   }
 }
-.Theron:lang(es) .character-plays .text {
-  font-size: calc(6.8pt *200/96);
+.Yukai:lang(es) .character-plays {
+  & .flex-space {
+    max-height: 0.1em !important;
+  }
 }
-.Skatha:lang(es) .character-plays .text {
-  font-size: calc(6.6pt * 200/96);
-  letter-spacing: -0.5px;
+.Siren:lang(es) .character-plays {
+  & .flex-space {
+    max-height: 0.2em !important;
+  }
+}
+.Theron:lang(es) .character-plays {
+  & .text {
+    font-size: calc(6.6pt *200/96);
+  }
+  & .Pinned .text {
+    letter-spacing: -0.5px;
+  }
+}
+.Skatha:lang(es) .character-plays {
+  & .text {
+    font-size: calc(6.6pt * 200/96);
+  }
+  & .ColdSnap .text {
+    & ::first-line { letter-spacing: normal; }
+    letter-spacing: -0.5px;
+  }
 }
 .Chaska:lang(es) .character-plays {
   & .flex-space {
     max-height: 0.2em !important;
   }
+  & .BoomBox .text {
+    letter-spacing: -0.1px;
+  }
 }
 .Nightlight:lang(es) {
-  & .character-trait .text {
-    font-size: calc(6.6pt * 200/96);
-    letter-spacing: -0.5px;
+  & .character-trait {
+    & .text {
+      font-size: calc(6.7pt * 200/96);
+    }
+    & em {
+      font-size: calc(6.3pt * 200/96);
+      letter-spacing: -0.5px;
+    }
+  }
+  & .FlareOut .text {
+    & ::first-line { letter-spacing: normal; }
+    letter-spacing: -0.7px;
   }
   & .legendary > span {
-    font-size: calc(6.6pt * 200/96);
-    letter-spacing: -0.5px;
+    font-size: calc(6.7pt * 200/96);
+    letter-spacing: -0.4px;
   }
 }
 .Oak:lang(es) {
   & .character-trait .text {
-    font-size: calc(6.8pt * 200/96);
-    letter-spacing: -0.4px;
+    font-size: calc(6.6pt * 200/96);
   }
   & .legendary > span {
-    font-size: calc(6.8pt * 200/96);
+    font-size: calc(6.6pt * 200/96);
   }
 }
-.Itsa:lang(es) .QuickTime .text {
-  font-size: calc(6.5pt * 200/96);
-  letter-spacing: -0.5px;
+.Itsa:lang(es) {
+  & .character-plays .text {
+    font-size: calc(6.5pt * 200/96);
+  }
+  & .QuickTime .text {
+    letter-spacing: -0.5px;
+  }
+  & .Reconnaissance .text {
+    & ::first-line { letter-spacing: normal; }
+    letter-spacing: -0.8px;
+  }
 }
 .Casket:lang(es) .character-plays {
-  & .flex-space {
-    max-height: 0.2em !important;
-  }
-}
-.Silence:lang(es) .character-plays .text {
-  font-size: calc(6.3pt * 200/96);
-  letter-spacing: -1px;
-}
-.Pride:lang(es) .character-plays {
-  & .text {
-  font-size: calc(6.9pt * 200/96);
-  }
   & .flex-space {
     max-height: 0.1em !important;
   }
 }
+.Silence:lang(es) .character-plays .text {
+  font-size: calc(6.4pt * 200/96);
+  letter-spacing: -1px;
+}
 .vRage:lang(es) {
   & .character-trait .text {
-    font-size: calc(6.7pt * 200/96);
+    font-size: calc(6.8pt * 200/96);
+  }
+  & .RisingAnger .text {
+    & ::first-line { letter-spacing: -0.2px; }
   }
   & .legendary > span {
-    font-size: calc(6.7pt * 200/96);
+    font-size: calc(6.8pt * 200/96);
   }
 }

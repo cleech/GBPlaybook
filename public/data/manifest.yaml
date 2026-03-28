@@ -1,15 +1,15 @@
-timestamp: "2026-03-21T23:02:21Z"
+timestamp: "2026-03-28T07:00:54Z"
 datafiles:
   - version: 4.8
     description: Steamforged Guild Ball 4.8
     filename: GB-Playbook-4-8.json
-    sha256: f295704629fae4eb460a15767f16c1620d5dd2f8c1fc6103da0d7c646f2cd2ee
-    timestamp: "2026-03-20T01:11:03Z"
+    sha256: 4b91c75aa20261ed8d260eb83d15b616d1a3f445527beaa926f24d05697c37f7
+    timestamp: "2026-03-26T23:43:55Z"
     translations:
       es:
         filename: GB-Playbook-4-8.es.json
-        sha256: aeaabb18ab297e0e11edbc2900001d4714d3afd4ead8973225a24373b477628d
-        timestamp: "2026-03-21T03:55:54Z"
+        sha256: a6dcf5efc8252293b1f6a82c27f8d7d8cc8e696bf377b7014f2235404957e778
+        timestamp: "2026-03-28T07:00:46Z"
       fr:
         filename: GB-Playbook-4-8.fr.json
         sha256: cbbafaef5ca8a9c96a39f86fa8e4b1b965806bcbf184e74adb40d32edd0b447d
@@ -66,7 +66,7 @@ gameplans:
       zh:
         filename: gameplans-2025.zh.json
         sha256: 176404d31ce81c31105e43fb3ddb207d98a9760c8cab699a3d0b0d0e5e469914
-        timestamp: "2026-03-19T22:16:43Z"
+        timestamp: "2026-03-28T06:54:06Z"
   - version: 2019
     filename: gameplans-2019.json
     sha256: ff89bf24c2175d1d56510ac98ecb51039baff6f0a72b656275de4be564cde58f
