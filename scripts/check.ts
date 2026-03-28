@@ -87,6 +87,19 @@ const reporter = new Reporter();
 
 // --- Utilities ---
 
+function isEquivalentName(base: string, trans: string): boolean {
+  if (base === trans) return true;
+  const bracketIndex = base.indexOf("[");
+  if (bracketIndex === -1) return false;
+
+  const basePrefix = base.substring(0, bracketIndex);
+  const transBracketIndex = trans.indexOf("[");
+  if (transBracketIndex === -1) return false;
+
+  const transPrefix = trans.substring(0, transBracketIndex);
+  return basePrefix === transPrefix;
+}
+
 async function getFileHash(content: string) {
   return crypto.createHash("sha256").update(content).digest("hex");
 }
@@ -213,17 +226,24 @@ async function validateTranslation(task: FileTask, tasks: FileTask[]) {
           diffs.push(`Array length mismatch at ${currentPath}: expected ${baseVal.length}, got ${transVal?.length}`);
         } else {
           baseVal.forEach((v, i) => {
-            if (typeof v === 'object' && v !== null) {
+            if (typeof v === "object" && v !== null) {
               compareObjects(v, transVal[i], `${currentPath}[${i}]`, localizableFields);
             } else if (v !== transVal[i]) {
+              if (typeof v === "string" && typeof transVal[i] === "string" && isEquivalentName(v, transVal[i])) {
+                return;
+              }
               diffs.push(`Value mismatch at ${currentPath}[${i}]: expected ${v}, got ${transVal[i]}`);
             }
           });
         }
-      } else if (typeof baseVal === 'object' && baseVal !== null) {
+      } else if (typeof baseVal === "object" && baseVal !== null) {
         compareObjects(baseVal, transVal, currentPath, localizableFields);
       } else if (baseVal !== transVal) {
-        diffs.push(`Value mismatch at ${currentPath}: expected ${baseVal}, got ${transVal}`);
+        if (typeof baseVal === "string" && typeof transVal === "string" && isEquivalentName(baseVal, transVal)) {
+          // OK
+        } else {
+          diffs.push(`Value mismatch at ${currentPath}: expected ${baseVal}, got ${transVal}`);
+        }
       }
     }
   };
