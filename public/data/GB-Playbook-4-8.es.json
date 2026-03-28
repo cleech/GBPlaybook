@@ -12332,7 +12332,7 @@
     },
     {
       "name": "Smoke Bomb",
-      "text": "Coloca un AOE duradero dentro del alcance.\nMientras que estén dentro de este AOE, los modelos obtienen cobertura.",
+      "text": "Coloca un AOE duradero dentro del alcance. Mientras que estén dentro de este AOE, los modelos obtienen cobertura.",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -12372,7 +12372,7 @@
     },
     {
       "name": "Noxious Blast",
-      "text": "Coloca un AOE duradero dentro del alcance.\nLos modelos impactados reciben 2 DAÑO y la condición de Poison.\nLos modelos que entren o terminen sus activaciones dentro de este AOE reciben la condición de Poison.",
+      "text": "Coloca un AOE duradero dentro del alcance. Los modelos impactados reciben 2 DAÑO y la condición de Poison. Los modelos que entren o terminen sus activaciones dentro de este AOE reciben la condición de Poison.",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": false,
@@ -12380,7 +12380,7 @@
     },
     {
       "name": "Sticky Bomb",
-      "text": "Coloca un AOE duradero dentro del alcance.\nLos modelos enemigos impactados reciben -2″/-2″ MOV y la condición de Poison.\nLos modelos que entren o terminen sus activaciones dentro de este AOE reciben la condición de Poison.",
+      "text": "Coloca un AOE duradero dentro del alcance. Los modelos enemigos impactados reciben -2″/-2″ MOV y la condición de Poison. Los modelos que entren o terminen sus activaciones dentro de este AOE reciben la condición de Poison.",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": true,
@@ -12436,7 +12436,7 @@
     },
     {
       "name": "Fire Blast",
-      "text": "Coloca un AOE duradero dentro del alcance.\nLos modelos impactados reciben 2 DAÑO y la condición de Burning. Los modelos que entren o terminen sus activaciones dentro de este AOE duradero reciben la condición de Burning.",
+      "text": "Coloca un AOE duradero dentro del alcance. Los modelos impactados reciben 2 DAÑO y la condición de Burning. Los modelos que entren o terminen sus activaciones dentro de este AOE duradero reciben la condición de Burning.",
       "CST": "2,CP",
       "RNG": 6,
       "SUS": false,
@@ -12492,7 +12492,7 @@
     },
     {
       "name": "Flame Belch",
-      "text": "Coloca un AOE duradero dentro del alcance.\nLos modelos impactados reciben 4 DAÑO y la condición de Burning.\nLos modelos que entren o terminen sus activaciones dentro de este AOE reciben la condición de Burning.",
+      "text": "Coloca un AOE duradero dentro del alcance. Los modelos impactados reciben 4 DAÑO y la condición de Burning. Los modelos que entren o terminen sus activaciones dentro de este AOE reciben la condición de Burning.",
       "CST": 2,
       "RNG": 4,
       "SUS": false,
@@ -12796,7 +12796,7 @@
     },
     {
       "name": "Molotov",
-      "text": "Coloca un AOE duradero dentro del alcance.\nLos modelos impactados reciben la condición de Burning.\nLos modelos que entren o terminen sus activaciones dentro de este AOE reciben la condición de Burning.",
+      "text": "Coloca un AOE duradero dentro del alcance. Los modelos impactados reciben la condición de Burning. Los modelos que entren o terminen sus activaciones dentro de este AOE reciben la condición de Burning.",
       "CST": 1,
       "RNG": 4,
       "SUS": false,
@@ -12844,7 +12844,7 @@
     },
     {
       "name": "Pain Circle",
-      "text": "Coloca un AOE duradero dentro del alcance.\nLos modelos impactados reciben 1 DAÑO y la condición de Bleed.\nLos modelos que entren o terminen sus activaciones dentro de este AOE reciben la condición de Bleed.",
+      "text": "Coloca un AOE duradero dentro del alcance. Los modelos impactados reciben 1 DAÑO y la condición de Bleed. Los modelos que entren o terminen sus activaciones dentro de este AOE reciben la condición de Bleed.",
       "CST": 2,
       "RNG": 6,
       "SUS": false,
@@ -12956,7 +12956,7 @@
     },
     {
       "name": "Chilli Cook Out",
-      "text": "Coloca un AOE duradero dentro del alcance.\nLos modelos impactados reciben 4 DAÑO y la condición de Burning. Los modelos que entren o terminen su activación dentro de este AOE duradero reciben la condición de Burning.",
+      "text": "Coloca un AOE duradero dentro del alcance. Los modelos impactados reciben 4 DAÑO y la condición de Burning. Los modelos que entren o terminen su activación dentro de este AOE duradero reciben la condición de Burning.",
       "CST": "2,CP",
       "RNG": 2,
       "SUS": false,
@@ -13068,7 +13068,7 @@
     },
     {
       "name": "Blast Earth",
-      "text": "Coloca un AOE duradero dentro del alcance.\nLos modelos impactados reciben 2 DAÑO. Este AOE es terreno difícil.",
+      "text": "Coloca un AOE duradero dentro del alcance. Los modelos impactados reciben 2 DAÑO. Este AOE es terreno difícil.",
       "CST": 2,
       "RNG": 6,
       "SUS": false,
@@ -13132,7 +13132,7 @@
     },
     {
       "name": "Harrier",
-      "text": "Coloca un AOE duradero dentro del alcance.\nLos modelos enemigos dentro de este AOE reciben +1 DAÑO de Character Plays que causen daño y de resultados de daño del Playbook.",
+      "text": "Coloca un AOE duradero dentro del alcance. Los modelos enemigos dentro de este AOE reciben +1 DAÑO de Character Plays que causen daño y de resultados de daño del Playbook.",
       "CST": "2,CP",
       "RNG": 4,
       "SUS": false,
@@ -13684,7 +13684,7 @@
     },
     {
       "name": "Ghostly Visage",
-      "text": "Coloca un AOE duradero dentro del alcance.\nCuando un modelo enemigo declara una carga contra un modelo aliado dentro de este AOE, el modelo enemigo recibe -0″/-4″ MOV y -2 TAC mientras dura la carga.",
+      "text": "Coloca un AOE duradero dentro del alcance. Cuando un modelo enemigo declara una carga contra un modelo aliado dentro de este AOE, el modelo enemigo recibe -0″/-4″ MOV y -2 TAC mientras dura la carga.",
       "CST": 1,
       "RNG": 2,
       "SUS": true,
@@ -13996,7 +13996,7 @@
     },
     {
       "name": "Alchemical Bomb",
-      "text": "Coloca un AOE dentro del alcance.\nLos modelos impactados reciben 1 DAÑO de condición y las condiciones de Burning y Poison.",
+      "text": "Coloca un AOE dentro del alcance. Los modelos impactados reciben 1 DAÑO de condición y las condiciones de Burning y Poison.",
       "CST": "CP",
       "RNG": 2,
       "SUS": false,
@@ -14028,7 +14028,7 @@
     },
     {
       "name": "Careless Whisper",
-      "text": "Coloca un whisper token en el modelo objetivo enemigo.\nLos modelos aliados que no sean Capitán obtienen +2 TAC cuando ataquen a un modelo enemigo con un whisper token.\nLos whisper tokens sólo se quitan cuando el modelo objetivo recibe la condición de Taken Out.",
+      "text": "Coloca un whisper token en el modelo objetivo enemigo. Los modelos aliados que no sean Capitán obtienen +2 TAC cuando ataquen a un modelo enemigo con un whisper token. Los whisper tokens sólo se quitan cuando el modelo objetivo recibe la condición de Taken Out.",
       "CST": "2,CP",
       "RNG": 7,
       "SUS": false,
