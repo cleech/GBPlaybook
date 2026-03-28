@@ -11,7 +11,7 @@ import useScaleRef from "../hooks/useScaleRef";
 
 import { css, cx } from '@emotion/css';
 
-import Markdown from "react-markdown";
+import { CardText } from "./CardUtils";
 import { useData } from "../hooks/useData";
 
 interface CardCSS extends CSSProperties {
@@ -122,17 +122,17 @@ export const GameplanFront = (props: {
                 flexDirection: "column",
               }}
             >
-              <Markdown>
+              <CardText>
                 {gameplan.text}
-              </Markdown>
+              </CardText>
             </div>
             <div
               className='detail'
               id={gameplan.title.replace(/[^a-zA-Z0-9]+/g, '')}
             >
-              <Markdown>
+              <CardText>
                 {gameplan.detail ? `(_${gameplan.detail}_)` : undefined}
-              </Markdown>
+              </CardText>
             </div>
           </div>
           <div

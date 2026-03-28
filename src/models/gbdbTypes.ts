@@ -14,6 +14,8 @@ import {
   RxCollectionCreator,
 } from "rxdb";
 
+import { resolveText } from "../utils/handlebars";
+
 interface ParameterizedTrait extends CharacterTrait {
   parameter?: string;
 }
@@ -249,7 +251,12 @@ async function populate_character_plays(
   const missing = doc.character_plays.filter(
     (play) => !foundPlays.includes(play)
   );
-  const result = cps.map((cp) => cp.toJSON());
+  const db = doc.collection.database;
+  const result = await Promise.all(cps.map(async (cp) => {
+    const play = cp.toMutableJSON();
+    play.text = await resolveText(play.text, db);
+    return play;
+  }));
   if (missing.length) {
     throw new PartialError(`unknown plays: ${missing}`, result);
   }
@@ -273,11 +280,13 @@ async function populate_character_traits(
   const cts = characterTraits.filter((ct) => ct !== null);
   const foundTraits = cts.map((ct) => ct.name);
   const missing = traits.filter((trait) => !foundTraits.includes(trait));
-  const result = cts.map((ct, index) =>
-    Object.assign(ct.toMutableJSON(), {
+  const result = await Promise.all(cts.map(async (ct, index) => {
+    const trait = Object.assign(ct.toMutableJSON(), {
       parameter: params[index],
-    })
-  );
+    });
+    trait.text = await resolveText(trait.text, db);
+    return trait;
+  }));
   if (missing.length) {
     throw new PartialError(`unknown traits: ${missing}`, result);
   }
@@ -322,6 +331,14 @@ const gbModelDocMethods: GBModelMethods = {
       // get errata level from db metadata
       version: dbSettings?.get("version"),
     });
+
+    if (model.heroic) {
+      model.heroic = await resolveText(model.heroic, db);
+    }
+    if (model.legendary) {
+      model.legendary = await resolveText(model.legendary, db);
+    }
+
     if (errors.length) {
       throw new PartialError(`${model.id}: Error(s) expanding model`, model, {
         cause: new AggregateError(errors),
