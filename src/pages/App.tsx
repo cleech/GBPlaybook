@@ -56,33 +56,33 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      // main: "#4e91ba",
+      main: "#4e91ba",
       // main: "#ba9d4e",
-      main: "#5578a6",
+      // main: "#5578a6",
     },
     secondary: {
       // main: "#ffb300",
       main: '#ffca28',
     },
-    // background: {
-    //   default: "#121a22",
-    // },
+    background: {
+      default: "#121a22",
+    },
   },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
           // need this hackery to allow nested backdrop-filters ...
-          '&::before': {
-            content: "''",
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            backdropFilter: "blur(2px)",
-            zIndex: -99,
-          },
+          // '&::before': {
+          //   content: "''",
+          //   position: "absolute",
+          //   width: "100%",
+          //   height: "100%",
+          //   backdropFilter: "blur(20px)",
+          //   zIndex: -99,
+          // },
           // overflow: "hidden",
-          backgroundColor: "#400",
+          backgroundColor: "#000",
           backgroundImage:
             // "linear-gradient(20deg, black, #121a22, #1d506f, #121a22, black)",
             // "linear-gradient(120deg, black, #221a22, #5f405f, #221a22, black)",
@@ -90,7 +90,7 @@ const darkTheme = createTheme({
             // "repeating-linear-gradient(45deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5) 70px, transparent 0px, transparent 140px)," +
             // "repeating-linear-gradient(-45deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6) 70px, transparent 0px, transparent 140px)," +
             // "linear-gradient(-45deg, #c33, 10%, #400, 90%, #c33)",
-            "radial-gradient(circle at top left, #221a22 10%, #5f405f 60%, #1e3c6e 90%, #221a22 100%)",
+            "radial-gradient(circle at top left, #221a22 10%, #5f405f 50%, #1e3c6e 80%, #221a22 100%)",
         },
         "@media print": {
           body: {
