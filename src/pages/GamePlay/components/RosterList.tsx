@@ -66,12 +66,12 @@ function Counter<T>({
   longPressClear = false,
 }: CounterProps<T>) {
   const { longPressProps } = useLongPress({
-    onLongPress: (_e) => {
+    onLongPress: () => {
       setValue(object, 0);
     },
   });
   const { pressProps } = usePress({
-    onPress: (_e) => {
+    onPress: () => {
       // e.stopPropagation();
       const v = value(object);
       if (v > 0) {
@@ -143,7 +143,7 @@ export function HealthCounter({
   stacked?: boolean;
 }) {
   const { longPressProps: longPressDown } = useLongPress({
-    onLongPress: (_e) => {
+    onLongPress: () => {
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         oldState.roster[m].health = 0;
@@ -152,7 +152,7 @@ export function HealthCounter({
     }
   });
   const { pressProps: pressDown } = usePress({
-    onPress: (_e) => {
+    onPress: () => {
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health > 0) {
@@ -163,7 +163,7 @@ export function HealthCounter({
     },
   });
   const { longPressProps: longPressUp } = useLongPress({
-    onLongPress: (_e) => {
+    onLongPress: () => {
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health < model.recovery) {
@@ -174,7 +174,7 @@ export function HealthCounter({
     }
   });
   const { pressProps: pressUp } = usePress({
-    onPress: (_e) => {
+    onPress: () => {
       state.incrementalModify((oldState) => {
         const m = oldState.roster.findIndex((_m) => _m.name === model.id);
         if (oldState.roster[m].health < model.hp) {
