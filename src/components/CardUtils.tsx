@@ -2,6 +2,8 @@ import Markdown, { Components } from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { visit } from "unist-util-visit";
 
+import type { Root, Text, Parent, Html, Content } from "mdast";
+
 import { PB } from "./GBIcon";
 
 const InlinePBIcon = (props: { icon: string }) => (
@@ -35,14 +37,17 @@ const InlinePBIcon = (props: { icon: string }) => (
   </span>
 );
 
+interface GBIconProps {
+  icon: string;
+}
+
 const customComponents: Components = {
   p: 'span',
-  // @ts-ignore
-  'gb-icon': (props: { icon: string }) => {
+  'gb-icon': (props: GBIconProps) => {
     const { icon } = props;
     return <InlinePBIcon icon={icon} />
   }
-}
+} as Components;
 
 const iconMap: Record<string, string> = {
   'GB': 'CP',
@@ -55,17 +60,17 @@ const iconMap: Record<string, string> = {
 };
 
 function remarkGBIcons() {
-  return (tree: any) => {
-    visit(tree, 'text', (node: any, index: number | undefined, parent: any) => {
-      if (index === undefined) return;
+  return (tree: Root) => {
+    visit(tree, 'text', (node: Text, index: number | undefined, parent: Parent | undefined) => {
+      if (index === undefined || !parent) return;
       const regex = /:([\w]+):/g;
-      const newNodes = [];
+      const newNodes: Content[] = [];
       let lastIndex = 0;
-      let match;
+      let match: RegExpExecArray | null;
 
       while ((match = regex.exec(node.value)) !== null) {
         if (match.index > lastIndex) {
-          newNodes.push({ type: 'text', value: node.value.slice(lastIndex, match.index) });
+          newNodes.push({ type: 'text', value: node.value.slice(lastIndex, match.index) } as Text);
         }
         const icon = match[1];
         const resolvedIcon = iconMap[icon] || icon.toUpperCase();
@@ -73,13 +78,13 @@ function remarkGBIcons() {
         newNodes.push({ 
           type: 'html', 
           value: `<gb-icon icon="${resolvedIcon}"></gb-icon>`
-        });
+        } as Html);
         lastIndex = regex.lastIndex;
       }
 
       if (newNodes.length > 0) {
         if (lastIndex < node.value.length) {
-          newNodes.push({ type: 'text', value: node.value.slice(lastIndex) });
+          newNodes.push({ type: 'text', value: node.value.slice(lastIndex) } as Text);
         }
         parent.children.splice(index, 1, ...newNodes);
         return index + newNodes.length;

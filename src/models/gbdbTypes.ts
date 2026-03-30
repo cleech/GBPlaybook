@@ -297,12 +297,10 @@ const gbModelDocMethods: GBModelMethods = {
   expand: async function(this: GBModelDoc): Promise<GBModelExpanded> {
     const db = this.collection.database;
     const dbSettings = await db.getLocal<GBDataMeta>("gbdata_meta");
-    let character_plays: CharacterPlay[] | undefined = [];
-    let character_traits: ParameterizedTrait[] | undefined = [];
     const guild1: Guild = await this.populate("guild1").then(gdoc => gdoc.toJSON());
     const guild2: Guild = await this.populate("guild2").then(gdoc => gdoc?.toJSON());
     const errors: Error[] = [];
-    [character_plays, character_traits] = await Promise.all([
+    const [character_plays, character_traits] = await Promise.all([
       populate_character_plays(this).catch(
         (err: PartialError<CharacterPlay[]>) => {
           errors.push(err);
