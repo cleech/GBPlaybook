@@ -3,23 +3,25 @@ import { defineConfig, PluginOption } from 'vite'
 import react from '@vitejs/plugin-react'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import { visualizer } from 'rollup-plugin-visualizer';
-import { cloudflare } from "@cloudflare/vite-plugin";
+// import { cloudflare } from "@cloudflare/vite-plugin";
+import basicSsl from '@vitejs/plugin-basic-ssl';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
     target: ['es2022', 'chrome89', 'firefox89', 'safari15', 'edge89'],
   },
-  esbuild: {
-    target: 'es2022',
-  },
+  // esbuild: {
+  //   target: 'es2022',
+  // },
   optimizeDeps: {
     esbuildOptions: {
       target: 'es2022',
     },
   },
   plugins: [
-    cloudflare(),
+    // cloudflare(),
+    basicSsl(),
     react(),
     nodePolyfills({
       include: [],
