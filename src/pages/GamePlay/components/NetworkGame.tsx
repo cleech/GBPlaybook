@@ -314,7 +314,7 @@ const StepReady = (props: StepperProps) => {
   if (!db) return;
 
   return (
-    <Stack spacing={2} alignItems="center">
+    <Stack spacing={2} sx={{ alignItems: "center" }}>
       {peerConnected ? (
         <Typography variant="h6">Connected</Typography>
       ) : (

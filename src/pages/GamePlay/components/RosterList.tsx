@@ -122,7 +122,7 @@ const HealthCounterLabel = (props: {
     <Button ref={ref} disabled
       style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
     >
-      <Typography color="text.primary" variant={variant ?? 'body1'}>
+      <Typography variant={variant ?? 'body1'} sx={{ color: "text.primary" }}>
         {`${String(health).padStart(2, "0")} / ${String(
           model.hp
         ).padStart(2, "0")}`}
