@@ -96,7 +96,7 @@ function Counter(props: CounterProps) {
         </Button>
 
         <Button disabled size="small">
-          <Typography variant="body2" color="text.primary">
+          <Typography variant="body2" sx={{ color: "text.primary" }}>
             {value}
           </Typography>
         </Button>
@@ -143,7 +143,7 @@ export function OddsCalc() {
           setAnchorEl(null);
         }}
       >
-        <Typography variant="h5" textAlign="center">
+        <Typography variant="h5" sx={{ textAlign: "center" }}>
           Dice Odds
         </Typography>
         <Divider />
@@ -185,20 +185,17 @@ export function OddsCalc() {
         >
           <Typography sx={{ textDecoration: "underline" }}>Hits</Typography>
           <Typography sx={{ textDecoration: "underline" }}>Chance</Typography>
-          {
-            oddsToHit(target, pool, reroll)
-              .map((n, i) => (
-                <Fragment key={i}>
-                  <div>{i + 1}+</div>
-                  <div
-                    className={diceBin[Math.floor(n * 10)]}
-                    style={{ padding: "0 1em", margin: "1px", width: "100%" }}
-                  >
-                    {formatter.format(n)}
-                  </div>
-                </Fragment>
-              ))
-          }
+          {oddsToHit(target, pool, reroll).map((n, i) => (
+            <Fragment key={i}>
+              <div>{i + 1}+</div>
+              <div
+                className={diceBin[Math.floor(n * 10)]}
+                style={{ padding: "0 1em", margin: "1px", width: "100%" }}
+              >
+                {formatter.format(n)}
+              </div>
+            </Fragment>
+          ))}
         </div>
       </Menu>
     </>

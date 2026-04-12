@@ -124,7 +124,7 @@ function AppDrawerContent(props: {
             alt=""
           />
           <ListItemText style={{ textAlign: "center" }}>
-            <Typography variant="h6" fontFamily="Comfortaa">
+            <Typography variant="h6" sx={{ fontFamily: "Comfortaa" }}>
               GB Playbook
             </Typography>
           </ListItemText>
@@ -152,7 +152,7 @@ function AppDrawerContent(props: {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                // sx={{ py: 0.5 }} // Adjust padding as needed
+                  // sx={{ py: 0.5 }} // Adjust padding as needed
                 >
                   <ListItemText primary={item.text} />
                 </ListItemButton>
@@ -165,12 +165,10 @@ function AppDrawerContent(props: {
       <Divider />
       <List>
         <ListItem>
-          <ListItemIcon> <ScienceTwoTone /> </ListItemIcon>
-          <ListItemText>
-            Experimental Tools
-          </ListItemText>
+          <ListItemIcon><ScienceTwoTone /></ListItemIcon>
+          <ListItemText>Experimental Tools</ListItemText>
         </ListItem>
-        {labNavItems.map((item, index) =>
+        {labNavItems.map((item, index) => (
           <DrawerNavigationButton
             key={index}
             to={item.defaultTo}
@@ -178,7 +176,7 @@ function AppDrawerContent(props: {
           >
             <ListItemText>{item.text}</ListItemText>
           </DrawerNavigationButton>
-        )}
+        ))}
       </List>
       <Divider />
       <List>

@@ -67,7 +67,7 @@ export default function PrintSettingsMenu() {
         open={settingsOpen}
         onClose={settingsClose}
       >
-        <Stack margin={2}>
+        <Stack sx={{ margin: 2 }}>
           <FormControlLabel
             label="Double Wide Cards"
             control={

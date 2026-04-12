@@ -57,7 +57,7 @@ export default function GridSettingsMenu(props: {
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
         transformOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Typography variant="h5" textAlign="center">
+        <Typography variant="h5" sx={{ textAlign: "center" }}>
           Grid Layout
         </Typography>
         <Divider />

@@ -76,7 +76,7 @@ export default function DownloadDialog() {
               Card Options:
             </Typography>
             <Box sx={{ border: 1, borderRadius: 1, borderColor: 'action.disabled', p: 1 }}>
-              <Stack direction="row" justifyContent={"space-evenly"}>
+              <Stack direction="row" sx={{ justifyContent: "space-evenly" }}>
                 <FormControlLabel
                   label="Double Wide"
                   control={
@@ -98,7 +98,7 @@ export default function DownloadDialog() {
               </Stack>
             </Box>
           </Box>
-          <Stack direction="row" justifyContent='space-between'>
+          <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
             <Typography variant="caption">
               Image Size:
             </Typography>
@@ -106,7 +106,7 @@ export default function DownloadDialog() {
               {`(DPI: ${height / (withBleed ? 3.75 : 3.5)})`}
             </Typography>
           </Stack>
-          <Stack direction="row" spacing={1} alignItems="center">
+          <Stack direction="row" spacing={1} sx={{ alignItems:"center" }}>
             <TextField
               label="width" size="small"
               value={width.toFixed(0)} onChange={widthChange}
