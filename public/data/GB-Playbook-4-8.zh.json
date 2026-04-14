@@ -548,7 +548,7 @@
         "Burning Spirit [2″ Aura]",
         "Gimme Fuel..."
       ],
-      "legendary": "Gimme Fire! [6″ Pulse]\n此脉冲范围内的敌方模型受到燃烧状态,将此模型的详情卡替换为 Pneuma 的详情卡。",
+      "legendary": "Gimme Fire! [6″ Pulse]\n此脉冲范围内的敌方模型受到燃烧状态,将此模型的角色卡替换为 Pneuma 的角色卡。",
       "types": "Unknown, Human, Unknown,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -1391,7 +1391,7 @@
       "character_traits": [
         "Quench [1″ Aura]"
       ],
-      "legendary": "Batten Down The Hatches [6″ Pulse]\n在此脉冲范围内的友方模型可以移除他们目前遭受的任意状态。\n\n如果此模型具有队长模型类别,在此脉冲范围内的友方模型可以恢复 3 点 HP。",
+      "legendary": "Batten Down The Hatches [6″ Pulse]\n在此脉冲范围内的友方模型可以移除它们目前遭受的任意状态。\n\n如果此模型具有队长模型类别,在此脉冲范围内的友方模型可以恢复 3 点 HP。",
       "types": "Sultarish, Human, Female,\nGoalkeeper,\nMaster, Squaddie",
       "playbook": [
         [
@@ -2183,7 +2183,7 @@
         "Spit and Sawdust",
         "Legless Drunk"
       ],
-      "heroic": "Free Bar [4″ Pulse]\n在此脉冲范围内的友方非吉祥物公会模型获得一个 beer token。",
+      "heroic": "Free Bar [4″ Pulse]\n在此脉冲范围内的友方非吉祥物公会模型获得一个啤酒标记。",
       "types": "Mald, Human, Male,\nAttacking Midfielder,\nCaptain",
       "playbook": [
         [
@@ -5340,7 +5340,7 @@
         "Last Cast Catches the Most",
         "Beating Wings Over Water"
       ],
-      "legendary": "Cormorant’s Calling\n选择此模型 10″ 内一个未接战的其他友方模型,将被选择的模型放置在此模型 10″ 内。",
+      "legendary": "Cormorant’s Calling\n选择此模型 10″ 内一个未被卷入接战的其他友方模型,将被选择的模型放置在此模型 10″ 内。",
       "types": "Numasai, Human,\nCoach,\nCaptain",
       "playbook": [
         [
@@ -8031,7 +8031,7 @@
         "Reanimate",
         "Tough Hide"
       ],
-      "legendary": "Casket Time\n下一次该模型使敌方具有 Human 类别的模型受到离场状态时,友方队伍获得额外的 2VP。该离场模型在下一个维持阶段不能返回球场。",
+      "legendary": "Casket Time\n下一次该模型使敌方具有 Human 类别的模型受到离场状态时,友方队伍获得额外的 2 VP。该离场模型在下一个维持阶段不能返回球场。",
       "types": "Piert, Human, Male,\nCentre Back,\nSquaddie",
       "playbook": [
         [
@@ -13252,7 +13252,7 @@
     },
     {
       "name": "Mow Down",
-      "text": "目标敌方模型受到击倒状态。在此模型近战区中的其他模型受到击倒状态。",
+      "text": "目标敌方模型受到击倒状态。在此模型近战范围内的其他模型受到击倒状态。",
       "CST": "CP",
       "RNG": "P",
       "SUS": false,
@@ -13404,7 +13404,7 @@
     },
     {
       "name": "Snowball",
-      "text": "在此模型的控制下放置一个额外的球。当此球被用于射门得分时，友方队伍获得 1 VP 而不是 4VP。在此模型的激活结束时，将此球从场上移除。",
+      "text": "在此模型的控制下放置一个额外的球。当此球被用于射门得分时，友方队伍获得 1 VP 而不是 4 VP。在此模型的激活结束时，将此球从场上移除。",
       "CST": 1,
       "RNG": "S",
       "SUS": true,
@@ -13432,7 +13432,7 @@
       "RNG": 2,
       "SUS": false,
       "OPT": true,
-      "text": "在此范围内放置一个 AOE。被命中的其他模型受到 4DMG 和一次径直远离此模型的 4″ 推移。"
+      "text": "在此范围内放置一个 AOE。被命中的其他模型受到 4 DMG 和一次径直远离此模型的 4″ 推移。"
     },
     {
       "name": "Entangle",
@@ -14427,7 +14427,7 @@
     {
       "name": "Toxicity",
       "active": false,
-      "text": "如果敌方模型激活结束时与此模型接战，该敌方模型受到 2 点状态伤害和中毒状态。"
+      "text": "如果敌方模型激活结束时将此模型卷入近战，该敌方模型受到 2 点状态伤害和中毒状态。"
     },
     {
       "name": "Witness Me!",
@@ -14557,7 +14557,7 @@
     {
       "name": "Far Strike",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，如果一个敌方模型在此模型的 6″ 内，且此模型拥有对该敌方模型的视线，则此模型可以宣布一次视同与该敌方模型接战的攻击。"
+      "text": "每回合一次，在此模型的激活期间，如果一个敌方模型在此模型的 6″ 内，且此模型拥有对该敌方模型的视线，则此模型可以宣布一次视同将该敌方模型卷入近战的攻击。"
     },
     {
       "name": "Kindled",
@@ -14572,7 +14572,7 @@
     {
       "name": "Sweeping Charge",
       "active": false,
-      "text": "当此模型在其激活期间进行冲锋时，在一个或更多战术手册伤害结果后，在此模型近战范围内的模型受到 3DMG。"
+      "text": "当此模型在其激活期间进行冲锋时，在一个或更多战术手册伤害结果后，在此模型近战范围内的模型受到 3 DMG。"
     },
     {
       "name": "Quick Off the Line",
@@ -14607,7 +14607,7 @@
     {
       "name": "Spit and Sawdust",
       "active": false,
-      "text": "当此模型在场上时，友方公会模型在受到击倒状态时仍然视为与敌方模型接战。"
+      "text": "当此模型在场上时，友方公会模型在受到击倒状态时仍视为能将敌方模型卷入近战。"
     },
     {
       "name": "Legless Drunk",
@@ -14637,7 +14637,7 @@
     {
       "name": "Assist",
       "active": false,
-      "text": "攻击与指定友方模型接战的敌方模型时，此模型获得 +1 TAC 和战术手册伤害结果 +1 DMG。"
+      "text": "攻击被指定友方模型卷入近战的敌方模型时，此模型获得 +1 TAC 和战术手册伤害结果 +1 DMG。"
     },
     {
       "name": "Defence Support",
@@ -14712,7 +14712,7 @@
     {
       "name": "Vicious",
       "active": false,
-      "text": "此模型进行借机攻击时获得 +2TAC 且战术手册伤害结果获得 +1 DMG。"
+      "text": "此模型进行借机攻击时获得 +2 TAC 且战术手册伤害结果获得 +1 DMG。"
     },
     {
       "name": "Vindictive",
@@ -14767,7 +14767,7 @@
     {
       "name": "Lash Out",
       "active": false,
-      "text": "此模型结束激活时，在此模型近战范围内的敌方模型受到 3DMG。"
+      "text": "此模型结束激活时，在此模型近战范围内的敌方模型受到 3 DMG。"
     },
     {
       "name": "The Old Ways",
@@ -14872,12 +14872,12 @@
     {
       "name": "True Replication",
       "active": true,
-      "text": "此模型可使用此光环内的友方非队长模型的角色技巧就像这些角色技巧在该模型的角色卡上一样，当使用能造成伤害的角色技巧时，该角色技巧变成 OPT ✔，其 RNG 变为 2″。"
+      "text": "此模型可使用此光环内的友方非队长模型的角色技巧就像这些角色技巧在该模型的角色卡上一样，当使用能造成伤害的角色技巧时，该角色技巧变成 OPT ✔, RNG 减少 2″。"
     },
     {
       "name": "Gravity Well",
       "active": true,
-      "text": "当一名敌方模型结束行进时与此模型接战，该敌方模型受到一个径直接近此模型的 2″ 推移。"
+      "text": "当一名敌方模型结束行进时将此模型卷入近战，该敌方模型受到一次径直朝向此模型的 2″ 推移。"
     },
     {
       "name": "Goal of the Month",
@@ -14902,7 +14902,7 @@
     {
       "name": "Death from Above",
       "active": true,
-      "text": "在此模型的激活期间，如果目标敌方模型在此模型的 6″ 内且此模型具有对该敌方模型的视线时， 如果该敌方模型处于友方 Harrier AOE 中，此模型可以对该模型进行一次视同接战的攻击。此次攻击获得 +5 TAC。此次攻击结算后， 移除该友方 Harrier AOE。"
+      "text": "在此模型的激活期间，如果目标敌方模型在此模型的 6″ 内且此模型具有对该敌方模型的视线时， 如果该敌方模型处于友方 Harrier AOE 中，此模型可以对该模型进行一次视同将其卷入近战的攻击。此次攻击获得 +5 TAC。此次攻击结算后， 移除该友方 Harrier AOE。"
     },
     {
       "name": "Flying",
@@ -14922,7 +14922,7 @@
     {
       "name": "Hawk Eye",
       "active": true,
-      "text": "每回合一次，在此模型的激活期间，如果目标敌方模型在此模型的 6″ 内且此模型具有对该敌方模型的视线， 则此模型可以对该敌方模型进行一次无需消耗影响力的视同接战的攻击。"
+      "text": "每回合一次，在此模型的激活期间，如果目标敌方模型在此模型的 6″ 内且此模型具有对该敌方模型的视线， 则此模型可以无需消耗影响力对该敌方模型进行一次视同将其卷入近战的攻击。"
     },
     {
       "name": "Nocturnal Hunting",
@@ -14997,7 +14997,7 @@
     {
       "name": "Protective Instinct",
       "active": false,
-      "text": "在与此模型接战时，敌方模型不能以其他友方模型为目标进行攻击。"
+      "text": "在将此模型卷入近战时，敌方模型不能以其他友方模型为目标进行攻击。"
     },
     {
       "name": "With Age Comes Wisdom",
@@ -15052,7 +15052,7 @@
     {
       "name": "Fork Off!",
       "active": true,
-      "text": "每回合一次，当一名敌方模型在此模型 6″ 内结束行进时，如果此模型没有处于接战，则此模型可以立即移除一个 2″ 内的友方收成标记来对该敌方模型进行一次无需消耗影响力的冲锋。"
+      "text": "每回合一次，当一名敌方模型在此模型 6″ 内结束行进时，如果此模型没有被卷入近战，则此模型可以立即移除一个 2″ 内的友方收成标记来对该敌方模型进行一次无需消耗影响力的冲锋。"
     },
     {
       "name": "Make It Rain",
@@ -15072,7 +15072,7 @@
     {
       "name": "Coup de Grâce",
       "active": false,
-      "text": "每回合一次，当一名敌方模型在光环范围内受到离场状态后，友方队伍获得 3MP。"
+      "text": "每回合一次，当一名敌方模型在光环范围内受到离场状态后，友方队伍获得 3 MP。"
     },
     {
       "name": "Last Cast Catches the Most",
@@ -15337,12 +15337,12 @@
     {
       "name": "Creeping Dread",
       "active": false,
-      "text": "在此模型的激活开始时，友方队伍获得 2MP"
+      "text": "在此模型的激活开始时，友方队伍获得 2 MP"
     },
     {
       "name": "Dark Doubts",
       "active": false,
-      "text": "当此模型因敌方攻击或角色技巧受到离场状态时，在此次攻击或角色技巧结算后，敌方模型 -2MP。"
+      "text": "当此模型因敌方攻击或角色技巧受到离场状态时，在此次攻击或角色技巧结算后，敌方队伍 -2 MP。"
     },
     {
       "name": "Slippery",
@@ -15382,12 +15382,12 @@
     {
       "name": "Rising Anger",
       "active": false,
-      "text": "此模型每回合第一次受到来自敌方模型的伤害时，友方队伍获得 2MP。"
+      "text": "此模型每回合第一次受到来自敌方模型的伤害时，友方队伍获得 2 MP。"
     },
     {
       "name": "Soul Seer",
       "active": true,
-      "text": "每回合一次，在此模型激活期间，其可以受到 3DMG 以少花费 1 点影响力来使用一个角色技巧。"
+      "text": "每回合一次，在此模型激活期间，其可以受到 3 DMG 以少花费 1 点影响力来使用一个角色技巧。"
     },
     {
       "name": "Kick Support",
@@ -15432,7 +15432,7 @@
     {
       "name": "Don't Get Cocky",
       "active": false,
-      "text": "当此模型受到离场状态时，敌方获得 1 VP 而不是 2VP。当此模型重新上场时，此模型可以将敌方部署区视为已方部署区来进场。"
+      "text": "当此模型受到离场状态时，敌方获得 1 VP 而不是 2 VP。当此模型重新上场时，此模型可以将敌方部署区视为已方部署区来进场。"
     },
     {
       "name": "Stellar Navigation",
@@ -15502,7 +15502,7 @@
     {
       "name": "Grim Caress",
       "active": false,
-      "text": "当一名敌方模型结束激活时与此模型处于接战状态，该敌方模型受到 3DMG。"
+      "text": "当一名敌方模型结束激活时将此模型卷入近战，则该敌方模型受到 3 DMG。"
     },
     {
       "name": "Killer",
@@ -15597,7 +15597,7 @@
     {
       "name": "Trusty Steed",
       "active": false,
-      "text": "此模型在团队中同时扮演着队长和吉祥物。当此模型受到离场状态时，敌方队伍只获得 2VP。如果此模型是您的队长，则 Avarisse 不能选择进入队伍。"
+      "text": "此模型在团队中同时扮演着队长和吉祥物。当此模型受到离场状态时，敌方队伍只获得 2 VP。如果此模型是您的队长，则 Avarisse 不能选择进入队伍。"
     },
     {
       "name": "Contract",
@@ -15662,7 +15662,7 @@
     {
       "name": "Spotlight",
       "active": false,
-      "text": "如果此模型遭受燃烧状态，则此模型获得 +1/+2″ KICK 并在进行踢球时无视接战和阻挡惩罚。"
+      "text": "如果此模型遭受燃烧状态，则此模型获得 +1/+2″ KICK 并在进行踢球时无视卷入近战和阻挡惩罚。"
     },
     {
       "name": "Afterglow",
@@ -15747,12 +15747,12 @@
     {
       "name": "Rabid Frenzy",
       "active": false,
-      "text": "当此模型在激活期间进行一次冲锋时，此模型可以选择不用消耗影响力来进行冲锋。如果执行了此行动，在激活结束时此模型受到 4DMG。"
+      "text": "当此模型在激活期间进行一次冲锋时，此模型可以选择不用消耗影响力来进行冲锋。如果执行了此行动，在激活结束时此模型受到 4 DMG。"
     },
     {
       "name": "Verminthirst",
       "active": false,
-      "text": "当有其他模型在此光环范围内受到离场状态时，在当前行动结算后，此模型可恢复 2HP。"
+      "text": "当有其他模型在此光环范围内受到离场状态时，在当前行动结算后，此模型可恢复 2 HP。"
     },
     {
       "name": "Stealthy",
