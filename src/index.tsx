@@ -20,6 +20,8 @@ import {
   useLoaderData,
 } from "react-router-dom";
 
+import { filter, firstValueFrom } from "rxjs";
+
 import App from "./pages/App";
 const AppContent = lazy(() => import("./pages/AppContent"));
 
@@ -75,19 +77,19 @@ const router = createBrowserRouter(
           path: "/",
           lazy: {
             loader: async () => {
-              const getGBDatabase = (await import("./models/gbdb")).getGBDatabase;
+              const getSettings = (await import("./models/settings")).getSettings;
               return async () => {
-                const gbdb = await getGBDatabase();
-                const settings = await gbdb.getLocal<SettingsDoc>("settings");
+                const setting$ = await getSettings();
+                const settingsDoc = await firstValueFrom(setting$.pipe(filter((s) => s !== null)));
                 const initialScreen: string =
-                  settings?.get("initialScreen") ?? defaultSettings.initialScreen;
+                  settingsDoc?.get("initialScreen") ?? defaultSettings.initialScreen;
 
                 let targetRoute = initialScreen;
 
                 if (initialScreen === "/game") {
-                  targetRoute = settings?.get("gamePlayRoute") ?? initialScreen;
+                  targetRoute = settingsDoc?.get("gamePlayRoute") ?? initialScreen;
                 } else if (initialScreen === "/library") {
-                  targetRoute = settings?.get("libraryRoute") ?? initialScreen;
+                  targetRoute = settingsDoc?.get("libraryRoute") ?? initialScreen;
                 }
                 return targetRoute;
               }

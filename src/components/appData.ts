@@ -1,5 +1,5 @@
 import i18n from "../utils/i18next";
-import { firstValueFrom, Observable } from "rxjs";
+import { filter, firstValueFrom, Observable } from "rxjs";
 import { getGBDatabase } from "../models/gbdb";
 import { GBDatabase } from "../models/gbdbTypes";
 import { DataContextProps } from "./DataContext";
@@ -204,7 +204,7 @@ export async function initializeAppData(): Promise<
     const settingsObservable: Observable<SettingsDoc | null> | undefined =
       await getSettings();
     const settingsDoc = settingsObservable
-      ? await firstValueFrom(settingsObservable)
+      ? await firstValueFrom(settingsObservable.pipe(filter((doc) => doc !== null)))
       : null;
     const currentSettings = settingsDoc?.toJSON().data;
 

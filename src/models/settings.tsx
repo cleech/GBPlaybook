@@ -35,7 +35,11 @@ export async function getSettings(): Promise<Observable<SettingsDoc | null>> {
   if (settingsInitPromise) return settingsInitPromise;
   settingsInitPromise = (async () => {
     const db = await getGBDatabase();
-    db.insertLocal("settings", defaultSettings).catch(() => { });
+    try {
+      await db.insertLocal("settings", defaultSettings);
+    } catch (err) {
+      // If it already exists, that's fine.
+    }
     return db.getLocal$<Settings>("settings");
   })();
   return settingsInitPromise;
