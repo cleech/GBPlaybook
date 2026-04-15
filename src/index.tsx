@@ -2,7 +2,28 @@ import "./index.css";
 // import here to enable web-component, component tag is used in index.html
 import "@khmyznikov/pwa-install"
 import { registerSW } from "virtual:pwa-register";
-registerSW({ immediate: true });
+import { getSettings } from "./models/settings";
+const updateServiceWorker = registerSW({
+  immediate: true,
+  async onNeedRefresh() {
+    console.log("New content available, saving state before reload...");
+    try {
+      const setting$ = await getSettings();
+      const settingsDoc = await firstValueFrom(setting$.pipe(filter((s) => s !== null)));
+      if (settingsDoc) {
+        const currentPath = window.location.pathname + window.location.search;
+        if (currentPath.startsWith("/library")) {
+          await settingsDoc.incrementalPatch({ libraryRoute: currentPath });
+        } else if (currentPath.startsWith("/game")) {
+          await settingsDoc.incrementalPatch({ gamePlayRoute: currentPath });
+        }
+      }
+    } catch (err) {
+      console.error("Failed to save state before SW reload:", err);
+    }
+    updateServiceWorker(true);
+  },
+});
 
 import '@fontsource/comfortaa';
 import './fonts/Calluna-Regular/stylesheet.css';

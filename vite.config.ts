@@ -28,7 +28,7 @@ export default defineConfig({
       globals: { Buffer: false, global: true, process: true },
     }),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       workbox: {
         maximumFileSizeToCacheInBytes: 10000000,
         // cache all imports
