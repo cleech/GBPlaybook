@@ -46,7 +46,7 @@
     "react-dom": "^19.2.5",
     "react-i18next": "^17.0.4",
     "react-markdown": "^10.1.0",
-    "react-router-dom": "^7.14.1",
+    "react-router-dom": "^7.14.2",
     "rehype-raw": "^7.0.0",
     "rooks": "^9.8.0",
     "rxdb": "^17.1.0",
