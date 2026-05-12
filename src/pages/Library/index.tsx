@@ -34,15 +34,16 @@ export default function Library() {
     try {
       const settingsDoc = await firstValueFrom(setting$);
       await settingsDoc?.incrementalPatch({
-        libraryRoute: `${location.pathname}${location.search}`,
+        libraryRoute: `${location.pathname}?m=${slideRef.current}`,
       });
     } catch (err) {
       console.error(err);
     }
-  }, [setting$, location.pathname, location.search]);
+  }, [setting$, location.pathname]);
 
   useEffect(() => {
     patchRoute();
+    return () => { patchRoute(); }
   }, [patchRoute]);
 
   return (
