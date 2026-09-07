@@ -44,7 +44,7 @@
     "react-aria": "^3.51.0",
     "react-detect-offline": "^2.4.5",
     "react-dom": "^19.2.8",
-    "react-i18next": "^17.0.12",
+    "react-i18next": "^17.0.13",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.18.2",
     "rehype-raw": "^7.0.0",
